@@ -1,0 +1,84 @@
+---
+title: "ITAM - API Integration"
+version: "5.13"
+module: "itam"
+section: "api-integration"
+---
+
+# IT Asset Management - API Integration
+
+API documentation for IT asset management operations.
+
+## API Endpoints
+
+### Create Asset
+```
+POST /api/v1/itam/asset
+```
+
+Create a new asset record.
+
+### Update Asset
+```
+PUT /api/v1/itam/asset/{assetId}
+```
+
+Update existing asset information.
+
+### Get Asset Details
+```
+GET /api/v1/itam/asset/{assetId}
+```
+
+Retrieve asset information.
+
+### Track License Usage
+```
+GET /api/v1/itam/license/{licenseId}/usage
+```
+
+Get software license installation count.
+
+## Authentication
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Request Example - Create Asset
+
+```json
+{
+  "assetType": "laptop",
+  "manufacturer": "Dell",
+  "model": "Latitude 7420",
+  "serialNumber": "SN123456789",
+  "purchaseDate": "2025-01-15",
+  "purchaseCost": 1299.99,
+  "assignedTo": "john.doe@company.com",
+  "location": "New York Office"
+}
+```
+
+## Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "assetId": "asset-12345",
+    "assetTag": "LAP-2025-001",
+    "status": "deployed",
+    "createdAt": "2025-11-10T10:30:00Z"
+  }
+}
+```
+
+## Bulk Operations
+
+Import multiple assets:
+```
+POST /api/v1/itam/asset/bulk-import
+```
+
+Supports CSV and JSON formats for batch asset creation.

@@ -1,0 +1,99 @@
+---
+title: "Copy to Ivanti"
+version: "5.13"
+module: "my-dashboard"
+section: "getting-started"
+---
+
+# Copy to Ivanti
+
+Transfer records from Virima to Ivanti Service Manager for integrated IT service management.
+
+## Overview
+
+The Copy to Ivanti function provides seamless integration between Virima and Ivanti Service Manager, enabling you to transfer incidents, assets, and other records directly from Virima to your Ivanti environment.
+
+## Prerequisites
+
+### Integration Configuration
+Ensure the following are in place:
+- Ivanti integration is enabled and configured
+- Valid Ivanti authentication credentials
+- API access permissions are granted
+- Field mapping configuration is complete
+- Connection to Ivanti instance is active
+
+## Transferring Records
+
+### Copy Process
+1. Open the record you want to transfer
+2. Click **Copy to Ivanti** from the actions menu
+3. Review the pre-populated field mappings
+4. Edit or add field values as needed
+5. Select the target Ivanti workspace (if applicable)
+6. Click **Submit** to create the record in Ivanti
+
+### Mapped Fields
+The integration automatically maps common fields:
+- Incident ID and details
+- Priority and severity levels
+- Assignment groups and individuals
+- Status and resolution information
+- Timestamps and dates
+
+## Record Types
+
+### Incidents
+- Create Ivanti incidents from Virima records
+- Include description, priority, and category
+- Transfer work notes and comments
+- Attach relevant files
+
+### Assets and CIs
+- Sync configuration item data
+- Transfer asset attributes and properties
+- Maintain relationship information
+- Update inventory records
+
+### Service Requests
+- Copy service request details
+- Include requested items
+- Transfer approval information
+- Maintain requester data
+
+## Synchronization
+
+### Two-Way Sync
+- Enable bidirectional data synchronization
+- Updates in Ivanti reflect in Virima
+- Changes in Virima update Ivanti records
+- Conflict resolution based on configuration
+
+### Status Tracking
+- Monitor transfer status in real-time
+- View successful transfers
+- Review failed transfers and errors
+- Retry failed operations
+
+## Error Handling
+
+### Common Errors
+- **Connection timeout**: Check network connectivity
+- **Authentication failure**: Verify credentials and permissions
+- **Validation errors**: Ensure required fields are complete
+- **Duplicate records**: Check for existing records in Ivanti
+
+### Resolution Steps
+1. Review error message details
+2. Correct the identified issue
+3. Retry the transfer operation
+4. Contact administrator if issues persist
+
+## Best Practices
+
+- Validate data before transferring
+- Use standardized field values
+- Keep mapping configurations up to date
+- Monitor integration logs regularly
+- Train staff on proper usage
+- Document custom workflows

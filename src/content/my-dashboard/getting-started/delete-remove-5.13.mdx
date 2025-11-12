@@ -1,0 +1,121 @@
+---
+title: "Delete/Remove"
+version: "5.13"
+module: "my-dashboard"
+section: "getting-started"
+---
+
+# Delete/Remove
+
+Safely delete or remove records and items from the Virima system.
+
+## Overview
+
+The Delete/Remove function allows authorized users to remove records, items, or data from the Virima platform. This function includes safeguards to prevent accidental deletion and maintains audit trails for compliance.
+
+## Delete vs. Remove
+
+### Delete
+- Permanently removes a record from the system
+- Cannot be undone (unless backup exists)
+- Removes all associated data and relationships
+- Requires specific permissions
+
+### Remove
+- Removes item from a list or collection
+- Does not delete the underlying record
+- Can be re-added later
+- Less restrictive permissions required
+
+## Deleting Records
+
+### Single Record Deletion
+1. Navigate to the record you want to delete
+2. Click the **Delete** button or icon
+3. Review the deletion confirmation message
+4. Confirm the deletion
+5. Record is permanently removed
+
+### Bulk Deletion
+1. Select multiple records using checkboxes
+2. Click **Bulk Actions** or similar menu
+3. Choose **Delete Selected**
+4. Review the list of records to be deleted
+5. Confirm bulk deletion
+
+## Permissions
+
+### Required Permissions
+- Delete permission for the specific module
+- Role-based access control (RBAC) authorization
+- Administrative privileges (for certain record types)
+- Ownership or assignment rights (depending on configuration)
+
+### Permission Levels
+- **User**: Delete own records only
+- **Team Lead**: Delete team member records
+- **Administrator**: Delete any records
+- **System Admin**: Delete system configuration records
+
+## Safety Features
+
+### Deletion Warnings
+The system provides warnings when:
+- Record has dependencies or relationships
+- Deleting will affect other records
+- Record contains important data
+- Bulk deletion exceeds threshold
+
+### Confirmation Requirements
+- Single confirmation for individual deletions
+- Double confirmation for bulk operations
+- Administrator approval for critical records
+- Audit log entry creation
+
+## Soft Delete vs. Hard Delete
+
+### Soft Delete
+- Records marked as deleted but not removed
+- Can be restored within retention period
+- Maintains data integrity
+- Preserves audit trail
+
+### Hard Delete
+- Permanent removal from database
+- Cannot be recovered
+- Used for data purging
+- Requires elevated permissions
+
+## Recovery Options
+
+### Recycle Bin
+- Deleted records stored temporarily
+- Restore within configured timeframe (typically 30 days)
+- View deleted items history
+- Purge permanently when needed
+
+### Restore Deleted Records
+1. Navigate to **Recycle Bin** or **Deleted Items**
+2. Find the record you want to restore
+3. Click **Restore**
+4. Record returns to its original location
+
+## Best Practices
+
+- Always verify before deleting
+- Review dependencies and relationships
+- Export important data before deletion
+- Use soft delete when possible
+- Document deletion reasons
+- Maintain regular backups
+- Train users on deletion policies
+- Implement approval workflows for bulk deletions
+
+## Audit Trail
+
+All deletion activities are logged:
+- User who performed deletion
+- Timestamp of deletion
+- Record type and identifier
+- Reason for deletion (if provided)
+- Related records affected

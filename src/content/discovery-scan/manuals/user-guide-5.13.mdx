@@ -1,0 +1,66 @@
+---
+title: "Discovery Scan - User Manual"
+version: "5.13"
+module: "discovery-scan"
+section: "manuals"
+---
+
+# Discovery Scan - User Manual
+
+Comprehensive guide for automated asset discovery in Virima 5.13.
+
+## Discovery Methods
+
+### Network Discovery
+- SNMP (v1, v2c, v3)
+- WMI (Windows Management Instrumentation)
+- SSH (Linux/Unix systems)
+- VMware API
+- Hyper-V
+
+### Cloud Discovery
+- AWS (EC2, RDS, S3, Lambda)
+- Microsoft Azure (VMs, Storage, Databases)
+- Google Cloud Platform
+- Multi-account/subscription support
+
+## Credential Management
+
+### Credential Types
+- SNMP Community Strings
+- Windows Domain Credentials
+- SSH Keys and Passwords
+- Cloud API Keys
+- VMware vCenter Credentials
+
+### Security Best Practices
+- Use least-privilege accounts
+- Rotate credentials regularly
+- Encrypt credential storage
+- Audit credential usage
+- Implement credential vaulting
+
+## Scan Configuration
+
+### Scan Profiles
+Create profiles for different environments:
+- Production networks
+- Development environments
+- Cloud infrastructure
+- Branch offices
+- DMZ zones
+
+### Performance Tuning
+- Adjust concurrent scan threads
+- Configure timeout values
+- Set scan throttling limits
+- Optimize credential ordering
+
+## Best Practices
+
+- Start with small scan scopes and expand
+- Test credentials before full scans
+- Schedule scans during low-traffic periods
+- Review and approve new discoveries promptly
+- Maintain accurate IP range documentation
+- Monitor scan job performance

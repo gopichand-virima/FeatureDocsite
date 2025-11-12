@@ -1,0 +1,180 @@
+---
+title: "Filter By"
+version: "5.13"
+module: "my-dashboard"
+section: "getting-started"
+---
+
+# Filter By
+
+Apply filters to narrow down data and focus on specific records that match your criteria.
+
+## Overview
+
+The Filter By function allows you to refine data views by applying one or more filter conditions. This helps you quickly find relevant information and work with specific subsets of data.
+
+## Applying Filters
+
+### Basic Filtering
+1. Navigate to a list view
+2. Click the **Filter** icon or button
+3. Select a field to filter by
+4. Choose a filter operator (equals, contains, etc.)
+5. Enter or select filter value
+6. Click **Apply Filter**
+
+### Quick Filters
+Pre-configured filters for common scenarios:
+- My Items
+- Recently Created
+- High Priority
+- Active Records
+- Overdue Items
+- Unassigned Records
+
+## Filter Operators
+
+### Text Filters
+- **Equals**: Exact match
+- **Contains**: Partial match anywhere in field
+- **Starts with**: Match at beginning
+- **Ends with**: Match at end
+- **Does not contain**: Exclusion filter
+- **Is empty**: Null or blank values
+- **Is not empty**: Has a value
+
+### Numeric Filters
+- **Equals**: Exact number match
+- **Greater than**: Values above threshold
+- **Less than**: Values below threshold
+- **Between**: Range of values
+- **Greater than or equal to**: Inclusive lower bound
+- **Less than or equal to**: Inclusive upper bound
+
+### Date Filters
+- **On**: Specific date
+- **Before**: Earlier than date
+- **After**: Later than date
+- **Between**: Date range
+- **Today**: Current date
+- **This week/month/year**: Current period
+- **Last 7/30/90 days**: Rolling date range
+
+## Multiple Filters
+
+### Combining Filters
+- Add multiple filter conditions
+- Use AND logic (all conditions must match)
+- Use OR logic (any condition can match)
+- Group related conditions
+- Nest filter groups for complex queries
+
+### Filter Groups
+Create advanced filter combinations:
+```
+(Priority = High AND Status = Open)
+OR
+(Priority = Critical AND Assigned To = Me)
+```
+
+## Filter Management
+
+### Save Filters
+1. Configure your desired filters
+2. Click **Save Filter**
+3. Provide a filter name
+4. Choose visibility (personal or shared)
+5. Click **Save**
+
+### Manage Saved Filters
+- View all saved filters
+- Edit filter criteria
+- Delete unused filters
+- Share filters with team
+- Set default filter for views
+
+## Column-Specific Filters
+
+### Filter from Column Headers
+1. Click the filter icon in a column header
+2. View unique values for that column
+3. Select/deselect values to show
+4. Apply selection to filter data
+
+### Multi-Select Filtering
+- Choose multiple values from dropdown
+- Select all / deselect all options
+- Search within filter values
+- Recent selections remembered
+
+## Filter Performance
+
+### Indexed Fields
+Filters on indexed fields perform faster:
+- ID fields
+- Status fields
+- Date fields
+- Commonly queried fields
+
+### Optimization Tips
+- Use specific filters rather than broad ones
+- Filter on indexed columns when possible
+- Limit the number of simultaneous filters
+- Use date ranges instead of individual dates
+
+## Clear Filters
+
+### Remove Filters
+- Click **Clear All Filters** to remove all active filters
+- Remove individual filters by clicking X icon
+- Reset to default view
+- Confirm clearing if prompted
+
+## Advanced Filtering
+
+### Filter Builder
+Access advanced filter builder for:
+- Complex multi-condition filters
+- Custom expressions
+- Calculated field filters
+- Cross-module filtering
+
+### Dynamic Filters
+- Filters based on current user
+- Relative date filters (e.g., "Last 30 days")
+- Contextual filters
+- Role-based filter defaults
+
+## Filter Presets
+
+### System Presets
+Built-in filter presets:
+- All Active
+- My Assignments
+- Recently Updated
+- High Priority
+- Pending Approval
+
+### Custom Presets
+Create organization-specific presets:
+- Team-based views
+- Department filters
+- Project-specific filters
+- Customer segments
+
+## Best Practices
+
+- Start with broad filters and refine
+- Save frequently used filter combinations
+- Use meaningful names for saved filters
+- Share useful filters with team
+- Clear filters when switching contexts
+- Test filter logic before saving
+- Document complex filter criteria
+- Review and clean up old saved filters
+
+## Keyboard Shortcuts
+
+- **Ctrl + F**: Open filter panel
+- **Ctrl + Shift + F**: Clear all filters
+- **Alt + F**: Toggle filter visibility

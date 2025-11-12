@@ -1,0 +1,186 @@
+---
+title: "Items per Page"
+version: "5.13"
+module: "my-dashboard"
+section: "getting-started"
+---
+
+# Items per Page
+
+Customize how many records display on each page of lists and reports.
+
+## Overview
+
+The Items per Page setting allows you to control the number of records shown on each page in list views. This helps optimize your viewing experience based on screen size, data complexity, and personal preferences.
+
+## Changing Items per Page
+
+### Adjust Display Count
+1. Navigate to any list view
+2. Locate the **Items per Page** dropdown (usually in pagination area)
+3. Click to view available options
+4. Select your preferred number
+5. View refreshes to show selected count
+
+### Available Options
+Standard options include:
+- **10 items**: Minimal view for quick scanning
+- **25 items**: Default view for most lists
+- **50 items**: Extended view for detailed review
+- **100 items**: Large view for comprehensive analysis
+- **200 items**: Maximum view (may impact performance)
+
+## Setting Preferences
+
+### Default Settings
+Configure your default items per page:
+1. Go to **User Preferences**
+2. Navigate to **Display Settings**
+3. Set **Default Items per Page**
+4. Choose from available options
+5. Save preferences
+
+### Module-Specific Defaults
+- Set different defaults for different modules
+- Dashboard widgets may have separate settings
+- Reports can have custom page sizes
+- List views remember last selection
+
+## Performance Considerations
+
+### Load Time
+Larger page sizes affect:
+- Initial page load time
+- Scroll performance
+- Browser memory usage
+- Network bandwidth
+
+### Recommendations by Dataset
+- **Small datasets (< 100 records)**: Display all or use 50 items
+- **Medium datasets (100-1,000)**: Use 25-50 items
+- **Large datasets (> 1,000)**: Use 25 items with filters
+- **Very large datasets**: Use 10-25 items with search/filters
+
+## Impact on User Experience
+
+### Screen Size Considerations
+Optimize based on your screen:
+- **Small screens (mobile, tablets)**: 10-25 items
+- **Standard monitors (1920x1080)**: 25-50 items
+- **Large monitors (> 1920x1080)**: 50-100 items
+- **Ultra-wide monitors**: 100-200 items
+
+### Data Complexity
+Consider record complexity:
+- **Simple records (few fields)**: Higher counts work well
+- **Complex records (many columns)**: Lower counts better
+- **Records with images**: Fewer items recommended
+- **Text-heavy records**: 25-50 items optimal
+
+## Pagination Behavior
+
+### Total Pages Calculation
+Total pages = Total records / Items per page
+
+Example:
+- 500 total records
+- 25 items per page
+- = 20 total pages
+
+### Navigation Impact
+More items per page means:
+- Fewer total pages to navigate
+- More scrolling within page
+- Less frequent page changes
+- Simpler navigation
+
+## Accessibility
+
+### Screen Reader Compatibility
+- Screen readers announce items per page setting
+- Navigation controls fully accessible
+- ARIA labels for dropdown options
+- Keyboard navigation supported
+
+### Keyboard Shortcuts
+- **Alt + PageSize**: Open items per page dropdown
+- **Arrow keys**: Navigate options
+- **Enter**: Select option
+
+## Best Practices
+
+### General Guidelines
+- Start with default (25 items) and adjust as needed
+- Use smaller counts on slower connections
+- Increase count when exporting or printing
+- Match count to your typical workflow
+- Consider team standards for consistency
+
+### Specific Scenarios
+- **Quick review**: 10-25 items
+- **Detailed analysis**: 50-100 items
+- **Data entry**: 25-50 items (reduce scrolling)
+- **Comparison tasks**: 50-100 items (see more at once)
+- **Presentations**: 10-25 items (less clutter)
+
+## Memory and Performance
+
+### Browser Performance
+Large page sizes can affect:
+- Browser memory consumption
+- Rendering performance
+- Responsiveness
+- Scroll smoothness
+
+### Optimization Tips
+- Close unused tabs when viewing large lists
+- Clear browser cache regularly
+- Use filters to reduce total records
+- Disable auto-refresh with large page sizes
+- Consider export for very large datasets
+
+## Mobile Considerations
+
+### Mobile Devices
+On mobile devices:
+- Default to smaller page sizes (10-25)
+- Reduces data usage
+- Improves loading time
+- Better touch scrolling
+- Less resource intensive
+
+### Responsive Behavior
+- System may auto-adjust on mobile
+- Touch-friendly pagination controls
+- Optimized for smaller screens
+- Reduced default counts
+
+## Integration with Other Features
+
+### Works With
+Items per page setting integrates with:
+- Filtering and search
+- Sorting options
+- Column selection
+- Export functions
+- Bookmarks and URLs
+
+### URL Parameters
+Page size included in URL:
+- Share views with specific page size
+- Bookmark preferred settings
+- Deep linking support
+
+## Troubleshooting
+
+### Common Issues
+- **Slow loading**: Reduce items per page
+- **Setting not saving**: Check browser cookies
+- **Different on mobile**: Responsive defaults active
+- **Memory issues**: Use smaller page size
+
+## Related Functions
+
+- [Go to Page](/my-dashboard/getting-started/go-to-page) - Navigate between pages
+- [Filter By](/my-dashboard/getting-started/filter-by) - Reduce total records
+- [Export](/my-dashboard/getting-started/export) - Download all records

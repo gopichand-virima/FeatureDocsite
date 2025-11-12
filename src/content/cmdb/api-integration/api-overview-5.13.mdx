@@ -1,0 +1,76 @@
+---
+title: "CMDB - API Integration"
+version: "5.13"
+module: "cmdb"
+section: "api-integration"
+---
+
+# CMDB - API Integration
+
+API documentation for programmatic access to the CMDB module.
+
+## API Endpoints
+
+### Get Configuration Items
+```
+GET /api/v1/cmdb/ci
+```
+
+Retrieve configuration items with optional filtering.
+
+### Create Configuration Item
+```
+POST /api/v1/cmdb/ci
+```
+
+Create a new configuration item.
+
+### Update Configuration Item
+```
+PUT /api/v1/cmdb/ci/{ciId}
+```
+
+Update an existing configuration item.
+
+### Create Relationship
+```
+POST /api/v1/cmdb/relationship
+```
+
+Create a relationship between two CIs.
+
+## Authentication
+
+Use API token authentication:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Request Example
+
+```json
+{
+  "ciType": "server",
+  "name": "PROD-WEB-01",
+  "attributes": {
+    "ipAddress": "192.168.1.100",
+    "operatingSystem": "Ubuntu 20.04",
+    "location": "DataCenter-A"
+  }
+}
+```
+
+## Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "ciId": "ci-12345",
+    "ciType": "server",
+    "name": "PROD-WEB-01",
+    "createdAt": "2025-11-10T10:30:00Z"
+  }
+}
+```

@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Production-Virima Documentation Website</title>
+    <script type="text/javascript">
+      // Redirect to index.html for client-side routing
+      // This allows React Router to handle all routes
+      sessionStorage.redirect = location.href;
+      location.replace(location.pathname.split('/').slice(0, -1).join('/') + '/index.html');
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/FeatureDocsite/src/main.tsx"></script>
-  </body>
+  <body></body>
 </html>
 

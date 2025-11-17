@@ -1,0 +1,267 @@
+﻿---
+title: Blueprints
+---
+
+# Blueprints
+
+Use this function to define the skeletal structure of a CI, which includes properties of and relations to the CI.
+
+In the main window, click **Admin /> SACM /> Blueprints**. The Blueprints window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/blueprints-old.PNG" original-image-title=""></span>
+
+New Blueprint
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New Blueprint**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+
+Click **New Blueprint**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+While viewing the New Blueprint window, complete the fields, referring to the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+When all selections/entries are made, click **Add**.
+
+</div>
+
+### Blueprint Fields
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Name</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">Name given to the blueprint based on the nature of the CI. This field can be edited.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold">Is Component</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>When selected, the blueprint will be a component of a CI or else a Parent CI.</p>
+<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Body-Body1">
+<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-BodyA-Column2-Body1">If this option is selected, the <strong>Integrity Check Properties</strong> option must be selected.</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Enable Versioning</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">When selected, all CIs of this blueprint are versioned. <em>See also</em> <a href="../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/Config-Items-Versioning.htm" style="font-style: italic;">CI Versioning</a>.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2" madcap:conditions="">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="color: #dc143c; font-weight: bold"><p><span style="color: #000000;">Is Integrity Check Needed</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2" style="color: #dc143c"><span style="color: #000000;">When selected, ensures the corresponding properties are present in the CI. If not, a notification is sent to the configured user. </span></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Includes Blueprint</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>The associated blueprint properties that are included.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Property List</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Properties listed in the blueprint, such as IP Address or Hostname.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Mandatory Properties</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Properties specified will be mandatory fields required while adding a new CI for this blueprint.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Integrity Check Properties</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Ensures the corresponding properties are present in the CI. If the properties are missing, a notification is sent to the configured user.</p>
+<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Body-Body1">
+<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-BodyA-Column2-Body1">This option is required if the <strong>Is Component</strong> option has been selected.</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Main Properties</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Properties included in the main property listing.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Private Properties</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Properties added/marked as private, making them viewable according to a specified role.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Private Property Visibility</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Roles for whom the private properties are visible.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p><span style="color: #000000;">Primary Property List for Correlation</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">The co-relator property for that blueprint. This is only for component type blueprints where Is_Components=true.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Related Possible Components</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Components that will be part of a Parent CI. For example, a Network Adapter blueprint is a component of a Windows Server blueprint.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Second Level<br />
+Third Level Support</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>User or group assigned to provide support, for example, during an escalation.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1" madcap:conditions="Default.NewUI">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Blueprint icon</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Icon that represents the corresponding blueprint.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Workflow</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2" style="color: #dc143c"><span style="color: #000000;">Business rules associated with a workflow.</span></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Tags</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1" style="color: #dc143c; font-style: normal"><span style="color: #000000;">Tag for the configured item so that it can be found when conducting a search for a CI or discovered asset in the CMDB. </span></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>Configure Main Page for CI</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2" style="color: #dc143c"><span style="color: #000000;">Tabs that need to be shown in the blueprint type CI.</span></td>
+</tr>
+</tbody>
+</table>
+
+SLA
+
+Every Blueprint has its own SLA-defined based on its business factors. When a Root Cause CI is associated with an ITSM record, then the SLA of the blueprint is taken into consideration, provided a Custom Timescale and CI SLA *are not* defined.
+
+Use this function to configure response and resolution times for a CI marked as **Incident**, **Requests**, **Changes** or **Problems** that require resolution.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the main window, click a line item.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+In the Details window, click the **SLA** tab.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/blueprints-sla.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" style="font-style: normal;background-color: #ffffff;" madcap:autonum="3. ">
+
+In the *Response Time* field, specify the maximum amount of time that can pass before a response must occur.
+
+</div>
+
+<div class="NumList2" style="font-style: normal;background-color: #ffffff;" madcap:autonum="4. ">
+
+In the *Resolution Time* field, specify the total time allowed to find a resolution. The Resolution Time cannot be smaller than the total of all the other response times (e.g., Response Time, 1st Level Support, etc.).
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="5. ">
+
+In the *Support Level* fields, specify the amount of time allowed for each support level to respond.
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="6. ">
+
+In the **Escalate** section, do the following:
+
+</div>
+
+<div class="NumLista" madcap:autonum="a. ">
+
+For the fields in the first column, specify when an action should take place, either **Before** or **After** the specified time duration has occurred.
+
+</div>
+
+<div class="numListb" madcap:autonum="b. ">
+
+For the fields in the second column, select the amount of time that can elapse before a notification is sent to the users, roles, groups and departments specified. Multiple options can be selected.
+
+</div>
+
+<div class="numListb" madcap:autonum="c. ">
+
+For the actions in the third column, click **Add** (new) or **Update** (existing) to indicate who receives a notification that activity has been escalated. *Refer to* <a href="../Common%20Functions/Searching.htm" style="font-style: italic;">Searching</a> *for details on how to make selections in the tabs.*
+
+</div>
+
+<div class="NumList2" madcap:autonum="7. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+Edit Blueprint Delete Blueprint
+
+<div class="Bullet1">
+
+[Other Asset Info](../Common%20Functions/Other-Asset-Info.htm)
+
+</div>
+
+<div class="Bullet1">
+
+[](../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/Source-Target-Blueprint-DO%20NOT%20USE.htm)[CMDB Process Jobs](../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/CMDB-Process-Jobs.htm)
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.OldUI">
+
+<a href="../Common%20Functions/Records-per-Page.htm" target="_popup">Records per Page</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Auto-Refresh.htm" target="_popup">Auto Refresh</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Personalize-Columns.htm" target="_popup">Personalize Columns</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Saved-Filters.htm" target="_popup">Saved Filters</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Export.htm" target="_popup">Export</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Delete-Remove.htm" target="_popup">Delete</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Items-per-Page.htm" target="_popup">Items Per Page</a>
+
+</div>

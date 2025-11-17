@@ -1,0 +1,48 @@
+﻿---
+title: AWS Import
+---
+
+# Importing Meraki Record
+
+Use this function to import the required Meraki resources into the Discovery application.
+
+- Open the Import From Meraki page, From the <span class="Strong">Select Actions</span> drop-down list, choose <span class="Strong">Import</span>.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Meraki/Import%20Meraki%20Window_3.png" original-image-title=""></span>
+
+<!-- -->
+
+- The Import From Meraki dialog box displays.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Meraki/Import%20Meraki%20Window_4.png" original-image-title=""></span>
+
+<!-- -->
+
+- In the Name field, enter a name for the import action.
+
+- In the Credential field, click the drop-down list and select the appropriate credential to access the Meraki service.
+
+  - If no credentials are listed in the dropdown, add credentials by navigating to <span class="Strong">Admin /> Discovery /> Credentials</span>.
+
+- Click <span class="Strong">Add</span> to import the Meraki services to virima.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Meraki/Import%20Meraki%20Window_5.png" original-image-title=""></span>
+
+The system displays an error if Add is clicked without selecting credentials.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Meraki/Import%20Meraki%20Window_6.png" original-image-title=""></span>
+
+- User will be redirected to the import From Meraki page,
+
+  - The import record will first appear with the status “<span class="Strong">Importing</span>” (the process is running and in progress).
+
+  - The status will then change to “<span class="Strong">Adding Data</span>” (the imported information from Meraki is being processed and added to your system).
+
+  - Once the process is finished, the status will update to “<span class="Strong">Completed</span>”.
+
+  - After the status is “<span class="Strong">Completed</span>”, click on the imported record to view the imported Meraki resources.
+
+  - To view the details of a CI, click on the CI. This redirects you to the discovered item page, where you can view the imported CI details.
+
+If you do not have the necessary permissions to import—such as lacking access to authenticate with a certificate or Secret Key —the system will display an error message:  
+<span class="Strong">"Please check your Meraki credentials."</span>

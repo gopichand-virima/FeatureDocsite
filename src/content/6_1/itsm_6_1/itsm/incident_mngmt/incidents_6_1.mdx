@@ -1,0 +1,329 @@
+﻿---
+title: New Incident
+---
+
+# Incidents
+
+Use this function to create a new incident.
+
+In the main window, select **ITSM /> Incident Management /> Incidents**.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/incident-main-old.PNG" original-image-title=""></span>
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/incident-main-new.PNG" original-image-title=""></span>
+
+New Incident
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New Incident**.
+
+</div>
+
+<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+
+Click **New**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Complete the fields, referring to the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+To select a pre-defined template, from the *Select Incident Model* drop-down list, choose a template. Once the model is selected, the pre-defined values are updated automatically but can be modified when logging an incident.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+To search for an incident, in the left panel, type in the search criteria. When a result item is selected, the corresponding information for that incident displays in a new window.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+When all selections/entries are made, click **Add**. Once the Incident is created, a notification email is sent to the Reporter, Assignee, and other users according to their Email Preferences and Role Access for Incidents.
+
+</div>
+
+### Incident Fields
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Primary Details</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">Enter a Title. The MSP Incident ID will be automatically assigned when the incident is created.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold">Assignee Details</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><div class="Bullet1">
+<strong>Assignee/Group Assignee</strong>. The role assigned the change. This category is used when it's unknown who can work on the change at the time of creation.
+</div>
+<div class="Bullet1">
+<strong>Assigned User from Group</strong>. This field is not editable. It populates with the group associated with the Group Assignee.
+</div>
+<div class="Bullet1">
+<strong>Department Assignee</strong>. The department to which the change is assigned. This category is used when it's unknown who can work on the change at the time of creation.
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Reporter Details</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><div class="Bullet1">
+<strong>User</strong> <strong>Type</strong>. The type of user, either Internal or External.
+</div>
+<div class="Bullet1">
+<strong>Method of Notification</strong>. The method to receive notification regarding incident progress such as email, event management, phone or web.
+</div>
+<div class="Bullet1">
+<strong>Call Back</strong> Method. The communication method to use, either <em>Phone</em> or <em>Email</em>.
+</div>
+<div class="Bullet1">
+<strong>Group Reporter</strong>. The group to association with this Incident Model.
+</div>
+<div class="Bullet1">
+<strong>Is VIP</strong>. To work with this model, the user must have the "Is VIP" configuration.
+</div>
+<div class="Bullet1">
+<strong>Job Title</strong>. The job title of the user.
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Record Details</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><div class="Bullet1">
+<strong>Category</strong>. Determines the type of a change: Major, Minor, Standard, and Significant.
+</div>
+<div class="Bullet1">
+<strong>Sub Category</strong>. The sub category, if any, related to the Category.
+</div>
+<div class="Bullet1">
+<strong>Impact Level</strong>. The measure of the effect of a change on the Business Process. Impact is used to assign the priority: High, Medium and Low.
+</div>
+<div class="Bullet1">
+<strong>Urgency</strong>. A measure of how long it will be a change and has a significant Impact on the Business: High, Medium and Low.
+</div>
+<div class="Bullet1">
+<strong>Priority</strong>. A Category is used to identify the relative importance of a change. Priority is based on Impact and Urgency, and each priority level has a specified SLA for which a change needs to be resolved.
+</div>
+<div class="Ind50">
+If a model has a priority (expect 1-Very High) and has been assigned to all three support levels while creating an Incident. If the priority is changed to 1-Very High (based on <em>Impact</em> and <em>Urgency</em>), the Incident has to be assigned to the third level support assignee. The <em>Response Time</em> and <em>Resolution Time</em> will be applicable only to the third-level support assignee.
+</div>
+<div class="Bullet1">
+<strong>Error Code</strong>. The error code to associate with this problem.
+</div>
+<div class="Bullet1">
+<strong>State</strong>. A category that is a sub set of Stage: Accepted, Rejected, Requested.
+</div>
+<div class="Bullet1">
+<em>Sub State</em>. The sub state, if any, related to the State.
+</div>
+<div class="Bullet1">
+<strong>No. of Affected CIs</strong>. The number of configuration items that are affected by this problem.
+</div>
+<div class="Bullet1">
+<strong>No. of Affected Users</strong>. The number of users affected by this problem.
+</div>
+<div class="Bullet1">
+<strong>Root Cause CI</strong>. The root cause configuration item affected by this problem.
+</div>
+<div class="Bullet1">
+<strong>Associated CIs</strong>. The associated configuration items affected by this problem.
+</div>
+<div class="Bullet1">
+<strong>Internal Stakeholders</strong>. An internal person or organization that has a legitimate interest in a project or entity.
+</div>
+<div class="Bullet1">
+<strong>External Stakeholder Email ID</strong>. An external person or organization that has a legitimate interest in a project or entity. Multiple email IDs can be separated by a comma (,).
+</div>
+<div class="Bullet1">
+<strong>Description</strong>. A brief description about the incident.
+</div>
+<div class="Bullet1">
+<strong>Custom Timescale</strong>. <span>The </span>Response and Resolution Times for the requested change.
+</div>
+<div class="Bullet1">
+<strong>Runbook</strong>. When the record is saved or changed, the associated Runbook specified here gets triggered, and performs all the tasks which are listed under the task.
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1"><p><strong>Associated Records</strong></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body1"><p>This information is displayed automatically.</p></td>
+</tr>
+</tbody>
+</table>
+
+Breadcrumbs
+
+When viewing an incident, a "breadcrumb" trail is shown with statuses for the incident. The statuses change based upon the type of incident. An example is shown below.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/breadcrumbs.PNG" original-image-title=""></span>
+
+Actions can be taken for an item. When the text is clicked, a message displays prompting to confirm the status change should be performed.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/breadcrumbs-status-change.PNG" original-image-title=""></span>
+
+Click **OK**. The appropriate next step is taken. For example, when the "Active" status is changed, the "In Progress" status changes to "Skipped." 
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/breadcrumbs-change-status.PNG" original-image-title=""></span>
+
+If the "Resolved" item is selected, the Resolution Notes dialog box displays.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/breadcrumbs-resolution-notes.PNG" original-image-title=""></span>
+
+Below is an example of how the breadcrumbs change when the "Delivery" status changes:
+
+<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/breadcrumbs-delivery.PNG" original-image-title=""></span>
+
+Details
+
+### **<span id="Surveys"></span> Surveys**
+
+### <span id="TimeTracking"></span> Time Tracking
+
+Primary Details
+
+### Related Records
+
+### Notes
+
+### Resolution Information
+
+### Closure Information
+
+Additional Actions
+
+In the Details window, click the *Select Actions* drop-down list.
+
+| Buttons                                                                                                                                                      | Description                                                                                                                                                                                                                                                                                         |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mark as Knowledge                                                                                                                                            | Create Knowledge for the current Incident and the same is displayed at Associated Knowledge's under Related Records. A notification email will be sent to the Reporter/ other users as per Email Preferences and/or Role access of Knowledge.                                                       |
+| Create Problem                                                                                                                                               | Create a Problem for the current Incident and the same is displayed under Associated Problems under Related Records. This will be the Parent Incident of the Problem. A notification email will be sent to the Reporter/Other Users as per the Email Preferences and/or Role access of the Problem. |
+| Clone                                                                                                                                                        | Create another Incident (duplicate) with a unique ID. This is disabled for the Incidents which are not created using the Incident Model.                                                                                                                                                            |
+| <span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Incident%20Mngmnt/icon-process-document.png" original-image-title=""></span> | View the procedure to handle the Incident, if the procedure is documented under Handling Incident while creating a model.                                                                                                                                                                           |
+| Save                                                                                                                                                         | Generates an Incident with a Unique ID or saves the modifications.                                                                                                                                                                                                                                  |
+
+Resolving an Incident
+
+After resolving the Incident, the Assignee will set the *State* to **Resolved** under Record Details. When **Save** is clicked, a prompt displays to enter the *Resolution Notes*, which can be viewed under the Resolution Information.
+
+Closing an Incident
+
+When closing the Incident, the Assignee will set the *State* to **Closed** under Record Details. When **Save** is clicked, a prompt displays to enter the *Closure Notes*, which can be viewed under the Closure Information.
+
+Email Notifications
+
+When certain events occur, an email notification is sent. This occurs for the following:
+
+<div class="Bullet1">
+
+Closing an incident
+
+</div>
+
+<div class="Bullet1">
+
+Creating a Knowledge Item
+
+</div>
+
+<div class="Bullet1">
+
+Creating a Problem
+
+</div>
+
+<div class="Bullet1">
+
+Adding/Updating Notes
+
+</div>
+
+<div class="Bullet1">
+
+Resolution for a Survey
+
+</div>
+
+<div class="Bullet1">
+
+SLA Breached
+
+</div>
+
+<div class="Bullet1">
+
+**Response and Resolution Time Violations**  
+If the First level support assignee violates the Resolution Time, the Incident is auto assigned to a Second level assignee or Second level group and an escalation email is sent to Users/Roles/From Record as defined in escalation hierarchy of Custom Timescale/Root Cause CI/Priority based Timescale.  
+  
+Similarly if Second level assignee violates, the Incident is auto assigned to a Third level assignee or Third level group and an escalation email is sent to Users/Roles/From Record as defined in escalation hierarchy of Custom Timescale/Root Cause CI/Priority based Timescale.  
+  
+If the Third level assignee violates then SLA breached email is sent to Users/Roles/From Record as defined in escalation hierarchy of Custom Timescale/Root Cause CI/Priority based Timescale.
+
+</div>
+
+Root Cause CI
+
+A CI will be assigned to Second and Third level support Assignees and has its own SLA (defined for all the 2 levels). When a CI is assigned to an Incident as a Root Cause CI, then the SLA and Escalation process is changed (see details below).
+
+### **SLA Calculation**
+
+| Root Cause CI         | Blueprint of CI       | SLA Calculation                                                               |
+|-----------------------|-----------------------|-------------------------------------------------------------------------------|
+| If SLA is defined     | If SLA is defined     | CI's SLA is considered (provided Custom Timescale is not set)                 |
+| If SLA is not defined | If SLA is defined     | Blueprint SLA is considered (provided Custom Timescale is not set)            |
+| If SLA is not defined | If SLA is not defined | Priority based Timescale is considered (provided Custom Timescale is not set) |
+
+### **Assignment and Escalation Process**
+
+If the assignees are not set in the model, then an Incident is escalated by default to Incident Manager(s).
+
+| Root Cause CI                               | Blueprint of CI                            | SLA Calculation                                                     |
+|---------------------------------------------|--------------------------------------------|---------------------------------------------------------------------|
+| If support level users are assigned         | If support level users are assigned        | Incident is assigned and escalated as per CI assignees.             |
+| If support level assignees are not assigned | If support level assignees are assigned    | Incident is assigned and escalated as per blueprint assignees.      |
+| If support level assignees are not assigned | If support level assign’s are not assigned | Incident is assigned and escalated as per Incident Model assignees. |
+
+Response and Resolution Time Calculation when a Root Cause CI is assigned
+
+Example scenario:
+
+An Incident is created at 9:00 AM with a medium priority, and has a response time of 10 minutes (for the 1st level assignee).
+
+At 9:03 AM, a root cause CI (which has a response time of five minutes) is associated to an Incident, the available response time would be only two minutes (that is the Response time of the CI minus the number of minutes spent before assigning the root cause CI).
+
+If the Root Cause CI (which has a response time of three minutes) is assigned to an incident at 9:03 AM, and there is no response time left, a Response Time Violation email is sent to Incident Manager(s).
+
+Edit Incident Delete Incident
+
+<div class="Bullet1">
+
+[About Incident Management](About-ITSM-Incident-Mngmnt.htm)
+
+</div>
+
+<div class="Bullet1">
+
+[Categorization, Priority Determination and Tracking Time](Cat-Prior-Deter-Target-Time.htm)
+
+</div>
+
+<div class="Bullet1">
+
+[Incident Policy](Incident-Policy.htm)
+
+</div>
+
+<div class="Bullet1">
+
+[Process Flow](Process-Flow.htm)
+
+</div>

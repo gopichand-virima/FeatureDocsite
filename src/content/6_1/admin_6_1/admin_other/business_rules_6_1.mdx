@@ -1,0 +1,290 @@
+﻿---
+title: Business Rules
+---
+
+# Business Rules
+
+Use this function to automate tasks, such as modifying the ITSM records or creating a new record based on action details when trigger conditions are met. This reduces the manual effort of creating and updating records for repeatable actions.
+
+Business rules can be set to run at the time when any Add or Edit actions occurs.
+
+In the main window, click **Admin /> Others /> Business Rules**. The Business Rules window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/biz-rules-main-old.png" original-image-title="" style="width: 669px;height: 102px;"></span>
+
+New Business Rule
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose an **New Business Rule**.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/biz-rules-new-old.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Complete the fields referring to the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+When all selections/entries are made, click **Add**.
+
+</div>
+
+### Business Rules Fields
+
+| Field                     | Description                                                                                                                                     |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Rule Name**             | Name for this rule.                                                                                                                             |
+| Description               | Description for this rule.                                                                                                                      |
+| Order/Priority            | The order in which this rule should be executed when there are multiple rules set for the selected module. Must be a numeric value.             |
+| Module                    | Name of this module for which the rule applies. Click the drop-down list and select an available module, such as Incidents, CMDB, and so forth. |
+| Turn on cascade execution | Enable this option to execute the next enabled business rule based on the Order/Priority for the same module.                                   |
+| Enable rule               | Specifies if the rule is enabled or disabled.                                                                                                   |
+| Execute On                | Specifies on what action the rule is executed.                                                                                                  |
+| Associated Blueprints     | Click **Add** and select the Blueprint(s) to associate with this business rule.                                                                 |
+
+Trigger Conditions
+
+After adding a business rule, add the trigger conditions. You can combine two or more conditions using "AND" or "OR" logical operators.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+Open an existing business rule.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click **Add condition**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Move to the *Trigger Conditions* *Details* section.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/biz-rules-trigger-conditions-old.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+To ignore the conditions, select *Ignore Conditions*.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+Select the *Property* and *Operator*. Then enter the applicable value.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+Perform any of the actions below for additional conditions.
+
+</div>
+
+<div class="NumList2" madcap:autonum="7. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+### Add/Delete Condition Block
+
+<div class="Bullet1">
+
+To add a condition block (which also adds the Action Details and Notifications blocks), click **Add Condition**.
+
+</div>
+
+<div class="Bullet1">
+
+To delete a condition block, click **Delete Condition**. Then confirm the deletion.
+
+</div>
+
+### Apply AND Condition
+
+To insert an AND condition:
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+Click the **plus + sign icon**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Enter the condition details.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Add more AND conditions, as required.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+If there are no more conditions to add, click **Add**.
+
+</div>
+
+### Apply OR condition
+
+To insert an OR condition:
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+Click the **or icon**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+
+Enter the condition details.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Include more OR conditions, as required.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+If there are no more conditions to add, click **Add**.
+
+</div>
+
+### Delete Single Condition
+
+<div class="NumList1" madcap:autonum="1. ">
+
+Locate the condition to delete.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+
+Click the **red <span style="color: #dc143c;">x</span>** **icon**.
+
+</div>
+
+Action Details
+
+After a business rule has been added, the action details are added.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+Open an existing business rule.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Move to the *Action Details* section.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/biz-rules-action-details-old.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+In the *Action Type* field, click the drop-down list and select the action to perform, such as updating the triggered record.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Select the *Property* and *Operator*. Then enter the applicable value.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+Perform any of the actions below for additional conditions.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+### Add/Delete Action Details
+
+<div class="Bullet1">
+
+To add a single action row, click the **plus + sign**.
+
+</div>
+
+<div class="Bullet1">
+
+To delete a single action row, click the **minus - sign**. Then confirm the deletion.
+
+</div>
+
+### Add/Delete Action Details Block
+
+<div class="Bullet1">
+
+To add an action detail block, click **Add Action**. The window updates and an additional Action block displays.
+
+</div>
+
+<div class="Bullet1">
+
+To delete an action detail block, click **Delete Action**. Then confirm the deletion.
+
+</div>
+
+Notifications
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+To add a user notification when a rule is triggered, click **Add**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+In the Send Report To dialog box, search for a select the applicable users, groups, roles, and/or departments.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Save**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+To delete a notification, click the **X** next to the name (of the user, groups and so forth).
+
+</div>
+
+Edit Business Rule Delete Business Rule

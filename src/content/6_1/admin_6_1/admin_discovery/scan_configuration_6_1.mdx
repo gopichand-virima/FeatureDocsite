@@ -1,0 +1,215 @@
+﻿---
+title: Discovery Scan Configuration
+---
+
+# Discovery Scan Configuration
+
+Use this function to create the host configuration.
+
+A host is determined based on the configuration defined under the host configuration. The application checks for the ports that are opened/closed on the machines based on this configuration. The application will first check (based on the rank) whether port 135 is opened or closed.
+
+|     |                                                                                           |
+|-----|-------------------------------------------------------------------------------------------|
+|     | Details about Host and Credential Configuration can be found at the bottom of this topic. |
+
+In the main window, click **Admin /> Discovery /> Discovery Scan Configuration**. The Discovery Scan Configuration window displays.
+
+In the main window, click the **gear** icon and select **Discovery /> Discovery Scan Configuration**. The Discover Scan Configuration window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/icon-discovery-scan-config.PNG" original-image-title=""></span>
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/disc-scan-host-type-old.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/disc-scan-host-type.PNG" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+Host is determined based on the configuration defined under Host configuration. The Discovery application checks for the ports that are opened/closed on the machines based on this configuration. The discovery application will first check (based on the rank) whether is port is opened or closed.
+
+If the port is OPENED:
+
+<div class="Bullet1">
+
+The Discovery application will try to find the matching credential based on the Credential Configuration, if the credential is matched then it will determine the host as Windows.
+
+</div>
+
+<div class="Bullet1">
+
+If none of the credentials are matched, then it will check for the next ranked port.
+
+</div>
+
+If the port is CLOSED:
+
+<div class="Bullet1">
+
+The application will check for the next ranked port.
+
+</div>
+
+<div class="Bullet1">
+
+If second ranked port is closed, then it checks for the third ranked port.
+
+</div>
+
+<div class="Bullet1">
+
+If the last ranked port is also closed, then it will display Unknown Host message.
+
+</div>
+
+For each platform type:
+
+<div class="NumList2" madcap:autonum="1. ">
+
+Enter the *Rank* and *Port* numbers.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click **Save**.
+
+</div>
+
+The Discovery Scan Configuration window contains the following sections:
+
+<div class="Bullet1">
+
+Platform Type
+
+</div>
+
+<div class="Bullet1">
+
+Credential Configuration
+
+</div>
+
+<div class="Bullet1">
+
+PAExec Configuration
+
+</div>
+
+<span id="Platform"></span>Platform Type
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the window, click **Add Platform Type**. The Add Platform Type dialog box displays.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-platform-type-dialog-box-old.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.NewUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-platform-type-dialog-box-new.PNG" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click the drop-down list and select a *Platform Type*.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Enter the *Port* details.
+
+</div>
+
+<div class="Bullet2">
+
+If the port is *open*, <span class="span_4">the Discovery application tries to find the matching credential based on the Credential Configuration. If the credential is matched it will determine the host.</span>
+
+</div>
+
+<div class="Bullet2">
+
+<span class="span_4"><span class="span_4">If the port is *closed*, the Discovery application will check for the next ranked port. </span><span class="span_4">If the second-ranked port is closed it checks for the third-ranked port. <span class="span_4">If the last ranked port is also closed, then it will display an</span><span class="span_5"> Unknown Host</span><span class="span_4"> message.</span></span></span>
+
+</div>
+
+<div class="Bullet2">
+
+<span class="span_4"> If none of the credentials are matched, it will check for the next ranked port.  
+</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+<span id="Credenti"></span>Credential Configuration
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/credential-config-new.PNG" original-image-title=""></span>
+
+The table below explains the logic of credential configuration.
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Credential Configuration</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Try All Credentials</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1"><p>Try Matching Credentials</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Windows Domain</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><p><span class="span_4">Performs the first two steps of <strong>Try Matching Credentials</strong>.</span></p>
+<p><span class="span_4">If the specified domain credentials don't match, it tries the remaining Windows credentials.</span></p>
+<p><span class="span_4">If none of the Windows credentials match, it will proceed with the next ranked port.</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span class="span_4">Associated window credentials will be tried first.<br />
+<br />
+</span><span class="span_4">When performing a scan for the first time, there won’t be any associated credentials for a Host. Therefore, it will perform the below step. At the end of the initial scan, a matching credential for a host(s) will be associated, and this credential will be used for subsequent scans.</span></p>
+<p><span class="span_4">Windows credentials that are mapped to the specified IP address will be matched first.</span></p>
+<p><span class="span_4">If none of the credentials match, it will try with the specified domain credentials.</span></p>
+<p><span class="span_4">If the specified domain credentials don't match, then it will proceed with the next ranked port.</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Windows Workgroup</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2"><p><span class="span_4">Performs the first two steps of <strong>Try Matching Credentials</strong>.</span></p>
+<p><span class="span_4">If none of the credentials match, it tries the remaining Windows credentials.</span></p>
+<p><span class="span_4">If the remaining credentials don't match, it proceeds with the next ranked port.</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p><span class="span_4">Associated windows credentials will be tried first.<br />
+<br />
+<span class="span_4">When performing a scan for the first time, there won’t be any associated credential for a Host. Hence it will perform the next step. At the end of the initial scan, a matching credential for a host(s) will be associated, and this credential will be used for subsequent scans.</span></span></p>
+<p><span class="span_4">Windows credentials that are mapped to the specified IP address will be matched first.</span><span class="span_4"><br />
+</span></p>
+<p><span class="span_4">If none of the credentials match, then it will proceed with the next ranked port.</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1"><p><strong>Linux / SNMP</strong></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1"><p><span class="span_4">Performs the first two steps of <strong>Try Matching Credentials</strong>.</span></p>
+<p><span class="span_4">If none of the credentials match, it tries the remaining Linux / SNMP credentials.</span></p>
+<p><span class="span_4">If the remaining credentials don't match, it will display an</span><span class="span_5"> Unknown Host</span><span class="span_4"> message.</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body1"><p><span class="span_4">Associated Linux /SNMP credential is tried first.<br />
+<br />
+<span class="span_4">When performing a scan for the first time, there won’t be any associated credential for a Host. Therefore, it performs the below step. </span></span></p>
+<p><span class="span_4"><span class="span_4">At the end of the initial scan, a matching credential for a host(s) will be associated, and this credential is used for subsequent scans.</span></span></p>
+<p><span class="span_4">Linux /SNMP credentials mapped to the specified IP address are matched first.</span></p>
+<p><span class="span_4">If none of the credentials match, it proceeds with the next ranked port.<br />
+</span></p></td>
+</tr>
+</tbody>
+</table>
+
+<span id="PAExec"></span>PAExec Configuration
+
+PAExec is a third-party, external application package inside the Virima Discovery application. It is used to help the Discovery application login into the remote Windows machines and execute the probes.
+
+|     |                                                                                                                                                                          |
+|-----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     | By default, some options are checked inside the Discovery Scan Configuration windows because these are mandatory settings required for performing the remote executions. |
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/PAExec-config-new.PNG" original-image-title=""></span>

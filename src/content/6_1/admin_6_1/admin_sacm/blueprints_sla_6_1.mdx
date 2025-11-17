@@ -1,0 +1,95 @@
+﻿---
+title: Blueprint SLA
+---
+
+# Blueprints: SLA
+
+Every Blueprint has its own SLA-defined based on its business factors. When a Root Cause CI is associated with an ITSM record, then the SLA of the blueprint is taken into consideration, provided a Custom Timescale and CI SLA *are not* defined. <span style="background-color: #ffff00;" madcap:conditions="Default.Omit"> </span>
+
+Use this function to configure response and resolution times for a CI marked as **Incident**, **Requests**, **Changes** or **Problems** that require resolution.
+
+|     |                                                                                                                                                                                                              |
+|-----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     | For System Administrators, SLA's are created through **<a href="../Resources/Images/Admin%20-%20Other/add-sla.PNG" style="background-color: #ffffff;">Admin &gt; Others &gt; Service Level Agreements</a>**. |
+
+Use this function to manage the actions that occur for an SLA.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the main window, select **Admin /> SACM /> Blueprints**. The Blueprints window displays.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Select the record to manage. A new window displays.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/blueprints-sla.PNG" original-image-title="" style="width: 621px;height: 285px;"></span>
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="3. ">
+
+In the *Response Time* field, <span style="background-color: #ffff00;"><span style="background-color: #ffffff;">specify the maximum amount of time that can pass before a response must occur.</span></span>
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="4. ">
+
+In the *Resolution Time* field, specify the total time allowed to find a resolution. The Resolution Time cannot be smaller than the total of all the other response times (e.g., Response Time, 1st Level Support, etc.).
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="5. ">
+
+In the *Support Level* fields,<span style="background-color: #ffff00;"><span style="background-color: #ffffff;"> specify the amount of time allows for each support level to respond. </span></span>
+
+</div>
+
+<div class="NumList2" style="font-style: normal;" madcap:autonum="6. ">
+
+In the **Escalate** section, do the following:
+
+</div>
+
+<div class="NumLista" madcap:autonum="a. ">
+
+For the fields in the first column, specify when an action should taken place, either **Before** or **After** the specified time duration has occurred.
+
+</div>
+
+<div class="numListb" madcap:autonum="b. ">
+
+For the fields in the second column, select the amount of time that can elapse before a notification is sent to the users, roles, groups and departments specified. Multiple options can be selected.
+
+</div>
+
+<div class="numListb" madcap:autonum="c. ">
+
+For the actions in the third column, click **Add** (new) or **Update** (existing) to indicate who receives a notification that activity has been escalated. *Refer to* <a href="../Common%20Topics/Searching.htm" style="font-style: italic;">Searching</a> *for details on how to make selections in the tabs.*
+
+</div>
+
+<div class="NumList2" madcap:autonum="7. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+<div class="Bullet1">
+
+[About Blueprints](Blueprints.htm)
+
+</div>
+
+<div class="Bullet1">
+
+[Edit Blueprints](Blueprints-Edit.htm)
+
+</div>
+
+<a href="../Common%20Topics/Records-per-Page.htm" target="_popup">Records per Page</a>

@@ -1,0 +1,120 @@
+﻿---
+title: Discovered Items Details
+---
+
+# Scheduling a Network Scan
+
+1.  In Scheduling Scans and Imports landing page
+
+2.  Select "Scans" Radio Button
+
+3.  From the "Select Actions" drop down
+
+4.  Select Option "New Scan"
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Scans%20and%20Imports_1_1.png" original-image-title=""></span>
+
+<!-- -->
+
+2.  The <span class="Strong">Run A Scan</span> page opens.
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Scans%20and%20Imports_1_2.png" original-image-title=""></span>
+
+<!-- -->
+
+3.  Enter Required Details:
+
+    1.  <span class="Strong">Name</span>/* – Enter the display name. This is a name to identify the schedule scan
+
+    2.  <span class="Strong">Probe</span>/* – choose the scan probe (e.g., <span class="Emphasis">Deep Host Scan (WMIC /| SSH /| SNMP)</span>).
+
+    3.  <span class="Strong">Client</span>/* – Select the Discovery Application that has access to the IP Range / hostname to be scanned
+
+    4.  <span class="Strong">Scan Through</span> – choose <span class="Strong">IP Address</span> or <span class="Strong">Host Name</span>.
+
+    5.  <span class="Strong">IP Range</span>/* – enter targets. Supported formats:
+
+        - Single IP: 192.168.48.1
+
+        - Multiple across subnets (space-separated): 192.168.48.1 192.168.49.2
+
+        - Same-subnet list: 192.168.48.1,2,3,4
+
+        - Range: 192.168.48.1-50
+
+        - CIDR (one or more): 192.168.48.0/24 192.168.49.0/24
+
+    6.  <span class="Strong">Exclude IP Range</span> – Enter IP address that has to be excluded from the scan. The format is the same IP Range
+
+    7.  For Hostname based scans enter comma separated hostnames
+
+    8.  <span class="Strong">Location</span>
+
+        - Click <span class="Strong">Add</span> to select the Location the discovered devices will be associated with
+
+    9.  <span class="Strong">Send Scan Report To</span>
+
+        - Click <span class="Strong">Add</span> → pick one or more users from the Virima <span class="Strong">User</span> directory.
+
+        - Recipients get email when the scan report is generated. (Make sure their email + role are set in Users.)
+
+    10. <span class="Strong">Timezone</span>
+
+        - Choose the time zone <span class="Strong">where you want the schedule to be interpreted</span>.  
+          Tip: If times look off, confirm this first.
+
+    11. <span class="Strong">Scan Frequency</span>
+
+        - Leave <span class="Strong">Current Time Settings</span> to drive the schedule entirely from the wheels, or—if your environment exposes presets—choose a preset here.
+
+    12. <span class="Strong">Active / Recurring</span>
+
+        - <span class="Strong">Active</span>: must be ON for the job to run.
+
+        - <span class="Strong">Recurring</span>:
+
+          - <span class="Strong">On</span> → runs indefinitely by your wheels; turns on Yearly occurrence
+
+          - <span class="Strong">Off</span> → Execute at scheduled times only for current year
+
+    13. <span class="Strong">Time wheels (what actually sets the schedule)</span>
+
+        - Tick a unit to include it, then select values:
+
+          - <span class="Strong">Second</span> – default 0 if not changed (start at top of the minute).
+
+          - <span class="Strong">Minute, Hour, Day, Month, Weekday</span> – choose one or multiple values per column.
+
+        - The combination you pick becomes the schedule.
+
+    14. <span class="Strong">Certificate</span> Required when “Certificate Scan” Probe is selected. Attach a file path/certificate/location artifact needed by the probe. Click <span class="Strong">Add</span> to supply/update the path.
+
+    15. <span class="Strong">Port Range: </span>Required when “Port Scan” Probe is selected
+
+    16. <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Scans%20and%20Imports_1_3.png" original-image-title=""></span>
+
+    17. <span class="Strong">URL</span> Required when “Website Discovery” Probe is selected
+
+<span class="Strong">Port list rules</span>
+
+- Port range can be specified as mentioned below, by default all popular ports will be scanned if no ports are provided.
+
+- Only maximum of <span class="Strong">1000</span> ports can be specified per scan.
+
+- Accepted formats:
+
+  - Comma-separated list: 2001,2002,2003
+
+  - Range with a hyphen: 2001-2003
+
+  - Mixed list and range: 2001,2002,2003-2009
+
+4.  Click <span class="Strong">Save</span>.
+
+5.  Confirm the Schedule
+
+- You’ll be redirected to <span class="Strong">Scheduled Scans and Imports → Scans</span>.
+
+- Your newly created job will be listed with <span class="Strong">IsActive = true</span> and a <span class="Strong">NextTriggerTime</span> displayed, confirming that the schedule is active and set.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Scans%20and%20Imports_1_4.png" original-image-title=""></span>

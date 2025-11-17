@@ -1,0 +1,68 @@
+﻿---
+title: Discovered Items Details
+---
+
+# <span class="Strong">Scan and Import Schedule List</span>
+
+- The main area displays a grid listing all scheduled scans and imports.
+
+- Each row represents a job, showing details such as Id, Name, Client, Is Active, Previous Trigger Time, Next Trigger Time, Credential, Hostname and Probe.
+
+<table class="table_1">
+<tbody>
+<tr>
+<td class="td_1"><p><span class="Strong">Field Name</span></p></td>
+<td class="td_1"><p><span class="Strong">Description</span></p></td>
+</tr>
+<tr>
+<td class="td_1"><p>Id</p></td>
+<td class="td_1"><p>The application automatically generates a unique ID for each job.</p>
+<p>Taxonomy is based on job type:</p>
+<ul>
+<li><p>AWS: Prefix with “AWS” + 6-digit sequential number (e.g., AWS897789)</p></li>
+<li><p>AZURE: Prefix with “AZURE” + 6-digit sequential number (e.g., AZURE028538)</p></li>
+<li><p>MERAKI: Prefix with “MERAKI” + 6-digit sequential number (e.g., MERAKI345678)</p></li>
+<li><p>Scans: Prefix with “SCH” + 6-digit sequential number (e.g., SCH578673)</p></li>
+</ul></td>
+</tr>
+<tr>
+<td class="td_1"><p>Name</p></td>
+<td class="td_1"><p>The user inputs the name when creating a job.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>Client</p></td>
+<td class="td_1"><p>Applies only to scans. Refers to the Discovery Application (Client) the user selected when creating a scan.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>IsActive</p></td>
+<td class="td_1"><p>True: The scheduled scan or import is active and triggers at the scheduled time.</p>
+<p>False: The scheduled scan or import is inactive and does not trigger at the scheduled time.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>PreviousTriggerTime</p></td>
+<td class="td_1"><p>Displays the last run time of this schedule. This information populates after the initial execution.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>NextTriggertime</p></td>
+<td class="td_1"><p>Shows the next run time. Recalculates immediately upon <span class="Strong">Save</span>, or after a scheduled job has been completed</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>Credential</p></td>
+<td class="td_1"><p>Credentials for imports. Applicable only to AWS, A<span class="inline-comment-marker">zure, and Meraki.</span></p></td>
+</tr>
+<tr>
+<td class="td_1"><p>Probe</p></td>
+<td class="td_1"><p>Probe to execute during the scan. Applicable only to scheduled scans.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p>Hostname</p></td>
+<td class="td_1"><p>Hostname selected when initiating a scan. Applicable only to scheduled scans.</p></td>
+</tr>
+<tr>
+<td class="td_1"><p> </p></td>
+<td class="td_1"><p> </p></td>
+</tr>
+</tbody>
+</table>
+
+Note: If you do not see any particular field in the table, use the personalized column option to select the fields to display.

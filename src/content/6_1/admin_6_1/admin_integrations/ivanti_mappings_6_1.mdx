@@ -1,0 +1,193 @@
+﻿---
+title: Ivanti Mappings
+---
+
+# Ivanti Mappings
+
+Use this function to map properties between a Virima Blueprint and an Ivanti CI Type.
+
+|     |                                                                                                      |
+|-----|------------------------------------------------------------------------------------------------------|
+|     | There must be a [Ivanti Credential](Ivanti-Credentials.htm) configured before a mapping can be done. |
+
+In the main window, select **Admin /> Integrations /> Ivanti Mappings**.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/ivanti-mapping-main-6.1.PNG" original-image-title=""></span>
+
+New Mapping
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New Ivanti Mapping**.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/ivanti-New_mapping-6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+From the drop-down lists, select the *Ivanti CI Type*, *SubType* and *Category*.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Add New Sub Type**, Add New Ivanti Sub Type window displays.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Search and select the new sub Ivanti sub type.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+**Is Enabled** status indicates whether the mapping is active (true/false). A blueprint will only copy from Virima to Ivanti if its mapping has the "Is Enabled" status set to True.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+For the **Virima Blueprint**, enter a *Property* and *Operator*.
+
+</div>
+
+<div class="NumList2" madcap:autonum="7. ">
+
+Choose the *Virima Blueprint* from those available in the drop-down list.
+
+</div>
+
+<div class="NumList2" madcap:autonum="8. ">
+
+To include additional property mapping(s), click "and" or "or" and enter the additional mapping details.
+
+</div>
+
+<div class="NumList2" madcap:autonum="9. ">
+
+Under Ivanti Property Mappings:
+
+</div>
+
+<div class="NumLista" madcap:autonum="a. ">
+
+Click **Add**.
+
+</div>
+
+<div class="numListb" madcap:autonum="b. ">
+
+From the drop-down lists, select the *Virima* and *Ivanti Properties*.
+
+</div>
+
+<div class="numListb" madcap:autonum="c. ">
+
+Enter a property *Value*.
+
+</div>
+
+<div class="numListb" madcap:autonum="d. ">
+
+Check to apply the *Correlator* option.
+
+</div>
+
+<div class="numListb" madcap:autonum="e. ">
+
+When you select Correlator, it checks for duplicates. Only one value will be copied or moved. If duplicates include empty values, the sync will fail for that property.
+
+</div>
+
+<div class="numListb" madcap:autonum="f. ">
+
+Check to apply the *Reverse Sync* option.
+
+</div>
+
+<div class="numListb" madcap:autonum="g. ">
+
+Select the Reverse Sync option if you want to copy values from Ivanti to Virima for the mapped property during synchronization.
+
+</div>
+
+<div class="NumList2" madcap:autonum="10. ">
+
+When all selections/entries are made, click the **Add** button.
+
+</div>
+
+Clone Mappings
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **Clone Mapping**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+
+Use the checkboxes to select the records you want to clone.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
+
+The selected mappings will be duplicated and added to the list.
+
+</div>
+
+Re-Sync Metadata
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **Re-Sync Metadata**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+
+Use the checkboxes to select the records you want to re-sync.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
+
+This action will re-pull the latest metadata and mapping details from the connected Ivanti instance.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="4. ">
+
+It ensures that any recent updates or changes in Ivanti are accurately reflected in the system.
+
+</div>
+
+Reset Mapping
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **Reset Mapping**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+
+Use the checkboxes to select the records you want to Reset.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
+
+This action will reset all mappings to their default configuration.
+
+</div>
+
+Edit Mapping Delete Mapping

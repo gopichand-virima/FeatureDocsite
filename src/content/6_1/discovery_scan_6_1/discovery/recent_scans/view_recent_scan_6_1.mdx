@@ -1,0 +1,96 @@
+﻿---
+title: Recent Scans
+---
+
+# Viewing a Recent Scan Page
+
+Clicking on a specific scan entry from the <span class="Strong">Recent Scans</span> table redirects users to a <span class="Strong">detailed scan summary page</span>. This view provides an in-depth breakdown of scan activity, target systems, and results, useful for verification, troubleshooting, or audit purposes.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_4.png" original-image-title=""></span>
+
+# Explanation of Sections and Fields
+
+# Top Panel (Header Area)
+
+- <span class="Strong">Scan title</span> – Displays the scan ID and name (e.g., <span class="Emphasis">Scan Mamatha Laptop 172.16.5.187</span>).
+
+- <span class="Strong">Export scan report</span> – Button to export the fu<span class="inline-comment-marker">ll scan report in formats like XLSX.</span>
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_5.png" original-image-title=""></span>
+
+|                                              |                                                                                                                  |                                                                                                                           |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Field                                        | What it shows                                                                                                    | How it’s determined / example                                                                                             |
+| <span class="Strong">Scan Range</span>       | The exact target for that row.                                                                                   | The value you entered in <span class="Emphasis">IP Range</span> (e.g., 192.168.40.169, 192.168.40.1-50, 192.168.40.0/24). |
+| <span class="Strong">Client Name</span>      | The Discovery client/tenant that ran the scan.                                                                   | Selected in the job (e.g., testing1,Testing_virima).                                                                      |
+| <span class="Strong">Probe Name</span>       | The discovery probe used.                                                                                        | From the job (e.g., /`Deep Host Scan WMIC)                                                                                |
+| <span class="Strong">Start Time</span>       | When scanning of that entry started.                                                                             | Shown in the <span class="Strong">job’s timezone</span>; e.g., 09/11/2025 08:32:39 AM.                                    |
+| <span class="Strong">Windows Hosts</span>    | Count of endpoints confidently identified as Windows.                                                            | Determined via WMI/SMB fingerprint, banners, and credentials.                                                             |
+| <span class="Strong">Unix/Linux Hosts</span> | Count of endpoints identified as Unix/Linux.                                                                     | Determined via SSH fingerprint, OS banners, and credentials.                                                              |
+| <span class="Strong">Network Devices</span>  | Count of network gear (switches/routers/firewalls/APs, etc.).                                                    | Identified mainly via SNMP fingerprints/MIBs and device signatures.                                                       |
+| <span class="Strong">Unknown Hosts</span>    | The targets are reachable, but none of the supplied credentials authenticated, so the OS couldn’t be identified. | Typical causes: missing/invalid credentials, blocked ports, partial responses.                                            |
+| <span class="Strong">Unknown Devices</span>  | Devices discovered but not fully classified (often due to missing credentials/ports).                            | Insufficient SNMP/SSH/WMI data or atypical fingerprints.                                                                  |
+| <span class="Strong">Total Hosts</span>      | The sum of all counts for that entry.                                                                            | <span class="Strong">Formula:</span> Windows + Unix/Linux + Network + Unknown Hosts + Down Hosts + Unknown Devices.       |
+
+- <span class="Strong">Auto refresh</span> – Automatically refreshes the page at defined intervals.
+
+# How to view the report
+
+- Use filters/pivots to roll up by <span class="Strong">Client</span>, <span class="Strong">Probe</span>, or <span class="Strong">Scan Range</span>.
+
+- High <span class="Strong">Unknown/Down</span> counts usually point to credential or connectivity gaps (check WMI/SSH/SNMP access, firewalls, and routing).
+
+- Remember the <span class="Strong">Start Time</span> reflects the <span class="Strong">schedule’s timezone</span>, not your current browser time.
+
+- If you scanned multiple entries, you’ll see <span class="Strong">one row per entry</span>—counts are per entry (not de-duplicated across rows).
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_6.png" original-image-title=""></span>
+
+# Tabs Section
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_7.png" original-image-title=""></span>
+
+# <span class="Strong">Details (default)</span>
+
+- <span class="Strong">Name, Probe, Client, Activity</span> – who/what ran and the last action.
+
+- <span class="Strong">IP Range</span> – targets for the run.
+
+- <span class="Strong">Host Details</span> – quick counts (total hosts, Windows/Unix, network/unknown).
+
+- <span class="Strong">Run By, Location, Status, Triggered At, Completed At, Scan Duration</span>.
+
+- <span class="Strong">Results grid</span> (bottom): one line per discovered endpoint with filters for:
+
+  - <span class="Strong">IP Address, Host Name, Result, Details, Device Type, Device Summary</span>  
+    (e.g., OS, domain/workgroup, MAC).  
+    Tip: use the column filters to narrow to a device quickly.
+
+# <span class="Strong">Logs</span>
+
+- Full execution log for the run (scrollable).
+
+- Buttons: <span class="Strong">Download Logs</span> (saves the full text) and <span class="Strong">Refresh</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_8.png" original-image-title=""></span>
+
+# <span class="Strong">Tasks</span>
+
+- Add follow-up work related to this run (<span class="Strong">New Task</span>) or remove tasks (<span class="Strong">Delete</span>).
+
+- Useful for assigning remediation or verification actions.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_9.png" original-image-title=""></span>
+
+# <span class="Strong">Comments</span>
+
+- Add internal notes for this run (<span class="Strong">New Comment</span>).  
+  Good for handoffs or documenting exceptions.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_10.png" original-image-title=""></span>
+
+# <span class="Strong">Attachments</span>
+
+- Use <span class="Strong">New Attachment</span> to upload supporting files <span class="Strong">for this specific record</span>—e.g., billing evidence, screenshots, or exported reports. The files are stored with the scan record and appear on the <span class="Strong">Attachments</span> tab for easy reference.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Recent-Scans/Recent%20Scans_1_11.png" original-image-title=""></span>

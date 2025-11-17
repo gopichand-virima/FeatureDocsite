@@ -1,0 +1,416 @@
+﻿---
+title: Background Information on Scans
+---
+
+# <span style="background-color: #ffffff;">Background Information on Scans</span>
+
+There are three components related to scanning:
+
+<div class="Bullet1">
+
+<span class="span_2" style="font-weight: bold;">Probes </span> <span class="span_1">executes a set of scripts on the target hosts to retrieve information. Each host type will have a different probe.</span>
+
+</div>
+
+<div class="Bullet1">
+
+<span class="span_2"> **Probe Workflows** executes a</span> <span class="span_1"> script when a scan is created. The workflow calls the set of the probes required to discover the information about the hosts on which the scan is performed.</span>
+
+</div>
+
+<div class="Bullet1">
+
+<span class="span_2" style="font-weight: bold;">Sensors. </span> <span class="span_1">Scripts that are applied to the output of the respective probes. The sensors give the data </span> <span class="span_2">JSON</span> <span class="span_1"> output.</span>
+
+</div>
+
+The basic work flow is as follows:
+
+<div class="Bullet1">
+
+Find up and running Hosts.
+
+</div>
+
+<div class="Bullet1">
+
+Get Host Types for each host.
+
+</div>
+
+<div class="Bullet2">
+
+<span class="span_1">If Host Type is </span> <span class="span_2"> **Unix**, find the Unix OS flavor and, depending on the OS, send the probes to the Discovery Server, which retrieves the information of the host.</span>
+
+</div>
+
+<div class="Bullet2">
+
+<span class="span_1">If Host Type is </span> <span class="span_2" style="font-weight: bold;">Windows</span> <span class="span_1"> or </span> <span class="span_2"> **Network device**, send probes to the the Discovery Server that retrieves the information of the host.</span>
+
+</div>
+
+<span class="span_1">For discovering Windows machines in a workgroup, the admin shared folder should be remotely accessible. Enable this folder by following these steps:</span>
+
+<div class="NumList1" madcap:autonum="1. ">
+
+<span class="span_1">Run </span> <span class="span_6"> **regedit**.</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+<span class="span_1">Navigate to this directory</span> <span class="span_2">:  
+</span> <span class="span_6" style="font-family: 'Courier New'; font-size: 10pt;">HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/System</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+<span class="span_1">Right-click on the right pane and choose </span> <span class="span_2" style="font-weight: bold;">New</span> <span class="span_1" style="font-weight: bold;"> /> </span> <span class="span_2" style="font-weight: bold;">DWORD</span> <span class="span_1"> ** (32-bit) Value**.</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+<span class="span_1">Fill </span> <span class="span_6" style="font-weight: bold;">LocalAccountTokenFilterPolicy</span> <span class="span_1"> for the Value name and press **Enter**.</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+<span class="span_1">Double-click </span> <span class="span_6" style="font-weight: bold;">LocalAccountTokenFilterPolicy</span> <span class="span_1"> value and modify the “Value Data” from “0” to “1".</span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+<span class="span_1">Click </span> <span class="span_2" style="font-weight: bold;">OK</span> <span class="span_1">.</span>
+
+</div>
+
+<span class="span_1">To verify whether the admin share is accessible, run the following on the command line:   
+</span>
+
+<span class="span_6"> <span style="font-family: 'Courier New';"> <span style="font-size: 10pt;">net use </span> </span> </span> <span class="span_7"> <span style="font-family: 'Courier New';"> <span style="font-size: 10pt;">/remoteIP/admin/$</span> </span> </span> <span class="span_6"> <span style="font-family: 'Courier New';"> <span style="font-size: 10pt;"> /user:/<username/> </span> </span> </span> <span class="span_4"> <span style="font-family: 'Courier New';"> <span style="font-size: 10pt;">/*</span> </span> </span> <span class="span_1"> <span style="font-family: 'Courier New';"> <span style="font-size: 10pt;"> </span> </span>  
+  
+Example: <span style="font-family: 'Courier New'; font-size: 10pt;">net use /111.222.333.444/admin/$ /user:win7-2/admin /*</span></span>
+
+## Workflows
+
+<span style="background-color: #ffffff;">Discovery </span>has several work flows:
+
+<div class="Bullet1" style="font-style: italic;" madcap:conditions="Default.Omit">
+
+**Basic Scan**
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.Omit">
+
+**Nmap Enabled Host Scan**
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.Omit">
+
+**Deep Host Scan with Application and Package Information**
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.Omit">
+
+**Basic Host Type Scan**
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.Omit">
+
+**Host Scan for Windows**
+
+</div>
+
+Basic Scan
+
+Determines the Host Type (Unix/Windows/Network Device).
+
+**Nmap Enable Host Scan**
+
+<span class="span_1">Determines the </span> <span class="span_2">HOST TYPE</span> <span class="span_1">, </span> <span class="span_2">OPEN PORT</span> <span class="span_1"> and </span> <span class="span_2">MAC Address</span> <span class="span_1">.</span>
+
+Deep Host Scan for Windows/Linux/Network Devices
+
+A Deep Host Scan discovers the following:
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Type</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>LINUX</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><div class="Bullet1">
+<span class="span_9">System information</span> <span class="span_8">, such as Operating System details, Processor details, etc.</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Network Adapter information</span> <span class="span_8">, such as IP Address, MAC Address, etc.</span><br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Storage information,</span> <span class="span_8"> such as Disk size, Free Memory, etc.</span><br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Unclassified Processes information</span> <span class="span_8"> - Process Name, Port, Command and Arguments.</span><br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_8">Installed package information.<br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Running Applications information</span> <span class="span_8"> (If it’s a known Application).</span><br />
+</span>
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Windows</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><div class="Bullet1">
+<span class="span_9">System information</span> <span class="span_8">, such as Operating System details, Processor details, etc.</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Network Adapter information,</span> <span class="span_8"> such as IP Address, MAC Address, etc.</span> </span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Storage information,</span> <span class="span_8"> such as Disk size, Free Memory, etc.</span> </span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Installed Software details</span> <span class="span_8">, </span> <span class="span_9">Services details</span> <span class="span_8"> and </span> <span class="span_9">Running Process</span> <span class="span_8">.</span> </span>
+</div>
+<div class="Bullet1">
+<span class="span_9">Running Applications information</span> <span class="span_8"> (If it’s a known Application)</span>
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>ESXi Host</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><div class="Bullet1">
+<span class="span_9">System information,</span> <span class="span_8"> such as Operating System details, Processor details, etc.</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Network Adapter information</span> <span class="span_8">, such as IP Address, MAC Address, etc.</span> </span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Storage information,</span> <span class="span_8"> such as Disk size, Free Memory, etc.</span> </span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Virtual Machines information</span> <span class="span_8">.</span><br />
+</span>
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Switch</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><div class="Bullet1">
+<span class="span_9">Switch details,</span> <span class="span_8"> such as Manufacturer, Serial Number, Model, etc.</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">IPV4 Addresses</span> <span class="span_8">, </span> <span class="span_9">VLANs</span> <span class="span_8"> and </span> <span class="span_9">Network Interfaces details</span> <span class="span_8">.</span><br />
+</span>
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1" style="font-weight: bold"><p>HyperV</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body1"><div class="Bullet1">
+<span class="span_9">System information,</span> <span class="span_8"> such as Host Name, IP Address, Operating System details, etc.</span>
+</div>
+<div class="Bullet1">
+<span class="span_8"> <span class="span_9">Basic virtual machine information</span> <span class="span_8"> installed on HyperV.</span><br />
+</span>
+</div></td>
+</tr>
+</tbody>
+</table>
+
+<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Body-Body1">
+<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-BodyA-Column2-Body1"><p><span class="span_2" style="font-weight: bold;">Note</span> <span class="span_1">: <span class="span_4">Default Known Applications are</span><span class="span_1"> </span><span class="span_2">Apache Webserver</span><span class="span_1">, M</span><span class="span_2">ySQL Database Server</span><span class="span_1">, </span><span class="span_2">Apache Tomcat Application Server</span><span class="span_1">, </span><span class="span_2">Lighttpd server</span><span class="span_1">, </span><span class="span_2">Postgresql</span><span class="span_1">, </span><span class="span_2">Jboss Application Server</span><span class="span_1">, </span><span class="span_2">Jboss Portal</span><span class="span_1">, </span><span class="span_2">Glassfish Server</span><span class="span_1">, </span><span class="span_2">and IBM WebSphere server</span><span class="span_1">.</span></span></p>
+<p>The applicable can discover more applications by creating <a href="../Admin%20-%20Discovery/Patterns.htm">Patterns</a> using process commands and arguments.</p></td>
+</tr>
+</tbody>
+</table>
+
+AS/400 Host SNMP Scan
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: auto;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Method</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>MIB Values</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1"><p>OID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>getDeviceInfo*</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><p><span class="span_8">SNMPv2-MIB::sysDescr.0<br />
+SNMPv2-MIB::sysName.0</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span class="span_8">1.3.6.1.2.1.1.1.0<br />
+1.3.6.1.2.1.1.5.0</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>getHostInfo*</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2"><p><span class="span_8">HOST-RESOURCES-MIB::hrSystemUptime.0<br />
+HOST-RESOURCES-MIB::hrMemorySize.0</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p><span class="span_8">1.3.6.1.2.1.25.1.1.0<br />
+1.3.6.1.2.1.25.2.2.0</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>getInterfaceList*</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><p><span class="span_8">IP-MIB::ipAddrTable<br />
+[ ipAdEntAddr, ipAdEntIfIndex,<br />
+ipAdEntNetMask ]<br />
+IF-MIB::ifTable<br />
+[ ifIndex, ifDescr, ifSpeed, ifPhysAddress ]</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span class="span_8">1.3.6.1.2.1.4.20.1<br />
+[ .1, .2, .3 ]<br />
+1.3.6.1.2.1.2.2.1<br />
+[ .1, .2, .5, .6 ]</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>getNetworkConnectionList</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2"><p><span class="span_8">TCP-MIB::tcpConnTable<br />
+[ tcpConnState, tcpConnLocalAddress, tcpConnLocalPort, tcpConnRemAddress,<br />
+tcpConnRemPort<br />
+]<br />
+UDP-MIB::udpConnTable<br />
+[ udpLocalAddress, udpLocalPort ]</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p><span class="span_8">1.3.6.1.2.1.6.13.1<br />
+[ .1, .2, .3, .4, .5 ]<br />
+1.3.6.1.2.1.7.5.1<br />
+[ .1, .2 ]</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>getPackageList</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><p><span class="span_8">HOST-RESOURCES-</span> <span class="span_10"> MIB::hrSWInstalledTable </span> <span class="span_8">[hrSWInstalledName ]</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span class="span_8">1.3.6.1.2.1.25.6.3.1<br />
+[ .2 ]</span></p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>getProcessList</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2"><p><span class="span_8">HOST-RESOURCES-<br />
+MIB::hrSWRunTable<br />
+[hrSWRunIndex, hrSWRunName,<br />
+hrSWRunPath, hrSWRunParameters]</span></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><p><span class="span_8">1.3.6.1.2.1.25.4.2.1<br />
+[ .1, .2, .4, .5 ]</span></p></td>
+</tr>
+</tbody>
+</table>
+
+Basic Host Type Scan
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Type</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>LINUX</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><div class="Bullet1">
+<span class="span_9">System information,</span> <span class="span_8"> such as Operating System details, Processor details, etc.<br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_9">Network Adapter information</span> <span class="span_8">, such as IP Address, MAC Address, etc.<br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_9">Storage information,</span> <span class="span_8"> such as Disk size, Free Memory, etc.<br />
+</span>
+</div>
+<div class="Bullet1">
+<span class="span_9">Unclassified Processes</span> <span class="span_8"> information, such as Process Name, Port, Command and Arguments.</span>
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Windows</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><div class="Bullet1">
+<span class="span_9">System information</span> <span class="span_8">, such as Operating System details, Processor details, etc</span>.
+</div>
+<div class="Bullet1">
+<span class="span_9">Network Adapter information</span> <span class="span_8">, such as IP Address, MAC Address, etc</span>.
+</div>
+<div class="Bullet1">
+<span class="span_9">Storage information</span> <span class="span_8">, such as Disk size, Free Memory, etc</span>.
+</div>
+<div class="Bullet1">
+<span class="span_9">Installed Software details</span> <span class="span_8">, </span> <span class="span_9">Services Details</span> <span class="span_8"> and </span> <span class="span_9">Running Process</span>.
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>ESXi Host</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><div class="Bullet1">
+System information, such as Operating System details.
+</div>
+<div class="Bullet1">
+Processor details, etc.
+</div>
+<div class="Bullet1">
+Network Adapter information, such as IP Address and MAC Address.
+</div>
+<div class="Bullet1">
+Storage information, such as Disk size, Free Memory, etc.
+</div>
+<div class="Bullet1">
+Virtual Machines information.
+</div></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>Switch</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><div class="Bullet1">
+Switch details, such as Manufacturer, Serial Number, Model, etc.
+</div>
+<div class="Bullet1">
+IPV4 Addresses.
+</div>
+<div class="Bullet1">
+Network Interfaces details.
+</div></td>
+</tr>
+</tbody>
+</table>
+
+Host Scan for Windows
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1"><p>Type</p></th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1"><p><strong>Windows</strong></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body1"><div class="Bullet1">
+System information, such as Operating System details, Processor details, etc.
+</div>
+<div class="Bullet1">
+Network Adapter information, such as IP Address, MAC Address, etc.
+</div>
+<div class="Bullet1">
+Storage information, such as Disk size, Free Memory, etc.
+</div>
+<div class="Bullet1">
+Installed Software details, Services details and Running Process details,
+</div></td>
+</tr>
+</tbody>
+</table>

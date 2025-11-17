@@ -1,0 +1,81 @@
+﻿---
+title: Accessing the Import AZURE Window
+---
+
+# Accessing the Import AZURE Window
+
+1.  In the navigation pane, select <span class="Strong">Discovery Scan › Import from AZURE</span>.
+
+2.  The <span class="Strong">Import From AZURE</span> window appears, displaying any records you've already imported.
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Azure/Import%20From%20AZURE_1.png" original-image-title=""></span>
+
+<!-- -->
+
+3.  <span class="Strong">Import From AZURE </span>page opens.
+
+The page displays a list of <span class="Strong">imported runs </span>from your AZURE accounts. Each row represents a single import run.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Azure/Import%20From%20AZURE_1_1.png" original-image-title=""></span>
+
+- <span class="Strong">Key columns:</span>
+
+  - <span class="Strong">Id</span>: Unique identification ID of the import run (e.g., AZURE000559), records imported from AZURE will have the prefix “AZURE” followed by a six-digit sequential number.
+
+  - <span class="Strong">Name:</span>
+
+    - Manual Import: The user provided name used to identify the import run.
+
+    - Scheduled imports: The user-provided schedule name appears under the "Name" column.
+
+  - <span class="Strong">Subscription Id</span>: “Subscription Id" column displays the value entered for either a Subscription Id or a Management Group Id when adding Azure credentials.
+
+  - <span class="Strong">Imported On</span>: The date and time when the import was completed.
+
+  - <span class="Strong">Status</span>: Current state (e.g., Importing, Completed, Failed).
+
+    - <span class="Strong">Importing:</span> The import process from AZURE is currently running and in progress.
+
+    - <span class="Strong">Completed:</span> The import from AZURE has finished successfully.
+
+    - <span class="Strong">Failed</span><span class="Strong">:</span> The import has failed, for example due to unknown erros.
+
+      - <span class="Strong">Note</span>: Please contact support to get the failure logs.
+
+  - <span class="Strong">Imported By</span>:
+
+    - Manual Import: The logged-in user who initiated a manual import.
+
+    - Scheduled Import: The logged-in user who configured scheduled import.
+
+  - <span class="Strong">Credential</span>: Virima credential profile used to connect to AZURE.
+
+  - <span class="Strong">Select Actions</span>: Perform bulk operations on selected or filtered rows.
+
+- From the <span class="Strong">Select Actions</span> drop-down list, choose the operation you want to perform.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-Azure/Import%20From%20AZURE_1_2.png" original-image-title=""></span>
+
+<!-- -->
+
+- <span class="Strong">Delete</span>: Remove selected import record
+
+  - Selected import record(s) will be deleted.
+
+  - CI(s) imported during the selected import will be removed from Discovered Items.
+
+  - CI(s) moved to CMDB will still appear under CMDB after deleting the AZURE import record.
+
+- <span class="Strong">Export</span> – Download grid contents (selected or filtered rows) to Excel.
+
+  - If you have selected rows, only the selected rows are exported.
+
+  - If you have applied filters, all rows that match the current filters are exported.
+
+  - If no filters are applied and no rows are selected, exporting will include all records from all pages.
+
+  - The file includes the grid columns (e.g., <span class="Strong">Unique ID</span>, <span class="Strong">Subscription Id</span>, <span class="Strong">Credential</span>, <span class="Strong">Imported By</span>, <span class="Strong">Name</span>, and <span class="Strong">Imported On</span>.) (Refer Exported Excel Column Details)
+
+This downloads the import records NOT the CI(s).
+
+- <span class="Strong">Import</span> – Initiate a new Import from AZURE.

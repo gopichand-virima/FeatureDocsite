@@ -1,0 +1,394 @@
+﻿---
+title: Users
+---
+
+# Users
+
+Use this function to create new users in the application.
+
+|     |                                                                                                   |
+|-----|---------------------------------------------------------------------------------------------------|
+|     | [Role Access](../Admin%20-%20Other/Role-Access.htm) permissions must be set before adding a user. |
+
+In the main window, click **Admin /> Users /> Users**. The Access Management window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/Users_v6_1.png" original-image-title=""></span>
+
+New User
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New User.**  
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+To complete the fields, refer to the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+When all selections/entries are made, click **Add**.
+
+</div>
+
+### <span id="NewUserDetails"></span>New User Details Fields
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Email</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">User's email address.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold">Username</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">Username for logging into the system.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Is VIP</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span style="color: #000000;">Identifies a user for whom their tickets are given a 1-Priority, by default.</span></p>
+<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Body-Body1">
+<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-BodyA-Column2-Body1"><p>If a VIP user is selected as a Reporter/Requester to raise an ITSM record, by default the priority of an ITSM record will be set to 1-Very High.</p></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Is Active</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>When selected, the user is active in the application and can perform the assigned activities.</p>
+<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Body-Body1">
+<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-BodyA-Column2-Body1">If unchecked, an Alert message displays when the user tries to log in to the application.</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Enable MFA</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>When enabled, upon trying to log in, the user receives an email verification screen and can select to use either <strong>Email</strong> or <strong>Two-Factor Authentication</strong>.</p>
+<p><span class="image placeholder" data-original-image-src="../Resources/Images/Admin%20-%20Users/MFA_6.1.png" data-original-image-title=""></span></p>
+<p><strong>Email</strong></p>
+<p>If <strong>Email</strong> is selected, an MFA code is sent and that code must be entered. If the code is not received, click <strong>Resend Code</strong>.</p>
+<p><span class="image placeholder" data-original-image-src="../Resources/Images/Admin%20-%20Users/MFA_Email_6.1.png" data-original-image-title=""></span></p>
+<p><strong>Two-Factor Authentication</strong></p>
+<p>If <strong>Two-Factor Authentication</strong> is selected, follow the instructions in this dialog box and do one of the following:</p>
+<div class="Bullet1">
+If the QR code is scanned, click <strong>Continue</strong>, check the Google Authenticator app, enter the token, and click <strong>Verify Token</strong>.
+</div>
+<div class="Ind50">
+<span class="image placeholder" data-original-image-src="../Resources/Images/Admin%20-%20Users/MFA_Twofactor_6.1.png" data-original-image-title=""></span>
+</div>
+<div class="Bullet1">
+Enter the code shown into the Google Authenticator app.
+</div>
+<table class="TableStyle-Note-Indent" style="width: 100%;mc-table-style: url(&#39;../Resources/TableStyles/Note-Indent.css&#39;);border-top-style: solid;border-top-width: 2px;border-top-color: #90ee90;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #90ee90;margin-left: 0.5in;margin-right: auto;" data-cellspacing="0">
+<tbody>
+<tr class="TableStyle-Note-Indent-Body-Body1">
+<td class="TableStyle-Note-Indent-BodyB-Column1-Body1"> </td>
+<td class="TableStyle-Note-Indent-BodyA-Column2-Body1">For details on using the Google Authenticator app, <a href="https:/play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en_US&amp;gl=US">click here</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>To disable the verification process, click <strong>Reset MFA</strong>.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Authentications</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2" style="color: #dc143c"><p>Check based on the organization authentication process. Choices are AD, AZURE AD, SAML, and Normal.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Password</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>The password associated with the username. The password must be validated by entering it a second time in the <strong>Re-Enter Password</strong> field. To display the password, click <strong>Show Password</strong> checkbox or click the <strong>Show</strong> icon.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>User Profile Fields</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">Requires <strong>First Name</strong> and <strong>Last Name</strong>. <strong>Display Name</strong> is optional and, by default, is set to “FirstName LastName,” customize if needed.</td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>User Information Fields</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Specifies the information to display within the application.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><a href="../Admin%20-%20Org%20Details/Locations.htm">Location</a></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Specifies the location of the user.</p>
+<p>Click <strong>Add</strong> and, in the Location dialog box, search for and select the applicable location. If a location is not shown, it has not been set up in the application.</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable location.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p><a href="User-Roles.htm">Roles</a></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Assigns a role(s) to the user that allows the user to perform assigned responsibilities.</p>
+<p>Click <strong>Add</strong> and in the Roles dialog box, search for and select the applicable role(s).</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable role(s).</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p><a href="../Admin%20-%20Org%20Details/Departments.htm">Departments</a></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Associates the user with a department.</p>
+<p>Click <strong>Add</strong> then search for and select the applicable department.</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable department.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p><a href="User-Groups.htm">Groups</a></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Associates the user with a group.</p>
+<p>Click <strong>Add</strong> then search for and select the applicable group.</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable group.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Report To</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Specifies to whom the user reports.</p>
+<p>Click <strong>Add</strong> then search for and select the applicable user.</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable user.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p><a href="../Admin%20-%20Org%20Details/Designations.htm">Designation</a></p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Assigns a designation to the user.</p>
+<p>Click <strong>Add</strong> then search for and select the applicable designation.</p>
+<p>Click the <strong>plus + sign</strong> then search for and select the applicable designation.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Profile Picture</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Displays a profile picture for the user. Click <strong>Upload</strong>. In the Attach File dialog box, <strong>Browse</strong> to the location of the photo, select the photo, then click <strong>OK</strong>.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Landing Page</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Specifies the page that displays to the user on first accessing the application.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>Language</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><p>Specifies the users language.</p></td>
+</tr>
+</tbody>
+</table>
+
+Import New Users
+
+Use this function to import new users by uploading a file.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **Import New User(s).** The Attach Data Files dialog box displays.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/attach-data-files.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+**Browse** to the location of the file to import.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Upload**.
+
+</div>
+
+Bulk Edit
+
+Use this function edit multiple users at the same time.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the list, highlight each user record to edit.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+From the *Select Actions* drop-down list, choose **Bulk Edit**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+In the Confirmation message window, click **Yes**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Refer to the information under "New Users" for information on the available fields and options.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+When all selections/entries are made, click **Update**. The details for all the select users is updated.
+
+</div>
+
+Enable MFA
+
+Use this function to enable multi-factor authentication for one or more users.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the list, highlight each user for which MFA should be enabled. If not selection is made, MFA will be enabled for all users.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click **Enable MFA**.
+
+</div>
+
+|     |                                                                |
+|-----|----------------------------------------------------------------|
+|     | To reset MFA, open the user's profile and click **Reset MFA**. |
+
+<span id="ResourceChart"></span>Resource Chart
+
+<span style="color: #dc143c;"><span style="color: #000000;">Use this function to view details for a user, such as tasks performed, hours spent on the task, status of a task (such as </span>*Active*<span style="color: #000000;">, </span>*Started*<span style="color: #000000;">, and </span>*Not Started*</span>), and dates on which tasks occurred.
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **View Resources**.
+
+</div>
+
+<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+
+On the toolbar, click the **Resource Chart** icon. The Resources window displays.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/resource-chart-new.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click the drop-down list and select the type of tasks to view--either **Miscellaneous Tasks** or **Project Tasks**. The window updates and shows the status for each user.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+To view users who have reported, click **Reported Users**.
+
+</div>
+
+View Resources
+
+<span style="color: #dc143c;"><span style="color: #000000;">Use this function to view details for a user, such as tasks performed, hours spent on the task, status of a task (such as </span>*Active*<span style="color: #000000;">, </span>*Started*<span style="color: #000000;">, and </span>*Not Started*</span>), and dates on which tasks occurred.
+
+<div class="numlist1" madcap:autonum="1. ">
+
+In the main window, click **Admin /> Users /> Users**. The Access Management window displays.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+From the *Select Actions* drop-down list, choose **View Resources**. A new window opens and provides the relevant details.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/user-view-resources.PNG" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+To toggle between Projects and Miscellaneous Tasks, use the drop-down list.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+To view users who have reported, click **Reported Users**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+To close the window, click the **X** in the right upper corner of the window.
+
+</div>
+
+Edit User
+
+In this window, you can also:
+
+<div class="Bullet1">
+
+Click **Email Preferences** and select all the functions for which the user will receive email notifications. Then click **Save**.
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.OldUI">
+
+Click **[Inbox](Inbox.htm)** to open a window in which email messages can be managed.
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.OldUI">
+
+Click **Owned CI** to view the Configuration Items owned by the user.
+
+</div>
+
+Delete User
+
+<div class="Bullet1" madcap:conditions="Default.OldUI">
+
+<a href="../Common%20Functions/Records-per-Page.htm" target="_popup">Records per Page</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Auto-Refresh.htm" target="_popup">Auto Refresh</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Personalize-Columns.htm" target="_popup">Personalize Columns</a>
+
+</div>
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Saved-Filters.htm" target="_popup">Saved Filters</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Export.htm" target="_popup">Export</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Delete-Remove.htm" target="_popup">Delete</a>
+
+</div>
+
+<div class="Bullet1" madcap:conditions="Default.NewUI">
+
+<a href="../Common%20Functions/Items-per-Page.htm" target="_popup">Items Per Page</a>
+
+</div>

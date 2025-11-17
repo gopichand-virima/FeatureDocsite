@@ -1,0 +1,117 @@
+﻿---
+title: Release Model
+---
+
+# Release Model
+
+Use this function to create a model for the process responsible for planning, scheduling, and controlling the build, in addition to testing and deploying Releases ensuring to deliver new and enhanced services required by the business.
+
+In the main window, click **Admin /> Release Management /> Release Model**.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Release/release-model-main-old.PNG" original-image-title=""></span>
+
+In the main window, click the **gear** icon and select **Release Management /> Release Model**.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Release/icon-release-model.PNG" original-image-title=""></span>
+
+The Release Model window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Release/release-model-main-new.PNG" original-image-title=""></span>
+
+New Release Model
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New Release Model**.
+
+</div>
+
+<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+
+Click **New**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+
+Complete the fields, referring to the table below.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="3. ">
+
+When all selections/entries are made, click **Add**.
+
+</div>
+
+### Release Model Fields
+
+<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
+<thead>
+<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
+<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Section</th>
+<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Field Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Primary Details</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><strong>Template Name</strong>. A generic name given to a change model.</p>
+<p><strong>Title</strong>. A identifying name for this change model.</p>
+<p><strong>Private Property Visibility</strong>. Fields that are marked as private can be viewed only by these Role(s).</p>
+<p><strong>Private Property Editable by Role</strong>. Properties can only edited by those with a specific role.</p>
+<p><strong>Workflow</strong>. Specifies the workflow which this change must pass through.</p>
+<p><strong>Confidential</strong>. The user(s) designated to see this change.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold">Record Details</td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p><strong>Category</strong>. Determines the type of a change: Major, Minor, Standard and Significant.</p>
+<p><strong>SubCategory</strong>. Division of a CI category--for example, Laptop can be a CI Subcategory of Desktop.</p>
+<p><strong>Impact Level</strong>. The measure of the effect of a change on the Business Process. Impact is used to assign the priority: Impact: High, Medium and Low.</p>
+<p><strong>Urgency</strong>. A measure of how long it will be a change and has a significant Impact on the Business: High, Medium and Low.</p>
+<p><strong>Priority</strong>. A Category used to identify the relative importance of a change. Priority is based on Impact and Urgency, each level of priority has a specified SLA within which a change needs to be resolved.</p>
+<p><strong>Risk</strong>. A category that determines the complexity involved in implementing the change: High, Medium and Low.</p>
+<p><strong>Type</strong>. Determines whether the change is a Normal, Emergency or Standard type.</p>
+<p><strong>State</strong>. A category which is a sub set of Stage: Accepted, Rejected, Requested.</p>
+<p><strong>Assignee/Group Assignee</strong>. The role assigned the change. This category is used when it's unknown who can work on the change at the time of creation.</p>
+<p><strong>Associated CIs</strong>. The CI’s associated with this release.</p>
+<p><strong>Related Changes</strong>. The changes to associate with this release.</p>
+<p><strong>Description</strong>. A brief description about the change.</p>
+<p><span><strong>Custom Timescale</strong>. When selected, enter the relevant times. If applicable, enter the <em>Escalate</em> parameters. </span></p>
+<div class="Bullet1">
+If <em>Response</em> and <em>Resolution</em> Times are not specified here, they can be specified when a change request is submitted.
+</div>
+<div class="Bullet1">
+custom Timescale can be defined only during the creation stage and the same can't be defined after a change is created.
+</div>
+<div class="Bullet1">
+If a Custom Timescale is set, then Priority based timescale SLA and escalation hierarchy are not considered.
+</div>
+<p><strong>Planned Start/End</strong>. The dates applicable to this release.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Related Records</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Other records related to this one, such as problems, incidents, requests and so forth. Click <strong>Addthe plus + sign</strong> and search for and select the applicable related record.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Notes</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Any details related to this release.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Resolution Information</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Details on how the release was resolved.</p></td>
+</tr>
+<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
+<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>Closure Information</p></td>
+<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><p>Details related to the closure of the release.  Select a <em>Closure Code</em> and enter any relevant details.</p></td>
+</tr>
+</tbody>
+</table>
+
+Modify Properties Edit Release Model Delete Release Model
+
+<div class="Bullet1">
+
+<a href="../Common%20Functions/Import.htm" target="_popup">Import</a>
+
+</div>

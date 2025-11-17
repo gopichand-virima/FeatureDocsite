@@ -1,0 +1,113 @@
+﻿---
+title: Import Data File
+---
+
+# <span class="Strong">All Tab</span>
+
+- Displays every record included in the imported file, regardless of whether it matches an existing CI or is a new CI.
+
+  - <span class="Strong" style="font-weight: bold;">Blueprint Name</span>: Name of the Blueprint
+
+  - <span class="Strong" style="font-weight: bold;">CI</span>: CMDB CI ID matching the imported CI
+
+  - <span class="Strong" style="font-weight: bold;">Asset Name</span>: The name of the asset as recognized in the import file or system.
+
+  - <span class="Strong" style="font-weight: bold;">Asset ID</span>: New Asset ID is created with prefix of “IMP” to denote that this record was imported. The format is “IMP” + 6 digits (auto generated sequential number).
+
+- Clicking the hyperlinked CI ID under CI column will display the corresponding record in CMDB.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_13.png" original-image-title=""></span>
+
+<!-- -->
+
+- If we click on any other column values regardless of whether CI exists in CMDB or not, the user is redirected to Imported Assets view to view the imported asset data.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_14.png" original-image-title=""></span>
+
+# <span class="Strong">Layout and Sections</span>
+
+- <span class="Strong" style="font-weight: bold;">Header bar</span>
+
+  - CI identifier and name at the top (e.g., <span class="Emphasis">AST001516</span>).
+
+  - <span class="Strong" style="font-weight: bold;">Select Actions</span> menu for record-level actions.
+
+  - <span class="Strong" style="font-weight: bold;">Business Service Map</span> button (opens the service dependency map for this CI).
+
+- <span class="Strong" style="font-weight: bold;">Tabs across the top</span>
+
+  - <span class="Strong" style="font-weight: bold;">Details</span> – the editable profile for the CI (core and custom fields).
+
+  - <span class="Strong" style="font-weight: bold;">Components</span> – componentized items attached to the CI.
+
+  - <span class="Strong" style="font-weight: bold;">ITSM</span> – quick access to incidents/requests/problems/changes/known errors/releases/knowledge tied to the CI.
+
+  - <span class="Strong" style="font-weight: bold;">Relationships</span> – Shows connections between this CI and others
+
+  - <span class="Strong" style="font-weight: bold;">SLA</span> – applicable service levels.
+
+  - <span class="Strong" style="font-weight: bold;">Maintenance</span> – Schedule maintenance tasks for a CI, such as rebooting or running specific commands.
+
+  - <span class="Strong" style="font-weight: bold;">Private Properties</span> configured private properties at the blueprint level for specific users with access.
+
+  - <span class="Strong" style="font-weight: bold;">Tasks</span> – Tracks tasks or actions assigned to this CI
+
+  - <span class="Strong" style="font-weight: bold;">Comments</span> – audit notes / collaboration thread.
+
+  - <span class="Strong">**History** - </span>Shows modification history, including timestamps and users
+
+  - <span class="Strong" style="font-weight: bold;">Vulnerability</span> (if enabled) – Lists known vulnerabilities, threat severity, and risk details
+
+- <span class="Strong" style="font-weight: bold;">Primary Details</span>
+
+  - <span class="Strong" style="font-weight: bold;">Asset Id:</span> The CMDB’s unique identifier for this CI (e.g., AST003156).
+
+  - <span class="Strong" style="font-weight: bold;">Asset Name:</span> Provided Asset name; here it includes the host and IP (ADSERVERLD @ 10.14.80.36).
+
+  - <span class="Strong">**Version**:</span> Optional version/build of the asset or software (blank in the screenshot).
+
+  - <span class="Strong">**Blueprint**:</span> The blueprint associated (e.g., <span class="Strong">Windows Server</span>).
+
+  - <span class="Strong">**Confidence Level**:</span> Data quality score from discovery/enrichment (e.g., <span class="Strong">Very High</span>).
+
+  - <span class="Strong" style="font-weight: bold;">IP Address:</span> Last known IP (e.g., 10.14.80.36).
+
+  - <span class="Strong" style="font-weight: bold;">Host Name:</span> DNS/host name (e.g., ADSERVERLD).
+
+  - <span class="Strong" style="font-weight: bold;">Created On:</span> When this CI was first created in CMDB.
+
+  - <span class="Strong" style="font-weight: bold;">Last Modified On:</span> Most recent update to any field on this record.
+
+  - <span class="Strong" style="font-weight: bold;">Last Seen On:</span> Last successful “sighting” in discovery (empty if not yet observed).
+
+  - <span class="Strong" style="font-weight: bold;">Last Scanned On:</span> Timestamp of the most recent discovery scan for this CI (empty if not scanned).
+
+  - <span class="Strong" style="font-weight: bold;">Warranty Start Date / Warranty End Date:</span> Warranty lifecycle dates (editable).
+
+  - <span class="Strong" style="font-weight: bold;">Location / Department / Vendor:</span> Organizational metadata fields for ownership/placement (editable).
+
+  - <span class="Strong">**Tags**:</span> Free-form labels/metadata you can use for grouping, search, or policy (editable).
+
+  - <span class="Strong" style="font-weight: bold;">Update Picture:</span> Upload/replace the icon shown for this asset.
+
+- <span class="Strong" style="font-weight: bold;">Owner</span>
+
+  - Person card for the primary owner: <span class="Strong">Name</span>, <span class="Strong">Email</span>, <span class="Strong">Phone</span> (with avatar); quick remove/edit where permitted.
+
+- <span class="Strong" style="font-weight: bold;">Second Level Support</span> / <span class="Strong" style="font-weight: bold;">Third Level Support</span>
+
+  - Support group or contact cards with <span class="Strong">Name</span>, <span class="Strong">Email</span>, <span class="Strong">Phone</span>. Used for routing escalations.
+
+- <span class="Strong">Manager</span>
+
+  - Manager contact card (Name/Email/Phone) tied to the CI or its owning team.
+
+- <span class="Strong" style="font-weight: bold;">Related Records</span>
+
+  - Shortcuts (often with counts) to ITSM items associated to this CI:
+
+    - <span class="Strong">Open Incidents</span>, <span class="Strong">Open Requests</span>, <span class="Strong">Open Problems</span>
+
+    - <span class="Strong">Open Known Errors</span>, <span class="Strong">Releases</span>, <span class="Strong">Open Knowledge</span>
+
+  - Clicking a link takes you to the filtered list for that record type with this CI pre-applied.

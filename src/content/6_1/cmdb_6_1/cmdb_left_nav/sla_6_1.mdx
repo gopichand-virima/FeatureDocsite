@@ -1,0 +1,40 @@
+﻿# SLA
+
+To set up response and resolution times for any CI (Incident, Request, Change, or Problem) whose Root-Cause blueprint’s SLA should apply, follow these steps:
+
+1.  Open the **SLA** tab:
+
+    - Click the desired Blueprint.
+
+    - In the **Details** pane, switch to the **SLA** tab.
+
+    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_67.png" original-image-title=""></span>
+
+<!-- -->
+
+2.  Set response and resolution targets:
+
+    - **Response Time**: Enter the maximum time before the first response.
+
+    - **Resolution Time**: Enter the total time allowed for full resolution. <span class="Emphasis">Note</span>: This value must be at least the sum of your response time and any support-level response windows.
+
+3.  Define support-level response windows:
+
+    - In the **Support Level** fields, specify the response time for each tier (1st, 2nd, 3rd, etc.).
+
+4.  Configure escalation rules:
+
+    1.  <span class="Strong" style="font-weight: bold;">First column</span>: Choose whether the escalation fires <span class="Strong">before</span> or <span class="Strong">after</span> the specified delay.
+
+    2.  <span class="Strong" style="font-weight: bold;">Second column</span>: Enter the delay amount (hours/minutes) before notifications are sent.
+
+    3.  <span class="Strong" style="font-weight: bold;">Third column</span>: Click <span class="Strong" style="font-weight: bold;">Add</span> (for a new recipient list) or <span class="Strong">Update</span> (to edit an existing one), then select users, roles, groups, or departments to alert.
+
+For each rule, specify when it triggers, how long to wait, and who gets notified:
+
+|                                                             |                                                              |                                                                                                                     |
+|-------------------------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| <span class="Strong" style="font-weight: bold;">When</span> | <span class="Strong" style="font-weight: bold;">Delay</span> | <span class="Strong" style="font-weight: bold;">Notification Recipients</span>                                      |
+| <span class="Emphasis">Before/After X</span>                | Time duration (e.g. 30 minutes)                              | Users, roles, groups or departments (select one or many; use the Add/Update buttons to choose or modify recipients) |
+
+5.  Once all fields and escalation rules are set, click <span class="Strong">Save</span> to apply.

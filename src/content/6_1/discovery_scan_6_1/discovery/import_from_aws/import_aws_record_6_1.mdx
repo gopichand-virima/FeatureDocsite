@@ -1,0 +1,36 @@
+﻿---
+title: Import AWS Record
+---
+
+# Import AWS Record
+
+Use this function to import the required AWS resources into the Discovery application.
+
+- From the <span class="Strong">Select Actions</span> drop-down list, choose <span class="Strong">Import</span>. The Import From AWS dialog box displays.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-AWS/Import%20From%20AWS_1_3.png" original-image-title=""></span>
+
+<!-- -->
+
+- In the Name field, enter a name for the import action.
+
+- In the Credential field, click the drop-down list and select the appropriate credential to access the AWS service.
+
+  - If no credentials are listed in the dropdown, add credentials by navigating to <span class="Strong">Admin /> Discovery /> Credentials</span>.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-From-AWS/Import%20From%20AWS_1_4.png" original-image-title=""></span>
+
+<!-- -->
+
+- Select all required services to be imported from the listed AWS services.
+
+- <span class="inline-comment-marker">Click </span><span class="Strong">Add</span><span class="inline-comment-marker"> to import the AWS services to virima.</span>
+
+  - User will be redirected to the import from AWS page, where the new import record will be shown with the Status as “<span class="Strong">Importing</span>”.
+
+  - Once the status is “<span class="Strong">Completed</span>", Click on the imported record to view the imported AWS resources.
+
+  - To view the details of the CI, click on the CI. This redirects you to the discovered item page, where you can view the imported CI details.
+
+If you do not have the necessary permissions to import—such as lacking access to authenticate with a certificate or Secret Key —the system will display an error message:  
+<span class="Strong">"Please check your AWS credentials."</span>

@@ -1,0 +1,115 @@
+﻿---
+title: AWS Import
+---
+
+# AWS Import
+
+# Adding a schedule
+
+1.  Click <span class="Strong">AWS</span> at the top, then <span class="Strong">Select Actions → Add</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS.png" original-image-title=""></span>
+
+2.  Fill the following details:
+
+    - <span class="Strong">Name</span>/*: e.g., “AWS EKS6 Nightly”
+
+    - <span class="Strong">Credential</span>/*: pick your <span class="Strong">AWS_ACCOUNT</span>.
+
+    - <span class="Strong">Timezone</span>: choose the right region.
+
+    - <span class="Strong">Import Frequency</span>: “Current Time Settings” (then use the pickers below), or leave as default and set the wheels.
+
+    - Toggle <span class="Strong">Active</span> (must be on to trigger a scan) and optionally <span class="Strong">Recurring</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_1.png" original-image-title=""></span>
+
+3.  <span class="Strong">Select what has to be imported from AWS</span>/* (at least one):  
+    EC2 Instance, EBS, AMI, Snapshot, Security Group, VPC, Load Balancer, Network ACLs, Auto Scaling, NAT Gateways, Databases and Clusters, S3, DynamoDB, ECR, EKS, Lambda, Batch, AppRunner, etc.
+
+    Tip: Only tick what you need; fewer services = faster imports.
+
+4.  <span class="Strong">Schedule</span> in the time wheels (Second / Minute / Hour / Day / Month / Weekday).
+
+5.  Click <span class="Strong">Save</span>.
+
+6.  The job appears in the AWS list
+
+7.  If <span class="Strong">IsActive=true</span> , <span class="Strong">NextTriggerTime</span> is calculated and displayed
+
+# Importing a AWS Schedule
+
+- Select the desired rows, open <span class="Strong">Select Actions</span>, and click <span class="Strong">Import</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_2.png" original-image-title=""></span>
+
+- You’ll see the <span class="Strong">Import /<Provider/> Schedule</span> popup with a <span class="Strong">Browse</span> button and a link to <span class="Emphasis">Click here to download the sample file</span>.
+
+- (Optional) Download the template. The format of the template file is as below
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_3.png" original-image-title=""></span>
+
+# <span class="Strong">Prepare Your File</span>
+
+- <span class="Strong">Download template:</span> In the <span class="Strong">Import AWS Schedule</span> popup, click the link to <span class="Emphasis">download the sample file</span>.
+
+- <span class="Strong">Headers:</span> Keep the headers exactly as shown in the sample file.
+
+- <span class="Strong">Fill in mandatory fields:</span>
+
+  - <span class="Strong">Name</span> Must contain a string.
+
+  - <span class="Strong">Credentials Enter Credential Name or Credential ID of AWS Account</span>
+
+  - <span class="Strong">Imported</span> Items to be imported, must be separated by commas
+
+  - <span class="Strong">Timezone</span>
+
+  - <span class="Strong">Schedule fields:</span> second, minute, hour, day, month, weekday
+
+- <span class="Strong">Fill in optional/additional fields as required:</span>
+
+  - <span class="Strong">Active:</span> true/false
+
+  - <span class="Strong">Recurring:</span> true/false
+
+# <span class="Strong">Import the File</span>
+
+1.  Click <span class="Strong">Select Actions → Import</span>.
+
+2.  In the popup:
+
+    - Click <span class="Strong">Browse</span>.
+
+    - Select your prepared file.
+
+    - Click <span class="Strong">Upload</span>.
+
+3.  Close the dialog.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_4.png" original-image-title=""></span>
+
+# <span class="Strong">Verify Imported Schedule</span>
+
+- The scheduled jobs will appear in the list/grid.
+
+- If <span class="Strong">IsActive = true</span>, the system will automatically calculate and display <span class="Strong">NextTriggerTime</span>.
+
+- All other relevant columns (including credentials) will be populated.
+
+# Deleting a AWS Schedule
+
+- Select the checkbox in the leftmost column for each schedule you want to remove.
+
+- From the <span class="Strong">Select Actions </span>dropdown, click <span class="Strong">Delete</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_5.png" original-image-title=""></span>
+
+- A <span class="Strong">Delete Confirmation</span> modal appears.
+
+- In the confirmation box, type <span class="Strong">Delete</span> (exactly as shown), then click <span class="Strong">Delete</span>.  
+  The selected schedule(s) are removed and disappear from the grid.
+
+- No imports will be executed from the point of delete
+
+- If an active import is currently running, The import will be completed

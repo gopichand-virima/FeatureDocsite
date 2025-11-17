@@ -1,0 +1,89 @@
+﻿---
+title: SMTP Configuration
+---
+
+# SMTP Configuration
+
+Simple Mail Transfer Protocol (SMTP) is an internet standard for transmission of emails. It is used to send and receive emails with a secured procedure using any script of the website.
+
+Use this function to configure the SMTP.
+
+## Default SMTP Configuration
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+In the main window, click **Admin /> Others /> SMTP Configuration**. The STMP Configuration dialog box displays. The Default option is selected, be default. It uses the Virima configured SMTP server credentials.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/smtp-config-old.png" original-image-title="" style="width: 380px;height: 512px;" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Complete the fields according to the information in the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+When all entries are made, click **Save**.
+
+</div>
+
+## SMTP Configuration: *Default* Fields
+
+| Field                                              | Description                                                                                   |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| <span style="color: #000000;">Username</span>      | Name of the SMTP server                                                                       |
+| Password                                           | Password for the specific Username.                                                           |
+| From                                               | Sender's email address.                                                                       |
+| Reply To                                           | Receiver's email address.                                                                     |
+| Port                                               | SMTP Server port.                                                                             |
+| Host                                               | The IP address of the host used by the SMTP server.                                           |
+| <span style="color: #000000;">Protocol</span>      | The Internet protocol address.                                                                |
+| Enable SSL                                         | When selected, establishes a secure link between the server and the client.                   |
+| Auth                                               | When selected, authenticates the SMTP server.                                                 |
+| TTLS Enable/Required                               | Initiates a connection in decrypt mode on the given port, and if that connection is required. |
+| <span style="color: #000000;">Enable Proxy</span>  | When selected, enables the proxy.                                                             |
+| <span style="color: #000000;">Proxy Details</span> | Identifies the Host, Port, User, and Password.                                                |
+
+## Custom SMTP Configuration
+
+<div class="NumList1" madcap:autonum="1. ">
+
+While viewing the SMTP Configuration dialog box, click **Custom**.<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Other/smtp-config-6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Complete the fields according to the information in the table below.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+When all selections/entries are made, click **Save**.
+
+</div>
+
+## SMTP Configuration: *Custom* Fields
+
+| Field                                                   | Description                                                                                        |
+|---------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| **Authentication**                                      | Authentication Type                                                                                |
+| From                                                    | Sender's email address.                                                                            |
+| Email Type                                              | By default, SMTP is entered.                                                                       |
+| Reply to                                                | Receiver's email address.                                                                          |
+| Port                                                    | SMTP server port number                                                                            |
+| Host                                                    | SMTP server IP address                                                                             |
+| <span style="color: #000000;">Protocol</span>           | Email server connection type                                                                       |
+| Enable SSL                                              | Establishes a secure connection between the server and the client.                                 |
+| Requires Auth?                                          | Authenticates the SMTP server. When selected, enter the Username and Password for the SMTP server. |
+| <span style="color: #000000;">Start TLS Enable</span>   | Starts a connection in decrypt mode on the given port is initiated.                                |
+| <span style="color: #000000;">Start TLS Required</span> | Starts the TLS.                                                                                    |
+| Use Proxy                                               | Connects to the proxy server for intermediary requests from clients.                               |

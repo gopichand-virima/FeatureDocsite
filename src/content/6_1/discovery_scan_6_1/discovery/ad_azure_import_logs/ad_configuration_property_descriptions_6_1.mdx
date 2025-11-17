@@ -1,0 +1,63 @@
+﻿# AD Configuration Property Descriptions
+
+<table class="table_1">
+<tbody>
+<tr>
+<td class="td_1"><p><strong>Property</strong></p></td>
+<td class="td_1"><p><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Name</span></p></td>
+<td class="td_1"><p>A user-defined name for the AD configuration. Helps identify the configuration among multiple AD setups.</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">AD Host</span></p></td>
+<td class="td_1"><p>The hostname or IP address of the Active Directory server.</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Domain</span></p></td>
+<td class="td_1"><p>The domain name managed by the Active Directory server (e.g., <a href="http:/local.virima.com">local.virima.com</a>).</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Base DN</span></p></td>
+<td class="td_1"><p>The Base Distinguished Name. Specifies the starting point in the directory tree for searches (e.g., dc=local,dc=virima,dc=com).</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Bind DN</span></p></td>
+<td class="td_1"><p>The Distinguished Name of the account used to bind (authenticate) to the AD server.</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Bind Password</span></p></td>
+<td class="td_1"><p>The password for the Bind DN account. Used for authentication when connecting to AD.</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Client</span></p></td>
+<td class="td_1"><p>The client or application that will use this AD configuration.</p></td>
+</tr>
+<tr>
+<td class="td_1" style="font-weight: bold"><p><span class="Strong">Login Attribute</span></p></td>
+<td class="td_1"><p>The LDAP attribute used for user login (e.g.,userPrincipalName).</p>
+<ul>
+<li><p>userPrincipalName (UPN) is the default unique identifier for user logins.</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+
+By default, the **Login Attribute** is set to **userPrincipalName**.
+
+3.  Click <span class="Strong" style="font-weight: bold;">Next</span>. The Map Properties tab displays.
+
+4.  Select (check) the fields that need to be imported and map their values (from the given drop down) to that of an applicable AD property.
+
+    <div class="step-media">
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/AD-User-Import-Logs/AD%20User%20Import%20Logs_1_3.png" original-image-title=""></span>
+
+    </div>
+
+5.  Click <span class="Strong" style="font-weight: bold;">Finish </span>to save the AD configuration.
+
+    - A successful message notifies the user after adding AD configuration: “**AD Configuration added successfully**”.
+
+      <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/AD-User-Import-Logs/AD_Configuration.png" original-image-title=""></span>

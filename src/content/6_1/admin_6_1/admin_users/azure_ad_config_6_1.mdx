@@ -1,0 +1,241 @@
+﻿---
+title: Azure AD Configuration
+---
+
+# Azure AD Configuration
+
+Use this function to configure Azure Active Directory (Azure AD), which is a multi-tenant, cloud-based directory and identity management service. Azure AD combines core directory services, advanced identity governance, and application access management.
+
+In the main window, click **Admin /> Users /> Azure AD Configuration**. The Azure AD Configuration window displays.
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/azure-ad-config-old.PNG" original-image-title="" style="width: 628px;height: 70px;"></span>
+
+New Azure AD Configuration
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+From the *Select Actions* drop-down list, choose **New Azure AD Configuration**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+
+In the Configuration tab, enter the required details:
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Name** – Provide a configuration name.
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Client ID** – Enter the Azure application client ID.
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Tenant ID** – Enter the Azure tenant ID.
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Secret Key** – Provide the authentication method (secret key).
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/Azure_AD_Configuration_6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Certificate** – Provide the authentication method (certificate with private key).
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/Azure_AD_Configuration_Certificate_6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Next**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+In the Map Property tab, select fields for import (for example: First Name, Last Name, Email, Phone, Roles, Groups).
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/Azure_AD_Configuration_MapProperty_6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+For each field, choose the property mapping from the drop-down list.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+When all selections/entries are made, click **Finish**.
+
+</div>
+
+Import Users
+
+|     |                                                            |
+|-----|------------------------------------------------------------|
+|     | AZURE Web Services account credentials must be configured. |
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the Azure AD Configuration window, Click the **Import Users** icon (down arrow next to the applicable configuration).
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+In the Azure AD Import dialog box:
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Reflect AD Account Status** – Enable to match user login status with Azure AD.
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Activate User Account** – Enable to make imported users active by default.
+
+</div>
+
+<div class="NumList3" madcap:conditions="Default.OldUI" style="text-indent: 0.5in;">
+
+**Send Activation Notification** – Enable to email users upon account activation.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Import** to begin the process.
+
+</div>
+
+Schedule Import
+
+To schedule an import:
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the Azure AD Configuration window, click the **Schedule Import** (calendar icon). the Schedule AD Import dialog box displays.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/Shedule_Import_Azure_AD_Configuration_6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+In the Schedule Azure AD Import dialog box, to turn on the schedule, click **Enable Schedule Import**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Select **Reflect AD Account Status** to set the user's login status according to AD's account status; otherwise, it will be inactive.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Select **Activate User Account** to turn on the user's account after import.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+To email a notification when the import is complete, click **Send Activation Notification**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+From the **Azure AD Import Frequency** drop-down list and select the applicable frequency. If necessary, modify the Every Day, Every 2 Days, Every Week, etc.
+
+</div>
+
+|     |                                                                                                        |
+|-----|--------------------------------------------------------------------------------------------------------|
+|     | To clear the selection, click the *AD Import Frequency* drop-down list and make a different selection. |
+
+<div class="NumList2" madcap:autonum="7. ">
+
+When all selections/entries are made, click **Add**.
+
+</div>
+
+Property Mappings
+
+<div class="NumList1" madcap:autonum="1. ">
+
+Select an existing record. The Details window displays.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Click **Property Mappings**.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/azure-ad-config-prop-map-old.PNG" original-image-title="" style="width: 477px;height: 155px;" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Check the checkbox next to the properties to include in the import.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Click the drop-down below the property field and select the property to match from the imported file.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+When all selections are made, click **Save**.
+
+</div>
+
+Test Azure AD Configuration
+
+Use this function to validate configured credentials. An error will be shown if, for example, the password was changed in Azure.
+
+From the *Select Actions* drop-down list, choose **Test Azure AD Configuration**.
+
+A message displays, indicating if the credential is valid or invalid.

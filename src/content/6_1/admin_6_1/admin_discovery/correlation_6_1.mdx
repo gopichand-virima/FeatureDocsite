@@ -1,0 +1,167 @@
+﻿---
+title: Correlation
+---
+
+# <span style="background-color: #ffffff;">Correlation</span>
+
+This function finds the applications and devices on the network, then updates the CMDB with the information it finds. In order to avoid duplicate issues, unique properties must be configured for each blueprint. A single copy of every host is kept, even after multiple scans.
+
+New Blueprint Co-relator
+
+<div class="numlist1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+<span class="span_1">In the main window, click </span><span class="Strong_2" style="font-weight: bold;">Admin</span><span class="span_1" style="font-weight: bold;"> /> </span><span class="Strong_2" style="font-weight: bold;">Discovery</span><span class="span_1">** /> Correlation**. The Correlation window displays.</span>
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.OldUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/correlation.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+
+In the main window, click the **gear** icon and select **Discovery /> Correlation**. The Correlation window display.
+
+</div>
+
+<div class="Ind50" madcap:conditions="Default.NewUI">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/correlation-new.PNG" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+</div>
+
+<div class="numlist2" madcap:autonum="2. ">
+
+Click **Add Blueprint Co-relator**. A new row is added to the bottom of the list that allows you to add a rule.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-blueprint-co-relator.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-blueprint-co-relator-new.PNG" original-image-title="" madcap:conditions="Default.NewUI" style="width: 440px;height: 262px;"></span>
+
+</div>
+
+<div class="numlist2" madcap:autonum="3. ">
+
+In the *Select Blueprint* field, click the drop-down list, and choose the applicable IP address (such as DMZ, Route, Website, etc.).
+
+</div>
+
+|     |                                                                                                                                                             |
+|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     | Only one blueprint can be selected. If an existing blueprint is chosen from the list, an alert displays. Return to the list and select an unused blueprint. |
+
+<div class="numlist2" madcap:autonum="4. ">
+
+Click **Add Rule**. The Add Rule dialog box displays.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-rule-dialog-box.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Discovery/add-rule-dialog-box-new.png" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+</div>
+
+<div class="numlist2" madcap:autonum="5. ">
+
+Click the drop-down list and select the *Property*.
+
+</div>
+
+<div class="numlist2" madcap:autonum="6. ">
+
+To add additional properties, click the **plus** icon, and select the additional property or properties.
+
+</div>
+
+<div class="numlist2" madcap:conditions="Default.OldUI" madcap:autonum="7. ">
+
+To delete a selected property, click the **red x** icon.
+
+</div>
+
+<div class="numlist2" madcap:conditions="Default.NewUI" madcap:autonum="8. ">
+
+To delete a selected property, click the **-** (minus) icon.
+
+</div>
+
+<div class="numlist2" madcap:autonum="9. ">
+
+To remove all the property selections, click **Clear**.
+
+</div>
+
+<div class="numlist2" madcap:autonum="10. ">
+
+When all selections or deletions are made, click **Done**. The selected properties are moved to the blueprint.
+
+</div>
+
+Add Rule to an Existing Blueprint
+
+Use this function to add a rule to a blueprint.
+
+<div class="numlist1" madcap:autonum="1. ">
+
+In the Correlation window, locate an existing blueprint.
+
+</div>
+
+<div class="numlist2" madcap:autonum="2. ">
+
+Click the **pencil** icon.
+
+</div>
+
+<div class="numlist2" madcap:autonum="3. ">
+
+In the Add Rule dialog box, make the applicable changes.
+
+</div>
+
+<div class="numlist2" madcap:autonum="4. ">
+
+Click **Done**.
+
+</div>
+
+Delete Rule from an Existing Blueprint
+
+Use this function to delete a rule from a blueprint.
+
+|     |                                                                                                                                 |
+|-----|---------------------------------------------------------------------------------------------------------------------------------|
+|     | If a rule is deleted. the blueprint reverts to the default. For example, if a server is deleted, the default is the IP address. |
+
+<div class="numlist1" madcap:autonum="1. ">
+
+In the Correlation window, locate an existing blueprint.
+
+</div>
+
+<div class="numlist2" madcap:autonum="2. ">
+
+Click the **trashcan** icon. The rule is removed.
+
+</div>
+
+|     |                                                                                                                                       |
+|:---:|---------------------------------------------------------------------------------------------------------------------------------------|
+|     | There is no confirmation window. Therefore, ensure this rule should be deleted before clicking the icon as you cannot undo a removal. |

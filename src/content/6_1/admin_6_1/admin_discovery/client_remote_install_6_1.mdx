@@ -1,0 +1,137 @@
+﻿---
+title: Remote Install
+---
+
+# <span style="background-color: #ffffff;">Remote Install</span>
+
+Use this function to install an agent remotely on a client. To determine if an agent already exists on a client, check the agents tab of the Host Name or IP Address of the host are present.
+
+|     |                                                                                                                                                                                                         |
+|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     | Ensure the client *State* is set to "true." Otherwise, the remote Discovery Agent cannot be installed. Also, the installation of an agent removes the old agent and installs the new agent on the host. |
+
+<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+
+In the main window, click **Admin /> Discovery /> Client**.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+
+In the main window, click the **gear** icon and select **Discovery /> Client**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Select the applicable client. A new window opens with the **Details** tab displayed.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Click the **Discovery Agents** tab.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="5. ">
+
+From the *Select Actions* drop-down list, choose **Remote Install**. The Remote Discovery Agent Install dialog box displays.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="6. ">
+
+Click **Remote Install**. The Remote Discovery Agent Install dialog box displays.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Discovery/remote-discovery-agent-install.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Discovery/remote-discovery-agent-install-new.png" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+</div>
+
+|     |                                                                                       |
+|-----|---------------------------------------------------------------------------------------|
+|     | By default, the *Application IP* address displays. This information cannot be edited. |
+
+<div class="NumList2" madcap:autonum="7. ">
+
+In the *Scan through* field, select the radio button for either **IP Address** or **Host Name**.
+
+</div>
+
+<div class="Bullet2">
+
+If **IP Address** is selected, in the *Agent IP* field, type the **IP address** onto which the agent is installed.
+
+</div>
+
+<div class="Bullet2">
+
+If **Host Name** is selected, in the *Host Names* field, type the **Host Name**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="8. ">
+
+If the *IP Address* or *Host Name* already exists, click the check box for **Re-Install if exist.**
+
+</div>
+
+<div class="NumList2" madcap:autonum="9. ">
+
+Click **Schedule and Install** to specify the time the installation should occur. The *Bulk Schedule Scan dialog box* displays (see below). <span class="Emphasis_2"> A folder in the following path will be created on the machine:<span style="font-family: 'Courier New';"><span style="font-size: 10pt;"> </span></span></span><span class="span_1"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">C:/Program Files/Virima Discovery Application/tools/agent</span></span></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="10. ">
+
+Click **Install** to begin the installation.
+
+</div>
+
+## Bulk Schedule Scan Dialog Box
+
+<span class="image placeholder" original-image-src="../Resources/Images/Discovery/bulk-schedule-scan.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
+
+<span class="image placeholder" original-image-src="../Resources/Images/Discovery/bulk-schedule-scan-new.png" original-image-title="" madcap:conditions="Default.NewUI"></span>
+
+<div class="NumList1" madcap:autonum="1. ">
+
+<span class="span_1">From the **Scan Frequency** drop-down list, select the required frequency for the scan. </span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+To repeat the scan at the frequency selected, select **Is Recurring**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Select the **Time** (Second, Minute, Hour) and **Date** (Day, Month, Weekday) for the scan to occur.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="4. ">
+
+<span class="span_1">Click </span><span class="Strong_2" style="font-weight: bold;">Run</span>.
+
+</div>
+
+<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="5. ">
+
+Click **Update**.
+
+</div>
+
+[Client](Client.htm)

@@ -1,0 +1,1025 @@
+﻿---
+title: CMDB Process Jobs
+---
+
+# CMDB Process Jobs
+
+ 
+
+When any of the these actions are chosen in the Configuration Items *Select Actions* drop-down list, the following occurs:
+
+<div class="Bullet1">
+
+A confirmation message displays.
+
+</div>
+
+<div class="emdash1" madcap:autonum="- ">
+
+Click **Yes** (to start processing). If **Yes** is selected, a Success Message displays, indicating the process has started and will work in the background. Click **OK**.
+
+</div>
+
+<div class="emdash1" madcap:autonum="- ">
+
+or **No** (to cancel the action).
+
+</div>
+
+<div class="Bullet1" madcap:autonum="">
+
+As the processing takes place, a message scrolls across the menu.
+
+</div>
+
+<div class="Bullet1" madcap:autonum="">
+
+When processing is complete, an email notification is sent to the user who initiated the process, confirming the process is complete.
+
+</div>
+
+Process Cloud Hierarchy
+
+**Purpose**: Creates relationship between the cloud imported CIs: -
+
+**Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
+
+### <u>Azure Instances</u>
+
+#### Azure SQL Server Contains Database
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: Azure SQL Server
+
+</div>
+
+<div class="Bullet1">
+
+Target: Database
+
+</div>
+
+### <u>AWS Instances</u>
+
+#### AWS Load Balancer Contains Target Group
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Load Balancer
+
+</div>
+
+<div class="Bullet1">
+
+Target: Target Group
+
+</div>
+
+#### AWS Load Balancer Secured By AWS Security Group
+
+<div class="Bullet1">
+
+Relationship Type: Secured By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Load Balancer
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Security Group
+
+</div>
+
+#### AWS VPC Contains AWS Load Balancer
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS VPC
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Load Balancer
+
+</div>
+
+#### AWS EC2 Instance Secured By AWS Security Group
+
+<div class="Bullet1">
+
+Relationship Type: Secured By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Security Group
+
+</div>
+
+#### AWS EC2 Instance Instantiates “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”
+
+<div class="Bullet1">
+
+Relationship Type: Instantiates
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”
+
+</div>
+
+#### AWS EC2 Instance Attached To AWS EBS
+
+<div class="Bullet1">
+
+Relationship Type: Attached To
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS EBS
+
+</div>
+
+#### AWS EC2 Instance Belongs To AWS VPC
+
+<div class="Bullet1">
+
+Relationship Type: Belongs To
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS VPC
+
+</div>
+
+#### AWS EC2 Instance Contains Target Group
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: Target Group
+
+</div>
+
+#### AWS NAT Gateways Contains AWS Subnet
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS NAT Gateways
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Subnet
+
+</div>
+
+#### AWS Subnet Contains AWS Route Table
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Subnet
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Route Table
+
+</div>
+
+#### AWS EC2 Instance Parts Of AWS Subnet
+
+<div class="Bullet1">
+
+Relationship Type: Parts Of
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS EC2 Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Subnet
+
+</div>
+
+#### AWS Network ACL Contains AWS Subnet
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Network ACL
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Subnet
+
+</div>
+
+#### AWS Internet Gateway Used By Route
+
+<div class="Bullet1">
+
+Relationship Type: Used By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Internet Gateway
+
+</div>
+
+<div class="Bullet1">
+
+Target: Route
+
+</div>
+
+#### AWS Database Cluster Secured By AWS Security Group
+
+<div class="Bullet1">
+
+Relationship Type: Secured By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Database Cluster
+
+</div>
+
+<div class="Bullet1">
+
+Target: AWS Security Group
+
+</div>
+
+#### AWS DocumentDB Used By Route
+
+<div class="Bullet1">
+
+Relationship Type: Used By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS DocumentDB
+
+</div>
+
+<div class="Bullet1">
+
+Target: Route
+
+</div>
+
+#### AWS Neptune Used By Route
+
+<div class="Bullet1">
+
+Relationship Type: Used By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Neptune
+
+</div>
+
+<div class="Bullet1">
+
+Target: Route
+
+</div>
+
+#### AWS RDS Used By Route
+
+<div class="Bullet1">
+
+Relationship Type: Used By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS RDS
+
+</div>
+
+<div class="Bullet1">
+
+Target: Route
+
+</div>
+
+#### AWS Internet Gateway Used By Route
+
+<div class="Bullet1">
+
+Relationship Type: Used By
+
+</div>
+
+<div class="Bullet1">
+
+Source: AWS Internet Gateway
+
+</div>
+
+<div class="Bullet1">
+
+Target: Route
+
+</div>
+
+Process Software Installation
+
+**Purpose**: Creates relationship for Software
+
+**Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
+
+#### Software License Key Component Of Software
+
+<div class="Bullet1">
+
+Relationship Type: Component Of
+
+</div>
+
+<div class="Bullet1">
+
+Source: Software License Key
+
+</div>
+
+<div class="Bullet1">
+
+Target: Software
+
+</div>
+
+#### Software Installed On “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”
+
+<div class="Bullet1">
+
+Relationship Type: Installed On
+
+</div>
+
+<div class="Bullet1">
+
+Source: Software
+
+</div>
+
+<div class="Bullet1">
+
+Target: “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”
+
+</div>
+
+Process ADM
+
+**Purpose**: Creates relationship between various Software and CI’s.
+
+**Limitation/Usage**: This can be processed for single/multiple selected CIs. If no CI is selected then this process will run for the entire CMDB when triggered.
+
+<div class="Bullet1">
+
+*Source Blueprints*: “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”/ “Software Instance”
+
+</div>
+
+<div class="Bullet1">
+
+*Target Blueprints*: “Software Instance”
+
+</div>
+
+#### /<Source Blueprints/> Communicates With /<Target Blueprints/>
+
+<div class="Bullet1">
+
+Relationship Type: Communicates With
+
+</div>
+
+<div class="Bullet1">
+
+Source: /<Source Blueprints/>
+
+</div>
+
+<div class="Bullet1">
+
+Target: /<Target Blueprints/>
+
+</div>
+
+Process VCenter Hierarchy
+
+**Purpose**: Creates relationship for VCenter
+
+**Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
+
+#### Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server” Esxi virtualises host ESXi Host
+
+<div class="Bullet1">
+
+Relationship Type: Esxi virtualises host
+
+</div>
+
+<div class="Bullet1">
+
+Source: “Windows Server”/ “Windows Host”/ “Unix Server”/ “Linux Server”
+
+</div>
+
+<div class="Bullet1">
+
+Target: ESXi Host
+
+</div>
+
+Process Network Connections
+
+**Purpose**: Creates relationship for Switch, Routers and Vlans
+
+**Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
+
+### VLAN Connected To VLAN
+
+<div class="Bullet1">
+
+Relationship Type: Connected To
+
+</div>
+
+<div class="Bullet1">
+
+Source: VLAN
+
+</div>
+
+<div class="Bullet1">
+
+Target: VLAN
+
+</div>
+
+### VLAN Connected To /<Any Blueprint/>
+
+<div class="Bullet1">
+
+Relationship Type: Connected To
+
+</div>
+
+<div class="Bullet1">
+
+Source: VLAN
+
+</div>
+
+<div class="Bullet1">
+
+Target: Any Blueprint
+
+</div>
+
+### VLAN Connected To “Switch”/ “Router”
+
+<div class="Bullet1">
+
+Relationship Type: Connected To
+
+</div>
+
+<div class="Bullet1">
+
+Source: VLAN
+
+</div>
+
+<div class="Bullet1">
+
+Target: “Switch”/ “Router”
+
+</div>
+
+### /<Any Blueprint/> Connected To “Switch”/ “Router”
+
+<div class="Bullet1">
+
+Relationship Type: Connected To
+
+</div>
+
+<div class="Bullet1">
+
+Source: Any Blueprint
+
+</div>
+
+<div class="Bullet1">
+
+Target: “Switch”/ “Router”
+
+</div>
+
+Process Dev Ops
+
+**Purpose**: Creates relationship between the cloud imported CIs: -
+
+**Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
+
+#### Website Hosted On /<Any Blueprint/>
+
+<div class="Bullet1">
+
+Relationship Type: Hosted On
+
+</div>
+
+<div class="Bullet1">
+
+Source: Website
+
+</div>
+
+<div class="Bullet1">
+
+Target: /<Any Blueprint/>
+
+</div>
+
+#### Application Hosts Software Instance
+
+<div class="Bullet1">
+
+Relationship Type: Hosts
+
+</div>
+
+<div class="Bullet1">
+
+Source: Application
+
+</div>
+
+<div class="Bullet1">
+
+Target: Software Instance
+
+</div>
+
+#### Software Instance Load Balancer For Software Instance
+
+<div class="Bullet1">
+
+Relationship Type: Load Balancer For
+
+</div>
+
+<div class="Bullet1">
+
+Source: Software Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: Software Instance
+
+</div>
+
+#### Database Load Balancer For Application
+
+<div class="Bullet1">
+
+Relationship Type: Load Balancer For
+
+</div>
+
+<div class="Bullet1">
+
+Source: Database
+
+</div>
+
+<div class="Bullet1">
+
+Target: Application
+
+</div>
+
+#### Database Hosts Application
+
+<div class="Bullet1">
+
+Relationship Type: Hosts
+
+</div>
+
+<div class="Bullet1">
+
+Source: Database
+
+</div>
+
+<div class="Bullet1">
+
+Target: Application
+
+</div>
+
+#### Database Hosted On Software Instance
+
+<div class="Bullet1">
+
+Relationship Type: Hosted On
+
+</div>
+
+<div class="Bullet1">
+
+Source: Database
+
+</div>
+
+<div class="Bullet1">
+
+Target: Software Instance
+
+</div>
+
+### <u>IIS Websites</u>
+
+#### IIS Website HOSTED ON Application
+
+<div class="Bullet1">
+
+Relationship Type: Hosts
+
+</div>
+
+<div class="Bullet1">
+
+Source: IIS Website
+
+</div>
+
+<div class="Bullet1">
+
+Target: Application
+
+</div>
+
+#### Windows Server / Windows Host Runs IIS Website
+
+<div class="Bullet1">
+
+Relationship Type: Runs
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Server / Windows Host
+
+</div>
+
+<div class="Bullet1">
+
+Target : IIS Website
+
+</div>
+
+#### Windows Server / Windows Host /[Relationship mentioned in port configuration/] /<Any blueprint/>
+
+<div class="Bullet1">
+
+Relationship Type: Relationship mentioned in port configuration
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Server / Windows Host
+
+</div>
+
+<div class="Bullet1">
+
+Target: Any Main Blueprint
+
+</div>
+
+#### Windows Server / Windows Host Load Balances Windows Server / windows Host with Microsoft NLB’s Dedicated IP
+
+<div class="Bullet1">
+
+Relationship Type: Load Balances
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Server/ windows Host
+
+</div>
+
+<div class="Bullet1">
+
+Target: Windows Server / Windows Host with Microsoft NLB’s Dedicated IP
+
+</div>
+
+### <u>MSSQL Instance</u>
+
+#### Windows Server RUNS MSSQL Instance
+
+<div class="Bullet1">
+
+Relationship Type: Runs
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Server
+
+</div>
+
+<div class="Bullet1">
+
+Target: MSSQL Instance
+
+</div>
+
+#### Software Instance Instantiates MSSQL Instance
+
+<div class="Bullet1">
+
+Relationship Type: Instantiates
+
+</div>
+
+<div class="Bullet1">
+
+Source: Software Instance
+
+</div>
+
+<div class="Bullet1">
+
+Target: MSSQL Instance
+
+</div>
+
+### <u>Windows Cluster</u>
+
+#### Windows Cluster Cluster Of Windows Cluster Node
+
+<div class="Bullet1">
+
+Relationship Type: Cluster Of
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Cluster
+
+</div>
+
+<div class="Bullet1">
+
+Target: Windows Cluster Node
+
+</div>
+
+#### Windows Cluster Node Hosted On Windows Server/Windows Host
+
+<div class="Bullet1">
+
+Relationship Type: Windows Cluster
+
+</div>
+
+<div class="Bullet1">
+
+Source: Windows Cluster Node
+
+</div>
+
+<div class="Bullet1">
+
+Target: Windows Server/Windows Host
+
+</div>
+
+### <u>Oracle Cluster</u>
+
+#### Linux Server Hosts Oracle Cluster
+
+<div class="Bullet1">
+
+Relationship Type: Hosts
+
+</div>
+
+<div class="Bullet1">
+
+Source: Linux Server
+
+</div>
+
+<div class="Bullet1">
+
+Target: Oracle Cluster
+
+</div>
+
+#### Oracle Cluster Cluster Of Software Instance
+
+<div class="Bullet1">
+
+Relationship Type: Cluster Of
+
+</div>
+
+<div class="Bullet1">
+
+Source: Oracle Cluster
+
+</div>
+
+<div class="Bullet1">
+
+Target: Software Instance
+
+</div>
+
+### <u>Cisco</u>
+
+#### Cisco UCS Contains Cisco UCS Chassis
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: Cisco UCS
+
+</div>
+
+<div class="Bullet1">
+
+Target: Cisco UCS Chassis
+
+</div>
+
+#### Cisco UCS Chassis Contains Cisco Blade Server
+
+<div class="Bullet1">
+
+Relationship Type: Contains
+
+</div>
+
+<div class="Bullet1">
+
+Source: Cisco UCS
+
+</div>
+
+<div class="Bullet1">
+
+Target: Cisco UCS Chassis
+
+</div>
+
+### <u>HyperV</u>
+
+#### HyperV Virtualizes Windows Server/Windows Host
+
+<div class="Bullet1">
+
+Relationship Type: Virtualizes
+
+</div>
+
+<div class="Bullet1">
+
+Source: HyperV
+
+</div>
+
+<div class="Bullet1">
+
+Target: Windows Server/Windows Host
+
+</div>
+
+ 

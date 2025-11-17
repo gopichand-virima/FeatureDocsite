@@ -1,0 +1,156 @@
+﻿---
+title: Import AWS Record
+---
+
+# Meraki Import
+
+# Add a schedule
+
+1.  Go to <span class="Strong">Discovery → Scheduled Scans and Imports</span> and select the <span class="Strong">Meraki</span> tab.
+
+2.  <span class="Strong">Select Actions → Add</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_11.png" original-image-title=""></span>
+
+3.  Fill the header:
+
+    - <span class="Strong">Name</span>/*: e.g., Meraki Import – Org A.
+
+    - <span class="Strong">Credential</span>/*: pick your Meraki API credential.
+
+    - <span class="Strong">Timezone</span>: choose the correct region.
+
+    - <span class="Strong">Import Frequency</span>: leave <span class="Strong">Current Time Settings</span> and set the wheels below, or change it and still use the wheels.
+
+    - Toggle <span class="Strong">Active</span> (must be ON to execute a scan) and <span class="Strong">Recurring</span> if you want it to repeat.
+
+    - <span class="Strong">Note:</span> Meraki has no per-service checkboxes—your credential controls what’s pulled (orgs/networks/devices the key can see).
+
+4.  Use the time wheels (<span class="Strong">Second / Minute / Hour / Day / Month / Weekday</span>) to schedule.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_12.png" original-image-title=""></span>
+
+5.  <span class="Strong">Save</span>. The job appears in the Meraki list with <span class="Strong">IsActive=true</span> and a <span class="Strong">NextTriggerTime</span>.
+
+# Import Meraki schedules
+
+1.  In the <span class="Strong">Meraki</span> tab, open <span class="Strong">Select Actions → Import</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_13.png" original-image-title=""></span>
+
+- You’ll see the <span class="Strong">Import Meraki Schedule</span> popup with a <span class="Strong">Browse</span> button and a link to <span class="Emphasis">Click here to download the sample file</span>.
+
+- <span class="Strong">Download template:</span> In the <span class="Strong">Import Meraki Schedule</span> popup, click the link to <span class="Emphasis">download the sample file</span>.
+
+# <span class="Strong">Prepare Your File</span>
+
+- <span class="Strong">Headers:</span> Keep the headers exactly as shown in the sample file.
+
+- <span class="Strong">Fill in mandatory fields:</span>
+
+  - <span class="Strong">Name</span> Must contain a string.
+
+  - <span class="Strong">Credentials Enter Credential Name or Credential ID of Meraki Account</span>
+
+  - <span class="Strong">Imported</span> Items to be imported, must be separated by commas
+
+  - <span class="Strong">Timezone</span>
+
+  - <span class="Strong">Schedule fields:</span> second, minute, hour, day, month, weekday
+
+- <span class="Strong">Fill in optional/additional fields as required:</span>
+
+  - <span class="Strong">Active:</span> true/false
+
+  - <span class="Strong">Recurring:</span> true/false
+
+# <span class="Strong">Import the File</span>
+
+1.  Click <span class="Strong">Select Actions → Import</span>.
+
+2.  In the popup:
+
+    - Click <span class="Strong">Browse</span>.
+
+    - Select your prepared file.
+
+    - Click <span class="Strong">Upload</span>.
+
+3.  Close the dialog.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_14.png" original-image-title=""></span>
+
+# <span class="Strong">Verify Imported Schedule</span>
+
+- The scheduled jobs will appear in the list/grid.
+
+- If <span class="Strong">IsActive = true</span>, the system will automatically calculate and display <span class="Strong">NextTriggerTime</span>.
+
+- All other relevant columns (including credentials) will be populated.
+
+# Delete a Meraki schedule
+
+1.  Tick the checkbox for each Meraki schedule you want to remove.
+
+2.  <span class="Strong">Select Actions → Delete</span>.
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Scheduled-Scans-and-Imports/Scheduled%20Import%20setup%20AWS_15.png" original-image-title=""></span>
+
+3.  In <span class="Strong">Delete Confirmation</span>, type <span class="Strong">Delete</span> exactly, then click <span class="Strong">Delete</span>.
+
+4.  The selected rows disappear from the grid.
+
+5.  No imports will be executed from the point of delete
+
+6.  If an active import is currently running, The import will be completed
+
+# Additional notes on Excel import behavior
+
+When importing scan records using an Excel sheet, the following conditions and behaviors apply:
+
+- <span class="Strong">Past timestamps are ignored</span>
+
+  - If the timestamp specified in the Excel sheet is a past date/time, that record will <span class="Strong">not be imported</span>. The system will <span class="Strong">skip</span> the record to avoid scheduling outdated scans.
+
+- <span class="Strong">Active status handling</span>
+
+  - If the Active status in the Excel sheet is set to true, the record will be stored and a scan shall be triggered at the scheduled time
+
+  - If the Active status is set to false or left <span class="Strong">blank</span>, the record will be stored but a scan will not be triggered
+
+- <span class="Strong">Recurring flag behavior</span>
+
+  - If the Recurring field is set to true, the system treats it as a <span class="Strong">recurring scan scheduled every year</span>, and the value is stored in the DB as /*.
+
+  - If the Recurring field is set to false or left <span class="Strong">blank</span>, the scan is treated as <span class="Strong">current year only</span>.
+
+- <span class="Strong">Client status requirement</span>
+
+  - The scan record will only be imported if the associated <span class="Strong">client is active</span>. If the client is <span class="Strong">inactive</span> or not properly configured, the system will <span class="Strong">not import</span> the record.
+
+- <span class="Strong">Time component validation</span>
+
+  - If the minute field is set to /*, the system will <span class="Strong">not import</span> the record.
+
+  - If the day field is set to /*, it will be interpreted as <span class="Strong">every day</span>.
+
+  - If the hour field is set to /*, it will be interpreted as <span class="Strong">every hour</span>.
+
+  - If the month field is set to /*, it will be interpreted as <span class="Strong">every month</span>.
+
+  - If the weekdays field is set to /*, it will be interpreted as <span class="Strong">every week</span>.
+
+You can use either the month or weekdays field — <span class="Strong">not both</span> simultaneously.
+
+- <span class="Strong">Only numeric values</span> are accepted in the month and weekdays fields. <span class="Strong">Alphabetic representations (e.g., "Jan", "Mon") are not allowed</span> and will result in import failure.
+
+|                                       |                                                   |                                                                              |
+|---------------------------------------|---------------------------------------------------|------------------------------------------------------------------------------|
+| <span class="Strong">Condition</span> | <span class="Strong">Excel Import Behavior</span> | <span class="Strong">Manual UI Behavior</span>                               |
+| Past Schedule Time                    | Record skipped silently                           | Alert message: <span class="Emphasis">"Enter a proper schedule time."</span> |
+
+1.  <span class="Strong">Cron Expression (human-readable)</span>
+
+    - This line summarizes the schedule you build with the wheels below (e.g., <span class="Emphasis">“at 2, 5 and 6 minutes at 0, 2, 3, 6 and 7 hours”</span>).
+
+    - Treat it as a <span class="Strong">preview</span>: changing the wheels updates this text. Use it to sanity-check your schedule.

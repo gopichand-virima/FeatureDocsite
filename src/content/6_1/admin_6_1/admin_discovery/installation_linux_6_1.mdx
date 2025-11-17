@@ -1,0 +1,72 @@
+﻿---
+title: Installing the Linux Application
+---
+
+# Installing and Running the Linux Application
+
+<span class="span_1">The Linux Application can perform </span><span class="span_2">Unix System Discovery</span><span class="span_1"> and </span><span class="span_2">Network Device Discovery</span><span class="span_1"> in a Network.</span>
+
+Once the application is downloaded, follow the below installation steps:
+
+<div class="NumList1" madcap:autonum="1. ">
+
+Push the *tar* file onto a Linux Machine.
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Untar the file by running the following:  
+<span class="span_2"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">command</span></span></span><span class="span_1"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">: </span></span></span><span class="span_4"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">tar -xvf VirimaLinuxAgent.tar</span></span></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Install the Virima Linux Application into the folder <span style="font-family: 'Courier New'; font-size: 10pt;">/opt/virima</span>.as a service by running the following:  
+<span class="span_2"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">command</span></span></span><span class="span_1"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;">:</span></span></span><span class="span_4"><span style="font-family: 'Courier New';"><span style="font-size: 10pt;"> bash install.sh</span>  
+</span></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+<span class="span_1">In the <span style="font-family: 'Courier New'; font-size: 10pt;">confirmation.xml</span> file found at <span style="font-size: 10pt; font-family: 'Courier New';">/opt/virima/config/</span>, enter your **Virima User Name,** **Password,** and the preferred **Application**. </span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+<span class="span_1">To start the service, from the main window, select **[<span class="span_1">**Admin /> Client**</span>](Client.htm)**</span><span class="span_1" style="font-weight: normal;">.</span>
+
+</div>
+
+|     |                                                             |
+|-----|-------------------------------------------------------------|
+|     | If the Client state is *false*, try restarting the service. |
+
+## Commands to Run the Application on Linux
+
+<div class="Bullet1">
+
+<span class="span_2">**Starting** application command</span><span class="span_1">: </span><span class="span_4">service: <span style="font-family: 'Courier New'; font-size: 10pt;">virimadiscoveryagent start</span></span>
+
+</div>
+
+<div class="Bullet1">
+
+<span class="span_2">**Stopping** application command</span><span class="span_1">: </span><span class="span_4">service: <span style="font-size: 10pt; font-family: 'Courier New';">virimadiscoveryagent stop</span></span>
+
+</div>
+
+<div class="Bullet1">
+
+<span class="span_2">**Restarting** application command</span><span class="span_1">: </span><span class="span_4">service: <span style="font-size: 10pt; font-family: 'Courier New';">virimadiscoveryagent restart</span></span>
+
+</div>
+
+<div class="Bullet1">
+
+<span class="span_2">**Uninstall** application command</span><span class="span_1">: </span><span class="span_4">service: <span style="font-size: 10pt; font-family: 'Courier New';">virimadiscoveryagent uninstall</span></span>
+
+</div>

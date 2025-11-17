@@ -1,0 +1,154 @@
+﻿---
+title: Jira Credentials
+---
+
+# Create an Object Schema in Jira
+
+You can create a new Object Schema directly from Virima:
+
+- Go to the <span class="Strong">Schema Wizard</span> in Jira Credentials.  
+  <span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/JIRA%20Integration_5.png" original-image-title=""></span>
+
+<!-- -->
+
+- Select <span class="Strong">Create Object Schema</span>.  
+  <span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/JIRA%20Integration_6.png" original-image-title=""></span>
+
+<!-- -->
+
+- In the <span class="Strong">Add New Object Schema</span> wizard, enter:
+
+  - <span class="Strong">Schema Name</span> (mandatory)
+
+  - <span class="Strong">Key</span> (mandatory, 2–10 alphanumeric characters only)
+
+  - <span class="Strong">Description</span>
+
+- Select <span class="Strong">Add</span>.  
+  The schema is added to Jira and appears in the Schema Wizard list.
+
+# Jira Credentials
+
+Use this function to specify the credentials for the Jira domain.
+
+<div class="NumList1" madcap:autonum="1. ">
+
+In the main window, click **Admin /> Integrations /> Jira Credentials**.
+
+</div>
+
+<div class="Ind50">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/JIra-Credentials-6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="2. ">
+
+Enter a *Username*, the applicable *Domain* and *API Key*.
+
+</div>
+
+<div class="NumList2" madcap:autonum="3. ">
+
+Click **Next**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="4. ">
+
+Choose one or both:
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+*Asset Management* – Sync Virima metadata into Jira Assets (CMDB).
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+*Service Management* – Sync Jira Incidents and Changes into Virima.
+
+</div>
+
+<div class="NumList2" madcap:autonum="5. ">
+
+Click **Next**.
+
+</div>
+
+<div class="NumList2" madcap:autonum="6. ">
+
+**Asset management setup:**
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+Choose specific object schemas from the dropdown or select *All Object Schemas* to include all available schemas.
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+Select **Yes** to sync Virima Blueprints into Jira schemas. **No** to skip.
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/JIra-Credentials-Asset_Management_6.1.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="7. ">
+
+**Service management setup:**
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+Select *All Projects* or choose specific projects from the dropdown. Click **Next**.
+
+</div>
+
+<div style="text-indent: 0.5in;">
+
+<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/Jira_Service_Management_6.1png.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="8. ">
+
+Select *All incident type issues* or choose specific types.
+
+</div>
+
+<div class="NumList2" madcap:autonum="9. ">
+
+Select *Incident type issues*, choose how to retrieve issues by clicking **Assets** or **Custom** (link Asset Name to Jira incidents or map properties), and click **Next**.<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/Jira_incident.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="10. ">
+
+Select *All change type issues* or choose specific types.
+
+</div>
+
+<div class="NumList2" madcap:autonum="11. ">
+
+Select *Change types issues*, choose how to retrieve change issues by clicking **Assets** or **Custom** (link Asset Name to Jira changes or map properties), and click **Save**.<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/Jira_change.png" original-image-title=""></span>
+
+</div>
+
+<div class="NumList2" madcap:autonum="12. ">
+
+A popup will confirm the process. You will receive an email notification once it finishes. Select **Yes** to confirm.
+
+</div>
+
+[Jira Mappings](Jira-Mappings.htm)

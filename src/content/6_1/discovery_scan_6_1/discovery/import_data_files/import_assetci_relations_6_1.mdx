@@ -1,0 +1,77 @@
+﻿---
+title: Import Data File
+---
+
+# Import Asset/CI Relations
+
+After moving the CI into the CMDB, to import asset-to-CI relationships:
+
+1.  Select the file containing relationship data.
+
+2.  From the <span class="Strong" style="font-weight: bold;">Select Actions</span> menu, click <span class="Strong" style="font-weight: bold;">Import Asset/CI Relations</span>.
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_19.png" original-image-title=""></span>
+
+<!-- -->
+
+3.  The <span class="Strong" style="font-weight: bold;">Attach Asset/CI Relations Files</span> window appears, allowing you to upload and map your asset-to-CI relationship data files.
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_20.png" original-image-title=""></span>
+
+<!-- -->
+
+4.  In the <span class="Strong">Attach Asset/CI Relations File</span> window:
+
+    - Click <span class="Strong" style="font-weight: bold;">Browse</span> to select a supported file format (.xls, .xlsx, or .csv).
+
+    - (Optional) Download the sample file for correct formatting.
+
+# <span class="inline-comment-marker">Relationship Import — Columns & Rules</span>
+
+Creates links between two existing CIs in CMDB. Use it after the CIs are already in CMDB (or after you have moved imported CIs into CMDB).
+
+<span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_21.png" original-image-title=""></span>
+
+<span class="Strong">Supported formats:</span> .xls, .xlsx, .csv
+
+<span class="Strong" style="font-weight: bold;">Mandatory columns (must be present & filled):</span>
+
+- <span class="Strong" style="font-weight: bold;">Source Asset Id</span>  
+  The CMDB ID of the “from” CI (e.g., AST001450). Must be an existing CI ID.
+
+- <span class="Strong" style="font-weight: bold;">Relationship</span>  
+  The relationship type name (e.g., Allocated To, Connected To, Feeds).  
+  ➤ Must exactly match a configured relationship name in <span class="Strong">Admin → SACM→ Relationship Types</span> (spelling/case must match; no free-text).
+
+- <span class="Strong" style="font-weight: bold;">Target Asset ID</span>  
+  The CMDB ID of the “to” CI (e.g., AST001565). Must be an existing CI ID.
+
+<span class="Strong" style="font-weight: bold;">Optional columns (populate when relevant):</span>
+
+- <span class="Strong" style="font-weight: bold;">Source Port</span>  
+  Port (or interface) on the source CI (e.g., Ethernet1/1, 8080). Free text.
+
+- <span class="Strong" style="font-weight: bold;">Target Port</span>  
+  <span class="inline-comment-marker">Port (or interface) on the target CI (e.g., </span><span class="inline-comment-marker_1">Gi0/2</span><span class="inline-comment-marker">, </span><span class="inline-comment-marker_1">443</span><span class="inline-comment-marker">). Free text.</span>
+
+5.  <span class="inline-comment-marker">Click </span><span class="Strong" style="font-weight: bold;">Upload</span><span class="inline-comment-marker">.</span>
+
+- If a user attempts to upload a file in an unsupported format such as .txt on the Import Data Files page, the system immediately rejects the file and displays an error message.
+
+  <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_11.png" original-image-title=""></span>
+
+6.  <span class="inline-comment-marker">The system processes the file and displays the imported relationship mappings for review.</span>
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_22.png" original-image-title=""></span>
+
+<!-- -->
+
+7.  Click <span class="Strong">**Submit**.</span>
+
+8.  Confirmation message pop-up will be displayed "Success Message - Import added successfully"
+
+    <span class="image placeholder" original-image-src="../../Resources/Images/Discovery/Import-Data-Files/Import%20Data%20Files_1_23.png" original-image-title=""></span>
+
+<!-- -->
+
+9.  <span class="inline-comment-marker">The user can view the relationship under CMDB CI details page.</span>

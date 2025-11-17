@@ -1,15 +1,55 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 import { DocumentationLayout } from './components/DocumentationLayout';
 import { DocumentationContent } from './components/DocumentationContent';
 import { HomePage } from './components/HomePage';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 
-export default function App() {
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [selectedVersion, setSelectedVersion] = useState('NextGen');
   const [selectedModule, setSelectedModule] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedPage, setSelectedPage] = useState('');
   const versionDropdownTriggerRef = useRef<(() => void) | null>(null);
+
+  // Sync URL with state on mount and location changes
+  useEffect(() => {
+    const path = location.pathname.replace(/^\//, '');
+    if (!path || path === '') {
+      setSelectedModule('');
+      setSelectedSection('');
+      setSelectedPage('');
+      return;
+    }
+
+    const parts = path.split('/');
+    if (parts.length >= 1 && parts[0]) {
+      const version = parts[0];
+      setSelectedVersion(version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen');
+    }
+    if (parts.length >= 2 && parts[1]) {
+      setSelectedModule(parts[1]);
+    }
+    if (parts.length >= 3 && parts[2]) {
+      setSelectedSection(parts[2]);
+    }
+    if (parts.length >= 4 && parts[3]) {
+      setSelectedPage(parts[3]);
+    }
+  }, [location]);
+
+  // Update URL when state changes
+  const updateURL = (version: string, module: string, section: string, page: string) => {
+    if (!module) {
+      navigate('/');
+      return;
+    }
+    const versionPath = version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen';
+    const path = `/${versionPath}/${module}${section ? `/${section}` : ''}${page ? `/${page}` : ''}`;
+    navigate(path);
+  };
 
   const showHomePage = !selectedModule;
 
@@ -18,32 +58,47 @@ export default function App() {
       <DocumentationLayout
         logo={logo}
         selectedVersion={selectedVersion}
-        onVersionChange={setSelectedVersion}
+        onVersionChange={(version) => {
+          setSelectedVersion(version);
+          updateURL(version, selectedModule, selectedSection, selectedPage);
+        }}
         selectedModule={selectedModule}
         onModuleChange={(module) => {
           setSelectedModule(module);
+          let section = '';
+          let page = '';
           if (module === 'cmdb') {
-            setSelectedSection('cmdb');
-            setSelectedPage('access-cmdb');
+            section = 'cmdb';
+            page = 'access-cmdb';
           } else if (module === 'discovery-scan') {
-            setSelectedSection('discovery-scan');
-            setSelectedPage('access-dashboard');
+            section = 'discovery-scan';
+            page = 'access-dashboard';
           } else if (module === 'my-dashboard') {
-            setSelectedSection('my-dashboard');
-            setSelectedPage('my-dashboard-overview');
+            section = 'my-dashboard';
+            page = 'my-dashboard-overview';
           } else {
-            setSelectedSection('application-overview');
-            setSelectedPage('advanced-search');
+            section = 'application-overview';
+            page = 'advanced-search';
           }
+          setSelectedSection(section);
+          setSelectedPage(page);
+          updateURL(selectedVersion, module, section, page);
         }}
         selectedSection={selectedSection}
-        onSectionChange={setSelectedSection}
+        onSectionChange={(section) => {
+          setSelectedSection(section);
+          updateURL(selectedVersion, selectedModule, section, selectedPage);
+        }}
         selectedPage={selectedPage}
-        onPageChange={setSelectedPage}
+        onPageChange={(page) => {
+          setSelectedPage(page);
+          updateURL(selectedVersion, selectedModule, selectedSection, page);
+        }}
         onHomeClick={() => {
           setSelectedModule('');
           setSelectedSection('');
           setSelectedPage('');
+          updateURL(selectedVersion, '', '', '');
         }}
         isHomePage={showHomePage}
         versionDropdownTriggerRef={versionDropdownTriggerRef}
@@ -51,19 +106,24 @@ export default function App() {
         {showHomePage ? (
           <HomePage onModuleSelect={(module) => {
             setSelectedModule(module);
+            let section = '';
+            let page = '';
             if (module === 'cmdb') {
-              setSelectedSection('cmdb');
-              setSelectedPage('access-cmdb');
+              section = 'cmdb';
+              page = 'access-cmdb';
             } else if (module === 'discovery-scan') {
-              setSelectedSection('discovery-scan');
-              setSelectedPage('access-dashboard');
+              section = 'discovery-scan';
+              page = 'access-dashboard';
             } else if (module === 'my-dashboard') {
-              setSelectedSection('my-dashboard');
-              setSelectedPage('my-dashboard-overview');
+              section = 'my-dashboard';
+              page = 'my-dashboard-overview';
             } else {
-              setSelectedSection('application-overview');
-              setSelectedPage('advanced-search');
+              section = 'application-overview';
+              page = 'advanced-search';
             }
+            setSelectedSection(section);
+            setSelectedPage(page);
+            updateURL(selectedVersion, module, section, page);
           }} />
         ) : (
           <DocumentationContent
@@ -77,19 +137,24 @@ export default function App() {
               setSelectedPage('');
             }}
             onModuleClick={() => {
+              let section = '';
+              let page = '';
               if (selectedModule === 'cmdb') {
-                setSelectedSection('cmdb');
-                setSelectedPage('access-cmdb');
+                section = 'cmdb';
+                page = 'access-cmdb';
               } else if (selectedModule === 'discovery-scan') {
-                setSelectedSection('discovery-scan');
-                setSelectedPage('access-dashboard');
+                section = 'discovery-scan';
+                page = 'access-dashboard';
               } else if (selectedModule === 'my-dashboard') {
-                setSelectedSection('my-dashboard');
-                setSelectedPage('my-dashboard-overview');
+                section = 'my-dashboard';
+                page = 'my-dashboard-overview';
               } else {
-                setSelectedSection('application-overview');
-                setSelectedPage('advanced-search');
+                section = 'application-overview';
+                page = 'advanced-search';
               }
+              setSelectedSection(section);
+              setSelectedPage(page);
+              updateURL(selectedVersion, selectedModule, section, page);
             }}
             onVersionClick={() => {
               versionDropdownTriggerRef.current?.();
@@ -98,5 +163,13 @@ export default function App() {
         )}
       </DocumentationLayout>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter basename="/FeatureDocsite">
+      <AppContent />
+    </BrowserRouter>
   );
 }

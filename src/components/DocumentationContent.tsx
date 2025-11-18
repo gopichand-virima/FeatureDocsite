@@ -997,14 +997,52 @@ export function DocumentationContent({
     const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
     
     // ITAM breadcrumb hierarchy
-    const itamConfigurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-details-and-tabs", "other-functions-and-page-elements"];
-    const itamCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-details-and-tabs", "other-functions-and-page-elements"];
-    const itamManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation", "process-network-virtualization-hierarchy"];
-    const itamViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
-    const itamCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
-    const itamDetailsNestedPages = ["manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    const itamConfigurationManagementPages = [
+      "dashboard", "cmdb", "access-cmdb", "manage-cmdb",
+      "view-and-edit-ci", "ci-details-and-tabs",
+      "other-functions-and-page-elements"
+    ];
+    const itamCmdbPages = [
+      "access-cmdb", "manage-cmdb", "view-and-edit-ci",
+      "ci-details-and-tabs", "other-functions-and-page-elements"
+    ];
+    const itamManageCmdbPages = [
+      "audits", "change-attributes", "delete", "export", "new",
+      "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow",
+      "generate-installed-software-report", "process-adm",
+      "process-available-patch-report", "process-cloud-hierarchy",
+      "process-devops", "process-missing-components",
+      "process-network-connection", "process-software-installation",
+      "process-network-virtualization-hierarchy"
+    ];
+    const itamViewEditCiPages = [
+      "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details",
+      "manage-ci", "business-service-map", "components", "logon-events",
+      "itsm", "relationships", "audits-tab", "sla", "maintenance",
+      "vulnerability", "private-properties", "tasks", "history",
+      "attachments", "comments"
+    ];
+    const itamCiDetailsPages = [
+      "details", "manage-ci", "business-service-map", "components",
+      "logon-events", "itsm", "relationships", "audits-tab", "sla",
+      "maintenance", "vulnerability", "private-properties", "tasks",
+      "history", "attachments", "comments"
+    ];
+    const itamDetailsNestedPages = [
+      "manage-ci", "business-service-map", "components", "logon-events",
+      "itsm", "relationships", "audits-tab", "sla", "maintenance",
+      "vulnerability", "private-properties", "tasks", "history",
+      "attachments", "comments"
+    ];
     const itamOtherFunctionsPages = ["sync-logs", "tags", "audits"];
-    const itamProcurementPages = ["requested-items", "purchase-orders", "purchase-order-line-items", "receiving-slips", "receiving-slip-lines", "transfer-order"];
+    const itamProcurementPages = [
+      "requested-items", "purchase-orders", "purchase-order-line-items",
+      "receiving-slips", "receiving-slip-lines", "transfer-order"
+    ];
+    
+    
+    
+    
     
     // Self Service breadcrumb hierarchy
     const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
@@ -1102,7 +1140,6 @@ export function DocumentationContent({
     const isUnderItsmOtherFunctions = section === "itsm" && (itsmOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
     
     // ITAM hierarchy checks
-    const isUnderItamConfigurationManagement = section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management");
     const isUnderItamCmdb = section === "itam" && (itamCmdbPages.includes(page) || page === "cmdb");
     const isUnderItamManageCmdb = section === "itam" && (itamManageCmdbPages.includes(page) || page === "manage-cmdb");
     const isUnderItamViewEditCi = section === "itam" && (itamViewEditCiPages.includes(page) || page === "view-and-edit-ci");
@@ -3836,6 +3873,68 @@ function DefaultContent({
   const itsmDetailsNestedPages = ["manage-ci", "business-service-map"];
   
   const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+  
+  // ITAM breadcrumb hierarchy
+  const itamConfigurationManagementPages = [
+    "dashboard", "cmdb", "access-cmdb", "manage-cmdb",
+    "view-and-edit-ci", "ci-details-and-tabs",
+    "other-functions-and-page-elements"
+  ];
+  const itamCmdbPages = [
+    "access-cmdb", "manage-cmdb", "view-and-edit-ci",
+    "ci-details-and-tabs", "other-functions-and-page-elements"
+  ];
+  const itamManageCmdbPages = [
+    "audits", "change-attributes", "delete", "export", "new",
+    "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow",
+    "generate-installed-software-report", "process-adm",
+    "process-available-patch-report", "process-cloud-hierarchy",
+    "process-devops", "process-missing-components",
+    "process-network-connection", "process-software-installation",
+    "process-network-virtualization-hierarchy"
+  ];
+  const itamViewEditCiPages = [
+    "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details",
+    "manage-ci", "business-service-map", "components", "logon-events",
+    "itsm", "relationships", "audits-tab", "sla", "maintenance",
+    "vulnerability", "private-properties", "tasks", "history",
+    "attachments", "comments"
+  ];
+  const itamCiDetailsPages = [
+    "details", "manage-ci", "business-service-map", "components",
+    "logon-events", "itsm", "relationships", "audits-tab", "sla",
+    "maintenance", "vulnerability", "private-properties", "tasks",
+    "history", "attachments", "comments"
+  ];
+  const itamDetailsNestedPages = [
+    "manage-ci", "business-service-map", "components", "logon-events",
+    "itsm", "relationships", "audits-tab", "sla", "maintenance",
+    "vulnerability", "private-properties", "tasks", "history",
+    "attachments", "comments"
+  ];
+  const itamOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+  const itamProcurementPages = [
+    "requested-items", "purchase-orders", "purchase-order-line-items",
+    "receiving-slips", "receiving-slip-lines", "transfer-order"
+  ];
+  
+  // ITAM hierarchy checks
+  const isUnderItamConfigurationManagement =
+    section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management");
+  const isUnderItamCmdb =
+    section === "itam" && (itamCmdbPages.includes(page) || page === "cmdb");
+  const isUnderItamManageCmdb =
+    section === "itam" && (itamManageCmdbPages.includes(page) || page === "manage-cmdb");
+  const isUnderItamViewEditCi =
+    section === "itam" && (itamViewEditCiPages.includes(page) || page === "view-and-edit-ci");
+  const isUnderItamCiDetails =
+    section === "itam" && (itamCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
+  const isUnderItamDetailsNested =
+    section === "itam" && (itamDetailsNestedPages.includes(page) || page === "details");
+  const isUnderItamOtherFunctions =
+    section === "itam" && (itamOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
+  const isUnderItamProcurement =
+    section === "itam" && (itamProcurementPages.includes(page) || page === "procurement");
   
   // Vulnerability Management breadcrumb hierarchy
   const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];

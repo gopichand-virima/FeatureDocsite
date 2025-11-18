@@ -1,3 +1,4 @@
+import React from "react";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Calendar, Clock, ArrowRight, Home } from "lucide-react";
@@ -280,6 +281,73 @@ export function DocumentationContent({
   onPageClick,
 }: DocumentationContentProps) {
   const moduleName = moduleNames[module] || module;
+  
+  // Helper function to get page label from page ID (matches TOC structure)
+  // This ensures breadcrumb labels match the TOC exactly
+  const getPageLabel = (pageId: string): string => {
+    // Map of page IDs to their display labels (matching TOC structure)
+    const pageLabelMap: Record<string, string> = {
+      // Application Overview pages
+      "system-icons": "System Icons",
+      "user-specific-functions": "User Specific Functions",
+      "online-help": "Online Help",
+      "shared-functions": "Shared Functions",
+      "advanced-search": "Advanced Search",
+      "attachments": "Attachments",
+      "auto-refresh": "Auto Refresh",
+      "collapse-maximize": "Collapse/Maximize",
+      "comments": "Comments",
+      "copy-to-cherwell": "Copy to Cherwell",
+      "copy-to-ivanti": "Copy to Ivanti",
+      "copy-to-servicenow": "Copy to ServiceNow",
+      "delete-remove": "Delete/Remove",
+      "email-preferences": "Email Preferences",
+      "enable-disable-editing": "Enable/Disable Editing",
+      "export": "Export",
+      "filter-by": "Filter By",
+      "history": "History",
+      "import": "Import",
+      "items-per-page": "Items per Page",
+      "mark-as-knowledge": "Mark as Knowledge",
+      "other-asset-info": "Other Asset Info",
+      "outage-calendar": "Outage Calendar",
+      "personalize-columns": "Personalize Columns",
+      "print": "Print",
+      "process-adm": "Process ADM",
+      "process-missing-components": "Process Missing Components",
+      "records-per-page": "Records per Page",
+      "reload-default-mapping": "Reload Default Mapping",
+      "re-scan": "Re-scan",
+      "re-sync-data": "Re-Sync Data",
+      "save": "Save",
+      "saved-filters": "Saved Filters",
+      "searching": "Searching",
+      "show-main-all-properties": "Show Main/All Properties",
+      "tasks": "Tasks",
+      "updates": "Updates",
+      "version-control": "Version Control",
+      // My Dashboard pages
+      "my-dashboard-overview": "Overview",
+      "dashboards": "Dashboards",
+      "dashboards-contents": "Contents",
+      "customization": "Customization",
+      "report-actions": "Report Actions",
+      "my-dashboard-section": "My Dashboard",
+      "my-dashboard-contents": "Contents",
+      // Add more mappings as needed - this ensures consistency with TOC
+    };
+    
+    // If we have a label mapping, use it; otherwise format from page ID
+    if (pageLabelMap[pageId]) {
+      return pageLabelMap[pageId];
+    }
+    
+    // Fallback: format page ID to readable label
+    return pageId
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
   
   // Helper function to get parent topic page ID from parent topic name
   const getParentTopicPageId = (parentTopicName: string): string | null => {
@@ -771,11 +839,8 @@ export function DocumentationContent({
     else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
     else if (isUnderOthers && page !== "others") parentTopic = "Others";
     
-    // Format page name for display
-    const pageDisplayName = page
-      .split("-")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    // Format page name for display using TOC label lookup
+    const pageDisplayName = getPageLabel(page);
     
     return (
       <div className="flex flex-col gap-3 mb-8 not-prose">
@@ -2456,6 +2521,73 @@ function DefaultContent({
    * - Discovery Scan: Dashboard / Run a Scan / Recent Scans / Azure AD User Import Logs > [child pages with nested hierarchies]
    */
   
+  // Helper function to get page label from page ID (matches TOC structure)
+  // This ensures breadcrumb labels match the TOC exactly
+  const getPageLabel = (pageId: string): string => {
+    // Map of page IDs to their display labels (matching TOC structure)
+    const pageLabelMap: Record<string, string> = {
+      // Application Overview pages
+      "system-icons": "System Icons",
+      "user-specific-functions": "User Specific Functions",
+      "online-help": "Online Help",
+      "shared-functions": "Shared Functions",
+      "advanced-search": "Advanced Search",
+      "attachments": "Attachments",
+      "auto-refresh": "Auto Refresh",
+      "collapse-maximize": "Collapse/Maximize",
+      "comments": "Comments",
+      "copy-to-cherwell": "Copy to Cherwell",
+      "copy-to-ivanti": "Copy to Ivanti",
+      "copy-to-servicenow": "Copy to ServiceNow",
+      "delete-remove": "Delete/Remove",
+      "email-preferences": "Email Preferences",
+      "enable-disable-editing": "Enable/Disable Editing",
+      "export": "Export",
+      "filter-by": "Filter By",
+      "history": "History",
+      "import": "Import",
+      "items-per-page": "Items per Page",
+      "mark-as-knowledge": "Mark as Knowledge",
+      "other-asset-info": "Other Asset Info",
+      "outage-calendar": "Outage Calendar",
+      "personalize-columns": "Personalize Columns",
+      "print": "Print",
+      "process-adm": "Process ADM",
+      "process-missing-components": "Process Missing Components",
+      "records-per-page": "Records per Page",
+      "reload-default-mapping": "Reload Default Mapping",
+      "re-scan": "Re-scan",
+      "re-sync-data": "Re-Sync Data",
+      "save": "Save",
+      "saved-filters": "Saved Filters",
+      "searching": "Searching",
+      "show-main-all-properties": "Show Main/All Properties",
+      "tasks": "Tasks",
+      "updates": "Updates",
+      "version-control": "Version Control",
+      // My Dashboard pages
+      "my-dashboard-overview": "Overview",
+      "dashboards": "Dashboards",
+      "dashboards-contents": "Contents",
+      "customization": "Customization",
+      "report-actions": "Report Actions",
+      "my-dashboard-section": "My Dashboard",
+      "my-dashboard-contents": "Contents",
+      // Add more mappings as needed - this ensures consistency with TOC
+    };
+    
+    // If we have a label mapping, use it; otherwise format from page ID
+    if (pageLabelMap[pageId]) {
+      return pageLabelMap[pageId];
+    }
+    
+    // Fallback: format page ID to readable label
+    return pageId
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+  
   // Helper function to get parent topic page ID from parent topic name
   const getParentTopicPageId = (parentTopicName: string): string | null => {
     const topicMap: Record<string, string> = {
@@ -2561,6 +2693,134 @@ function DefaultContent({
   
   const azureAdPages = ["azure-ad-configuration-and-import", "access-the-azure-ad-user-import-logs", "view-import-log-details", "details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
   const viewImportLogPages = ["details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
+  
+  const scheduledScansImportsPages = [
+    "prerequisites-scheduled-scans-imports",
+    "accessing-scheduled-scan-and-imports",
+    "key-features-and-options-on-the-landing-page",
+    "scans-and-import-options",
+    "scan-and-import-schedule-list",
+    "schedule-a-network-scan",
+    "editing-a-scheduled-scan",
+    "history-of-scheduled-scan-execution",
+    "bulk-update-scan",
+    "exporting-a-scan",
+    "importing-scan-schedule",
+    "deleting-a-scan-schedule",
+    "scheduled-import-setup",
+    "aws-import",
+    "azure-import",
+    "meraki-import",
+  ];
+  const scansAndImportOptionsPages = ["scan-and-import-schedule-list"];
+  const ipamNetworksPages = [
+    "ipam-procedure",
+    "infoblox-configuration",
+    "ipam-ip-address-management",
+    "ipam-functions-overview",
+    "scan-function",
+    "status-update",
+    "regular-scan",
+    "sync-instant-and-scheduled",
+    "view-and-edit-a-network",
+    "other-functions-and-page-elements",
+  ];
+  const ipamFunctionsOverviewPages = ["scan-function", "status-update", "regular-scan"];
+  const scanFunctionPages = ["status-update", "regular-scan"];
+  const discoveredItemsPages = [
+    "prerequisites-discovered-items",
+    "access-discovered-items",
+    "manage-discovered-items",
+    "delete",
+    "export",
+    "export-without-selecting-any-record",
+    "move-to-cmdb",
+    "re-scan",
+    "column-descriptions",
+    "detailed-view-of-discovered-items",
+    "primary-details-block",
+    "owner-block",
+    "main-information-area",
+    "action-buttons",
+    "navigation-tabs",
+    "other-functions-and-page-elements",
+    "toolbar-or-control-bar",
+    "filter-by-discovered-items",
+  ];
+  const importFromAwsPages = [
+    "access-the-import-aws-window",
+    "view-a-discovered-aws-record",
+    "import-aws-record",
+    "delete-aws-record",
+    "export-aws-records",
+    "move-items-to-cmdb-aws",
+    "logs-aws",
+    "key-columns-aws",
+  ];
+  const importFromAzurePages = [
+    "access-import-azure-window",
+    "view-a-discovered-azure-record",
+    "import-azure-record",
+    "delete-azure-record",
+    "export-azure-records",
+    "move-items-to-the-cmdb-azure",
+    "details-tab-azure",
+    "tabs-for-extended-information-azure",
+    "customize-columns-azure",
+    "common-controls-azure",
+    "key-columns-azure",
+    "top-right-actions-azure",
+    "tabs-main-panel-azure",
+    "discovered-item-view-overview-azure",
+  ];
+  const importFromMerakiPages = [
+    "assess-import-meraki-window",
+    "view-a-discovered-meraki-record",
+    "import-meraki-record",
+    "delete-meraki-record",
+    "export-meraki-records",
+    "move-items-to-the-cmdb-meraki",
+    "logs-meraki",
+    "key-columns-meraki",
+    "common-controls-meraki",
+    "top-right-actions-meraki",
+    "tabs-main-panel-meraki",
+    "discovered-item-view-overview-meraki",
+  ];
+  const importFromIntunePages = [
+    "access-import-from-intune",
+    "view-a-discovered-intune-record",
+    "import-intune-record",
+    "delete-intune-record",
+    "export-intune-records",
+  ];
+  const importDataFilesPages = [
+    "access-the-import-data-files",
+    "manage-import-data-files",
+    "view-an-imported-data-file",
+    "all-tab",
+    "authorized-tab",
+    "unauthorized-tab",
+    "import-asset-ci-relations",
+    "delete-import-data-files",
+    "export-import-data-files",
+  ];
+  const importedAssetsPages = [
+    "manage-imported-assets",
+    "imported-asset-details",
+  ];
+  const adUserImportLogsPages = [
+    "ad-configuration-and-import",
+    "ad-configuration-property-descriptions",
+    "testing-ad-configuration",
+    "import-users",
+    "scheduled-ad-import",
+    "access-the-ad-user-import-logs",
+    "view-import-log-details",
+    "details-tab",
+    "tabs-for-extended-information",
+    "customize-columns",
+  ];
   
   // ITSM breadcrumb hierarchy
   const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];

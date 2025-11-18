@@ -241,33 +241,38 @@ const cmdbSections = [
         subPages: [
           { id: "ci-left-panel", label: "CI Left Panel" },
           { id: "contacts-on-ci", label: "Contacts on a CI" },
+          {
+            id: "ci-details-and-tabs",
+            label: "CI Details and Tabs",
+            subPages: [
+              {
+                id: "details",
+                label: "Details",
+                subPages: [
+                  { id: "manage-ci", label: "Manage CI" },
+                  { id: "business-service-map", label: "Business Service Map" },
+                ],
+              },
+              { id: "components", label: "Components" },
+              { id: "logon-events", label: "Logon Events" },
+              { id: "itsm", label: "ITSM" },
+              { id: "relationships", label: "Relationships" },
+              { id: "audits-tab", label: "Audits" },
+              { id: "sla", label: "SLA" },
+              { id: "maintenance", label: "Maintenance" },
+              { id: "vulnerability", label: "Vulnerability" },
+              { id: "private-properties", label: "Private Properties" },
+              { id: "tasks", label: "Tasks" },
+              { id: "history", label: "History" },
+              { id: "attachments", label: "Attachments" },
+              { id: "comments", label: "Comments" },
+            ],
+          },
         ],
       },
       {
-        id: "ci-details-and-tabs",
-        label: "CI Details and Tabs",
-        subPages: [
-          {
-            id: "details",
-            label: "Details",
-            subPages: [
-              { id: "manage-ci", label: "Manage CI" },
-              { id: "business-service-map", label: "Business Service Map" },
-            ],
-          },
-          { id: "components", label: "Components" },
-          { id: "logon-events", label: "Logon Events" },
-          { id: "itsm", label: "ITSM" },
-          { id: "relationships", label: "Relationships" },
-          { id: "audits-tab", label: "Audits" },
-          { id: "sla", label: "SLA" },
-          { id: "maintenance", label: "Maintenance" },
-          { id: "vulnerability", label: "Vulnerability" },
-          { id: "private-properties", label: "Private Properties" },
-          { id: "tasks", label: "Tasks" },
-          { id: "history", label: "History" },
-          { id: "attachments", label: "Attachments" },
-        ],
+        id: "other-functions-and-page-elements",
+        label: "Other Functions and Page Elements",
       },
     ],
   },
@@ -326,38 +331,278 @@ const discoveryScanSections = [
                 subPages: [
                   { id: "export-scan-report", label: "Export Scan Report" },
                   { id: "refresh", label: "Refresh" },
-                  { id: "logs", label: "Logs" },
-                  { id: "tasks", label: "Tasks" },
-                  { id: "comments", label: "Comments" },
-                  { id: "attachments", label: "Attachments" },
+                ],
+              },
+              { id: "logs", label: "Logs" },
+              { id: "tasks", label: "Tasks" },
+              { id: "comments", label: "Comments" },
+              { id: "attachments", label: "Attachments" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "scheduled-scans-and-imports",
+        label: "Scheduled Scans and Imports",
+        subPages: [
+          { id: "prerequisites", label: "Pre-requisites" },
+          { id: "accessing-scheduled-scan-and-imports", label: "Accessing Scheduled Scan and Imports" },
+          { id: "key-features-and-options-on-the-landing-page", label: "Key Features and Options on the Landing Page" },
+          {
+            id: "scans-and-import-options",
+            label: "Scans and Import Options",
+            subPages: [
+              { id: "scan-and-import-schedule-list", label: "Scan and Import Schedule List" },
+              { id: "schedule-a-network-scan", label: "Schedule a Network Scan" },
+              { id: "editing-a-scheduled-scan", label: "Editing a Scheduled Scan" },
+              { id: "history-of-scheduled-scan-execution", label: "History of Scheduled Scan Execution" },
+              { id: "bulk-update-scan", label: "Bulk Update Scan" },
+              { id: "exporting-a-scan", label: "Exporting a Scan" },
+              { id: "importing-scan-schedules", label: "Importing Scan Schedule(s)" },
+              { id: "deleting-a-scan-schedule", label: "Deleting a Scan Schedule" },
+            ],
+          },
+          {
+            id: "scheduled-import-setup",
+            label: "Scheduled Import Setup",
+            subPages: [
+              { id: "aws-import", label: "AWS Import" },
+              { id: "azure-import", label: "Azure Import" },
+            ],
+          },
+        ],
+      },
+      { id: "azure-import", label: "Azure Import" },
+      { id: "meraki-import", label: "Meraki Import" },
+      {
+        id: "ipam-networks",
+        label: "IPAM Networks",
+        subPages: [
+          { id: "ipam-procedure", label: "IPAM Procedure" },
+          { id: "infoblox-configuration", label: "Infoblox Configuration" },
+          { id: "ipam-ip-address-management", label: "IPAM (IP Address Management)" },
+          {
+            id: "ipam-functions-overview",
+            label: "IPAM Functions Overview",
+            subPages: [
+              {
+                id: "scan-function",
+                label: "Scan Function",
+                subPages: [
+                  { id: "status-update", label: "Status Update" },
+                  { id: "regular-scan", label: "Regular Scan" },
+                ],
+              },
+              { id: "sync-instant-and-scheduled", label: "Sync (Instant and Scheduled)" },
+              { id: "view-and-edit-a-network", label: "View and Edit a Network" },
+              { id: "other-functions-and-page-elements-ipam", label: "Other Functions and Page Elements" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "discovered-items",
+        label: "Discovered Items",
+        subPages: [
+          { id: "prerequisites-discovered-items", label: "Prerequisites" },
+          { id: "access-discovered-items", label: "Access Discovered Items" },
+          {
+            id: "manage-discovered-items",
+            label: "Manage Discovered Items",
+            subPages: [
+              { id: "delete-discovered-items", label: "Delete" },
+              { id: "export-discovered-items", label: "Export" },
+              { id: "export-without-selecting-any-record", label: "Export Without Selecting Any Record" },
+              { id: "move-to-cmdb", label: "Move to CMDB" },
+              { id: "re-scan", label: "Re-scan" },
+            ],
+          },
+          { id: "column-descriptions", label: "Column Descriptions" },
+          {
+            id: "detailed-view-of-discovered-items",
+            label: "Detailed View of Discovered Items",
+            subPages: [
+              { id: "primary-details-block", label: "Primary Details Block" },
+              { id: "owner-block", label: "Owner Block" },
+              { id: "main-information-area", label: "Main Information Area" },
+              { id: "action-buttons", label: "Action Buttons" },
+              { id: "navigation-tabs", label: "Navigation Tabs" },
+              {
+                id: "other-functions-and-page-elements-discovered-items",
+                label: "Other Functions and Page Elements",
+                subPages: [
+                  { id: "toolbar-or-control-bar", label: "Toolbar or Control Bar" },
+                  { id: "filter-by", label: "Filter By" },
                 ],
               },
             ],
           },
         ],
       },
-      { id: "scheduled-scans-and-imports", label: "Scheduled Scans and Imports" },
-      { id: "ipam-networks", label: "IPAM Networks" },
-      { id: "discovered-items", label: "Discovered Items" },
-      { id: "import-from-aws", label: "Import from AWS" },
-      { id: "import-from-azure", label: "Import from Azure" },
-      { id: "import-from-meraki", label: "Import from Meraki" },
-      { id: "import-from-intune", label: "Import from Intune" },
-      { id: "import-data-files", label: "Import Data Files" },
-      { id: "imported-assets", label: "Imported Assets" },
-      { id: "ad-user-import-logs", label: "AD User Import Logs" },
       {
-        id: "azure-ad-user-import-logs",
-        label: "Azure AD User Import Logs",
+        id: "import-from-aws",
+        label: "Import from AWS",
         subPages: [
-          { id: "azure-ad-configuration-and-import", label: "Azure AD Configuration and Import" },
-          { id: "access-the-azure-ad-user-import-logs", label: "Access the Azure AD User Import Logs" },
+          { id: "access-the-import-aws-window", label: "Access the Import AWS Window" },
+          { id: "import-aws-record", label: "Import AWS Record" },
+          {
+            id: "view-aws-import-record",
+            label: "View AWS Import Record",
+            subPages: [
+              { id: "key-columns-aws", label: "Key columns" },
+              { id: "move-items-to-cmdb-aws", label: "Move Items to CMDB" },
+              { id: "logs-aws", label: "Logs" },
+            ],
+          },
+          { id: "delete-aws-record", label: "Delete AWS Record" },
+          { id: "export-aws-records", label: "Export AWS Records" },
+          { id: "view-a-discovered-aws-record", label: "View a discovered AWS record" },
+        ],
+      },
+      {
+        id: "import-from-azure",
+        label: "Import from Azure",
+        subPages: [
+          { id: "access-import-azure-window", label: "Access the Import AZURE Window" },
+          { id: "import-azure-record", label: "Import AZURE Record" },
+          {
+            id: "view-azure-import-record",
+            label: "View AZURE Import Record",
+            subPages: [
+              { id: "common-controls-azure", label: "Common controls (top-right of the grid)" },
+              { id: "key-columns-azure", label: "Key columns" },
+              { id: "move-items-to-the-cmdb-azure", label: "Move items to the CMDB" },
+              { id: "delete-azure-record", label: "Delete AZURE Record" },
+              { id: "export-azure-records", label: "Export AZURE Records" },
+              { id: "view-a-discovered-azure-record", label: "View a discovered AZURE record" },
+              { id: "discovered-item-view-overview-azure", label: "Discovered item view overview" },
+              { id: "top-right-actions-azure", label: "Top-right actions" },
+              { id: "tabs-main-panel-azure", label: "Tabs (main panel)" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "import-from-meraki",
+        label: "Import from Meraki",
+        subPages: [
+          { id: "prerequisites-meraki", label: "Prerequisites" },
+          { id: "assess-import-meraki-window", label: "Assess Import Meraki Window" },
+          { id: "import-meraki-record", label: "Import Meraki Record" },
+          {
+            id: "view-meraki-import-record",
+            label: "View Meraki Import Record",
+            subPages: [
+              { id: "common-controls-meraki", label: "Common controls" },
+              { id: "key-columns-meraki", label: "Key columns" },
+              { id: "move-items-to-the-cmdb-meraki", label: "Move items to the CMDB" },
+              { id: "logs-meraki", label: "Logs" },
+              { id: "delete-meraki-record", label: "Delete Meraki Record" },
+              { id: "export-meraki-records", label: "Export Meraki Records" },
+              { id: "view-a-discovered-meraki-record", label: "View a discovered Meraki record" },
+              { id: "discovered-item-view-overview-meraki", label: "Discovered item view overview" },
+              { id: "top-right-actions-meraki", label: "Top-right actions" },
+              { id: "tabs-main-panel-meraki", label: "Tabs (main panel)" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "import-from-intune",
+        label: "Import from Intune",
+        subPages: [
+          { id: "access-import-from-intune", label: "Access Import From Intune" },
+          { id: "import-intune-record", label: "Import Intune Record" },
+          {
+            id: "view-intune-import-record",
+            label: "View Intune Import Record",
+            subPages: [
+              { id: "delete-intune-record", label: "Delete Intune Record" },
+              { id: "export-intune-records", label: "Export Intune Records" },
+              { id: "view-a-discovered-intune-record", label: "View a discovered Intune record" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "import-data-files",
+        label: "Import Data Files",
+        subPages: [
+          { id: "access-the-import-data-files", label: "Access the Import Data Files" },
+          { id: "manage-import-data-files", label: "Manage Import Data Files" },
+          { id: "import-ci", label: "Import CI" },
+          {
+            id: "view-an-imported-data-file",
+            label: "View an Imported Data File",
+            subPages: [
+              { id: "all-tab", label: "All Tab" },
+              { id: "authorized-tab", label: "Authorized Tab" },
+              { id: "unauthorized-tab", label: "Unauthorized Tab" },
+            ],
+          },
+          { id: "import-asset-ci-relations", label: "Import Asset/CI Relations" },
+          { id: "delete-import-data-files", label: "Delete" },
+          { id: "export-import-data-files", label: "Export" },
+        ],
+      },
+      {
+        id: "imported-assets",
+        label: "Imported Assets",
+        subPages: [
+          { id: "access-the-imported-assets", label: "Access the Imported Assets" },
+          { id: "manage-imported-assets", label: "Manage Imported Assets" },
+          { id: "imported-asset-details", label: "Imported Asset Details" },
+        ],
+      },
+      {
+        id: "ad-user-import-logs",
+        label: "AD User Import Logs",
+        subPages: [
+          {
+            id: "ad-configuration-and-import",
+            label: "AD Configuration and Import",
+            subPages: [
+              { id: "ad-configuration-property-descriptions", label: "AD Configuration Property Descriptions" },
+              { id: "testing-ad-configuration", label: "Testing AD Configuration" },
+              { id: "import-users", label: "Import Users" },
+              { id: "scheduled-ad-import", label: "Scheduled AD Import" },
+            ],
+          },
+          { id: "access-the-ad-user-import-logs", label: "Access the AD User Import Logs" },
           {
             id: "view-import-log-details",
             label: "View Import Log Details",
             subPages: [
+              { id: "details-tab", label: "Details Tab" },
+              { id: "tabs-for-extended-information", label: "Tabs for Extended Information" },
               { id: "customize-columns", label: "Customize Columns" },
-              { id: "delete-azure-ad-user-import-logs", label: "Delete Azure AD User Import Logs" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "azure-ad-user-import-logs",
+        label: "Azure AD User Import Logs",
+        subPages: [
+          {
+            id: "azure-ad-configuration-and-import",
+            label: "Azure AD Configuration and Import",
+            subPages: [
+              { id: "azure-ad-configuration-property-descriptions", label: "Azure AD Configuration Property Descriptions" },
+              { id: "testing-ad-configuration-azure", label: "Testing AD Configuration" },
+              { id: "import-users-azure", label: "Import Users" },
+              { id: "scheduled-azure-ad-import", label: "Scheduled Azure AD Import" },
+            ],
+          },
+          { id: "access-the-azure-ad-user-import-logs", label: "Access the Azure AD User Import Logs" },
+          {
+            id: "view-import-log-details-azure",
+            label: "View Import Log Details",
+            subPages: [
+              { id: "details-tab-azure", label: "Details Tab" },
+              { id: "key-information-displayed", label: "Key Information Displayed" },
+              { id: "tabs-for-extended-information-azure", label: "Tabs for Extended Information" },
+              { id: "customize-columns-azure", label: "Customize Columns" },
             ],
           },
         ],
@@ -570,12 +815,19 @@ const itsmSections = [
                     id: "ci-details-and-tabs",
                     label: "CI Details and Tabs",
                     subPages: [
-                      { id: "details", label: "Details" },
+                      {
+                        id: "details",
+                        label: "Details",
+                        subPages: [
+                          { id: "manage-ci", label: "Manage CI" },
+                          { id: "business-service-map", label: "Business Service Map" },
+                        ],
+                      },
                       { id: "components", label: "Components" },
                       { id: "logon-events", label: "Logon Events" },
                       { id: "itsm-tab", label: "ITSM" },
                       { id: "relationships", label: "Relationships" },
-                      { id: "audits", label: "Audits" },
+                      { id: "audits-tab", label: "Audits" },
                       { id: "sla", label: "SLA" },
                       { id: "maintenance", label: "Maintenance" },
                       { id: "vulnerability", label: "Vulnerability" },
@@ -586,12 +838,17 @@ const itsmSections = [
                       { id: "comments", label: "Comments" },
                     ],
                   },
-                  { id: "other-functions-and-page-elements", label: "Other Functions and Page Elements" },
+                  {
+                    id: "other-functions-and-page-elements",
+                    label: "Other Functions and Page Elements",
+                    subPages: [
+                      { id: "sync-logs", label: "Sync Logs" },
+                      { id: "tags", label: "Tags" },
+                      { id: "audits", label: "Audits" },
+                    ],
+                  },
                 ],
               },
-              { id: "sync-logs", label: "Sync Logs" },
-              { id: "tags", label: "Tags" },
-              { id: "audits", label: "Audits" },
             ],
           },
         ],
@@ -604,6 +861,144 @@ const itsmSections = [
       { id: "request-fulfillment", label: "Request Fulfillment" },
       { id: "service-portfolio", label: "Service Portfolio" },
       { id: "runbook", label: "RunBook" },
+    ],
+  },
+];
+
+const vulnerabilityManagementSections = [
+  {
+    id: "vulnerability-management",
+    title: "Vulnerability Management",
+    label: "Vulnerability Management",
+    pages: [
+      { id: "core-functionality", label: "Core Functionality" },
+      { id: "access-vulnerability-management", label: "Access Vulnerability Management" },
+      { id: "view-vulnerability-management", label: "View Vulnerability Management" },
+      { id: "best-practices", label: "Best Practices" },
+      { id: "limitations-and-considerations", label: "Limitations and Considerations" },
+    ],
+  },
+];
+
+const itamSections = [
+  {
+    id: "itam",
+    title: "ITAM",
+    label: "ITAM",
+    pages: [
+      {
+        id: "configuration-management",
+        label: "Configuration Management",
+        subPages: [
+          { id: "dashboard", label: "Dashboard" },
+          {
+            id: "cmdb",
+            label: "CMDB",
+            subPages: [
+              { id: "access-cmdb", label: "Access CMDB" },
+              {
+                id: "manage-cmdb",
+                label: "Manage CMDB",
+                subPages: [
+                  { id: "audits", label: "Audits" },
+                  { id: "change-attributes", label: "Change Attributes" },
+                  { id: "delete", label: "Delete" },
+                  { id: "export", label: "Export" },
+                  { id: "new", label: "New" },
+                  { id: "copy-to-ivanti", label: "Copy to Ivanti" },
+                  { id: "copy-to-jira", label: "Copy to Jira" },
+                  { id: "copy-to-servicenow", label: "Copy to ServiceNow" },
+                  { id: "generate-installed-software-report", label: "Generate Installed Software Report" },
+                  { id: "process-adm", label: "Process ADM" },
+                  { id: "process-available-patch-report", label: "Process Available Patch Report" },
+                  { id: "process-cloud-hierarchy", label: "Process Cloud Hierarchy" },
+                  { id: "process-devops", label: "Process DevOps" },
+                  { id: "process-missing-components", label: "Process Missing Components" },
+                  { id: "process-network-connection", label: "Process Network Connection" },
+                  { id: "process-software-installation", label: "Process Software Installation" },
+                  { id: "process-network-virtualization-hierarchy", label: "Process Network Virtualization Hierarchy" },
+                ],
+              },
+              {
+                id: "view-and-edit-ci",
+                label: "View and Edit a CI",
+                subPages: [
+                  { id: "ci-left-panel", label: "CI Left Panel" },
+                  { id: "contacts-on-ci", label: "Contacts on a CI" },
+                  {
+                    id: "ci-details-and-tabs",
+                    label: "CI Details and Tabs",
+                    subPages: [
+                      {
+                        id: "details",
+                        label: "Details",
+                        subPages: [
+                          { id: "manage-ci", label: "Manage CI" },
+                          { id: "business-service-map", label: "Business Service Map" },
+                          { id: "components", label: "Components" },
+                          { id: "logon-events", label: "Logon Events" },
+                          { id: "itsm", label: "ITSM" },
+                          { id: "relationships", label: "Relationships" },
+                          { id: "audits-tab", label: "Audits" },
+                          { id: "sla", label: "SLA" },
+                          { id: "maintenance", label: "Maintenance" },
+                          { id: "vulnerability", label: "Vulnerability" },
+                          { id: "private-properties", label: "Private Properties" },
+                          { id: "tasks", label: "Tasks" },
+                          { id: "history", label: "History" },
+                          { id: "attachments", label: "Attachments" },
+                          { id: "comments", label: "Comments" },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: "other-functions-and-page-elements",
+                label: "Other Functions and Page Elements",
+                subPages: [
+                  { id: "sync-logs", label: "Sync Logs" },
+                  { id: "tags", label: "Tags" },
+                  { id: "audits", label: "Audits" },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      { id: "audits", label: "Audits" },
+      { id: "asset-license-entitlement", label: "Asset License Entitlement" },
+      { id: "user-license-entitlement", label: "User License Entitlement" },
+      { id: "stockroom", label: "Stockroom" },
+      { id: "stockroom-type", label: "Stockroom Type" },
+      {
+        id: "procurement",
+        label: "Procurement",
+        subPages: [
+          { id: "requested-items", label: "Requested Items" },
+          { id: "purchase-orders", label: "Purchase Orders" },
+          { id: "purchase-order-line-items", label: "Purchase Order Line Items" },
+          { id: "receiving-slips", label: "Receiving Slips" },
+          { id: "receiving-slip-lines", label: "Receiving Slip Lines" },
+          { id: "transfer-order", label: "Transfer Order" },
+        ],
+      },
+      { id: "service-design-package", label: "Service Design Package" },
+      { id: "financial-management", label: "Financial Management" },
+    ],
+  },
+];
+
+const selfServiceSections = [
+  {
+    id: "self-service",
+    title: "Self Service",
+    label: "Self Service",
+    pages: [
+      { id: "service-catalog", label: "Service Catalog" },
+      { id: "my-incidents", label: "My Incidents" },
+      { id: "my-requests", label: "My Requests" },
     ],
   },
 ];
@@ -623,6 +1018,15 @@ const getSectionsForModule = (moduleId: string) => {
   }
   if (moduleId === "itsm") {
     return itsmSections;
+  }
+  if (moduleId === "vulnerability-management") {
+    return vulnerabilityManagementSections;
+  }
+  if (moduleId === "itam") {
+    return itamSections;
+  }
+  if (moduleId === "self-service") {
+    return selfServiceSections;
   }
   return defaultSections;
 };

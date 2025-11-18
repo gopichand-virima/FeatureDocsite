@@ -372,6 +372,14 @@ export function DocumentationContent({
       "Imported Assets": "imported-assets",
       "AD User Import Logs": "ad-user-import-logs",
       "Configuration Management": "configuration-management",
+      "CMDB": "cmdb",
+      "Manage CMDB": "manage-cmdb",
+      "View and Edit a CI": "view-and-edit-ci",
+      "CI Details and Tabs": "ci-details-and-tabs",
+      "Details": "details",
+      "Other Functions and Page Elements": "other-functions-and-page-elements",
+      "Procurement": "procurement",
+      "Self Service": "self-service",
       "Organizational Details": "organizational-details",
       "Discovery": "discovery",
       "SACM": "sacm",
@@ -394,6 +402,7 @@ export function DocumentationContent({
       "Manage Import Data Files": "manage-import-data-files",
       "View an Imported Data File": "view-an-imported-data-file",
       "CMDB": "cmdb",
+      "Vulnerability Management": "vulnerability-management",
       "Departments": "departments",
       "Client": "client",
       "Credentials": "credentials",
@@ -574,13 +583,36 @@ export function DocumentationContent({
     
     const recentScansPages = ["access-recent-scan", "view-recent-scan", "details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
     const viewRecentScanPages = ["details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
-    const recentScanDetailsPages = ["export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
+    const recentScanDetailsPages = ["export-scan-report", "refresh"];
     
-    const azureAdPages = ["azure-ad-configuration-and-import", "access-the-azure-ad-user-import-logs", "view-import-log-details", "details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
-    const viewImportLogPages = ["details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
+    const azureAdPages = [
+      "azure-ad-configuration-and-import",
+      "azure-ad-configuration-property-descriptions",
+      "testing-ad-configuration-azure",
+      "import-users-azure",
+      "scheduled-azure-ad-import",
+      "access-the-azure-ad-user-import-logs",
+      "view-import-log-details-azure",
+      "details-tab-azure",
+      "key-information-displayed",
+      "tabs-for-extended-information-azure",
+      "customize-columns-azure",
+    ];
+    const azureAdConfigurationAndImportPages = [
+      "azure-ad-configuration-property-descriptions",
+      "testing-ad-configuration-azure",
+      "import-users-azure",
+      "scheduled-azure-ad-import",
+    ];
+    const viewImportLogDetailsAzurePages = [
+      "details-tab-azure",
+      "key-information-displayed",
+      "tabs-for-extended-information-azure",
+      "customize-columns-azure",
+    ];
     
     const scheduledScansImportsPages = [
-      "prerequisites-scheduled-scans-imports",
+      "prerequisites",
       "accessing-scheduled-scan-and-imports",
       "key-features-and-options-on-the-landing-page",
       "scans-and-import-options",
@@ -590,14 +622,23 @@ export function DocumentationContent({
       "history-of-scheduled-scan-execution",
       "bulk-update-scan",
       "exporting-a-scan",
-      "importing-scan-schedule",
+      "importing-scan-schedules",
       "deleting-a-scan-schedule",
       "scheduled-import-setup",
       "aws-import",
       "azure-import",
-      "meraki-import",
     ];
-    const scansAndImportOptionsPages = ["scan-and-import-schedule-list"];
+    const scansAndImportOptionsPages = [
+      "scan-and-import-schedule-list",
+      "schedule-a-network-scan",
+      "editing-a-scheduled-scan",
+      "history-of-scheduled-scan-execution",
+      "bulk-update-scan",
+      "exporting-a-scan",
+      "importing-scan-schedules",
+      "deleting-a-scan-schedule",
+    ];
+    const scheduledImportSetupPages = ["aws-import", "azure-import"];
     const ipamNetworksPages = [
       "ipam-procedure",
       "infoblox-configuration",
@@ -608,16 +649,23 @@ export function DocumentationContent({
       "regular-scan",
       "sync-instant-and-scheduled",
       "view-and-edit-a-network",
-      "other-functions-and-page-elements",
+      "other-functions-and-page-elements-ipam",
     ];
-    const ipamFunctionsOverviewPages = ["scan-function", "status-update", "regular-scan"];
+    const ipamFunctionsOverviewPages = [
+      "scan-function",
+      "status-update",
+      "regular-scan",
+      "sync-instant-and-scheduled",
+      "view-and-edit-a-network",
+      "other-functions-and-page-elements-ipam",
+    ];
     const scanFunctionPages = ["status-update", "regular-scan"];
     const discoveredItemsPages = [
       "prerequisites-discovered-items",
       "access-discovered-items",
       "manage-discovered-items",
-      "delete",
-      "export",
+      "delete-discovered-items",
+      "export-discovered-items",
       "export-without-selecting-any-record",
       "move-to-cmdb",
       "re-scan",
@@ -628,60 +676,108 @@ export function DocumentationContent({
       "main-information-area",
       "action-buttons",
       "navigation-tabs",
-      "other-functions-and-page-elements",
+      "other-functions-and-page-elements-discovered-items",
       "toolbar-or-control-bar",
-      "filter-by-discovered-items",
+      "filter-by",
     ];
+    const manageDiscoveredItemsPages = [
+      "delete-discovered-items",
+      "export-discovered-items",
+      "export-without-selecting-any-record",
+      "move-to-cmdb",
+      "re-scan",
+    ];
+    const detailedViewDiscoveredItemsPages = [
+      "primary-details-block",
+      "owner-block",
+      "main-information-area",
+      "action-buttons",
+      "navigation-tabs",
+      "other-functions-and-page-elements-discovered-items",
+    ];
+    const otherFunctionsDiscoveredItemsPages = ["toolbar-or-control-bar", "filter-by"];
     const importFromAwsPages = [
       "access-the-import-aws-window",
-      "view-a-discovered-aws-record",
       "import-aws-record",
-      "delete-aws-record",
-      "export-aws-records",
+      "view-aws-import-record",
+      "key-columns-aws",
       "move-items-to-cmdb-aws",
       "logs-aws",
-      "key-columns-aws",
+      "delete-aws-record",
+      "export-aws-records",
+      "view-a-discovered-aws-record",
     ];
+    const viewAwsImportRecordPages = ["key-columns-aws", "move-items-to-cmdb-aws", "logs-aws"];
     const importFromAzurePages = [
       "access-import-azure-window",
-      "view-a-discovered-azure-record",
       "import-azure-record",
-      "delete-azure-record",
-      "export-azure-records",
-      "move-items-to-the-cmdb-azure",
-      "details-tab-azure",
-      "tabs-for-extended-information-azure",
-      "customize-columns-azure",
+      "view-azure-import-record",
       "common-controls-azure",
       "key-columns-azure",
+      "move-items-to-the-cmdb-azure",
+      "delete-azure-record",
+      "export-azure-records",
+      "view-a-discovered-azure-record",
+      "discovered-item-view-overview-azure",
       "top-right-actions-azure",
       "tabs-main-panel-azure",
+    ];
+    const viewAzureImportRecordPages = [
+      "common-controls-azure",
+      "key-columns-azure",
+      "move-items-to-the-cmdb-azure",
+      "delete-azure-record",
+      "export-azure-records",
+      "view-a-discovered-azure-record",
       "discovered-item-view-overview-azure",
+      "top-right-actions-azure",
+      "tabs-main-panel-azure",
     ];
     const importFromMerakiPages = [
+      "prerequisites-meraki",
       "assess-import-meraki-window",
-      "view-a-discovered-meraki-record",
       "import-meraki-record",
-      "delete-meraki-record",
-      "export-meraki-records",
+      "view-meraki-import-record",
+      "common-controls-meraki",
+      "key-columns-meraki",
       "move-items-to-the-cmdb-meraki",
       "logs-meraki",
-      "key-columns-meraki",
-      "common-controls-meraki",
+      "delete-meraki-record",
+      "export-meraki-records",
+      "view-a-discovered-meraki-record",
+      "discovered-item-view-overview-meraki",
       "top-right-actions-meraki",
       "tabs-main-panel-meraki",
+    ];
+    const viewMerakiImportRecordPages = [
+      "common-controls-meraki",
+      "key-columns-meraki",
+      "move-items-to-the-cmdb-meraki",
+      "logs-meraki",
+      "delete-meraki-record",
+      "export-meraki-records",
+      "view-a-discovered-meraki-record",
       "discovered-item-view-overview-meraki",
+      "top-right-actions-meraki",
+      "tabs-main-panel-meraki",
     ];
     const importFromIntunePages = [
       "access-import-from-intune",
-      "view-a-discovered-intune-record",
       "import-intune-record",
+      "view-intune-import-record",
       "delete-intune-record",
       "export-intune-records",
+      "view-a-discovered-intune-record",
+    ];
+    const viewIntuneImportRecordPages = [
+      "delete-intune-record",
+      "export-intune-records",
+      "view-a-discovered-intune-record",
     ];
     const importDataFilesPages = [
       "access-the-import-data-files",
       "manage-import-data-files",
+      "import-ci",
       "view-an-imported-data-file",
       "all-tab",
       "authorized-tab",
@@ -690,7 +786,9 @@ export function DocumentationContent({
       "delete-import-data-files",
       "export-import-data-files",
     ];
+    const viewImportedDataFilePages = ["all-tab", "authorized-tab", "unauthorized-tab"];
     const importedAssetsPages = [
+      "access-the-imported-assets",
       "manage-imported-assets",
       "imported-asset-details",
     ];
@@ -706,15 +804,44 @@ export function DocumentationContent({
       "tabs-for-extended-information",
       "customize-columns",
     ];
+    const adConfigurationAndImportPages = [
+      "ad-configuration-property-descriptions",
+      "testing-ad-configuration",
+      "import-users",
+      "scheduled-ad-import",
+    ];
+    const viewImportLogDetailsPages = ["details-tab", "tabs-for-extended-information", "customize-columns"];
     
     // ITSM breadcrumb hierarchy
-    const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
+    const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
     
-    const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
+    const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
     
-    const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements"];
+    const itsmManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation"];
     
-    const itsmCiDetailsPages = ["details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
+    
+    const itsmCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    
+    const itsmDetailsNestedPages = ["manage-ci", "business-service-map"];
+    
+    const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+    
+    // ITAM breadcrumb hierarchy
+    const itamConfigurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-details-and-tabs", "other-functions-and-page-elements"];
+    const itamCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-details-and-tabs", "other-functions-and-page-elements"];
+    const itamManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation", "process-network-virtualization-hierarchy"];
+    const itamViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    const itamCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    const itamDetailsNestedPages = ["manage-ci", "business-service-map", "components", "logon-events", "itsm", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+    const itamOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+    const itamProcurementPages = ["requested-items", "purchase-orders", "purchase-order-line-items", "receiving-slips", "receiving-slip-lines", "transfer-order"];
+    
+    // Self Service breadcrumb hierarchy
+    const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
+    
+    // Vulnerability Management breadcrumb hierarchy
+    const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
     
     // Admin breadcrumb hierarchy
     const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
@@ -756,32 +883,58 @@ export function DocumentationContent({
     const isUnderRecentScans = section === "discovery-scan" && (recentScansPages.includes(page) || page === "recent-scans");
     const isUnderViewRecentScan = section === "discovery-scan" && (viewRecentScanPages.includes(page) || page === "view-recent-scan");
     const isUnderRecentScanDetails = section === "discovery-scan" && (recentScanDetailsPages.includes(page) || page === "details");
-    const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
-    const isUnderViewImportLog = section === "discovery-scan" && (viewImportLogPages.includes(page) || page === "view-import-log-details");
     const isUnderScheduledScansImports = section === "discovery-scan" && (scheduledScansImportsPages.includes(page) || page === "scheduled-scans-and-imports");
     const isUnderScansImportOptions = section === "discovery-scan" && (scansAndImportOptionsPages.includes(page) || page === "scans-and-import-options");
+    const isUnderScheduledImportSetup = section === "discovery-scan" && (scheduledImportSetupPages.includes(page) || page === "scheduled-import-setup");
     const isUnderIpamNetworks = section === "discovery-scan" && (ipamNetworksPages.includes(page) || page === "ipam-networks");
     const isUnderIpamFunctionsOverview = section === "discovery-scan" && (ipamFunctionsOverviewPages.includes(page) || page === "ipam-functions-overview");
     const isUnderScanFunction = section === "discovery-scan" && (scanFunctionPages.includes(page) || page === "scan-function");
     const isUnderDiscoveredItems = section === "discovery-scan" && (discoveredItemsPages.includes(page) || page === "discovered-items");
-    const isUnderManageDiscoveredItems = section === "discovery-scan" && (page === "manage-discovered-items" || ["delete", "export", "export-without-selecting-any-record", "move-to-cmdb", "re-scan"].includes(page));
-    const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (page === "detailed-view-of-discovered-items" || ["primary-details-block", "owner-block", "main-information-area", "action-buttons", "navigation-tabs"].includes(page));
-    const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (page === "other-functions-and-page-elements" || ["toolbar-or-control-bar", "filter-by-discovered-items"].includes(page));
+    const isUnderManageDiscoveredItems = section === "discovery-scan" && (manageDiscoveredItemsPages.includes(page) || page === "manage-discovered-items");
+    const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (detailedViewDiscoveredItemsPages.includes(page) || page === "detailed-view-of-discovered-items");
+    const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (otherFunctionsDiscoveredItemsPages.includes(page) || page === "other-functions-and-page-elements-discovered-items");
     const isUnderImportFromAWS = section === "discovery-scan" && (importFromAwsPages.includes(page) || page === "import-from-aws");
+    const isUnderViewAwsImportRecord = section === "discovery-scan" && (viewAwsImportRecordPages.includes(page) || page === "view-aws-import-record");
     const isUnderImportFromAzure = section === "discovery-scan" && (importFromAzurePages.includes(page) || page === "import-from-azure");
+    const isUnderViewAzureImportRecord = section === "discovery-scan" && (viewAzureImportRecordPages.includes(page) || page === "view-azure-import-record");
     const isUnderImportFromMeraki = section === "discovery-scan" && (importFromMerakiPages.includes(page) || page === "import-from-meraki");
+    const isUnderViewMerakiImportRecord = section === "discovery-scan" && (viewMerakiImportRecordPages.includes(page) || page === "view-meraki-import-record");
     const isUnderImportFromIntune = section === "discovery-scan" && (importFromIntunePages.includes(page) || page === "import-from-intune");
+    const isUnderViewIntuneImportRecord = section === "discovery-scan" && (viewIntuneImportRecordPages.includes(page) || page === "view-intune-import-record");
     const isUnderImportDataFiles = section === "discovery-scan" && (importDataFilesPages.includes(page) || page === "import-data-files");
-    const isUnderManageImportDataFiles = section === "discovery-scan" && (page === "manage-import-data-files" || ["import-ci", "view-an-imported-data-file", "all-tab", "authorized-tab", "unauthorized-tab", "import-asset-ci-relations", "delete", "export"].includes(page));
-    const isUnderViewImportedDataFile = section === "discovery-scan" && (page === "view-an-imported-data-file" || ["all-tab", "authorized-tab", "unauthorized-tab"].includes(page));
+    const isUnderViewImportedDataFile = section === "discovery-scan" && (viewImportedDataFilePages.includes(page) || page === "view-an-imported-data-file");
     const isUnderImportedAssets = section === "discovery-scan" && (importedAssetsPages.includes(page) || page === "imported-assets");
     const isUnderAdUserImportLogs = section === "discovery-scan" && (adUserImportLogsPages.includes(page) || page === "ad-user-import-logs");
+    const isUnderAdConfigurationAndImport = section === "discovery-scan" && (adConfigurationAndImportPages.includes(page) || page === "ad-configuration-and-import");
+    const isUnderViewImportLogDetails = section === "discovery-scan" && (viewImportLogDetailsPages.includes(page) || page === "view-import-log-details");
+    const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
+    const isUnderAzureAdConfigurationAndImport = section === "discovery-scan" && (azureAdConfigurationAndImportPages.includes(page) || page === "azure-ad-configuration-and-import");
+    const isUnderViewImportLogDetailsAzure = section === "discovery-scan" && (viewImportLogDetailsAzurePages.includes(page) || page === "view-import-log-details-azure");
     
     // ITSM hierarchy checks
     const isUnderConfigurationManagement = section === "itsm" && (configurationManagementPages.includes(page) || page === "configuration-management");
     const isUnderItsmCmdb = section === "itsm" && (itsmCmdbPages.includes(page) || page === "cmdb");
+    const isUnderItsmManageCmdb = section === "itsm" && (itsmManageCmdbPages.includes(page) || page === "manage-cmdb");
     const isUnderItsmViewEditCi = section === "itsm" && (itsmViewEditCiPages.includes(page) || page === "view-and-edit-ci");
     const isUnderItsmCiDetails = section === "itsm" && (itsmCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
+    const isUnderItsmDetailsNested = section === "itsm" && (itsmDetailsNestedPages.includes(page) || page === "details");
+    const isUnderItsmOtherFunctions = section === "itsm" && (itsmOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
+    
+    // ITAM hierarchy checks
+    const isUnderItamConfigurationManagement = section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management");
+    const isUnderItamCmdb = section === "itam" && (itamCmdbPages.includes(page) || page === "cmdb");
+    const isUnderItamManageCmdb = section === "itam" && (itamManageCmdbPages.includes(page) || page === "manage-cmdb");
+    const isUnderItamViewEditCi = section === "itam" && (itamViewEditCiPages.includes(page) || page === "view-and-edit-ci");
+    const isUnderItamCiDetails = section === "itam" && (itamCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
+    const isUnderItamDetailsNested = section === "itam" && (itamDetailsNestedPages.includes(page) || page === "details");
+    const isUnderItamOtherFunctions = section === "itam" && (itamOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
+    const isUnderItamProcurement = section === "itam" && (itamProcurementPages.includes(page) || page === "procurement");
+    
+    // Self Service hierarchy checks
+    const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
+    
+    // Vulnerability Management hierarchy checks
+    const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
     
     // Admin hierarchy checks
     const isUnderOrganizationalDetails = section === "admin" && (organizationalDetailsPages.includes(page) || page === "organizational-details");
@@ -818,19 +971,53 @@ export function DocumentationContent({
     else if (isUnderCiDetails || isUnderDetailsNested) parentTopic = "CI Details and Tabs";
     else if (isUnderDashboard && page !== "dashboard") parentTopic = "Dashboard";
     else if (isUnderRunAScan && page !== "run-a-scan") parentTopic = "Run a Scan";
+    else if (isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan") parentTopic = "Initiate and Configure Discovery Scan";
+    else if (isUnderConfigureDiscovery && page !== "configure-discovery-scan") parentTopic = "Configure Discovery Scan";
     else if (isUnderRecentScans && page !== "recent-scans") parentTopic = "Recent Scans";
-    else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
+    else if (isUnderViewRecentScan && page !== "view-recent-scan") parentTopic = "View Recent Scan";
+    else if (isUnderRecentScanDetails && page !== "details") parentTopic = "Details";
     else if (isUnderScheduledScansImports && page !== "scheduled-scans-and-imports") parentTopic = "Scheduled Scans and Imports";
+    else if (isUnderScansImportOptions && page !== "scans-and-import-options") parentTopic = "Scans and Import Options";
+    else if (isUnderScheduledImportSetup && page !== "scheduled-import-setup") parentTopic = "Scheduled Import Setup";
     else if (isUnderIpamNetworks && page !== "ipam-networks") parentTopic = "IPAM Networks";
+    else if (isUnderIpamFunctionsOverview && page !== "ipam-functions-overview") parentTopic = "IPAM Functions Overview";
+    else if (isUnderScanFunction && page !== "scan-function") parentTopic = "Scan Function";
     else if (isUnderDiscoveredItems && page !== "discovered-items") parentTopic = "Discovered Items";
+    else if (isUnderManageDiscoveredItems && page !== "manage-discovered-items") parentTopic = "Manage Discovered Items";
+    else if (isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items") parentTopic = "Detailed View of Discovered Items";
+    else if (isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements-discovered-items") parentTopic = "Other Functions and Page Elements";
     else if (isUnderImportFromAWS && page !== "import-from-aws") parentTopic = "Import from AWS";
+    else if (isUnderViewAwsImportRecord && page !== "view-aws-import-record") parentTopic = "View AWS Import Record";
     else if (isUnderImportFromAzure && page !== "import-from-azure") parentTopic = "Import from Azure";
+    else if (isUnderViewAzureImportRecord && page !== "view-azure-import-record") parentTopic = "View AZURE Import Record";
     else if (isUnderImportFromMeraki && page !== "import-from-meraki") parentTopic = "Import from Meraki";
+    else if (isUnderViewMerakiImportRecord && page !== "view-meraki-import-record") parentTopic = "View Meraki Import Record";
     else if (isUnderImportFromIntune && page !== "import-from-intune") parentTopic = "Import from Intune";
+    else if (isUnderViewIntuneImportRecord && page !== "view-intune-import-record") parentTopic = "View Intune Import Record";
     else if (isUnderImportDataFiles && page !== "import-data-files") parentTopic = "Import Data Files";
+    else if (isUnderViewImportedDataFile && page !== "view-an-imported-data-file") parentTopic = "View an Imported Data File";
     else if (isUnderImportedAssets && page !== "imported-assets") parentTopic = "Imported Assets";
     else if (isUnderAdUserImportLogs && page !== "ad-user-import-logs") parentTopic = "AD User Import Logs";
+    else if (isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import") parentTopic = "AD Configuration and Import";
+    else if (isUnderViewImportLogDetails && page !== "view-import-log-details") parentTopic = "View Import Log Details";
+    else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
+    else if (isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import") parentTopic = "Azure AD Configuration and Import";
+    else if (isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure") parentTopic = "View Import Log Details";
     else if (isUnderConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
+    else if (isUnderItsmManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
+    else if (isUnderItsmViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
+    else if (isUnderItsmCiDetails || isUnderItsmDetailsNested) parentTopic = "CI Details and Tabs";
+    else if (isUnderItsmDetailsNested && page !== "details") parentTopic = "Details";
+    else if (isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
+    else if (isUnderItamConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
+    else if (isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions) parentTopic = "CMDB";
+    else if (isUnderItamManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
+    else if (isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions) parentTopic = "View and Edit a CI";
+    else if (isUnderItamCiDetails || isUnderItamDetailsNested) parentTopic = "CI Details and Tabs";
+    else if (isUnderItamDetailsNested && page !== "details") parentTopic = "Details";
+    else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
+    else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
+    else if (isUnderSelfService && page !== "self-service") parentTopic = "Self Service";
     else if (isUnderOrganizationalDetails && page !== "organizational-details") parentTopic = "Organizational Details";
     else if (isUnderDiscovery && page !== "discovery") parentTopic = "Discovery";
     else if (isUnderSacm && page !== "sacm") parentTopic = "SACM";
@@ -838,6 +1025,7 @@ export function DocumentationContent({
     else if (isUnderManagementFunctions && page !== "management-functions") parentTopic = "Management Functions";
     else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
     else if (isUnderOthers && page !== "others") parentTopic = "Others";
+    else if (isUnderVulnerabilityManagement && page !== "vulnerability-management") parentTopic = "Vulnerability Management";
     
     // Format page name for display using TOC label lookup
     const pageDisplayName = getPageLabel(page);
@@ -926,14 +1114,50 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* CMDB nested hierarchy */}
+            {/* CMDB nested hierarchy - Manage CMDB */}
+            {isUnderManageCmdb && page !== "manage-cmdb" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - View and Edit a CI */}
+            {isUnderViewEditCi && page !== "view-and-edit-ci" && !isUnderCiDetails && !isUnderDetailsNested && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - CI Details and Tabs */}
+            {(isUnderCiDetails || isUnderDetailsNested) && page !== "ci-details-and-tabs" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - Details */}
             {isUnderDetailsNested && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleNestedTopicClick("Details", "details")}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1017,11 +1241,43 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Azure AD hierarchy */}
-            {isUnderViewImportLog && page !== "view-import-log-details" && (
+            {/* Discovery Scan - Azure AD User Import Logs hierarchy */}
+            {isUnderAzureAd && page !== "azure-ad-user-import-logs" && !isUnderAzureAdConfigurationAndImport && !isUnderViewImportLogDetailsAzure && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD Configuration and Import", "azure-ad-configuration-and-import")}>
+                    Azure AD Configuration and Import
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details-azure")}>
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1040,8 +1296,24 @@ export function DocumentationContent({
               </>
             )}
             {/* Discovery Scan - IPAM Networks hierarchy */}
-            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && (
+            {isUnderIpamNetworks && page !== "ipam-networks" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && !isUnderScanFunction && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
@@ -1052,6 +1324,12 @@ export function DocumentationContent({
             )}
             {isUnderScanFunction && page !== "scan-function" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
@@ -1098,7 +1376,7 @@ export function DocumentationContent({
               </>
             )}
             {/* Discovery Scan - Import from AWS hierarchy */}
-            {isUnderImportFromAWS && page !== "import-from-aws" && (
+            {isUnderImportFromAWS && page !== "import-from-aws" && !isUnderViewAwsImportRecord && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
@@ -1108,8 +1386,24 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {isUnderViewAwsImportRecord && page !== "view-aws-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
+                    Import from AWS
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-aws-import-record")}>
+                    View AWS Import Record
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Discovery Scan - Import from Azure hierarchy */}
-            {isUnderImportFromAzure && page !== "import-from-azure" && (
+            {isUnderImportFromAzure && page !== "import-from-azure" && !isUnderViewAzureImportRecord && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
@@ -1119,8 +1413,24 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {isUnderViewAzureImportRecord && page !== "view-azure-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
+                    Import from Azure
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AZURE Import Record", "view-azure-import-record")}>
+                    View AZURE Import Record
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Discovery Scan - Import from Meraki hierarchy */}
-            {isUnderImportFromMeraki && page !== "import-from-meraki" && (
+            {isUnderImportFromMeraki && page !== "import-from-meraki" && !isUnderViewMerakiImportRecord && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
@@ -1130,8 +1440,24 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {isUnderViewMerakiImportRecord && page !== "view-meraki-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
+                    Import from Meraki
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-meraki-import-record")}>
+                    View Meraki Import Record
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Discovery Scan - Import from Intune hierarchy */}
-            {isUnderImportFromIntune && page !== "import-from-intune" && (
+            {isUnderImportFromIntune && page !== "import-from-intune" && !isUnderViewIntuneImportRecord && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
@@ -1141,12 +1467,28 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Import Data Files hierarchy */}
-            {isUnderManageImportDataFiles && page !== "manage-import-data-files" && (
+            {isUnderViewIntuneImportRecord && page !== "view-intune-import-record" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Import Data Files", "manage-import-data-files")}>
-                    Manage Import Data Files
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
+                    Import from Intune
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-intune-import-record")}>
+                    View Intune Import Record
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Import Data Files hierarchy */}
+            {isUnderImportDataFiles && page !== "import-data-files" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
+                    Import Data Files
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -1154,6 +1496,12 @@ export function DocumentationContent({
             )}
             {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
+                    Import Data Files
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
                     View an Imported Data File
@@ -1174,11 +1522,43 @@ export function DocumentationContent({
               </>
             )}
             {/* Discovery Scan - AD User Import Logs hierarchy */}
-            {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && (
+            {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && !isUnderAdConfigurationAndImport && !isUnderViewImportLogDetails && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
                     AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
+                    AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD Configuration and Import", "ad-configuration-and-import")}>
+                    AD Configuration and Import
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewImportLogDetails && page !== "view-import-log-details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
+                    AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
+                    View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -2611,6 +2991,14 @@ function DefaultContent({
       "Imported Assets": "imported-assets",
       "AD User Import Logs": "ad-user-import-logs",
       "Configuration Management": "configuration-management",
+      "CMDB": "cmdb",
+      "Manage CMDB": "manage-cmdb",
+      "View and Edit a CI": "view-and-edit-ci",
+      "CI Details and Tabs": "ci-details-and-tabs",
+      "Details": "details",
+      "Other Functions and Page Elements": "other-functions-and-page-elements",
+      "Procurement": "procurement",
+      "Self Service": "self-service",
       "Organizational Details": "organizational-details",
       "Discovery": "discovery",
       "SACM": "sacm",
@@ -2689,13 +3077,36 @@ function DefaultContent({
   
   const recentScansPages = ["access-recent-scan", "view-recent-scan", "details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
   const viewRecentScanPages = ["details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
-  const recentScanDetailsPages = ["export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
+  const recentScanDetailsPages = ["export-scan-report", "refresh"];
   
-  const azureAdPages = ["azure-ad-configuration-and-import", "access-the-azure-ad-user-import-logs", "view-import-log-details", "details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
-  const viewImportLogPages = ["details-tab", "key-information-displayed", "tabs-for-extended-information", "customize-columns", "delete-azure-ad-user-import-logs"];
+  const azureAdPages = [
+    "azure-ad-configuration-and-import",
+    "azure-ad-configuration-property-descriptions",
+    "testing-ad-configuration-azure",
+    "import-users-azure",
+    "scheduled-azure-ad-import",
+    "access-the-azure-ad-user-import-logs",
+    "view-import-log-details-azure",
+    "details-tab-azure",
+    "key-information-displayed",
+    "tabs-for-extended-information-azure",
+    "customize-columns-azure",
+  ];
+  const azureAdConfigurationAndImportPages = [
+    "azure-ad-configuration-property-descriptions",
+    "testing-ad-configuration-azure",
+    "import-users-azure",
+    "scheduled-azure-ad-import",
+  ];
+  const viewImportLogDetailsAzurePages = [
+    "details-tab-azure",
+    "key-information-displayed",
+    "tabs-for-extended-information-azure",
+    "customize-columns-azure",
+  ];
   
   const scheduledScansImportsPages = [
-    "prerequisites-scheduled-scans-imports",
+    "prerequisites",
     "accessing-scheduled-scan-and-imports",
     "key-features-and-options-on-the-landing-page",
     "scans-and-import-options",
@@ -2705,14 +3116,23 @@ function DefaultContent({
     "history-of-scheduled-scan-execution",
     "bulk-update-scan",
     "exporting-a-scan",
-    "importing-scan-schedule",
+    "importing-scan-schedules",
     "deleting-a-scan-schedule",
     "scheduled-import-setup",
     "aws-import",
     "azure-import",
-    "meraki-import",
   ];
-  const scansAndImportOptionsPages = ["scan-and-import-schedule-list"];
+  const scansAndImportOptionsPages = [
+    "scan-and-import-schedule-list",
+    "schedule-a-network-scan",
+    "editing-a-scheduled-scan",
+    "history-of-scheduled-scan-execution",
+    "bulk-update-scan",
+    "exporting-a-scan",
+    "importing-scan-schedules",
+    "deleting-a-scan-schedule",
+  ];
+  const scheduledImportSetupPages = ["aws-import", "azure-import"];
   const ipamNetworksPages = [
     "ipam-procedure",
     "infoblox-configuration",
@@ -2723,16 +3143,23 @@ function DefaultContent({
     "regular-scan",
     "sync-instant-and-scheduled",
     "view-and-edit-a-network",
-    "other-functions-and-page-elements",
+    "other-functions-and-page-elements-ipam",
   ];
-  const ipamFunctionsOverviewPages = ["scan-function", "status-update", "regular-scan"];
+  const ipamFunctionsOverviewPages = [
+    "scan-function",
+    "status-update",
+    "regular-scan",
+    "sync-instant-and-scheduled",
+    "view-and-edit-a-network",
+    "other-functions-and-page-elements-ipam",
+  ];
   const scanFunctionPages = ["status-update", "regular-scan"];
   const discoveredItemsPages = [
     "prerequisites-discovered-items",
     "access-discovered-items",
     "manage-discovered-items",
-    "delete",
-    "export",
+    "delete-discovered-items",
+    "export-discovered-items",
     "export-without-selecting-any-record",
     "move-to-cmdb",
     "re-scan",
@@ -2743,60 +3170,108 @@ function DefaultContent({
     "main-information-area",
     "action-buttons",
     "navigation-tabs",
-    "other-functions-and-page-elements",
+    "other-functions-and-page-elements-discovered-items",
     "toolbar-or-control-bar",
-    "filter-by-discovered-items",
+    "filter-by",
   ];
+  const manageDiscoveredItemsPages = [
+    "delete-discovered-items",
+    "export-discovered-items",
+    "export-without-selecting-any-record",
+    "move-to-cmdb",
+    "re-scan",
+  ];
+  const detailedViewDiscoveredItemsPages = [
+    "primary-details-block",
+    "owner-block",
+    "main-information-area",
+    "action-buttons",
+    "navigation-tabs",
+    "other-functions-and-page-elements-discovered-items",
+  ];
+  const otherFunctionsDiscoveredItemsPages = ["toolbar-or-control-bar", "filter-by"];
   const importFromAwsPages = [
     "access-the-import-aws-window",
-    "view-a-discovered-aws-record",
     "import-aws-record",
-    "delete-aws-record",
-    "export-aws-records",
+    "view-aws-import-record",
+    "key-columns-aws",
     "move-items-to-cmdb-aws",
     "logs-aws",
-    "key-columns-aws",
+    "delete-aws-record",
+    "export-aws-records",
+    "view-a-discovered-aws-record",
   ];
+  const viewAwsImportRecordPages = ["key-columns-aws", "move-items-to-cmdb-aws", "logs-aws"];
   const importFromAzurePages = [
     "access-import-azure-window",
-    "view-a-discovered-azure-record",
     "import-azure-record",
-    "delete-azure-record",
-    "export-azure-records",
-    "move-items-to-the-cmdb-azure",
-    "details-tab-azure",
-    "tabs-for-extended-information-azure",
-    "customize-columns-azure",
+    "view-azure-import-record",
     "common-controls-azure",
     "key-columns-azure",
+    "move-items-to-the-cmdb-azure",
+    "delete-azure-record",
+    "export-azure-records",
+    "view-a-discovered-azure-record",
+    "discovered-item-view-overview-azure",
     "top-right-actions-azure",
     "tabs-main-panel-azure",
+  ];
+  const viewAzureImportRecordPages = [
+    "common-controls-azure",
+    "key-columns-azure",
+    "move-items-to-the-cmdb-azure",
+    "delete-azure-record",
+    "export-azure-records",
+    "view-a-discovered-azure-record",
     "discovered-item-view-overview-azure",
+    "top-right-actions-azure",
+    "tabs-main-panel-azure",
   ];
   const importFromMerakiPages = [
+    "prerequisites-meraki",
     "assess-import-meraki-window",
-    "view-a-discovered-meraki-record",
     "import-meraki-record",
-    "delete-meraki-record",
-    "export-meraki-records",
+    "view-meraki-import-record",
+    "common-controls-meraki",
+    "key-columns-meraki",
     "move-items-to-the-cmdb-meraki",
     "logs-meraki",
-    "key-columns-meraki",
-    "common-controls-meraki",
+    "delete-meraki-record",
+    "export-meraki-records",
+    "view-a-discovered-meraki-record",
+    "discovered-item-view-overview-meraki",
     "top-right-actions-meraki",
     "tabs-main-panel-meraki",
+  ];
+  const viewMerakiImportRecordPages = [
+    "common-controls-meraki",
+    "key-columns-meraki",
+    "move-items-to-the-cmdb-meraki",
+    "logs-meraki",
+    "delete-meraki-record",
+    "export-meraki-records",
+    "view-a-discovered-meraki-record",
     "discovered-item-view-overview-meraki",
+    "top-right-actions-meraki",
+    "tabs-main-panel-meraki",
   ];
   const importFromIntunePages = [
     "access-import-from-intune",
-    "view-a-discovered-intune-record",
     "import-intune-record",
+    "view-intune-import-record",
     "delete-intune-record",
     "export-intune-records",
+    "view-a-discovered-intune-record",
+  ];
+  const viewIntuneImportRecordPages = [
+    "delete-intune-record",
+    "export-intune-records",
+    "view-a-discovered-intune-record",
   ];
   const importDataFilesPages = [
     "access-the-import-data-files",
     "manage-import-data-files",
+    "import-ci",
     "view-an-imported-data-file",
     "all-tab",
     "authorized-tab",
@@ -2805,7 +3280,9 @@ function DefaultContent({
     "delete-import-data-files",
     "export-import-data-files",
   ];
+  const viewImportedDataFilePages = ["all-tab", "authorized-tab", "unauthorized-tab"];
   const importedAssetsPages = [
+    "access-the-imported-assets",
     "manage-imported-assets",
     "imported-asset-details",
   ];
@@ -2821,15 +3298,31 @@ function DefaultContent({
     "tabs-for-extended-information",
     "customize-columns",
   ];
+  const adConfigurationAndImportPages = [
+    "ad-configuration-property-descriptions",
+    "testing-ad-configuration",
+    "import-users",
+    "scheduled-ad-import",
+  ];
+  const viewImportLogDetailsPages = ["details-tab", "tabs-for-extended-information", "customize-columns"];
   
   // ITSM breadcrumb hierarchy
-  const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
+  const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
   
-  const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
+  const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
   
-  const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements"];
+  const itsmManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation"];
   
-  const itsmCiDetailsPages = ["details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+  const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
+  
+  const itsmCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+  
+  const itsmDetailsNestedPages = ["manage-ci", "business-service-map"];
+  
+  const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+  
+  // Vulnerability Management breadcrumb hierarchy
+  const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
   
   // Admin breadcrumb hierarchy
   const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
@@ -2870,32 +3363,45 @@ function DefaultContent({
   const isUnderRecentScans = section === "discovery-scan" && (recentScansPages.includes(page) || page === "recent-scans");
   const isUnderViewRecentScan = section === "discovery-scan" && (viewRecentScanPages.includes(page) || page === "view-recent-scan");
   const isUnderRecentScanDetails = section === "discovery-scan" && (recentScanDetailsPages.includes(page) || page === "details");
-  const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
-  const isUnderViewImportLog = section === "discovery-scan" && (viewImportLogPages.includes(page) || page === "view-import-log-details");
   const isUnderScheduledScansImports = section === "discovery-scan" && (scheduledScansImportsPages.includes(page) || page === "scheduled-scans-and-imports");
   const isUnderScansImportOptions = section === "discovery-scan" && (scansAndImportOptionsPages.includes(page) || page === "scans-and-import-options");
+  const isUnderScheduledImportSetup = section === "discovery-scan" && (scheduledImportSetupPages.includes(page) || page === "scheduled-import-setup");
   const isUnderIpamNetworks = section === "discovery-scan" && (ipamNetworksPages.includes(page) || page === "ipam-networks");
   const isUnderIpamFunctionsOverview = section === "discovery-scan" && (ipamFunctionsOverviewPages.includes(page) || page === "ipam-functions-overview");
   const isUnderScanFunction = section === "discovery-scan" && (scanFunctionPages.includes(page) || page === "scan-function");
   const isUnderDiscoveredItems = section === "discovery-scan" && (discoveredItemsPages.includes(page) || page === "discovered-items");
-  const isUnderManageDiscoveredItems = section === "discovery-scan" && (page === "manage-discovered-items" || ["delete", "export", "export-without-selecting-any-record", "move-to-cmdb", "re-scan"].includes(page));
-  const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (page === "detailed-view-of-discovered-items" || ["primary-details-block", "owner-block", "main-information-area", "action-buttons", "navigation-tabs"].includes(page));
-  const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (page === "other-functions-and-page-elements" || ["toolbar-or-control-bar", "filter-by-discovered-items"].includes(page));
+  const isUnderManageDiscoveredItems = section === "discovery-scan" && (manageDiscoveredItemsPages.includes(page) || page === "manage-discovered-items");
+  const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (detailedViewDiscoveredItemsPages.includes(page) || page === "detailed-view-of-discovered-items");
+  const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (otherFunctionsDiscoveredItemsPages.includes(page) || page === "other-functions-and-page-elements-discovered-items");
   const isUnderImportFromAWS = section === "discovery-scan" && (importFromAwsPages.includes(page) || page === "import-from-aws");
+  const isUnderViewAwsImportRecord = section === "discovery-scan" && (viewAwsImportRecordPages.includes(page) || page === "view-aws-import-record");
   const isUnderImportFromAzure = section === "discovery-scan" && (importFromAzurePages.includes(page) || page === "import-from-azure");
+  const isUnderViewAzureImportRecord = section === "discovery-scan" && (viewAzureImportRecordPages.includes(page) || page === "view-azure-import-record");
   const isUnderImportFromMeraki = section === "discovery-scan" && (importFromMerakiPages.includes(page) || page === "import-from-meraki");
+  const isUnderViewMerakiImportRecord = section === "discovery-scan" && (viewMerakiImportRecordPages.includes(page) || page === "view-meraki-import-record");
   const isUnderImportFromIntune = section === "discovery-scan" && (importFromIntunePages.includes(page) || page === "import-from-intune");
+  const isUnderViewIntuneImportRecord = section === "discovery-scan" && (viewIntuneImportRecordPages.includes(page) || page === "view-intune-import-record");
   const isUnderImportDataFiles = section === "discovery-scan" && (importDataFilesPages.includes(page) || page === "import-data-files");
-  const isUnderManageImportDataFiles = section === "discovery-scan" && (page === "manage-import-data-files" || ["import-ci", "view-an-imported-data-file", "all-tab", "authorized-tab", "unauthorized-tab", "import-asset-ci-relations", "delete", "export"].includes(page));
-  const isUnderViewImportedDataFile = section === "discovery-scan" && (page === "view-an-imported-data-file" || ["all-tab", "authorized-tab", "unauthorized-tab"].includes(page));
+  const isUnderViewImportedDataFile = section === "discovery-scan" && (viewImportedDataFilePages.includes(page) || page === "view-an-imported-data-file");
   const isUnderImportedAssets = section === "discovery-scan" && (importedAssetsPages.includes(page) || page === "imported-assets");
   const isUnderAdUserImportLogs = section === "discovery-scan" && (adUserImportLogsPages.includes(page) || page === "ad-user-import-logs");
+  const isUnderAdConfigurationAndImport = section === "discovery-scan" && (adConfigurationAndImportPages.includes(page) || page === "ad-configuration-and-import");
+  const isUnderViewImportLogDetails = section === "discovery-scan" && (viewImportLogDetailsPages.includes(page) || page === "view-import-log-details");
+  const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
+  const isUnderAzureAdConfigurationAndImport = section === "discovery-scan" && (azureAdConfigurationAndImportPages.includes(page) || page === "azure-ad-configuration-and-import");
+  const isUnderViewImportLogDetailsAzure = section === "discovery-scan" && (viewImportLogDetailsAzurePages.includes(page) || page === "view-import-log-details-azure");
   
   // ITSM hierarchy checks
   const isUnderConfigurationManagement = section === "itsm" && (configurationManagementPages.includes(page) || page === "configuration-management");
   const isUnderItsmCmdb = section === "itsm" && (itsmCmdbPages.includes(page) || page === "cmdb");
+  const isUnderItsmManageCmdb = section === "itsm" && (itsmManageCmdbPages.includes(page) || page === "manage-cmdb");
   const isUnderItsmViewEditCi = section === "itsm" && (itsmViewEditCiPages.includes(page) || page === "view-and-edit-ci");
   const isUnderItsmCiDetails = section === "itsm" && (itsmCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
+  const isUnderItsmDetailsNested = section === "itsm" && (itsmDetailsNestedPages.includes(page) || page === "details");
+  const isUnderItsmOtherFunctions = section === "itsm" && (itsmOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
+  
+  // Vulnerability Management hierarchy checks
+  const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
   
   // Admin hierarchy checks
   const isUnderOrganizationalDetails = section === "admin" && (organizationalDetailsPages.includes(page) || page === "organizational-details");
@@ -2932,18 +3438,38 @@ function DefaultContent({
   else if (isUnderCiDetails || isUnderDetailsNested) parentTopic = "CI Details and Tabs";
   else if (isUnderDashboard && page !== "dashboard") parentTopic = "Dashboard";
   else if (isUnderRunAScan && page !== "run-a-scan") parentTopic = "Run a Scan";
+  else if (isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan") parentTopic = "Initiate and Configure Discovery Scan";
+  else if (isUnderConfigureDiscovery && page !== "configure-discovery-scan") parentTopic = "Configure Discovery Scan";
   else if (isUnderRecentScans && page !== "recent-scans") parentTopic = "Recent Scans";
-  else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
+  else if (isUnderViewRecentScan && page !== "view-recent-scan") parentTopic = "View Recent Scan";
+  else if (isUnderRecentScanDetails && page !== "details") parentTopic = "Details";
   else if (isUnderScheduledScansImports && page !== "scheduled-scans-and-imports") parentTopic = "Scheduled Scans and Imports";
+  else if (isUnderScansImportOptions && page !== "scans-and-import-options") parentTopic = "Scans and Import Options";
+  else if (isUnderScheduledImportSetup && page !== "scheduled-import-setup") parentTopic = "Scheduled Import Setup";
   else if (isUnderIpamNetworks && page !== "ipam-networks") parentTopic = "IPAM Networks";
+  else if (isUnderIpamFunctionsOverview && page !== "ipam-functions-overview") parentTopic = "IPAM Functions Overview";
+  else if (isUnderScanFunction && page !== "scan-function") parentTopic = "Scan Function";
   else if (isUnderDiscoveredItems && page !== "discovered-items") parentTopic = "Discovered Items";
+  else if (isUnderManageDiscoveredItems && page !== "manage-discovered-items") parentTopic = "Manage Discovered Items";
+  else if (isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items") parentTopic = "Detailed View of Discovered Items";
+  else if (isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements-discovered-items") parentTopic = "Other Functions and Page Elements";
   else if (isUnderImportFromAWS && page !== "import-from-aws") parentTopic = "Import from AWS";
+  else if (isUnderViewAwsImportRecord && page !== "view-aws-import-record") parentTopic = "View AWS Import Record";
   else if (isUnderImportFromAzure && page !== "import-from-azure") parentTopic = "Import from Azure";
+  else if (isUnderViewAzureImportRecord && page !== "view-azure-import-record") parentTopic = "View AZURE Import Record";
   else if (isUnderImportFromMeraki && page !== "import-from-meraki") parentTopic = "Import from Meraki";
+  else if (isUnderViewMerakiImportRecord && page !== "view-meraki-import-record") parentTopic = "View Meraki Import Record";
   else if (isUnderImportFromIntune && page !== "import-from-intune") parentTopic = "Import from Intune";
+  else if (isUnderViewIntuneImportRecord && page !== "view-intune-import-record") parentTopic = "View Intune Import Record";
   else if (isUnderImportDataFiles && page !== "import-data-files") parentTopic = "Import Data Files";
+  else if (isUnderViewImportedDataFile && page !== "view-an-imported-data-file") parentTopic = "View an Imported Data File";
   else if (isUnderImportedAssets && page !== "imported-assets") parentTopic = "Imported Assets";
   else if (isUnderAdUserImportLogs && page !== "ad-user-import-logs") parentTopic = "AD User Import Logs";
+  else if (isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import") parentTopic = "AD Configuration and Import";
+  else if (isUnderViewImportLogDetails && page !== "view-import-log-details") parentTopic = "View Import Log Details";
+  else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
+  else if (isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import") parentTopic = "Azure AD Configuration and Import";
+  else if (isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure") parentTopic = "View Import Log Details";
   else if (isUnderConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
   else if (isUnderOrganizationalDetails && page !== "organizational-details") parentTopic = "Organizational Details";
   else if (isUnderDiscovery && page !== "discovery") parentTopic = "Discovery";
@@ -3038,14 +3564,50 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* CMDB nested hierarchy */}
+            {/* CMDB nested hierarchy - Manage CMDB */}
+            {isUnderManageCmdb && page !== "manage-cmdb" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - View and Edit a CI */}
+            {isUnderViewEditCi && page !== "view-and-edit-ci" && !isUnderCiDetails && !isUnderDetailsNested && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - CI Details and Tabs */}
+            {(isUnderCiDetails || isUnderDetailsNested) && page !== "ci-details-and-tabs" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* CMDB nested hierarchy - Details */}
             {isUnderDetailsNested && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleNestedTopicClick("Details", "details")}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -3129,11 +3691,43 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Azure AD hierarchy */}
-            {isUnderViewImportLog && page !== "view-import-log-details" && (
+            {/* Discovery Scan - Azure AD User Import Logs hierarchy */}
+            {isUnderAzureAd && page !== "azure-ad-user-import-logs" && !isUnderAzureAdConfigurationAndImport && !isUnderViewImportLogDetailsAzure && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD Configuration and Import", "azure-ad-configuration-and-import")}>
+                    Azure AD Configuration and Import
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
+                    Azure AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details-azure")}>
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -3245,11 +3839,11 @@ function DefaultContent({
               </>
             )}
             {/* Discovery Scan - Import Data Files hierarchy */}
-            {isUnderManageImportDataFiles && page !== "manage-import-data-files" && (
+            {isUnderImportDataFiles && page !== "import-data-files" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Import Data Files", "manage-import-data-files")}>
-                    Manage Import Data Files
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
+                    Import Data Files
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -3257,6 +3851,12 @@ function DefaultContent({
             )}
             {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
+                    Import Data Files
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
                     View an Imported Data File
@@ -3277,7 +3877,18 @@ function DefaultContent({
               </>
             )}
             {/* ITSM - Configuration Management > CMDB hierarchy */}
-            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmViewEditCi && (
+            {isUnderConfigurationManagement && page !== "configuration-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - CMDB level */}
+            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -3287,7 +3898,25 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && (
+            {/* ITSM - Manage CMDB level */}
+            {isUnderItsmManageCmdb && page !== "manage-cmdb" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - View and Edit a CI level */}
+            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -3303,7 +3932,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && (
+            {/* ITSM - CI Details and Tabs level */}
+            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -3325,7 +3955,99 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {page === "ci-details-and-tabs" && section === "itsm" && isUnderItsmViewEditCi && (
+            {/* ITSM - Details nested level */}
+            {isUnderItsmDetailsNested && page !== "details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
+                    Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - Other Functions and Page Elements level */}
+            {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
+                    Other Functions and Page Elements
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Configuration Management hierarchy */}
+            {isUnderItamConfigurationManagement && page !== "configuration-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - CMDB level */}
+            {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Manage CMDB level */}
+            {isUnderItamManageCmdb && page !== "manage-cmdb" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - View and Edit a CI level */}
+            {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -3341,11 +4063,103 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {page === "view-and-edit-ci" && section === "itsm" && isUnderItsmCmdb && (
+            {/* ITAM - CI Details and Tabs level */}
+            {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Details nested level */}
+            {isUnderItamDetailsNested && page !== "details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
+                    Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Other Functions and Page Elements level */}
+            {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
+                    Other Functions and Page Elements
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Procurement level */}
+            {isUnderItamProcurement && page !== "procurement" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
+                    Procurement
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Self Service hierarchy */}
+            {isUnderSelfService && page !== "self-service" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Self Service", "self-service")}>
+                    Self Service
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Vulnerability Management hierarchy */}
+            {isUnderVulnerabilityManagement && page !== "vulnerability-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Vulnerability Management", "vulnerability-management")}>
+                    Vulnerability Management
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />

@@ -548,6 +548,179 @@ function AppContent() {
       return { section: 'self-service', page: fallbackPage };
     }
     
+    // For Program/Project Management module
+    if (module === 'program-project-management') {
+      // Program/Project Management page mappings - maps file names to page IDs
+      const pageMap: Record<string, string> = {
+        'programs_6_1': 'programs',
+        'program_dashboard_6_1': 'program-dashboard',
+        'projects_6_1': 'projects',
+        'project_dashboard_6_1': 'project-dashboard',
+        'about_prog_proj_mngmnt_6_1': 'program-project-management',
+      };
+      const page = pageMap[cleanName];
+      if (page) {
+        return { section: 'program-project-management', page };
+      }
+      // Fallback: try to extract from cleanName
+      const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+      return { section: 'program-project-management', page: fallbackPage };
+    }
+    
+    // For Risk Register module
+    if (module === 'risk-register') {
+      // Risk Register page mappings - maps file names to page IDs
+      const pageMap: Record<string, string> = {
+        'risk_dashboard_6_1': 'risk-dashboard',
+        'risks_6_1': 'risks',
+        'risks_new_6_1': 'risks',
+        'about_risk_register_6_1': 'risk-register',
+      };
+      const page = pageMap[cleanName];
+      if (page) {
+        return { section: 'risk-register', page };
+      }
+      // Fallback: try to extract from cleanName
+      const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+      return { section: 'risk-register', page: fallbackPage };
+    }
+    
+    // For Reports module
+    if (module === 'reports') {
+      // Reports page mappings - maps file names to page IDs
+      const pageMap: Record<string, string> = {
+        'reports_ad_hoc_6_1': 'ad-hoc-reports',
+        'reports_new_ad_hoc_6_1': 'ad-hoc-reports',
+        'reports_canned_6_1': 'canned-reports',
+        'reports_new_canned_6_1': 'canned-reports',
+        'reports_props_conds_6_1': 'properties-and-conditions',
+        'reports_run_6_1': 'run-report',
+        'reports_delete_6_1': 'delete-report',
+        'reports_6_1': 'reports',
+      };
+      const page = pageMap[cleanName];
+      if (page) {
+        return { section: 'reports', page };
+      }
+      // Fallback: try to extract from cleanName
+      const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+      return { section: 'reports', page: fallbackPage };
+    }
+    
+    // For Admin module
+    if (module === 'admin') {
+      // Admin page mappings - maps file names to page IDs
+      const pageMap: Record<string, string> = {
+        // Organizational Details pages (admin_org_details folder)
+        'cost_center_6_1': 'cost-center',
+        'departments_6_1': 'departments',
+        'departments_members_6_1': 'members',
+        'designations_6_1': 'designations',
+        'holidays_6_1': 'holidays',
+        'locations_6_1': 'locations',
+        'operational_hours_6_1': 'operational-hours',
+        'organizational_details_6_1': 'organizational-details-nested',
+        'about_org_details_6_1': 'organizational-details',
+        // Discovery pages (admin_discovery folder)
+        'application_map_6_1': 'application-map',
+        'client_6_1': 'client',
+        'client_discovery_agents_6_1': 'discovery-agents',
+        'client_remote_install_6_1': 'remote-install',
+        'client_restart_6_1': 'restart-client',
+        'correlation_6_1': 'correlation',
+        'credentials_6_1': 'credentials',
+        'credentials_details_6_1': 'details',
+        'credentials_backup_file_6_1': 'backup-file',
+        'credentials_flush_6_1': 'flush-credential',
+        'downloading_discovery_6_1': 'download-application',
+        'import_templates_6_1': 'import-templates',
+        'ignore_adm_process_6_1': 'ignore-adm-process',
+        'ignore_process_6_1': 'ignore-process',
+        'major_software_6_1': 'major-software',
+        'mon_prof_6_1': 'monitoring-profile',
+        'mon_prof_action_details_6_1': 'action-details',
+        'mon_prof_details_6_1': 'details',
+        'mon_prof_frequency_6_1': 'frequency',
+        'mon_prof_notifications_6_1': 'notifications',
+        'mon_prof_trigger_conditions_6_1': 'trigger-conditions',
+        'patterns_6_1': 'patterns',
+        'port_config_process_6_1': 'port-configuration',
+        'probe_workflow_6_1': 'probe-workflow',
+        'probes_6_1': 'probes',
+        'scan_configuration_6_1': 'scan-configuration',
+        'sensors_6_1': 'sensors',
+        // SACM pages (admin_sacm folder)
+        'blueprints_6_1': 'blueprints',
+        'custom_bsm_views_6_1': 'bsm-views',
+        'bsm_views_6_1': 'bsm-views',
+        'cmdb_graphical_workflow_6_1': 'cmdb-graphical-workflow',
+        'cmdb_properties_6_1': 'cmdb-properties',
+        'confidence_config_6_1': 'confidence-configuration',
+        'dups_remediation_6_1': 'duplicates-remediation',
+        'export_ci_template_6_1': 'export-ci-template',
+        'ip_conn_score_threshold_6_1': 'ip-connection-score-threshold',
+        'process_tags_6_1': 'process-tags',
+        'property_group_6_1': 'property-group',
+        'relationship_types_6_1': 'relationship-types',
+        'software_lic_validity_check_6_1': 'software-license-validity-check',
+        'sw_lic_validity_check_6_1': 'software-license-validity-check',
+        'software_usage_report_6_1': 'software-usage-report',
+        // Users pages (admin_users folder)
+        'ad_imp_auth_6_1': 'ad-configuration',
+        'azure_ad_config_6_1': 'azure-ad-configuration',
+        'saml_config_6_1': 'saml-configuration',
+        'time_track_reports_6_1': 'time-track-reports',
+        'user_groups_6_1': 'user-groups',
+        'user_roles_6_1': 'user-roles',
+        'users_6_1': 'users-list',
+        // Management Functions pages
+        'about_change_mngmnt_6_1': 'change-management',
+        'about_contract_mngmnt_6_1': 'contract-management',
+        'about_event_mngmnt_6_1': 'event-management',
+        'hardware_asset_mngmnt_6_1': 'hardware-asset-management',
+        'about_incident_mngmnt_6_1': 'incident-management',
+        'about_knowledge_mngmnt_6_1': 'knowledge-management',
+        'about_problem_mngmnt_6_1': 'problem-management',
+        'about_procurement_6_1': 'about-procurement',
+        'procurement_properties_6_1': 'procurement-properties',
+        'procurement_property_group_6_1': 'procurement-property-group',
+        'about_project_mngmnt_6_1': 'project-management',
+        'about_release_mngmnt_6_1': 'release-management',
+        'about_request_mngmnt_6_1': 'request-management',
+        'about_vendor_mngmnt_6_1': 'vendor-management',
+        // Integrations pages (admin_integrations folder)
+        'cherwell_credential_6_1': 'cherwell-credential',
+        'cherwell_mappings_6_1': 'cherwell-mappings',
+        'infoblox_config_6_1': 'infoblox-configuration',
+        'ivanti_credentials_6_1': 'ivanti-credentials',
+        'ivanti_mappings_6_1': 'ivanti-mappings',
+        'jira_credentials_6_1': 'jira-credentials',
+        'jira_mappings_6_1': 'jira-asset-mappings',
+        'servicenow_credentials_6_1': 'servicenow-credentials',
+        'servicenow_mappings_6_1': 'servicenow-mappings',
+        // Others pages (admin_other folder)
+        'announcements_6_1': 'announcements',
+        'business_rules_6_1': 'business-rules',
+        'custom_reports_6_1': 'custom-reports',
+        'documentation_tester_6_1': 'documentation-and-tester',
+        'inbox_config_itsm_ticket_mngmnt_6_1': 'inbox-configuration-itsm',
+        'kpis_6_1': 'kpis',
+        'reports_6_1': 'reports',
+        'role_access_6_1': 'role-access',
+        'sla_6_1': 'service-level-agreements',
+        'smtp_config_6_1': 'smtp-configuration',
+        'risk_score_calculator_6_1': 'risk-score-calculator',
+        'graphical_workflows_6_1': 'graphical-workflows',
+      };
+      const page = pageMap[cleanName];
+      if (page) {
+        return { section: 'admin', page };
+      }
+      // Fallback: try to extract from cleanName
+      const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+      return { section: 'admin', page: fallbackPage };
+    }
+    
     // For Vulnerability Management module
     if (module === 'vulnerability-management') {
       // Vulnerability Management page mappings - maps file names to page IDs
@@ -762,6 +935,12 @@ function AppContent() {
         // Override module to 'itsm' since files are under itam_6_1 but module is itsm
         actualModule = 'itsm';
         setSelectedModule('itsm');
+      } else if (parts.length >= 4 && parts[2] === 'admin_org_details' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_org_details/file_name (Admin Organizational Details submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
       } else if (parts.length >= 3) {
         // Format: /6_1/module_folder/file_name
         fileName = parts[2];
@@ -785,6 +964,15 @@ function AppContent() {
         } else if (actualModule === 'itsm') {
           setSelectedSection('itsm');
           setSelectedPage('configuration-management');
+        } else if (actualModule === 'risk-register') {
+          setSelectedSection('risk-register');
+          setSelectedPage('risk-dashboard');
+        } else if (actualModule === 'reports') {
+          setSelectedSection('reports');
+          setSelectedPage('ad-hoc-reports');
+        } else if (actualModule === 'admin') {
+          setSelectedSection('admin');
+          setSelectedPage('organizational-details');
         } else if (actualModule === 'vulnerability-management') {
           setSelectedSection('vulnerability-management');
           setSelectedPage('core-functionality');
@@ -813,7 +1001,7 @@ function AppContent() {
       : (version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen');
     
     // For version 6.1, use new format with folder structure: /6_1/module_folder/file_name
-    if (useNewFormat && (module === 'my-dashboard' || module === 'itsm' || module === 'vulnerability-management' || module === 'itam' || module === 'self-service')) {
+    if (useNewFormat && (module === 'my-dashboard' || module === 'itsm' || module === 'vulnerability-management' || module === 'itam' || module === 'self-service' || module === 'program-project-management' || module === 'risk-register' || module === 'reports' || module === 'admin')) {
       // Map to folder structure
       const folderMap: Record<string, string> = {
         'my-dashboard': 'my-dashboard-6_1',
@@ -824,12 +1012,165 @@ function AppContent() {
         'itam': 'itam_6_1',
         'vulnerability-management': 'vulnerability_management-6_1',
         'self-service': 'self-service-6_1',
+        'program-project-management': 'program-project-management-6_1',
+        'risk-register': 'risk-register-6_1',
+        'reports': 'reports_6_1',
         'admin': 'admin_6_1',
       };
       const moduleFolder = folderMap[module] || module;
       
       // Handle Self Service files
       if (module === 'self-service') {
+        const fileName = `${page.replace(/-/g, '_')}_6_1`;
+        const path = `/${versionPath}/${moduleFolder}/${fileName}`;
+        navigate(path);
+        return;
+      }
+      
+      // Handle Program/Project Management files
+      if (module === 'program-project-management') {
+        const fileName = `${page.replace(/-/g, '_')}_6_1`;
+        const path = `/${versionPath}/${moduleFolder}/${fileName}`;
+        navigate(path);
+        return;
+      }
+      
+      // Handle Risk Register files
+      if (module === 'risk-register') {
+        const fileName = `${page.replace(/-/g, '_')}_6_1`;
+        const path = `/${versionPath}/${moduleFolder}/${fileName}`;
+        navigate(path);
+        return;
+      }
+      
+      // Handle Reports files
+      if (module === 'reports') {
+        // Map page IDs to actual file names
+        const pageToFileMap: Record<string, string> = {
+          'ad-hoc-reports': 'reports_ad_hoc_6_1',
+          'canned-reports': 'reports_canned_6_1',
+          'properties-and-conditions': 'reports_props_conds_6_1',
+          'run-report': 'reports_run_6_1',
+          'delete-report': 'reports_delete_6_1',
+        };
+        const fileName = pageToFileMap[page] || `${page.replace(/-/g, '_')}_6_1`;
+        const path = `/${versionPath}/${moduleFolder}/${fileName}`;
+        navigate(path);
+        return;
+      }
+      
+      // Handle Admin files
+      if (module === 'admin') {
+        // Map page IDs to actual file names and subfolders
+        const pageToFileMap: Record<string, { file: string; subfolder?: string }> = {
+          // Organizational Details
+          'cost-center': { file: 'cost_center_6_1', subfolder: 'admin_org_details' },
+          'departments': { file: 'departments_6_1', subfolder: 'admin_org_details' },
+          'members': { file: 'departments_members_6_1', subfolder: 'admin_org_details' },
+          'designations': { file: 'designations_6_1', subfolder: 'admin_org_details' },
+          'holidays': { file: 'holidays_6_1', subfolder: 'admin_org_details' },
+          'locations': { file: 'locations_6_1', subfolder: 'admin_org_details' },
+          'operational-hours': { file: 'operational_hours_6_1', subfolder: 'admin_org_details' },
+          'organizational-details-nested': { file: 'organizational_details_6_1', subfolder: 'admin_org_details' },
+          'organizational-details': { file: 'about_org_details_6_1', subfolder: 'admin_org_details' },
+          // Discovery
+          'application-map': { file: 'application_map_6_1', subfolder: 'admin_discovery' },
+          'client': { file: 'client_6_1', subfolder: 'admin_discovery' },
+          'discovery-agents': { file: 'client_discovery_agents_6_1', subfolder: 'admin_discovery' },
+          'remote-install': { file: 'client_remote_install_6_1', subfolder: 'admin_discovery' },
+          'restart-client': { file: 'client_restart_6_1', subfolder: 'admin_discovery' },
+          'correlation': { file: 'correlation_6_1', subfolder: 'admin_discovery' },
+          'credentials': { file: 'credentials_6_1', subfolder: 'admin_discovery' },
+          'details': { file: 'credentials_details_6_1', subfolder: 'admin_discovery' },
+          'backup-file': { file: 'credentials_backup_file_6_1', subfolder: 'admin_discovery' },
+          'flush-credential': { file: 'credentials_flush_6_1', subfolder: 'admin_discovery' },
+          'download-application': { file: 'downloading_discovery_6_1', subfolder: 'admin_discovery' },
+          'import-templates': { file: 'import_templates_6_1', subfolder: 'admin_discovery' },
+          'ignore-adm-process': { file: 'ignore_adm_process_6_1', subfolder: 'admin_discovery' },
+          'ignore-process': { file: 'ignore_process_6_1', subfolder: 'admin_discovery' },
+          'major-software': { file: 'major_software_6_1', subfolder: 'admin_discovery' },
+          'monitoring-profile': { file: 'mon_prof_6_1', subfolder: 'admin_discovery' },
+          'action-details': { file: 'mon_prof_action_details_6_1', subfolder: 'admin_discovery' },
+          'frequency': { file: 'mon_prof_frequency_6_1', subfolder: 'admin_discovery' },
+          'notifications': { file: 'mon_prof_notifications_6_1', subfolder: 'admin_discovery' },
+          'trigger-conditions': { file: 'mon_prof_trigger_conditions_6_1', subfolder: 'admin_discovery' },
+          'patterns': { file: 'patterns_6_1', subfolder: 'admin_discovery' },
+          'port-configuration': { file: 'port_config_process_6_1', subfolder: 'admin_discovery' },
+          'probe-workflow': { file: 'probe_workflow_6_1', subfolder: 'admin_discovery' },
+          'probes': { file: 'probes_6_1', subfolder: 'admin_discovery' },
+          'scan-configuration': { file: 'scan_configuration_6_1', subfolder: 'admin_discovery' },
+          'sensors': { file: 'sensors_6_1', subfolder: 'admin_discovery' },
+          // SACM
+          'blueprints': { file: 'blueprints_6_1', subfolder: 'admin_sacm' },
+          'bsm-views': { file: 'custom_bsm_views_6_1', subfolder: 'admin_sacm' },
+          'cmdb-graphical-workflow': { file: 'cmdb_graphical_workflow_6_1', subfolder: 'admin_sacm' },
+          'cmdb-properties': { file: 'cmdb_properties_6_1', subfolder: 'admin_sacm' },
+          'confidence-configuration': { file: 'confidence_config_6_1', subfolder: 'admin_sacm' },
+          'duplicates-remediation': { file: 'dups_remediation_6_1', subfolder: 'admin_sacm' },
+          'export-ci-template': { file: 'export_ci_template_6_1', subfolder: 'admin_sacm' },
+          'ip-connection-score-threshold': { file: 'ip_conn_score_threshold_6_1', subfolder: 'admin_sacm' },
+          'process-tags': { file: 'process_tags_6_1', subfolder: 'admin_sacm' },
+          'property-group': { file: 'property_group_6_1', subfolder: 'admin_sacm' },
+          'relationship-types': { file: 'relationship_types_6_1', subfolder: 'admin_sacm' },
+          'software-license-validity-check': { file: 'software_lic_validity_check_6_1', subfolder: 'admin_sacm' },
+          'software-usage-report': { file: 'software_usage_report_6_1', subfolder: 'admin_sacm' },
+          // Users
+          'ad-configuration': { file: 'ad_imp_auth_6_1', subfolder: 'admin_users' },
+          'azure-ad-configuration': { file: 'azure_ad_config_6_1', subfolder: 'admin_users' },
+          'saml-configuration': { file: 'saml_config_6_1', subfolder: 'admin_users' },
+          'time-track-reports': { file: 'time_track_reports_6_1', subfolder: 'admin_users' },
+          'user-groups': { file: 'user_groups_6_1', subfolder: 'admin_users' },
+          'user-roles': { file: 'user_roles_6_1', subfolder: 'admin_users' },
+          'users-list': { file: 'users_6_1', subfolder: 'admin_users' },
+          // Management Functions
+          'change-management': { file: 'about_change_mngmnt_6_1', subfolder: 'admin_change_mngmnt' },
+          'contract-management': { file: 'about_contract_mngmnt_6_1', subfolder: 'admin_contract_mngmt' },
+          'event-management': { file: 'about_event_mngmnt_6_1', subfolder: 'admin_event_mngmnt' },
+          'hardware-asset-management': { file: 'hardware_asset_mngmnt_6_1', subfolder: 'admin_hardware_asset_mngmnt' },
+          'incident-management': { file: 'about_incident_mngmnt_6_1', subfolder: 'admin_incident_mngmnt' },
+          'knowledge-management': { file: 'about_knowledge_mngmnt_6_1', subfolder: 'admin_knowledge_mngmnt' },
+          'problem-management': { file: 'about_problem_mngmnt_6_1', subfolder: 'admin_problem_mngmnt' },
+          'about-procurement': { file: 'about_procurement_6_1', subfolder: 'admin_procurement' },
+          'procurement-properties': { file: 'procurement_properties_6_1', subfolder: 'admin_procurement' },
+          'procurement-property-group': { file: 'procurement_property_group_6_1', subfolder: 'admin_procurement' },
+          'project-management': { file: 'about_project_mngmnt_6_1', subfolder: 'admin_project_mngmnt' },
+          'release-management': { file: 'about_release_mngmnt_6_1', subfolder: 'admin_release_mngmnt' },
+          'request-management': { file: 'about_request_mngmnt_6_1', subfolder: 'admin_request_mngmnt' },
+          'vendor-management': { file: 'about_vendor_mngmnt_6_1', subfolder: 'admin_vendor_mngmnt' },
+          // Integrations
+          'cherwell-credential': { file: 'cherwell_credential_6_1', subfolder: 'admin_integrations' },
+          'cherwell-mappings': { file: 'cherwell_mappings_6_1', subfolder: 'admin_integrations' },
+          'infoblox-configuration': { file: 'infoblox_config_6_1', subfolder: 'admin_integrations' },
+          'ivanti-credentials': { file: 'ivanti_credentials_6_1', subfolder: 'admin_integrations' },
+          'ivanti-mappings': { file: 'ivanti_mappings_6_1', subfolder: 'admin_integrations' },
+          'jira-credentials': { file: 'jira_credentials_6_1', subfolder: 'admin_integrations' },
+          'jira-asset-mappings': { file: 'jira_mappings_6_1', subfolder: 'admin_integrations' },
+          'servicenow-credentials': { file: 'servicenow_credentials_6_1', subfolder: 'admin_integrations' },
+          'servicenow-mappings': { file: 'servicenow_mappings_6_1', subfolder: 'admin_integrations' },
+          // Others
+          'announcements': { file: 'announcements_6_1', subfolder: 'admin_other' },
+          'business-rules': { file: 'business_rules_6_1', subfolder: 'admin_other' },
+          'custom-reports': { file: 'custom_reports_6_1', subfolder: 'admin_other' },
+          'documentation-and-tester': { file: 'documentation_tester_6_1', subfolder: 'admin_other' },
+          'inbox-configuration-itsm': { file: 'inbox_config_itsm_ticket_mngmnt_6_1', subfolder: 'admin_other' },
+          'kpis': { file: 'kpis_6_1', subfolder: 'admin_other' },
+          'reports': { file: 'reports_6_1', subfolder: 'admin_other' },
+          'role-access': { file: 'role_access_6_1', subfolder: 'admin_other' },
+          'service-level-agreements': { file: 'sla_6_1', subfolder: 'admin_other' },
+          'smtp-configuration': { file: 'smtp_config_6_1', subfolder: 'admin_other' },
+          'risk-score-calculator': { file: 'risk_score_calculator_6_1', subfolder: 'admin_other' },
+          'graphical-workflows': { file: 'graphical_workflows_6_1', subfolder: 'admin_other' },
+        };
+        
+        const pageInfo = pageToFileMap[page];
+        if (pageInfo) {
+          const path = pageInfo.subfolder 
+            ? `/${versionPath}/${moduleFolder}/${pageInfo.subfolder}/${pageInfo.file}`
+            : `/${versionPath}/${moduleFolder}/${pageInfo.file}`;
+          navigate(path);
+          return;
+        }
+        // Fallback: try to determine subfolder from page
         const fileName = `${page.replace(/-/g, '_')}_6_1`;
         const path = `/${versionPath}/${moduleFolder}/${fileName}`;
         navigate(path);
@@ -910,6 +1251,15 @@ function AppContent() {
           } else if (module === 'my-dashboard') {
             section = 'my-dashboard';
             page = 'my-dashboard-overview';
+          } else if (module === 'risk-register') {
+            section = 'risk-register';
+            page = 'risk-dashboard';
+          } else if (module === 'reports') {
+            section = 'reports';
+            page = 'ad-hoc-reports';
+          } else if (module === 'admin') {
+            section = 'admin';
+            page = 'organizational-details';
           } else if (module === 'vulnerability-management') {
             section = 'vulnerability-management';
             page = 'core-functionality';
@@ -988,6 +1338,15 @@ function AppContent() {
               } else if (selectedModule === 'my-dashboard') {
                 section = 'my-dashboard';
                 page = 'my-dashboard-overview';
+              } else if (selectedModule === 'risk-register') {
+                section = 'risk-register';
+                page = 'risk-dashboard';
+              } else if (selectedModule === 'reports') {
+                section = 'reports';
+                page = 'ad-hoc-reports';
+              } else if (selectedModule === 'admin') {
+                section = 'admin';
+                page = 'organizational-details';
               } else {
                 section = 'application-overview';
                 page = 'advanced-search';

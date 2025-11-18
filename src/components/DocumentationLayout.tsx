@@ -665,7 +665,17 @@ const adminSections = [
           { id: "ignore-adm-process", label: "Ignore ADM Process" },
           { id: "ignore-process", label: "Ignore Process" },
           { id: "major-software", label: "Major Software" },
-          { id: "monitoring-profile", label: "Monitoring Profile" },
+          {
+            id: "monitoring-profile",
+            label: "Monitoring Profile",
+            subPages: [
+              { id: "action-details", label: "Action Details" },
+              { id: "details", label: "Details" },
+              { id: "frequency", label: "Frequency" },
+              { id: "notifications", label: "Notifications" },
+              { id: "trigger-conditions", label: "Trigger Conditions" },
+            ],
+          },
           { id: "patterns", label: "Patterns" },
           { id: "port-configuration", label: "Port Configuration" },
           { id: "probe-workflow", label: "Probe Workflow" },
@@ -679,7 +689,7 @@ const adminSections = [
         label: "SACM",
         subPages: [
           { id: "blueprints", label: "Blueprints" },
-          { id: "bsm-views", label: "BSM Views" },
+          { id: "bsm-views", label: "Custom BSM Views" },
           { id: "cmdb-graphical-workflow", label: "CMDB Graphical Workflow" },
           { id: "cmdb-properties", label: "CMDB Properties" },
           { id: "confidence-configuration", label: "Confidence Configuration" },
@@ -697,7 +707,7 @@ const adminSections = [
         id: "users",
         label: "Users",
         subPages: [
-          { id: "ad-import-and-authentication", label: "AD Import and Authentication" },
+          { id: "ad-configuration", label: "AD Configuration" },
           { id: "azure-ad-configuration", label: "Azure AD Configuration" },
           { id: "saml-configuration", label: "SAML Configuration" },
           { id: "time-track-reports", label: "Time Track Reports" },
@@ -721,8 +731,8 @@ const adminSections = [
             id: "procurement",
             label: "Procurement",
             subPages: [
-              { id: "procurement-properties", label: "Procurement Properties" },
               { id: "about-procurement", label: "About-Procurement" },
+              { id: "procurement-properties", label: "Procurement Properties" },
               { id: "procurement-property-group", label: "Procurement Property Group" },
             ],
           },
@@ -740,7 +750,7 @@ const adminSections = [
             id: "cherwell-credential",
             label: "Cherwell Credential",
             subPages: [
-              { id: "mappings", label: "Mappings" },
+              { id: "cherwell-mappings", label: "Cherwell Mappings" },
             ],
           },
           { id: "infoblox-configuration", label: "Infoblox Configuration" },
@@ -755,7 +765,7 @@ const adminSections = [
             id: "jira-credentials",
             label: "Jira Credentials",
             subPages: [
-              { id: "jira-mappings", label: "Mappings" },
+              { id: "jira-asset-mappings", label: "Jira Asset Mappings" },
             ],
           },
           {
@@ -781,6 +791,7 @@ const adminSections = [
           { id: "role-access", label: "Role Access" },
           { id: "service-level-agreements", label: "Service Level Agreements" },
           { id: "smtp-configuration", label: "SMTP Configuration" },
+          { id: "risk-score-calculator", label: "Risk Score Calculator" },
           { id: "graphical-workflows", label: "Graphical Workflows" },
         ],
       },
@@ -1003,6 +1014,57 @@ const selfServiceSections = [
   },
 ];
 
+const programProjectManagementSections = [
+  {
+    id: "program-project-management",
+    title: "Program/Project Management",
+    label: "Program/Project Management",
+    pages: [
+      {
+        id: "programs",
+        label: "Programs",
+        subPages: [
+          { id: "program-dashboard", label: "Program Dashboard" },
+        ],
+      },
+      {
+        id: "projects",
+        label: "Projects",
+        subPages: [
+          { id: "project-dashboard", label: "Project Dashboard" },
+        ],
+      },
+    ],
+  },
+];
+
+const riskRegisterSections = [
+  {
+    id: "risk-register",
+    title: "Risk Register",
+    label: "Risk Register",
+    pages: [
+      { id: "risk-dashboard", label: "Risk Dashboard" },
+      { id: "risks", label: "Risks" },
+    ],
+  },
+];
+
+const reportsSections = [
+  {
+    id: "reports",
+    title: "Reports",
+    label: "Reports",
+    pages: [
+      { id: "ad-hoc-reports", label: "Ad Hoc Reports" },
+      { id: "canned-reports", label: "Canned Reports" },
+      { id: "properties-and-conditions", label: "Properties and Conditions" },
+      { id: "run-report", label: "Run Report" },
+      { id: "delete-report", label: "Delete Report" },
+    ],
+  },
+];
+
 const getSectionsForModule = (moduleId: string) => {
   if (moduleId === "admin") {
     return adminSections;
@@ -1027,6 +1089,15 @@ const getSectionsForModule = (moduleId: string) => {
   }
   if (moduleId === "self-service") {
     return selfServiceSections;
+  }
+  if (moduleId === "program-project-management") {
+    return programProjectManagementSections;
+  }
+  if (moduleId === "risk-register") {
+    return riskRegisterSections;
+  }
+  if (moduleId === "reports") {
+    return reportsSections;
   }
   return defaultSections;
 };

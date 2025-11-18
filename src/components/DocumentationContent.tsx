@@ -380,12 +380,26 @@ export function DocumentationContent({
       "Other Functions and Page Elements": "other-functions-and-page-elements",
       "Procurement": "procurement",
       "Self Service": "self-service",
+      "Program/Project Management": "program-project-management",
+      "Programs": "programs",
+      "Projects": "projects",
+      "Risk Register": "risk-register",
+      "Reports": "reports",
       "Organizational Details": "organizational-details",
+      "Departments": "departments",
       "Discovery": "discovery",
+      "Client": "client",
+      "Credentials": "credentials",
+      "Monitoring Profile": "monitoring-profile",
       "SACM": "sacm",
       "Users": "users",
       "Management Functions": "management-functions",
+      "Procurement": "procurement",
       "Integrations": "integrations",
+      "Cherwell Credential": "cherwell-credential",
+      "Ivanti Credentials": "ivanti-credentials",
+      "Jira Credentials": "jira-credentials",
+      "ServiceNow Credentials": "servicenow-credentials",
       "Others": "others",
       "My Dashboard": "my-dashboard-section",
       "Details": "details",
@@ -840,6 +854,17 @@ export function DocumentationContent({
     // Self Service breadcrumb hierarchy
     const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
     
+    // Program/Project Management breadcrumb hierarchy
+    const programProjectManagementPages = ["programs", "projects", "program-dashboard", "project-dashboard"];
+    const programsPages = ["program-dashboard"];
+    const projectsPages = ["project-dashboard"];
+    
+    // Risk Register breadcrumb hierarchy
+    const riskRegisterPages = ["risk-dashboard", "risks"];
+    
+    // Reports breadcrumb hierarchy
+    const reportsPages = ["ad-hoc-reports", "canned-reports", "properties-and-conditions", "run-report", "delete-report"];
+    
     // Vulnerability Management breadcrumb hierarchy
     const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
     
@@ -847,24 +872,25 @@ export function DocumentationContent({
     const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
     const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
     
-    const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
+    const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
     const clientPages = ["discovery-agents", "remote-install", "restart-client"];
     const credentialsPages = ["details", "backup-file", "flush-credential"];
+    const monitoringProfilePages = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
     
     const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
     
-    const usersPages = ["ad-import-and-authentication", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
+    const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
     
     const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "procurement", "procurement-properties", "about-procurement", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
     const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
     
-    const integrationsPages = ["cherwell-credential", "mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-mappings", "servicenow-credentials", "servicenow-mappings"];
-    const cherwellCredentialPages = ["mappings"];
+    const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
+    const cherwellCredentialPages = ["cherwell-mappings"];
     const ivantiCredentialsPages = ["ivanti-mappings"];
-    const jiraCredentialsPages = ["jira-mappings"];
+    const jiraCredentialsPages = ["jira-asset-mappings"];
     const servicenowCredentialsPages = ["servicenow-mappings"];
     
-    const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "graphical-workflows"];
+    const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
     
     // Calculate all hierarchy checks (same as DefaultContent)
     const isUnderSharedFunctions = section === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
@@ -933,6 +959,17 @@ export function DocumentationContent({
     // Self Service hierarchy checks
     const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
     
+    // Program/Project Management hierarchy checks
+    const isUnderProgramProjectManagement = section === "program-project-management" && (programProjectManagementPages.includes(page) || page === "program-project-management");
+    const isUnderPrograms = section === "program-project-management" && (programsPages.includes(page) || page === "programs");
+    const isUnderProjects = section === "program-project-management" && (projectsPages.includes(page) || page === "projects");
+    
+    // Risk Register hierarchy checks
+    const isUnderRiskRegister = section === "risk-register" && (riskRegisterPages.includes(page) || page === "risk-register");
+    
+    // Reports hierarchy checks
+    const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
+    
     // Vulnerability Management hierarchy checks
     const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
     
@@ -943,6 +980,7 @@ export function DocumentationContent({
     const isUnderDiscovery = section === "admin" && (discoveryPages.includes(page) || page === "discovery");
     const isUnderClient = section === "admin" && (clientPages.includes(page) || page === "client");
     const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
+    const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
     
     const isUnderSacm = section === "admin" && (sacmPages.includes(page) || page === "sacm");
     const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
@@ -955,7 +993,6 @@ export function DocumentationContent({
     const isUnderIvantiCredentials = section === "admin" && (ivantiCredentialsPages.includes(page) || page === "ivanti-credentials");
     const isUnderJiraCredentials = section === "admin" && (jiraCredentialsPages.includes(page) || page === "jira-credentials");
     const isUnderServicenowCredentials = section === "admin" && (servicenowCredentialsPages.includes(page) || page === "servicenow-credentials");
-    
     const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
     
     // Get section display name
@@ -1018,12 +1055,26 @@ export function DocumentationContent({
     else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
     else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
     else if (isUnderSelfService && page !== "self-service") parentTopic = "Self Service";
-    else if (isUnderOrganizationalDetails && page !== "organizational-details") parentTopic = "Organizational Details";
-    else if (isUnderDiscovery && page !== "discovery") parentTopic = "Discovery";
+    else if (isUnderProgramProjectManagement && page !== "program-project-management") parentTopic = "Program/Project Management";
+    else if (isUnderPrograms && page !== "programs") parentTopic = "Programs";
+    else if (isUnderProjects && page !== "projects") parentTopic = "Projects";
+    else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
+    else if (isUnderReports && page !== "reports") parentTopic = "Reports";
+    else if (isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments) parentTopic = "Organizational Details";
+    else if (isUnderDepartments && page !== "departments") parentTopic = "Departments";
+    else if (isUnderDiscovery && page !== "discovery" && !isUnderClient && !isUnderCredentials && !isUnderMonitoringProfile) parentTopic = "Discovery";
+    else if (isUnderClient && page !== "client") parentTopic = "Client";
+    else if (isUnderCredentials && page !== "credentials") parentTopic = "Credentials";
+    else if (isUnderMonitoringProfile && page !== "monitoring-profile") parentTopic = "Monitoring Profile";
     else if (isUnderSacm && page !== "sacm") parentTopic = "SACM";
     else if (isUnderUsers && page !== "users") parentTopic = "Users";
-    else if (isUnderManagementFunctions && page !== "management-functions") parentTopic = "Management Functions";
-    else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
+    else if (isUnderManagementFunctions && page !== "management-functions" && !isUnderProcurement) parentTopic = "Management Functions";
+    else if (isUnderProcurement && page !== "procurement") parentTopic = "Procurement";
+    else if (isUnderIntegrations && page !== "integrations" && !isUnderCherwellCredential && !isUnderIvantiCredentials && !isUnderJiraCredentials && !isUnderServicenowCredentials) parentTopic = "Integrations";
+    else if (isUnderCherwellCredential && page !== "cherwell-credential") parentTopic = "Cherwell Credential";
+    else if (isUnderIvantiCredentials && page !== "ivanti-credentials") parentTopic = "Ivanti Credentials";
+    else if (isUnderJiraCredentials && page !== "jira-credentials") parentTopic = "Jira Credentials";
+    else if (isUnderServicenowCredentials && page !== "servicenow-credentials") parentTopic = "ServiceNow Credentials";
     else if (isUnderOthers && page !== "others") parentTopic = "Others";
     else if (isUnderVulnerabilityManagement && page !== "vulnerability-management") parentTopic = "Vulnerability Management";
     
@@ -1290,6 +1341,17 @@ export function DocumentationContent({
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
                     Scans and Import Options
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Dashboard hierarchy */}
+            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
+                    Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -1564,8 +1626,19 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM nested hierarchy */}
-            {isUnderItsmCmdb && page !== "cmdb" && (
+            {/* ITSM - Configuration Management hierarchy */}
+            {isUnderConfigurationManagement && page !== "configuration-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - CMDB level */}
+            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -1575,8 +1648,44 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && (
+            {/* ITSM - Manage CMDB level */}
+            {isUnderItsmManageCmdb && page !== "manage-cmdb" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - View and Edit a CI level */}
+            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -1585,11 +1694,266 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && (
+            {/* ITSM - CI Details and Tabs level */}
+            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
                     CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - Details nested level */}
+            {isUnderItsmDetailsNested && page !== "details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
+                    Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITSM - Other Functions and Page Elements level */}
+            {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
+                    Other Functions and Page Elements
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Configuration Management hierarchy */}
+            {isUnderItamConfigurationManagement && page !== "configuration-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - CMDB level */}
+            {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Manage CMDB level */}
+            {isUnderItamManageCmdb && page !== "manage-cmdb" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
+                    Manage CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - View and Edit a CI level */}
+            {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - CI Details and Tabs level */}
+            {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Details nested level */}
+            {isUnderItamDetailsNested && page !== "details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                    CI Details and Tabs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
+                    Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Other Functions and Page Elements level */}
+            {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
+                    Other Functions and Page Elements
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* ITAM - Procurement hierarchy */}
+            {isUnderItamProcurement && page !== "procurement" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
+                    Procurement
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -2999,12 +3363,26 @@ function DefaultContent({
       "Other Functions and Page Elements": "other-functions-and-page-elements",
       "Procurement": "procurement",
       "Self Service": "self-service",
+      "Program/Project Management": "program-project-management",
+      "Programs": "programs",
+      "Projects": "projects",
+      "Risk Register": "risk-register",
+      "Reports": "reports",
       "Organizational Details": "organizational-details",
+      "Departments": "departments",
       "Discovery": "discovery",
+      "Client": "client",
+      "Credentials": "credentials",
+      "Monitoring Profile": "monitoring-profile",
       "SACM": "sacm",
       "Users": "users",
       "Management Functions": "management-functions",
+      "Procurement": "procurement",
       "Integrations": "integrations",
+      "Cherwell Credential": "cherwell-credential",
+      "Ivanti Credentials": "ivanti-credentials",
+      "Jira Credentials": "jira-credentials",
+      "ServiceNow Credentials": "servicenow-credentials",
       "Others": "others",
     };
     return topicMap[parentTopicName] || null;
@@ -3328,24 +3706,25 @@ function DefaultContent({
   const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
   const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
   
-  const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
+  const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
   const clientPages = ["discovery-agents", "remote-install", "restart-client"];
   const credentialsPages = ["details", "backup-file", "flush-credential"];
+  const monitoringProfilePages = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
   
   const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
   
-  const usersPages = ["ad-import-and-authentication", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
+  const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
   
   const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "procurement", "procurement-properties", "about-procurement", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
   const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
   
-  const integrationsPages = ["cherwell-credential", "mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-mappings", "servicenow-credentials", "servicenow-mappings"];
-  const cherwellCredentialPages = ["mappings"];
+  const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
+  const cherwellCredentialPages = ["cherwell-mappings"];
   const ivantiCredentialsPages = ["ivanti-mappings"];
-  const jiraCredentialsPages = ["jira-mappings"];
+  const jiraCredentialsPages = ["jira-asset-mappings"];
   const servicenowCredentialsPages = ["servicenow-mappings"];
   
-  const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "graphical-workflows"];
+  const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
   
   const isUnderSharedFunctions = section === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
   const isUnderDashboards = section === "my-dashboard" && (dashboardsPages.includes(page) || page === "dashboards");
@@ -3410,6 +3789,7 @@ function DefaultContent({
   const isUnderDiscovery = section === "admin" && (discoveryPages.includes(page) || page === "discovery");
   const isUnderClient = section === "admin" && (clientPages.includes(page) || page === "client");
   const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
+  const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
   
   const isUnderSacm = section === "admin" && (sacmPages.includes(page) || page === "sacm");
   const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
@@ -3614,9 +3994,36 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Discovery Scan - Dashboard hierarchy */}
+            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
+                    Dashboard
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Discovery Scan - Run a Scan hierarchy */}
+            {isUnderRunAScan && page !== "run-a-scan" && !isUnderInitiateConfigure && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
+                    Run a Scan
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
+                    Run a Scan
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
@@ -3627,6 +4034,12 @@ function DefaultContent({
             )}
             {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
+                    Run a Scan
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
@@ -3644,6 +4057,12 @@ function DefaultContent({
             {page === "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
+                    Run a Scan
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
@@ -3652,8 +4071,24 @@ function DefaultContent({
               </>
             )}
             {/* Discovery Scan - Recent Scans hierarchy */}
+            {isUnderRecentScans && page !== "recent-scans" && !isUnderViewRecentScan && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
+                    Recent Scans
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
+                    Recent Scans
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
@@ -3664,6 +4099,12 @@ function DefaultContent({
             )}
             {isUnderRecentScanDetails && page !== "details" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
+                    Recent Scans
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
@@ -3684,8 +4125,59 @@ function DefaultContent({
             {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
+                    Recent Scans
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
+            {isUnderScheduledScansImports && page !== "scheduled-scans-and-imports" && !isUnderScansImportOptions && !isUnderScheduledImportSetup && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
+                    Scheduled Scans and Imports
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Scheduled Scans and Imports > Scans and Import Options hierarchy */}
+            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
+                    Scheduled Scans and Imports
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
+                    Scans and Import Options
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Scheduled Scans and Imports > Scheduled Import Setup hierarchy */}
+            {isUnderScheduledImportSetup && page !== "scheduled-import-setup" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
+                    Scheduled Scans and Imports
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Import Setup", "scheduled-import-setup")}>
+                    Scheduled Import Setup
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -3734,20 +4226,25 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
-            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
+            {/* Discovery Scan - IPAM Networks hierarchy */}
+            {isUnderIpamNetworks && page !== "ipam-networks" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
-                    Scans and Import Options
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - IPAM Networks hierarchy */}
-            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && (
+            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && !isUnderScanFunction && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
@@ -3759,6 +4256,18 @@ function DefaultContent({
             {isUnderScanFunction && page !== "scan-function" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
+                    IPAM Networks
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
+                    IPAM Functions Overview
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Scan Function", "scan-function")}>
                     Scan Function
                   </BreadcrumbLink>
@@ -3767,8 +4276,24 @@ function DefaultContent({
               </>
             )}
             {/* Discovery Scan - Discovered Items hierarchy */}
+            {isUnderDiscoveredItems && page !== "discovered-items" && !isUnderManageDiscoveredItems && !isUnderDetailedViewDiscoveredItems && !isUnderOtherFunctionsDiscoveredItems && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
+                    Discovered Items
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
+                    Discovered Items
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
                     Manage Discovered Items
@@ -3780,6 +4305,12 @@ function DefaultContent({
             {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
+                    Discovered Items
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
                     Detailed View of Discovered Items
                   </BreadcrumbLink>
@@ -3789,6 +4320,12 @@ function DefaultContent({
             )}
             {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
+                    Discovered Items
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
@@ -3891,6 +4428,12 @@ function DefaultContent({
             {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
@@ -3901,6 +4444,12 @@ function DefaultContent({
             {/* ITSM - Manage CMDB level */}
             {isUnderItsmManageCmdb && page !== "manage-cmdb" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -3919,6 +4468,12 @@ function DefaultContent({
             {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
@@ -3935,6 +4490,12 @@ function DefaultContent({
             {/* ITSM - CI Details and Tabs level */}
             {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -3958,6 +4519,12 @@ function DefaultContent({
             {/* ITSM - Details nested level */}
             {isUnderItsmDetailsNested && page !== "details" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -3987,6 +4554,12 @@ function DefaultContent({
             {/* ITSM - Other Functions and Page Elements level */}
             {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4022,6 +4595,12 @@ function DefaultContent({
             {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
@@ -4032,6 +4611,12 @@ function DefaultContent({
             {/* ITAM - Manage CMDB level */}
             {isUnderItamManageCmdb && page !== "manage-cmdb" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4050,6 +4635,12 @@ function DefaultContent({
             {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
@@ -4066,6 +4657,12 @@ function DefaultContent({
             {/* ITAM - CI Details and Tabs level */}
             {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4089,6 +4686,12 @@ function DefaultContent({
             {/* ITAM - Details nested level */}
             {isUnderItamDetailsNested && page !== "details" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4118,6 +4721,12 @@ function DefaultContent({
             {/* ITAM - Other Functions and Page Elements level */}
             {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
+                    Configuration Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4154,6 +4763,73 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Program/Project Management hierarchy */}
+            {isUnderProgramProjectManagement && page !== "program-project-management" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
+                    Program/Project Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Programs level */}
+            {isUnderPrograms && page !== "programs" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
+                    Program/Project Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Programs", "programs")}>
+                    Programs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Projects level */}
+            {isUnderProjects && page !== "projects" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
+                    Program/Project Management
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Projects", "projects")}>
+                    Projects
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Risk Register hierarchy */}
+            {isUnderRiskRegister && page !== "risk-register" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Risk Register", "risk-register")}>
+                    Risk Register
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Reports hierarchy */}
+            {isUnderReports && page !== "reports" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Reports", "reports")}>
+                    Reports
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Vulnerability Management hierarchy */}
             {isUnderVulnerabilityManagement && page !== "vulnerability-management" && (
               <>
@@ -4165,9 +4841,92 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Discovery hierarchy */}
+            {isUnderDiscovery && page !== "discovery" && !isUnderClient && !isUnderCredentials && !isUnderMonitoringProfile && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
+                    Discovery
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - SACM hierarchy */}
+            {isUnderSacm && page !== "sacm" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("SACM", "sacm")}>
+                    SACM
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - Users hierarchy */}
+            {isUnderUsers && page !== "users" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Users", "users")}>
+                    Users
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - Management Functions hierarchy */}
+            {isUnderManagementFunctions && page !== "management-functions" && !isUnderProcurement && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Management Functions", "management-functions")}>
+                    Management Functions
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - Integrations hierarchy */}
+            {isUnderIntegrations && page !== "integrations" && !isUnderCherwellCredential && !isUnderIvantiCredentials && !isUnderJiraCredentials && !isUnderServicenowCredentials && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - Others hierarchy */}
+            {isUnderOthers && page !== "others" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Others", "others")}>
+                    Others
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Admin - Organizational Details hierarchy */}
+            {isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Organizational Details", "organizational-details")}>
+                    Organizational Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
             {/* Admin - Organizational Details > Departments hierarchy */}
             {isUnderDepartments && page !== "departments" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Organizational Details", "organizational-details")}>
+                    Organizational Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
                     Departments
@@ -4180,6 +4939,12 @@ function DefaultContent({
             {isUnderClient && page !== "client" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
+                    Discovery
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
                     Client
                   </BreadcrumbLink>
@@ -4190,6 +4955,12 @@ function DefaultContent({
             {/* Admin - Discovery > Credentials hierarchy */}
             {isUnderCredentials && page !== "credentials" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
+                    Discovery
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
                     Credentials
@@ -4202,6 +4973,12 @@ function DefaultContent({
             {isUnderProcurement && page !== "procurement" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Management Functions", "management-functions")}>
+                    Management Functions
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
                     Procurement
                   </BreadcrumbLink>
@@ -4212,6 +4989,12 @@ function DefaultContent({
             {/* Admin - Integrations > Cherwell Credential hierarchy */}
             {isUnderCherwellCredential && page !== "cherwell-credential" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
                     Cherwell Credential
@@ -4224,6 +5007,12 @@ function DefaultContent({
             {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
                     Ivanti Credentials
                   </BreadcrumbLink>
@@ -4235,6 +5024,12 @@ function DefaultContent({
             {isUnderJiraCredentials && page !== "jira-credentials" && (
               <>
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
                     Jira Credentials
                   </BreadcrumbLink>
@@ -4245,6 +5040,12 @@ function DefaultContent({
             {/* Admin - Integrations > ServiceNow Credentials hierarchy */}
             {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
                     ServiceNow Credentials

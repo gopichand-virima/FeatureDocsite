@@ -4990,7 +4990,7 @@ function DefaultContent({
               </>
             )}
             {/* Self Service hierarchy */}
-            {(section === "self-service" && (selfServicePages.includes(page) || page === "self-service")) && page !== "self-service" && (
+            {(section === "self-service" && (["service-catalog", "my-incidents", "my-requests"].includes(page) || page === "self-service")) && page !== "self-service" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Self Service", "self-service")}>

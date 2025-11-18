@@ -4231,36 +4231,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Dashboard hierarchy */}
-            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
             {/* Discovery Scan - Run a Scan hierarchy */}
-            {isUnderRunAScan && page !== "run-a-scan" && !isUnderInitiateConfigure && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
-                    Run a Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
             {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
-                    Run a Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
@@ -4271,12 +4244,6 @@ function DefaultContent({
             )}
             {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
-                    Run a Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
@@ -4294,12 +4261,6 @@ function DefaultContent({
             {page === "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Run a Scan", "run-a-scan")}>
-                    Run a Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
@@ -4308,24 +4269,8 @@ function DefaultContent({
               </>
             )}
             {/* Discovery Scan - Recent Scans hierarchy */}
-            {isUnderRecentScans && page !== "recent-scans" && !isUnderViewRecentScan && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
-                    Recent Scans
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
             {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
-                    Recent Scans
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
@@ -4336,12 +4281,6 @@ function DefaultContent({
             )}
             {isUnderRecentScanDetails && page !== "details" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
-                    Recent Scans
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
@@ -4362,59 +4301,8 @@ function DefaultContent({
             {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Recent Scans", "recent-scans")}>
-                    Recent Scans
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
-            {isUnderScheduledScansImports && page !== "scheduled-scans-and-imports" && !isUnderScansImportOptions && !isUnderScheduledImportSetup && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
-                    Scheduled Scans and Imports
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Scheduled Scans and Imports > Scans and Import Options hierarchy */}
-            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
-                    Scheduled Scans and Imports
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
-                    Scans and Import Options
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Scheduled Scans and Imports > Scheduled Import Setup hierarchy */}
-            {isUnderScheduledImportSetup && page !== "scheduled-import-setup" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Scans and Imports", "scheduled-scans-and-imports")}>
-                    Scheduled Scans and Imports
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scheduled Import Setup", "scheduled-import-setup")}>
-                    Scheduled Import Setup
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -4458,6 +4346,28 @@ function DefaultContent({
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details-azure")}>
                     View Import Log Details
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
+            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
+                    Scans and Import Options
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Dashboard hierarchy */}
+            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
+                    Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -4513,24 +4423,8 @@ function DefaultContent({
               </>
             )}
             {/* Discovery Scan - Discovered Items hierarchy */}
-            {isUnderDiscoveredItems && page !== "discovered-items" && !isUnderManageDiscoveredItems && !isUnderDetailedViewDiscoveredItems && !isUnderOtherFunctionsDiscoveredItems && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
-                    Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
             {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
-                    Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
                     Manage Discovered Items
@@ -4542,12 +4436,6 @@ function DefaultContent({
             {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
-                    Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
                     Detailed View of Discovered Items
                   </BreadcrumbLink>
@@ -4558,12 +4446,6 @@ function DefaultContent({
             {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovered Items", "discovered-items")}>
-                    Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
                   </BreadcrumbLink>
@@ -4571,41 +4453,108 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Import flows hierarchy */}
-            {(isUnderImportFromAWS && page !== "import-from-aws") && (page === "view-aws-import-record" || ["key-columns", "move-items-to-cmdb", "logs"].includes(page)) && (
+            {/* Discovery Scan - Import from AWS hierarchy */}
+            {isUnderImportFromAWS && page !== "import-from-aws" && !isUnderViewAwsImportRecord && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-a-discovered-aws-record")}>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
+                    Import from AWS
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewAwsImportRecord && page !== "view-aws-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
+                    Import from AWS
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-aws-import-record")}>
                     View AWS Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {(isUnderImportFromAzure && page !== "import-from-azure") && (page === "view-azure-import-record" || ["common-controls", "key-columns", "move-items-to-the-cmdb", "discovered-item-view-overview", "top-right-actions", "tabs-main-panel"].includes(page)) && (
+            {/* Discovery Scan - Import from Azure hierarchy */}
+            {isUnderImportFromAzure && page !== "import-from-azure" && !isUnderViewAzureImportRecord && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Azure Import Record", "view-a-discovered-azure-record")}>
-                    View Azure Import Record
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
+                    Import from Azure
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {(isUnderImportFromMeraki && page !== "import-from-meraki") && (page === "view-meraki-import-record" || ["common-controls", "key-columns", "move-items-to-the-cmdb", "discovered-item-view-overview", "top-right-actions", "tabs-main-panel", "logs"].includes(page)) && (
+            {isUnderViewAzureImportRecord && page !== "view-azure-import-record" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-a-discovered-meraki-record")}>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
+                    Import from Azure
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AZURE Import Record", "view-azure-import-record")}>
+                    View AZURE Import Record
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - Import from Meraki hierarchy */}
+            {isUnderImportFromMeraki && page !== "import-from-meraki" && !isUnderViewMerakiImportRecord && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
+                    Import from Meraki
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewMerakiImportRecord && page !== "view-meraki-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
+                    Import from Meraki
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-meraki-import-record")}>
                     View Meraki Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {(isUnderImportFromIntune && page !== "import-from-intune") && page === "view-intune-import-record" && (
+            {/* Discovery Scan - Import from Intune hierarchy */}
+            {isUnderImportFromIntune && page !== "import-from-intune" && !isUnderViewIntuneImportRecord && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-a-discovered-intune-record")}>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
+                    Import from Intune
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewIntuneImportRecord && page !== "view-intune-import-record" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
+                    Import from Intune
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-intune-import-record")}>
                     View Intune Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4639,9 +4588,52 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - AD User Import Logs hierarchy */}
-            {isUnderAdUserImportLogs && page !== "view-import-log-details" && (page === "view-import-log-details" || ["details-tab", "tabs-for-extended-information"].includes(page)) && (
+            {/* Discovery Scan - Imported Assets hierarchy */}
+            {isUnderImportedAssets && page !== "imported-assets" && (
               <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Imported Assets", "imported-assets")}>
+                    Imported Assets
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Discovery Scan - AD User Import Logs hierarchy */}
+            {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && !isUnderAdConfigurationAndImport && !isUnderViewImportLogDetails && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
+                    AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
+                    AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD Configuration and Import", "ad-configuration-and-import")}>
+                    AD Configuration and Import
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {isUnderViewImportLogDetails && page !== "view-import-log-details" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
+                    AD User Import Logs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
                     View Import Log Details
@@ -4650,7 +4642,7 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Configuration Management > CMDB hierarchy */}
+            {/* ITSM - Configuration Management hierarchy */}
             {isUnderConfigurationManagement && page !== "configuration-management" && (
               <>
                 <BreadcrumbItem>
@@ -4664,12 +4656,6 @@ function DefaultContent({
             {/* ITSM - CMDB level */}
             {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
@@ -4832,12 +4818,6 @@ function DefaultContent({
             {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
@@ -4971,6 +4951,12 @@ function DefaultContent({
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                    View and Edit a CI
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
                   </BreadcrumbLink>
@@ -4978,7 +4964,7 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Procurement level */}
+            {/* ITAM - Procurement hierarchy */}
             {isUnderItamProcurement && page !== "procurement" && (
               <>
                 <BreadcrumbItem>
@@ -4989,181 +4975,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Self Service hierarchy */}
-            {(section === "self-service" && (["service-catalog", "my-incidents", "my-requests"].includes(page) || page === "self-service")) && page !== "self-service" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Self Service", "self-service")}>
-                    Self Service
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Program/Project Management hierarchy */}
-            {(section === "program-project-management" && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
-                    Program/Project Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Programs level */}
-            {(section === "program-project-management" && (["program-dashboard"].includes(page) || page === "programs")) && page !== "programs" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
-                    Program/Project Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Programs", "programs")}>
-                    Programs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Projects level */}
-            {(section === "program-project-management" && (["project-dashboard"].includes(page) || page === "projects")) && page !== "projects" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
-                    Program/Project Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Projects", "projects")}>
-                    Projects
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Risk Register hierarchy */}
-            {isUnderRiskRegister && page !== "risk-register" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Risk Register", "risk-register")}>
-                    Risk Register
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Reports hierarchy */}
-            {isUnderReports && page !== "reports" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Reports", "reports")}>
-                    Reports
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Vulnerability Management hierarchy */}
-            {isUnderVulnerabilityManagement && page !== "vulnerability-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Vulnerability Management", "vulnerability-management")}>
-                    Vulnerability Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Discovery hierarchy */}
-            {isUnderDiscovery && page !== "discovery" && !isUnderClient && !isUnderCredentials && !isUnderMonitoringProfile && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
-                    Discovery
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - SACM hierarchy */}
-            {isUnderSacm && page !== "sacm" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("SACM", "sacm")}>
-                    SACM
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Users hierarchy */}
-            {isUnderUsers && page !== "users" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Users", "users")}>
-                    Users
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Management Functions hierarchy */}
-            {isUnderManagementFunctions && page !== "management-functions" && !isUnderProcurement && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Management Functions", "management-functions")}>
-                    Management Functions
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Integrations hierarchy */}
-            {isUnderIntegrations && page !== "integrations" && !isUnderCherwellCredential && !isUnderIvantiCredentials && !isUnderJiraCredentials && !isUnderServicenowCredentials && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
-                    Integrations
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Others hierarchy */}
-            {isUnderOthers && page !== "others" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Others", "others")}>
-                    Others
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Organizational Details hierarchy */}
-            {isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Organizational Details", "organizational-details")}>
-                    Organizational Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin - Organizational Details > Departments hierarchy */}
+            {/* Admin nested hierarchy */}
             {isUnderDepartments && page !== "departments" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Organizational Details", "organizational-details")}>
-                    Organizational Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
                     Departments
@@ -5172,15 +4986,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Discovery > Client hierarchy */}
             {isUnderClient && page !== "client" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
-                    Discovery
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
                     Client
@@ -5189,15 +4996,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Discovery > Credentials hierarchy */}
             {isUnderCredentials && page !== "credentials" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Discovery", "discovery")}>
-                    Discovery
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
                     Credentials
@@ -5206,15 +5006,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Management Functions > Procurement hierarchy */}
             {isUnderProcurement && page !== "procurement" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Management Functions", "management-functions")}>
-                    Management Functions
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
                     Procurement
@@ -5223,15 +5016,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Integrations > Cherwell Credential hierarchy */}
             {isUnderCherwellCredential && page !== "cherwell-credential" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
-                    Integrations
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
                     Cherwell Credential
@@ -5240,15 +5026,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Integrations > Ivanti Credentials hierarchy */}
             {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
-                    Integrations
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
                     Ivanti Credentials
@@ -5257,15 +5036,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Integrations > Jira Credentials hierarchy */}
             {isUnderJiraCredentials && page !== "jira-credentials" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
-                    Integrations
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
                     Jira Credentials
@@ -5274,15 +5046,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Admin - Integrations > ServiceNow Credentials hierarchy */}
             {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Integrations", "integrations")}>
-                    Integrations
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
                     ServiceNow Credentials
@@ -5293,15 +5058,7 @@ function DefaultContent({
             )}
             <BreadcrumbItem>
               <BreadcrumbPage className="text-slate-900">
-                {page
-                  .split("-")
-                  .map(
-                    (word) =>
-                      word.toLowerCase() === "cmdb"
-                        ? "CMDB"
-                        : word.charAt(0).toUpperCase() + word.slice(1),
-                  )
-                  .join(" ")}
+                {pageDisplayName}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>

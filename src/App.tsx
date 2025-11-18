@@ -858,6 +858,16 @@ function AppContent() {
         if (parts[3]) {
           setSelectedPage(parts[3]);
         }
+        // Debug logging for troubleshooting
+        if (process.env.NODE_ENV === 'development') {
+          console.log('URL Parsed (4 parts):', {
+            version: parts[0],
+            module: parts[1],
+            section: parts[2],
+            page: parts[3],
+            fullPath: path
+          });
+        }
       } else if (parts.length === 3 && parts[2]) {
         // Path like /version/my-dashboard/my-dashboard (module/section, no page)
         // Works for: NextGen, 6.1, 6.1.1, 5.13

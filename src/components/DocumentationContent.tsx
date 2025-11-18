@@ -1246,7 +1246,7 @@ export function DocumentationContent({
     else if (isUnderItamDetailsNested && page !== "details") parentTopic = "Details";
     else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
     else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
-    else if (isUnderSelfService && page !== "self-service") parentTopic = "Self Service";
+    else if ((section === "self-service" && (selfServicePages.includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
     else if (isUnderProgramProjectManagement && page !== "program-project-management") parentTopic = "Program/Project Management";
     else if (isUnderPrograms && page !== "programs") parentTopic = "Programs";
     else if (isUnderProjects && page !== "projects") parentTopic = "Projects";
@@ -4990,7 +4990,7 @@ function DefaultContent({
               </>
             )}
             {/* Self Service hierarchy */}
-            {isUnderSelfService && page !== "self-service" && (
+            {(section === "self-service" && (selfServicePages.includes(page) || page === "self-service")) && page !== "self-service" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Self Service", "self-service")}>

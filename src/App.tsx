@@ -126,12 +126,21 @@ function AppContent() {
   // Sync URL with state on mount and location changes
   useEffect(() => {
     // Clean up the path: remove leading slash, basename, and index.html
+    // main.tsx already handles 404.html redirects and updates location.pathname
+    // BrowserRouter with basename="/FeatureDocsite" automatically strips the base from location.pathname
+    // So /FeatureDocsite/NextGen/my-dashboard/my-dashboard/index.html becomes /NextGen/my-dashboard/my-dashboard/index.html
     let path = location.pathname
-      .replace(/^\//, '')
-      .replace(/^FeatureDocsite\//, '')
-      .replace(/\/index\.html$/, '')
-      .replace(/index\.html$/, '');
+      .replace(/^\//, '') // Remove leading slash
+      .replace(/\/index\.html$/, '') // Remove trailing /index.html
+      .replace(/index\.html$/, '') // Remove trailing index.html
+      .replace(/\/$/, ''); // Remove trailing slash
     
+    // Also handle case where path might still have FeatureDocsite (defensive)
+    if (path.startsWith('FeatureDocsite/')) {
+      path = path.replace(/^FeatureDocsite\//, '');
+    }
+    
+    // If path is empty or just the base, show homepage
     if (!path || path === '' || path === 'index.html') {
       setSelectedModule('');
       setSelectedSection('');
@@ -140,28 +149,48 @@ function AppContent() {
       return;
     }
 
-    const parts = path.split('/');
+    const parts = path.split('/').filter(Boolean); // Filter out empty strings
     
-    // Handle new URL format: /6_1/module_folder/file_name
-    if (parts.length >= 1 && parts[0]) {
-      const versionPart = parts[0];
-      // Handle both 6_1 and 6.1 formats
-      if (versionPart === '6_1' || versionPart === '6.1') {
-        setSelectedVersion('6.1');
-      } else if (versionPart === '6.1.1' || versionPart === '6_1_1') {
-        setSelectedVersion('6.1.1');
-      } else if (versionPart === '5.13' || versionPart === '5_13') {
-        setSelectedVersion('5.13');
-      } else {
-        setSelectedVersion('NextGen');
-      }
+    // Debug logging (remove in production)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Routing debug:', { path, parts, location: location.pathname });
     }
     
-    // Determine if this is new format (with underscores like 6_1) or old format (with dots like 6.1)
-    const isNewFormat = parts[0] && (parts[0].includes('_') || parts[0] === '6_1');
-    const isOldFormat = parts[0] && parts[0].includes('.') && !parts[0].includes('_');
+    // Handle version detection - Enterprise-grade: supports all versions consistently
+    // Supports both formats: dots (6.1, 6.1.1, 5.13) and underscores (6_1, 6_1_1, 5_13)
+    // Also supports NG as alias for NextGen
+    if (parts.length >= 1 && parts[0]) {
+      const versionPart = parts[0];
+      // Handle both underscore and dot formats for all versions
+      if (versionPart === '6_1' || versionPart === '6.1') {
+        setSelectedVersion('6.1');
+      } else if (versionPart === '6_1_1' || versionPart === '6.1.1') {
+        setSelectedVersion('6.1.1');
+      } else if (versionPart === '5_13' || versionPart === '5.13') {
+        setSelectedVersion('5.13');
+      } else if (versionPart === 'NextGen' || versionPart === 'NG') {
+        setSelectedVersion('NextGen');
+      } else {
+        // Default to NextGen if version not recognized (enterprise fallback)
+        setSelectedVersion('NextGen');
+      }
+    } else {
+      setSelectedVersion('NextGen');
+    }
     
-    // Handle old URL format: /6.1/module/section/page
+    // Determine if this is new format (with underscores like 6_1) or old format (with dots like 6.1, 6.1.1, 5.13, or NextGen)
+    // New format uses underscores: 6_1, 6_1_1, 5_13
+    // Old format uses dots or NextGen: 6.1, 6.1.1, 5.13, NextGen
+    const isNewFormat = parts[0] && (parts[0].includes('_') || parts[0] === '6_1' || parts[0] === '6_1_1' || parts[0] === '5_13');
+    const isOldFormat = parts[0] && (
+      parts[0].includes('.') || 
+      parts[0] === 'NextGen' || 
+      parts[0] === '6.1' || 
+      parts[0] === '6.1.1' || 
+      parts[0] === '5.13'
+    ) && !parts[0].includes('_');
+    
+    // Handle old URL format: /6.1/module/section/page, /6.1.1/module/section/page, /5.13/module/section/page, or /NextGen/module/section/page
     if (isOldFormat && parts.length >= 2) {
       // Set module
       if (parts.length >= 2 && parts[1]) {
@@ -176,7 +205,8 @@ function AppContent() {
         }
         setSelectedPage(parts[3]);
       } else if (parts.length === 3 && parts[2]) {
-        // Path like /6.1/my-dashboard/my-dashboard (module/section, no page)
+        // Path like /version/my-dashboard/my-dashboard (module/section, no page)
+        // Works for: NextGen, 6.1, 6.1.1, 5.13
         // Check if parts[2] is the same as parts[1] (duplicate module name)
         if (parts[1] === parts[2]) {
           // This is a duplicate - treat as module only, set default section/page
@@ -196,7 +226,7 @@ function AppContent() {
         } else {
           // Different section name
           setSelectedSection(parts[2]);
-          // Set default page based on module
+          // Set default page based on module (consistent across all versions)
           if (parts[1] === 'my-dashboard') {
             setSelectedPage('my-dashboard-overview');
           } else if (parts[1] === 'cmdb') {
@@ -208,7 +238,8 @@ function AppContent() {
           }
         }
       } else if (parts.length === 2) {
-        // Path like /6.1/my-dashboard (only module)
+        // Path like /version/my-dashboard (only module)
+        // Works consistently for: NextGen, 6.1, 6.1.1, 5.13
         if (parts[1] === 'my-dashboard') {
           setSelectedSection('my-dashboard');
           setSelectedPage('my-dashboard-overview');
@@ -291,16 +322,23 @@ function AppContent() {
   }, [location]);
 
   // Update URL when state changes
+  // Enterprise-grade: Consistent URL generation across all versions (NextGen, 6.1.1, 6.1, 5.13)
   const updateURL = (version: string, module: string, section: string, page: string) => {
     if (!module) {
       navigate('/');
       return;
     }
-    // Use new format (with underscores) for version 6.1
-    const versionPath = version === '6.1' ? '6_1' : version === '6.1.1' ? '6_1_1' : version === '5.13' ? '5_13' : 'NextGen';
     
-    // For new format, use folder structure: /6_1/module_folder/file_name
-    if (version === '6.1' && module === 'my-dashboard') {
+    // Determine version path format
+    // New format uses underscores: 6_1, 6_1_1, 5_13 (for version 6.1 only currently)
+    // Old format uses dots: 6.1, 6.1.1, 5.13, NextGen (for all other versions)
+    const useNewFormat = version === '6.1';
+    const versionPath = useNewFormat 
+      ? (version === '6.1' ? '6_1' : version === '6.1.1' ? '6_1_1' : version === '5.13' ? '5_13' : 'NextGen')
+      : (version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen');
+    
+    // For version 6.1, use new format with folder structure: /6_1/module_folder/file_name
+    if (useNewFormat && module === 'my-dashboard') {
       // Map to folder structure
       const folderMap: Record<string, string> = {
         'my-dashboard': 'my-dashboard-6_1',
@@ -326,9 +364,9 @@ function AppContent() {
       const path = `/${versionPath}/${moduleFolder}/${fileName}`;
       navigate(path);
     } else {
-      // Old format fallback
-      const versionPathOld = version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen';
-      const path = `/${versionPathOld}/${module}${section ? `/${section}` : ''}${page ? `/${page}` : ''}`;
+      // Old format for all versions: /version/module/section/page
+      // This ensures consistent behavior for NextGen, 6.1.1, 5.13, and 6.1 (when not using new format)
+      const path = `/${versionPath}/${module}${section ? `/${section}` : ''}${page ? `/${page}` : ''}`;
       navigate(path);
     }
   };

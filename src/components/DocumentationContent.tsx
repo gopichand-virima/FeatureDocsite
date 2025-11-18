@@ -1201,7 +1201,7 @@ export function DocumentationContent({
     else if (isUnderItsmCiDetails || isUnderItsmDetailsNested) parentTopic = "CI Details and Tabs";
     else if (isUnderItsmDetailsNested && page !== "details") parentTopic = "Details";
     else if (isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
-    else if (isUnderItamConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
+    else if ((section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management") parentTopic = "Configuration Management";
     else if (isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions) parentTopic = "CMDB";
     else if (isUnderItamManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
     else if (isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions) parentTopic = "View and Edit a CI";
@@ -1943,7 +1943,7 @@ export function DocumentationContent({
               </>
             )}
             {/* ITAM - Configuration Management hierarchy */}
-            {isUnderItamConfigurationManagement && page !== "configuration-management" && (
+            {(section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
@@ -4719,7 +4719,7 @@ function DefaultContent({
               </>
             )}
             {/* ITAM - Configuration Management hierarchy */}
-            {isUnderItamConfigurationManagement && page !== "configuration-management" && (
+            {(section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>

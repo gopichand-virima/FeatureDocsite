@@ -54,17 +54,22 @@ export function getContentEntry(filePath: string): ContentEntry | null {
     return parsedContentCache.get(filePath)!;
   }
 
-  const raw = getContent(filePath);
-  if (!raw) return null;
+  try {
+    const raw = getContent(filePath);
+    if (!raw) return null;
 
-  const parsed = matter(raw);
-  const entry: ContentEntry = {
-    body: parsed.content.startsWith('\n') ? parsed.content.slice(1) : parsed.content,
-    frontmatter: parsed.data || {},
-  };
+    const parsed = matter(raw);
+    const entry: ContentEntry = {
+      body: parsed.content.startsWith('\n') ? parsed.content.slice(1) : parsed.content,
+      frontmatter: parsed.data || {},
+    };
 
-  parsedContentCache.set(filePath, entry);
-  return entry;
+    parsedContentCache.set(filePath, entry);
+    return entry;
+  } catch (error) {
+    console.error(`Error parsing content for ${filePath}:`, error);
+    return null;
+  }
 }
 
 /**

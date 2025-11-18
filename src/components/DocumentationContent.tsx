@@ -804,6 +804,35 @@ export function DocumentationContent({
                 onClick={onModuleClick}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
+                {moduleNames[module] || module}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
+                onClick={() => {
+                  // Navigate to section (first page of the section)
+                  if (onPageClick) {
+                    // Get the first page of the section based on module and section
+                    let firstPage = '';
+                    if (module === 'my-dashboard' && section === 'application-overview') {
+                      firstPage = 'system-icons';
+                    } else if (module === 'my-dashboard' && section === 'my-dashboard') {
+                      firstPage = 'my-dashboard-overview';
+                    } else if (module === 'cmdb' && section === 'cmdb') {
+                      firstPage = 'access-cmdb';
+                    } else if (module === 'discovery-scan' && section === 'discovery-scan') {
+                      firstPage = 'access-dashboard';
+                    } else if (section === 'shared-functions') {
+                      firstPage = 'advanced-search';
+                    } else {
+                      firstPage = 'advanced-search';
+                    }
+                    onPageClick(version, module, section, firstPage);
+                  }
+                }}
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
                 {sectionDisplayName}
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -2690,6 +2719,35 @@ function DefaultContent({
             <BreadcrumbItem>
               <BreadcrumbLink 
                 onClick={onModuleClick}
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
+                {moduleNames[module] || module}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
+                onClick={() => {
+                  // Navigate to section (first page of the section)
+                  if (onPageClick) {
+                    // Get the first page of the section based on module and section
+                    let firstPage = '';
+                    if (module === 'my-dashboard' && section === 'application-overview') {
+                      firstPage = 'system-icons';
+                    } else if (module === 'my-dashboard' && section === 'my-dashboard') {
+                      firstPage = 'my-dashboard-overview';
+                    } else if (module === 'cmdb' && section === 'cmdb') {
+                      firstPage = 'access-cmdb';
+                    } else if (module === 'discovery-scan' && section === 'discovery-scan') {
+                      firstPage = 'access-dashboard';
+                    } else if (section === 'shared-functions') {
+                      firstPage = 'advanced-search';
+                    } else {
+                      firstPage = 'advanced-search';
+                    }
+                    onPageClick(version, module, section, firstPage);
+                  }
+                }}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
                 {sectionDisplayName}

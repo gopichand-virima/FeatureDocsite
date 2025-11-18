@@ -83,7 +83,7 @@ function AppContent() {
       return { section: 'shared-functions', page };
     }
     
-    // For application overview
+    // For application overview module
     if (module === 'application-overview') {
       if (cleanName === 'all_about_virima_v6_1') {
         return { section: 'application-overview', page: 'all-about-virima' };
@@ -94,33 +94,57 @@ function AppContent() {
       if (cleanName === 'user_specific_functions_6_1') {
         return { section: 'application-overview', page: 'user-specific-functions' };
       }
-      if (cleanName === 'online_help_6_1') {
+      if (cleanName === 'online_help_6_1' || cleanName === 'online-help-6_1') {
         return { section: 'application-overview', page: 'online-help' };
       }
     }
     
-    // For my-dashboard
+    // For my-dashboard module (check for application-overview pages that appear under my-dashboard)
     if (module === 'my-dashboard') {
+      // Application overview pages that can appear under my-dashboard module
+      if (cleanName === 'online_help_6_1' || cleanName === 'online-help-6_1') {
+        return { section: 'application-overview', page: 'online-help' };
+      }
+      if (cleanName === 'icons_6_1') {
+        // Icons under application-overview section in my-dashboard module
+        return { section: 'application-overview', page: 'system-icons' };
+      }
+      if (cleanName === 'user_specific_functions_6_1') {
+        return { section: 'application-overview', page: 'user-specific-functions' };
+      }
+      
+      // My-dashboard specific pages
       const pageMap: Record<string, string> = {
         'my-dashboard-overview-6_1': 'my-dashboard-overview',
         'dashboards-6_1': 'dashboards',
         'dashboards-contents-6_1': 'dashboards-contents',
         'dashboards-customization-6_1': 'customization',
         'dashboards-report-actions-6_1': 'report-actions',
-        'system-icons-6_1': 'system-icons',
+        'system-icons-6_1': 'system-icons', // This is for my-dashboard section, not application-overview
       };
-      const page = pageMap[cleanName] || cleanName.replace(/-6_1$/, '');
-      return { section: 'my-dashboard', page };
+      const page = pageMap[cleanName];
+      if (page) {
+        return { section: 'my-dashboard', page };
+      }
+      // Fallback: try to extract from cleanName
+      const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '');
+      return { section: 'my-dashboard', page: fallbackPage };
     }
     
     // Default: try to extract section and page from file name
-    const parts = cleanName.split('_');
-    if (parts.length > 1) {
-      const page = parts.slice(0, -1).join('-');
-      return { section: module, page };
-    }
+    // Enterprise-grade: Comprehensive fallback logic for all file name formats
+    let normalizedPage = cleanName;
     
-    return { section: module, page: cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '') };
+    // Remove version suffix (handle both -6_1 and _6_1 formats)
+    normalizedPage = normalizedPage.replace(/-6_1$/, '').replace(/_6_1$/, '');
+    
+    // Convert underscores to hyphens for consistency with sidebar page IDs
+    normalizedPage = normalizedPage.replace(/_/g, '-');
+    
+    // Convert to lowercase for consistency
+    normalizedPage = normalizedPage.toLowerCase();
+    
+    return { section: module, page: normalizedPage };
   };
 
   // Sync URL with state on mount and location changes

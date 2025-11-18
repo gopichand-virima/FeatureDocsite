@@ -657,6 +657,19 @@ export function DocumentationLayout({
   >(new Set());
   const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
 
+  // Helper function to normalize page IDs for comparison (enterprise-grade: handles all edge cases)
+  // This ensures consistent matching across all versions and URL formats
+  const normalizePageId = (pageId: string): string => {
+    if (!pageId) return '';
+    return pageId.toLowerCase().trim();
+  };
+
+  // Helper function to check if a page is active (with normalization)
+  const isPageActive = (pageId: string): boolean => {
+    if (!selectedPage || !pageId) return false;
+    return normalizePageId(selectedPage) === normalizePageId(pageId);
+  };
+
   // Set up the trigger function for opening the version dropdown
   useEffect(() => {
     if (versionDropdownTriggerRef) {
@@ -680,8 +693,8 @@ export function DocumentationLayout({
       // Find the parent page that contains the selected page
       for (const section of sections) {
         for (const page of section.pages || []) {
-          // Check if selectedPage is a direct child
-          if (page.id === selectedPage) {
+          // Check if selectedPage is a direct child (with normalization for enterprise-grade matching)
+          if (normalizePageId(page.id) === normalizePageId(selectedPage)) {
             // This page is selected, ensure its section is expanded
             setExpandedSections((prev) => new Set(prev).add(section.id));
             break;
@@ -689,7 +702,7 @@ export function DocumentationLayout({
           // Check if selectedPage is a subPage
           if (page.subPages) {
             for (const subPage of page.subPages) {
-              if (subPage.id === selectedPage) {
+              if (normalizePageId(subPage.id) === normalizePageId(selectedPage)) {
                 // This subPage is selected, ensure parent page and section are expanded
                 setExpandedSections((prev) => new Set(prev).add(section.id));
                 setExpandedPages((prev) => new Set(prev).add(page.id));
@@ -698,7 +711,7 @@ export function DocumentationLayout({
               // Check nested subPages
               if (subPage.subPages) {
                 for (const nestedSubPage of subPage.subPages) {
-                  if (nestedSubPage.id === selectedPage) {
+                  if (normalizePageId(nestedSubPage.id) === normalizePageId(selectedPage)) {
                     // This nested subPage is selected, ensure all parents are expanded
                     setExpandedSections((prev) => new Set(prev).add(section.id));
                     setExpandedPages((prev) => new Set(prev).add(page.id));
@@ -991,7 +1004,7 @@ export function DocumentationLayout({
                                           }
                                         }}
                                         className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                          selectedPage === page.id
+                                          isPageActive(page.id)
                                             ? "text-green-600 bg-green-50 font-medium"
                                             : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                         } ${!hasSubPages ? 'ml-5' : ''}`}
@@ -1038,7 +1051,7 @@ export function DocumentationLayout({
                                                     }
                                                   }}
                                                   className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                                    selectedPage === subPage.id
+                                                    isPageActive(subPage.id)
                                                       ? "text-green-600 bg-green-50 font-medium"
                                                       : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                   } ${!hasNestedSubPages ? 'ml-5' : ''}`}
@@ -1058,7 +1071,7 @@ export function DocumentationLayout({
                                                         setSidebarOpen(false);
                                                       }}
                                                       className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                                        selectedPage === nestedSubPage.id
+                                                        isPageActive(nestedSubPage.id)
                                                           ? "text-green-600 bg-green-50 font-medium"
                                                           : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                       }`}

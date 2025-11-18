@@ -34,7 +34,7 @@ function formatVersionForPath(version: string): string {
  *       - Contents (page: my-dashboard-contents) → my-dashboard-contents-6_1.mdx
  */
 function getMyDashboard61Path(page: string, section: string): string | null {
-  const basePath = '/content/6_1/my-dashboard';
+  const basePath = '/content/6_1/my_dashboard_6_1';
   
   // Direct page-to-file mapping
   const fileMap: Record<string, string> = {

@@ -4,28 +4,28 @@
  */
 
 // Import My Dashboard 6.1 content
-import dashboards61 from './6_1/my-dashboard-6_1/dashboards-6_1.mdx?raw';
-import dashboardsContents61 from './6_1/my-dashboard-6_1/dashboards-contents-6_1.mdx?raw';
-import dashboardsCustomization61 from './6_1/my-dashboard-6_1/dashboards-customization-6_1.mdx?raw';
-import dashboardsReportActions61 from './6_1/my-dashboard-6_1/dashboards-report-actions-6_1.mdx?raw';
-import myDashboard61 from './6_1/my-dashboard-6_1/my-dashboard-6_1.mdx?raw';
-import myDashboardContents61 from './6_1/my-dashboard-6_1/my-dashboard-contents-6_1.mdx?raw';
-import myDashboardOverview61 from './6_1/my-dashboard-6_1/my-dashboard-overview-6_1.mdx?raw';
-import systemIcons61 from './6_1/my-dashboard-6_1/system-icons-6_1.mdx?raw';
+import dashboards61 from './6_1/my_dashboard_6_1/dashboards-6_1.mdx?raw';
+import dashboardsContents61 from './6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx?raw';
+import dashboardsCustomization61 from './6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx?raw';
+import dashboardsReportActions61 from './6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx?raw';
+import myDashboard61 from './6_1/my_dashboard_6_1/my-dashboard-6_1.mdx?raw';
+import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx?raw';
+import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
+import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
 
 /**
  * Content map - maps file paths to their content
  */
 const contentMap: Record<string, string> = {
   // My Dashboard 6.1
-  '/content/6_1/my-dashboard/dashboards-6_1.mdx': dashboards61,
-  '/content/6_1/my-dashboard/dashboards-contents-6_1.mdx': dashboardsContents61,
-  '/content/6_1/my-dashboard/dashboards-customization-6_1.mdx': dashboardsCustomization61,
-  '/content/6_1/my-dashboard/dashboards-report-actions-6_1.mdx': dashboardsReportActions61,
-  '/content/6_1/my-dashboard/my-dashboard-6_1.mdx': myDashboard61,
-  '/content/6_1/my-dashboard/my-dashboard-contents-6_1.mdx': myDashboardContents61,
-  '/content/6_1/my-dashboard/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
-  '/content/6_1/my-dashboard/system-icons-6_1.mdx': systemIcons61,
+  '/content/6_1/my_dashboard_6_1/dashboards-6_1.mdx': dashboards61,
+  '/content/6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx': dashboardsContents61,
+  '/content/6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx': dashboardsCustomization61,
+  '/content/6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx': dashboardsReportActions61,
+  '/content/6_1/my_dashboard_6_1/my-dashboard-6_1.mdx': myDashboard61,
+  '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
+  '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
+  '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
 };
 
 /**

@@ -844,7 +844,14 @@ function AppContent() {
       // Handle different URL lengths
       if (parts.length >= 4 && parts[3]) {
         // Full path: /version/module/section/page
-        // Handle case where module and section are the same (e.g., /NextGen/my-dashboard/my-dashboard/my-dashboard-overview)
+        // This handles 4-part URLs for ALL modules and ALL versions (NextGen, 6.1, 6.1.1, 5.13)
+        // Examples:
+        // - /NextGen/my-dashboard/my-dashboard/my-dashboard-overview
+        // - /NextGen/cmdb/cmdb/access-cmdb
+        // - /6.1/discovery-scan/discovery-scan/access-dashboard
+        // - /6.1.1/my-dashboard/my-dashboard/my-dashboard-overview
+        // - /5.13/my-dashboard/my-dashboard/my-dashboard-overview
+        // Works for any module where section name matches module name, or where section is different
         if (parts.length >= 3 && parts[2]) {
           setSelectedSection(parts[2]);
         }

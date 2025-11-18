@@ -666,6 +666,54 @@ export function DocumentationLayout({
     }
   }, [versionDropdownTriggerRef]);
 
+  // Auto-expand sections and pages when selected (enterprise-grade: works across all versions)
+  useEffect(() => {
+    if (selectedSection) {
+      setExpandedSections((prev) => new Set(prev).add(selectedSection));
+    }
+  }, [selectedSection]);
+
+  // Auto-expand parent pages when a subPage is selected
+  useEffect(() => {
+    if (selectedPage && selectedModule) {
+      const sections = getSectionsForModule(selectedModule);
+      // Find the parent page that contains the selected page
+      for (const section of sections) {
+        for (const page of section.pages || []) {
+          // Check if selectedPage is a direct child
+          if (page.id === selectedPage) {
+            // This page is selected, ensure its section is expanded
+            setExpandedSections((prev) => new Set(prev).add(section.id));
+            break;
+          }
+          // Check if selectedPage is a subPage
+          if (page.subPages) {
+            for (const subPage of page.subPages) {
+              if (subPage.id === selectedPage) {
+                // This subPage is selected, ensure parent page and section are expanded
+                setExpandedSections((prev) => new Set(prev).add(section.id));
+                setExpandedPages((prev) => new Set(prev).add(page.id));
+                break;
+              }
+              // Check nested subPages
+              if (subPage.subPages) {
+                for (const nestedSubPage of subPage.subPages) {
+                  if (nestedSubPage.id === selectedPage) {
+                    // This nested subPage is selected, ensure all parents are expanded
+                    setExpandedSections((prev) => new Set(prev).add(section.id));
+                    setExpandedPages((prev) => new Set(prev).add(page.id));
+                    setExpandedSubPages((prev) => new Set(prev).add(subPage.id));
+                    break;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }, [selectedPage, selectedModule]);
+
   const showSidebar = !!selectedModule;
   const sections = getSectionsForModule(selectedModule);
 
@@ -943,9 +991,8 @@ export function DocumentationLayout({
                                           }
                                         }}
                                         className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                          selectedPage === page.id &&
-                                          isActive
-                                            ? "text-green-600 bg-green-50"
+                                          selectedPage === page.id
+                                            ? "text-green-600 bg-green-50 font-medium"
                                             : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                         } ${!hasSubPages ? 'ml-5' : ''}`}
                                       >
@@ -991,9 +1038,8 @@ export function DocumentationLayout({
                                                     }
                                                   }}
                                                   className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                                    selectedPage === subPage.id &&
-                                                    isActive
-                                                      ? "text-green-600 bg-green-50"
+                                                    selectedPage === subPage.id
+                                                      ? "text-green-600 bg-green-50 font-medium"
                                                       : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                   } ${!hasNestedSubPages ? 'ml-5' : ''}`}
                                                 >
@@ -1012,9 +1058,8 @@ export function DocumentationLayout({
                                                         setSidebarOpen(false);
                                                       }}
                                                       className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                                        selectedPage === nestedSubPage.id &&
-                                                        isActive
-                                                          ? "text-green-600 bg-green-50"
+                                                        selectedPage === nestedSubPage.id
+                                                          ? "text-green-600 bg-green-50 font-medium"
                                                           : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                       }`}
                                                     >

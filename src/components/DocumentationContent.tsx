@@ -1247,7 +1247,7 @@ export function DocumentationContent({
     else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
     else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
     else if ((section === "self-service" && (selfServicePages.includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
-    else if (isUnderProgramProjectManagement && page !== "program-project-management") parentTopic = "Program/Project Management";
+    else if (((section === "program-project-management") && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management") parentTopic = "Program/Project Management";
     else if (isUnderPrograms && page !== "programs") parentTopic = "Programs";
     else if (isUnderProjects && page !== "projects") parentTopic = "Projects";
     else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
@@ -5001,7 +5001,7 @@ function DefaultContent({
               </>
             )}
             {/* Program/Project Management hierarchy */}
-            {isUnderProgramProjectManagement && page !== "program-project-management" && (
+            {(section === "program-project-management" && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
@@ -5012,7 +5012,7 @@ function DefaultContent({
               </>
             )}
             {/* Programs level */}
-            {isUnderPrograms && page !== "programs" && (
+            {(section === "program-project-management" && (["program-dashboard"].includes(page) || page === "programs")) && page !== "programs" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>
@@ -5029,7 +5029,7 @@ function DefaultContent({
               </>
             )}
             {/* Projects level */}
-            {isUnderProjects && page !== "projects" && (
+            {(section === "program-project-management" && (["project-dashboard"].includes(page) || page === "projects")) && page !== "projects" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Program/Project Management", "program-project-management")}>

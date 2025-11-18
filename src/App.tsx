@@ -782,6 +782,16 @@ function AppContent() {
       setSelectedVersion('NextGen');
       return;
     }
+    
+    // Debug logging for troubleshooting
+    if (process.env.NODE_ENV === 'development') {
+      console.log('URL Parsing:', { 
+        originalPath: location.pathname, 
+        cleanedPath: path,
+        search: location.search,
+        hash: location.hash
+      });
+    }
 
     const parts = path.split('/').filter(Boolean); // Filter out empty strings
     
@@ -833,11 +843,14 @@ function AppContent() {
       
       // Handle different URL lengths
       if (parts.length >= 4 && parts[3]) {
-        // Full path: /6.1/module/section/page
+        // Full path: /version/module/section/page
+        // Handle case where module and section are the same (e.g., /NextGen/my-dashboard/my-dashboard/my-dashboard-overview)
         if (parts.length >= 3 && parts[2]) {
           setSelectedSection(parts[2]);
         }
-        setSelectedPage(parts[3]);
+        if (parts[3]) {
+          setSelectedPage(parts[3]);
+        }
       } else if (parts.length === 3 && parts[2]) {
         // Path like /version/my-dashboard/my-dashboard (module/section, no page)
         // Works for: NextGen, 6.1, 6.1.1, 5.13

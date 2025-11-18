@@ -1102,6 +1102,25 @@ const getSectionsForModule = (moduleId: string) => {
   return defaultSections;
 };
 
+export const navigationConfig = {
+  versions,
+  modules,
+  sectionsByModule: {
+    default: defaultSections,
+    "my-dashboard": myDashboardSections,
+    cmdb: cmdbSections,
+    "discovery-scan": discoveryScanSections,
+    itsm: itsmSections,
+    "vulnerability-management": vulnerabilityManagementSections,
+    itam: itamSections,
+    "self-service": selfServiceSections,
+    "program-project-management": programProjectManagementSections,
+    "risk-register": riskRegisterSections,
+    reports: reportsSections,
+    admin: adminSections,
+  },
+};
+
 export function DocumentationLayout({
   logo,
   selectedVersion,

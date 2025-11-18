@@ -3,6 +3,8 @@
  * This file maps file paths to their actual content for runtime access
  */
 
+import matter from 'gray-matter';
+
 // Import My Dashboard 6.1 content
 import dashboards61 from './6_1/my_dashboard_6_1/dashboards-6_1.mdx?raw';
 import dashboardsContents61 from './6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx?raw';
@@ -35,6 +37,50 @@ const contentMap: Record<string, string> = {
  */
 export function getContent(filePath: string): string | null {
   return contentMap[filePath] || null;
+}
+
+interface ContentEntry {
+  body: string;
+  frontmatter: Record<string, unknown>;
+}
+
+const parsedContentCache = new Map<string, ContentEntry>();
+
+/**
+ * Return MDX content and parsed frontmatter for a given file path.
+ */
+export function getContentEntry(filePath: string): ContentEntry | null {
+  if (parsedContentCache.has(filePath)) {
+    return parsedContentCache.get(filePath)!;
+  }
+
+  const raw = getContent(filePath);
+  if (!raw) return null;
+
+  const parsed = matter(raw);
+  const entry: ContentEntry = {
+    body: parsed.content.startsWith('\n') ? parsed.content.slice(1) : parsed.content,
+    frontmatter: parsed.data || {},
+  };
+
+  parsedContentCache.set(filePath, entry);
+  return entry;
+}
+
+/**
+ * Return only the parsed frontmatter for a given file path.
+ */
+export function getContentFrontmatter(filePath: string): Record<string, unknown> | null {
+  const entry = getContentEntry(filePath);
+  return entry ? entry.frontmatter : null;
+}
+
+/**
+ * Return the MDX body content (without frontmatter) for a given file path.
+ */
+export function getContentBody(filePath: string): string | null {
+  const entry = getContentEntry(filePath);
+  return entry ? entry.body : null;
 }
 
 /**

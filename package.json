@@ -52,10 +52,16 @@
       "devDependencies": {
             "@types/node": "^20.10.0",
             "@vitejs/plugin-react-swc": "^3.10.2",
+            "tsx": "^4.19.2",
             "vite": "6.3.5"
       },
       "scripts": {
             "dev": "vite",
+            "generate:sitemap": "tsx scripts/generate-sitemap.ts",
+      "add:frontmatter": "tsx scripts/add-frontmatter.ts",
+      "normalize:frontmatter": "tsx scripts/normalize-frontmatter.ts",
+      "cleanup:frontmatter": "tsx scripts/remove-added-frontmatter.ts",
+            "prebuild": "npm run generate:sitemap",
             "build": "vite build"
       }
 }

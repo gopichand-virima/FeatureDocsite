@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Calendar, Clock, ArrowRight, Home } from "lucide-react";
@@ -21,13 +21,16 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { MDXContent } from "./MDXContent";
+import { Seo, PageSeo, BreadcrumbEntry } from "./Seo";
 import { resolveMDXPath } from "../utils/mdxPathResolver";
+import { getContentEntry } from "../content/contentLoader";
 
 interface DocumentationContentProps {
   version: string;
   module: string;
   section: string;
   page: string;
+  currentPath?: string;
   onHomeClick?: () => void;
   onModuleClick?: () => void;
   onVersionClick?: () => void;
@@ -336,6 +339,7 @@ export function DocumentationContent({
   module,
   section,
   page,
+  currentPath,
   onHomeClick,
   onModuleClick,
   onVersionClick,
@@ -435,6 +439,171 @@ export function DocumentationContent({
     onClick: () => handleNestedTopicClick(topicName, pageId),
     className: "text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors",
   });
+
+  const normalizedPath = currentPath
+    ? currentPath.startsWith("/")
+      ? currentPath
+      : `/${currentPath}`
+    : null;
+
+  const resolvedMDXPath = useMemo(() => {
+    try {
+      return resolveMDXPath({ version, module, section, page });
+    } catch (error) {
+      console.error("Error resolving MDX path:", error);
+      return null;
+    }
+  }, [version, module, section, page]);
+
+  const contentEntry = useMemo(() => {
+    if (!resolvedMDXPath) return null;
+    return getContentEntry(resolvedMDXPath);
+  }, [resolvedMDXPath]);
+
+  const pageSeo = useMemo<PageSeo | null>(() => {
+    if (!contentEntry) return null;
+    const data = contentEntry.frontmatter || {};
+
+    const toStringArray = (value: unknown): string[] | undefined => {
+      if (Array.isArray(value)) {
+        const filtered = value.filter((item): item is string => typeof item === "string");
+        return filtered.length ? filtered : undefined;
+      }
+      if (typeof value === "string") {
+        const parts = value
+          .split(",")
+          .map((part) => part.trim())
+          .filter(Boolean);
+        return parts.length ? parts : undefined;
+      }
+      return undefined;
+    };
+
+    const coerceBoolean = (value: unknown): boolean | undefined => {
+      if (typeof value === "boolean") return value;
+      if (typeof value === "string") {
+        const lowered = value.toLowerCase();
+        if (lowered === "true") return true;
+        if (lowered === "false") return false;
+      }
+      return undefined;
+    };
+
+    const typedData = data as Record<string, unknown>;
+
+    const seo: PageSeo = {
+      title: typeof typedData.title === "string" ? typedData.title : undefined,
+      description: typeof typedData.description === "string" ? typedData.description : undefined,
+      canonical: typeof typedData.canonical === "string" ? typedData.canonical : undefined,
+      keywords: toStringArray(typedData.keywords),
+      lastUpdated: typeof typedData.lastUpdated === "string" ? typedData.lastUpdated : undefined,
+      ogImage: typeof typedData.ogImage === "string" ? typedData.ogImage : undefined,
+      noindex: coerceBoolean(typedData.noindex),
+    };
+
+    return seo;
+  }, [contentEntry]);
+
+  const pageDisplayNameForSeo = getPageLabel(page);
+  const fallbackTitle = pageDisplayNameForSeo || moduleName;
+  const fallbackDescription = `${moduleName}${
+    pageDisplayNameForSeo ? ` – ${pageDisplayNameForSeo}` : ""
+  } documentation for Virima.`;
+
+  const versionLabelMap: Record<string, string> = {
+    NextGen: "NextGen",
+    "6_1": "6.1",
+    "6_1_1": "6.1.1",
+    "5_13": "5.13",
+  };
+
+  const segmentLabelOverrides: Record<string, string> = {
+    "my-dashboard": "My Dashboard",
+    "my-dashboard-6_1": "My Dashboard",
+    admin: "Admin",
+    "admin_6_1": "Admin",
+    cmdb: "CMDB",
+    "cmdb_6_1": "CMDB",
+    "discovery-scan": "Discovery Scan",
+    "discovery_scan_6_1": "Discovery Scan",
+    itsm: "ITSM",
+    itam: "ITAM",
+    "itam_6_1": "ITAM",
+    "self-service": "Self Service",
+    "self-service-6_1": "Self Service",
+    "program-project-management": "Program and Project Management",
+    "program-project-management-6_1": "Program and Project Management",
+    "risk-register": "Risk Register",
+    reports: "Reports",
+    "reports_6_1": "Reports",
+    "vulnerability-management": "Vulnerability Management",
+    "vulnerability_management-6_1": "Vulnerability Management",
+    NG: "NextGen",
+    admin_discovery: "Discovery",
+    admin_sacm: "SACM",
+    admin_users: "Users",
+    admin_change_mngmnt: "Change Management",
+    admin_contract_mngmt: "Contract Management",
+    admin_event_mngmnt: "Event Management",
+    admin_hardware_asset_mngmnt: "Hardware Asset Management",
+    admin_incident_mngmnt: "Incident Management",
+    admin_knowledge_mngmnt: "Knowledge Management",
+    admin_procurement: "Procurement",
+    admin_procurement_mngmnt: "Procurement Management",
+    admin_project_mngmnt: "Project Management",
+    admin_release_mngmnt: "Release Management",
+    admin_request_mngmnt: "Request Management",
+    admin_vendor_mngmnt: "Vendor Management",
+    admin_integrations: "Integrations",
+    admin_other: "Other Functions",
+    admin_org_details: "Organizational Details",
+  };
+
+  const toTitleCase = (value: string) =>
+    value
+      .split(" ")
+      .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : ""))
+      .join(" ")
+      .replace(/\bCmdb\b/g, "CMDB")
+      .replace(/\bItsm\b/g, "ITSM")
+      .replace(/\bItam\b/g, "ITAM");
+
+  const formatSegmentLabel = (segment: string): string => {
+    if (!segment) return "";
+    if (versionLabelMap[segment]) return versionLabelMap[segment];
+    if (segmentLabelOverrides[segment]) return segmentLabelOverrides[segment];
+
+    const normalizedModule = module.replace(/[-_]/g, "");
+    if (segment.replace(/[-_]/g, "") === normalizedModule) {
+      return moduleName;
+    }
+
+    const withoutVersion = segment.replace(/[-_](6_1_1|6_1|5_13)$/i, "");
+    const strippedAdmin = withoutVersion.replace(/^admin[-_]/i, "");
+    const normalized = strippedAdmin.replace(/[-_]/g, " ");
+    return toTitleCase(normalized);
+  };
+
+  const seoBreadcrumbs = useMemo<BreadcrumbEntry[]>(() => {
+    if (!normalizedPath) return [];
+    const trimmed = normalizedPath.replace(/\/+$/, "");
+    if (!trimmed || trimmed === "/") return [];
+
+    const segments = trimmed.slice(1).split("/");
+    if (segments.length <= 1) return [];
+
+    const items: BreadcrumbEntry[] = [];
+    let accumulated = "";
+    for (let i = 0; i < segments.length - 1; i += 1) {
+      const segment = segments[i];
+      accumulated += `/${segment}`;
+      items.push({
+        label: formatSegmentLabel(segment),
+        path: accumulated,
+      });
+    }
+    return items;
+  }, [normalizedPath, module, moduleName]);
 
   const getTOCItems = () => {
     const contentKey = `${section}-${page}`;
@@ -2051,16 +2220,8 @@ export function DocumentationContent({
     }
 
     const contentKey = `${section}-${page}`;
-    
-    // Try to resolve MDX file path first
-    let mdxPath: string | null = null;
-    try {
-      mdxPath = resolveMDXPath({ version, module, section, page });
-    } catch (error) {
-      console.error('Error resolving MDX path:', error);
-      // Continue to fallback content
-    }
-    
+    const mdxPath = resolvedMDXPath;
+
     // If we have a valid MDX path, try to load it with breadcrumbs
     if (mdxPath) {
       return (
@@ -2131,31 +2292,40 @@ export function DocumentationContent({
   };
 
   return (
-    <div className="flex max-w-[1800px] mx-auto">
-      <div className="flex-1 px-6 lg:px-12 py-12 lg:py-16 max-w-4xl">
-        {renderContent()}
-      </div>
-      <aside className="w-64 px-6 py-12 lg:py-16 border-l border-slate-200/60 hidden xl:block">
-        <div className="-mt-12 mb-6 pb-6 border-b border-slate-200/60">
-          <div className="flex items-start gap-2 mb-3">
-            <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />
-            <div>
-              <div className="text-xs text-slate-500 mb-0.5">Release Date</div>
-              <div className="text-sm text-slate-700 text-[14px]">November 1, 2025</div>
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <Clock className="w-4 h-4 text-slate-500 mt-0.5" />
-            <div>
-              <div className="text-xs text-slate-500 mb-0.5">Last Updated</div>
-              <div className="text-sm text-slate-700">November 10, 2025</div>
-            </div>
-          </div>
+    <>
+      <Seo
+        page={pageSeo}
+        fallbackTitle={fallbackTitle}
+        fallbackDescription={fallbackDescription}
+        canonicalPath={normalizedPath}
+        breadcrumbs={seoBreadcrumbs}
+      />
+      <div className="flex max-w-[1800px] mx-auto">
+        <div className="flex-1 px-6 lg:px-12 py-12 lg:py-16 max-w-4xl">
+          {renderContent()}
         </div>
-        {/* TableOfContents will auto-detect headings, but can use provided items as fallback */}
-        <TableOfContents items={getTOCItems()} contentSelector="article, .prose" />
-      </aside>
-    </div>
+        <aside className="w-64 px-6 py-12 lg:py-16 border-l border-slate-200/60 hidden xl:block">
+          <div className="-mt-12 mb-6 pb-6 border-b border-slate-200/60">
+            <div className="flex items-start gap-2 mb-3">
+              <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />
+              <div>
+                <div className="text-xs text-slate-500 mb-0.5">Release Date</div>
+                <div className="text-sm text-slate-700 text-[14px]">November 1, 2025</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <Clock className="w-4 h-4 text-slate-500 mt-0.5" />
+              <div>
+                <div className="text-xs text-slate-500 mb-0.5">Last Updated</div>
+                <div className="text-sm text-slate-700">November 10, 2025</div>
+              </div>
+            </div>
+          </div>
+          {/* TableOfContents will auto-detect headings, but can use provided items as fallback */}
+          <TableOfContents items={getTOCItems()} contentSelector="article, .prose" />
+        </aside>
+      </div>
+    </>
   );
 }
 

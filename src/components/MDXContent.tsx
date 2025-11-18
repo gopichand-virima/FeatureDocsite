@@ -4,6 +4,16 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { getContent, hasContent } from '../content/contentLoader';
 
+// Helper function to generate ID from heading text
+function generateHeadingId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim();
+}
+
 interface MDXContentProps {
   filePath: string;
 }
@@ -96,15 +106,42 @@ export function MDXContent({ filePath }: MDXContentProps) {
               </code>
             );
           },
-          h1: ({ node, ...props }) => (
-            <h1 className="text-slate-900 mb-6" {...props} />
-          ),
-          h2: ({ node, ...props }) => (
-            <h2 className="text-slate-900 mt-12 mb-6" {...props} />
-          ),
-          h3: ({ node, ...props }) => (
-            <h3 className="text-slate-900 mt-8 mb-4" {...props} />
-          ),
+          h1: ({ node, children, ...props }) => {
+            const text = typeof children === 'string' ? children : String(children);
+            const id = generateHeadingId(text);
+            return (
+              <h1 id={id} className="text-slate-900 mb-6 scroll-mt-20" {...props}>
+                {children}
+              </h1>
+            );
+          },
+          h2: ({ node, children, ...props }) => {
+            const text = typeof children === 'string' ? children : String(children);
+            const id = generateHeadingId(text);
+            return (
+              <h2 id={id} className="text-slate-900 mt-12 mb-6 scroll-mt-20" {...props}>
+                {children}
+              </h2>
+            );
+          },
+          h3: ({ node, children, ...props }) => {
+            const text = typeof children === 'string' ? children : String(children);
+            const id = generateHeadingId(text);
+            return (
+              <h3 id={id} className="text-slate-900 mt-8 mb-4 scroll-mt-20" {...props}>
+                {children}
+              </h3>
+            );
+          },
+          h4: ({ node, children, ...props }) => {
+            const text = typeof children === 'string' ? children : String(children);
+            const id = generateHeadingId(text);
+            return (
+              <h4 id={id} className="text-slate-900 mt-6 mb-3 scroll-mt-20" {...props}>
+                {children}
+              </h4>
+            );
+          },
           p: ({ node, ...props }) => (
             <p className="text-slate-600 leading-relaxed mb-4" {...props} />
           ),

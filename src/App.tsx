@@ -157,6 +157,75 @@ function AppContent() {
       }
     }
     
+    // Determine if this is new format (with underscores like 6_1) or old format (with dots like 6.1)
+    const isNewFormat = parts[0] && (parts[0].includes('_') || parts[0] === '6_1');
+    const isOldFormat = parts[0] && parts[0].includes('.') && !parts[0].includes('_');
+    
+    // Handle old URL format: /6.1/module/section/page
+    if (isOldFormat && parts.length >= 2) {
+      // Set module
+      if (parts.length >= 2 && parts[1]) {
+        setSelectedModule(parts[1]);
+      }
+      
+      // Handle different URL lengths
+      if (parts.length >= 4 && parts[3]) {
+        // Full path: /6.1/module/section/page
+        if (parts.length >= 3 && parts[2]) {
+          setSelectedSection(parts[2]);
+        }
+        setSelectedPage(parts[3]);
+      } else if (parts.length === 3 && parts[2]) {
+        // Path like /6.1/my-dashboard/my-dashboard (module/section, no page)
+        // Check if parts[2] is the same as parts[1] (duplicate module name)
+        if (parts[1] === parts[2]) {
+          // This is a duplicate - treat as module only, set default section/page
+          if (parts[1] === 'my-dashboard') {
+            setSelectedSection('my-dashboard');
+            setSelectedPage('my-dashboard-overview');
+          } else if (parts[1] === 'cmdb') {
+            setSelectedSection('cmdb');
+            setSelectedPage('access-cmdb');
+          } else if (parts[1] === 'discovery-scan') {
+            setSelectedSection('discovery-scan');
+            setSelectedPage('access-dashboard');
+          } else {
+            setSelectedSection(parts[1]);
+            setSelectedPage('overview');
+          }
+        } else {
+          // Different section name
+          setSelectedSection(parts[2]);
+          // Set default page based on module
+          if (parts[1] === 'my-dashboard') {
+            setSelectedPage('my-dashboard-overview');
+          } else if (parts[1] === 'cmdb') {
+            setSelectedPage('access-cmdb');
+          } else if (parts[1] === 'discovery-scan') {
+            setSelectedPage('access-dashboard');
+          } else {
+            setSelectedPage('overview');
+          }
+        }
+      } else if (parts.length === 2) {
+        // Path like /6.1/my-dashboard (only module)
+        if (parts[1] === 'my-dashboard') {
+          setSelectedSection('my-dashboard');
+          setSelectedPage('my-dashboard-overview');
+        } else if (parts[1] === 'cmdb') {
+          setSelectedSection('cmdb');
+          setSelectedPage('access-cmdb');
+        } else if (parts[1] === 'discovery-scan') {
+          setSelectedSection('discovery-scan');
+          setSelectedPage('access-dashboard');
+        } else {
+          setSelectedSection('application-overview');
+          setSelectedPage('advanced-search');
+        }
+      }
+      return;
+    }
+    
     // New URL format: /6_1/module_folder/[subfolder/]file_name
     // Special case: /6_1/file_name (root level files like filter_by_6_1)
     if (parts.length >= 2 && parts[1]) {
@@ -218,17 +287,6 @@ function AppContent() {
           setSelectedPage('advanced-search');
         }
       }
-    } else {
-      // Old URL format: /6.1/module/section/page (fallback)
-      if (parts.length >= 2 && parts[1]) {
-        setSelectedModule(parts[1]);
-      }
-      if (parts.length >= 3 && parts[2]) {
-        setSelectedSection(parts[2]);
-      }
-      if (parts.length >= 4 && parts[3]) {
-        setSelectedPage(parts[3]);
-      }
     }
   }, [location]);
 
@@ -238,9 +296,41 @@ function AppContent() {
       navigate('/');
       return;
     }
-    const versionPath = version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen';
-    const path = `/${versionPath}/${module}${section ? `/${section}` : ''}${page ? `/${page}` : ''}`;
-    navigate(path);
+    // Use new format (with underscores) for version 6.1
+    const versionPath = version === '6.1' ? '6_1' : version === '6.1.1' ? '6_1_1' : version === '5.13' ? '5_13' : 'NextGen';
+    
+    // For new format, use folder structure: /6_1/module_folder/file_name
+    if (version === '6.1' && module === 'my-dashboard') {
+      // Map to folder structure
+      const folderMap: Record<string, string> = {
+        'my-dashboard': 'my-dashboard-6_1',
+        'cmdb': 'cmdb_6_1',
+        'discovery-scan': 'discovery_scan_6_1',
+        'application-overview': 'application_overview_6_1',
+        'itsm': 'itsm_6_1',
+        'itam': 'itam_6_1',
+        'admin': 'admin_6_1',
+      };
+      const moduleFolder = folderMap[module] || module;
+      
+      // Map page to file name
+      const pageToFileMap: Record<string, string> = {
+        'my-dashboard-overview': 'my-dashboard-overview-6_1',
+        'dashboards': 'dashboards-6_1',
+        'dashboards-contents': 'dashboards-contents-6_1',
+        'customization': 'dashboards-customization-6_1',
+        'report-actions': 'dashboards-report-actions-6_1',
+        'system-icons': 'system-icons-6_1',
+      };
+      const fileName = pageToFileMap[page] || `${page.replace(/-/g, '_')}_6_1`;
+      const path = `/${versionPath}/${moduleFolder}/${fileName}`;
+      navigate(path);
+    } else {
+      // Old format fallback
+      const versionPathOld = version === '6.1' ? '6.1' : version === '6.1.1' ? '6.1.1' : version === '5.13' ? '5.13' : 'NextGen';
+      const path = `/${versionPathOld}/${module}${section ? `/${section}` : ''}${page ? `/${page}` : ''}`;
+      navigate(path);
+    }
   };
 
   const showHomePage = !selectedModule || selectedModule === '';
@@ -350,6 +440,13 @@ function AppContent() {
             }}
             onVersionClick={() => {
               versionDropdownTriggerRef.current?.();
+            }}
+            onPageClick={(version, module, section, page) => {
+              setSelectedVersion(version);
+              setSelectedModule(module);
+              setSelectedSection(section);
+              setSelectedPage(page);
+              updateURL(version, module, section, page);
             }}
           />
         )}

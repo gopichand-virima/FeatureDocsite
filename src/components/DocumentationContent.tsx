@@ -30,6 +30,7 @@ interface DocumentationContentProps {
   onHomeClick?: () => void;
   onModuleClick?: () => void;
   onVersionClick?: () => void;
+  onPageClick?: (version: string, module: string, section: string, page: string) => void;
 }
 
 const moduleNames: Record<string, string> = {
@@ -276,8 +277,87 @@ export function DocumentationContent({
   onHomeClick,
   onModuleClick,
   onVersionClick,
+  onPageClick,
 }: DocumentationContentProps) {
   const moduleName = moduleNames[module] || module;
+  
+  // Helper function to get parent topic page ID from parent topic name
+  const getParentTopicPageId = (parentTopicName: string): string | null => {
+    const topicMap: Record<string, string> = {
+      "Shared Functions": "shared-functions",
+      "Dashboards": "dashboards",
+      "Manage CMDB": "manage-cmdb",
+      "View and Edit a CI": "view-and-edit-ci",
+      "CI Details and Tabs": "ci-details-and-tabs",
+      "Dashboard": "dashboard",
+      "Run a Scan": "run-a-scan",
+      "Recent Scans": "recent-scans",
+      "Azure AD User Import Logs": "azure-ad-user-import-logs",
+      "Scheduled Scans and Imports": "scheduled-scans-and-imports",
+      "IPAM Networks": "ipam-networks",
+      "Discovered Items": "discovered-items",
+      "Import from AWS": "import-from-aws",
+      "Import from Azure": "import-from-azure",
+      "Import from Meraki": "import-from-meraki",
+      "Import from Intune": "import-from-intune",
+      "Import Data Files": "import-data-files",
+      "Imported Assets": "imported-assets",
+      "AD User Import Logs": "ad-user-import-logs",
+      "Configuration Management": "configuration-management",
+      "Organizational Details": "organizational-details",
+      "Discovery": "discovery",
+      "SACM": "sacm",
+      "Users": "users",
+      "Management Functions": "management-functions",
+      "Integrations": "integrations",
+      "Others": "others",
+      "My Dashboard": "my-dashboard-section",
+      "Details": "details",
+      "Initiate and Configure Discovery Scan": "initiate-and-configure-discovery-scan",
+      "Configure Discovery Scan": "configure-discovery-scan",
+      "View Recent Scan": "view-recent-scan",
+      "View Import Log Details": "view-import-log-details",
+      "Scans and Import Options": "scans-and-import-options",
+      "IPAM Functions Overview": "ipam-functions-overview",
+      "Scan Function": "scan-function",
+      "Manage Discovered Items": "manage-discovered-items",
+      "Detailed View of Discovered Items": "detailed-view-of-discovered-items",
+      "Other Functions and Page Elements": "other-functions-and-page-elements",
+      "Manage Import Data Files": "manage-import-data-files",
+      "View an Imported Data File": "view-an-imported-data-file",
+      "CMDB": "cmdb",
+      "Departments": "departments",
+      "Client": "client",
+      "Credentials": "credentials",
+      "Procurement": "procurement",
+      "Cherwell Credential": "cherwell-credential",
+      "Ivanti Credentials": "ivanti-credentials",
+      "Jira Credentials": "jira-credentials",
+      "ServiceNow Credentials": "servicenow-credentials",
+    };
+    return topicMap[parentTopicName] || null;
+  };
+  
+  // Handler for parent topic clicks
+  const handleParentTopicClick = (parentTopicName: string) => {
+    if (!onPageClick) return;
+    const parentPageId = getParentTopicPageId(parentTopicName);
+    if (parentPageId) {
+      onPageClick(version, module, section, parentPageId);
+    }
+  };
+  
+  // Handler for nested topic clicks
+  const handleNestedTopicClick = (nestedTopicName: string, nestedPageId: string) => {
+    if (!onPageClick) return;
+    onPageClick(version, module, section, nestedPageId);
+  };
+  
+  // Helper to create clickable breadcrumb link props for nested topics
+  const getClickableBreadcrumbProps = (topicName: string, pageId: string) => ({
+    onClick: () => handleNestedTopicClick(topicName, pageId),
+    className: "text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors",
+  });
 
   const getTOCItems = () => {
     const contentKey = `${section}-${page}`;
@@ -731,7 +811,10 @@ export function DocumentationContent({
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleParentTopicClick(parentTopic)}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     {parentTopic}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -742,7 +825,7 @@ export function DocumentationContent({
             {isUnderMyDashboardSection && page !== "my-dashboard-section" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("My Dashboard", "my-dashboard-section")}>
                     My Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -753,7 +836,10 @@ export function DocumentationContent({
             {isUnderDetailsNested && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleNestedTopicClick("Details", "details")}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -764,7 +850,7 @@ export function DocumentationContent({
             {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -774,13 +860,13 @@ export function DocumentationContent({
             {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configure Discovery Scan", "configure-discovery-scan")}>
                     Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -790,7 +876,7 @@ export function DocumentationContent({
             {page === "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -801,7 +887,7 @@ export function DocumentationContent({
             {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -811,13 +897,16 @@ export function DocumentationContent({
             {isUnderRecentScanDetails && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleNestedTopicClick("Details", "details")}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -827,7 +916,7 @@ export function DocumentationContent({
             {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -838,7 +927,7 @@ export function DocumentationContent({
             {isUnderViewImportLog && page !== "view-import-log-details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -849,7 +938,7 @@ export function DocumentationContent({
             {isUnderScansImportOptions && page !== "scans-and-import-options" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
                     Scans and Import Options
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -860,7 +949,7 @@ export function DocumentationContent({
             {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -870,13 +959,13 @@ export function DocumentationContent({
             {isUnderScanFunction && page !== "scan-function" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scan Function", "scan-function")}>
                     Scan Function
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -887,7 +976,7 @@ export function DocumentationContent({
             {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
                     Manage Discovered Items
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -897,7 +986,7 @@ export function DocumentationContent({
             {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
                     Detailed View of Discovered Items
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -907,7 +996,7 @@ export function DocumentationContent({
             {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -918,7 +1007,7 @@ export function DocumentationContent({
             {isUnderImportFromAWS && page !== "import-from-aws" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
                     Import from AWS
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -929,7 +1018,7 @@ export function DocumentationContent({
             {isUnderImportFromAzure && page !== "import-from-azure" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
                     Import from Azure
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -940,7 +1029,7 @@ export function DocumentationContent({
             {isUnderImportFromMeraki && page !== "import-from-meraki" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
                     Import from Meraki
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -951,7 +1040,7 @@ export function DocumentationContent({
             {isUnderImportFromIntune && page !== "import-from-intune" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
                     Import from Intune
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -962,7 +1051,7 @@ export function DocumentationContent({
             {isUnderManageImportDataFiles && page !== "manage-import-data-files" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Import Data Files", "manage-import-data-files")}>
                     Manage Import Data Files
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -972,7 +1061,7 @@ export function DocumentationContent({
             {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
                     View an Imported Data File
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -983,7 +1072,7 @@ export function DocumentationContent({
             {isUnderImportedAssets && page !== "imported-assets" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Imported Assets", "imported-assets")}>
                     Imported Assets
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -994,7 +1083,7 @@ export function DocumentationContent({
             {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
                     AD User Import Logs
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1005,7 +1094,7 @@ export function DocumentationContent({
             {isUnderItsmCmdb && page !== "cmdb" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1015,7 +1104,7 @@ export function DocumentationContent({
             {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1025,7 +1114,7 @@ export function DocumentationContent({
             {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
                     CI Details and Tabs
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1036,7 +1125,7 @@ export function DocumentationContent({
             {isUnderDepartments && page !== "departments" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
                     Departments
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1046,7 +1135,7 @@ export function DocumentationContent({
             {isUnderClient && page !== "client" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
                     Client
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1056,7 +1145,7 @@ export function DocumentationContent({
             {isUnderCredentials && page !== "credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
                     Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1066,7 +1155,7 @@ export function DocumentationContent({
             {isUnderProcurement && page !== "procurement" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
                     Procurement
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1076,7 +1165,7 @@ export function DocumentationContent({
             {isUnderCherwellCredential && page !== "cherwell-credential" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
                     Cherwell Credential
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1086,7 +1175,7 @@ export function DocumentationContent({
             {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
                     Ivanti Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1096,7 +1185,7 @@ export function DocumentationContent({
             {isUnderJiraCredentials && page !== "jira-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
                     Jira Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -1106,7 +1195,7 @@ export function DocumentationContent({
             {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
                     ServiceNow Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2312,6 +2401,7 @@ function DefaultContent({
   onHomeClick,
   onModuleClick,
   onVersionClick,
+  onPageClick,
 }: {
   section: string;
   page: string;
@@ -2321,6 +2411,7 @@ function DefaultContent({
   onHomeClick?: () => void;
   onModuleClick?: () => void;
   onVersionClick?: () => void;
+  onPageClick?: (version: string, module: string, section: string, page: string) => void;
 }) {
   /**
    * BREADCRUMB HIERARCHY SYSTEM
@@ -2335,6 +2426,61 @@ function DefaultContent({
    * - CMDB: Manage CMDB / View and Edit a CI / CI Details and Tabs > [child pages] > Details > [nested child pages]
    * - Discovery Scan: Dashboard / Run a Scan / Recent Scans / Azure AD User Import Logs > [child pages with nested hierarchies]
    */
+  
+  // Helper function to get parent topic page ID from parent topic name
+  const getParentTopicPageId = (parentTopicName: string): string | null => {
+    const topicMap: Record<string, string> = {
+      "Shared Functions": "shared-functions",
+      "Dashboards": "dashboards",
+      "Manage CMDB": "manage-cmdb",
+      "View and Edit a CI": "view-and-edit-ci",
+      "CI Details and Tabs": "ci-details-and-tabs",
+      "Dashboard": "dashboard",
+      "Run a Scan": "run-a-scan",
+      "Recent Scans": "recent-scans",
+      "Azure AD User Import Logs": "azure-ad-user-import-logs",
+      "Scheduled Scans and Imports": "scheduled-scans-and-imports",
+      "IPAM Networks": "ipam-networks",
+      "Discovered Items": "discovered-items",
+      "Import from AWS": "import-from-aws",
+      "Import from Azure": "import-from-azure",
+      "Import from Meraki": "import-from-meraki",
+      "Import from Intune": "import-from-intune",
+      "Import Data Files": "import-data-files",
+      "Imported Assets": "imported-assets",
+      "AD User Import Logs": "ad-user-import-logs",
+      "Configuration Management": "configuration-management",
+      "Organizational Details": "organizational-details",
+      "Discovery": "discovery",
+      "SACM": "sacm",
+      "Users": "users",
+      "Management Functions": "management-functions",
+      "Integrations": "integrations",
+      "Others": "others",
+    };
+    return topicMap[parentTopicName] || null;
+  };
+  
+  // Handler for parent topic clicks
+  const handleParentTopicClick = (parentTopicName: string) => {
+    if (!onPageClick) return;
+    const parentPageId = getParentTopicPageId(parentTopicName);
+    if (parentPageId) {
+      onPageClick(version, module, section, parentPageId);
+    }
+  };
+  
+  // Handler for nested topic clicks
+  const handleNestedTopicClick = (nestedTopicName: string, nestedPageId: string) => {
+    if (!onPageClick) return;
+    onPageClick(version, module, section, nestedPageId);
+  };
+  
+  // Helper to create clickable breadcrumb link props for nested topics
+  const getClickableBreadcrumbProps = (topicName: string, pageId: string) => ({
+    onClick: () => handleNestedTopicClick(topicName, pageId),
+    className: "text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors",
+  });
   
   // My Dashboard - Application Overview hierarchy
   const sharedFunctionsPages = [
@@ -2553,7 +2699,10 @@ function DefaultContent({
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleParentTopicClick(parentTopic)}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     {parentTopic}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2564,7 +2713,7 @@ function DefaultContent({
             {isUnderMyDashboardSection && page !== "my-dashboard-section" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("My Dashboard", "my-dashboard-section")}>
                     My Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2575,7 +2724,10 @@ function DefaultContent({
             {isUnderDetailsNested && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleNestedTopicClick("Details", "details")}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2586,7 +2738,7 @@ function DefaultContent({
             {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2596,13 +2748,13 @@ function DefaultContent({
             {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configure Discovery Scan", "configure-discovery-scan")}>
                     Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2612,7 +2764,7 @@ function DefaultContent({
             {page === "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2623,7 +2775,7 @@ function DefaultContent({
             {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2633,13 +2785,16 @@ function DefaultContent({
             {isUnderRecentScanDetails && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink 
+                    onClick={() => handleNestedTopicClick("Details", "details")}
+                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
+                  >
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2649,7 +2804,7 @@ function DefaultContent({
             {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2660,7 +2815,7 @@ function DefaultContent({
             {isUnderViewImportLog && page !== "view-import-log-details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2671,7 +2826,7 @@ function DefaultContent({
             {isUnderScansImportOptions && page !== "scans-and-import-options" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
                     Scans and Import Options
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2682,7 +2837,7 @@ function DefaultContent({
             {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
                     IPAM Functions Overview
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2692,7 +2847,7 @@ function DefaultContent({
             {isUnderScanFunction && page !== "scan-function" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scan Function", "scan-function")}>
                     Scan Function
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2703,7 +2858,7 @@ function DefaultContent({
             {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
                     Manage Discovered Items
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2713,7 +2868,7 @@ function DefaultContent({
             {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
                     Detailed View of Discovered Items
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2723,7 +2878,7 @@ function DefaultContent({
             {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2734,7 +2889,7 @@ function DefaultContent({
             {(isUnderImportFromAWS && page !== "import-from-aws") && (page === "view-aws-import-record" || ["key-columns", "move-items-to-cmdb", "logs"].includes(page)) && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-a-discovered-aws-record")}>
                     View AWS Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2744,7 +2899,7 @@ function DefaultContent({
             {(isUnderImportFromAzure && page !== "import-from-azure") && (page === "view-azure-import-record" || ["common-controls", "key-columns", "move-items-to-the-cmdb", "discovered-item-view-overview", "top-right-actions", "tabs-main-panel"].includes(page)) && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Azure Import Record", "view-a-discovered-azure-record")}>
                     View Azure Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2754,7 +2909,7 @@ function DefaultContent({
             {(isUnderImportFromMeraki && page !== "import-from-meraki") && (page === "view-meraki-import-record" || ["common-controls", "key-columns", "move-items-to-the-cmdb", "discovered-item-view-overview", "top-right-actions", "tabs-main-panel", "logs"].includes(page)) && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-a-discovered-meraki-record")}>
                     View Meraki Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2764,7 +2919,7 @@ function DefaultContent({
             {(isUnderImportFromIntune && page !== "import-from-intune") && page === "view-intune-import-record" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-a-discovered-intune-record")}>
                     View Intune Import Record
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2775,7 +2930,7 @@ function DefaultContent({
             {isUnderManageImportDataFiles && page !== "manage-import-data-files" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Import Data Files", "manage-import-data-files")}>
                     Manage Import Data Files
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2785,7 +2940,7 @@ function DefaultContent({
             {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
                     View an Imported Data File
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2796,7 +2951,7 @@ function DefaultContent({
             {isUnderAdUserImportLogs && page !== "view-import-log-details" && (page === "view-import-log-details" || ["details-tab", "tabs-for-extended-information"].includes(page)) && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2807,7 +2962,7 @@ function DefaultContent({
             {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2817,13 +2972,13 @@ function DefaultContent({
             {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2833,19 +2988,19 @@ function DefaultContent({
             {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
                     CI Details and Tabs
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2855,13 +3010,13 @@ function DefaultContent({
             {page === "ci-details-and-tabs" && section === "itsm" && isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2871,7 +3026,7 @@ function DefaultContent({
             {page === "view-and-edit-ci" && section === "itsm" && isUnderItsmCmdb && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2882,7 +3037,7 @@ function DefaultContent({
             {isUnderDepartments && page !== "departments" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
                     Departments
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2893,7 +3048,7 @@ function DefaultContent({
             {isUnderClient && page !== "client" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
                     Client
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2904,7 +3059,7 @@ function DefaultContent({
             {isUnderCredentials && page !== "credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
                     Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2915,7 +3070,7 @@ function DefaultContent({
             {isUnderProcurement && page !== "procurement" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
                     Procurement
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2926,7 +3081,7 @@ function DefaultContent({
             {isUnderCherwellCredential && page !== "cherwell-credential" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
                     Cherwell Credential
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2937,7 +3092,7 @@ function DefaultContent({
             {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
                     Ivanti Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2948,7 +3103,7 @@ function DefaultContent({
             {isUnderJiraCredentials && page !== "jira-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
                     Jira Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -2959,7 +3114,7 @@ function DefaultContent({
             {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="text-slate-700">
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
                     ServiceNow Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>

@@ -1246,10 +1246,10 @@ export function DocumentationContent({
     else if (isUnderItamDetailsNested && page !== "details") parentTopic = "Details";
     else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
     else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
-    else if ((section === "self-service" && (selfServicePages.includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
+    else if ((section === "self-service" && (["service-catalog", "my-incidents", "my-requests"].includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
     else if (((section === "program-project-management") && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management") parentTopic = "Program/Project Management";
-    else if (isUnderPrograms && page !== "programs") parentTopic = "Programs";
-    else if (isUnderProjects && page !== "projects") parentTopic = "Projects";
+    else if ((section === "program-project-management" && (["program-dashboard"].includes(page) || page === "programs")) && page !== "programs") parentTopic = "Programs";
+    else if ((section === "program-project-management" && (["project-dashboard"].includes(page) || page === "projects")) && page !== "projects") parentTopic = "Projects";
     else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
     else if (isUnderReports && page !== "reports") parentTopic = "Reports";
     else if (isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments) parentTopic = "Organizational Details";

@@ -1417,8 +1417,38 @@ export function DocumentationLayout({
 
                   <nav className="space-y-2">
                     {sections.map((section, index) => {
-                      const isActive =
-                        selectedSection === section.id;
+                      // Find if this section contains the selected page (universal: works for all modules and versions)
+                      let sectionContainsSelectedPage = false;
+                      if (selectedPage && section.pages) {
+                        for (const page of section.pages) {
+                          // Check direct pages
+                          if (normalizePageId(page.id) === normalizePageId(selectedPage)) {
+                            sectionContainsSelectedPage = true;
+                            break;
+                          }
+                          // Check subPages
+                          if (page.subPages) {
+                            for (const subPage of page.subPages) {
+                              if (normalizePageId(subPage.id) === normalizePageId(selectedPage)) {
+                                sectionContainsSelectedPage = true;
+                                break;
+                              }
+                              // Check nested subPages
+                              if (subPage.subPages) {
+                                for (const nestedSubPage of subPage.subPages) {
+                                  if (normalizePageId(nestedSubPage.id) === normalizePageId(selectedPage)) {
+                                    sectionContainsSelectedPage = true;
+                                    break;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      
+                      // Section is active if it matches selectedSection OR if it contains the selected page
+                      const isActive = selectedSection === section.id || sectionContainsSelectedPage;
                       const isExpanded = expandedSections.has(
                         section.id,
                       );

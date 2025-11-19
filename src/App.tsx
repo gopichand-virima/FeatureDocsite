@@ -115,6 +115,28 @@ function AppContent() {
         return { section: 'application-overview', page: 'user-specific-functions' };
       }
       
+      // Getting Started pages (universal: works for all versions)
+      const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
+      const gettingStartedPageMap: Record<string, string> = {
+        'quick_start_6_1': 'quick-start',
+        'quick-start-6_1': 'quick-start',
+        'installation_6_1': 'installation',
+        'installation-6_1': 'installation',
+        'configuration_6_1': 'configuration',
+        'configuration-6_1': 'configuration',
+        'first_steps_6_1': 'first-steps',
+        'first-steps-6_1': 'first-steps',
+      };
+      const gettingStartedPage = gettingStartedPageMap[cleanName];
+      if (gettingStartedPage) {
+        return { section: 'getting-started', page: gettingStartedPage };
+      }
+      // Also check if the page ID (after cleaning) is a Getting Started page
+      const fallbackPageId = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+      if (gettingStartedPages.includes(fallbackPageId)) {
+        return { section: 'getting-started', page: fallbackPageId };
+      }
+      
       // My-dashboard specific pages
       const pageMap: Record<string, string> = {
         'my-dashboard-overview-6_1': 'my-dashboard-overview',
@@ -1201,9 +1223,13 @@ function AppContent() {
             onPageClick={(version, module, section, page) => {
               setSelectedVersion(version);
               setSelectedModule(module);
-              setSelectedSection(section);
+              // Detect Getting Started pages and set correct section (universal: works for all versions)
+              const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
+              const isGettingStartedPage = gettingStartedPages.includes(page);
+              const actualSection = (module === 'my-dashboard' && isGettingStartedPage) ? 'getting-started' : section;
+              setSelectedSection(actualSection);
               setSelectedPage(page);
-              updateURL(version, module, section, page);
+              updateURL(version, module, actualSection, page);
             }}
           />
         )}

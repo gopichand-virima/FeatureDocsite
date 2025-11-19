@@ -1,6 +1,6 @@
 # Virima Documentation Style Rules Guide
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Last Updated:** December 2024  
 **Purpose:** Single source of truth for all visual and structural standards across the Virima documentation site
 
@@ -19,7 +19,8 @@
 9. [Buttons and UI Components](#buttons-and-ui-components)
 10. [Spacing and Layout](#spacing-and-layout)
 11. [Special Content Elements](#special-content-elements)
-12. [CSS Class Reference](#css-class-reference)
+12. [Section Detection and Breadcrumb Logic](#section-detection-and-breadcrumb-logic)
+13. [CSS Class Reference](#css-class-reference)
 
 ---
 
@@ -161,12 +162,31 @@ Home > Version > Module > Section > Parent Topic > Nested > Page
 - Make all parent levels clickable
 - Use emerald green for hover states
 - Show current page as non-clickable dark text
+- **Detect actual section based on page content** (e.g., Getting Started pages under My Dashboard should show "Getting Started" as the section, not "My Dashboard")
+- **Stop at the deepest valid level** - don't repeat parent nodes or insert placeholders
 
 ❌ **DON'T:**
 - Skip hierarchy levels
 - Make current page clickable
 - Use different colors for breadcrumb links
 - Add backgrounds or borders to breadcrumbs
+- **Repeat parent nodes** (e.g., don't show "My Dashboard > My Dashboard")
+- **Skip intermediate sections** (e.g., don't skip "Getting Started" when showing Installation page)
+
+### Special Cases
+
+**Getting Started Pages:**
+- Pages: `quick-start`, `installation`, `configuration`, `first-steps`
+- **Breadcrumb Rule:** When these pages are under My Dashboard module, the breadcrumb must show:
+  - `Home > Version > My Dashboard > Getting Started > [Page Name]`
+- **NOT:** `Home > Version > My Dashboard > My Dashboard > [Page Name]`
+- **Implementation:** The system automatically detects Getting Started pages and sets `actualSection = 'getting-started'` for breadcrumb rendering
+
+**Application Overview Pages:**
+- Pages: `system-icons`, `user-specific-functions`, `online-help`, and all Shared Functions pages
+- **Breadcrumb Rule:** When these pages are under My Dashboard module, the breadcrumb must show:
+  - `Home > Version > My Dashboard > Application Overview > [Page Name]` (or `> Shared Functions > [Page Name]` if applicable)
+- **Implementation:** The system automatically detects Application Overview pages and sets `actualSection = 'application-overview'` for breadcrumb rendering
 
 ---
 
@@ -204,6 +224,13 @@ Home > Version > Module > Section > Parent Topic > Nested > Page
 - Padding: `px-2 py-1.5`
 - Rounded: `rounded`
 - Transition: `transition-colors`
+
+**Section Active State Detection:**
+- A section is active if:
+  1. It matches `selectedSection` (from URL/state), OR
+  2. It contains the currently selected page (checked by searching direct pages, subPages, and nested subPages)
+- **Critical Rule:** The section that contains the selected page must be highlighted, even if `selectedSection` points to a different section
+- **Example:** When "Installation" (a Getting Started page) is selected, "Getting Started" section must be highlighted, not "My Dashboard"
 
 **Chevron Icons:**
 - Size: `h-4 w-4`
@@ -243,6 +270,28 @@ Home > Version > Module > Section > Parent Topic > Nested > Page
 - Page spacing: `space-y-1`
 - SubPage indentation: `ml-8 pl-4`
 - Nested SubPage indentation: `ml-8 pl-4` (within SubPage container)
+
+### Section Detection Logic
+
+**Universal Rule (Applied to All Modules and Versions):**
+- The left navigation must identify which section contains the currently selected page
+- This is done by searching through:
+  1. Direct pages in each section
+  2. SubPages (1 level deep)
+  3. Nested subPages (2 levels deep)
+- The section that contains the selected page is automatically highlighted with `text-black-premium`
+- This ensures the correct parent section is always highlighted, regardless of URL structure
+
+**Getting Started Example:**
+- When "Installation" page is selected:
+  - ✅ "Getting Started" section → Highlighted (bold/black)
+  - ✅ "Installation" page → Highlighted (green background + green text + bold)
+  - ❌ "My Dashboard" section → Normal (not highlighted)
+
+**Implementation:**
+- Uses `normalizePageId()` for case-insensitive matching
+- Searches all navigation levels (direct, subPages, nested subPages)
+- Updates automatically when `selectedPage` changes
 
 ---
 
@@ -845,6 +894,63 @@ border-l-4 border-emerald-500 pl-4 italic text-slate-600 my-6
 
 ---
 
+## Section Detection and Breadcrumb Logic
+
+### Getting Started Pages
+
+**Page IDs:**
+- `quick-start`
+- `installation`
+- `configuration`
+- `first-steps`
+
+**Detection Logic:**
+- These pages are automatically detected when under the `my-dashboard` module
+- The system sets `actualSection = 'getting-started'` for breadcrumb and navigation purposes
+- This applies universally across all versions (NextGen, 6.1.1, 6.1, 5.13)
+
+**Breadcrumb Behavior:**
+- **Correct:** `Home > Version > My Dashboard > Getting Started > Installation`
+- **Incorrect:** `Home > Version > My Dashboard > My Dashboard > Installation`
+
+**Left Navigation Behavior:**
+- When a Getting Started page is selected:
+  - "Getting Started" section is highlighted (bold/black text)
+  - The selected page is highlighted (green background + green text + bold)
+  - Other sections (like "My Dashboard") remain normal
+
+### Application Overview Pages
+
+**Page IDs:**
+- `system-icons`
+- `user-specific-functions`
+- `online-help`
+- All Shared Functions pages (e.g., `advanced-search`, `attachments`, etc.)
+
+**Detection Logic:**
+- These pages are automatically detected when under the `my-dashboard` module
+- The system sets `actualSection = 'application-overview'` for breadcrumb and navigation purposes
+- This applies universally across all versions
+
+**Breadcrumb Behavior:**
+- **Correct:** `Home > Version > My Dashboard > Application Overview > System Icons`
+- **Correct (with parent):** `Home > Version > My Dashboard > Application Overview > Shared Functions > Advanced Search`
+- **Incorrect:** `Home > Version > My Dashboard > My Dashboard > System Icons`
+
+### Universal Section Detection
+
+**Rule:**
+- The system must always detect the actual section based on page content, not just URL structure
+- This ensures breadcrumbs and navigation highlight the correct hierarchy
+- Applied universally to all modules and all versions
+
+**Implementation:**
+- `mapFileNameToPage()` function in `App.tsx` detects Getting Started and Application Overview pages
+- `DocumentationContent.tsx` uses `actualSection` for breadcrumb rendering
+- `DocumentationLayout.tsx` searches all sections to find which contains the selected page
+
+---
+
 ## Maintenance and Updates
 
 ### How to Use This Guide
@@ -867,6 +973,15 @@ When making style changes:
 - Keep this guide in the repository root
 - Commit changes with clear messages
 - Reference this guide in pull requests for style changes
+
+### Recent Updates (Version 1.1)
+
+**December 2024:**
+- Added Getting Started section detection rules
+- Added Application Overview section detection rules
+- Added section highlighting logic documentation
+- Clarified breadcrumb hierarchy rules to prevent duplicate parent nodes
+- Documented universal section detection across all modules and versions
 
 ---
 

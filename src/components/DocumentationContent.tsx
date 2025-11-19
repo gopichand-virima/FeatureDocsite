@@ -1101,11 +1101,22 @@ export function DocumentationContent({
       "shared-functions" // parent page itself
     ];
     
+    // Getting Started pages (universal: works for all modules and versions)
+    const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
+    const isGettingStartedPage = gettingStartedPages.includes(page);
+    
     // Detect if we're in Application Overview section based on page content
     // Even if URL section is "my-dashboard", if page is an Application Overview page, 
     // we should treat it as "application-overview" for breadcrumb and routing purposes
     const isApplicationOverviewPage = applicationOverviewPages.includes(page);
-    const actualSection = (module === 'my-dashboard' && isApplicationOverviewPage) ? 'application-overview' : section;
+    
+    // Detect actual section: prioritize Getting Started, then Application Overview, then use provided section
+    let actualSection = section;
+    if (module === 'my-dashboard' && isGettingStartedPage) {
+      actualSection = 'getting-started';
+    } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
+      actualSection = 'application-overview';
+    }
     
     // Calculate all hierarchy checks using actualSection
     const isUnderSharedFunctions = actualSection === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
@@ -1333,7 +1344,9 @@ export function DocumentationContent({
                   if (onPageClick) {
                     // Get the first page of the section based on module and actual section
                     let firstPage = '';
-                    if (actualSection === 'application-overview') {
+                    if (actualSection === 'getting-started') {
+                      firstPage = 'quick-start';
+                    } else if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
                     } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';
@@ -4023,11 +4036,22 @@ function DefaultContent({
     "shared-functions" // parent page itself
   ];
   
+  // Getting Started pages (universal: works for all modules and versions)
+  const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
+  const isGettingStartedPage = gettingStartedPages.includes(page);
+  
   // Detect if we're in Application Overview section based on page content
   // Even if URL section is "my-dashboard", if page is an Application Overview page, 
   // we should show "Application Overview" as the section
   const isApplicationOverviewPage = applicationOverviewPages.includes(page);
-  const actualSection = (module === 'my-dashboard' && isApplicationOverviewPage) ? 'application-overview' : section;
+  
+  // Detect actual section: prioritize Getting Started, then Application Overview, then use provided section
+  let actualSection = section;
+  if (module === 'my-dashboard' && isGettingStartedPage) {
+    actualSection = 'getting-started';
+  } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
+    actualSection = 'application-overview';
+  }
   
   // Get section display name based on actual section
   const sectionDisplayName = getSectionDisplayName(actualSection);
@@ -4132,7 +4156,9 @@ function DefaultContent({
                   if (onPageClick) {
                     // Get the first page of the section based on module and actual section
                     let firstPage = '';
-                    if (actualSection === 'application-overview') {
+                    if (actualSection === 'getting-started') {
+                      firstPage = 'quick-start';
+                    } else if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
                     } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';

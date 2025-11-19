@@ -1180,7 +1180,7 @@ export function DocumentationLayout({
     }
   }, [selectedSection]);
 
-  // Auto-expand parent pages when a subPage is selected
+  // Auto-expand parent pages when a subPage is selected (UNIVERSAL: works for all modules, versions, and nested levels)
   useEffect(() => {
     if (selectedPage && selectedModule) {
       const sections = getSectionsForModule(selectedModule);
@@ -1191,6 +1191,7 @@ export function DocumentationLayout({
           if (normalizePageId(page.id) === normalizePageId(selectedPage)) {
             // This page is selected, ensure its section is expanded
             setExpandedSections((prev) => new Set(prev).add(section.id));
+            setExpandedPages((prev) => new Set(prev).add(page.id));
             break;
           }
           // Check if selectedPage is a subPage
@@ -1200,9 +1201,10 @@ export function DocumentationLayout({
                 // This subPage is selected, ensure parent page and section are expanded
                 setExpandedSections((prev) => new Set(prev).add(section.id));
                 setExpandedPages((prev) => new Set(prev).add(page.id));
+                setExpandedSubPages((prev) => new Set(prev).add(subPage.id));
                 break;
               }
-              // Check nested subPages
+              // Check nested subPages (3 levels deep)
               if (subPage.subPages) {
                 for (const nestedSubPage of subPage.subPages) {
                   if (normalizePageId(nestedSubPage.id) === normalizePageId(selectedPage)) {
@@ -1499,7 +1501,7 @@ export function DocumentationLayout({
                                         }}
                                         className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                           isPageActive(page.id)
-                                            ? "text-green-600 bg-green-50 font-medium"
+                                            ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
                                             : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                         } ${!hasSubPages ? 'ml-5' : ''}`}
                                       >
@@ -1546,7 +1548,7 @@ export function DocumentationLayout({
                                                   }}
                                                   className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                                     isPageActive(subPage.id)
-                                                      ? "text-green-600 bg-green-50 font-medium"
+                                                      ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
                                                       : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                   } ${!hasNestedSubPages ? 'ml-5' : ''}`}
                                                 >
@@ -1566,7 +1568,7 @@ export function DocumentationLayout({
                                                       }}
                                                       className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                                         isPageActive(nestedSubPage.id)
-                                                          ? "text-green-600 bg-green-50 font-medium"
+                                                          ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
                                                           : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                       }`}
                                                     >

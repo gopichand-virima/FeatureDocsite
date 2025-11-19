@@ -973,6 +973,18 @@ function AppContent() {
         fileName = parts[3];
         actualModule = 'admin';
         setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === parts[1]) {
+        // Format: /6_1/module_folder/module_folder/page_id (duplicate module name)
+        // Example: /6_1/cmdb/cmdb/copy-to-jira
+        // parts[2] is the same as parts[1], so parts[3] is the page ID (already in hyphenated format)
+        const pageIdFromUrl = parts[3];
+        setSelectedSection(module);
+        // Try to map it using mapFileNameToPage (handles both file names and page IDs)
+        // If the page ID is already hyphenated (like copy-to-jira), mapFileNameToPage will handle it via fallback
+        const mapped = mapFileNameToPage(pageIdFromUrl, actualModule, subFolder);
+        setSelectedSection(mapped.section);
+        setSelectedPage(mapped.page);
+        return; // Skip the rest of the logic since we've handled this case
       } else if (parts.length >= 3) {
         // Format: /6_1/module_folder/file_name
         fileName = parts[2];

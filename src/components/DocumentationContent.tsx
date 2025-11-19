@@ -364,6 +364,7 @@ export function DocumentationContent({
       "comments": "Comments",
       "copy-to-cherwell": "Copy to Cherwell",
       "copy-to-ivanti": "Copy to Ivanti",
+      "copy-to-jira": "Copy to Jira",
       "copy-to-servicenow": "Copy to ServiceNow",
       "delete-remove": "Delete/Remove",
       "email-preferences": "Email Preferences",
@@ -408,10 +409,16 @@ export function DocumentationContent({
     }
     
     // Fallback: format page ID to readable label
+    // Ensure CMDB is always uppercase
     return pageId
       .split("-")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      .map(word => {
+        const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
+        // Ensure CMDB is always uppercase
+        return capitalized === "Cmdb" ? "CMDB" : capitalized;
+      })
+      .join(" ")
+      .replace(/\bCmdb\b/g, "CMDB");
   };
   
   // Helper function to get parent topic page ID from parent topic name
@@ -3438,6 +3445,7 @@ function DefaultContent({
       "comments": "Comments",
       "copy-to-cherwell": "Copy to Cherwell",
       "copy-to-ivanti": "Copy to Ivanti",
+      "copy-to-jira": "Copy to Jira",
       "copy-to-servicenow": "Copy to ServiceNow",
       "delete-remove": "Delete/Remove",
       "email-preferences": "Email Preferences",
@@ -3482,10 +3490,16 @@ function DefaultContent({
     }
     
     // Fallback: format page ID to readable label
+    // Ensure CMDB is always uppercase
     return pageId
       .split("-")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      .map(word => {
+        const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
+        // Ensure CMDB is always uppercase
+        return capitalized === "Cmdb" ? "CMDB" : capitalized;
+      })
+      .join(" ")
+      .replace(/\bCmdb\b/g, "CMDB");
   };
   
   // Helper function to get parent topic page ID from parent topic name

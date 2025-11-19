@@ -1239,13 +1239,14 @@ export function DocumentationContent({
     else if (isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import") parentTopic = "Azure AD Configuration and Import";
     else if (isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure") parentTopic = "View Import Log Details";
     else if (isUnderConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
+    else if (isUnderItsmCmdb && page !== "cmdb") parentTopic = "CMDB";
     else if (isUnderItsmManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
     else if (isUnderItsmViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
     else if (isUnderItsmCiDetails || isUnderItsmDetailsNested) parentTopic = "CI Details and Tabs";
     else if (isUnderItsmDetailsNested && page !== "details") parentTopic = "Details";
     else if (isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
     else if ((section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management") parentTopic = "Configuration Management";
-    else if (isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions) parentTopic = "CMDB";
+    else if (isUnderItamCmdb && page !== "cmdb") parentTopic = "CMDB";
     else if (isUnderItamManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
     else if (isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions) parentTopic = "View and Edit a CI";
     else if (isUnderItamCiDetails || isUnderItamDetailsNested) parentTopic = "CI Details and Tabs";
@@ -1254,8 +1255,6 @@ export function DocumentationContent({
     else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
     else if ((section === "self-service" && (["service-catalog", "my-incidents", "my-requests"].includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
     else if (((section === "program-project-management") && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management") parentTopic = "Program/Project Management";
-    else if ((section === "program-project-management" && (["program-dashboard"].includes(page) || page === "programs")) && page !== "programs") parentTopic = "Programs";
-    else if ((section === "program-project-management" && (["project-dashboard"].includes(page) || page === "projects")) && page !== "projects") parentTopic = "Projects";
     else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
     else if (isUnderReports && page !== "reports") parentTopic = "Reports";
     else if (isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments) parentTopic = "Organizational Details";
@@ -1833,8 +1832,8 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - CMDB level */}
-            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
+            {/* ITSM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
+            {isUnderItsmCmdb && page !== "cmdb" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -1844,44 +1843,20 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Manage CMDB level */}
-            {isUnderItsmManageCmdb && page !== "manage-cmdb" && (
+            {/* ITSM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
+            {isUnderItsmManageCmdb && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
                     Manage CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
               </>
             )}
-            {/* ITSM - View and Edit a CI level */}
+            {/* ITSM - View and Edit a CI level (nested under CMDB) */}
             {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -1890,21 +1865,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - CI Details and Tabs level */}
+            {/* ITSM - CI Details and Tabs level (nested under View and Edit a CI) */}
             {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -1919,21 +1882,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Details nested level */}
+            {/* ITSM - Details nested level (nested under CI Details and Tabs) */}
             {isUnderItsmDetailsNested && page !== "details" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -1954,27 +1905,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Other Functions and Page Elements level */}
+            {/* ITSM - Other Functions and Page Elements level (nested under CMDB) */}
             {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
@@ -1994,8 +1927,8 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - CMDB level */}
-            {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
+            {/* ITAM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
+            {isUnderItamCmdb && page !== "cmdb" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -2005,44 +1938,20 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Manage CMDB level */}
-            {isUnderItamManageCmdb && page !== "manage-cmdb" && (
+            {/* ITAM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
+            {isUnderItamManageCmdb && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
                     Manage CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
               </>
             )}
-            {/* ITAM - View and Edit a CI level */}
+            {/* ITAM - View and Edit a CI level (nested under CMDB) */}
             {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -2051,21 +1960,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - CI Details and Tabs level */}
+            {/* ITAM - CI Details and Tabs level (nested under View and Edit a CI) */}
             {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -2080,21 +1977,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Details nested level */}
+            {/* ITAM - Details nested level (nested under CI Details and Tabs) */}
             {isUnderItamDetailsNested && page !== "details" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -2115,27 +2000,9 @@ export function DocumentationContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Other Functions and Page Elements level */}
+            {/* ITAM - Other Functions and Page Elements level (nested under CMDB) */}
             {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
@@ -2231,6 +2098,28 @@ export function DocumentationContent({
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
                     ServiceNow Credentials
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Program/Project Management - Programs nested level */}
+            {isUnderPrograms && page !== "programs" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Programs", "programs")}>
+                    Programs
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            {/* Program/Project Management - Projects nested level */}
+            {isUnderProjects && page !== "projects" && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink {...getClickableBreadcrumbProps("Projects", "projects")}>
+                    Projects
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -2338,8 +2227,9 @@ export function DocumentationContent({
               </div>
             </div>
           </div>
-          {/* TableOfContents will auto-detect headings, but can use provided items as fallback */}
-          <TableOfContents items={getTOCItems()} contentSelector="article, .prose" />
+          {/* TableOfContents auto-detects H2/H3 headings from content - works for all modules and versions */}
+          {/* contentSelector targets: article elements, .prose class, and article.prose combinations */}
+          <TableOfContents items={[]} contentSelector="article, .prose, article.prose" />
         </aside>
       </div>
     </>
@@ -3916,6 +3806,20 @@ function DefaultContent({
   const isUnderItamProcurement =
     section === "itam" && (itamProcurementPages.includes(page) || page === "procurement");
   
+  // Self Service breadcrumb hierarchy
+  const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
+  
+  // Program/Project Management breadcrumb hierarchy
+  const programProjectManagementPages = ["programs", "projects", "program-dashboard", "project-dashboard"];
+  const programsPages = ["program-dashboard"];
+  const projectsPages = ["project-dashboard"];
+  
+  // Risk Register breadcrumb hierarchy
+  const riskRegisterPages = ["risk-dashboard", "risks"];
+  
+  // Reports breadcrumb hierarchy
+  const reportsPages = ["ad-hoc-reports", "canned-reports", "properties-and-conditions", "run-report", "delete-report"];
+  
   // Vulnerability Management breadcrumb hierarchy
   const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
   
@@ -4081,6 +3985,11 @@ function DefaultContent({
   else if (isUnderManagementFunctions && page !== "management-functions") parentTopic = "Management Functions";
   else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
   else if (isUnderOthers && page !== "others") parentTopic = "Others";
+  else if (isUnderSelfService && page !== "self-service") parentTopic = "Self Service";
+  else if (isUnderProgramProjectManagement && page !== "program-project-management") parentTopic = "Program/Project Management";
+  else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
+  else if (isUnderReports && page !== "reports") parentTopic = "Reports";
+  else if (isUnderVulnerabilityManagement && page !== "vulnerability-management") parentTopic = "Vulnerability Management";
 
   // Format page name for display using TOC label lookup
   const pageDisplayName = getPageLabel(page);
@@ -4640,8 +4549,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - CMDB level */}
-            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmManageCmdb && !isUnderItsmViewEditCi && (
+            {/* ITSM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
+            {isUnderItsmCmdb && page !== "cmdb" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -4651,44 +4560,20 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Manage CMDB level */}
-            {isUnderItsmManageCmdb && page !== "manage-cmdb" && (
+            {/* ITSM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
+            {isUnderItsmManageCmdb && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
                     Manage CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
               </>
             )}
-            {/* ITSM - View and Edit a CI level */}
+            {/* ITSM - View and Edit a CI level (nested under CMDB) */}
             {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4697,21 +4582,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - CI Details and Tabs level */}
+            {/* ITSM - CI Details and Tabs level (nested under View and Edit a CI) */}
             {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4726,21 +4599,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Details nested level */}
+            {/* ITSM - Details nested level (nested under CI Details and Tabs) */}
             {isUnderItsmDetailsNested && page !== "details" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4761,27 +4622,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Other Functions and Page Elements level */}
+            {/* ITSM - Other Functions and Page Elements level (nested under CMDB) */}
             {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements
@@ -4801,8 +4644,8 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - CMDB level */}
-            {isUnderItamCmdb && page !== "cmdb" && !isUnderItamManageCmdb && !isUnderItamViewEditCi && !isUnderItamOtherFunctions && (
+            {/* ITAM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
+            {isUnderItamCmdb && page !== "cmdb" && (
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
@@ -4812,44 +4655,20 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Manage CMDB level */}
-            {isUnderItamManageCmdb && page !== "manage-cmdb" && (
+            {/* ITAM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
+            {isUnderItamManageCmdb && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
                     Manage CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
               </>
             )}
-            {/* ITAM - View and Edit a CI level */}
+            {/* ITAM - View and Edit a CI level (nested under CMDB) */}
             {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4858,21 +4677,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - CI Details and Tabs level */}
+            {/* ITAM - CI Details and Tabs level (nested under View and Edit a CI) */}
             {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4887,21 +4694,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Details nested level */}
+            {/* ITAM - Details nested level (nested under CI Details and Tabs) */}
             {isUnderItamDetailsNested && page !== "details" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
                     View and Edit a CI
@@ -4922,27 +4717,9 @@ function DefaultContent({
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Other Functions and Page Elements level */}
+            {/* ITAM - Other Functions and Page Elements level (nested under CMDB) */}
             {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
               <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
                     Other Functions and Page Elements

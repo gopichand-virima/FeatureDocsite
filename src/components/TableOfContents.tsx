@@ -7,29 +7,47 @@ interface TOCItem {
 }
 
 interface TableOfContentsProps {
-  items?: TOCItem[]; // Optional: fallback to auto-detection if not provided
+  items?: TOCItem[]; // Optional: fallback items if auto-detection fails
   contentSelector?: string; // CSS selector for the content area to scan
 }
 
-export function TableOfContents({ items: providedItems, contentSelector = 'article, .prose' }: TableOfContentsProps) {
+export function TableOfContents({ items: providedItems, contentSelector = 'article, .prose, article.prose' }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
-  const [items, setItems] = useState<TOCItem[]>(providedItems || []);
+  const [items, setItems] = useState<TOCItem[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Auto-detect headings from the content area
+  /**
+   * AUTO-DETECTION LOGIC FOR ALL MODULES AND VERSIONS
+   * 
+   * This component automatically detects H2/H3 headings from content across:
+   * - All modules (My Dashboard, CMDB, Discovery Scan, ITSM, ITAM, Admin, etc.)
+   * - All versions (NextGen, 6.1.1, 6.1, 5.13)
+   * - All content types (MDX files, hardcoded content, future content)
+   * 
+   * How it works:
+   * 1. Scans content area using contentSelector (article, .prose, article.prose)
+   * 2. Detects H2 and H3 headings (industry standard - H4+ excluded)
+   * 3. Auto-generates IDs if missing
+   * 4. Updates automatically when content changes (MutationObserver)
+   * 5. Works even when topics are missing (returns null if no headings found)
+   * 6. Automatically applies when topics become available
+   * 
+   * This ensures consistent TOC behavior across the entire documentation site.
+   */
   useEffect(() => {
-    // If items are provided, use them; otherwise auto-detect
-    if (providedItems && providedItems.length > 0) {
-      setItems(providedItems);
-      return;
-    }
-
-    // Function to detect headings
+    // Function to detect headings (H2 and H3 only - industry standard)
     const detectHeadings = () => {
       const contentArea = document.querySelector(contentSelector);
-      if (!contentArea) return;
+      if (!contentArea) {
+        // If no content area found and we have fallback items, use them
+        if (providedItems && providedItems.length > 0) {
+          setItems(providedItems);
+        }
+        return;
+      }
 
-      const headings = contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      // Only detect H2 and H3 headings (industry standard - H4+ are too granular)
+      const headings = contentArea.querySelectorAll('h2, h3');
       const detectedItems: TOCItem[] = [];
 
       headings.forEach((heading) => {
@@ -49,16 +67,22 @@ export function TableOfContents({ items: providedItems, contentSelector = 'artic
 
         const level = parseInt(heading.tagName.charAt(1));
         
-        detectedItems.push({
-          id,
-          text: text.trim(),
-          level,
-        });
+        // Only include H2 and H3 (filter out any H4+ that might slip through)
+        if (level === 2 || level === 3) {
+          detectedItems.push({
+            id,
+            text: text.trim(),
+            level,
+          });
+        }
       });
 
-      // Only update if we found headings
+      // Update items if we found headings, otherwise use fallback
       if (detectedItems.length > 0) {
         setItems(detectedItems);
+      } else if (providedItems && providedItems.length > 0) {
+        // Only use provided items if auto-detection found nothing
+        setItems(providedItems);
       }
     };
 
@@ -88,9 +112,9 @@ export function TableOfContents({ items: providedItems, contentSelector = 'artic
       observer.disconnect();
       clearTimeout(timeoutId);
     };
-  }, [providedItems, contentSelector]);
+  }, [contentSelector, providedItems]);
 
-  // Set up Intersection Observer for active section tracking
+  // Set up Intersection Observer for scroll-spy (active section tracking)
   useEffect(() => {
     if (items.length === 0) return;
 
@@ -99,35 +123,45 @@ export function TableOfContents({ items: providedItems, contentSelector = 'artic
       observerRef.current.disconnect();
     }
 
-    // Create new observer with improved rootMargin for better detection
+    // Create new observer with improved rootMargin for better scroll-spy detection
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        // Find the entry with the highest intersection ratio that's in view
-        let maxRatio = 0;
-        let activeEntry: IntersectionObserverEntry | null = null;
+        // Find the entry that's closest to the top of the viewport (within the rootMargin)
+        let closestEntry: IntersectionObserverEntry | null = null;
+        let closestDistance = Infinity;
 
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio;
-            activeEntry = entry;
+          if (entry.isIntersecting) {
+            const rect = entry.boundingClientRect;
+            // Calculate distance from top of viewport (accounting for header offset)
+            const distance = Math.abs(rect.top - 100); // 100px offset for header
+            
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestEntry = entry;
+            }
           }
         });
 
-        // Also check for entries that are at the top of the viewport
-        entries.forEach((entry) => {
-          const rect = entry.boundingClientRect;
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            activeEntry = entry;
-          }
-        });
+        // If no intersecting entry, find the one that just passed the top
+        if (!closestEntry) {
+          entries.forEach((entry) => {
+            const rect = entry.boundingClientRect;
+            // If heading is above viewport but close, it's the active one
+            if (rect.top < 100 && rect.bottom > 0) {
+              closestEntry = entry;
+            }
+          });
+        }
 
-        if (activeEntry) {
-          setActiveId(activeEntry.target.id);
+        if (closestEntry) {
+          setActiveId(closestEntry.target.id);
         }
       },
       {
-        rootMargin: '-80px 0px -80% 0px',
-        threshold: [0, 0.25, 0.5, 0.75, 1],
+        // rootMargin: top offset for header, bottom threshold for next section
+        rootMargin: '-100px 0px -66% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
       }
     );
 
@@ -200,37 +234,115 @@ export function TableOfContents({ items: providedItems, contentSelector = 'artic
 
   if (items.length === 0) return null;
 
+  // Group items by H2 sections for better visual organization
+  const groupedItems: { h2: TOCItem; h3s: TOCItem[] }[] = [];
+  let currentH2: TOCItem | null = null;
+  let currentH3s: TOCItem[] = [];
+
+  items.forEach((item) => {
+    if (item.level === 2) {
+      // Save previous H2 group if exists
+      if (currentH2) {
+        groupedItems.push({ h2: currentH2, h3s: currentH3s });
+      }
+      // Start new H2 group
+      currentH2 = item;
+      currentH3s = [];
+    } else if (item.level === 3 && currentH2) {
+      // Add H3 to current H2 group
+      currentH3s.push(item);
+    }
+  });
+
+  // Don't forget the last group
+  if (currentH2) {
+    groupedItems.push({ h2: currentH2, h3s: currentH3s });
+  }
+
+  // If no grouping worked (all H3s or mixed), just show flat list
+  const useGrouped = groupedItems.length > 0 && items.some(item => item.level === 2);
+
   return (
-    <div className="sticky top-20 hidden xl:block" role="complementary" aria-label="Table of contents">
+    <div className="sticky top-20 hidden xl:block max-h-[calc(100vh-5rem)] overflow-y-auto" role="complementary" aria-label="Table of contents">
       <div className="pb-4 mb-4 border-b border-slate-200">
         <h4 className="text-sm text-black-premium font-semibold">On this page</h4>
       </div>
       <nav 
-        className="space-y-2" 
+        className="space-y-1" 
         aria-label="Page sections"
         role="navigation"
       >
-        {items.map((item) => {
-          const isActive = activeId === item.id;
-          const indentClass = item.level === 2 ? 'pl-0' : item.level === 3 ? 'pl-4' : item.level === 4 ? 'pl-8' : 'pl-12';
-          
-          return (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`block text-sm py-1 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded ${indentClass} ${
-                isActive
-                  ? 'text-emerald-600 font-medium'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              onClick={(e) => handleNavClick(e, item.id)}
-              aria-current={isActive ? 'location' : undefined}
-              aria-label={`Navigate to ${item.text} section`}
-            >
-              {item.text}
-            </a>
-          );
-        })}
+        {useGrouped ? (
+          // Render grouped structure (H2 with nested H3s)
+          groupedItems.map((group) => {
+            const isH2Active = activeId === group.h2.id;
+            const hasActiveH3 = group.h3s.some(h3 => activeId === h3.id);
+            
+            return (
+              <div key={group.h2.id} className="space-y-1">
+                <a
+                  href={`#${group.h2.id}`}
+                  className={`block text-sm py-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded pl-0 ${
+                    isH2Active || hasActiveH3
+                      ? 'text-emerald-600 font-medium'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  onClick={(e) => handleNavClick(e, group.h2.id)}
+                  aria-current={isH2Active ? 'location' : undefined}
+                  aria-label={`Navigate to ${group.h2.text} section`}
+                >
+                  {group.h2.text}
+                </a>
+                {group.h3s.length > 0 && (
+                  <div className="pl-4 space-y-0.5">
+                    {group.h3s.map((h3) => {
+                      const isH3Active = activeId === h3.id;
+                      return (
+                        <a
+                          key={h3.id}
+                          href={`#${h3.id}`}
+                          className={`block text-sm py-1 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded ${
+                            isH3Active
+                              ? 'text-emerald-600 font-medium'
+                              : 'text-slate-500 hover:text-slate-700'
+                          }`}
+                          onClick={(e) => handleNavClick(e, h3.id)}
+                          aria-current={isH3Active ? 'location' : undefined}
+                          aria-label={`Navigate to ${h3.text} section`}
+                        >
+                          {h3.text}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          // Render flat list (fallback for pages without H2 structure)
+          items.map((item) => {
+            const isActive = activeId === item.id;
+            const indentClass = item.level === 2 ? 'pl-0' : item.level === 3 ? 'pl-4' : 'pl-8';
+            
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`block text-sm py-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded ${indentClass} ${
+                  isActive
+                    ? 'text-emerald-600 font-medium'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                onClick={(e) => handleNavClick(e, item.id)}
+                aria-current={isActive ? 'location' : undefined}
+                aria-label={`Navigate to ${item.text} section`}
+              >
+                {item.text}
+              </a>
+            );
+          })
+        )}
       </nav>
     </div>
   );

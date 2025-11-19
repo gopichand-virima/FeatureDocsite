@@ -52,6 +52,25 @@ const moduleNames: Record<string, string> = {
   reports: "Reports",
 };
 
+// Admin breadcrumb hierarchy constants (shared across DocumentationContent and DefaultContent)
+// Declared at module level BEFORE any functions to avoid initialization order issues
+const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"];
+const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
+const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
+const clientPages = ["discovery-agents", "remote-install", "restart-client"];
+const credentialsPages = ["details", "backup-file", "flush-credential"];
+const monitoringProfilePages = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
+const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
+const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
+const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
+const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
+const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
+const cherwellCredentialPages = ["cherwell-mappings"];
+const ivantiCredentialsPages = ["ivanti-mappings"];
+const jiraCredentialsPages = ["jira-asset-mappings"];
+const servicenowCredentialsPages = ["servicenow-mappings"];
+const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
+
 const parentTopicPageMap: Record<string, string> = {
   "Shared Functions": "shared-functions",
   "Dashboards": "dashboards",
@@ -340,24 +359,6 @@ function getParentTopic(section: string, page: string): string | null {
   
   return null;
 }
-
-// Admin breadcrumb hierarchy constants (shared across DocumentationContent and DefaultContent)
-const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"];
-const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
-const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
-const clientPages = ["discovery-agents", "remote-install", "restart-client"];
-const credentialsPages = ["details", "backup-file", "flush-credential"];
-const monitoringProfilePages = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
-const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
-const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
-const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
-const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
-const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
-const cherwellCredentialPages = ["cherwell-mappings"];
-const ivantiCredentialsPages = ["ivanti-mappings"];
-const jiraCredentialsPages = ["jira-asset-mappings"];
-const servicenowCredentialsPages = ["servicenow-mappings"];
-const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
 
 export function DocumentationContent({
   version,

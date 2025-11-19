@@ -1085,7 +1085,28 @@ function AppContent() {
         selectedPage={selectedPage}
         onPageChange={(page) => {
           setSelectedPage(page);
-          updateURL(selectedVersion, selectedModule, selectedSection, page);
+          // Auto-detect correct section for Application Overview pages under my-dashboard module
+          let correctSection = selectedSection;
+          const applicationOverviewPages = [
+            "system-icons",
+            "user-specific-functions", 
+            "online-help",
+            "shared-functions",
+            "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
+            "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
+            "delete-remove", "email-preferences", "enable-disable-editing", "export",
+            "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
+            "other-asset-info", "outage-calendar", "personalize-columns", "print",
+            "process-adm", "process-missing-components", "records-per-page",
+            "reload-default-mapping", "re-scan", "re-sync-data", "save",
+            "saved-filters", "searching", "show-main-all-properties", "tasks",
+            "updates", "version-control", "go-to-page", "send-report-to"
+          ];
+          if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
+            correctSection = 'application-overview';
+          }
+          setSelectedSection(correctSection);
+          updateURL(selectedVersion, selectedModule, correctSection, page);
         }}
         onHomeClick={() => {
           setSelectedModule('');

@@ -1085,14 +1085,24 @@ export function DocumentationContent({
     
     const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
     
+    // Application Overview pages (these appear under Application Overview section in my-dashboard module)
+    const applicationOverviewPages = [
+      "system-icons",
+      "user-specific-functions", 
+      "online-help",
+      ...sharedFunctionsPages,
+      "shared-functions" // parent page itself
+    ];
+    
     // Detect if we're in Application Overview section based on page content
-    // Even if URL section is "my-dashboard", if page is a Shared Functions page, 
-    // we should treat it as "application-overview" for breadcrumb purposes
-    const isSharedFunctionsPage = sharedFunctionsPages.includes(page);
-    const actualSection = (module === 'my-dashboard' && isSharedFunctionsPage) ? 'application-overview' : section;
+    // Even if URL section is "my-dashboard", if page is an Application Overview page, 
+    // we should treat it as "application-overview" for breadcrumb and routing purposes
+    const isApplicationOverviewPage = applicationOverviewPages.includes(page);
+    const actualSection = (module === 'my-dashboard' && isApplicationOverviewPage) ? 'application-overview' : section;
     
     // Calculate all hierarchy checks using actualSection
     const isUnderSharedFunctions = actualSection === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
+    const isApplicationOverviewDirectPage = actualSection === "application-overview" && (page === "system-icons" || page === "user-specific-functions" || page === "online-help");
     const isUnderDashboards = section === "my-dashboard" && (dashboardsPages.includes(page) || page === "dashboards");
     const isUnderMyDashboardSection = section === "my-dashboard" && (myDashboardSectionPages.includes(page) && page !== "contents") || page === "my-dashboard-section";
     
@@ -2255,8 +2265,6 @@ function OnlineHelpOverview({
   onModuleClick?: () => void;
   onVersionClick?: () => void;
 }) {
-  const sectionDisplayName = getSectionDisplayName(section);
-  
   const getModuleDescription = () => {
     switch (module) {
       case "admin":
@@ -2286,6 +2294,24 @@ function OnlineHelpOverview({
     }
   };
 
+  // Get page display name
+  const getPageLabel = (pageId: string): string => {
+    const pageLabelMap: Record<string, string> = {
+      "online-help": "Online Help",
+      "system-icons": "System Icons",
+      "user-specific-functions": "User Specific Functions",
+    };
+    if (pageLabelMap[pageId]) {
+      return pageLabelMap[pageId];
+    }
+    return pageId
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+  const pageDisplayName = getPageLabel(page || "online-help");
+  const sectionDisplayName = getSectionDisplayName(section);
+
   return (
     <article className="prose prose-slate max-w-none">
       <div className="flex flex-col gap-3 mb-8 not-prose">
@@ -2310,8 +2336,25 @@ function OnlineHelpOverview({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbLink 
+                onClick={onModuleClick}
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
+                {moduleName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
                 {sectionDisplayName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-slate-900">
+                {pageDisplayName}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -2571,15 +2614,16 @@ function LatestRelease({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
+              <BreadcrumbLink 
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
+                {getSectionDisplayName(section)}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
               <BreadcrumbPage className="text-slate-900">
-                {section
-                  .split("-")
-                  .map(
-                    (word) =>
-                      word.charAt(0).toUpperCase() +
-                      word.slice(1),
-                  )
-                  .join(" ")}
+                Latest Release
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -2754,6 +2798,14 @@ function QuickStart({
             <BreadcrumbItem>
               <BreadcrumbLink 
                 onClick={onModuleClick}
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
+                {moduleName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
                 {sectionDisplayName}
@@ -3154,6 +3206,14 @@ function SystemRequirements({
             <BreadcrumbItem>
               <BreadcrumbLink 
                 onClick={onModuleClick}
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
+                {moduleName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
                 {sectionDisplayName}
@@ -3940,11 +4000,20 @@ function DefaultContent({
   // Reports hierarchy checks
   const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
   
+  // Application Overview pages (these appear under Application Overview section in my-dashboard module)
+  const applicationOverviewPages = [
+    "system-icons",
+    "user-specific-functions", 
+    "online-help",
+    ...sharedFunctionsPages,
+    "shared-functions" // parent page itself
+  ];
+  
   // Detect if we're in Application Overview section based on page content
-  // Even if URL section is "my-dashboard", if page is a Shared Functions page, 
+  // Even if URL section is "my-dashboard", if page is an Application Overview page, 
   // we should show "Application Overview" as the section
-  const isSharedFunctionsPage = sharedFunctionsPages.includes(page);
-  const actualSection = (module === 'my-dashboard' && isSharedFunctionsPage) ? 'application-overview' : section;
+  const isApplicationOverviewPage = applicationOverviewPages.includes(page);
+  const actualSection = (module === 'my-dashboard' && isApplicationOverviewPage) ? 'application-overview' : section;
   
   // Get section display name based on actual section
   const sectionDisplayName = getSectionDisplayName(actualSection);
@@ -3952,7 +4021,9 @@ function DefaultContent({
   // Determine parent topic to show after section
   // Important: Only set parentTopic if we're NOT on the parent page itself
   let parentTopic: string | null = null;
-  if ((actualSection === "application-overview" && isSharedFunctionsPage) && page !== "shared-functions") parentTopic = "Shared Functions";
+  // Application Overview direct pages (system-icons, user-specific-functions, online-help) don't have a parent topic
+  // Only Shared Functions pages have "Shared Functions" as parent topic
+  if ((actualSection === "application-overview" && sharedFunctionsPages.includes(page)) && page !== "shared-functions") parentTopic = "Shared Functions";
   else if (isUnderDashboards && page !== "dashboards") parentTopic = "Dashboards";
   else if (isUnderManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
   else if (isUnderViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";

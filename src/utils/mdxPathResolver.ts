@@ -62,11 +62,30 @@ function getMyDashboard61Path(page: string, section: string): string | null {
 function getNextGenPath(module: string, section: string, page: string): string | null {
   const basePath = '/content/NG';
   
+  // Application Overview pages under my-dashboard module should be in application-overview folder
+  const applicationOverviewPages = [
+    "system-icons",
+    "user-specific-functions", 
+    "online-help",
+    "shared-functions",
+    "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
+    "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
+    "delete-remove", "email-preferences", "enable-disable-editing", "export",
+    "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
+    "other-asset-info", "outage-calendar", "personalize-columns", "print",
+    "process-adm", "process-missing-components", "records-per-page",
+    "reload-default-mapping", "re-scan", "re-sync-data", "save",
+    "saved-filters", "searching", "show-main-all-properties", "tasks",
+    "updates", "version-control", "go-to-page", "send-report-to"
+  ];
+  
+  // If section is application-overview or page is an Application Overview page under my-dashboard
+  if (section === 'application-overview' || (module === 'my-dashboard' && applicationOverviewPages.includes(page))) {
+    return `${basePath}/${module}/application-overview/${page}.mdx`;
+  }
+  
   // Special handling for my-dashboard
   if (module === 'my-dashboard') {
-    if (page === 'system-icons') {
-      return `${basePath}/my-dashboard/system-icons.mdx`;
-    }
     // For my-dashboard-overview, NextGen doesn't have this file
     // Return null to fall back to DefaultContent
     if (page === 'my-dashboard-overview') {

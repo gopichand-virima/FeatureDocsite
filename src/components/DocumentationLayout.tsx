@@ -1501,7 +1501,7 @@ export function DocumentationLayout({
                                         }}
                                         className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                           isPageActive(page.id)
-                                            ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
+                                            ? "text-green-600 font-semibold"
                                             : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                         } ${!hasSubPages ? 'ml-5' : ''}`}
                                       >
@@ -1548,7 +1548,7 @@ export function DocumentationLayout({
                                                   }}
                                                   className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                                     isPageActive(subPage.id)
-                                                      ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
+                                                      ? "text-green-600 font-semibold"
                                                       : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                   } ${!hasNestedSubPages ? 'ml-5' : ''}`}
                                                 >
@@ -1568,7 +1568,7 @@ export function DocumentationLayout({
                                                       }}
                                                       className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                                         isPageActive(nestedSubPage.id)
-                                                          ? "text-emerald-600 bg-emerald-50 font-semibold border-l-4 border-emerald-600 pl-3"
+                                                          ? "text-green-600 font-semibold"
                                                           : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
                                                       }`}
                                                     >

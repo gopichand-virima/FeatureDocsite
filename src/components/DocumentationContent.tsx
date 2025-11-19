@@ -1085,8 +1085,14 @@ export function DocumentationContent({
     
     const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
     
-    // Calculate all hierarchy checks (same as DefaultContent)
-    const isUnderSharedFunctions = section === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
+    // Detect if we're in Application Overview section based on page content
+    // Even if URL section is "my-dashboard", if page is a Shared Functions page, 
+    // we should treat it as "application-overview" for breadcrumb purposes
+    const isSharedFunctionsPage = sharedFunctionsPages.includes(page);
+    const actualSection = (module === 'my-dashboard' && isSharedFunctionsPage) ? 'application-overview' : section;
+    
+    // Calculate all hierarchy checks using actualSection
+    const isUnderSharedFunctions = actualSection === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
     const isUnderDashboards = section === "my-dashboard" && (dashboardsPages.includes(page) || page === "dashboards");
     const isUnderMyDashboardSection = section === "my-dashboard" && (myDashboardSectionPages.includes(page) && page !== "contents") || page === "my-dashboard-section";
     
@@ -1187,8 +1193,8 @@ export function DocumentationContent({
     const isUnderServicenowCredentials = section === "admin" && (servicenowCredentialsPages.includes(page) || page === "servicenow-credentials");
     const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
     
-    // Get section display name
-    const sectionDisplayName = getSectionDisplayName(section);
+    // Get section display name based on actual section
+    const sectionDisplayName = getSectionDisplayName(actualSection);
     
     // Determine parent topic to show after section
     // Important: Only set parentTopic if we're NOT on the parent page itself
@@ -1309,22 +1315,20 @@ export function DocumentationContent({
                 onClick={() => {
                   // Navigate to section (first page of the section)
                   if (onPageClick) {
-                    // Get the first page of the section based on module and section
+                    // Get the first page of the section based on module and actual section
                     let firstPage = '';
-                    if (module === 'my-dashboard' && section === 'application-overview') {
+                    if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
-                    } else if (module === 'my-dashboard' && section === 'my-dashboard') {
+                    } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';
-                    } else if (module === 'cmdb' && section === 'cmdb') {
+                    } else if (module === 'cmdb' && actualSection === 'cmdb') {
                       firstPage = 'access-cmdb';
-                    } else if (module === 'discovery-scan' && section === 'discovery-scan') {
+                    } else if (module === 'discovery-scan' && actualSection === 'discovery-scan') {
                       firstPage = 'access-dashboard';
-                    } else if (section === 'shared-functions') {
-                      firstPage = 'advanced-search';
                     } else {
                       firstPage = 'advanced-search';
                     }
-                    onPageClick(version, module, section, firstPage);
+                    onPageClick(version, module, actualSection, firstPage);
                   }
                 }}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
@@ -4018,13 +4022,19 @@ function DefaultContent({
   
   const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
   
-  // Get section display name
-  const sectionDisplayName = getSectionDisplayName(section);
+  // Detect if we're in Application Overview section based on page content
+  // Even if URL section is "my-dashboard", if page is a Shared Functions page, 
+  // we should show "Application Overview" as the section
+  const isSharedFunctionsPage = sharedFunctionsPages.includes(page);
+  const actualSection = (module === 'my-dashboard' && isSharedFunctionsPage) ? 'application-overview' : section;
+  
+  // Get section display name based on actual section
+  const sectionDisplayName = getSectionDisplayName(actualSection);
   
   // Determine parent topic to show after section
   // Important: Only set parentTopic if we're NOT on the parent page itself
   let parentTopic: string | null = null;
-  if (isUnderSharedFunctions && page !== "shared-functions") parentTopic = "Shared Functions";
+  if ((actualSection === "application-overview" && isSharedFunctionsPage) && page !== "shared-functions") parentTopic = "Shared Functions";
   else if (isUnderDashboards && page !== "dashboards") parentTopic = "Dashboards";
   else if (isUnderManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
   else if (isUnderViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
@@ -4112,22 +4122,20 @@ function DefaultContent({
                 onClick={() => {
                   // Navigate to section (first page of the section)
                   if (onPageClick) {
-                    // Get the first page of the section based on module and section
+                    // Get the first page of the section based on module and actual section
                     let firstPage = '';
-                    if (module === 'my-dashboard' && section === 'application-overview') {
+                    if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
-                    } else if (module === 'my-dashboard' && section === 'my-dashboard') {
+                    } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';
-                    } else if (module === 'cmdb' && section === 'cmdb') {
+                    } else if (module === 'cmdb' && actualSection === 'cmdb') {
                       firstPage = 'access-cmdb';
-                    } else if (module === 'discovery-scan' && section === 'discovery-scan') {
+                    } else if (module === 'discovery-scan' && actualSection === 'discovery-scan') {
                       firstPage = 'access-dashboard';
-                    } else if (section === 'shared-functions') {
-                      firstPage = 'advanced-search';
                     } else {
                       firstPage = 'advanced-search';
                     }
-                    onPageClick(version, module, section, firstPage);
+                    onPageClick(version, module, actualSection, firstPage);
                   }
                 }}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"

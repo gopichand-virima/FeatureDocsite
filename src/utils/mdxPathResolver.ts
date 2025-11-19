@@ -67,9 +67,10 @@ function getNextGenPath(module: string, section: string, page: string): string |
     if (page === 'system-icons') {
       return `${basePath}/my-dashboard/system-icons.mdx`;
     }
+    // For my-dashboard-overview, NextGen doesn't have this file
+    // Return null to fall back to DefaultContent
     if (page === 'my-dashboard-overview') {
-      // NextGen uses overview.mdx as fallback
-      return `${basePath}/my-dashboard/overview.mdx`;
+      return null;
     }
   }
   

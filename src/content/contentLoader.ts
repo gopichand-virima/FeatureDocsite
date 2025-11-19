@@ -40,7 +40,6 @@ const contentMap: Record<string, string> = {
   '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
   // NextGen content
   '/content/NG/my-dashboard/system-icons.mdx': ngSystemIcons,
-  '/content/NG/my-dashboard/overview.mdx': ngSystemIcons, // Fallback for my-dashboard-overview
   '/content/NG/cmdb/overview.mdx': ngCmdbOverview,
   '/content/NG/discovery-scan/overview.mdx': ngDiscoveryScanOverview,
   '/content/NG/itsm/overview.mdx': ngItsmOverview,

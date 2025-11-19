@@ -26,24 +26,46 @@ import { resolveMDXPath } from "../utils/mdxPathResolver";
 import { getContentEntry } from "../content/contentLoader";
 
 // Admin breadcrumb hierarchy constants (shared across DocumentationContent and DefaultContent)
-// CRITICAL: These MUST be declared at the very top, immediately after imports, to avoid initialization order issues
-// The bundler may reorder code, so placing them here ensures they're initialized before any other code runs
-const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"];
-const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
-const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
-const clientPages = ["discovery-agents", "remote-install", "restart-client"];
-const credentialsPages = ["details", "backup-file", "flush-credential"];
-const monitoringProfilePages = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
-const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
-const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
-const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
-const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
-const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
-const cherwellCredentialPages = ["cherwell-mappings"];
-const ivantiCredentialsPages = ["ivanti-mappings"];
-const jiraCredentialsPages = ["jira-asset-mappings"];
-const servicenowCredentialsPages = ["servicenow-mappings"];
-const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
+// Using a function to lazily initialize constants to avoid any initialization order issues
+function getAdminPages() {
+  return {
+    organizationalDetailsPages: ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"],
+    departmentsPages: ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"],
+    discoveryPages: ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"],
+    clientPages: ["discovery-agents", "remote-install", "restart-client"],
+    credentialsPages: ["details", "backup-file", "flush-credential"],
+    monitoringProfilePages: ["action-details", "details", "frequency", "notifications", "trigger-conditions"],
+    sacmPages: ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"],
+    usersPages: ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"],
+    managementFunctionsPages: ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"],
+    procurementPages: ["procurement-properties", "about-procurement", "procurement-property-group"],
+    integrationsPages: ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"],
+    cherwellCredentialPages: ["cherwell-mappings"],
+    ivantiCredentialsPages: ["ivanti-mappings"],
+    jiraCredentialsPages: ["jira-asset-mappings"],
+    servicenowCredentialsPages: ["servicenow-mappings"],
+    othersPages: ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"],
+  };
+}
+
+// Initialize constants once and cache them
+const _adminPagesCache = getAdminPages();
+const organizationalDetailsPages = _adminPagesCache.organizationalDetailsPages;
+const departmentsPages = _adminPagesCache.departmentsPages;
+const discoveryPages = _adminPagesCache.discoveryPages;
+const clientPages = _adminPagesCache.clientPages;
+const credentialsPages = _adminPagesCache.credentialsPages;
+const monitoringProfilePages = _adminPagesCache.monitoringProfilePages;
+const sacmPages = _adminPagesCache.sacmPages;
+const usersPages = _adminPagesCache.usersPages;
+const managementFunctionsPages = _adminPagesCache.managementFunctionsPages;
+const procurementPages = _adminPagesCache.procurementPages;
+const integrationsPages = _adminPagesCache.integrationsPages;
+const cherwellCredentialPages = _adminPagesCache.cherwellCredentialPages;
+const ivantiCredentialsPages = _adminPagesCache.ivantiCredentialsPages;
+const jiraCredentialsPages = _adminPagesCache.jiraCredentialsPages;
+const servicenowCredentialsPages = _adminPagesCache.servicenowCredentialsPages;
+const othersPages = _adminPagesCache.othersPages;
 
 interface DocumentationContentProps {
   version: string;

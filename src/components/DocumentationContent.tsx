@@ -3926,6 +3926,20 @@ function DefaultContent({
   
   const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
   
+  // Self Service hierarchy checks
+  const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
+  
+  // Program/Project Management hierarchy checks
+  const isUnderProgramProjectManagement = section === "program-project-management" && (programProjectManagementPages.includes(page) || page === "program-project-management");
+  const isUnderPrograms = section === "program-project-management" && (programsPages.includes(page) || page === "programs");
+  const isUnderProjects = section === "program-project-management" && (projectsPages.includes(page) || page === "projects");
+  
+  // Risk Register hierarchy checks
+  const isUnderRiskRegister = section === "risk-register" && (riskRegisterPages.includes(page) || page === "risk-register");
+  
+  // Reports hierarchy checks
+  const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
+  
   // Detect if we're in Application Overview section based on page content
   // Even if URL section is "my-dashboard", if page is a Shared Functions page, 
   // we should show "Application Overview" as the section

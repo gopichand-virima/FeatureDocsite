@@ -2364,9 +2364,9 @@ function OnlineHelpOverview({
         </span>
       </div>
 
-      <h1 className="mb-4">{moduleName} Overview</h1>
+      <h1 id="my-dashboard-overview" className="text-slate-900 mb-6 scroll-mt-20">{moduleName} Overview</h1>
 
-      <p className="text-lg text-slate-600 leading-relaxed mb-8">
+      <p className="text-slate-600 leading-relaxed mb-4">
         {getModuleDescription()}
       </p>
 
@@ -2638,7 +2638,7 @@ function LatestRelease({
         </div>
       </div>
 
-      <h1 className="mb-4">{moduleName} - Release Notes</h1>
+      <h1 className="text-slate-900 mb-6">{moduleName} - Release Notes</h1>
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         Version {version} brings enhanced performance, new
         features, and important bug fixes to {moduleName}.
@@ -2821,7 +2821,7 @@ function QuickStart({
         </Breadcrumb>
       </div>
 
-      <h1 className="mb-4">{moduleName} - Quick Start</h1>
+      <h1 className="text-slate-900 mb-6">{moduleName} - Quick Start</h1>
 
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         Get started with {moduleName} in just a few minutes.
@@ -3003,7 +3003,7 @@ function APIOverview({
         </Breadcrumb>
       </div>
 
-      <h1 className="mb-4">{moduleName} - API Integration</h1>
+      <h1 className="text-slate-900 mb-6">{moduleName} - API Integration</h1>
 
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         The {moduleName} API provides comprehensive REST
@@ -3229,7 +3229,7 @@ function SystemRequirements({
         </Breadcrumb>
       </div>
 
-      <h1 className="mb-4">
+      <h1 className="text-slate-900 mb-6">
         {moduleName} - System Requirements
       </h1>
 
@@ -4914,7 +4914,7 @@ function DefaultContent({
         </Breadcrumb>
       </div>
 
-      <h1 className="mb-4">
+      <h1 className="text-slate-900 mb-6">
         {page
           .split("-")
           .map(

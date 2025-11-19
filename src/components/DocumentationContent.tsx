@@ -118,7 +118,13 @@ function getSectionDisplayName(section: string): string {
   const sectionNames: Record<string, string> = {
     "getting-started": "Getting Started",
     "application-overview": "Application Overview",
+    "organizational-details": "Organizational Details",
+    "discovery": "Discovery",
     "sacm": "SACM",
+    "users": "Users",
+    "management-functions": "Management Functions",
+    "integrations": "Integrations",
+    "others": "Others",
     "online-help": "OnlineHelp",
     "api-integration": "API Integration",
     "compatibility-matrix": "Compatibility Matrix",
@@ -1352,6 +1358,20 @@ export function DocumentationContent({
                       firstPage = 'quick-start';
                     } else if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
+                    } else if (actualSection === 'organizational-details') {
+                      firstPage = 'organizational-details';
+                    } else if (actualSection === 'discovery') {
+                      firstPage = 'application-map';
+                    } else if (actualSection === 'sacm') {
+                      firstPage = 'blueprints';
+                    } else if (actualSection === 'users') {
+                      firstPage = 'ad-configuration';
+                    } else if (actualSection === 'management-functions') {
+                      firstPage = 'change-management';
+                    } else if (actualSection === 'integrations') {
+                      firstPage = 'cherwell-credential';
+                    } else if (actualSection === 'others') {
+                      firstPage = 'announcements';
                     } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';
                     } else if (module === 'cmdb' && actualSection === 'cmdb') {
@@ -4012,27 +4032,27 @@ function DefaultContent({
   const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
   
   // Admin hierarchy checks
-  const isUnderOrganizationalDetails = section === "admin" && (organizationalDetailsPages.includes(page) || page === "organizational-details");
+  const isUnderOrganizationalDetails = (actualSection === "organizational-details" || section === "admin") && (organizationalDetailsPages.includes(page) || page === "organizational-details");
   const isUnderDepartments = section === "admin" && (departmentsPages.includes(page) || page === "departments");
   
-  const isUnderDiscovery = section === "admin" && (discoveryPages.includes(page) || page === "discovery");
+  const isUnderDiscovery = (actualSection === "discovery" || section === "admin") && (discoveryPages.includes(page) || page === "discovery");
   const isUnderClient = section === "admin" && (clientPages.includes(page) || page === "client");
   const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
   const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
   
   const isUnderSacm = (actualSection === "sacm" || section === "admin") && (sacmPages.includes(page) || page === "sacm");
-  const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
+  const isUnderUsers = (actualSection === "users" || section === "admin") && (usersPages.includes(page) || page === "users");
   
-  const isUnderManagementFunctions = section === "admin" && (managementFunctionsPages.includes(page) || page === "management-functions");
+  const isUnderManagementFunctions = (actualSection === "management-functions" || section === "admin") && (managementFunctionsPages.includes(page) || page === "management-functions");
   const isUnderProcurement = section === "admin" && (procurementPages.includes(page) || page === "procurement");
   
-  const isUnderIntegrations = section === "admin" && (integrationsPages.includes(page) || page === "integrations");
+  const isUnderIntegrations = (actualSection === "integrations" || section === "admin") && (integrationsPages.includes(page) || page === "integrations");
   const isUnderCherwellCredential = section === "admin" && (cherwellCredentialPages.includes(page) || page === "cherwell-credential");
   const isUnderIvantiCredentials = section === "admin" && (ivantiCredentialsPages.includes(page) || page === "ivanti-credentials");
   const isUnderJiraCredentials = section === "admin" && (jiraCredentialsPages.includes(page) || page === "jira-credentials");
   const isUnderServicenowCredentials = section === "admin" && (servicenowCredentialsPages.includes(page) || page === "servicenow-credentials");
   
-  const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
+  const isUnderOthers = (actualSection === "others" || section === "admin") && (othersPages.includes(page) || page === "others");
   
   // Self Service hierarchy checks
   const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
@@ -4061,24 +4081,49 @@ function DefaultContent({
   const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
   const isGettingStartedPage = gettingStartedPages.includes(page);
   
-  // SACM pages (universal: works for all versions)
+  // Admin sub-section pages (universal: works for all versions)
+  const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"];
+  const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
   const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", 
     "confidence-configuration", "duplicates-remediation", "export-ci-template", 
     "ip-connection-score-threshold", "process-tags", "property-group", 
     "relationship-types", "software-license-validity-check", "software-usage-report"];
+  const usersPages = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
+  const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
+  const integrationsPages = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
+  const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
+  
+  const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
+  const isDiscoveryPage = discoveryPages.includes(page);
   const isSacmPage = sacmPages.includes(page);
+  const isUsersPage = usersPages.includes(page);
+  const isManagementFunctionsPage = managementFunctionsPages.includes(page);
+  const isIntegrationsPage = integrationsPages.includes(page);
+  const isOthersPage = othersPages.includes(page);
   
   // Detect if we're in Application Overview section based on page content
   // Even if URL section is "my-dashboard", if page is an Application Overview page, 
   // we should show "Application Overview" as the section
   const isApplicationOverviewPage = applicationOverviewPages.includes(page);
   
-  // Detect actual section: prioritize Getting Started, then SACM, then Application Overview, then use provided section
+  // Detect actual section: prioritize Getting Started, then Admin sub-sections, then Application Overview, then use provided section
   let actualSection = section;
   if (module === 'my-dashboard' && isGettingStartedPage) {
     actualSection = 'getting-started';
+  } else if (module === 'admin' && isOrganizationalDetailsPage) {
+    actualSection = 'organizational-details';
+  } else if (module === 'admin' && isDiscoveryPage) {
+    actualSection = 'discovery';
   } else if (module === 'admin' && isSacmPage) {
     actualSection = 'sacm';
+  } else if (module === 'admin' && isUsersPage) {
+    actualSection = 'users';
+  } else if (module === 'admin' && isManagementFunctionsPage) {
+    actualSection = 'management-functions';
+  } else if (module === 'admin' && isIntegrationsPage) {
+    actualSection = 'integrations';
+  } else if (module === 'admin' && isOthersPage) {
+    actualSection = 'others';
   } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
     actualSection = 'application-overview';
   }
@@ -4190,6 +4235,20 @@ function DefaultContent({
                       firstPage = 'quick-start';
                     } else if (actualSection === 'application-overview') {
                       firstPage = 'system-icons';
+                    } else if (actualSection === 'organizational-details') {
+                      firstPage = 'organizational-details';
+                    } else if (actualSection === 'discovery') {
+                      firstPage = 'application-map';
+                    } else if (actualSection === 'sacm') {
+                      firstPage = 'blueprints';
+                    } else if (actualSection === 'users') {
+                      firstPage = 'ad-configuration';
+                    } else if (actualSection === 'management-functions') {
+                      firstPage = 'change-management';
+                    } else if (actualSection === 'integrations') {
+                      firstPage = 'cherwell-credential';
+                    } else if (actualSection === 'others') {
+                      firstPage = 'announcements';
                     } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
                       firstPage = 'my-dashboard-overview';
                     } else if (module === 'cmdb' && actualSection === 'cmdb') {

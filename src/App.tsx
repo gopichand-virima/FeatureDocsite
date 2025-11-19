@@ -633,6 +633,66 @@ function AppContent() {
     
     // For Admin module
     if (module === 'admin') {
+      // Organizational Details pages (admin_org_details folder) - detect by subfolder
+      if (subFolder === 'admin_org_details') {
+        const orgDetailsPageMap: Record<string, string> = {
+          'cost_center_6_1': 'cost-center',
+          'departments_6_1': 'departments',
+          'departments_members_6_1': 'members',
+          'designations_6_1': 'designations',
+          'holidays_6_1': 'holidays',
+          'locations_6_1': 'locations',
+          'operational_hours_6_1': 'operational-hours',
+          'organizational_details_6_1': 'organizational-details-nested',
+          'about_org_details_6_1': 'organizational-details',
+        };
+        const page = orgDetailsPageMap[cleanName];
+        if (page) {
+          return { section: 'organizational-details', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'organizational-details', page: fallbackPage };
+      }
+      
+      // Discovery pages (admin_discovery folder) - detect by subfolder
+      if (subFolder === 'admin_discovery') {
+        const discoveryPageMap: Record<string, string> = {
+          'application_map_6_1': 'application-map',
+          'client_6_1': 'client',
+          'client_discovery_agents_6_1': 'discovery-agents',
+          'client_remote_install_6_1': 'remote-install',
+          'client_restart_6_1': 'restart-client',
+          'correlation_6_1': 'correlation',
+          'credentials_6_1': 'credentials',
+          'credentials_details_6_1': 'details',
+          'credentials_backup_file_6_1': 'backup-file',
+          'credentials_flush_6_1': 'flush-credential',
+          'downloading_discovery_6_1': 'download-application',
+          'import_templates_6_1': 'import-templates',
+          'ignore_adm_process_6_1': 'ignore-adm-process',
+          'ignore_process_6_1': 'ignore-process',
+          'major_software_6_1': 'major-software',
+          'mon_prof_6_1': 'monitoring-profile',
+          'mon_prof_action_details_6_1': 'action-details',
+          'mon_prof_details_6_1': 'details',
+          'mon_prof_frequency_6_1': 'frequency',
+          'mon_prof_notifications_6_1': 'notifications',
+          'mon_prof_trigger_conditions_6_1': 'trigger-conditions',
+          'patterns_6_1': 'patterns',
+          'port_config_process_6_1': 'port-configuration',
+          'probe_workflow_6_1': 'probe-workflow',
+          'probes_6_1': 'probes',
+          'scan_configuration_6_1': 'scan-configuration',
+          'sensors_6_1': 'sensors',
+        };
+        const page = discoveryPageMap[cleanName];
+        if (page) {
+          return { section: 'discovery', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'discovery', page: fallbackPage };
+      }
+      
       // SACM pages (admin_sacm folder) - detect by subfolder
       if (subFolder === 'admin_sacm') {
         const sacmPageMap: Record<string, string> = {
@@ -656,9 +716,72 @@ function AppContent() {
         if (page) {
           return { section: 'sacm', page };
         }
-        // Fallback for SACM pages
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'sacm', page: fallbackPage };
+      }
+      
+      // Users pages (admin_users folder) - detect by subfolder
+      if (subFolder === 'admin_users') {
+        const usersPageMap: Record<string, string> = {
+          'ad_imp_auth_6_1': 'ad-configuration',
+          'azure_ad_config_6_1': 'azure-ad-configuration',
+          'saml_config_6_1': 'saml-configuration',
+          'time_track_reports_6_1': 'time-track-reports',
+          'user_groups_6_1': 'user-groups',
+          'user_roles_6_1': 'user-roles',
+          'users_6_1': 'users-list',
+        };
+        const page = usersPageMap[cleanName];
+        if (page) {
+          return { section: 'users', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'users', page: fallbackPage };
+      }
+      
+      // Integrations pages (admin_integrations folder) - detect by subfolder
+      if (subFolder === 'admin_integrations') {
+        const integrationsPageMap: Record<string, string> = {
+          'cherwell_credential_6_1': 'cherwell-credential',
+          'cherwell_mappings_6_1': 'cherwell-mappings',
+          'infoblox_config_6_1': 'infoblox-configuration',
+          'ivanti_credentials_6_1': 'ivanti-credentials',
+          'ivanti_mappings_6_1': 'ivanti-mappings',
+          'jira_credentials_6_1': 'jira-credentials',
+          'jira_mappings_6_1': 'jira-asset-mappings',
+          'servicenow_credentials_6_1': 'servicenow-credentials',
+          'servicenow_mappings_6_1': 'servicenow-mappings',
+        };
+        const page = integrationsPageMap[cleanName];
+        if (page) {
+          return { section: 'integrations', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'integrations', page: fallbackPage };
+      }
+      
+      // Others pages (admin_other folder) - detect by subfolder
+      if (subFolder === 'admin_other') {
+        const othersPageMap: Record<string, string> = {
+          'announcements_6_1': 'announcements',
+          'business_rules_6_1': 'business-rules',
+          'custom_reports_6_1': 'custom-reports',
+          'documentation_tester_6_1': 'documentation-and-tester',
+          'inbox_config_itsm_ticket_mngmnt_6_1': 'inbox-configuration-itsm',
+          'kpis_6_1': 'kpis',
+          'reports_6_1': 'reports',
+          'role_access_6_1': 'role-access',
+          'sla_6_1': 'service-level-agreements',
+          'smtp_config_6_1': 'smtp-configuration',
+          'risk_score_calculator_6_1': 'risk-score-calculator',
+          'graphical_workflows_6_1': 'graphical-workflows',
+        };
+        const page = othersPageMap[cleanName];
+        if (page) {
+          return { section: 'others', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'others', page: fallbackPage };
       }
       
       // Admin page mappings - maps file names to page IDs
@@ -1013,6 +1136,30 @@ function AppContent() {
         fileName = parts[3];
         actualModule = 'admin';
         setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === 'admin_users' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_users/file_name (Admin Users submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === 'admin_discovery' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_discovery/file_name (Admin Discovery submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === 'admin_integrations' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_integrations/file_name (Admin Integrations submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === 'admin_other' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_other/file_name (Admin Others submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
       } else if (parts.length >= 4 && parts[2] === parts[1]) {
         // Format: /6_1/module_folder/module_folder/page_id (duplicate module name)
         // Example: /6_1/cmdb/cmdb/copy-to-jira
@@ -1162,18 +1309,43 @@ function AppContent() {
           const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
           const isGettingStartedPage = gettingStartedPages.includes(page);
           
-          // Detect SACM pages and set correct section (universal: works for all versions)
+          // Detect Admin sub-section pages and set correct section (universal: works for all versions)
+          const organizationalDetailsPages = ['cost-center', 'departments', 'members', 'designations', 'holidays', 'locations', 'operational-hours', 'organizational-details-nested', 'organizational-details'];
+          const discoveryPages = ['application-map', 'client', 'discovery-agents', 'remote-install', 'restart-client', 'correlation', 'credentials', 'details', 'backup-file', 'flush-credential', 'download-application', 'import-templates', 'ignore-adm-process', 'ignore-process', 'major-software', 'monitoring-profile', 'action-details', 'frequency', 'notifications', 'trigger-conditions', 'patterns', 'port-configuration', 'probe-workflow', 'probes', 'scan-configuration', 'sensors'];
           const sacmPages = ['blueprints', 'bsm-views', 'cmdb-graphical-workflow', 'cmdb-properties', 
             'confidence-configuration', 'duplicates-remediation', 'export-ci-template', 
             'ip-connection-score-threshold', 'process-tags', 'property-group', 
             'relationship-types', 'software-license-validity-check', 'software-usage-report'];
+          const usersPages = ['ad-configuration', 'azure-ad-configuration', 'saml-configuration', 'time-track-reports', 'user-groups', 'user-roles', 'users-list'];
+          const managementFunctionsPages = ['change-management', 'contract-management', 'event-management', 'hardware-asset-management', 'incident-management', 'knowledge-management', 'problem-management', 'about-procurement', 'procurement-properties', 'procurement-property-group', 'project-management', 'release-management', 'request-management', 'vendor-management'];
+          const integrationsPages = ['cherwell-credential', 'cherwell-mappings', 'infoblox-configuration', 'ivanti-credentials', 'ivanti-mappings', 'jira-credentials', 'jira-asset-mappings', 'servicenow-credentials', 'servicenow-mappings'];
+          const othersPages = ['announcements', 'business-rules', 'custom-reports', 'documentation-and-tester', 'inbox-configuration-itsm', 'kpis', 'reports', 'role-access', 'service-level-agreements', 'smtp-configuration', 'risk-score-calculator', 'graphical-workflows'];
+          
+          const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
+          const isDiscoveryPage = discoveryPages.includes(page);
           const isSacmPage = sacmPages.includes(page);
+          const isUsersPage = usersPages.includes(page);
+          const isManagementFunctionsPage = managementFunctionsPages.includes(page);
+          const isIntegrationsPage = integrationsPages.includes(page);
+          const isOthersPage = othersPages.includes(page);
           
           let actualSection = correctSection;
           if (selectedModule === 'my-dashboard' && isGettingStartedPage) {
             actualSection = 'getting-started';
+          } else if (selectedModule === 'admin' && isOrganizationalDetailsPage) {
+            actualSection = 'organizational-details';
+          } else if (selectedModule === 'admin' && isDiscoveryPage) {
+            actualSection = 'discovery';
           } else if (selectedModule === 'admin' && isSacmPage) {
             actualSection = 'sacm';
+          } else if (selectedModule === 'admin' && isUsersPage) {
+            actualSection = 'users';
+          } else if (selectedModule === 'admin' && isManagementFunctionsPage) {
+            actualSection = 'management-functions';
+          } else if (selectedModule === 'admin' && isIntegrationsPage) {
+            actualSection = 'integrations';
+          } else if (selectedModule === 'admin' && isOthersPage) {
+            actualSection = 'others';
           } else if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
             actualSection = 'application-overview';
           }

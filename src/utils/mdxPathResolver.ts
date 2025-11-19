@@ -120,6 +120,29 @@ export function resolveMDXPath({ version, module, section, page }: PathResolverP
     return getMyDashboard61Path(page, section);
   }
   
+  // Special handling for Admin > SACM pages in version 6.1
+  if (module === 'admin' && section === 'sacm' && version === '6.1') {
+    const sacmPageToFileMap: Record<string, string> = {
+      'blueprints': 'blueprints_6_1',
+      'bsm-views': 'custom_bsm_views_6_1',
+      'cmdb-graphical-workflow': 'cmdb_graphical_workflow_6_1',
+      'cmdb-properties': 'cmdb_properties_6_1',
+      'confidence-configuration': 'confidence_config_6_1',
+      'duplicates-remediation': 'dups_remediation_6_1',
+      'export-ci-template': 'export_ci_template_6_1',
+      'ip-connection-score-threshold': 'ip_conn_score_threshold_6_1',
+      'process-tags': 'process_tags_6_1',
+      'property-group': 'property_group_6_1',
+      'relationship-types': 'relationship_types_6_1',
+      'software-license-validity-check': 'software_lic_validity_check_6_1',
+      'software-usage-report': 'software_usage_report_6_1',
+    };
+    const fileName = sacmPageToFileMap[page];
+    if (fileName) {
+      return `/content/6_1/admin_6_1/admin_sacm/${fileName}.mdx`;
+    }
+  }
+  
   // For now, only return paths for files that actually exist in contentLoader
   // This prevents attempting to load non-existent MDX files
   // Other content will fall back to the default hardcoded content

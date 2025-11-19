@@ -118,6 +118,7 @@ function getSectionDisplayName(section: string): string {
   const sectionNames: Record<string, string> = {
     "getting-started": "Getting Started",
     "application-overview": "Application Overview",
+    "sacm": "SACM",
     "online-help": "OnlineHelp",
     "api-integration": "API Integration",
     "compatibility-matrix": "Compatibility Matrix",
@@ -409,16 +410,19 @@ export function DocumentationContent({
     }
     
     // Fallback: format page ID to readable label
-    // Ensure CMDB is always uppercase
+    // Ensure CMDB and SACM are always uppercase
     return pageId
       .split("-")
       .map(word => {
         const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
-        // Ensure CMDB is always uppercase
-        return capitalized === "Cmdb" ? "CMDB" : capitalized;
+        // Ensure CMDB and SACM are always uppercase
+        if (capitalized === "Cmdb") return "CMDB";
+        if (capitalized === "Sacm") return "SACM";
+        return capitalized;
       })
       .join(" ")
-      .replace(/\bCmdb\b/g, "CMDB");
+      .replace(/\bCmdb\b/g, "CMDB")
+      .replace(/\bSacm\b/g, "SACM");
   };
   
   // Helper function to get parent topic page ID from parent topic name
@@ -1208,7 +1212,7 @@ export function DocumentationContent({
     const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
     const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
     
-    const isUnderSacm = section === "admin" && (sacmPages.includes(page) || page === "sacm");
+    const isUnderSacm = (actualSection === "sacm" || section === "admin") && (sacmPages.includes(page) || page === "sacm");
     const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
     
     const isUnderManagementFunctions = section === "admin" && (managementFunctionsPages.includes(page) || page === "management-functions");
@@ -3494,6 +3498,20 @@ function DefaultContent({
       "report-actions": "Report Actions",
       "my-dashboard-section": "My Dashboard",
       "my-dashboard-contents": "Contents",
+      // SACM pages
+      "cmdb-graphical-workflow": "CMDB Graphical Workflow",
+      "blueprints": "Blueprints",
+      "bsm-views": "Custom BSM Views",
+      "cmdb-properties": "CMDB Properties",
+      "confidence-configuration": "Confidence Configuration",
+      "duplicates-remediation": "Duplicates Remediation",
+      "export-ci-template": "Export CI Template",
+      "ip-connection-score-threshold": "IP Connection Score Threshold",
+      "process-tags": "Process Tags",
+      "property-group": "Property Group",
+      "relationship-types": "Relationship Types",
+      "software-license-validity-check": "Software License Validity Check",
+      "software-usage-report": "Software Usage Report",
       // Add more mappings as needed - this ensures consistency with TOC
     };
     
@@ -3503,16 +3521,19 @@ function DefaultContent({
     }
     
     // Fallback: format page ID to readable label
-    // Ensure CMDB is always uppercase
+    // Ensure CMDB and SACM are always uppercase
     return pageId
       .split("-")
       .map(word => {
         const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
-        // Ensure CMDB is always uppercase
-        return capitalized === "Cmdb" ? "CMDB" : capitalized;
+        // Ensure CMDB and SACM are always uppercase
+        if (capitalized === "Cmdb") return "CMDB";
+        if (capitalized === "Sacm") return "SACM";
+        return capitalized;
       })
       .join(" ")
-      .replace(/\bCmdb\b/g, "CMDB");
+      .replace(/\bCmdb\b/g, "CMDB")
+      .replace(/\bSacm\b/g, "SACM");
   };
   
   // Helper function to get parent topic page ID from parent topic name
@@ -3999,7 +4020,7 @@ function DefaultContent({
   const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
   const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
   
-  const isUnderSacm = section === "admin" && (sacmPages.includes(page) || page === "sacm");
+  const isUnderSacm = (actualSection === "sacm" || section === "admin") && (sacmPages.includes(page) || page === "sacm");
   const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
   
   const isUnderManagementFunctions = section === "admin" && (managementFunctionsPages.includes(page) || page === "management-functions");
@@ -4040,15 +4061,24 @@ function DefaultContent({
   const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
   const isGettingStartedPage = gettingStartedPages.includes(page);
   
+  // SACM pages (universal: works for all versions)
+  const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", 
+    "confidence-configuration", "duplicates-remediation", "export-ci-template", 
+    "ip-connection-score-threshold", "process-tags", "property-group", 
+    "relationship-types", "software-license-validity-check", "software-usage-report"];
+  const isSacmPage = sacmPages.includes(page);
+  
   // Detect if we're in Application Overview section based on page content
   // Even if URL section is "my-dashboard", if page is an Application Overview page, 
   // we should show "Application Overview" as the section
   const isApplicationOverviewPage = applicationOverviewPages.includes(page);
   
-  // Detect actual section: prioritize Getting Started, then Application Overview, then use provided section
+  // Detect actual section: prioritize Getting Started, then SACM, then Application Overview, then use provided section
   let actualSection = section;
   if (module === 'my-dashboard' && isGettingStartedPage) {
     actualSection = 'getting-started';
+  } else if (module === 'admin' && isSacmPage) {
+    actualSection = 'sacm';
   } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
     actualSection = 'application-overview';
   }

@@ -633,6 +633,34 @@ function AppContent() {
     
     // For Admin module
     if (module === 'admin') {
+      // SACM pages (admin_sacm folder) - detect by subfolder
+      if (subFolder === 'admin_sacm') {
+        const sacmPageMap: Record<string, string> = {
+          'blueprints_6_1': 'blueprints',
+          'custom_bsm_views_6_1': 'bsm-views',
+          'bsm_views_6_1': 'bsm-views',
+          'cmdb_graphical_workflow_6_1': 'cmdb-graphical-workflow',
+          'cmdb_properties_6_1': 'cmdb-properties',
+          'confidence_config_6_1': 'confidence-configuration',
+          'dups_remediation_6_1': 'duplicates-remediation',
+          'export_ci_template_6_1': 'export-ci-template',
+          'ip_conn_score_threshold_6_1': 'ip-connection-score-threshold',
+          'process_tags_6_1': 'process-tags',
+          'property_group_6_1': 'property-group',
+          'relationship_types_6_1': 'relationship-types',
+          'software_lic_validity_check_6_1': 'software-license-validity-check',
+          'sw_lic_validity_check_6_1': 'software-license-validity-check',
+          'software_usage_report_6_1': 'software-usage-report',
+        };
+        const page = sacmPageMap[cleanName];
+        if (page) {
+          return { section: 'sacm', page };
+        }
+        // Fallback for SACM pages
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'sacm', page: fallbackPage };
+      }
+      
       // Admin page mappings - maps file names to page IDs
       const pageMap: Record<string, string> = {
         // Organizational Details pages (admin_org_details folder)
@@ -673,22 +701,6 @@ function AppContent() {
         'probes_6_1': 'probes',
         'scan_configuration_6_1': 'scan-configuration',
         'sensors_6_1': 'sensors',
-        // SACM pages (admin_sacm folder)
-        'blueprints_6_1': 'blueprints',
-        'custom_bsm_views_6_1': 'bsm-views',
-        'bsm_views_6_1': 'bsm-views',
-        'cmdb_graphical_workflow_6_1': 'cmdb-graphical-workflow',
-        'cmdb_properties_6_1': 'cmdb-properties',
-        'confidence_config_6_1': 'confidence-configuration',
-        'dups_remediation_6_1': 'duplicates-remediation',
-        'export_ci_template_6_1': 'export-ci-template',
-        'ip_conn_score_threshold_6_1': 'ip-connection-score-threshold',
-        'process_tags_6_1': 'process-tags',
-        'property_group_6_1': 'property-group',
-        'relationship_types_6_1': 'relationship-types',
-        'software_lic_validity_check_6_1': 'software-license-validity-check',
-        'sw_lic_validity_check_6_1': 'software-license-validity-check',
-        'software_usage_report_6_1': 'software-usage-report',
         // Users pages (admin_users folder)
         'ad_imp_auth_6_1': 'ad-configuration',
         'azure_ad_config_6_1': 'azure-ad-configuration',
@@ -995,6 +1007,12 @@ function AppContent() {
         fileName = parts[3];
         actualModule = 'admin';
         setSelectedModule('admin');
+      } else if (parts.length >= 4 && parts[2] === 'admin_sacm' && moduleFolder === 'admin_6_1') {
+        // Format: /6_1/admin_6_1/admin_sacm/file_name (Admin SACM submodule)
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
       } else if (parts.length >= 4 && parts[2] === parts[1]) {
         // Format: /6_1/module_folder/module_folder/page_id (duplicate module name)
         // Example: /6_1/cmdb/cmdb/copy-to-jira
@@ -1139,8 +1157,29 @@ function AppContent() {
           if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
             correctSection = 'application-overview';
           }
-          setSelectedSection(correctSection);
-          updateURL(selectedVersion, selectedModule, correctSection, page);
+          
+          // Detect Getting Started pages and set correct section (universal: works for all versions)
+          const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
+          const isGettingStartedPage = gettingStartedPages.includes(page);
+          
+          // Detect SACM pages and set correct section (universal: works for all versions)
+          const sacmPages = ['blueprints', 'bsm-views', 'cmdb-graphical-workflow', 'cmdb-properties', 
+            'confidence-configuration', 'duplicates-remediation', 'export-ci-template', 
+            'ip-connection-score-threshold', 'process-tags', 'property-group', 
+            'relationship-types', 'software-license-validity-check', 'software-usage-report'];
+          const isSacmPage = sacmPages.includes(page);
+          
+          let actualSection = correctSection;
+          if (selectedModule === 'my-dashboard' && isGettingStartedPage) {
+            actualSection = 'getting-started';
+          } else if (selectedModule === 'admin' && isSacmPage) {
+            actualSection = 'sacm';
+          } else if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
+            actualSection = 'application-overview';
+          }
+          
+          setSelectedSection(actualSection);
+          updateURL(selectedVersion, selectedModule, actualSection, page);
         }}
         onHomeClick={() => {
           setSelectedModule('');

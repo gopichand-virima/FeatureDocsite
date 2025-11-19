@@ -42,10 +42,13 @@ export function MDXContent({ filePath }: MDXContentProps) {
           }
           setContent(content);
         } else {
-          throw new Error(`Content not found for path: ${filePath}`);
+          // Content not found - this is expected for pages that fall back to DefaultContent
+          // Don't throw error, just set error state (parent component will handle fallback)
+          setError(`Content not found for path: ${filePath}`);
         }
       } catch (err) {
-        console.error('Error loading MDX content:', err);
+        // Only log unexpected errors, not missing content
+        console.error('Unexpected error loading MDX content:', err);
         setError(err instanceof Error ? err.message : 'Failed to load content');
       } finally {
         setLoading(false);

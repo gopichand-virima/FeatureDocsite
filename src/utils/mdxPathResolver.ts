@@ -62,6 +62,11 @@ function getMyDashboard61Path(page: string, section: string): string | null {
 function getNextGenPath(module: string, section: string, page: string): string | null {
   const basePath = '/content/NG';
   
+  // NextGen does NOT have Admin content - return null to fall back to DefaultContent
+  if (module === 'admin') {
+    return null;
+  }
+  
   // Application Overview pages under my-dashboard module should be in application-overview folder
   const applicationOverviewPages = [
     "system-icons",

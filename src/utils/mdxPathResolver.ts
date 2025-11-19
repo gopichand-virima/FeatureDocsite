@@ -57,10 +57,43 @@ function getMyDashboard61Path(page: string, section: string): string | null {
 }
 
 /**
+ * Get the MDX file path for NextGen version
+ */
+function getNextGenPath(module: string, section: string, page: string): string | null {
+  const basePath = '/content/NG';
+  
+  // Special handling for my-dashboard
+  if (module === 'my-dashboard') {
+    if (page === 'system-icons') {
+      return `${basePath}/my-dashboard/system-icons.mdx`;
+    }
+    if (page === 'my-dashboard-overview') {
+      // NextGen uses overview.mdx as fallback
+      return `${basePath}/my-dashboard/overview.mdx`;
+    }
+  }
+  
+  // For NextGen, most modules have overview.mdx files
+  // Map common page patterns to overview
+  if (page === 'overview' || page === `${module}-overview` || page === `${section}-overview`) {
+    return `${basePath}/${module}/overview.mdx`;
+  }
+  
+  // Try generic path: /content/NG/{module}/{page}.mdx
+  // If not found, will fall back to DefaultContent
+  return `${basePath}/${module}/${page}.mdx`;
+}
+
+/**
  * Resolve the path to the MDX file based on navigation parameters
  */
 export function resolveMDXPath({ version, module, section, page }: PathResolverParams): string | null {
   const versionDir = formatVersionForPath(version);
+  
+  // Special handling for NextGen
+  if (version === 'NextGen') {
+    return getNextGenPath(module, section, page);
+  }
   
   // Special handling for My Dashboard in version 6.1
   if (module === 'my-dashboard' && version === '6.1') {

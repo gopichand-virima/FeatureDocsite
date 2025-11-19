@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { getContentBody, hasContent } from '../content/contentLoader';
+import { getContent, hasContent } from '../content/contentLoader';
 
 // Helper function to generate ID from heading text
 function generateHeadingId(text: string): string {
@@ -30,10 +30,17 @@ export function MDXContent({ filePath }: MDXContentProps) {
       
       try {
         // Try to get content from the static content loader
-        const mdxContent = getContentBody(filePath);
+        const mdxContent = getContent(filePath);
         
         if (mdxContent) {
-          setContent(mdxContent);
+          // Strip frontmatter if present (simple approach - look for --- delimiters)
+          let content = mdxContent;
+          const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+          const match = mdxContent.match(frontmatterRegex);
+          if (match) {
+            content = match[2]; // Use content after frontmatter
+          }
+          setContent(content);
         } else {
           throw new Error(`Content not found for path: ${filePath}`);
         }

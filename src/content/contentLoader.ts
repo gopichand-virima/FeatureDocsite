@@ -3,8 +3,6 @@
  * This file maps file paths to their actual content for runtime access
  */
 
-import matter from 'gray-matter';
-
 // Import My Dashboard 6.1 content
 import dashboards61 from './6_1/my_dashboard_6_1/dashboards-6_1.mdx?raw';
 import dashboardsContents61 from './6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx?raw';
@@ -14,6 +12,18 @@ import myDashboard61 from './6_1/my_dashboard_6_1/my-dashboard-6_1.mdx?raw';
 import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx?raw';
 import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
 import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
+
+// Import NextGen content
+import ngSystemIcons from './NG/my-dashboard/system-icons.mdx?raw';
+import ngCmdbOverview from './NG/cmdb/overview.mdx?raw';
+import ngDiscoveryScanOverview from './NG/discovery-scan/overview.mdx?raw';
+import ngItsmOverview from './NG/itsm/overview.mdx?raw';
+import ngItamOverview from './NG/itam/overview.mdx?raw';
+import ngVulnerabilityManagementOverview from './NG/vulnerability-management/overview.mdx?raw';
+import ngSelfServiceOverview from './NG/self-service/overview.mdx?raw';
+import ngProgramProjectManagementOverview from './NG/program-project-management/overview.mdx?raw';
+import ngRiskRegisterOverview from './NG/risk-register/overview.mdx?raw';
+import ngReportsOverview from './NG/reports/overview.mdx?raw';
 
 /**
  * Content map - maps file paths to their content
@@ -28,6 +38,18 @@ const contentMap: Record<string, string> = {
   '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
   '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
   '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
+  // NextGen content
+  '/content/NG/my-dashboard/system-icons.mdx': ngSystemIcons,
+  '/content/NG/my-dashboard/overview.mdx': ngSystemIcons, // Fallback for my-dashboard-overview
+  '/content/NG/cmdb/overview.mdx': ngCmdbOverview,
+  '/content/NG/discovery-scan/overview.mdx': ngDiscoveryScanOverview,
+  '/content/NG/itsm/overview.mdx': ngItsmOverview,
+  '/content/NG/itam/overview.mdx': ngItamOverview,
+  '/content/NG/vulnerability-management/overview.mdx': ngVulnerabilityManagementOverview,
+  '/content/NG/self-service/overview.mdx': ngSelfServiceOverview,
+  '/content/NG/program-project-management/overview.mdx': ngProgramProjectManagementOverview,
+  '/content/NG/risk-register/overview.mdx': ngRiskRegisterOverview,
+  '/content/NG/reports/overview.mdx': ngReportsOverview,
 };
 
 /**
@@ -39,6 +61,49 @@ export function getContent(filePath: string): string | null {
   return contentMap[filePath] || null;
 }
 
+/**
+ * Simple frontmatter parser (browser-safe, no Buffer dependency)
+ * Extracts frontmatter from YAML between --- delimiters
+ */
+function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = content.match(frontmatterRegex);
+  
+  if (!match) {
+    return { frontmatter: {}, body: content };
+  }
+  
+  const frontmatterText = match[1];
+  const body = match[2];
+  
+  // Simple YAML parser for basic key-value pairs (browser-safe)
+  const frontmatter: Record<string, unknown> = {};
+  const lines = frontmatterText.split('\n');
+  
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    
+    const colonIndex = trimmed.indexOf(':');
+    if (colonIndex === -1) continue;
+    
+    const key = trimmed.slice(0, colonIndex).trim();
+    let value: unknown = trimmed.slice(colonIndex + 1).trim();
+    
+    // Remove quotes if present
+    if (typeof value === 'string') {
+      if ((value.startsWith('"') && value.endsWith('"')) || 
+          (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+    }
+    
+    frontmatter[key] = value;
+  }
+  
+  return { frontmatter, body };
+}
+
 interface ContentEntry {
   body: string;
   frontmatter: Record<string, unknown>;
@@ -47,7 +112,7 @@ interface ContentEntry {
 const parsedContentCache = new Map<string, ContentEntry>();
 
 /**
- * Return MDX content and parsed frontmatter for a given file path.
+ * Return MDX content and parsed frontmatter for a given file path (browser-safe).
  */
 export function getContentEntry(filePath: string): ContentEntry | null {
   if (parsedContentCache.has(filePath)) {
@@ -58,10 +123,10 @@ export function getContentEntry(filePath: string): ContentEntry | null {
     const raw = getContent(filePath);
     if (!raw) return null;
 
-    const parsed = matter(raw);
+    const { frontmatter, body } = parseFrontmatter(raw);
     const entry: ContentEntry = {
-      body: parsed.content.startsWith('\n') ? parsed.content.slice(1) : parsed.content,
-      frontmatter: parsed.data || {},
+      body: body.startsWith('\n') ? body.slice(1) : body,
+      frontmatter,
     };
 
     parsedContentCache.set(filePath, entry);

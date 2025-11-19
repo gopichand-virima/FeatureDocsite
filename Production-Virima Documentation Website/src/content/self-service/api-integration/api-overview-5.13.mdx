@@ -1,0 +1,82 @@
+---
+title: "Self Service - API Integration"
+version: "5.13"
+module: "self-service"
+section: "api-integration"
+---
+
+# Self Service - API Integration
+
+API documentation for Self Service portal integration.
+
+## API Endpoints
+
+### Get Service Catalog
+```
+GET /api/v1/self-service/catalog
+```
+
+Retrieve available services.
+
+### Submit Service Request
+```
+POST /api/v1/self-service/request
+```
+
+Create a new service request.
+
+### Get Request Status
+```
+GET /api/v1/self-service/request/{requestId}
+```
+
+Check service request status.
+
+### Search Knowledge Base
+```
+GET /api/v1/self-service/kb/search
+```
+
+Search knowledge base articles.
+
+## Authentication
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Request Example - Submit Service Request
+
+```json
+{
+  "serviceId": "svc-laptop-request",
+  "requestedFor": "john.doe@company.com",
+  "priority": "medium",
+  "fields": {
+    "laptopType": "Dell Latitude",
+    "urgency": "2 weeks",
+    "businessJustification": "New employee onboarding"
+  }
+}
+```
+
+## Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "requestId": "REQ-12345",
+    "status": "submitted",
+    "estimatedFulfillment": "2025-11-20",
+    "approvalRequired": true
+  }
+}
+```
+
+## Webhook Events
+
+- Request submitted
+- Approval granted/denied
+- Request fulfilled
+- Request cancelled

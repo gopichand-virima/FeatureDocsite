@@ -2244,22 +2244,12 @@ export function DocumentationContent({
   };
 
   const renderContent = () => {
-    // Defensive check: ensure we have required props
-    if (!module || !section || !page) {
-      console.warn('DocumentationContent: Missing required props', { module, section, page, version });
-      // Return a fallback content instead of blank page
-      return (
-        <article className="prose prose-slate max-w-none">
-          <h1>Loading...</h1>
-          <p>Please wait while we load the documentation.</p>
-        </article>
-      );
-    }
-
     const contentKey = `${section}-${page}`;
-    const mdxPath = resolvedMDXPath;
-
-    // If we have a valid MDX path, try to load it with breadcrumbs
+    
+    // Try to resolve MDX file path first
+    const mdxPath = resolveMDXPath({ version, module, section, page });
+    
+    // If we have a valid MDX path, try to load it
     if (mdxPath) {
       return (
         <article className="prose prose-slate max-w-none -mt-9">
@@ -2270,61 +2260,47 @@ export function DocumentationContent({
     }
 
     // Fallback to hardcoded content for specific pages
-    try {
-      switch (contentKey) {
-        case "application-overview-online-help":
-          return (
-            <OnlineHelpOverview
-              version={version}
-              module={module}
-              moduleName={moduleName}
-              section={section}
-              page={page}
-              onHomeClick={onHomeClick}
-              onModuleClick={onModuleClick}
-              onVersionClick={onVersionClick}
-            />
-          );
-        case "getting-started-quick-start":
-          return (
-            <QuickStart
-              version={version}
-              module={module}
-              moduleName={moduleName}
-              section={section}
-              page={page}
-              onHomeClick={onHomeClick}
-              onModuleClick={onModuleClick}
-              onVersionClick={onVersionClick}
-            />
-          );
-        default:
-          return (
-            <DefaultContent
-              section={section}
-              page={page}
-              version={version}
-              module={module}
-              moduleName={moduleName}
-              onHomeClick={onHomeClick}
-              onModuleClick={onModuleClick}
-              onVersionClick={onVersionClick}
-              onPageClick={onPageClick}
-            />
-          );
-      }
-    } catch (error) {
-      console.error('Error rendering content:', error);
-      // Return error fallback instead of blank page
-      return (
-        <article className="prose prose-slate max-w-none">
-          <h1>Error Loading Content</h1>
-          <p>There was an error loading the documentation for this page.</p>
-          <p className="text-sm text-slate-500">
-            Module: {module}, Section: {section}, Page: {page}, Version: {version}
-          </p>
-        </article>
-      );
+    switch (contentKey) {
+      case "application-overview-online-help":
+        return (
+          <OnlineHelpOverview
+            version={version}
+            module={module}
+            moduleName={moduleName}
+            section={section}
+            page={page}
+            onHomeClick={onHomeClick}
+            onModuleClick={onModuleClick}
+            onVersionClick={onVersionClick}
+          />
+        );
+      case "getting-started-quick-start":
+        return (
+          <QuickStart
+            version={version}
+            module={module}
+            moduleName={moduleName}
+            section={section}
+            page={page}
+            onHomeClick={onHomeClick}
+            onModuleClick={onModuleClick}
+            onVersionClick={onVersionClick}
+          />
+        );
+      default:
+        return (
+          <DefaultContent
+            section={section}
+            page={page}
+            version={version}
+            module={module}
+            moduleName={moduleName}
+            onHomeClick={onHomeClick}
+            onModuleClick={onModuleClick}
+            onVersionClick={onVersionClick}
+            onPageClick={onPageClick}
+          />
+        );
     }
   };
 
@@ -4095,6 +4071,9 @@ function DefaultContent({
   else if (isUnderManagementFunctions && page !== "management-functions") parentTopic = "Management Functions";
   else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
   else if (isUnderOthers && page !== "others") parentTopic = "Others";
+
+  // Format page name for display using TOC label lookup
+  const pageDisplayName = getPageLabel(page);
 
   return (
     <article className="prose prose-slate max-w-none -mt-9">

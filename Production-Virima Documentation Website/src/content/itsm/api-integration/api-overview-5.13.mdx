@@ -1,0 +1,82 @@
+---
+title: "ITSM - API Integration"
+version: "5.13"
+module: "itsm"
+section: "api-integration"
+---
+
+# ITSM - API Integration
+
+API documentation for integrating with the ITSM module.
+
+## API Endpoints
+
+### Create Incident
+```
+POST /api/v1/itsm/incident
+```
+
+Create a new incident ticket.
+
+### Update Incident
+```
+PUT /api/v1/itsm/incident/{ticketId}
+```
+
+Update an existing incident.
+
+### Get Incident Details
+```
+GET /api/v1/itsm/incident/{ticketId}
+```
+
+Retrieve incident information.
+
+### Add Comment
+```
+POST /api/v1/itsm/incident/{ticketId}/comment
+```
+
+Add a comment to an incident.
+
+## Authentication
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Request Example - Create Incident
+
+```json
+{
+  "title": "Email service unavailable",
+  "description": "Users unable to access email",
+  "priority": "high",
+  "category": "email",
+  "affectedUser": "john.doe@company.com",
+  "assignedTo": "it-support-team"
+}
+```
+
+## Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "ticketId": "INC-12345",
+    "status": "new",
+    "createdAt": "2025-11-10T10:30:00Z",
+    "slaDeadline": "2025-11-10T14:30:00Z"
+  }
+}
+```
+
+## Webhooks
+
+Subscribe to events:
+- Incident created
+- Status changed
+- Comment added
+- SLA breach warning
+- Resolution completed

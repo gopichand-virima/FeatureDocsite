@@ -1,0 +1,120 @@
+---
+title: "Copy to ServiceNow"
+version: "5.13"
+module: "my-dashboard"
+section: "getting-started"
+---
+
+# Copy to ServiceNow
+
+Seamlessly transfer records from Virima to ServiceNow for integrated IT service management operations.
+
+## Overview
+
+The Copy to ServiceNow function enables direct integration between Virima and ServiceNow, allowing you to create and synchronize incidents, configuration items, changes, and other records across both platforms.
+
+## Prerequisites
+
+### Integration Requirements
+Before using this feature:
+- ServiceNow integration must be configured by administrator
+- Valid ServiceNow instance credentials
+- OAuth authentication or API key configured
+- Proper user permissions in ServiceNow
+- Field mapping template configured
+
+## Copying to ServiceNow
+
+### Transfer Process
+1. Select the record to transfer
+2. Click **Copy to ServiceNow** button
+3. Choose the ServiceNow table (Incident, CMDB CI, Change, etc.)
+4. Review and adjust mapped field values
+5. Add any additional required fields
+6. Click **Create in ServiceNow**
+
+### Field Mapping
+Automatic field mapping includes:
+- Standard ITSM fields (priority, state, assignment)
+- Configuration item attributes
+- User and group assignments
+- Custom field mappings (if configured)
+
+## Supported Record Types
+
+### Incidents
+- Transfer incident details to ServiceNow
+- Map priority, urgency, and impact
+- Include description and work notes
+- Sync attachments and related records
+
+### Configuration Items (CIs)
+- Create or update CI records
+- Transfer asset information
+- Maintain CI relationships
+- Sync discovery data
+
+### Change Requests
+- Copy change details
+- Include change plan and implementation details
+- Transfer approval workflows
+- Sync change schedules
+
+### Other Record Types
+- Problem records
+- Service requests
+- Knowledge articles
+- Asset records
+
+## Advanced Features
+
+### Bidirectional Sync
+- Enable two-way synchronization
+- Real-time or scheduled updates
+- Conflict resolution rules
+- Change tracking and history
+
+### Batch Operations
+- Copy multiple records simultaneously
+- Bulk create operations
+- Mass update capabilities
+- Progress monitoring
+
+## Verification and Tracking
+
+### Post-Transfer Verification
+- Confirm record creation in ServiceNow
+- Verify all fields transferred correctly
+- Check attachment uploads
+- Review related record links
+
+### Integration Logs
+- View transfer history
+- Monitor success/failure status
+- Review error messages
+- Access detailed transfer logs
+
+## Troubleshooting
+
+### Common Issues
+- **Authentication errors**: Verify ServiceNow credentials and permissions
+- **Field validation failures**: Check required field values and formats
+- **API rate limits**: Review ServiceNow API usage limits
+- **Mapping errors**: Validate field mapping configuration
+
+### Resolution Steps
+1. Check integration status and connectivity
+2. Verify user permissions in both systems
+3. Review field mapping configuration
+4. Test with a single record first
+5. Contact system administrator if needed
+
+## Best Practices
+
+- Review field mappings before bulk transfers
+- Validate data completeness and accuracy
+- Use standardized values for mapped fields
+- Monitor integration performance
+- Keep ServiceNow and Virima data in sync
+- Document custom integration workflows
+- Train users on integration procedures

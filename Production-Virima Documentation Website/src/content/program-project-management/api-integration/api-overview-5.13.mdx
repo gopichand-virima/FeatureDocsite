@@ -1,0 +1,83 @@
+---
+title: "Program and Project Management - API Integration"
+version: "5.13"
+module: "program-project-management"
+section: "api-integration"
+---
+
+# Program and Project Management - API Integration
+
+API documentation for project management operations.
+
+## API Endpoints
+
+### Create Project
+```
+POST /api/v1/ppm/project
+```
+
+Create a new project.
+
+### Update Task
+```
+PUT /api/v1/ppm/task/{taskId}
+```
+
+Update task details and progress.
+
+### Assign Resource
+```
+POST /api/v1/ppm/project/{projectId}/resource
+```
+
+Assign resources to project tasks.
+
+### Get Project Status
+```
+GET /api/v1/ppm/project/{projectId}/status
+```
+
+Retrieve project health and metrics.
+
+## Authentication
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Request Example - Create Project
+
+```json
+{
+  "name": "Cloud Migration Project",
+  "description": "Migrate on-premises systems to AWS",
+  "startDate": "2025-12-01",
+  "endDate": "2026-06-30",
+  "budget": 500000,
+  "projectManager": "jane.smith@company.com",
+  "methodology": "hybrid"
+}
+```
+
+## Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "projectId": "proj-12345",
+    "status": "planning",
+    "createdAt": "2025-11-10T10:30:00Z",
+    "projectCode": "CLOUD-MIG-2025"
+  }
+}
+```
+
+## Webhook Events
+
+- Project created
+- Milestone reached
+- Budget threshold exceeded
+- Task completed
+- Resource assigned
+- Project status changed

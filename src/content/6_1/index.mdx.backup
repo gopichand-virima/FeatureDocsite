@@ -76,14 +76,14 @@ Shared Functions are common features used throughout the Virima application. The
 
 Personalized dashboard and system icons for individual users.
 
-- **[My Dashboard Overview](/6_1/my_dashboard_6_1/my-dashboard-overview-6_1)** - Overview of My Dashboard features
-- **[Dashboards](/6_1/my_dashboard_6_1/dashboards-6_1)** - Managing dashboards
-  - **[Contents](/6_1/my_dashboard_6_1/dashboards-contents-6_1)** - Dashboard contents management
-  - **[Customization](/6_1/my_dashboard_6_1/dashboards-customization-6_1)** - Customizing dashboard layouts
-  - **[My Dashboard](/6_1/my_dashboard_6_1/my-dashboard-6_1)** - My Dashboard section
-    - **[Contents](/6_1/my_dashboard_6_1/my-dashboard-contents-6_1)** - My Dashboard contents
-  - **[Report Actions](/6_1/my_dashboard_6_1/dashboards-report-actions-6_1)** - Dashboard report actions
-- **[System Icons](/6_1/my_dashboard_6_1/system-icons-6_1)** - Understanding system icons
+- **[My Dashboard Overview](/6_1/my-dashboard-6_1/my-dashboard-overview-6_1)** - Overview of My Dashboard features
+- **[Dashboards](/6_1/my-dashboard-6_1/dashboards-6_1)** - Managing dashboards
+  - **[Contents](/6_1/my-dashboard-6_1/dashboards-contents-6_1)** - Dashboard contents management
+  - **[Customization](/6_1/my-dashboard-6_1/dashboards-customization-6_1)** - Customizing dashboard layouts
+  - **[My Dashboard](/6_1/my-dashboard-6_1/my-dashboard-6_1)** - My Dashboard section
+    - **[Contents](/6_1/my-dashboard-6_1/my-dashboard-contents-6_1)** - My Dashboard contents
+  - **[Report Actions](/6_1/my-dashboard-6_1/dashboards-report-actions-6_1)** - Dashboard report actions
+- **[System Icons](/6_1/my-dashboard-6_1/system-icons-6_1)** - Understanding system icons
 
 ### CMDB
 
@@ -314,6 +314,7 @@ IT Service Management - Incidents, problems, changes, requests, and service mana
       - **[Process Software Installation](/6_1/itam_6_1/cmdb_6_1/process_software_installation_6_1)** - Processing software installations
     - **View and Edit a CI** - Viewing and editing Configuration Items
       - **[CI Left Panel](/6_1/itam_6_1/cmdb_6_1/ci_left_panel_6_1)** - CI left panel navigation
+      - **[Contacts on a CI](/6_1/itam_6_1/cmdb_6_1/contacts_on_ci_6_1)** - Managing contacts on a CI
       - **[CI Details and Tabs](/6_1/itam_6_1/cmdb_6_1/ci_details_and_tabs_6_1)** - Understanding CI details and navigation tabs
         - **Details** - CI details view
           - **[Manage CI](/6_1/itam_6_1/cmdb_6_1/manage_ci_6_1)** - Managing Configuration Items
@@ -332,8 +333,8 @@ IT Service Management - Incidents, problems, changes, requests, and service mana
         - **[Attachments](/6_1/itam_6_1/cmdb_6_1/attachments_6_1)** - CI attachments
         - **[Comments](/6_1/itam_6_1/cmdb_6_1/comments_6_1)** - CI comments
       - **Other Functions and Page Elements** - Additional CMDB functions
-        - **[Sync Logs](/6_1/itsm_6_1/config_mngmt/sync_logs_6_1)** - Synchronization logs
-        - **[Tags](/6_1/admin_6_1/admin_sacm/process_tags_6_1)** - Managing tags
+        - **[Sync Logs](/6_1/itam_6_1/cmdb_6_1/sync_logs_6_1)** - Synchronization logs
+        - **[Tags](/6_1/itam_6_1/cmdb_6_1/tags_6_1)** - Managing tags
         - **[Audits](/6_1/itam_6_1/cmdb_6_1/audits_6_1)** - CMDB audits
 - **Change Management** - Managing changes
 - **Incident Management** - Managing incidents
@@ -369,8 +370,10 @@ IT Asset Management - Hardware and software asset tracking and management.
       - **[Process Missing Components](/6_1/itam_6_1/cmdb_6_1/process_missing_components_6_1)** - Processing missing components
       - **[Process Network Connection](/6_1/itam_6_1/cmdb_6_1/process_network_connection_6_1)** - Processing network connections
       - **[Process Software Installation](/6_1/itam_6_1/cmdb_6_1/process_software_installation_6_1)** - Processing software installations
+      - **[Process Network Virtualization Hierarchy](/6_1/itam_6_1/cmdb_6_1/process_network_virtualization_hierarchy_6_1)** - Processing network virtualization hierarchy
     - **View and Edit a CI** - Viewing and editing Configuration Items
       - **[CI Left Panel](/6_1/itam_6_1/cmdb_6_1/ci_left_panel_6_1)** - CI left panel navigation
+      - **[Contacts on a CI](/6_1/itam_6_1/cmdb_6_1/contacts_on_ci_6_1)** - Managing contacts on a CI
       - **[CI Details and Tabs](/6_1/itam_6_1/cmdb_6_1/ci_details_and_tabs_6_1)** - Understanding CI details and navigation tabs
         - **Details** - CI details view
           - **[Manage CI](/6_1/itam_6_1/cmdb_6_1/manage_ci_6_1)** - Managing Configuration Items
@@ -389,8 +392,8 @@ IT Asset Management - Hardware and software asset tracking and management.
           - **[Attachments](/6_1/itam_6_1/cmdb_6_1/attachments_6_1)** - CI attachments
           - **[Comments](/6_1/itam_6_1/cmdb_6_1/comments_6_1)** - CI comments
       - **Other Functions and Page Elements** - Additional CMDB functions
-        - **[Sync Logs](/6_1/itsm_6_1/config_mngmt/sync_logs_6_1)** - Synchronization logs
-        - **[Tags](/6_1/admin_6_1/admin_sacm/process_tags_6_1)** - Managing tags
+        - **[Sync Logs](/6_1/itam_6_1/cmdb_6_1/sync_logs_6_1)** - Synchronization logs
+        - **[Tags](/6_1/itam_6_1/cmdb_6_1/tags_6_1)** - Managing tags
         - **[Audits](/6_1/itam_6_1/cmdb_6_1/audits_6_1)** - CMDB audits
 - **[Audits](/6_1/itam_6_1/audits_itam_6_1)** - Conducting asset audits
 - **[Asset License Entitlement](/6_1/itam_6_1/asset_lic_entitlement_6_1)** - Managing asset license entitlements
@@ -414,35 +417,35 @@ IT Asset Management - Hardware and software asset tracking and management.
 
 Security scanning and vulnerability remediation capabilities.
 
-- **[Core Functionality](/6_1/vulnerability_management_6_1/core_functionality_6_1)** - Core functionality features
-- **[Access Vulnerability Management](/6_1/vulnerability_management_6_1/access_vulnerability_management_6_1)** - Accessing vulnerability management
-- **[View Vulnerability Management](/6_1/vulnerability_management_6_1/view_vulnerability_management_6_1)** - Viewing vulnerability management
-- **[Best Practices](/6_1/vulnerability_management_6_1/best_practices_6_1)** - Best practices for vulnerability management
-- **[Limitations and Considerations](/6_1/vulnerability_management_6_1/limitations_considerations_6_1)** - Limitations and considerations
+- **[Core Functionality](/6_1/vulnerability_management-6_1/core_functionality_6_1)** - Core functionality features
+- **[Access Vulnerability Management](/6_1/vulnerability_management-6_1/access_vulnerability_management_6_1)** - Accessing vulnerability management
+- **[View Vulnerability Management](/6_1/vulnerability_management-6_1/view_vulnerability_management_6_1)** - Viewing vulnerability management
+- **[Best Practices](/6_1/vulnerability_management-6_1/best_practices_6_1)** - Best practices for vulnerability management
+- **[Limitations and Considerations](/6_1/vulnerability_management-6_1/limitations_considerations_6_1)** - Limitations and considerations
 
 ### Self Service
 
 Self Service Portal - End-user service catalog and request management.
 
-- **[Service Catalog](/6_1/self_service_6_1/service_catalog_6_1)** - Browsing service catalog
-- **[My Incidents](/6_1/self_service_6_1/my_incidents_6_1)** - Viewing personal incidents
-- **[My Requests](/6_1/self_service_6_1/my_requests_6_1)** - Viewing personal requests
+- **[Service Catalog](/6_1/self-service-6_1/service_catalog_6_1)** - Browsing service catalog
+- **[My Incidents](/6_1/self-service-6_1/my_incidents_6_1)** - Viewing personal incidents
+- **[My Requests](/6_1/self-service-6_1/my_requests_6_1)** - Viewing personal requests
 
 ### Program and Project Management
 
 Project planning, tracking, and portfolio management.
 
 - **Programs** - Managing programs
-  - **[Program Dashboard](/6_1/program-project-management_6_1/program_dashboard_6_1)** - Program dashboard
+  - **[Program Dashboard](/6_1/program-project-management-6_1/program_dashboard_6_1)** - Program dashboard
 - **Projects** - Managing projects
-  - **[Project Dashboard](/6_1/program-project-management_6_1/project_dashboard_6_1)** - Project dashboard
+  - **[Project Dashboard](/6_1/program-project-management-6_1/project_dashboard_6_1)** - Project dashboard
 
 ### Risk Register
 
 Risk identification, assessment, and mitigation.
 
-- **[Risk Dashboard](/6_1/risk_register_6_1/risk_dashboard_6_1)** - Risk dashboard
-- **[Risks](/6_1/risk_register_6_1/risks_6_1)** - Managing risks
+- **[Risk Dashboard](/6_1/risk-register-6_1/risk_dashboard_6_1)** - Risk dashboard
+- **[Risks](/6_1/risk-register-6_1/risks_6_1)** - Managing risks
 
 ### Reports
 

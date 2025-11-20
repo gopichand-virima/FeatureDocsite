@@ -1,130 +1,75 @@
 ---
-title: New User
-description: Use this function to add new users to the application.
-canonical: 'https://docs.virima.com/6_1/admin_6_1/admin_users/users_new_old_ui_6_1'
-keywords:
-  - New User
-  - New
-  - User
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: New Users
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # New User
 
 Use this function to add new users to the application.
 
-<div class="numlist1" madcap:autonum="1. ">
+ -- ----- ------------------------------------------------------------------------------------------------
+ 1. In the main window, select **Admin \> Users \> Users**. The Access Management window displays.
+ -- ----- ------------------------------------------------------------------------------------------------
 
-In the main window, select **Admin /> Users /> Users**. The Access Management window displays.
+ -- ----- -----------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **New Users**.
+ -- ----- -----------------------------------------------------------------
 
-</div>
+ -- ----- --------------------------------------------------
+ 3. Follow the information shown in the table below.
+ -- ----- --------------------------------------------------
 
-<div class="NumList2" madcap:autonum="2. ">
-
-From the *Select Actions* drop-down list, choose **New Users**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Follow the information shown in the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
+ -- ----- ------------------------------------------------------
+ 4. When all selections/entries are made, click **Add**.
+ -- ----- ------------------------------------------------------
 
 ## New User Details Fields
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/new-user-top-old.PNG" original-image-title="" style="width: 477px;height: 249px;"></span>
+![new user top old 477x249](../Resources/Images/Admin - Users/new-user-top-old_477x249.png)
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/new-user-middle-old.PNG" original-image-title="" style="width: 475px;height: 149px;"></span>
+![new user middle old 475x149](../Resources/Images/Admin - Users/new-user-middle-old_475x149.png)
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/new-user-lower-old.PNG" original-image-title="" style="width: 261px;height: 268px;"></span>
+![new user lower old 261x268](../Resources/Images/Admin - Users/new-user-lower-old_261x268.png)
 
-<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
-<thead>
-<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Email</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">User's email address.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold">Username</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">Username for logging into the system.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Is VIP</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p><span style="color: #000000;">Identifies a user for whom their tickets are given a 1-Priority, by default.</span></p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>If a VIP user is selected as a Reporter/Requester to raise an ITSM record, by default the priority of an ITSM record will be set to 1-Very High.</p></td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Is Active</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>When selected, the user is active in the application and perform the assigned activities.</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1">If unchecked, an Alert message: Sorry!!! Your access has been revoked will be displayed when user tries to login to the application.</td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Enable MFA</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>When checked, the user can set up MFA using the user's email or an authenticator app that adds secondary login verification for Virima.</p>
-<p>Once enabled, when logging in, an OTP is sent to the specified email if email is selected as the method and if the Authenticator App method is set, the application generates the OTP. This OTP has to be entered in the Virima login page for secondary verification.</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1">This checkbox will be enabled only after adding a new user record.</td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Authentications</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2" style="color: #dc143c"><p>Check based on your organization mode of authentication process. Choices are LDAP, AD, SAML, and Normal.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Password</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>The password associated with the username. The password must be validated by entering it a second time in the <strong>Re-Enter Password</strong> field. To display the password, click <strong>Show Password</strong>.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>User Information Fields</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Specifies the user's First and Last names, name to display when using the application, phone number and address.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Location</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Specifies the location of the user. Click <strong>Add</strong> and in the Location dialog box, search for and select the applicable location. If a location is not shown, it has not been set up in the application. <em>See also</em> <a href="../Common%20Topics/Advanced-Search.htm" target="_popup" style="font-style: italic;">Advanced Search</a>.</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><strong>For System Administrators</strong><em>. Refer to</em> <strong>Admin &gt; Organization Details</strong> <em>to specify Locations that will populate this list.</em></td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2"><p><strong>Roles</strong></p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><p>Assigns a role(s) to the user that allows the user to perform assigned responsibilities. Click Add and in the Roles dialog box, search for and select the applicable roles.</p></td>
-</tr>
-</tbody>
-</table>
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field | Description |
++=========================+==================================================================================================================================================================================================================================================================================================================================================+
+| Email | User\'s email address. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Username | Username for logging into the system. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Is VIP | [Identifies a user for whom their tickets are given a 1-Priority, by default.]{style="color: #000000;"} |
+| --- | --- |
+| | --- -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| | If a VIP user is selected as a Reporter/Requester to raise an ITSM record, by default the priority of an ITSM record will be set to 1-Very High. |
+| | --- -------------------------------------------------------------------------------------------------------------------------------------------------- |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Is Active | When selected, the user is active in the application and perform the assigned activities. |
+| --- | --- |
+| | --- -------------------------------------------------------------------------------------------------------------------------------------- |
+| | If unchecked, an Alert message: Sorry!!! Your access has been revoked will be displayed when user tries to login to the application. |
+| | --- -------------------------------------------------------------------------------------------------------------------------------------- |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Enable MFA | When checked, the user can set up MFA using the user\'s email or an authenticator app that adds secondary login verification for Virima. |
+| --- | --- |
+| | Once enabled, when logging in, an OTP is sent to the specified email if email is selected as the method and if the Authenticator App method is set, the application generates the OTP. This OTP has to be entered in the Virima login page for secondary verification. |
+| | |
+| | --- -------------------------------------------------------------------- |
+| | This checkbox will be enabled only after adding a new user record. |
+| | --- -------------------------------------------------------------------- |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Authentications | Check based on your organization mode of authentication process. Choices are LDAP, AD, SAML, and Normal. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Password | The password associated with the username. The password must be validated by entering it a second time in the **Re-Enter Password** field. To display the password, click **Show Password**. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| User Information Fields | Specifies the user\'s First and Last names, name to display when using the application, phone number and address. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Location | Specifies the location of the user. Click **Add** and in the Location dialog box, search for and select the applicable location. If a location is not shown, it has not been set up in the application. *See also* [Advanced Search](../Common%20Topics/Advanced-Search.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}. |
+| --- | --- |
+| | --- ---------------------------------------------------------------------------------------------------------------------------------- |
+| | **For System Administrators***. Refer to* **Admin \> Organization Details** *to specify Locations that will populate this list.* |
+| | --- ---------------------------------------------------------------------------------------------------------------------------------- |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Roles** | Assigns a role(s) to the user that allows the user to perform assigned responsibilities. Click Add and in the Roles dialog box, search for and select the applicable roles. |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

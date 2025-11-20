@@ -1,165 +1,82 @@
 ---
+lang: en-us
 title: Add New Property
-description: >-
-  Use this function to add a new field under a selected property group. The
-  added property is added to the selected CI's blueprint. *Refer to [Details -
-  Add
-  Property](../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/Details-Ad...
-canonical: 'https://docs.virima.com/6_1/admin_6_1/admin_sacm/add_new_property_6_1'
-keywords:
-  - Add New Property
-  - Add
-  - New
-  - Property
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Add New Property
 
-Use this function to add a new field under a selected property group. The added property is added to the selected CI's blueprint. *Refer to [Details - Add Property](../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/Details-Add-Property.htm).*
+Use this function to add a new field under a selected property group. The added property is added to the selected CI\'s blueprint. *Refer to [Details - Add Property](../ITSM/Config%20Mngmt/Config%20Items/Config%20Item%20Details/Details-Add-Property.mdx).*
 
-|     |                                                                                                                             |
-|-----|-----------------------------------------------------------------------------------------------------------------------------|
-|     | Depending on which option you select--*Add Manually* or *Import from Excel*--the dialog box displays with different fields. |
+ --- -------------------------------------------------------------------------------------------------------------------------------
+   Depending on which option you select\--*Add Manually* or *Import from Excel*\--the dialog box displays with different fields.
+ --- -------------------------------------------------------------------------------------------------------------------------------
 
-<div class="numlist1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------------
+ 1. In the main window, click **Admin \> SACM \> Add New Property**. The Add New Property dialog box displays. By default, *Add Manually* is selected.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-In the main window, click **Admin /> SACM /> Add New Property**. The Add New Property dialog box displays. By default, *Add Manually* is selected.
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Manually](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-</div>
+ -- ----- ------------------------------------------------------------------------------------------------------------------
+ 1. In the Add New Property dialog box, click **Add Manually** and complete the fields according to the table below.
+ -- ----- ------------------------------------------------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- ------------------------------------------------------
+ 2. When all selections/entries are made, click **Add**.
+ -- ----- ------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/add-new-property.png" original-image-title="" style="width: 428px;height: 369px;"></span>
+ -- ----- ------------------------------------------------------------------------
+ 3. If the information is valid, a success message displays. Click **OK**.
+ -- ----- ------------------------------------------------------------------------
 
-</div>
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Field | Description |
++=================+====================================================================================================================+
+| Property Name | Name to assign to the field. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Property Group | Specifies the group in which the field should display. Click the drop-down list and select from the options given. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Property Type | Defines the type of property, such as string, integer, or data. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Blueprints\ | Specifics which blueprints apply to which property. |
+| All Blueprints | |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Possible Values | Designates what values will be show as an option in the Property Type field. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Is Mandatory | Indicates a field value is required. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Is Private | When marked as private, the property is only visible for certain users, groups, roles, or departments. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Is Main | Specifies that the property displays in the Main Properties area of the applicable windows. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
+| Is Integrity | Highlights the properties that should always be kept up-to-date based on which CI confidence/rank is calculated. |
++-----------------+--------------------------------------------------------------------------------------------------------------------+
 
-<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" from Excel](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-In the main window, click the **gear** icon and select **SACM /> Add New Property**. The Add New Property dialog box displays. By default, *Add Manually* is selected.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------
+ 1. In the Add New Property dialog box, click **Import from Excel**. The Add New Property dialog box refreshes and displays a new set of fields.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------
 
-</div>
+::: {.Ind50
+![add new property import excel 399x196](../Resources/Images/Admin - SACM/add-new-property-import-excel_399x196.png)
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+::: {.Ind50
+![add new property import excel new 399x281](../Resources/Images/Admin - SACM/add-new-property-import-excel-new_399x281.png)
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/add-new-property-new-ui.PNG" original-image-title="" style="width: 378px;height: 495px;"></span>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------
+ 2. To view a sample file, select **Click here to download sample file**. A sample file may look similar to the following:
+ -- ----- ------------------------------------------------------------------------------------------------------------------------
 
-</div>
+::: Ind50
+![add new prop excel template 631x81](../Resources/Images/Admin - SACM/add-new-prop-excel-template_631x81.png)
 
-<div class="NumList2" madcap:autonum="2. ">
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------------
+ 3. In the *Import property* field, click **Browse** and select an allowed file type (such as .xls, xlsx). The name of the file is shown in the field.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-Refer to the instructions below for manually adding or importing a property.
+ -- ----- --------------------------------------------------------------
+ 4. Click **Upload**. The file is uploaded into the application.
+ -- ----- --------------------------------------------------------------
 
-</div>
-
-Add Manually
-
-<div class="NumList1" madcap:autonum="1. ">
-
-In the Add New Property dialog box, click **Add Manually** and complete the fields according to the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-If the information is valid, a success message displays. Click **OK**.
-
-</div>
-
-<table class="TableStyle-Alternate-Row-Color-Indent" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Indent.css&#39;);" data-cellspacing="21">
-<thead>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Head-Header1">
-<th class="TableStyle-Alternate-Row-Color-Indent-HeadE-Column1-Header1">Field</th>
-<th class="TableStyle-Alternate-Row-Color-Indent-HeadD-Column1-Header1">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body1" style="font-weight: bold"><p>Property Name</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body1"><p>Name to assign to the field.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body2" style="font-weight: bold"><p>Property Group</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body2"><p>Specifies the group in which the field should display. Click the drop-down list and select from the options given.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body1" style="font-weight: bold"><p>Property Type</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body1"><p>Defines the type of property, such as string, integer, or data.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body2" style="font-weight: bold"><p>Blueprints<br />
-All Blueprints</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body2"><p>Specifics which blueprints apply to which property.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body1" madcap:conditions="Default.OldUI">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body1" style="font-weight: bold"><p>Possible Values</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body1"><p>Designates what values will be show as an option in the Property Type field.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body2" style="font-weight: bold"><p>Is Mandatory</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body2"><p>Indicates a field value is required.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body1" style="font-weight: bold"><p>Is Private</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body1"><p>When marked as private, the property is only visible for certain users, groups, roles, or departments.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyE-Column1-Body2" style="font-weight: bold"><p>Is Main</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyD-Column1-Body2">Specifies that the property displays in the Main Properties area of the applicable windows.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Indent-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyB-Column1-Body1" style="font-weight: bold"><p>Is Integrity</p></td>
-<td class="TableStyle-Alternate-Row-Color-Indent-BodyA-Column1-Body1"><p>Highlights the properties that should always be kept up-to-date based on which CI confidence/rank is calculated.</p></td>
-</tr>
-</tbody>
-</table>
-
-Import from Excel
-
-<div class="NumList1" madcap:autonum="1. ">
-
-In the Add New Property dialog box, click **Import from Excel**. The Add New Property dialog box refreshes and displays a new set of fields.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/add-new-property-import-excel.PNG" original-image-title="" style="width: 399px;height: 196px;"></span>
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/add-new-property-import-excel-new.PNG" original-image-title="" style="width: 399px;height: 281px;"></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-To view a sample file, select **Click here to download sample file**. A sample file may look similar to the following:
-
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20SACM/add-new-prop-excel-template.PNG" original-image-title="" style="width: 631px;height: 81px;"></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-In the *Import property* field, click **Browse** and select an allowed file type (such as .xls, xlsx). The name of the file is shown in the field.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Click **Upload**. The file is uploaded into the application.
-
-</div>

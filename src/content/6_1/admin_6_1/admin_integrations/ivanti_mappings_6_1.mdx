@@ -1,202 +1,128 @@
 ---
+lang: en-us
 title: Ivanti Mappings
-description: >-
-  Use this function to map properties between a Virima Blueprint and an Ivanti
-  CI Type.
-canonical: 'https://docs.virima.com/6_1/admin_6_1/admin_integrations/ivanti_mappings_6_1'
-keywords:
-  - Ivanti Mappings
-  - Ivanti
-  - Mappings
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Ivanti Mappings
 
 Use this function to map properties between a Virima Blueprint and an Ivanti CI Type.
 
-|     |                                                                                                      |
-|-----|------------------------------------------------------------------------------------------------------|
-|     | There must be a [Ivanti Credential](Ivanti-Credentials.htm) configured before a mapping can be done. |
+ --- ------------------------------------------------------------------------------------------------------
+   There must be a [Ivanti Credential](Ivanti-Credentials.mdx) configured before a mapping can be done.
+ --- ------------------------------------------------------------------------------------------------------
 
-In the main window, select **Admin /> Integrations /> Ivanti Mappings**.
+In the main window, select **Admin \> Integrations \> Ivanti Mappings**.
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/ivanti-mapping-main-6.1.PNG" original-image-title=""></span>
+![ivanti mapping main 6.1](../Resources/Images/Admin - Integration/ivanti-mapping-main-6.1.PNG)
 
-New Mapping
+![arrow border](../Resources/Images/arrow-border.PNG)
 
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mapping](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-From the *Select Actions* drop-down list, choose **New Ivanti Mapping**.
+ -- ----- --------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **New Ivanti Mapping**.
+ -- ----- --------------------------------------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mappings](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- ---------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **Clone Mapping**.
+ -- ----- ---------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Integration/ivanti-New_mapping-6.1.png" original-image-title=""></span>
+ -- ----- -------------------------------------------------------------
+ 2. Use the checkboxes to select the records you want to clone.
+ -- ----- -------------------------------------------------------------
 
-</div>
+ -- ----- -----------------------------------------------------------------
+ 3. The selected mappings will be duplicated and added to the list.
+ -- ----- -----------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="2. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Metadata](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-From the drop-down lists, select the *Ivanti CI Type*, *SubType* and *Category*.
+ -- ----- ------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **Re-Sync Metadata**.
+ -- ----- ------------------------------------------------------------------------
 
-</div>
+ -- ----- ---------------------------------------------------------------
+ 2. Use the checkboxes to select the records you want to re-sync.
+ -- ----- ---------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="3. ">
+ -- ----- ------------------------------------------------------------------------------------------------------
+ 3. This action will re-pull the latest metadata and mapping details from the connected Ivanti instance.
+ -- ----- ------------------------------------------------------------------------------------------------------
 
-Click **Add New Sub Type**, Add New Ivanti Sub Type window displays.
+ -- ----- -------------------------------------------------------------------------------------------------
+ 4. It ensures that any recent updates or changes in Ivanti are accurately reflected in the system.
+ -- ----- -------------------------------------------------------------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mapping](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumList2" madcap:autonum="4. ">
+ -- ----- ---------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **Reset Mapping**.
+ -- ----- ---------------------------------------------------------------------
 
-Search and select the new sub Ivanti sub type.
+ -- ----- -------------------------------------------------------------
+ 2. Use the checkboxes to select the records you want to Reset.
+ -- ----- -------------------------------------------------------------
 
-</div>
+ -- ----- ---------------------------------------------------------------------
+ 3. This action will reset all mappings to their default configuration.
+ -- ----- ---------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="5. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mapping](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-**Is Enabled** status indicates whether the mapping is active (true/false). A blueprint will only copy from Virima to Ivanti if its mapping has the "Is Enabled" status set to True.
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="6. ">
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-For the **Virima Blueprint**, enter a *Property* and *Operator*.
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-</div>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-<div class="NumList2" madcap:autonum="7. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mapping](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-Choose the *Virima Blueprint* from those available in the drop-down list.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-</div>
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-<div class="NumList2" madcap:autonum="8. ">
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-To include additional property mapping(s), click "and" or "or" and enter the additional mapping details.
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-</div>
+::: Bullet1
+[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="NumList2" madcap:autonum="9. ">
+::: Bullet1
+[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-Under Ivanti Property Mappings:
+::: Bullet1
+[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Go To Page](../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="NumLista" madcap:autonum="a. ">
+::: Bullet1
+[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-Click **Add**.
+::: Bullet1
+[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
-
-<div class="numListb" madcap:autonum="b. ">
-
-From the drop-down lists, select the *Virima* and *Ivanti Properties*.
-
-</div>
-
-<div class="numListb" madcap:autonum="c. ">
-
-Enter a property *Value*.
-
-</div>
-
-<div class="numListb" madcap:autonum="d. ">
-
-Check to apply the *Correlator* option.
-
-</div>
-
-<div class="numListb" madcap:autonum="e. ">
-
-When you select Correlator, it checks for duplicates. Only one value will be copied or moved. If duplicates include empty values, the sync will fail for that property.
-
-</div>
-
-<div class="numListb" madcap:autonum="f. ">
-
-Check to apply the *Reverse Sync* option.
-
-</div>
-
-<div class="numListb" madcap:autonum="g. ">
-
-Select the Reverse Sync option if you want to copy values from Ivanti to Virima for the mapped property during synchronization.
-
-</div>
-
-<div class="NumList2" madcap:autonum="10. ">
-
-When all selections/entries are made, click the **Add** button.
-
-</div>
-
-Clone Mappings
-
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
-
-From the *Select Actions* drop-down list, choose **Clone Mapping**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
-
-Use the checkboxes to select the records you want to clone.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
-
-The selected mappings will be duplicated and added to the list.
-
-</div>
-
-Re-Sync Metadata
-
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
-
-From the *Select Actions* drop-down list, choose **Re-Sync Metadata**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
-
-Use the checkboxes to select the records you want to re-sync.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
-
-This action will re-pull the latest metadata and mapping details from the connected Ivanti instance.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="4. ">
-
-It ensures that any recent updates or changes in Ivanti are accurately reflected in the system.
-
-</div>
-
-Reset Mapping
-
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
-
-From the *Select Actions* drop-down list, choose **Reset Mapping**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
-
-Use the checkboxes to select the records you want to Reset.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
-
-This action will reset all mappings to their default configuration.
-
-</div>
-
-Edit Mapping Delete Mapping

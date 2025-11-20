@@ -1,65 +1,33 @@
 ---
+lang: en-us
 title: Packages
-description: Use this function to view the packages installed on a Unix server.
-canonical: >-
-  https://docs.virima.com/6_1/itsm_6_1/config_mngmt/config_items/config_item_components/packages_6_1
-keywords:
-  - Packages
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Packages
+
+ --- -------------------------------------------------------------------------------------------------------------
+   This function is only available with certain asset types. Therefore, the relevant tab may not be displayed.
+ --- -------------------------------------------------------------------------------------------------------------
 
 Use this function to view the packages installed on a Unix server.
 
-<div class="NumList2" madcap:autonum="1. ">
+ -- ----- --------------------------------------------------------------------------
+ 1. In the main window, select **ITSM \> Configuration Management \> CMDB**.
+ -- ----- --------------------------------------------------------------------------
 
-Click **Packages**.
+ -- ----- ----------------------------------------------------
+ 2. Search for and select the applicable asset record.
+ -- ----- ----------------------------------------------------
 
-</div>
+ -- ----- ----------------------------------------------------------------------
+ 3. When the asset record window displays, click the **Components** tab.
+ -- ----- ----------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- ---------------------
+ 4. Click **Packages**.
+ -- ----- ---------------------
 
-<span class="image placeholder" original-image-src="../../../../Resources/Images/Components/packages-subcomp-old.PNG" original-image-title=""></span>
+::: Bullet1
+[Saved Filters](../../../../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-If applicable, click **Mark as Major Software** to identify this as a major software.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-In the New Major Software window, complete the fields, referring the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../../../../Resources/Images/Components/packages-new-major-software.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
-
-</div>
-
-### New Major Software Fields
-
-| Field                                 | Description and Action                                                                             |
-|---------------------------------------|----------------------------------------------------------------------------------------------------|
-| Name                                  | Name to identify the software.                                                                     |
-| Operating System                      | Select **Windows**, **Unix/Linux** or **Both**. Based on this selection, the fields will vary.     |
-| Version                               | Version of the software (such as 10 for Windows 10).                                               |
-| Major Software Name for Windows       | Name of the software. This must match the name Windows has associated with the software.           |
-| Config File for Windows               | The configuration for Windows.                                                                     |
-| Search Directory Windows              | Location of the software path.                                                                     |
-| Monitor this software for Windows     | When agent installed, agent knows the software has to be tracked for usage.                        |
-| Installed Path of Software in Windows | Location where the software is installed. This must be a valid path.                               |
-| Major Software Name for Unix/Linux    | Name of the software. This must match the name either Unix/Linux has associated with the software. |
-| Config File Unix/Linux                | Identifies the configuration for Unix/Linux.                                                       |
-| Search Directory Unix/Linux           | Location of the software path.                                                                     |

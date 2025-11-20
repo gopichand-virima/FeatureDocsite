@@ -1,93 +1,67 @@
 ---
+lang: en-us
 title: Merge CI
-description: Use this function to merge data between CIs having the same blueprint.
-canonical: >-
-  https://docs.virima.com/6_1/itsm_6_1/config_mngmt/config_items/config_item_details/details_merge_ci_6_1
-keywords:
-  - Merge CI
-  - Merge
-  - Ci
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Merge CI
 
 Use this function to merge data between CIs having the same blueprint.
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- -----------------------------------------------------------------------------------------------------------------------
+ 1. In the navigation pane, select **ITSM \> Configuration Management \> CMDB**. The Configuration Items window displays.
+ -- ----- -----------------------------------------------------------------------------------------------------------------------
 
-In the navigation pane, select **ITSM /> Configuration Management /> CMDB**. The Configuration Items window displays.
+ -- ----- ---------------------------------------------------------------------------------------
+ 2. Select the record for which you want to add a detail property. A new window displays.
+ -- ----- ---------------------------------------------------------------------------------------
 
-</div>
+ -- ----- --------------------------------------------------------------------------------------------------
+ 3. From the *Select Actions* drop-down list, select **Merge CI**. The Merge CI dialog box displays.
+ -- ----- --------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="2. ">
+::: Ind50
+![merge ci 435x293](../../../../Resources/Images/ITSM/merge-ci_435x293.png)
 
-Select the record for which you want to add a detail property. A new window displays.
+ -- ----- ------------------------------------------------
+ 4. Click either **Merge Into** or **Merge From**.
+ -- ----- ------------------------------------------------
 
-</div>
+ -- ----- --------------------------------
+ 5. If **Merge Into** is selected:
+ -- ----- --------------------------------
 
-<div class="NumList2" madcap:autonum="3. ">
+::: Bullet2
+The current CI properties are copied to the selected CI properties IF the selected the CI properties don't have a value.
 
-From the *Select Actions* drop-down list, select **Merge CI**. The Merge CI dialog box displays.
-
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../../../../Resources/Images/ITSM/merge-ci.PNG" original-image-title="" style="width: 435px;height: 293px;"></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Click either **Merge Into** or **Merge From**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-If **Merge Into** is selected:
-
-</div>
-
-<div class="Bullet2">
-
-The current CI properties are copied to the selected CI properties IF the selected the CI properties don’t have a value.
-
-</div>
-
-<div class="Bullet2">
-
+::: Bullet2
 All the components and attachments of the current CI will be copied to the selected CI and the current CI will be archived.
 
-</div>
+ -- ----- --------------------------------
+ 6. If **Merge From** is selected:
+ -- ----- --------------------------------
 
-<div class="NumList2" madcap:autonum="6. ">
+::: Bullet2
+The selected CI properties are copied to the current CI properties IF the current CI properties don't have a value.
 
-If **Merge From** is selected:
-
-</div>
-
-<div class="Bullet2">
-
-The selected CI properties are copied to the current CI properties IF the current CI properties don’t have a value.
-
-</div>
-
-<div class="Bullet2">
-
+::: Bullet2
 All the components and attachments of the selected CI will be copied to the current CI and the selected CI will be archived.
 
-</div>
+ -- ----- -------------------------------------------------
+ 7. In the field, type the applicable asset number.
+ -- ----- -------------------------------------------------
 
-<div class="NumList2" madcap:autonum="7. ">
+ -- ----- -----------------
+ 8. Click **Save**.
+ -- ----- -----------------
 
-In the field, type the applicable asset number.
+ 
 
-</div>
+**Related Topics**
 
-<div class="NumList2" madcap:autonum="8. ">
+::: Bullet1
+[Configuration Items](Config-Items.mdx)
 
-Click **Save**.
+::: Bullet1
+[New Configuration Item](../Config-Item-New.mdx)
 
-</div>

@@ -3,7 +3,7 @@ title: Manage CI (Select Action inside CI)
 description: >-
   Within the CI record, the Select Actions menu provides several advanced tools
   and functions:
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/cmdb_6_1/manage_ci_6_1'
+canonical: 'https://docs.virima.com/6_1/cmdb_6_1/manage_ci_6_1'
 keywords:
   - Manage CI (Select Action inside CI)
   - Manage
@@ -13,288 +13,233 @@ keywords:
   - Inside
 lastUpdated: '2025-11-18'
 ---
-# Manage CI (Select Action inside CI)
 
-Within the CI record, the <span class="Strong">Select Actions</span> menu provides several advanced tools and functions:
+# Manage CI (Select Action inside CI) 
 
-<span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_38.png" original-image-title=""></span>
+Within the CI record, the **Select Actions** menu provides several advanced tools and functions:
 
-|                                                                   |                                                                                           |
-|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| <span class="Strong" style="font-weight: bold;">Action</span>     | <span class="Strong" style="font-weight: bold;">Description</span>                        |
-| <span class="Strong">Add Property</span>                          | Add a new custom property field to the CI                                                 |
-| <span class="Strong">Copy to Ivanti</span>                        | Transfer the CI, its components, and relationships to Ivanti for external ITSM management |
-| <span class="Strong">Copy to Jira</span>                          | Send the CI, its components, and relationships to Jira for tracking and integration       |
-| <span class="Strong">Copy to ServiceNow</span>                    | Sync the CI, its components, and relationships with ServiceNow ITSM                       |
-| <span class="Strong">Delete</span>                                | Permanently remove the CI from the CMDB                                                   |
-| <span class="Strong">Disable Editing</span>                       | Locks the CI from being manually modified (typically used for syncing assets)             |
-| <span class="Strong">Mark As Knowledge</span>                     | Convert the CI into a reusable knowledge asset                                            |
-| <span class="Strong">Merge CI</span>                              | Merge duplicate or related CIs into a single record                                       |
-| <span class="Strong">Release Hierarchy</span>                     | View or manage release-related dependencies                                               |
-| <span class="Strong" style="font-weight: bold;">Rescan Now</span> | Trigger an immediate re-scan of the CI via the available probe                            |
+![Configuration Management Database 38](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_38.png)
 
-# Add Property
+ -------------------------------------------------- -------------------------------------------------------------------------------------------
+ **Action** **Description**
+ **Add Property** Add a new custom property field to the CI
+ **Copy to Ivanti** Transfer the CI, its components, and relationships to Ivanti for external ITSM management
+ **Copy to Jira** Send the CI, its components, and relationships to Jira for tracking and integration
+ **Copy to ServiceNow** Sync the CI, its components, and relationships with ServiceNow ITSM
+ **Delete** Permanently remove the CI from the CMDB
+ **Disable Editing** Locks the CI from being manually modified (typically used for syncing assets)
+ **Mark As Knowledge** Convert the CI into a reusable knowledge asset
+ **Merge CI** Merge duplicate or related CIs into a single record
+ **Release Hierarchy** View or manage release-related dependencies
+ **Rescan Now** Trigger an immediate re-scan of the CI via the available probe
+ -------------------------------------------------- -------------------------------------------------------------------------------------------
+
+# Add Property 
 
 Use this to add additional fields to a Configuration Item.
 
-1.  In the CI, Click <span class="Strong" style="font-weight: bold;">Select Actions</span>, and then select <span class="Strong">Add Property</span>.
+1. In the CI, Click **Select Actions**, and then select **Add Property**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_39.png" original-image-title=""></span>
+ ![Configuration Management Database 39](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_39.png)
 
-<!-- -->
+2. In the **Add Property** dialog:
 
-2.  In the <span class="Strong" style="font-weight: bold;">Add Property</span> dialog:
+ - Use **Search for properties** to find a field.
 
-    - Use <span class="Strong" style="font-weight: bold;">Search for properties</span> to find a field.
+ - Expand a group (e.g., *Application Details*) and **check** the properties you want.
 
-    - Expand a group (e.g., <span class="Emphasis">Application Details</span>) and <span class="Strong">check</span> the properties you want.
+ ![Configuration Management Database 40](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_40.png)
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_40.png" original-image-title=""></span>
+3. Click **Add**, then **Save** on the CI.
 
-<!-- -->
+# Copy to Ivanti 
 
-3.  Click <span class="Strong" style="font-weight: bold;">Add</span>, then <span class="Strong" style="font-weight: bold;">Save</span> on the CI.
+Copy a CMDB record from Virima to **Ivanti Service Manager** as an Asset/CI.\
+If the CI already exists in Ivanti (based on your mapping key), it's **updated**; otherwise, a **new** record is created.
 
-# Copy to Ivanti
+1. Click **Select Actions, **and then select **Copy to Ivanti**.
 
-Copy a CMDB record from Virima to <span class="Strong">Ivanti Service Manager</span> as an Asset/CI.  
-If the CI already exists in Ivanti (based on your mapping key), it’s <span class="Strong">updated</span>; otherwise, a <span class="Strong">new</span> record is created.
+ ![Configuration Management Database 41](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_41.png)
 
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select <span class="Strong" style="font-weight: bold;">Copy to Ivanti</span>.
+2. In the confirmation dialog, click **Yes** to proceed.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_41.png" original-image-title=""></span>
+3. The system displays the **Success** message: "**Records will be moved in the background**."
 
-<!-- -->
+4. Open Ivanti Service Manager and confirm the Asset/CI was **created/updated** with mapped fields.
 
-2.  In the confirmation dialog, click <span class="Strong" style="font-weight: bold;">Yes</span> to proceed.
+# Copy to Jira 
 
-    - A “Processing, please wait” indicator appears; the job runs <span class="Strong">in the background</span>.
+Copy a CMDB record from Virima to **Jira** as a tracked asset/CI.\
+If the CI already exists in Jira (based on your mapping key), it's **updated**; otherwise, a **new** record is created.
 
-<span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_42.png" original-image-title=""></span>
+1. Click **Select Actions, **and then select **Copy to Jira**.
 
-3.  The system displays the <span class="Strong" style="font-weight: bold;">Success</span> message: “**Records will be moved in the background**.”
+ ![Configuration Management Database 44](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_44.png)
 
-<span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_43.png" original-image-title=""></span>
+2. In the confirmation dialog, click **Yes** to proceed.
 
-4.  Open Ivanti Service Manager and confirm the Asset/CI was <span class="Strong">created/updated</span> with mapped fields.
+ - A \"Processing, please wait\" indicator appears; the job runs **in the background**.
 
-# Copy to Jira
+3. The system displays the **Success** message: \"**Records will be moved in the background**.\"
 
-Copy a CMDB record from Virima to <span class="Strong">Jira</span> as a tracked asset/CI.  
-If the CI already exists in Jira (based on your mapping key), it’s <span class="Strong">updated</span>; otherwise, a <span class="Strong">new</span> record is created.
+4. Open Jira and confirm the Asset/CI was **created/updated** with mapped fields.
 
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select <span class="Strong" style="font-weight: bold;">Copy to Jira</span>.
+# Copy to Service Now 
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_44.png" original-image-title=""></span>
+Copy a CMDB record from Virima to **Service Now** as a tracked asset/CI.\
+If the CI already exists in Jira (based on your mapping key), it\'s **updated**; otherwise, a **new** record is created.
 
-<!-- -->
+1. Click **Select Actions, **and then select **Copy to ServiceNow**.
 
-2.  In the confirmation dialog, click <span class="Strong" style="font-weight: bold;">Yes</span> to proceed.
+2. In the confirmation dialog, click **Yes** to proceed.
 
-    - A "Processing, please wait" indicator appears; the job runs <span class="Strong">in the background</span>.
+3. The system displays the **Success** message: \"**Records will be moved in the background**.\"
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_42.png" original-image-title=""></span>
+4. Open ServiceNow and confirm the Asset/CI was **created/updated** with mapped fields.
 
-<!-- -->
+# Delete 
 
-3.  The system displays the <span class="Strong" style="font-weight: bold;">Success</span> message: "**Records will be moved in the background**."
+Permanently remove a Configuration Item (CI) from the **CMDB**
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_43.png" original-image-title=""></span>
+1. Click **Select Actions, **and then select **Delete**.
 
-<!-- -->
+ ![Configuration Management Database 46 672x249](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_46_672x249.png)
 
-4.  Open Jira and confirm the Asset/CI was <span class="Strong">created/updated</span> with mapped fields.
+2. In the confirmation dialog, review the warning and click **Delete **to proceed.
 
-# Copy to Service Now
+3. A success message confirms the request. The CI and all its CMDB relationships are removed from the active CMDB view and cannot be used in further operations.
 
-Copy a CMDB record from Virima to <span class="Strong">Service Now</span> as a tracked asset/CI.  
-If the CI already exists in Jira (based on your mapping key), it's <span class="Strong">updated</span>; otherwise, a <span class="Strong">new</span> record is created.
+# Disable Editing 
 
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select <span class="Strong" style="font-weight: bold;">Copy to ServiceNow</span>.
+Lock a CI so its fields can't be modified (read-only). Use this to preserve a validated record or prevent unauthorized changes.
 
-2.  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_45.png" original-image-title=""></span>
+1. Click ****Select Actions**, **and then select** Disable Editing**.
 
-<!-- -->
+ ![Configuration Management Database 47](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_47.png)
 
-2.  In the confirmation dialog, click <span class="Strong" style="font-weight: bold;">Yes</span> to proceed.
+2. In the confirmation dialog, review the message and click **Yes **to confirm.
 
-    - A "Processing, please wait" indicator appears; the job runs <span class="Strong">in the background</span>.
+3. The CI switches to **read-only**: form fields, attachments, and properties cannot be edited or saved.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_42.png" original-image-title=""></span>
+ ![Configuration Management Database 49](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_49.png)
 
-<!-- -->
+4. The record remains visible in searches, reports, BSM, and relationships (nothing is deleted).
 
-3.  The system displays the <span class="Strong" style="font-weight: bold;">Success</span> message: "**Records will be moved in the background**."
+5. To make changes later, use **Select Actions ▸ Enable Editing**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_43.png" original-image-title=""></span>
+ ![Configuration Management Database 50](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_50.png)
 
-<!-- -->
-
-4.  Open ServiceNow and confirm the Asset/CI was <span class="Strong">created/updated</span> with mapped fields.
-
-# Delete
-
-Permanently remove a Configuration Item (CI) from the <span class="Strong">CMDB</span>
-
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select <span class="Strong" style="font-weight: bold;">Delete</span>.
-
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_46.png" original-image-title=""></span>
-
-<!-- -->
-
-2.  In the confirmation dialog, review the warning and click <span class="Strong" style="font-weight: bold;">Delete </span>to proceed.
-
-3.  A success message confirms the request. The CI and all its CMDB relationships are removed from the active CMDB view and cannot be used in further operations.
-
-# Disable Editing
-
-Lock a CI so its fields can’t be modified (read-only). Use this to preserve a validated record or prevent unauthorized changes.
-
-1.  Click <span class="Strong">**Select Actions**, </span>and then select<span class="Strong" style="font-weight: bold;"> Disable Editing</span>.
-
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_47.png" original-image-title=""></span>
-
-<!-- -->
-
-2.  In the confirmation dialog, review the message and click <span class="Strong" style="font-weight: bold;">Yes </span>to confirm.
-
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_48.png" original-image-title=""></span>
-
-<!-- -->
-
-3.  The CI switches to <span class="Strong">read-only</span>: form fields, attachments, and properties cannot be edited or saved.
-
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_49.png" original-image-title=""></span>
-
-<!-- -->
-
-4.  The record remains visible in searches, reports, BSM, and relationships (nothing is deleted).
-
-5.  To make changes later, use <span class="Strong" style="font-weight: bold;">Select Actions ▸ Enable Editing</span>.
-
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_50.png" original-image-title=""></span>
-
-# Mark as Knowledge
+# Mark as Knowledge 
 
 Publish the current CI as a knowledge entry so it can be referenced in Knowledge Management. The CI stays in CMDB; this action creates/updates a linked knowledge record.
 
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select<span class="Strong" style="font-weight: bold;"> Mark As Knowledge</span>.
+1. Click **Select Actions, **and then select** Mark As Knowledge**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_51.png" original-image-title=""></span>
+ ![Configuration Management Database 51](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_51.png)
 
-<!-- -->
+2. In the confirmation dialog (or metadata form, if prompted), review and click **Yes **to confirm.
 
-2.  In the confirmation dialog (or metadata form, if prompted), review and click <span class="Strong">Yes </span>to confirm.
+3. A knowledge article is created or updated and linked to the CI.
 
-3.  A knowledge article is created or updated and linked to the CI.
+# Merge CI 
 
-# Merge CI
+Combine duplicate CIs into a single "master" record so relationships, history, and other references are consolidated, and you don't manage the same asset twice.
 
-Combine duplicate CIs into a single “master” record so relationships, history, and other references are consolidated, and you don’t manage the same asset twice.
+1. Open the CI you want to keep (the master) in CMDB.
 
-1.  Open the CI you want to keep (the master) in CMDB.
+2. Click **Select Actions, **and then select **Merge CI**.\
+ The **Merge CI** dialog opens.
 
-2.  Click <span class="Strong" style="font-weight: bold;">Select Actions, </span>and then select <span class="Strong" style="font-weight: bold;">Merge CI</span>.  
-    The <span class="Strong" style="font-weight: bold;">Merge CI</span> dialog opens.
+3. Choose how to merge:
 
-3.  Choose how to merge:
+ - **Merge Into** *(recommended)* -- Merge **another** CI **into the currently open** CI (this record stays as master).
 
-    - <span class="Strong">Merge Into</span> <span class="Emphasis">(recommended)</span> – Merge <span class="Strong">another</span> CI <span class="Strong">into the currently open</span> CI (this record stays as master).
+ - **Merge From** -- Merge **the current CI** into **another** CI (the other record becomes master).
 
-    - <span class="Strong">Merge From</span> – Merge <span class="Strong">the current CI</span> into <span class="Strong">another</span> CI (the other record becomes master).
+4. In the **Search** box (or **Advanced Search**), find and select the counterpart CI to merge.
 
-4.  In the <span class="Strong" style="font-weight: bold;">Search</span> box (or <span class="Strong" style="font-weight: bold;">Advanced Search</span>), find and select the counterpart CI to merge.
+5. Click **Add**, then confirm when prompted.
 
-5.  Click <span class="Strong" style="font-weight: bold;">Add</span>, then confirm when prompted.
+6. The system displays a success message.
 
-6.  The system displays a success message.
+7. The **master** CI is retained; its **Asset ID** and primary identity remain unchanged.
 
-7.  The <span class="Strong">master</span> CI is retained; its <span class="Strong">Asset ID</span> and primary identity remain unchanged.
+ - Where supported, **relationships, references, and other mergeable data** from the secondary CI are consolidated into the master.
 
-    - Where supported, <span class="Strong">relationships, references, and other mergeable data</span> from the secondary CI are consolidated into the master.
+ - The **secondary** (merged-from) CI is removed from active CMDB views and can no longer be used in operations.
 
-    - The <span class="Strong">secondary</span> (merged-from) CI is removed from active CMDB views and can no longer be used in operations.
-
-# Release Hierarchy
+# Release Hierarchy 
 
 Visualize how the current CI participates in a Release. The view lays out the end-to-end chain (CI → Release → Phase → Activity → Task). You can confirm scope, ownership, and impact without drilling through multiple records.
 
-1.  Click <span class="Strong" style="font-weight: bold;">Select Actions </span>and then Choose <span class="Strong" style="font-weight: bold;">Release Hierarchy</span>.
+1. Click **Select Actions **and then Choose **Release Hierarchy**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_52.png" original-image-title=""></span>
+ ![Configuration Management Database 52 539x249](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_52_539x249.png)
 
-<!-- -->
+2. If your browser blocks pop-ups, allow the new tab/window.\
+ The hierarchy opens in a separate tab.
 
-2.  If your browser blocks pop-ups, allow the new tab/window.  
-    The hierarchy opens in a separate tab.
+ ![Configuration Management Database 53](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_53.png)
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_53.png" original-image-title=""></span>
+3. A read-only diagram showing nodes such as:
 
-<!-- -->
+- **CI** (the record you started from)
 
-3.  A read-only diagram showing nodes such as:
+- **Release** (RLSxxxxx)
 
-- <span class="Strong" style="font-weight: bold;">CI</span> (the record you started from)
+- **Phase** (RPHxxxxx)
 
-- <span class="Strong" style="font-weight: bold;">Release</span> (RLSxxxxx)
+- **Activity** (RL Axxxxx)
 
-- <span class="Strong" style="font-weight: bold;">Phase</span> (RPHxxxxx)
-
-- <span class="Strong" style="font-weight: bold;">Activity</span> (RL Axxxxx)
-
-- <span class="Strong" style="font-weight: bold;">Task</span> (RLTxxxxx)
+- **Task** (RLTxxxxx)
 
 - Lines represent the relationships between those records.
 
-<span class="Strong" style="font-weight: bold;">Creating and Associating a Release Record with a Configuration Item (CI) in Virima ITSM</span>
+**Creating and Associating a Release Record with a Configuration Item (CI) in Virima ITSM**
 
 To manage releases and track their impact on specific assets within Virima, follow this workflow:
 
-1.  <span class="Strong" style="font-weight: bold;">Navigate to the Release Section in the ITSM Module</span>  
-    Begin by accessing the <span class="Strong" style="font-weight: bold;">Release</span> under the ITSM module. Here, you can initiate a new release record to plan and manage changes or deployments.
+1. **Navigate to the Release Section in the ITSM Module**\
+ Begin by accessing the **Release** under the ITSM module. Here, you can initiate a new release record to plan and manage changes or deployments.
 
-2.  <span class="Strong" style="font-weight: bold;">Create a Release Record</span>  
-    Fill in the required details to create a new release. This record serves as the central entity for tracking all phases, activities, and tasks related to the release process.
+2. **Create a Release Record**\
+ Fill in the required details to create a new release. This record serves as the central entity for tracking all phases, activities, and tasks related to the release process.
 
-3.  <span class="Strong" style="font-weight: bold;">Associate Phases, Activities, and Tasks</span>  
-    Within the release record, define and link the necessary <span class="Strong" style="font-weight: bold;">phases</span> (major stages of the release), <span class="Strong" style="font-weight: bold;">activities</span> (specific actions within each phase), and <span class="Strong" style="font-weight: bold;">tasks</span> (granular work items under each activity). This hierarchical structure ensures that every step of the release is documented and traceable.
+3. **Associate Phases, Activities, and Tasks**\
+ Within the release record, define and link the necessary **phases** (major stages of the release), **activities** (specific actions within each phase), and **tasks** (granular work items under each activity). This hierarchical structure ensures that every step of the release is documented and traceable.
 
-4.  <span class="Strong" style="font-weight: bold;">Associate the Release with a Configuration Item (CI)</span>  
-    Link the release to the relevant Configuration Item (e.g. <span class="Strong">AST0004</span>) by assigning it as an associated CI. This establishes a direct relationship between the release and the asset it impacts, enabling end-to-end traceability.
+4. **Associate the Release with a Configuration Item (CI)**\
+ Link the release to the relevant Configuration Item (e.g. **AST0004**) by assigning it as an associated CI. This establishes a direct relationship between the release and the asset it impacts, enabling end-to-end traceability.
 
-5.  <span class="Strong" style="font-weight: bold;">View Release Hierarchy from the CI Record</span>  
-    After association, navigate to the CI record for <span class="Strong">AST0004</span> in the CMDB.
+5. **View Release Hierarchy from the CI Record**\
+ After association, navigate to the CI record for **AST0004** in the CMDB.
 
-    - In the CI’s <span class="Strong" style="font-weight: bold;">Related Records</span> or <span class="Strong" style="font-weight: bold;">ITSM</span> tab, you will see the linked release(s).
+ - In the CI's **Related Records** or **ITSM** tab, you will see the linked release(s).
 
-    - Use the <span class="Strong" style="font-weight: bold;">Release Hierarchy</span> view (accessible via the “**Select Actions**” menu inside the CI) to visualize the full structure:  
-      <span class="Strong" style="font-weight: bold;">CI → Release → Phase → Activity → Task</span>  
-      This read-only diagram provides a clear, end-to-end view of how the CI is involved in the release process, including all related phases, activities, and tasks.
+ - Use the **Release Hierarchy** view (accessible via the "**Select Actions**" menu inside the CI) to visualize the full structure:\
+ **CI → Release → Phase → Activity → Task**\
+ This read-only diagram provides a clear, end-to-end view of how the CI is involved in the release process, including all related phases, activities, and tasks.
 
-# Rescan Now
+# Rescan Now 
 
-Run an on-demand discovery against the currently open CI to refresh its attributes and components (useful after a config change or when the last scan is stale). The action triggers a single scan; it doesn’t edit data directly—updates are applied when the scan completes.
+Run an on-demand discovery against the currently open CI to refresh its attributes and components (useful after a config change or when the last scan is stale). The action triggers a single scan; it doesn't edit data directly---updates are applied when the scan completes.
 
-1.  Open the CI in CMDB.
+1. Open the CI in CMDB.
 
-2.  Click <span class="Strong" style="font-weight: bold;">Select Actions,</span> and then select <span class="Strong" style="font-weight: bold;">Rescan Now</span>.
+2. Click **Select Actions,** and then select **Rescan Now**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_54.png" original-image-title=""></span>
+ ![Configuration Management Database 54](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_54.png)
 
-<!-- -->
+3. A **Rescan Now** dialog opens.
 
-3.  A <span class="Strong" style="font-weight: bold;">Rescan Now</span> dialog opens.
+ ![Configuration Management Database 55](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_55.png)
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_55.png" original-image-title=""></span>
+4. Review **IP Address** (pre-filled from the CI). Adjust only if needed.
 
-<!-- -->
+5. Choose a **Client** from the drop down.
 
-4.  Review <span class="Strong" style="font-weight: bold;">IP Address</span> (pre-filled from the CI). Adjust only if needed.
+6. Select the **Type of scan** (e.g., Certificate scan, Host Ping Scan), as supported in your environment.
 
-5.  Choose a <span class="Strong" style="font-weight: bold;">Client</span> from the drop down.
+7. Click **Scan**.
 
-6.  Select the <span class="Strong" style="font-weight: bold;">Type of scan</span> (e.g., Certificate scan, Host Ping Scan), as supported in your environment.
-
-7.  Click <span class="Strong" style="font-weight: bold;">Scan</span>.
-
-8.  The system automatically redirects you to the recent scan page, where you can monitor the progress and results of the scan.
+8. The system automatically redirects you to the recent scan page, where you can monitor the progress and results of the scan.

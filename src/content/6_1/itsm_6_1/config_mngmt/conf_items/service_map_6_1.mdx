@@ -1,109 +1,78 @@
 ---
+lang: en-us
 title: Business Service Map
-description: >-
-  Use the Business Service Map to graphically display the configuration items
-  that support a business service. For example, delivering email to employees of
-  an organization is supported by exchange servers and web servers.
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/config_mngmt/conf_items/service_map_6_1'
-keywords:
-  - Business Service Map
-  - Business
-  - Service
-  - Map
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Business Service Map
 
 Use the Business Service Map to graphically display the configuration items that support a business service. For example, delivering email to employees of an organization is supported by exchange servers and web servers.
 
 The following lists the available views.
 
-<div class="Bullet1">
+::: Bullet1
+**[ADM View](BSM%20Examples/BSM-ADM-View.mdx){style="font-weight: normal;"}** displays the graphical connection between the applications or between applications and configuration items based on the relationship *Communicates With*.
 
-**<a href="BSM%20Examples/BSM-ADM-View.htm" style="font-weight: normal;">ADM View</a>** displays the graphical connection between the applications or between applications and configuration items based on the relationship *Communicates With*.
+- **Affected Business Application View** displays the list of services/applications impacted due to an affected Business Service.
+::: Bullet1
+**[Communication View](BSM%20Examples/BSM-Comm-View.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}** displays the graphical connection between the configuration items based on the relationship *Communicates With*.
 
-</div>
+- [[**Infrastructure View** displays the end-to-end visualization of a Server/Application infrastructure.]{style="color: #000000;"}]{style="color: #dc143c;"}
+::: Bullet1
+**[Network View](BSM%20Examples/BSM-Network-View.mdx){style="font-weight: normal;"}** displays the physical and non-physical connections among the assets and/or business services based on relationships.
 
-<div class="Bullet1" style="color: #000000;">
-
-**Affected Business Application View** displays the list of services/applications impacted due to an affected Business Service.
-
-</div>
-
-<div class="Bullet1">
-
-**<a href="BSM%20Examples/BSM-Comm-View.htm" target="_popup" style="font-weight: normal;">Communication View</a>** displays the graphical connection between the configuration items based on the relationship *Communicates With*.
-
-</div>
-
-<div class="Bullet1" style="color: #000000;">
-
-<span style="color: #dc143c;"><span style="color: #000000;">**Infrastructure View** displays the end-to-end visualization of a Server/Application infrastructure.</span></span>
-
-</div>
-
-<div class="Bullet1">
-
-**<a href="BSM%20Examples/BSM-Network-View.htm" style="font-weight: normal;">Network View</a>** displays the physical and non-physical connections among the assets and/or business services based on relationships.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Service Topology View** displays the end-to-end visualization of a running service.
-
-</div>
 
 The following actions can be performed in this window.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/sm-menu-top.PNG" original-image-title="" style="width: 665px;height: 44px;"></span>
+![sm menu top 665x44](../../../Resources/Images/ITSM/Biz-Svc-Map/sm-menu-top_665x44.png)
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/sm-menu-bottom.PNG" original-image-title="" style="width: 379px;height: 38px;"></span>
+![sm menu bottom 379x38](../../../Resources/Images/ITSM/Biz-Svc-Map/sm-menu-bottom_379x38.png)
 
 **Type.** Click the drop-down list and select the type of view to display.
 
 **Rescan.** When selected. displays the Rescan Now dialog box. Choose a *Client* and the *Type of Scan*. Then click **Scan**.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/rescan-now-dialog-box.PNG" original-image-title="" style="width: 476px;height: 212px;"></span>
+![rescan now dialog box 476x212](../../../Resources/Images/ITSM/rescan-now-dialog-box_476x212.png)
 
 **Host Check**. When selected, displays the Check Host Reachability dialog box. Enter the *IP Address* and *Choose a client*, then click **Scan**.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/check-host-reachability.PNG" original-image-title="" style="width: 473px;height: 216px;"></span>
+![check host reachability 473x216](../../../Resources/Images/ITSM/Biz-Svc-Map/check-host-reachability_473x216.png)
 
-**Advanced Settings**. When selected, displays a new window for selecting the direction of the view (horizontal or vertical) and the number of levels you want to display.  
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-adv-settings.png" original-image-title=""></span>  
+**Advanced Settings**. When selected, displays a new window for selecting the direction of the view (horizontal or vertical) and the number of levels you want to display.\
+![icon adv settings](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-adv-settings.png)\
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/advanced-settings.PNG" original-image-title="" style="width: 251px;height: 221px;"></span>
+![advanced settings 251x221](../../../Resources/Images/ITSM/Biz-Svc-Map/advanced-settings_251x221.png)
 
 **Minimize** and **Maximize**. Toggles between making the screen full screen or normal view.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-maximize.png" original-image-title=""></span> <span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-minimize.png" original-image-title=""></span>
+![icon maximize](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-maximize.png) ![icon minimize](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-minimize.png)
 
 **Load View**. When selected, loads any saved views.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-load-view.png" original-image-title=""></span>
+![icon load view](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-load-view.png)
 
 **Save View**. When selected, saves the current view, which can be reloaded for reference at another time.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-save-view.png" original-image-title=""></span>
+![icon save view](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-save-view.png)
 
 **Download BSM**. When selected, displays the Download BSM View dialog box in which you specify what type of file to download. Click either **Save as PNG** (image) or **Save Data as Excel** (spreadsheet), then click **Download**.
 
-|     |                                                        |
-|-----|--------------------------------------------------------|
-|     | There must be data in order for the download to occur. |
+ --- --------------------------------------------------------
+   There must be data in order for the download to occur.
+ --- --------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-download-view.png" original-image-title=""></span>
+![icon download view](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-download-view.png)
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/download-bsm-view.PNG" original-image-title="" style="width: 476px;height: 156px;"></span>
+![download bsm view 476x156](../../../Resources/Images/ITSM/Biz-Svc-Map/download-bsm-view_476x156.png)
 
 **Show/Hide Legends**. Toggles between showing and hiding the onscreen data legends.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-show-legends.png" original-image-title=""></span>
+![icon show legends](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-show-legends.png)
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/icon-hide-legends.png" original-image-title=""></span>
+![icon hide legends](../../../Resources/Images/ITSM/Biz-Svc-Map/icon-hide-legends.png)
 
 **Zoom**. Changes the size of the data view when moving the slider. Use the plus + and minus - signs to change the slider location.
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/Biz-Svc-Map/zoom-slider.png" original-image-title=""></span>
+![zoom slider](../../../Resources/Images/ITSM/Biz-Svc-Map/zoom-slider.png)

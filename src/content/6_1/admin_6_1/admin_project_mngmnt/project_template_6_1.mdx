@@ -1,546 +1,316 @@
 ---
+lang: en-us
 title: Project Template
-description: Generate the help and recheck this topic.
-canonical: >-
-  https://docs.virima.com/6_1/admin_6_1/admin_project_mngmnt/project_template_6_1
-keywords:
-  - Project Template
-  - Project
-  - Template
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Project Template
 
-Generate the help and recheck this topic.  
-<https:/wiki.virima.com/wiki/doku.php?id=admin:projectmanagement:project_template&s%5B%5D=phase>
+Generate the help and recheck this topic.\
+<https://wiki.virima.com/wiki/doku.php?id=admin:projectmanagement:project_template&s%5B%5D=phase>
 
 Use this function to create a project template that defines the basic structure of a project.
 
-|     |                                                                                              |
-|-----|----------------------------------------------------------------------------------------------|
-|     | A project template can be created, edited, and deleted by all the Roles expect the end user. |
+ --- ----------------------------------------------------------------------------------------------
+   A project template can be created, edited, and deleted by all the Roles expect the end user.
+ --- ----------------------------------------------------------------------------------------------
 
-In the navigation pane, click **Admin /> Project Management /> Project Template**. The Project Template window displays.
+In the navigation pane, click **Admin \> Project Management \> Project Template**. The Project Template window displays.
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-main-old.PNG" original-image-title=""></span>
+![project template main old](../Resources/Images/Admin - Project/project-template-main-old.PNG)
 
-In the navigation pane, click the gear icon and select **Project Management /> Project Template**.
+![arrow border](../Resources/Images/arrow-border.PNG)
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/icon-proj-template.PNG" original-image-title=""></span>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Project Template](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-The Project Template window displays.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **New Project Template**. The New Project Template window displays.
+ -- ----- ----------------------------------------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-main-new.PNG" original-image-title=""></span>
-
-New Project Template
-
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
-
-From the *Select Actions* drop-down list, choose **New Project Template**. The New Project Template window displays.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-new-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
-
-Click **New**. The New Project Template window displays.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-new-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-Enter a *Name* and *Description*
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-In the *Cost Center* field, click **Addthe plus + sign**, then search for and select the applicable cost center.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-In the *Duration* field, enter the length of time this template is valid.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-In the *Billing Code* field, enter the code associated with billing.
-
-</div>
-
-<div class="NumList2" madcap:autonum="6. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
-
-Once the template has been created, it must be edited to add more information.  *See Phases.*
-
-Phases
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
 A project template always starts with a phase and then has associated tasks. A project can be associated with multiple phases and, in turn, a phase can have multiple tasks.
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- --------------------------------------------------------------
+ 1. In the Project Template window, select an existing template.
+ -- ----- --------------------------------------------------------------
 
-In the Project Template window, select an existing template.
+ -- ----- ---------------------------
+ 2. Click the **Phases** tab.
+ -- ----- ---------------------------
 
-</div>
+::: {.Ind50
+![project template add phase old](../Resources/Images/Admin - Project/project-template-add-phase-old.PNG)
 
-<div class="NumList2" madcap:autonum="2. ">
+ -- ----- ------------------------------------------------------------------------------------------------------------
+ 3. From the *Select Actions* drop-down list, choose **Add Phase**. The Phase Information dialog box displays.
+ -- ----- ------------------------------------------------------------------------------------------------------------
 
-Click the **Phases** tab.
+::: {.Ind50
+![project template phase info old](../Resources/Images/Admin - Project/project-template-phase-info-old.PNG)
 
-</div>
+ -- ----- ----------------------------------------------------
+ 4. Complete the fields, referring to the table below.
+ -- ----- ----------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- --------------------------------------------------
+ 5. When all selections/entries are made, click Add.
+ -- ----- --------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-add-phase-old.PNG" original-image-title=""></span>
+### []{#PhaseInfoFields}Phase Information Fields
 
-</div>
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field | Description |
++=====================+=============================================================================================================================================================================================================================================================+
+| Type | Specifies the phase name. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Duration | Indicates the number of days by which the phase or task must be completed. Duration is based on the organization working days. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Name | The name for the task. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Planned Start | For the first phase, the date will be set to value of the Project's Planned Start. Subsequent Phases Planned Start will be computed based on the previous phase's duration. In other words this date will be same as the previous phase's Planned End date. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Planned End | Computed based on the latest due date of that phase or task deliverable/milestone. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Actual Start | This filed is set automatically when the State of a Phase is set to Started and also when the Project is set to Active. |
+| --- | --- |
+| | The State for the First phase is set to Started the moment the any of the deliverable/milestone task is completed. Once a date is set, there can be no further modifications made. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Actual End | This date is computed and set, when that phase's task state is set to 'Completed.' Once this date is set, it cannot be changed. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Status | There are four statuses: |
+| --- | --- |
+| | ::: Bullet1 |
+| | **Not started**. Initial stage of a phase/task. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Started**. It indicates that a phase/task is started and sets the actual start date of a phase/task. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Active**. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Completed**. Indicates that the task is completed and it sets the actual end date. |
+| | ::: |
+| | |
+| | -- ---- ----------------------------------------------------- |
+| | - This field cannot be edited for a Project Template. |
+| | -- ---- ----------------------------------------------------- |
+| | |
+| | -- ---- ---------------------------------------------------------------------- |
+| | - A Phase is marked as *Completed* when *Go under Review* is selected. |
+| | -- ---- ---------------------------------------------------------------------- |
+| | |
+| | -- ---- -------------------------------------------------------------------- |
+| | - Once a phase/task is completed, attributes are no longer editable. |
+| | -- ---- -------------------------------------------------------------------- |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Gate Type | This is available only for Phase. There are two types of Gates: |
+| --- | --- |
+| | --- ------------------------------------------------------------- |
+| | Gate type can be changed only during the Not Started State. |
+| | --- ------------------------------------------------------------- |
+| | |
+| | ::: {} |
+| | **Hard Gate**. If a phase has a hard gate its successor phase cannot be started/made active without completing its top level phase. Hard Gate phases are shown in red. |
+| | ::: |
+| | |
+| | **Soft Gate**. If a phase has a soft gate its successor phase can be made active/started irrespective of its top level phase |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Review | This is available only for Phase. |
+| --- | --- |
+| | ::: Bullet1 |
+| | **Go.** This option will be available only when all the mandatory tasks of a phase are completed. Selecting this option marks the current phase as Completed and the succeeding phase status will be changed to Active automatically. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Suspended**. A phase can be suspended at any status and that would in turn suspend the project. |
+| | ::: |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Percentage Complete | The percentage of completion for this phase. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Notes | Additional information about this phase. |
++---------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}[]{#AddPhaseTask}[Tasks](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-add-phase-new.PNG" original-image-title=""></span>
+ --- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   A phase and its associated tasks (even if the tasks status is Not Started) cannot be Deleted/Edited once the phase is Completed or Suspended. An alert message displays if this is the case.
+ --- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-</div>
+ -- ----- --------------------------------------------------------------------------
+ 1. Locate the line item containing the phase to which a task will be added.
+ -- ----- --------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="3. ">
+ -- ----- ----------------------------------------------------------------------------------------------------
+ 2. Click the **plus + sign** on the right-hand side of the row. The Task Information window displays.
+ -- ----- ----------------------------------------------------------------------------------------------------
 
-From the *Select Actions* drop-down list, choose **Add Phase**. The Phase Information dialog box displays.
+::: {.Ind50
+![project template task old](../Resources/Images/Admin - Project/project-template-task-old.PNG)
 
-</div>
+ -- ----- -------------------------------------------------
+ 3. Complete the fields, referring the table below.
+ -- ----- -------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- ------------------------------------------------------
+ 4. When all selections/entries are made, click **Add**.
+ -- ----- ------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-phase-info-old.PNG" original-image-title=""></span>
+### []{#TaskInfoFields}Task Information Fields
 
-</div>
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field | Description |
++=====================+==============================================================================================================================================================================================+
+| Type | Specifies the task type. Task Type is available only for Task and indicates the type of a task. |
+| --- | --- |
+| | Click the drop-down list and select the relevant type: *Milestone*, *Deliverable*, *Change* *Task*, *Request Task* and *Release Task*. |
+| | |
+| | For tasks types *Change*, *Request*, and *Release*, respective records can be created when a task is created. Click the link to associate the Change, Request, or Release. |
+| | |
+| | Deliverable/Milestone is the final stage of a task. |
+| | |
+| | --- ------------------------------------------------------------ |
+| | Once a task is started, the *Task Type* cannot be changed. |
+| | --- ------------------------------------------------------------ |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Duration | Indicates the number of days by which the task must be completed. Duration is based on the organization working days. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Name | The name for the task. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Planned Start | The date on which the task will begin. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Planned End | Computed based on the latest due date of that task deliverable/milestone. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Actual Start | This filed is set automatically when the state is set to Started and also when the Project is set to Active. |
+| --- | --- |
+| | --- ----------------------------------------------------------------------- |
+| | Once a start date is set, there can be no further modifications made. |
+| | --- ----------------------------------------------------------------------- |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Actual End | This date is computed and set, when the task\'s state is set to 'Completed.' |
+| --- | --- |
+| | --- -------------------------------------------------- |
+| | Once this end date is set, it cannot be changed. |
+| | --- -------------------------------------------------- |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Status | There are four statuses: |
+| --- | --- |
+| | ::: Bullet1 |
+| | **Not started**. Initial stage of a phase/task. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Started**. It indicates that a phase/task is started and sets the actual start date of a phase/task. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Active**. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active. |
+| | ::: |
+| | |
+| | ::: Bullet1 |
+| | **Completed**. Indicates that the task is completed and it sets the actual end date. |
+| | ::: |
+| | |
+| | -- ---- -------------------------------------------------------- |
+| | - This field is cannot be edited for a Project Template. |
+| | -- ---- -------------------------------------------------------- |
+| | |
+| | -- ---- ------------------------------------------------------------------ |
+| | - A Phase is marked as completed when Go under Review is selected. |
+| | -- ---- ------------------------------------------------------------------ |
+| | |
+| | -- ---- ---------------------------------------------------------------------------- |
+| | - Once a phase/task is completed then you won't be able edit any attributes. |
+| | -- ---- ---------------------------------------------------------------------------- |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Mandatory | Specifies this task must be completed. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Percentage Complete | Indicates the percentage of the task completed. This value must be manually entered. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Notes | Additional information about this task. |
++---------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Functions](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-phase-info-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Complete the fields, referring to the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-When all selections/entries are made, click Add.
-
-</div>
-
-### <span id="PhaseInfoFields"></span> Phase Information Fields
-
-<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
-<thead>
-<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Type</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">Specifies the phase name.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Duration</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Indicates the number of days by which the phase or task must be completed. Duration is based on the organization working days.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Name</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">The name for the task.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Planned Start</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>For the first phase, the date will be set to value of the Project’s Planned Start. Subsequent Phases Planned Start will be computed based on the previous phase’s duration. In other words this date will be same as the previous phase’s Planned End date.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Planned End</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Computed based on the latest due date of that phase or task deliverable/milestone.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Actual Start</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>This filed is set automatically when the State of a Phase is set to Started and also when the Project is set to Active.</p>
-<p>The State for the First phase is set to Started the moment the any of the deliverable/milestone task is completed. Once a date is set, there can be no further modifications made.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Actual End</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>This date is computed and set, when that phase’s task state is set to ‘Completed.’ Once this date is set, it cannot be changed.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Status</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>There are four statuses:</p>
-<div class="Bullet1">
-<strong>Not started</strong>. Initial stage of a phase/task.
-</div>
-<div class="Bullet1">
-<strong>Started</strong>. It indicates that a phase/task is started and sets the actual start date of a phase/task.
-</div>
-<div class="Bullet1">
-<strong>Active</strong>. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active.
-</div>
-<div class="Bullet1">
-<strong>Completed</strong>. Indicates that the task is completed and it sets the actual end date.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-This field cannot be edited for a Project Template.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-A Phase is marked as <em>Completed</em> when <em>Go under Review</em> is selected.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-Once a phase/task is completed, attributes are no longer editable.
-</div></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Gate Type</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>This is available only for Phase. There are two types of Gates:</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1">Gate type can be changed only during the Not Started State.</td>
-</tr>
-</tbody>
-</table>
-<div>
-<strong>Hard Gate</strong>. If a phase has a hard gate its successor phase cannot be started/made active without completing its top level phase. Hard Gate phases are shown in red.
-</div>
-<p><strong>Soft Gate</strong>. If a phase has a soft gate its successor phase can be made active/started irrespective of its top level phase</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Review</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>This is available only for Phase.</p>
-<div class="Bullet1">
-<strong>Go.</strong> This option will be available only when all the mandatory tasks of a phase are completed. Selecting this option marks the current phase as Completed and the succeeding phase status will be changed to Active automatically.
-</div>
-<div class="Bullet1">
-<strong>Suspended</strong>. A phase can be suspended at any status and that would in turn suspend the project.
-</div></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Percentage Complete</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>The percentage of completion for this phase.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2" style="font-weight: bold"><p>Notes</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2"><p>Additional information about this phase.</p></td>
-</tr>
-</tbody>
-</table>
-
-<span id="AddPhaseTask"></span> Tasks
-
-|     |                                                                                                                                                                                              |
-|-----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|     | A phase and its associated tasks (even if the tasks status is Not Started) cannot be Deleted/Edited once the phase is Completed or Suspended. An alert message displays if this is the case. |
-
-<div class="NumList1" madcap:autonum="1. ">
-
-Locate the line item containing the phase to which a task will be added.
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-Click the **plus + sign** on the right-hand side of the row. The Task Information window displays.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-task-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/project-template-task-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Complete the fields, referring the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
-
-### <span id="TaskInfoFields"></span> Task Information Fields
-
-<table class="TableStyle-Alternate-Row-Color-Left" style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
-<thead>
-<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Field</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Type</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Specifies the task type. Task Type is available only for Task and indicates the type of a task.</p>
-<p>Click the drop-down list and select the relevant type: <em>Milestone</em>, <em>Deliverable</em>, <em>Change</em> <em>Task</em>, <em>Request Task</em> and <em>Release Task</em>.</p>
-<p>For tasks types <em>Change</em>, <em>Request</em>, and <em>Release</em>, respective records can be created when a task is created. Click the link to associate the Change, Request, or Release.</p>
-<p>Deliverable/Milestone is the final stage of a task.</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>Once a task is started, the <em>Task Type</em> cannot be changed.</p></td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Duration</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Indicates the number of days by which the task must be completed. Duration is based on the organization working days.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold">Name</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">The name for the task.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Planned Start</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>The date on which the task will begin.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Planned End</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Computed based on the latest due date of that task deliverable/milestone.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Actual Start</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>This filed is set automatically when the state is set to Started and also when the Project is set to Active.</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>Once a start date is set, there can be no further modifications made.</p></td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Actual End</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>This date is computed and set, when the task's state is set to ‘Completed.’</p>
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>Once this end date is set, it cannot be changed.</p></td>
-</tr>
-</tbody>
-</table></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Status</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>There are four statuses:</p>
-<div class="Bullet1">
-<strong>Not started</strong>. Initial stage of a phase/task.
-</div>
-<div class="Bullet1">
-<strong>Started</strong>. It indicates that a phase/task is started and sets the actual start date of a phase/task.
-</div>
-<div class="Bullet1">
-<strong>Active</strong>. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active.
-</div>
-<div class="Bullet1">
-<strong>Completed</strong>. Indicates that the task is completed and it sets the actual end date.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-This field is cannot be edited for a Project Template.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-A Phase is marked as completed when Go under Review is selected.
-</div>
-<div class="emdash1" madcap:autonum="- ">
-Once a phase/task is completed then you won’t be able edit any attributes.
-</div></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1" style="font-weight: bold"><p>Mandatory</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1"><p>Specifies this task must be completed.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2" style="font-weight: bold"><p>Percentage Complete</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2"><p>Indicates the percentage of the task completed. This value must be manually entered.</p></td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body1" style="font-weight: bold"><p>Notes</p></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body1"><p>Additional information about this task.</p></td>
-</tr>
-</tbody>
-</table>
-
-Other Functions
-
-<div class="Bullet1">
-
+::: Bullet1
 To move a task up or down in the list, click **the up/down arrows**.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 To delete a task, click the **Trashcan** icon.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 To update the project duration after any changes are made to an existing task, or a task or phase is added, click the **Refresh icon**. This will reset the baseline.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 To add information for the related areas, select a task. Then, in the Task Information dialog box, click the applicable tab.
 
-</div>
+ --- ---------------------------------------------
+   The tabs change based upon the *Task Type*.
+ --- ---------------------------------------------
 
-|     |                                             |
-|-----|---------------------------------------------|
-|     | The tabs change based upon the *Task Type*. |
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Project Template](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/task-information-dbox-tabs-old.PNG" original-image-title=""></span>
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/task-information-dbox-tabs-new.PNG" original-image-title=""></span>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-</div>
+When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
 
-<div class="Bullet2">
+ --- ---------------------------------------------------------------------------------------
+   The options change based upon the function; therefore, not every option may be shown.
+ --- ---------------------------------------------------------------------------------------
 
-**Predecessor**. Check the box of a phase to show the preceding phases and its associated tasks.
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Project Template](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-</div>
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="Ind75" madcap:conditions="Default.OldUI">
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/predecessor-dbox-old.PNG" original-image-title=""></span>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-</div>
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-<div class="Ind75" madcap:conditions="Default.NewUI">
+::: Bullet1
+[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/predecessor-dbox-new.PNG" original-image-title=""></span>
+::: Bullet1
+[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Bullet2">
+::: Bullet1
+[Go To Page](../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-**Assignee**. Check a user name to assign to the task, and enter the Start and End dates. An Assignee has to be defined in the parent phase, and only those assignees can be assigned for its associated tasks. These are dates that will be shown as the Assignee in the Resource Chart.
+::: Bullet1
+[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Ind75" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/assignee-tab-old.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>  
-
-</div>
-
-<div class="Ind75" madcap:conditions="Default.Omit">
-
-<span style="background-color: #ffff00; color: #dc143c;">NEED v6 IMAGE</span>  
-
-</div>
-
-<div class="Bullet2">
-
-**Attachments**. To add an attachment, click **Add AttachmentNew**, then in the Attach File dialog box **Browse** for and select the attachment, enter a description (optional), and click **Upload**.
-
-</div>
-
-<div class="Ind75" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/attach-file-dbox-old.PNG" original-image-title="" madcap:conditions="Default.OldUI"></span>
-
-</div>
-
-<div class="Ind75" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/attach-file-dbox-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Bullet2">
-
-**Associated Requests**. If a Request/Change/Release is created from the task, then its associated Request/Change/Release is displayed.
-
-</div>
-
-<div class="Ind75" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/associated-requests-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind75" style="background-color: #ffff00;color: #dc143c;" madcap:conditions="Default.Omit">
-
-NEED v6 IMAGE
-
-</div>
-
-<div class="Bullet2">
-
-**Time Tracking.** To keep track of time spent by an Assignee on a task, the hours are entered manually. Once the Time Tracker is added by the Assignee, the same information is shown the [Resource Chart](../Prog-Proj%20Mngmnt/Projects.htm#ResourceChart).
-
-</div>
-
-<div class="Ind75" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Project/time-tracking-old.PNG" original-image-title=""></span>
-
-</div>
-
-The *Select Actions* drop-down list includes these options:
-
-<div class="Bullet1">
-
-**Add Phase**. Creates a phase.
-
-</div>
-
-<div class="Bullet1">
-
-**Rebaseline Project**. Updates the project after any changes are made to an existing task, or a task or phase is added.
-
-</div>
-
-<div class="Bullet1">
-
-**View RunBook**. Displays a list of related Runbook records.
-
-</div>
-
-Edit Project Template Delete Project Template

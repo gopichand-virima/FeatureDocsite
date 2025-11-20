@@ -1,203 +1,78 @@
 ---
-title: Configuration Items (CI)
-description: >-
-  Configuration Items (CI) are components or other service assets must be
-  managed to deliver an IT service.
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/config_mngmt/conf_items/config_items_6_1'
-keywords:
-  - Configuration Items (CI)
-  - Configuration
-  - Items
-  - Ci
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: Configuration Items
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Configuration Items (CI)
 
 Configuration Items (CI) are components or other service assets must be managed to deliver an IT service.
 
 In Virima:
 
-<div class="Bullet1">
-
+::: Bullet1
 Each CI is derived from a Blueprint, with components that can be Network Adapters, Storage Disks, Software Instances, and so forth.
 
-</div>
+::: Bullet1
+Each CI component is associated with the parent CI using Relationships\--for example, Installed On, Component Of, Hosted On, Virtualized On, and so forth.
 
-<div class="Bullet1">
-
-Each CI component is associated with the parent CI using Relationships--for example, Installed On, Component Of, Hosted On, Virtualized On, and so forth.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Each CI/CI Component in Ecosystem Manager has a unique Asset ID.
 
-</div>
+CI\'s are added when they are:
 
-CI's are added when they are:
-
-<div class="Bullet1">
-
+::: Bullet1
 Moved manually into CMDB.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Discovered by the Discovery application as they are moved into CMDB.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Imported from a file (.xls, .xlsx, or .csv).
-
-</div>
 
 To configure items, do the following:
 
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+ -- ----- --------------------------------------------------------------------------------------------------------------------------------------
+ 1. In the navigation pane, select **ITSM \> Configuration Management \> Configuration Items**. The Configuration Items window displays.
+ -- ----- --------------------------------------------------------------------------------------------------------------------------------------
 
-In the navigation pane, select **ITSM /> Configuration Management /> Configuration Items**. The Configuration Items window displays.
+ -- ----- -----------------------------------------------------------------------------------------------------------------------
+ 2. In the navigation pane, select **ITAM \> Configuration Management \> CMDB**. The Configuration Items window displays.
+ -- ----- -----------------------------------------------------------------------------------------------------------------------
 
-</div>
+::: Ind50
+![config items new 626x124](../../../Resources/Images/ITSM/config-items-new_626x124.png), or [Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
+ -- ----- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+ -- ----- --------------------------------------------------------------------------------
+ 4. From the *Select Actions* drop-down list, choose any of the following actions:
+ -- ----- --------------------------------------------------------------------------------
 
-In the navigation pane, select **ITAM /> Configuration Management /> CMDB**. The Configuration Items window displays.
+::: Bullet2
+[Audits](/itsm/config_mngmt/audits/audits_6_1.mdx)
 
-</div>
+::: Bullet2
+**Change Attributes**. Changes the properties of single or multiple CIs. The attributes change based on the type of CI selected. *Refer to* [Components](../Components/CI-Comp-List.mdx){style="font-style: italic;"}*.*
 
-<div class="Ind50">
+::: Bullet2
+[**[Copy to Ivanti](../../../Common%20Topics/Copy-to-Ivanti.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}**]{style="color: #dc143c;"}
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/config-items.PNG" original-image-title="" madcap:conditions="Default.OldUI" style="width: 626px;height: 156px;"></span>
+::: Bullet2
+**Process Actions**. *Refer to* [CMDB Process Jobs](CMDB-Process-Jobs.mdx){style="font-style: italic;"}*.*
 
-</div>
+**Related Topics**
 
-<div class="Ind50">
+::: Bullet1
+[New Configuration Items](Config-Items-New.mdx)
 
-<span class="image placeholder" original-image-src="../../../Resources/Images/ITSM/config-items-new.PNG" original-image-title="" madcap:conditions="Default.NewUI" style="width: 626px;height: 124px;"></span>
+::: Bullet1
+[Edit Configuration Items](Config-Items-Edit.mdx)
 
-</div>
+::: Bullet1
+[Configuration Item Options](Config-Items-Options.mdx)
 
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
+::: Bullet1
+[Other Asset Info](../../../Common%20Topics/Other-Asset-Info.mdx)
 
-From the *Select Actions* drop-down list, choose an action: [New](Config-Items-New.htm), <a href="../../../Common%20Topics/Delete-Remove.htm" target="_popup">Delete</a>, or <a href="../../../Common%20Topics/Export.htm" target="_popup">Export</a>.
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-</div>
-
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="4. ">
-
-From the *Select Actions* drop-down list, choose any of the following actions:
-
-</div>
-
-<div class="Bullet2">
-
-[Audits](../Audits/Audits.htm)
-
-</div>
-
-<div class="Bullet2">
-
-**Change Attributes**. Changes the properties of single or multiple CIs. The attributes change based on the type of CI selected. *Refer to* <a href="../Components/CI-Comp-List.htm" style="font-style: italic;">Components</a>*.*
-
-</div>
-
-<div class="Bullet2" madcap:conditions="Default.Omit">
-
-<a href="../../../Common%20Topics/Copy-to-Cherwell.htm" target="_popup">Copy to Cherwell</a>
-
-</div>
-
-<div class="Bullet2">
-
-<span style="color: #dc143c;">**<a href="../../../Common%20Topics/Copy-to-Ivanti.htm" target="_popup">Copy to Ivanti</a>**</span>
-
-</div>
-
-<div class="Bullet2">
-
-**Process Actions**. *Refer to* <a href="CMDB-Process-Jobs.htm" style="font-style: italic;">CMDB Process Jobs</a>*.*
-
-</div>
-
-<div class="Bullet1">
-
-[New Configuration Items](Config-Items-New.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Edit Configuration Items](Config-Items-Edit.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Configuration Item Options](Config-Items-Options.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Other Asset Info](../../../Common%20Topics/Other-Asset-Info.htm)
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI">
-
-<a href="../../../Common%20Topics/Records-per-Page.htm" target="_popup">Records per Page</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../../../Common%20Topics/Items-per-Page.htm" target="_popup">Items per Page</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI,Default.NewUI">
-
-<a href="../../../Common%20Topics/Auto-Refresh.htm" target="_popup">Auto Refresh</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI,Default.NewUI">
-
-<a href="../../../Common%20Topics/Outage-Calendar.htm" target="_popup">Outage Calendar</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI,Default.NewUI">
-
-<a href="../../../Common%20Topics/Process-Missing-Components.htm" target="_popup">Process Missing Components</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI,Default.NewUI">
-
-<a href="../../../Common%20Topics/Personalize-Columns.htm" target="_popup">Personalize Columns</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.OldUI,Default.NewUI">
-
-<a href="../../../Common%20Topics/Saved-Filters.htm" target="_popup">Saved Filters</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../../../Common%20Topics/Delete-Remove.htm" target="_popup">Delete</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../../../Common%20Topics/Export.htm" target="_popup">Export</a>
-
-</div>

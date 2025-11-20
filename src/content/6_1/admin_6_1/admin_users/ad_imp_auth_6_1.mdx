@@ -1,14 +1,9 @@
 ---
-title: AD Configuration
-description: Use this function to create a new Active Directory configuration.
-canonical: 'https://docs.virima.com/6_1/admin_6_1/admin_users/ad_imp_auth_6_1'
-keywords:
-  - AD Configuration
-  - Ad
-  - Configuration
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: AD Import and Authentication
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # AD Configuration
 
 Use this function to create a new Active Directory configuration.
@@ -17,103 +12,49 @@ Active Directory (AD) is a directory service that Microsoft developed for Window
 
 ## What is Active Directory
 
-An AD domain controller authenticates and authorizes all users and computers in a Windows domain type network—assigning and enforcing security policies for all computers and installing or updating software. For example, when a user logs into a computer that is part of a Windows domain, Active Directory checks the submitted password and determines whether the user is a system administrator or normal user. Active Directory makes use of Lightweight Directory Access Protocol (LDAP) versions 2 and 3, Microsoft's version of Kerberos, and DNS.
+An AD domain controller authenticates and authorizes all users and computers in a Windows domain type network---assigning and enforcing security policies for all computers and installing or updating software. For example, when a user logs into a computer that is part of a Windows domain, Active Directory checks the submitted password and determines whether the user is a system administrator or normal user. Active Directory makes use of Lightweight Directory Access Protocol (LDAP) versions 2 and 3, Microsoft\'s version of Kerberos, and DNS.
 
-In the main window, click **Admin /> Users /> AD Configuration**. The AD Configuration window displays.
+In the main window, click **Admin \> Users \> AD Configuration**. The AD Configuration window displays.
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/AD_Configuration_6.1.png" original-image-title=""></span>
+![AD Configuration 6.1](../Resources/Images/Admin - Users/AD_Configuration_6.1.png)
 
-New AD Configuration
+![arrow border](../Resources/Images/arrow-border.PNG)
 
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-From the *Select Actions* drop-down list, choose **AD New Configuration**.
+ -- ----- ----------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **AD New Configuration**.
+ -- ----- ----------------------------------------------------------------------------
 
-</div>
+ -- ----- ----------------------------------
+ 2. The **New** dialog box displays.
+ -- ----- ----------------------------------
 
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="2. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-The **New** dialog box displays.
+ -- ----- ----------------------------------------------
+ 1. Open the **AD Configuration** line item**.**
+ -- ----- ----------------------------------------------
 
-</div>
+ -- ----- -----------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Test AD Configuration**.
+ -- ----- -----------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+ -- ----- -------------------------------------------------------------------
+ 3. If successful: The system confirms the AD configuration is valid.
+ -- ----- -------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/New_AD_Configuration_6.1.png" original-image-title=""></span>
+ -- ----- -------------------------------------------------------------
+ 4. If unsuccessful: An Alert Message will appear. For example:
+ -- ----- -------------------------------------------------------------
 
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-On the **Configuration** tab, fill in the values for the attributes.
-
-</div>
-
-<table class="TableStyle-Note-Indent" style="width: 100%;mc-table-style: url(&#39;../Resources/TableStyles/Note-Indent.css&#39;);border-top-style: solid;border-top-width: 2px;border-top-color: #90ee90;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #90ee90;margin-left: 0.5in;margin-right: auto;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Indent-Body-Body1">
-<td class="TableStyle-Note-Indent-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-Indent-BodyA-Column2-Body1"><p>By default, the Login Attribute is set to <em>userPrincipalName</em>.</p>
-<p>When <strong>Is Public</strong> is selected, there is no <em>Client</em> field.</p></td>
-</tr>
-</tbody>
-</table>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Click **Next**. The Map Properties tab displays.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-Select (check) the fields that need to be imported, and map their values to that of an applicable AD property.
-
-</div>
-
-<div class="NumList2" madcap:autonum="6. ">
-
-Click **Save**.
-
-</div>
-
-Testing AD Configuration
-
-<div class="NumList1" madcap:autonum="1. ">
-
-Open the **AD Configuration** line item**.**
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-From the *Select Actions* drop-down list, choose **Test AD Configuration**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-If successful: The system confirms the AD configuration is valid.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-If unsuccessful: An Alert Message will appear. For example:
-
-</div>
-
-<div style="text-indent: 0.5in;">
-
-“This discovery client is down. Please bring it up or select another discovery client.”
-
-</div>
+"This discovery client is down. Please bring it up or select another discovery client."
 
 This means the configured discovery client is either not running or unavailable, and must be restarted or replaced.
 
-If you have set the values of the attributes correctly as per your organization's AD structure, then the connection will be a success. Otherwise, it will fail.
+If you have set the values of the attributes correctly as per your organization\'s AD structure, then the connection will be a success. Otherwise, it will fail.
 
-Import Users
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Users](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
 While Importing users into Virima , Virima looks whether a particular Location, Role, Designation, Department and Group is present, if not Virima creates one.
 
@@ -121,158 +62,108 @@ For consecutive AD imports, the value of a user gets updated if the value has be
 
 After AD configuration, do the following:
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- -------------------------------------------------------------------
+ 1. Click the **Import** icon to the right of the selected line item.
+ -- ----- -------------------------------------------------------------------
 
-Click the **Import** icon to the right of the selected line item.
+::: Ind50
+![icon import ad user old](../Resources/Images/Admin - Users/icon-import-ad-user-old.PNG)
 
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/icon-import-ad-user-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind50">
-
+::: Ind50
 The AD Import dialog box displays.
 
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/ad-import-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-For *Type of Import*, click the drop-down list and select the applicable option.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Select the other options, as necessary.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Import**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-A confirmation message displays. Click **OK**.
-
-</div>
-
-Scheduled AD Import
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
 After AD configuration, do the following:
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- --------------------------------------------------------------------------------
+ 1. Click the **Schedule** **Import** icon to the right of the selected line item.
+ -- ----- --------------------------------------------------------------------------------
 
-Click the **Schedule** **Import** icon to the right of the selected line item.
+::: Ind50
+![icon schedule ad user import old](../Resources/Images/Admin - Users/icon-schedule-ad-user-import-old.PNG)
 
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Users/icon-schedule-ad-user-import-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind50">
-
+::: Ind50
 The Schedule AD Import dialog box displays.
 
-</div>
+ -- ----- -----------------------------------------------------------------
+ 2. Select *Enable Schedule* Import to turn on the import function.
+ -- ----- -----------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="2. ">
+ -- ----- -------------------------------------------------------
+ 3. Select *Activate User Account* to activate all users.
+ -- ----- -------------------------------------------------------
 
-Select *Enable Schedule* Import to turn on the import function.
+ -- ----- --------------------------------------------------------------------------------------------
+ 4. Select *Send completion notification* to the applicable users when the import is complete.
+ -- ----- --------------------------------------------------------------------------------------------
 
-</div>
+ -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+ 5. In the *AD Import Frequency* field, click the drop-down list and select the applicable import frequency, such as Every Day, Every 2 days, and so forth.
+ -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="3. ">
+ -- ----- -----------------------------------------------------------------------------------------------------------
+ 6. In the *Type of Import* field, click the drop-down list and select the type of import, such as All Users.
+ -- ----- -----------------------------------------------------------------------------------------------------------
 
-Select *Activate User Account* to activate all users.
+ -- ----- ------------------------------------------------------
+ 7. In the schedule area, select the appropriate timing.
+ -- ----- ------------------------------------------------------
 
-</div>
+ -- ----- --------------------------------------------------------------------------------------------------------------------------------------------
+ 8. When all selections/entries are made, click **Add**. (If you are editing the existing information, the **Add** button changes **Update**.)
+ -- ----- --------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="4. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-Select *Send completion notification* to the applicable users when the import is complete.
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="5. ">
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-In the *AD Import Frequency* field, click the drop-down list and select the applicable import frequency, such as Every Day, Every 2 days, and so forth.
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-</div>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-<div class="NumList2" madcap:autonum="6. ">
+When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
 
-In the *Type of Import* field, click the drop-down list and select the type of import, such as All Users.
+ --- ---------------------------------------------------------------------------------------
+   The options change based upon the function; therefore, not every option may be shown.
+ --- ---------------------------------------------------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumList2" madcap:autonum="7. ">
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-In the schedule area, select the appropriate timing.
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-</div>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="8. ">
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-When all selections/entries are made, click **Add**. (If you are editing the existing information, the **Add** button changes **Update**.)
+::: Bullet1
+[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-Edit AD Import Configuration Delete AD Import Configuration
+::: Bullet1
+[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Bullet1" madcap:conditions="Default.OldUI">
-
-<a href="../Common%20Functions/Records-per-Page.htm" target="_popup">Records per Page</a>
-
-</div>
-
-<div class="Bullet1">
-
-<a href="../Common%20Functions/Auto-Refresh.htm" target="_popup">Auto Refresh</a>
-
-</div>
-
-<div class="Bullet1">
-
-<a href="../Common%20Functions/Personalize-Columns.htm" target="_popup">Personalize Columns</a>
-
-</div>
-
-<div class="Bullet1">
-
-<a href="../Common%20Functions/Saved-Filters.htm" target="_popup">Saved Filters</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../Common%20Functions/Export.htm" target="_popup">Export</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../Common%20Functions/Delete-Remove.htm" target="_popup">Delete</a>
-
-</div>
-
-<div class="Bullet1" madcap:conditions="Default.NewUI">
-
-<a href="../Common%20Functions/Items-per-Page.htm" target="_popup">Items Per Page</a>
-
-</div>

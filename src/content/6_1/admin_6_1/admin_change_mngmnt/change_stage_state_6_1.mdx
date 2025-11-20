@@ -1,284 +1,227 @@
 ---
+lang: en-us
 title: Change Stage and State
-description: Use this function to manage the stages and states.
-canonical: >-
-  https://docs.virima.com/6_1/admin_6_1/admin_change_mngmnt/change_stage_state_6_1
-keywords:
-  - Change Stage and State
-  - Change
-  - Stage
-  - And
-  - State
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Change Stage and State
 
 Use this function to manage the stages and states.
 
 The following stages and states are pre-configured. These can be modified.
 
-<table class="TableStyle-Alternate-Row-Color-Left" style="margin-left: 0;margin-right: auto;mc-table-style: url(&#39;../Resources/TableStyles/Alternate-Row-Color-Left.css&#39;);" data-cellspacing="21">
-<thead>
-<tr class="TableStyle-Alternate-Row-Color-Left-Head-Header1">
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Order</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Change Stage</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadE-Column1-Header1">Change States</th>
-<th class="TableStyle-Alternate-Row-Color-Left-HeadD-Column1-Header1">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">1</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">New</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><div class="Bullet1">
-Accepted
-</div>
-<div class="Bullet1">
-Requested
-</div>
-<div class="Bullet1">
-Rejected
-</div>
-<div class="Bullet1">
-RFI
-</div>
-<div class="Bullet1">
-Submitted for Authorization
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">The stage when a change is submitted for authorization.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2">2</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2">Planning</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2"><div class="Bullet1">
-Approved
-</div>
-<div class="Bullet1">
-Planning In Progress
-</div>
-<div class="Bullet1">
-Rejected
-</div>
-<div class="Bullet1">
-RFI
-</div>
-<div class="Bullet1">
-Submitted For Review
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">The Stage when the planning for a change is commenced.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">3</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">CAB Approval</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><div class="Bullet1">
-Approval For Pending
-</div>
-<div class="Bullet1">
-Approved
-</div>
-<div class="Bullet1">
-Rejected
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">The stage when a change is awaiting approval from the concern authority.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2">4</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2">Implementation</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body2"><div class="Bullet1">
-Back Out
-</div>
-<div class="Bullet1">
-Completed
-</div>
-<div class="Bullet1">
-In Progress
-</div>
-<div class="Bullet1">
-On Hold
-</div>
-<div class="Bullet1">
-RFI
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body2">The stage when the implementation of a change is carried out.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body1">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">5</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1">Resolved</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyE-Column1-Body1"><div class="Bullet1">
-Failed
-</div>
-<div class="Bullet1">
-Completed
-</div>
-<div class="Bullet1">
-In Progress
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyD-Column1-Body1">The stage when the implementation is resolved from the concern authority.</td>
-</tr>
-<tr class="TableStyle-Alternate-Row-Color-Left-Body-Body2">
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2">6</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2">Closed</td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyB-Column1-Body2"><div class="Bullet1">
-Cancelled
-</div>
-<div class="Bullet1">
-In Progress
-</div>
-<div class="Bullet1">
-Completed
-</div></td>
-<td class="TableStyle-Alternate-Row-Color-Left-BodyA-Column1-Body2">The stage when the review is successful and the change is closed.</td>
-</tr>
-</tbody>
-</table>
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| Order | Change Stage | Change States | Description |
++=======+================+=============================+===========================================================================+
+| 1 | New | ::: Bullet1 | The stage when a change is submitted for authorization. |
+| Column 1 | Column 2 | Accepted | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Requested | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Rejected | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | RFI | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Submitted for Authorization | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| 2 | Planning | ::: Bullet1 | The Stage when the planning for a change is commenced. |
+| Column 1 | Column 2 | Approved | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Planning In Progress | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Rejected | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | RFI | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Submitted For Review | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| 3 | CAB Approval | ::: Bullet1 | The stage when a change is awaiting approval from the concern authority. |
+| Column 1 | Column 2 | Approval For Pending | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Approved | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Rejected | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| 4 | Implementation | ::: Bullet1 | The stage when the implementation of a change is carried out. |
+| Column 1 | Column 2 | Back Out | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Completed | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | In Progress | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | On Hold | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | RFI | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| 5 | Resolved | ::: Bullet1 | The stage when the implementation is resolved from the concern authority. |
+| Column 1 | Column 2 | Failed | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Completed | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | In Progress | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+| 6 | Closed | ::: Bullet1 | The stage when the review is successful and the change is closed. |
+| Column 1 | Column 2 | Cancelled | Column 4 |
+| --- | --- | :---: | --- |
+| | | | |
+| | | ::: Bullet1 | |
+| | | In Progress | |
+| | | ::: | |
+| | | | |
+| | | ::: Bullet1 | |
+| | | Completed | |
+| | | ::: | |
++-------+----------------+-----------------------------+---------------------------------------------------------------------------+
 
-In the main window, click **Admin /> Change Management /> Change Stage and State**. The Change Stage and State window displays.
+In the main window, click **Admin \> Change Management \> Change Stage and State**. The Change Stage and State window displays.
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-stage-state-main-old.PNG" original-image-title=""></span>
+![change stage state main old](../Resources/Images/Admin - Change/change-stage-state-main-old.PNG)
 
-In the main window, click the **gear** icon and select **Change Management /> Change Stage and State**.
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/icon-change-stage-state.PNG" original-image-title="" style="width: 0.5in;"></span>
-
-The Change Stage and State window displays.
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-stage-state-main-new.PNG" original-image-title=""></span>
+![arrow border](../Resources/Images/arrow-border.PNG)
 
 ## Stage Functions
 
-New Change Stage
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+ -- ----- --------------------------------------------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **New Change Stage**. The New Change Stage window displays.
+ -- ----- --------------------------------------------------------------------------------------------------------------
 
-From the *Select Actions* drop-down list, choose **New Change Stage**. The New Change Stage window displays.
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-</div>
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-stage-new-old.PNG" original-image-title=""></span>
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-</div>
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-Click **New**. The New Change Stage window displays.
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-</div>
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-stage-new-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-Enter a *Name* and *Description*.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-In the *Stage Order* field, click the drop-down list and select the order for this stage.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Click **Add**.
-
-</div>
-
-Edit Change Stage Delete Change Stage
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## State Functions
 
-New Change State
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- ---------------------------------------------------------------------------
+ 1. Click the line item containing the stage to add a corresponding state(s).
+ -- ----- ---------------------------------------------------------------------------
 
-Click the line item containing the stage to add a corresponding state(s).
+ -- ----- ---------------------------------------------
+ 2. In the new window, click the **State** tab.
+ -- ----- ---------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumList2" madcap:autonum="2. ">
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-In the new window, click the **State** tab.
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-state-old.PNG" original-image-title=""></span>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-state-new.PNG" original-image-title=""></span>
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-</div>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="3. ">
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-Click **New Change State**.
+::: Bullet1
+[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+::: Bullet1
+[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-state-new-old.PNG" original-image-title=""></span>
+::: Bullet1
+[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="4. ">
-
-Click **New**.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Admin%20-%20Change/change-state-new-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-Enter a *Name*, *Description* and *Action Name*.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="6. ">
-
-To notify a user about this change, next to *Notify*, click **Add**, search for and select the applicable recipient, then click **Save**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="7. ">
-
-To notify a user about this change, next to *Notify*, click the **plus + sign**, search for and select the applicable recipient, then click **Save**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="8. ">
-
-To select the roles to approve this change, next to Approver Roles, click **Add**, search for and select the applicable role, then click **Save**.
-
-</div>
-
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="9. ">
-
-To select the roles to approve this change, next to Approver Roles, click the **plus + sign**, search for and select the applicable role, then click **Save**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="10. ">
-
-When all selections/entries are made, click **Save**.
-
-</div>
-
-Edit Change State Delete Change State

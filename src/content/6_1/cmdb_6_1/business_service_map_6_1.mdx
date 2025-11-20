@@ -12,50 +12,49 @@ keywords:
   - Virima
 lastUpdated: '2025-11-18'
 ---
-# <span class="Strong">Business Service Map</span>
 
-- The <span class="Strong">Business Service Map</span> provides a <span class="Strong">pictorial representation</span> of Configuration Items (CIs) and their interrelationships.
+# **Business Service Map**
 
-- It complements the <span class="Strong">Relationships</span> tab by offering a <span class="Strong">visual insight</span> into how CIs connect and contribute to service delivery.
+- The **Business Service Map** provides a **pictorial representation** of Configuration Items (CIs) and their interrelationships.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_56.png" original-image-title=""></span>
+- It complements the **Relationships** tab by offering a **visual insight** into how CIs connect and contribute to service delivery.
 
-<!-- -->
+ ![CMDB BSM](../Resources/Images/CMDB - Left-Nav/CMDB-BSM.PNG)
 
 - Upon clicking the BSM view:
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_57.png" original-image-title=""></span>
+ ![CMDB BSM View](../Resources/Images/CMDB - Left-Nav/CMDB-BSM-View.PNG)
 
-<span class="Strong" style="font-weight: bold;">Available Views:</span>
+[Available Views:]{.Strong}
 
-|                                                                  |                                                                                                                                      |
-|------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| <span class="Strong" style="font-weight: bold;">View Type</span> | <span class="Strong" style="font-weight: bold;">Purpose</span>                                                                       |
-| Infrastructure View                                              | Visualizes servers and applications, showing their relationships.                                                                    |
-| Service Topology View                                            | Displays the complete runtime structure of a business service and its supporting components.                                         |
-| Communication View                                               | Shows CIs connected through <span class="Emphasis">Communicates With</span> relationships, ideal for mapping traffic paths.          |
-| ADM View                                                         | Visualizes application interactions via <span class="Emphasis">Communicates With</span> links, typically used in ADM-based analysis. |
-| Network View                                                     | Presents physical and virtual network relationships among devices and services.                                                      |
-| Affected Business Application View                               | Highlights business services or applications affected by an impacted CI, helping assess service impact.                              |
-| Cloud Topology View                                              | Focuses on representing cloud infrastructure, if available.                                                                          |
+ ------------------------------------------------- ---------------------------------------------------------------------------------------------------------------------
+ [View Type]{.Strong} [Purpose]{.Strong}
+ Infrastructure View Visualizes servers and applications, showing their relationships.
+ Service Topology View Displays the complete runtime structure of a business service and its supporting components.
+ Communication View Shows CIs connected through *Communicates With* relationships, ideal for mapping traffic paths.
+ ADM View Visualizes application interactions via *Communicates With* links, typically used in ADM-based analysis.
+ Network View Presents physical and virtual network relationships among devices and services.
+ Affected Business Application View Highlights business services or applications affected by an impacted CI, helping assess service impact.
+ Cloud Topology View Focuses on representing cloud infrastructure, if available.
+ ------------------------------------------------- ---------------------------------------------------------------------------------------------------------------------
 
-At the bottom of the view, <span class="Strong">color-coded legends</span> distinguish relationship types such as:
+At the bottom of the view, **color-coded legends** distinguish relationship types such as:
 
 - Installed On
 
-- Assigned To
+- Runs On
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_58.png" original-image-title=""></span>
+- Runs![CMDB BSM View Relationship](../Resources/Images/CMDB - Left-Nav/CMDB-BSM-View-Relationship.PNG)
 
-# <span class="Strong">BSM Actions Tab:</span>
+# **BSM Actions Tab:**
 
-The <span class="Strong" style="font-weight: bold;">Actions</span> dropdown in the Business Service Map (BSM) provides on-demand operations to enhance real-time visibility and management of the selected Configuration Item (CI). These options are located at the top right of the BSM interface.
+The [Actions]{.Strong} dropdown in the Business Service Map (BSM) provides on-demand operations to enhance real-time visibility and management of the selected Configuration Item (CI). These options are located at the top right of the BSM interface.
 
-<span class="Strong" style="font-weight: bold;">Available Options:</span>
+[Available Options:]{.Strong}
 
-|                                            |                                                                              |
-|--------------------------------------------|------------------------------------------------------------------------------|
-| <span class="Strong">Action</span>         | <span class="Strong" style="font-weight: bold;">Purpose</span>               |
-| <span class="Strong">Rescan</span>         | Initiates a discovery rescan for the selected CI to collect the latest data. |
-| <span class="Strong">Host Check</span>     | Performs a basic connectivity and credential validation check on the host.   |
-| <span class="Strong">View Snapshots</span> | (If enabled) Opens previous snapshots of the BSM to view historical changes. |
+ --------------------------- ------------------------------------------------------------------------------
+ **Action** [Purpose]{.Strong}
+ **Rescan** Initiates a discovery rescan for the selected CI to collect the latest data.
+ **Host Check** Performs a basic connectivity and credential validation check on the host.
+ **View Snapshots** (If enabled) Opens previous snapshots of the BSM to view historical changes.
+ --------------------------- ------------------------------------------------------------------------------

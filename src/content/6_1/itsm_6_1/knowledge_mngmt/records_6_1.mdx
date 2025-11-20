@@ -1,71 +1,44 @@
 ---
+lang: en-us
 title: Knowledge Records
-description: Use this function to add and manage knowledge records.
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/knowledge_mngmt/records_6_1'
-keywords:
-  - Knowledge Records
-  - Knowledge
-  - Records
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Knowledge Records
 
 Use this function to add and manage knowledge records.
 
-In the navigation pane, select **ITSM /> Knowledge Management /> Knowledge Records**. The Knowledge Records window displays.
+In the navigation pane, select **ITSM \> Knowledge Management \> Knowledge Records**. The Knowledge Records window displays.
 
-|     |                                                                                                                                               |
-|-----|-----------------------------------------------------------------------------------------------------------------------------------------------|
-|     | The Knowledge Records window is also accessible through the Knowledge Management Dashboard window when clicking the **New Knowledge** button. |
+ --- -----------------------------------------------------------------------------------------------------------------------------------------------
+   The Knowledge Records window is also accessible through the Knowledge Management Dashboard window when clicking the **New Knowledge** button.
+ --- -----------------------------------------------------------------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/records-main-old.PNG" original-image-title=""></span>
+![records main old](../../Resources/Images/ITSM/Knowledge Management/records-main-old.PNG)
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/records-main-new.PNG" original-image-title=""></span>
+![arrow border](../../Resources/Images/arrow-border.PNG)
 
-New Knowledge Record
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Knowledge Record](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1" madcap:conditions="Default.OldUI">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>Before creating a new knowledge record, use the panel on the left side of the window to search for any records that may already contain the information.</p>
-<p>Type the criteria in the Search field and click the search icon. A list of possible matches is shown.</p>
-<p>Click on a result to view the details for that record.</p>
-<p><span class="image placeholder" data-original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/search-knowledge-old.PNG" data-original-image-title=""></span></p></td>
-</tr>
-</tbody>
-</table>
+ -- ----- ---------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **New Knowledge**.
+ -- ----- ---------------------------------------------------------------------
 
-<div class="NumList1" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+ -- ----- ----------------
+ 1. Click **New**.
+ -- ----- ----------------
 
-From the *Select Actions* drop-down list, choose **New Knowledge**.
+ -- ----- --------------------------------------------------------------------------------
+ 2. If applicable, choose a template from *Select Knowledge Model* drop-down list.
+ -- ----- --------------------------------------------------------------------------------
 
-</div>
+ -- ----- ----------------------------------------------------------
+ 3. Complete the fields, referring to the information below.
+ -- ----- ----------------------------------------------------------
 
-<div class="NumList1" madcap:conditions="Default.NewUI" madcap:autonum="1. ">
-
-Click **New**.
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-If applicable, choose a template from *Select Knowledge Model* drop-down list.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Complete the fields, referring to the information below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
+ -- ----- ------------------------------------------------------
+ 4. When all selections/entries are made, click **Add**.
+ -- ----- ------------------------------------------------------
 
 ### Primary Details
 
@@ -73,109 +46,63 @@ Enter a *Title*, *Description* and *Purpose of Article*.
 
 ### Record Details
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/records-record-details-old.PNG" original-image-title=""></span>
+![records record details old](../../Resources/Images/ITSM/Knowledge Management/records-record-details-old.PNG)
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/records-record-details-new.PNG" original-image-title=""></span>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Type**. Select the type of record: *Text*, *Link* or *Attachment*.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Classification**. Select the classification for this record, either *Public* or *Restricted*.
 
-</div>
+ -- ---- --------------------------------------------------------------------------------------------
+ - If no classification is selected, all application users can view the configured knowledge.
+ -- ---- --------------------------------------------------------------------------------------------
 
-<div class="emdash1" madcap:autonum="- ">
+ -- ---- ------------------------------------------------------------------------------------------------------------------------
+ - If the *Restricted* option is selected, only the selected users selected in the *Roles* parameter can view the report.
+ -- ---- ------------------------------------------------------------------------------------------------------------------------
 
-If no classification is selected, all application users can view the configured knowledge.
-
-</div>
-
-<div class="emdash1" madcap:autonum="- ">
-
-If the *Restricted* option is selected, only the selected users selected in the *Roles* parameter can view the report.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Topic**. Select the type of topic such as General, Desktop, Applications and so forth.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Sub Topic**. If a Topic was chosen, select the corresponding Sub Topic (and there may not be a sub topic).
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **State**. Select the state for this record such as *Draft*, *Review*, *Published*, or *Retired*.
 
-</div>
+ -- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ - *Draft*: Initial state of a Knowledge model/ Knowledge. Enter the content for the article. Users with Admin/Knowledge Manager role can define the article workflow state.
+ -- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="emdash1" madcap:autonum="- ">
+ -- ---- --------------------------------------------------------
+ - *Review*: It is the state to review completed article.
+ -- ---- --------------------------------------------------------
 
-*Draft*: Initial state of a Knowledge model/ Knowledge. Enter the content for the article. Users with Admin/Knowledge Manager role can define the article workflow state.
+ -- ---- ------------------------------------------------------------------------------------------------------------
+ - *Published*: It is the stage of the Knowledge article is available and can be searched in the application.
+ -- ---- ------------------------------------------------------------------------------------------------------------
 
-</div>
++---+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Column 1 | A notification email is sent to all roles as per Role access of Knowledge and individual\'s email preferences for every update or state change of the article. |
+| --- | --- |
+| | *Retired*: If an article is no longer required, Knowledge Manager defines the state of Knowledge to Retried and it is no longer available in the application. |
++---+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-<div class="emdash1" madcap:autonum="- ">
-
-*Review*: It is the state to review completed article.
-
-</div>
-
-<div class="emdash1" madcap:autonum="- ">
-
-*Published*: It is the stage of the Knowledge article is available and can be searched in the application.
-
-</div>
-
-<table class="TableStyle-Note-Indent" style="width: 100%;mc-table-style: url(&#39;../../Resources/TableStyles/Note-Indent.css&#39;);border-top-style: solid;border-top-width: 2px;border-top-color: #90ee90;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #90ee90;margin-left: 0.5in;margin-right: auto;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Indent-Body-Body1">
-<td class="TableStyle-Note-Indent-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-Indent-BodyA-Column2-Body1"><p>A notification email is sent to all roles as per Role access of Knowledge and individual's email preferences for every update or state change of the article.</p>
-<p><em>Retired</em>: If an article is no longer required, Knowledge Manager defines the state of Knowledge to Retried and it is no longer available in the application.</p></td>
-</tr>
-</tbody>
-</table>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Published On** and **Valid To**. Enter or select the applicable dates.
 
-</div>
+::: Bullet1
+**Owner** and **Roles**. Click **Add**, then search for and select the applicable user.
 
-<div class="Bullet1">
-
-**Owner** and **Roles**. Click **Add**the **plus + sign**, then search for and select the applicable user.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Is Compliance Checked.** When selected, confirms the information has been checked for compliance.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Is Intellectual Property Violation Checked**. When selected, confirms the information has been checked for violation.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 **Is Copyright Violation Checked**. When selected, confirms the information has been checked for violation.
-
-</div>
 
 ### Associated Records
 
@@ -189,124 +116,104 @@ Enter the details for this record, specify a link to the record, or upload an at
 
 To associate records with this article, do the following:
 
-<div class="NumList1" madcap:autonum="1. ">
+ -- ----- --------------------------------------
+ 1. In the main window, select a record.
+ -- ----- --------------------------------------
 
-In the main window, select a record.
+ -- ----- ------------------------------------
+ 2. Click the **Related Records** tab.
+ -- ----- ------------------------------------
 
-</div>
+ -- ----- ----------------------------------------------------------------------
+ 3. Select the records to associate such as CIs, Problems, Changes, etc.
+ -- ----- ----------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="2. ">
-
-Click the **Related Records** tab.
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Select the records to associate such as CIs, Problems, Changes, etc.
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-When all selections/entries are made, click **Save**.
-
-</div>
+ -- ----- -------------------------------------------------------
+ 4. When all selections/entries are made, click **Save**.
+ -- ----- -------------------------------------------------------
 
 ### Other Actions
 
-<div class="Bullet1">
-
+::: Bullet1
 **Trending Knowledge**. To display a list of all articles that have been viewed during a specific period of time, do the following:
 
-</div>
+ -- ----- -----------------------------------------------------------------------------------------------
+ a. In the main window, click **Trending Knowledge**. The Trending Knowledge dialog box displays.
+ -- ----- -----------------------------------------------------------------------------------------------
 
-<div class="NumLista" madcap:autonum="a. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Knowledge Record](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-In the main window, click **Trending Knowledge**. The Trending Knowledge dialog box displays.
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-<div class="Ind75" madcap:conditions="Default.OldUI">
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/trending-old.PNG" original-image-title=""></span>
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-</div>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-<div class="Ind75" madcap:conditions="Default.NewUI">
+When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Knowledge%20Management/trending-new.PNG" original-image-title=""></span>
+ --- ---------------------------------------------------------------------------------------
+   The options change based upon the function; therefore, not every option may be shown.
+ --- ---------------------------------------------------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Knowledge Record](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="NumListb" madcap:autonum="b. ">
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Select the *From* and *To* dates to search.
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-</div>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumListb" madcap:autonum="c. ">
+**Related Topics**
 
-To view the trends for the past 24 hours, click the **Current Trend (Last 24 hrs)** button.
+::: Bullet1
+[About Knowledge Management](About-Knowledge-Mngmnt.mdx)
 
-</div>
+::: Bullet1
+[Articles](/itsm/knowledge_mngmt/articles_6_1.mdx)
 
-<div class="NumListb" madcap:autonum="d. ">
+::: Bullet1
+[Base Submissions](Base-Submission.mdx)
 
-Click **Submit**. The Knowledge Articles window opens, displaying a list of all articles matching the search criteria.
+::: Bullet1
+[FAQs](/itsm/knowledge_mngmt/faqs_6_1.mdx)
 
-</div>
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-<div class="Bullet1">
+::: Bullet1
+[Auto Refresh](../../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-**Knowledge Transfer**. To transfer/share the configured knowledge with the users, while viewing a record, select **Transfer Knowledge**. Then search for and select the applicable user(s). The selected users can view the knowledge once it is in *Published* state.
+::: Bullet1
+[Delete](../../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Bullet1">
+::: Bullet1
+[Go To Page](../../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-**Importance**. Displays the configured important users.
+::: Bullet1
+[Personalize Columns](../../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Saved Filters](../../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="Bullet1">
-
-**Suggestions**. Displays the updated suggestions for configured knowledge.
-
-</div>
-
-<div class="Bullet1">
-
-**Unsubscribe**. To unsubscribe a user, while viewing the record, select a user(s) and select **Unsubscribe**.
-
-</div>
-
-Edit Knowledge Record Delete Knowledge Record
-
-<div class="Bullet1">
-
-[About Knowledge Management](About-Knowledge-Mngmnt.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Articles](Articles.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Base Submissions](Base-Submission.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[FAQs](FAQs.htm)
-
-</div>
-
- 
-
- 

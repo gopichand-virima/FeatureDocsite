@@ -1,39 +1,21 @@
 ---
+lang: en-us
 title: Execution Plan
-description: >-
-  An execution plan describes how a catalog item is procured, configured, and
-  installed. Each execution plan contains one or more tasks. For example, an
-  organization might create an execution plan for delivering a corporate
-  standard Laptop...
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/service_portfolio/execution_plan_6_1'
-keywords:
-  - Execution Plan
-  - Execution
-  - Plan
-  - Virima
-lastUpdated: '2025-11-18'
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Execution Plan
 
 An execution plan describes how a catalog item is procured, configured, and installed. Each execution plan contains one or more tasks. For example, an organization might create an execution plan for delivering a corporate standard Laptop that contains these tasks:
 
-<div class="Bullet1">
-
+::: Bullet1
 Procure the Laptop from a supplier.
 
-</div>
+::: Bullet1
+Configure the Laptop according to the requester\'s specifications.
 
-<div class="Bullet1">
-
-Configure the Laptop according to the requester's specifications.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Deliver the Laptop to the requester.
-
-</div>
 
 An execution plan is not specific to any one catalog item. There could be many different models of Laptop that a user can order, all using the same execution plan. It is usually not necessary to create a new execution plan for each individual catalog item in a mature service catalog.
 
@@ -47,147 +29,93 @@ Once you have created the execution plan record, you can associate it with catal
 
 ## Create an Execution Plan
 
-|     |                                                                                  |
-|-----|----------------------------------------------------------------------------------|
-|     | Administrators and Service Catalog Owners can create and manage execution plans. |
+ --- ----------------------------------------------------------------------------------
+   Administrators and Service Catalog Owners can create and manage execution plans.
+ --- ----------------------------------------------------------------------------------
 
 Developing an execution plan involves these general steps:
 
-<div class="Bullet1">
-
+::: Bullet1
 Create the execution plan record.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Create the tasks that make up the execution plan.
 
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 Associate the execution plan with one or more catalog items.
 
-</div>
+In the navigation pane, select **ITSM \> Service Portfolio \> Service Catalog \> Execution Plan**. The Execution Plan window displays containing a list of all configured execution plans.
 
-In the navigation pane, select **ITSM /> Service Portfolio /> Service Catalog /> Execution Plan**. The Execution Plan window displays containing a list of all configured execution plans.
+![execution plan main old](../../Resources/Images/ITSM/Service Portfolio/execution-plan-main-old.PNG)
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-main-old.PNG" original-image-title=""></span>
+![arrow border](../../Resources/Images/arrow-border.PNG)
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-main-new.PNG" original-image-title="" style="width: 731px;height: 133px;"></span>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Execution Plan\
+](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-New Execution Plan  
+ -- ----- --------------------------------------------------------------------------------------------------------------
+ 1. From the *Select Actions* drop-down list, choose **New Execution Plan**. The Execution Plan window displays.
+ -- ----- --------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:conditions="Default.OldUI" madcap:autonum="1. ">
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Execution Plan](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-From the *Select Actions* drop-down list, choose **New Execution Plan**. The Execution Plan window displays.
+ --- -----------------------------------------------------------------------------------------
+   Not all functions include an option to edit record line items shown in the main window.
+ --- -----------------------------------------------------------------------------------------
 
-</div>
+ -- ----- -------------------------------------------------------
+ 1. Navigate to the window containing the record to edit.
+ -- ----- -------------------------------------------------------
 
-<div class="Ind50" madcap:conditions="Default.OldUI">
+ -- ----- -------------------------------------------------------------------------------------
+ 2. Click the line containing the record. The applicable window or dialog box displays.
+ -- ----- -------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-new-old.PNG" original-image-title=""></span>
+ -- ----- -----------------------------------
+ 3. Make the necessary modifications.
+ -- ----- -----------------------------------
 
-</div>
+ -- ----- -------------------------------------------
+ 4. Click **Save** or **Add**, as applicable.
+ -- ----- -------------------------------------------
 
-<div class="NumList2" madcap:conditions="Default.NewUI" madcap:autonum="2. ">
+When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
 
-Click **New**. The New Execution Plan window displays.
+ --- ---------------------------------------------------------------------------------------
+   The options change based upon the function; therefore, not every option may be shown.
+ --- ---------------------------------------------------------------------------------------
 
-</div>
+[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Execution Plan](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
-<div class="Ind50" madcap:conditions="Default.NewUI">
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-new-new.PNG" original-image-title="" style="width: 727px;height: 290px;"></span>
+ -- ----- --------------------------------------------------
+ 1. Click the line that contains the item to delete.
+ -- ----- --------------------------------------------------
 
-</div>
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
+ -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div class="NumList2" madcap:autonum="3. ">
+[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-Enter a *Name* and *Description*.
+::: Bullet1
+[Auto Refresh](../../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Delete](../../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="NumList2" madcap:autonum="4. ">
+::: Bullet1
+[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-Enter the **Total delivery time**, which is the sum of the total time required for all tasks.
+::: Bullet1
+[Go To Page](../../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-</div>
+::: Bullet1
+[Personalize Columns](../../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-<div class="NumList2" madcap:autonum="5. ">
+::: Bullet1
+[Saved Filters](../../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-Click **Add**.
-
-</div>
-
-### Execution Plan Tasks
-
-<div class="NumList1" madcap:autonum="1. ">
-
-In the main window, select a line item.
-
-</div>
-
-<div class="NumList2" madcap:autonum="2. ">
-
-Click the **Tasks** tab.
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-tasks-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-tasks-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="3. ">
-
-Click **New Execution Plan Task.**
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.OldUI">
-
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-new-task-old.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="Ind50" madcap:conditions="Default.NewUI">
-
-<span class="image placeholder" original-image-src="../../Resources/Images/ITSM/Service%20Portfolio/execution-plan-new-task-new.PNG" original-image-title=""></span>
-
-</div>
-
-<div class="NumList2" madcap:autonum="4. ">
-
-Complete the fields, referring to the table below.
-
-</div>
-
-<div class="NumList2" madcap:autonum="5. ">
-
-When all selections/entries are made, click **Add**.
-
-</div>
-
-#### Tasks Fields
-
-| Field               | Description                                                                                                                                       |
-|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name                | Enter a name for this task.                                                                                                                       |
-| Description         | Enter a description for this task.                                                                                                                |
-| Total Delivery Time | Enter the time interval for completion of this task in hours/days/minutes. In the list of plans, the **Total Delivery Time** is shown in minutes. |
-| Order Task          | Specify a number for the order of this task.                                                                                                      |
-| SLA                 | Enter the name of the SLA to associate with this task.                                                                                            |
-| Instructions        | Enter any instructions required to perform this task.                                                                                             |
-| Fulfillment Group   | Click **Addthe plus + sign**, then search for and select the Fulfillment Group for this task.                                                     |
-| Assignee            | Click **Addthe plus + sign**, then search for and select the Assignee for this task.                                                              |
-
-Edit Execution Plan Delete Execution Plan

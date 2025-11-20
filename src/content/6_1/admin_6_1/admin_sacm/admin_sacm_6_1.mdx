@@ -1,19 +1,9 @@
 ---
-title: About SACM Administration
-description: >-
-  The purpose of **Service Asset and Configuration Management** (SACM) is to
-  ensure that the assets required to deliver services are properly controlled,
-  and that accurate and reliable information about those assets is available
-  when and w...
-canonical: 'https://docs.virima.com/6_1/admin_6_1/admin_sacm/admin_sacm_6_1'
-keywords:
-  - About SACM Administration
-  - About
-  - Sacm
-  - Administration
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: Discovery Admin
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # About SACM Administration
 
 The purpose of **Service Asset and Configuration Management** (SACM) is to ensure that the assets required to deliver services are properly controlled, and that accurate and reliable information about those assets is available when and where it is needed. This information includes details of how the assets have been configured and the relationships between assets.
@@ -24,7 +14,7 @@ The scope of SACM may extend to non-IT assets and to internal and external servi
 
 ## Overview
 
-The **Configuration Management Database (CMDB)** is a series of tables containing all the assets and business services controlled by a company and their configurations. This includes, for example, computers and devices on the network, software contracts and licenses, business services. The IT desk can use the CDMB to understand better their network users' equipment, and the relationships between them. The CMDB can also be referenced by other processes within the system.
+The **Configuration Management Database (CMDB)** is a series of tables containing all the assets and business services controlled by a company and their configurations. This includes, for example, computers and devices on the network, software contracts and licenses, business services. The IT desk can use the CDMB to understand better their network users\' equipment, and the relationships between them. The CMDB can also be referenced by other processes within the system.
 
 The CMDB can be populated by using the Discovery agent. Discovery searches the network for all attached computers and devices, then populates the CMDB with information on each computer/device configuration, provisioning, and current status. Discovery also reports on any software which is running, and the IP connections between the systems, thereby establishing their relationships.
 
@@ -36,29 +26,20 @@ In Virima, every CI is derived from a Blueprint.
 
 Every CI has components, these components can be Network Adapters, Storage Disks or Software Instance, etc.
 
-Each CI component is associated to the parent CI using Relationships--for example, Installed On, Component Of, Hosted On, Virtualized On etc.
+Each CI component is associated to the parent CI using Relationships\--for example, Installed On, Component Of, Hosted On, Virtualized On etc.
 
 Each CI/CI Component in the application has a unique Asset ID.
 
-In Virima, CI's are added in three ways:
+In Virima, CI\'s are added in three ways:
 
-<div class="Bullet1">
+::: Bullet1
+CI\'s are added into CMDB manually.
 
-CI's are added into CMDB manually.
+::: Bullet1
+CI\'s discovered by the Discovery application are moved into CMDB.
 
-</div>
-
-<div class="Bullet1">
-
-CI's discovered by the Discovery application are moved into CMDB.
-
-</div>
-
-<div class="Bullet1">
-
-CI's details can be imported from a file (xls,xlsx.csv).
-
-</div>
+::: Bullet1
+CI\'s details can be imported from a file (xls,xlsx.csv).
 
 ## Definition of a Blueprint
 
@@ -66,92 +47,37 @@ Blueprint defines the skeletal structure of a CI which includes properties and r
 
 ## Functions
 
-|     |                                                              |
-|-----|--------------------------------------------------------------|
-|     | Admin functions are only available to System Administrators. |
+ --- --------------------------------------------------------------
+   Admin functions are only available to System Administrators.
+ --- --------------------------------------------------------------
 
 This module includes the following functions:
 
-<div class="Bullet1" madcap:conditions="Default.Omit">
+- [[CMDB Graphical Workflows](CMDB-Graphical-Workflow.mdx)]{style="color: #000000;"}
+- [CMDB Properties](CMDB-Properties.mdx)
+::: Bullet1
+[Confidence Configuration](Confidence-Config.mdx)
 
-[Add New Property](Add-New-Property.htm)
+- [Custom BMS Views](BSM-Views.mdx)
+::: Bullet1
+[Duplicates Remediation](Dups-Remediation.mdx)
 
-</div>
+- [[Export CI Template](Export-CI-Template.mdx)]{style="color: #000000;"}
+::: Bullet1
+[IP Connection Score Threshold](IP-Conn-Score-Threshold.mdx)
 
-<div class="Bullet1">
+::: Bullet1
+[Process Tags](Process-Tags.mdx)
 
-[Blueprints](Blueprints.htm)
+::: Bullet1
+[Property Group](Property-Group.mdx)
 
-</div>
+::: Bullet1
+[Relationship Types](Relationship-Types.mdx)
 
-<div class="Bullet1" style="color: #dc143c;">
+::: Bullet1
+[Software License Validity Check](Software-Lic-Validity-Check.mdx)
 
-<span style="color: #000000;"> [CMDB Graphical Workflows](CMDB-Graphical-Workflow.htm) </span>
+::: Bullet1
+[Software Usage Report](Software-Usage-Report.mdx)
 
-</div>
-
-<div class="Bullet1" style="color: #000000;">
-
-[CMDB Properties](CMDB-Properties.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Confidence Configuration](Confidence-Config.htm)
-
-</div>
-
-<div class="Bullet1" style="color: #000000;">
-
-[Custom BMS Views](BSM-Views.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Duplicates Remediation](Dups-Remediation.htm)
-
-</div>
-
-<div class="Bullet1" style="color: #dc143c;">
-
-<span style="color: #000000;"> [Export CI Template](Export-CI-Template.htm) </span>
-
-</div>
-
-<div class="Bullet1">
-
-[IP Connection Score Threshold](IP-Conn-Score-Threshold.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Process Tags](Process-Tags.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Property Group](Property-Group.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Relationship Types](Relationship-Types.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Software License Validity Check](Software-Lic-Validity-Check.htm)
-
-</div>
-
-<div class="Bullet1">
-
-[Software Usage Report](Software-Usage-Report.htm)
-
-</div>

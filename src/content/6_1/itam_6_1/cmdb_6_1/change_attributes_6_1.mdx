@@ -3,7 +3,7 @@ title: Change attributes
 description: >-
   The Change Attributes action in the Virima CMDB enables users to update one or
   more field values across selected Configuration Items (CIs) in bulk.
-canonical: 'https://docs.virima.com/6_1/itam_6_1/cmdb_6_1/change_attributes_6_1'
+canonical: 'https://docs.virima.com/6_1/cmdb_6_1/change_attributes_6_1'
 keywords:
   - Change attributes
   - Change
@@ -11,29 +11,24 @@ keywords:
   - Virima
 lastUpdated: '2025-11-18'
 ---
-# Change attributes
 
-The <span class="Strong">Change Attributes</span> action in the Virima CMDB enables users to update one or more field values across selected Configuration Items (CIs) in bulk.
+# Change attributes 
+
+The **Change Attributes** action in the Virima CMDB enables users to update one or more field values across selected Configuration Items (CIs) in bulk.
 
 - Select one or more blueprints.
 
-- Click the <span class="Strong">Select Actions</span> dropdown at the top-right of the CMDB list.
+- Click the **Select Actions** dropdown at the top-right of the CMDB list.
 
-- Choose <span class="Strong">Change Attributes </span>from the dropdown.
+- Choose **Change Attributes **from the dropdown.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_6.png" original-image-title=""></span>
+ ![Configuration Management Database 6 1813x891](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_6_1813x891.png)
 
-<!-- -->
+- After selecting blueprints and triggering the **Change Attribute **action, a confirmation prompt appears.
 
-- After selecting blueprints and triggering the <span class="Strong">Change Attribute </span>action, a confirmation prompt appears.
+ ![Configuration Management Database 7](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_7.png)
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_7.png" original-image-title=""></span>
-
-<!-- -->
-
-- Click <span class="Strong">"Yes"</span> to proceed or <span class="Strong">"No"</span> to cancel. A screen then displays all <span class="Strong">editable fields</span>, grouped by category.
-
-<!-- -->
+- Click **\"Yes\"** to proceed or **\"No\"** to cancel. A screen then displays all **editable fields**, grouped by category.
 
 - Editable fields are grouped by category based on the blueprint example (with a detailed list of categories and example fields).
 
@@ -41,136 +36,134 @@ The <span class="Strong">Change Attributes</span> action in the Virima CMDB enab
 
 - Properties specific to a particular blueprint, if edited, are reflected only in CIs associated with that blueprint.
 
-# <span class="Strong">Modify CI Properties</span>
+# **Modify CI Properties** 
 
 The Change Attributes form is organized into the following sections:
 
 The following fields may appear (depending on CI type, user role, and blueprint design) and can be edited in bulk:
 
-<span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_8.png" original-image-title=""></span> <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_9.png" original-image-title=""></span>
+**Application Details**
 
-<span class="Strong">Application Details</span>
+- **Date Properties**: Various date fields with calendar pickers
 
-- <span class="Strong">Date Properties</span>: Various date fields with calendar pickers
+- **Dropdown Properties**: Configurable dropdown selections
 
-- <span class="Strong">Dropdown Properties</span>: Configurable dropdown selections
+- **Custom Fields**: Application-specific properties
 
-- <span class="Strong">Custom Fields</span>: Application-specific properties
+**Asset Primary Information**
 
-<span class="Strong">Asset Primary Information</span>
+- **Manufacturer**: Asset manufacturer details
 
-- <span class="Strong">Manufacturer</span>: Asset manufacturer details
+- **Asset Name**: Descriptive name for the asset
 
-- <span class="Strong">Asset Name</span>: Descriptive name for the asset
+- **Subscription ID**: Unique subscription identifier
 
-- <span class="Strong">Subscription ID</span>: Unique subscription identifier
+- **Server Port**: Network port information
 
-- <span class="Strong">Server Port</span>: Network port information
+- **Condition**: Asset condition (Normal, etc.)
 
-- <span class="Strong">Condition</span>: Asset condition (Normal, etc.)
+- **Business Criticality**: Impact level (High, Medium, Low)
 
-- <span class="Strong">Business Criticality</span>: Impact level (High, Medium, Low)
+- **Type**: Asset categorization
 
-- <span class="Strong">Type</span>: Asset categorization
+- **Description**: Detailed asset description
 
-- <span class="Strong">Description</span>: Detailed asset description
+- **Model Number**: Manufacturer model identifier
 
-- <span class="Strong">Model Number</span>: Manufacturer model identifier
+- **Serial Number**: Unique serial identifier
 
-- <span class="Strong">Serial Number</span>: Unique serial identifier
+- **Resource Group**: Organizational grouping
 
-- <span class="Strong">Resource Group</span>: Organizational grouping
+- **Company**: Associated company/organization
 
-- <span class="Strong">Company</span>: Associated company/organization
+- **Local FQDN**: Fully qualified domain name
 
-- <span class="Strong">Local FQDN</span>: Fully qualified domain name
+- **Host Name**: Network host identifier
 
-- <span class="Strong">Host Name</span>: Network host identifier
+- **Contracts**: Associated contract information
 
-- <span class="Strong">Contracts</span>: Associated contract information
+- **TestToDelete**: Testing/validation fields
 
-- <span class="Strong">TestToDelete</span>: Testing/validation fields
+**Device Details**
 
-<span class="Strong">Device Details</span>
+- **Device Location**: Physical/logical location
 
-- <span class="Strong">Device Location</span>: Physical/logical location
+- **Hardware Type**: Device classification
 
-- <span class="Strong">Hardware Type</span>: Device classification
+**Hardware and Network**
 
-<span class="Strong">Hardware and Network</span>
+- **IP Address**: Primary IP configuration
 
-- <span class="Strong">IP Address</span>: Primary IP configuration
+- **Virtual IP Address**: Virtual network addressing
 
-- <span class="Strong">Virtual IP Address</span>: Virtual network addressing
+- **Uptime**: System uptime information
 
-- <span class="Strong">Uptime</span>: System uptime information
+- **Domain**: Network domain membership
 
-- <span class="Strong">Domain</span>: Network domain membership
+- **Network Properties**: Various network-related integer and string properties
 
-- <span class="Strong">Network Properties</span>: Various network-related integer and string properties
+- **Boolean Properties**: Network configuration flags
 
-- <span class="Strong">Boolean Properties</span>: Network configuration flags
+**Maintenance and Backup Information**
 
-<span class="Strong">Maintenance and Backup Information</span>
+- **Backup Configurations**: Dropdown selections for backup settings
 
-- <span class="Strong">Backup Configurations</span>: Dropdown selections for backup settings
+- **Maintenance Schedules**: Maintenance-related properties
 
-- <span class="Strong">Maintenance Schedules</span>: Maintenance-related properties
+**Network Adapter Details**
 
-<span class="Strong">Network Adapter Details</span>
+- **MAC Address**: Physical network adapter address
 
-- <span class="Strong">MAC Address</span>: Physical network adapter address
+- **Default Gateway**: Network gateway configuration
 
-- <span class="Strong">Default Gateway</span>: Network gateway configuration
+**Operating System Details**
 
-<span class="Strong">Operating System Details</span>
+- **Operating System**: OS identification
 
-- <span class="Strong">Operating System</span>: OS identification
+- **OS Build Number**: Specific build information
 
-- <span class="Strong">OS Build Number</span>: Specific build information
+- **OS Architecture**: System architecture (32-bit/64-bit)
 
-- <span class="Strong">OS Architecture</span>: System architecture (32-bit/64-bit)
+- **OS Kernel**: Kernel version information
 
-- <span class="Strong">OS Kernel</span>: Kernel version information
+**Processor Details**
 
-<span class="Strong">Processor Details</span>
+- **Number of Processors**: CPU count information
 
-- <span class="Strong">Number of Processors</span>: CPU count information
+**Software Instance Details**
 
-<span class="Strong">Software Instance Details</span>
+- **Build Version**: Software build information
 
-- <span class="Strong">Build Version</span>: Software build information
+- **Display Version**: User-visible version strings
 
-- <span class="Strong">Display Version</span>: User-visible version strings
+**Virtual Machine Details**
 
-<span class="Strong">Virtual Machine Details</span>
+- **UUID**: Unique virtual machine identifier
 
-- <span class="Strong">UUID</span>: Unique virtual machine identifier
+**Other Information**
 
-<span class="Strong">Other Information</span>
+- **Owner**: Asset owner assignment with **\"Add\"** button
 
-- <span class="Strong">Owner</span>: Asset owner assignment with <span class="Strong">"Add"</span> button
+- **Second Level Support**: Support contact with **\"Add\"** button
 
-- <span class="Strong">Second Level Support</span>: Support contact with <span class="Strong">"Add"</span> button
+- **Third Level Support**: Escalation contact with **\"Add\"** button
 
-- <span class="Strong">Third Level Support</span>: Escalation contact with <span class="Strong">"Add"</span> button
+- **Tags**: Asset categorization tags with **\"Add\"** button
 
-- <span class="Strong">Tags</span>: Asset categorization tags with <span class="Strong">"Add"</span> button
+- **Location**: Physical/logical location with **\"Add\"** button
 
-- <span class="Strong">Location</span>: Physical/logical location with <span class="Strong">"Add"</span> button
+- **Hardware Asset**: Associated hardware with **\"Add\"** button
 
-- <span class="Strong">Hardware Asset</span>: Associated hardware with <span class="Strong">"Add"</span> button
+- **OS License Key**: Operating system licensing with **\"Add\"** button
 
-- <span class="Strong">OS License Key</span>: Operating system licensing with <span class="Strong">"Add"</span> button
+- **Vendor**: Manufacturer/vendor information with **\"Add\"** button
 
-- <span class="Strong">Vendor</span>: Manufacturer/vendor information with <span class="Strong">"Add"</span> button
+**Contacts**
 
-<span class="Strong">Contacts</span>
+- **Contact Management**: Add/manage CI-related contacts with **\"Add\"** button
 
-- <span class="Strong">Contact Management</span>: Add/manage CI-related contacts with <span class="Strong">"Add"</span> button
-
-After configuring property values, click <span class="Strong">"Save"</span>
+After configuring property values, click **\"Save\"**
 
 Changes apply to all selected CIs. You will then return to the main CMDB view.
 
-<span class="Strong">Verify changes</span>: Confirm updated properties reflect in CI records. Open specific CIs to confirm detailed changes
+**Verify changes**: Confirm updated properties reflect in CI records. Open specific CIs to confirm detailed changes

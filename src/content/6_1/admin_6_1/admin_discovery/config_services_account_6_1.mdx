@@ -1,53 +1,32 @@
 ---
-title: Configure Services Account
-description: >-
-  Use this function to configure service accounts with admin privileges on both
-  the host being scanned and the server where the application is being
-  installed.
-canonical: >-
-  https://docs.virima.com/6_1/admin_6_1/admin_discovery/config_services_account_6_1
-keywords:
-  - Configure Services Account
-  - Configure
-  - Services
-  - Account
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: Configuring the Administrator Account
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Configure Services Account
 
 Use this function to configure service accounts with admin privileges on both the host being scanned and the server where the application is being installed.
 
-<div class="numlist1" madcap:autonum="1. ">
+ -- ----- ---------------------------------
+ 1. Open the **Services.msc** file.
+ -- ----- ---------------------------------
 
-Open the **Services.msc** file.
+ -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------
+ 2. [Double-click ]{.span_1}[on **Virima Discovery Application**]{.span_2}[. The Virima *Discovery Agent Properties dialog box* displays.]{.span_1}
+ -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------
 
-</div>
+::: Ind50
+![discovery agent properties](../Resources/Images/Discovery/discovery-agent-properties.png)
 
-<div class="numlist2" madcap:autonum="2. ">
+ -- ----- ------------------------------------------------------------
+ 3. Provide the Administrator credential information as shown.
+ -- ----- ------------------------------------------------------------
 
-<span class="span_1">Double-click </span><span class="span_2">on **Virima Discovery Application**</span><span class="span_1">. The Virima *Discovery Agent Properties dialog box* displays.</span>
+ -- ----- --------------------------------------------------
+ 4. Click **OK** to restart the application service.
+ -- ----- --------------------------------------------------
 
-</div>
-
-<div class="Ind50">
-
-<span class="image placeholder" original-image-src="../Resources/Images/Discovery/discovery-agent-properties.png" original-image-title=""></span>
-
-</div>
-
-<div class="numlist2" madcap:autonum="3. ">
-
-Provide the Administrator credential information as shown.
-
-</div>
-
-<div class="numlist2" madcap:autonum="4. ">
-
-Click **OK** to restart the application service.
-
-</div>
-
-|     |                                                                                                                                                                                                                                                                                                                                                                      |
-|-----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|     | <span class="span_1">The Discovery Application is packed within a Java runtime environment. However, Discovery can be pointed to a different JRE through </span><span class="span_2" style="font-weight: bold;">Settings</span><span class="span_1" style="font-weight: bold;"> /> </span><span class="span_2" style="font-weight: bold;">Java Configuration.</span> |
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   [The Discovery Application is packed within a Java runtime environment. However, Discovery can be pointed to a different JRE through ]{.span_1}[Settings]{.span_2}[ \> ]{.span_1}[Java Configuration.]{.span_2}
+ --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

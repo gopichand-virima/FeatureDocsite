@@ -3,80 +3,79 @@ title: Audits
 description: >-
   The Audit feature in CMDB allows you to verify the configuration and presence
   of Configuration Items (CIs).
-canonical: 'https://docs.virima.com/6_1/itsm_6_1/cmdb_6_1/audits_6_1'
+canonical: 'https://docs.virima.com/6_1/cmdb_6_1/audits_6_1'
 keywords:
   - Audits
   - Virima
 lastUpdated: '2025-11-18'
 ---
-# Audits
 
-The <span class="Strong">Audit</span> feature in CMDB allows you to verify the configuration and presence of Configuration Items (CIs).
+# Audits 
 
-- Click the <span class="Strong">Select Actions</span> dropdown at the top-right of the CMDB list.
+The **Audit** feature in CMDB allows you to verify the configuration and presence of Configuration Items (CIs).
 
-- Choose <span class="Strong">Audits</span> from the dropdown.
+- Click the **Select Actions** dropdown at the top-right of the CMDB list.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_3.png" original-image-title=""></span>
+- Choose **Audits** from the dropdown.
 
-You can perform audits by either <span class="Strong">creating a new audit process</span> or <span class="Strong">adding CIs to an existing audit</span>.
+ ![Configuration Management Database 3 1802x891](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_3_1802x891.png)
 
-# Adding to an existing audit
+You can perform audits by either **creating a new audit process** or **adding CIs to an existing audit**.
+
+# Adding to an existing audit 
 
 To attach CIs to an existing audit:
 
-1.  Select the CI(s) from the CMDB.
+1. Select the CI(s) from the CMDB.
 
-2.  Choose <span class="Strong">Audit</span> from the <span class="Strong">Select Actions</span> dropdown.
+2. Choose **Audit** from the **Select Actions** dropdown.
 
-3.  Select the <span class="Strong">Add to Existing Audit</span> option.
+3. Select the **Add to Existing Audit** option.
 
-4.  Use the search bar to locate the audit.
+4. Use the search bar to locate the audit.
 
-5.  Select it from the list and click <span class="Strong">Add</span>.
+5. Select it from the list and click **Add**.
 
-    <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_4.png" original-image-title=""></span>
+ ![Configuration Management Database 4](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_4.png)
 
-# Creating a new audit
+# Creating a new audit 
 
 To initiate a new audit:
 
 - Select one or more CI records from the CMDB.
 
-- From the <span class="Strong">Select Actions</span> dropdown, choose <span class="Strong">Audit</span>.
+- From the **Select Actions** dropdown, choose **Audit**.
 
-- In the pop-up window, select <span class="Strong">New Audit</span>.
+- In the pop-up window, select **New Audit**.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_5.png" original-image-title=""></span>
-
-<!-- -->
+ ![Configuration Management Database 5](../Resources/Images/CMDB - Left-Nav/Configuration Management Database_5.png)
 
 - Fill in the following fields:
 
-  - <span class="Strong">Name</span>: Enter a unique name for the audit (e.g., “Java Audit”).
+ - **Name**: Enter a unique name for the audit (e.g., "Java Audit").
 
-  - <span class="Strong">Description</span>: Add a brief explanation of the audit purpose.
+ - **Description**: Add a brief explanation of the audit purpose.
 
-  - <span class="Strong">Auditor</span>: Assign the user(s) responsible for conducting the audit.
+ - **Auditor**: Assign the user(s) responsible for conducting the audit.
 
-  - <span class="Strong">Checked By</span>: Assign the user(s) responsible for reviewing the audit results.
+ - **Checked By**: Assign the user(s) responsible for reviewing the audit results.
 
-  - <span class="Strong">Run A Scan</span>: Enable this option to trigger a <span class="Strong">probe scan</span> on the target CI(s).
+ - **Run A Scan**: Enable this option to trigger a **probe scan** on the target CI(s).
 
-  - <span class="Strong">Select Probe</span>: Choose a specific probe to define what the scan checks.
+ - **Select Probe**: Choose a specific probe to define what the scan checks.
 
-  - <span class="Strong">Scan Frequency</span>: Set how often the scan should repeat, if needed.
+ - **Scan Frequency**: Set how often the scan should repeat, if needed.
 
-  - <span class="Strong">Audit Result</span>: Select the outcome (e.g., Pass, Fail, In Progress).
+ - **Audit Result**: Select the outcome (e.g., Pass, Fail, In Progress).
 
-- Click <span class="Strong">Add</span> to start the audit process.
+- Click **Add** to start the audit process.
 
-<span class="Strong">Example</span>: Java Audit Scan
+**Example**: Java Audit Scan
 
-When you assign a <span class="Strong">Java audit scan</span> to a CI, the selected probe checks whether <span class="Strong">Java is installed</span> on the system.
+When you assign a **Java audit scan** to a CI, the selected probe checks whether **Java is installed** on the system.
 
-- If Java is present, the audit result will reflect a <span class="Strong">Pass</span> (or custom result).
+- If Java is present, the audit result will reflect a **Pass** (or custom result).
 
-- If Java is missing, it may show <span class="Strong">Fail</span> or <span class="Strong">In Progress</span>, depending on the probe response.
+- If Java is missing, it may show **Fail** or **In Progress**, depending on the probe response.
 
-- The <span class="Strong">Checked By</span> field allows designated users to review and verify the automated results.
+- The **Checked By** field allows designated users to review and verify the automated results.

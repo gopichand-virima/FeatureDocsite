@@ -1,32 +1,18 @@
 ---
-title: 'Service Map: ADM View'
-description: 'In the example figure below:'
-canonical: >-
-  https://docs.virima.com/6_1/itsm_6_1/config_mngmt/config_items/config_item_details/bsm_examples/bsm_adm_view_6_1
-keywords:
-  - 'Service Map: ADM View'
-  - Service
-  - Map
-  - Adm
-  - View
-  - Virima
-lastUpdated: '2025-11-18'
+lang: en-us
+title: Service Map ADM View
+viewport: width=device-width, initial-scale=1.0
 ---
+
 # Service Map: ADM View
 
 In the example figure below:
 
-<div class="Bullet1">
+::: Bullet1
+Both the **Source** and the **Target** CI's are of type Software Instance.
 
-Both the **Source** and the **Target** CI’s are of type Software Instance.
-
-</div>
-
-<div class="Bullet1">
-
+::: Bullet1
 The Apache Tomcat application is communicating with Redis Server and MySQL Database.
-
-</div>
 
 Hover the pointer on any of the streams to know the Port numbers through which they are communicating.
 
@@ -34,18 +20,14 @@ Hover the pointer on any of the streams to know the Port numbers through which t
 
  
 
-<span class="image placeholder" original-image-src="../../../../../Resources/Images/ITSM/Biz-Svc-Map/adm-view.png" original-image-title=""></span>
+![adm view](../../../../../Resources/Images/ITSM/Biz-Svc-Map/adm-view.png)
 
 Right-click on the CI to view its details:
 
-<span class="image placeholder" original-image-src="../../../../../Resources/Images/ITSM/Biz-Svc-Map/adm-view-ci-details.png" original-image-title=""></span>
+![adm view ci details](../../../../../Resources/Images/ITSM/Biz-Svc-Map/adm-view-ci-details.png)
 
-<table class="TableStyle-Note" style="mc-table-style: url(&#39;../../../../../Resources/TableStyles/Note.css&#39;);margin-left: 0;margin-right: auto;width: 100%;" data-cellspacing="0">
-<tbody>
-<tr class="TableStyle-Note-Body-Body1">
-<td class="TableStyle-Note-BodyB-Column1-Body1"> </td>
-<td class="TableStyle-Note-BodyA-Column2-Body1"><p>If any of the above relationships are deleted and if they are found to be communicating again during another scan, then the relationship will be established.</p>
-<p>If any one of the assets is not communicating during the scan, then the relationship will not be established.</p></td>
-</tr>
-</tbody>
-</table>
++---+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Column 1 | If any of the above relationships are deleted and if they are found to be communicating again during another scan, then the relationship will be established. |
+| --- | --- |
+| | If any one of the assets is not communicating during the scan, then the relationship will not be established. |
++---+---------------------------------------------------------------------------------------------------------------------------------------------------------------+

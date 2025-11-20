@@ -10,41 +10,36 @@ keywords:
   - Virima
 lastUpdated: '2025-11-18'
 ---
+
 # ITSM
 
 - The ITSM (IT Service Management) tab displays all ITSM records associated with a Configuration Item (CI).
 
-- This view allows you to track the CI’s involvement in service-related activities across various ITSM modules.
+- This view allows you to track the CI's involvement in service-related activities across various ITSM modules.
 
 - This integration supports platforms like Virima, ServiceNow, Ivanti, and Jira, with toggles to filter records based on the selected source.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_61.png" original-image-title=""></span>
+Modules included in the ITSM tab
 
-Modules included in the ITSM tab:
+ ---------------------------------------------- -------------------------------------------------------------------
+ [Module]{.Strong} [Purpose]{.Strong}
+ Incidents Shows incidents linked to the CI for impact analysis.
+ Requests Displays service requests involving this CI.
+ Changes Lists change records affecting or triggered by this asset.
+ Problems Shows problem investigations involving the CI.
+ Known Errors Tracks documented root causes tied to recurring incidents.
+ Releases Displays planned releases that deploy or affect this CI.
+ Knowledge Links related knowledge base articles or procedures to the asset.
+ ---------------------------------------------- -------------------------------------------------------------------
 
-|                                                               |                                                                   |
-|---------------------------------------------------------------|-------------------------------------------------------------------|
-| <span class="Strong" style="font-weight: bold;">Module</span> | <span class="Strong" style="font-weight: bold;">Purpose</span>    |
-| Incidents                                                     | Shows incidents linked to the CI for impact analysis.             |
-| Requests                                                      | Displays service requests involving this CI.                      |
-| Changes                                                       | Lists change records affecting or triggered by this asset.        |
-| Problems                                                      | Shows problem investigations involving the CI.                    |
-| Known Errors                                                  | Tracks documented root causes tied to recurring incidents.        |
-| Releases                                                      | Displays planned releases that deploy or affect this CI.          |
-| Knowledge                                                     | Links related knowledge base articles or procedures to the asset. |
-
-<span class="Strong" style="font-weight: bold;">Creating new ITSM records:</span>
+[Creating new ITSM records]{.Strong}
 
 You can initiate a new record directly from this tab:
 
 - Use the platform toggles (Virima, ServiceNow, Ivanti, Jira) in the ITSM tab to select the desired source for incident creation.
 
-- If you select Virima (or another platform) and click <span class="Strong">New Incident</span>, you will be redirected to the respective domain page to create a new incident.
+- If you select Virima (or another platform) and click **New Incident**, you will be redirected to the respective domain page to create a new incident.
 
-  <span class="image placeholder" original-image-src="../Resources/Images/CMDB%20-%20Left-Nav/Configuration%20Management%20Database_62.png" original-image-title=""></span>
+- Enter the details, then click [Add]{.Strong} to create a new incident.
 
-<!-- -->
-
-- Enter the details, then click <span class="Strong" style="font-weight: bold;">Add</span> to create a new incident.
-
-- The selected Configuration Item (CI) will be <span class="Strong">automatically linked</span> to the new record.
+- The selected Configuration Item (CI) will be **automatically linked** to the new record.

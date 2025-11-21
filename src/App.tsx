@@ -6,6 +6,15 @@ import { HomePage } from './components/HomePage';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 import { HelmetProvider } from 'react-helmet-async';
 import { buildRoutePath } from './utils/routeBuilder';
+import {
+  organizationalDetailsPages,
+  discoveryPages,
+  sacmPages,
+  usersPages,
+  managementFunctionsPages,
+  integrationsPages,
+  othersPages,
+} from './constants/adminPages';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -1310,17 +1319,7 @@ function AppContent() {
           const isGettingStartedPage = gettingStartedPages.includes(page);
           
           // Detect Admin sub-section pages and set correct section (universal: works for all versions)
-          const organizationalDetailsPages = ['cost-center', 'departments', 'members', 'designations', 'holidays', 'locations', 'operational-hours', 'organizational-details-nested', 'organizational-details'];
-          const discoveryPages = ['application-map', 'client', 'discovery-agents', 'remote-install', 'restart-client', 'correlation', 'credentials', 'details', 'backup-file', 'flush-credential', 'download-application', 'import-templates', 'ignore-adm-process', 'ignore-process', 'major-software', 'monitoring-profile', 'action-details', 'frequency', 'notifications', 'trigger-conditions', 'patterns', 'port-configuration', 'probe-workflow', 'probes', 'scan-configuration', 'sensors'];
-          const sacmPages = ['blueprints', 'bsm-views', 'cmdb-graphical-workflow', 'cmdb-properties', 
-            'confidence-configuration', 'duplicates-remediation', 'export-ci-template', 
-            'ip-connection-score-threshold', 'process-tags', 'property-group', 
-            'relationship-types', 'software-license-validity-check', 'software-usage-report'];
-          const usersPages = ['ad-configuration', 'azure-ad-configuration', 'saml-configuration', 'time-track-reports', 'user-groups', 'user-roles', 'users-list'];
-          const managementFunctionsPages = ['change-management', 'contract-management', 'event-management', 'hardware-asset-management', 'incident-management', 'knowledge-management', 'problem-management', 'about-procurement', 'procurement-properties', 'procurement-property-group', 'project-management', 'release-management', 'request-management', 'vendor-management'];
-          const integrationsPages = ['cherwell-credential', 'cherwell-mappings', 'infoblox-configuration', 'ivanti-credentials', 'ivanti-mappings', 'jira-credentials', 'jira-asset-mappings', 'servicenow-credentials', 'servicenow-mappings'];
-          const othersPages = ['announcements', 'business-rules', 'custom-reports', 'documentation-and-tester', 'inbox-configuration-itsm', 'kpis', 'reports', 'role-access', 'service-level-agreements', 'smtp-configuration', 'risk-score-calculator', 'graphical-workflows'];
-          
+          // Using shared constants to avoid duplicate declarations and bundler reordering issues
           const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
           const isDiscoveryPage = discoveryPages.includes(page);
           const isSacmPage = sacmPages.includes(page);

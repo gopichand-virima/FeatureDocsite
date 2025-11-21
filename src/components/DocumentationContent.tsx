@@ -24,25 +24,24 @@ import { MDXContent } from "./MDXContent";
 import { Seo, PageSeo, BreadcrumbEntry } from "./Seo";
 import { resolveMDXPath } from "../utils/mdxPathResolver";
 import { getContentEntry } from "../content/contentLoader";
-
-// Admin breadcrumb hierarchy constants (shared across DocumentationContent and DefaultContent)
-// Direct array declarations - no extraction or function calls to avoid bundler reordering issues
-const organizationalDetailsPages: readonly string[] = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested", "organizational-details"];
-const departmentsPages: readonly string[] = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
-const discoveryPages: readonly string[] = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "action-details", "frequency", "notifications", "trigger-conditions", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
-const clientPages: readonly string[] = ["discovery-agents", "remote-install", "restart-client"];
-const credentialsPages: readonly string[] = ["details", "backup-file", "flush-credential"];
-const monitoringProfilePages: readonly string[] = ["action-details", "details", "frequency", "notifications", "trigger-conditions"];
-const sacmPages: readonly string[] = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
-const usersPages: readonly string[] = ["ad-configuration", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
-const managementFunctionsPages: readonly string[] = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "about-procurement", "procurement-properties", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
-const procurementPages: readonly string[] = ["procurement-properties", "about-procurement", "procurement-property-group"];
-const integrationsPages: readonly string[] = ["cherwell-credential", "cherwell-mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-asset-mappings", "servicenow-credentials", "servicenow-mappings"];
-const cherwellCredentialPages: readonly string[] = ["cherwell-mappings"];
-const ivantiCredentialsPages: readonly string[] = ["ivanti-mappings"];
-const jiraCredentialsPages: readonly string[] = ["jira-asset-mappings"];
-const servicenowCredentialsPages: readonly string[] = ["servicenow-mappings"];
-const othersPages: readonly string[] = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "risk-score-calculator", "graphical-workflows"];
+import {
+  organizationalDetailsPages,
+  departmentsPages,
+  discoveryPages,
+  clientPages,
+  credentialsPages,
+  monitoringProfilePages,
+  sacmPages,
+  usersPages,
+  managementFunctionsPages,
+  procurementPages,
+  integrationsPages,
+  cherwellCredentialPages,
+  ivantiCredentialsPages,
+  jiraCredentialsPages,
+  servicenowCredentialsPages,
+  othersPages,
+} from "../constants/adminPages";
 
 interface DocumentationContentProps {
   version: string;

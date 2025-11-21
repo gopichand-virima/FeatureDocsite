@@ -21,6 +21,7 @@ export default defineConfig({
         'figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png': path.resolve(__dirname, './src/assets/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png'),
         'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png': path.resolve(__dirname, './src/assets/20803a9cc590c8a78bca4489c80f3bfca906561c.png'),
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
+        'emailjs-com@3.2.0': 'emailjs-com',
         'cmdk@1.1.1': 'cmdk',
         'class-variance-authority@0.7.1': 'class-variance-authority',
         '@radix-ui/react-tooltip@1.1.8': '@radix-ui/react-tooltip',

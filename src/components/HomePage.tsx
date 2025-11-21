@@ -141,36 +141,62 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Premium Geometric Design */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-50/30">
-        {/* Modern Geometric Pattern Background */}
-        <div className="absolute inset-0 overflow-hidden opacity-40">
-          {/* Large circles */}
-          <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full border-[40px] border-green-200/20"></div>
-          <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border-[50px] border-green-100/25"></div>
-          <div className="absolute -bottom-48 left-1/4 w-[600px] h-[600px] rounded-full border-[60px] border-green-100/20"></div>
+      {/* Hero Section - Ultra Premium Virima Design */}
+      <div className="relative overflow-hidden bg-white">
+        {/* Ultra Sophisticated Background Elements - Premium Snow White */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Subtle elegant gradient orbs in pure white/light tones */}
+          <div className="absolute -top-48 -left-48 w-[900px] h-[900px] bg-gradient-to-br from-slate-50/40 via-white to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-gradient-to-bl from-slate-50/30 via-white to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-48 left-1/4 w-[800px] h-[800px] bg-gradient-to-t from-slate-50/35 via-white to-transparent rounded-full blur-3xl"></div>
           
-          {/* Medium overlapping circles */}
-          <div className="absolute top-1/4 right-1/4 w-80 h-80 rounded-full bg-green-100/15"></div>
-          <div className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full bg-green-50/30"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 rounded-full bg-green-100/20"></div>
+          {/* Secondary ambient light effects - minimal and elegant */}
+          <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-gradient-to-br from-slate-50/25 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-slate-50/30 to-transparent rounded-full blur-2xl"></div>
           
-          {/* Subtle geometric lines */}
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgb(16, 185, 129)" strokeWidth="0.5" opacity="0.08"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+          {/* Refined grid pattern with minimal presence */}
+          <div className="absolute inset-0 opacity-[0.015]" style={{
+            backgroundImage: `
+              linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px'
+          }}></div>
           
-          {/* Diagonal accent shapes */}
-          <div className="absolute top-0 right-0 w-full h-full">
-            <div className="absolute top-[20%] right-[10%] w-32 h-32 rotate-45 bg-green-200/15"></div>
-            <div className="absolute top-[60%] left-[8%] w-24 h-24 rotate-12 bg-green-100/20"></div>
-            <div className="absolute bottom-[15%] right-[25%] w-28 h-28 -rotate-12 border-4 border-green-200/20"></div>
+          {/* Diagonal accent lines - barely visible elegant touches */}
+          <div className="absolute inset-0">
+            <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-2"></div>
+            <div className="absolute top-[45%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/15 to-transparent transform rotate-1"></div>
+            <div className="absolute top-[75%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-1"></div>
           </div>
+          
+          {/* Elegant floating service icons - subtle gray tones */}
+          <div className="absolute top-[20%] left-[12%] opacity-[0.025] transform hover:scale-110 transition-transform duration-700">
+            <Network className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[25%] right-[10%] opacity-[0.022] transform hover:scale-110 transition-transform duration-700">
+            <Database className="w-36 h-36 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute bottom-[25%] left-[8%] opacity-[0.02] transform hover:scale-110 transition-transform duration-700">
+            <Shield className="w-28 h-28 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute bottom-[30%] right-[15%] opacity-[0.028] transform hover:scale-110 transition-transform duration-700">
+            <Layers className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[50%] left-[6%] opacity-[0.018] transform hover:scale-110 transition-transform duration-700">
+            <Workflow className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[38%] right-[7%] opacity-[0.023] transform hover:scale-110 transition-transform duration-700">
+            <Globe className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
+          </div>
+          
+          {/* Additional decorative elements - subtle dots */}
+          <div className="absolute top-[12%] right-[25%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
+          <div className="absolute top-[65%] left-[20%] w-3 h-3 bg-slate-200/25 rounded-full"></div>
+          <div className="absolute bottom-[40%] right-[30%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
+          
+          {/* Glossy shine effect for premium feel */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white opacity-60"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
@@ -202,67 +228,78 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-green-500/8 to-transparent rounded-tr-full"></div>
             <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-emerald-500/8 to-transparent rounded-tl-full"></div>
             
-            {/* Content wrapper */}
+            {/* Content wrapper with enhanced hierarchy */}
             <div className="relative z-10">
-            {/* Virima Brand */}
-            <div className="mb-8">
-              <h1 className="text-7xl lg:text-8xl text-black-premium mb-6 tracking-tight">
-                Virima
-              </h1>
-              <div className="h-1.5 w-32 bg-gradient-to-r from-green-500 to-green-600 mx-auto rounded-full shadow-lg"></div>
-            </div>
-
-            {/* Tagline */}
-            <div className="mb-6">
-              <p className="text-2xl lg:text-3xl text-black-premium mb-4 leading-relaxed">
-                Welcome to the Documentation Platform
-              </p>
-            </div>
-
-            <p className="text-lg lg:text-xl text-slate-600 mb-6 max-w-3xl mx-auto leading-relaxed">
-              Explore comprehensive feature documentation,
-              release notes, and more across all Virima modules
-              and versions.
-            </p>
-
-            {/* Search CTA */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => setSearchDialogOpen(true)}
-                className="w-full flex items-center gap-3 justify-start text-slate-700 bg-white hover:bg-slate-50 border-slate-200 hover:border-green-300 h-16 px-6 text-base transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <img
-                  src={aiIcon}
-                  alt="AI"
-                  className="h-7.5 w-7.5"
-                  style={{ imageRendering: "crisp-edges" }}
-                />
-                <span className="text-slate-400">
-                  Ask AI anything about Virima
-                </span>
-                <div className="ml-auto flex items-center gap-1 text-xs text-slate-500">
-                  <Command className="h-3 w-3.5" />
-                  <span>K</span>
+              {/* Virima Brand with enhanced styling */}
+              <div className="mb-10">
+                <h1 className="text-7xl lg:text-8xl text-slate-900 mb-6 tracking-tight" style={{
+                  textShadow: '0 2px 40px rgba(16, 185, 129, 0.1)'
+                }}>
+                  Virima
+                </h1>
+                <div className="relative inline-block">
+                  <div className="h-2 w-40 bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 mx-auto rounded-full shadow-xl shadow-emerald-500/40"></div>
+                  <div className="absolute inset-0 h-2 w-40 bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-400 mx-auto rounded-full blur-sm"></div>
                 </div>
-              </Button>
-            </div>
+              </div>
 
-            {/* Get Started Button */}
-            <div className="flex justify-center mb-12">
+              {/* Tagline with refined styling */}
+              <div className="mb-8">
+                <p className="text-2xl lg:text-3xl text-slate-900 mb-4 leading-relaxed" style={{
+                  textShadow: '0 1px 20px rgba(0, 0, 0, 0.03)'
+                }}>
+                  Welcome to the Documentation Platform
+                </p>
+              </div>
+
+              <p className="text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+                Explore comprehensive feature documentation,
+                release notes, and more across all Virima modules
+                and versions.
+              </p>
+
+              {/* Enhanced Search CTA */}
+              <div className="max-w-2xl mx-auto mb-10">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setSearchDialogOpen(true)}
+                  className="w-full flex items-center gap-3 justify-start text-slate-700 bg-white/90 backdrop-blur-sm hover:bg-emerald-50/80 border-2 border-slate-200 hover:border-emerald-400 h-16 px-6 text-base transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-emerald-500/25 group"
+                >
+                  <img
+                    src={aiIcon}
+                    alt="AI"
+                    className="h-7.5 w-7.5 group-hover:scale-110 transition-transform duration-300"
+                    style={{ imageRendering: "crisp-edges" }}
+                  />
+                  <span className="text-slate-400 group-hover:text-slate-600 transition-colors duration-300">
+                    Ask AI anything about Virima
+                  </span>
+                  <div className="ml-auto flex items-center gap-1 text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                    <Command className="h-3 w-3.5" />
+                    <span>K</span>
+                  </div>
+                </Button>
+              </div>
+
+            {/* Premium Get Started Button */}
+            <div className="flex justify-center mb-4">
               <Button
                 size="lg"
                 onClick={() => onModuleSelect('my-dashboard')}
-                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-6 text-base shadow-lg hover:shadow-xl transition-all duration-300"
+                className="relative bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-700 hover:via-green-700 hover:to-emerald-700 text-white px-10 py-6 text-base shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
               >
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <span className="relative">Get Started</span>
+                <ArrowRight className="relative ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
             </div>
             </div>
           </div>
         </div>
+
+        {/* Enhanced bottom gradient fade with glow */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </div>
 
       {/* AI Search Dialog */}
@@ -272,7 +309,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       />
 
       {/* Value Proposition Section */}
-      <div className="bg-white pt-24 pb-0 lg:pt-36 lg:pb-0">
+      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-24 pb-0 lg:pt-36 lg:pb-0">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
@@ -284,7 +321,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               operations with the agility modern businesses
               demand.
             </p>
-            <div className="bg-gradient-to-b from-white via-white to-white pt-16 pb-8 lg:pt-20 lg:pb-12">
+            <div className="bg-white pt-16 pb-8 lg:pt-20 lg:pb-12">
               <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {modules.map((module) => {
@@ -292,12 +329,12 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                     return (
                       <div
                         key={module.id}
-                        className="group relative bg-white border border-slate-200/60 rounded-3xl p-10 hover:shadow-2xl hover:shadow-slate-900/5 hover:border-green-500/20 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
+                        className="group relative bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
                         onClick={() =>
                           onModuleSelect(module.id)
                         }
                       >
-                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-green-500/5 via-blue-500/5 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-slate-50 via-white to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         <div className="relative flex flex-col flex-grow">
                           <div className="mb-8">
@@ -336,7 +373,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       {/* Platform Modules */}
 
       {/* Documentation Resources */}
-      <div className="bg-white py-12 lg:py-16">
+      <div className="bg-gradient-to-b from-white via-slate-50/20 to-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
@@ -345,7 +382,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <BookOpen className="h-7 w-7 text-white" />
               </div>
@@ -358,7 +395,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Zap className="h-7 w-7 text-white" />
               </div>
@@ -384,7 +421,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Database className="h-7 w-7 text-white" />
               </div>
@@ -410,7 +447,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Shield className="h-7 w-7 text-white" />
               </div>

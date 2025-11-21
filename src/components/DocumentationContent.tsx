@@ -24,6 +24,7 @@ import { MDXContent } from "./MDXContent";
 import { Seo, PageSeo, BreadcrumbEntry } from "./Seo";
 import { resolveMDXPath } from "../utils/mdxPathResolver";
 import { getContentEntry } from "../content/contentLoader";
+import { FeedbackSection } from "./FeedbackSection";
 import {
   organizationalDetailsPages,
   departmentsPages,
@@ -2198,6 +2199,7 @@ export function DocumentationContent({
         <article className="prose prose-slate max-w-none -mt-9">
           {renderBreadcrumbs()}
           <MDXContent filePath={mdxPath} />
+          <FeedbackSection />
         </article>
       );
     }
@@ -2600,6 +2602,7 @@ function OnlineHelpOverview({
         features, and expanded integration options for{" "}
         {moduleName}.
       </p>
+      <FeedbackSection />
     </article>
   );
 }
@@ -2787,6 +2790,7 @@ function LatestRelease({
           proceeding.
         </p>
       </div>
+      <FeedbackSection />
     </article>
   );
 }
@@ -2977,6 +2981,7 @@ function QuickStart({
         <li>Create custom reports and dashboards</li>
         <li>Review security and compliance best practices</li>
       </ul>
+      <FeedbackSection />
     </article>
   );
 }
@@ -3195,6 +3200,7 @@ function APIOverview({
           support for higher limits or enterprise plans.
         </p>
       </div>
+      <FeedbackSection />
     </article>
   );
 }
@@ -3422,6 +3428,7 @@ function SystemRequirements({
           for detailed sizing and planning assistance.
         </p>
       </div>
+      <FeedbackSection />
     </article>
   );
 }
@@ -5095,6 +5102,7 @@ function DefaultContent({
         <li>Knowledge base articles and FAQs</li>
         <li>Support resources and contact information</li>
       </ul>
+      <FeedbackSection />
     </article>
   );
 }

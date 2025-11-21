@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { getContent, hasContent } from '../content/contentLoader';
+import { FeedbackSection } from './FeedbackSection';
 
 // Helper function to generate ID from heading text
 function generateHeadingId(text: string): string {
@@ -154,101 +155,104 @@ export function MDXContent({ filePath }: MDXContentProps) {
   }
 
   return (
-    <div className="prose prose-slate max-w-none">
-      <ReactMarkdown
-        components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={vscDarkPlus}
-                language={match[1]}
-                PreTag="div"
-                {...props}
-              >
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
-          h1: ({ node, children, ...props }) => {
-            const text = typeof children === 'string' ? children : String(children);
-            const id = generateHeadingId(text);
-            return (
-              <h1 id={id} className="text-slate-900 mb-6 scroll-mt-20" {...props}>
-                {children}
-              </h1>
-            );
-          },
-          h2: ({ node, children, ...props }) => {
-            const text = typeof children === 'string' ? children : String(children);
-            const id = generateHeadingId(text);
-            return (
-              <h2 id={id} className="text-slate-900 mt-12 mb-6 scroll-mt-20" {...props}>
-                {children}
-              </h2>
-            );
-          },
-          h3: ({ node, children, ...props }) => {
-            const text = typeof children === 'string' ? children : String(children);
-            const id = generateHeadingId(text);
-            return (
-              <h3 id={id} className="text-slate-900 mt-8 mb-4 scroll-mt-20" {...props}>
-                {children}
-              </h3>
-            );
-          },
-          h4: ({ node, children, ...props }) => {
-            const text = typeof children === 'string' ? children : String(children);
-            const id = generateHeadingId(text);
-            return (
-              <h4 id={id} className="text-slate-900 mt-6 mb-3 scroll-mt-20" {...props}>
-                {children}
-              </h4>
-            );
-          },
-          p: ({ node, ...props }) => (
-            <p className="text-slate-600 leading-relaxed mb-4" {...props} />
-          ),
-          ul: ({ node, ...props }) => (
-            <ul className="mb-6 space-y-2" {...props} />
-          ),
-          ol: ({ node, ...props }) => (
-            <ol className="mb-6 space-y-2" {...props} />
-          ),
-          li: ({ node, ...props }) => (
-            <li className="text-slate-600" {...props} />
-          ),
-          a: ({ node, ...props }) => (
-            <a className="text-emerald-600 hover:text-emerald-700 underline" {...props} />
-          ),
-          strong: ({ node, ...props }) => (
-            <strong className="text-slate-900" {...props} />
-          ),
-          blockquote: ({ node, ...props }) => (
-            <blockquote className="border-l-4 border-emerald-500 pl-4 italic text-slate-600 my-6" {...props} />
-          ),
-          table: ({ node, ...props }) => (
-            <div className="overflow-x-auto my-6">
-              <table className="min-w-full border-collapse border border-slate-200" {...props} />
-            </div>
-          ),
-          thead: ({ node, ...props }) => (
-            <thead className="bg-slate-50" {...props} />
-          ),
-          th: ({ node, ...props }) => (
-            <th className="border border-slate-200 px-4 py-2 text-left text-slate-900" {...props} />
-          ),
-          td: ({ node, ...props }) => (
-            <td className="border border-slate-200 px-4 py-2 text-slate-600" {...props} />
-          ),
-        }}
-      >
-        {content}
-      </ReactMarkdown>
-    </div>
+    <>
+      <div className="prose prose-slate max-w-none">
+        <ReactMarkdown
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || '');
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={vscDarkPlus}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, '')}
+                </SyntaxHighlighter>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+            h1: ({ node, children, ...props }) => {
+              const text = typeof children === 'string' ? children : String(children);
+              const id = generateHeadingId(text);
+              return (
+                <h1 id={id} className="text-slate-900 mb-6 scroll-mt-20" {...props}>
+                  {children}
+                </h1>
+              );
+            },
+            h2: ({ node, children, ...props }) => {
+              const text = typeof children === 'string' ? children : String(children);
+              const id = generateHeadingId(text);
+              return (
+                <h2 id={id} className="text-slate-900 mt-12 mb-6 scroll-mt-20" {...props}>
+                  {children}
+                </h2>
+              );
+            },
+            h3: ({ node, children, ...props }) => {
+              const text = typeof children === 'string' ? children : String(children);
+              const id = generateHeadingId(text);
+              return (
+                <h3 id={id} className="text-slate-900 mt-8 mb-4 scroll-mt-20" {...props}>
+                  {children}
+                </h3>
+              );
+            },
+            h4: ({ node, children, ...props }) => {
+              const text = typeof children === 'string' ? children : String(children);
+              const id = generateHeadingId(text);
+              return (
+                <h4 id={id} className="text-slate-900 mt-6 mb-3 scroll-mt-20" {...props}>
+                  {children}
+                </h4>
+              );
+            },
+            p: ({ node, ...props }) => (
+              <p className="text-slate-600 leading-relaxed mb-4" {...props} />
+            ),
+            ul: ({ node, ...props }) => (
+              <ul className="mb-6 space-y-2" {...props} />
+            ),
+            ol: ({ node, ...props }) => (
+              <ol className="mb-6 space-y-2" {...props} />
+            ),
+            li: ({ node, ...props }) => (
+              <li className="text-slate-600" {...props} />
+            ),
+            a: ({ node, ...props }) => (
+              <a className="text-emerald-600 hover:text-emerald-700 underline" {...props} />
+            ),
+            strong: ({ node, ...props }) => (
+              <strong className="text-slate-900" {...props} />
+            ),
+            blockquote: ({ node, ...props }) => (
+              <blockquote className="border-l-4 border-emerald-500 pl-4 italic text-slate-600 my-6" {...props} />
+            ),
+            table: ({ node, ...props }) => (
+              <div className="overflow-x-auto my-6">
+                <table className="min-w-full border-collapse border border-slate-200" {...props} />
+              </div>
+            ),
+            thead: ({ node, ...props }) => (
+              <thead className="bg-slate-50" {...props} />
+            ),
+            th: ({ node, ...props }) => (
+              <th className="border border-slate-200 px-4 py-2 text-left text-slate-900" {...props} />
+            ),
+            td: ({ node, ...props }) => (
+              <td className="border border-slate-200 px-4 py-2 text-slate-600" {...props} />
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
+      <FeedbackSection />
+    </>
   );
 }

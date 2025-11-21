@@ -4,6 +4,8 @@
 
 This repository contains the comprehensive documentation website for **Virima versions 6.1, 6.1.1, 5.13, and NextGen**. The documentation is built using React, TypeScript, Vite, and MDX, providing a modern, interactive, and SEO-optimized documentation experience.
 
+> **Note**: This README focuses on **Version 6.1** specific features and changes. For general project information, see the main project documentation.
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -163,7 +165,12 @@ src/
 public/
 ├── robots.txt                     # Robots.txt for search engines
 ├── sitemap.xml                    # Generated sitemap (auto-updated on build)
-└── 404.html                       # 404 page for GitHub Pages routing
+├── 404.html                       # 404 page for GitHub Pages routing
+└── images_6_1/                    # Version 6.1 images (mapped from ../Resources/Images/)
+    ├── CMDB/                      # CMDB module images
+    ├── Admin/                     # Admin module images
+    ├── ITSM/                      # ITSM module images
+    └── ...                        # Other module image folders
 ```
 
 ## SEO/GEO Implementation
@@ -575,13 +582,15 @@ The breadcrumb system:
 
 **Version 6.1:**
 - Format: `{topic-name}_6_1.mdx` or `{topic-name}-6_1.mdx`
-- Example: `my-dashboard-overview-6_1.mdx`, `access_cmdb_6_1.mdx`
+- Example: `my-dashboard-overview-6_1.mdx`, `access_cmdb_6_1.mdx`, `cmdb_graphical_workflow_6_1.mdx`
 - Location: `src/content/6_1/{module_folder}/`
+- **Image Paths**: Use `../Resources/Images/...` in MDX files (automatically transformed to `/images_6_1/...`)
 
 **NextGen:**
-- Format: `{topic-name}.mdx`
-- Example: `system-icons.mdx`, `overview.mdx`
+- Format: `{topic-name}.mdx` or `{topic-name}_ng.mdx`
+- Example: `system-icons.mdx`, `overview_ng.mdx`
 - Location: `src/content/NG/{module}/`
+- **Image Paths**: Use `../Resources/Images/...` in MDX files (automatically transformed to `/images_ng/...`)
 
 ### Adding New Content
 
@@ -1099,6 +1108,159 @@ npm run build
 - **Branch**: `gh-pages` (auto-updated by GitHub Actions)
 - **404 Handling**: `public/404.html` for client-side routing
 
+## Version 6.1 Specific Features
+
+### Image Path Transformation
+
+**Location**: `src/components/MDXContent.tsx`
+
+All 6.1 MDX files automatically have their image paths transformed to use the version-specific image folder:
+
+- **Source Path in MDX**: `../Resources/Images/...`
+- **Transformed Path**: `/images_6_1/...`
+
+**How It Works:**
+1. When MDX content is loaded, the `transformImagePaths()` function checks the file path
+2. If the path starts with `/content/6_1`, images are mapped to `/images_6_1/`
+3. Image references in markdown format `![alt text](../Resources/Images/folder/image.png)` are automatically converted to `![alt text](/images_6_1/folder/image.png)`
+4. URL encoding is preserved (spaces become `%20`, etc.)
+
+**Example:**
+```mdx
+<!-- In MDX file: src/content/6_1/cmdb_6_1/access_cmdb_6_1.mdx -->
+![CMDB Dashboard](../Resources/Images/CMDB/cmdb-dashboard.png)
+
+<!-- Automatically transformed to: -->
+![CMDB Dashboard](/images_6_1/CMDB/cmdb-dashboard.png)
+```
+
+**Image Folder Location**: `public/images_6_1/`
+
+### File Naming Conventions for 6.1
+
+**Format**: `{topic-name}_6_1.mdx` or `{topic-name}-6_1.mdx`
+
+**Examples:**
+- `access_cmdb_6_1.mdx`
+- `my-dashboard-overview-6_1.mdx`
+- `cmdb_graphical_workflow_6_1.mdx`
+- `restart_client_6_1.mdx`
+
+**Location**: `src/content/6_1/{module_folder}/`
+
+### Content Structure
+
+**6.1 Content Organization:**
+```
+src/content/6_1/
+├── admin_6_1/                    # Admin module with full submodule hierarchy
+│   ├── admin_org_details/        # Organizational Details
+│   ├── admin_discovery/          # Discovery configuration
+│   ├── admin_sacm/              # SACM (Service Asset & Configuration Management)
+│   ├── admin_users/              # User management
+│   ├── admin_integrations/       # Third-party integrations
+│   └── admin_other/             # Other admin functions
+├── my_dashboard_6_1/            # My Dashboard module
+├── cmdb_6_1/                    # CMDB module
+├── discovery_scan_6_1/           # Discovery Scan module
+├── itsm_6_1/                    # ITSM module
+├── itam_6_1/                    # ITAM module
+└── ...                          # Other modules
+```
+
+### Path Resolution for 6.1
+
+**Location**: `src/utils/mdxPathResolver.ts`
+
+**Special Handling:**
+1. **My Dashboard 6.1**: Custom path mapping for dashboard-related pages
+2. **Admin > SACM**: Specific file name mappings for SACM submodule pages
+3. **Admin Sub-sections**: Automatic detection of Admin sub-folders (org_details, discovery, sacm, users, etc.)
+
+**Example Path Resolution:**
+- URL: `/6.1/admin/sacm/cmdb-graphical-workflow`
+- Resolved Path: `/content/6_1/admin_6_1/admin_sacm/cmdb_graphical_workflow_6_1.mdx`
+
+### Admin Module Sub-sections
+
+**6.1 Admin Module Structure:**
+
+The Admin module in 6.1 has a comprehensive submodule hierarchy:
+
+1. **Organizational Details** (`admin_org_details`)
+   - Cost Center, Departments, Members, Designations, Holidays, Locations, Operational Hours
+
+2. **Discovery** (`admin_discovery`)
+   - Application Map, Client, Discovery Agents, Remote Install, Restart Client, Correlation, Credentials, Monitoring Profile, etc.
+
+3. **SACM** (`admin_sacm`)
+   - Blueprints, Custom BSM Views, CMDB Graphical Workflow, CMDB Properties, Confidence Configuration, etc.
+
+4. **Users** (`admin_users`)
+   - AD Configuration, Azure AD Configuration, SAML Configuration, User Groups, User Roles, Users List
+
+5. **Management Functions** (`admin_*_mngmnt`)
+   - Change Management, Contract Management, Event Management, Hardware Asset Management, Incident Management, Knowledge Management, Problem Management
+
+6. **Integrations** (`admin_integrations`)
+   - Cherwell, Ivanti, Jira, ServiceNow Credentials and Mappings, Infoblox Configuration
+
+7. **Others** (`admin_other`)
+   - Announcements, Business Rules, Custom Reports, KPIs, Reports, Role Access, Service Level Agreements, SMTP Configuration, etc.
+
+**Breadcrumb Handling:**
+- Admin sub-sections are automatically detected from the file path
+- Breadcrumbs correctly show: `Home > 6.1 > Admin > SACM > CMDB Graphical Workflow`
+- Section highlighting matches the actual content location
+
+### Content Loading for 6.1
+
+**Location**: `src/content/contentLoader.ts`
+
+**6.1 Content Imports:**
+- All 6.1 MDX files are statically imported at build time
+- Content is mapped to file paths for fast lookup
+- Missing content gracefully falls back to `DefaultContent` component
+
+**Example Import:**
+```typescript
+import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
+
+const contentMap: Record<string, string> = {
+  '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
+  // ... more 6.1 content mappings
+};
+```
+
+### Adding New 6.1 Content
+
+**Steps:**
+1. Create MDX file in appropriate module folder: `src/content/6_1/{module}_6_1/{filename}_6_1.mdx`
+2. Use relative image paths: `../Resources/Images/...` (will be auto-transformed)
+3. Add frontmatter with SEO metadata
+4. Import in `src/content/contentLoader.ts`
+5. Add path mapping in `src/utils/mdxPathResolver.ts` if needed
+6. Update TOC in `src/components/DocumentationLayout.tsx`
+
+**Example:**
+```mdx
+---
+title: "New Feature"
+description: "Description of the new feature"
+canonical: "/6_1/my-module/my-section/new-feature"
+keywords:
+  - "virima"
+  - "new feature"
+lastUpdated: "2025-01-20"
+---
+
+# New Feature
+
+![Feature Screenshot](../Resources/Images/MyModule/feature-screenshot.png)
+
+Content here...
+```
+
 ## Recent Improvements
 
 ### December 2024 - January 2025
@@ -1150,6 +1312,13 @@ npm run build
   - Frontmatter parsing without Node.js dependencies
   - Version-specific path resolution
 - **Result**: Reliable content loading across all versions
+
+#### 8. Version 6.1 Image Path Mapping (January 2025)
+- **Implementation**: Automatic image path transformation for 6.1 content
+  - MDX files use `../Resources/Images/...` paths
+  - Automatically transformed to `/images_6_1/...` at runtime
+  - Version-aware path resolution
+- **Result**: All 6.1 images load correctly without manual path updates
 
 ## Documentation Modules
 
@@ -1295,10 +1464,20 @@ For issues or questions:
 
 ## Version History
 
+- **v1.1.0** (January 2025): Version 6.1 image path transformation, feedback survey system, hero section design updates
 - **v1.0.0** (January 2025): Complete SEO/GEO implementation, breadcrumb fixes, NextGen support
 - **v0.9.0** (December 2024): Page loading fixes, error handling improvements
 - **v0.8.0** (December 2024): Multi-version support, Admin module expansion
 - **v0.7.0** (November 2024): Initial release with basic navigation
+
+### Version 6.1 Change Log
+
+**January 2025:**
+- ✅ **Image Path Transformation**: Automatic conversion of `../Resources/Images/...` to `/images_6_1/...` for all 6.1 MDX files
+- ✅ **Admin Module Breadcrumbs**: Fixed breadcrumb hierarchy for Admin sub-sections (SACM, Discovery, Users, etc.)
+- ✅ **Content Path Resolution**: Enhanced path resolver for 6.1 Admin sub-modules
+- ✅ **Feedback Survey**: Added feedback form to all 6.1 documentation pages
+- ✅ **Error Boundary**: Improved error handling with route-based reset for 6.1 pages
 
 ---
 

@@ -39,6 +39,9 @@ This is a **React-based documentation website** that:
 ✅ **Smart Navigation**: 7-level breadcrumb hierarchy, clickable navigation  
 ✅ **Automated Deployment**: GitHub Actions CI/CD  
 ✅ **Type-Safe**: Full TypeScript implementation  
+✅ **User Feedback System**: Integrated feedback survey on all documentation pages  
+✅ **Version-Aware Image Mapping**: Automatic image path transformation for all versions  
+✅ **Enhanced Error Handling**: Route-based error recovery with ErrorBoundary  
 
 ### Technology Stack
 
@@ -48,6 +51,7 @@ This is a **React-based documentation website** that:
 - **Content Format**: MDX (Markdown + JSX)
 - **Routing**: React Router
 - **SEO**: react-helmet-async
+- **Email Service**: EmailJS (for feedback forms)
 - **Deployment**: GitHub Pages
 
 ---
@@ -176,7 +180,12 @@ FeatureDocsite/
 ├── public/
 │   ├── robots.txt           # Search engine crawler rules
 │   ├── sitemap.xml          # Generated sitemap (auto-updated)
-│   └── 404.html             # 404 page for GitHub Pages
+│   ├── 404.html             # 404 page for GitHub Pages
+│   └── images_*/            # Version-specific image folders
+│       ├── images_6_1/      # Version 6.1 images
+│       ├── images_6_1_1/    # Version 6.1.1 images
+│       ├── images_5_13/     # Version 5.13 images
+│       └── images_ng/       # NextGen images
 │
 ├── .github/
 │   └── workflows/
@@ -192,15 +201,18 @@ FeatureDocsite/
 - Location: `src/content/6_1/`
 - Format: `{module}_6_1/{topic-name}_6_1.mdx` or `{topic-name}-6_1.mdx`
 - Example: `src/content/6_1/cmdb_6_1/access_cmdb_6_1.mdx`
+- **Image Paths**: Use `../Resources/Images/...` in MDX (auto-transformed to `/images_6_1/...`)
 
 **NextGen**:
 - Location: `src/content/NG/{module}/`
-- Format: `{topic-name}.mdx`
+- Format: `{topic-name}.mdx` or `{topic-name}_ng.mdx`
 - Example: `src/content/NG/my-dashboard/overview.mdx`
+- **Image Paths**: Use `../Resources/Images/...` in MDX (auto-transformed to `/images_ng/...`)
 
 **Other Versions** (6.1.1, 5.13):
 - Location: `src/content/{version}/{module}/`
 - Format: `overview.mdx` (currently minimal content)
+- **Image Paths**: Use `../Resources/Images/...` in MDX (auto-transformed to `/images_{version}/...`)
 
 ---
 
@@ -257,6 +269,15 @@ const cmdbSections = [
 ];
 ```
 
+#### 2a. Feedback Survey Component
+**Location**: `src/components/FeedbackSection.tsx`
+
+**Role**: User feedback collection system
+- **When to edit**: Customizing feedback questions or email configuration
+- Integrated into all documentation pages automatically
+- Uses EmailJS for email delivery
+- **Note**: Configure EmailJS service IDs in the component before deployment
+
 ### For Developers (Files You Usually Don't Edit)
 
 #### 3. `src/App.tsx`
@@ -299,6 +320,26 @@ const cmdbSections = [
 - Creates sitemap entries for all pages
 - Updates lastmod dates
 - **Runs automatically** on build
+
+#### 9. `src/components/MDXContent.tsx`
+**Role**: Renders MDX content with image path transformation
+- Automatically transforms image paths based on version
+- Handles frontmatter stripping
+- Provides loading and error states
+- **Key Feature**: Version-aware image path mapping (`../Resources/Images/...` → `/images_{version}/...`)
+
+#### 10. `src/components/ErrorBoundary.tsx`
+**Role**: Catches and handles React errors gracefully
+- Displays user-friendly error messages
+- Resets error state on route changes (allows recovery via browser back button)
+- Prevents blank white screens
+
+#### 11. `src/components/HomePage.tsx`
+**Role**: Landing page with hero section and module cards
+- Modern, premium design with white/slate color scheme
+- Interactive module navigation
+- Search functionality
+- **Updated**: January 2025 with new design system
 
 ---
 
@@ -409,8 +450,34 @@ const cmdbSections = [
 - Match the pattern used in the module folder
 
 **NextGen:**
-- Use hyphens: `my-topic.mdx`
-- No version suffix
+- Use hyphens: `my-topic.mdx` or `my-topic_ng.mdx`
+- Module overview files should be named `overview_ng.mdx`
+
+### Image Paths in MDX Files
+
+**Important**: All versions support automatic image path transformation!
+
+**In Your MDX Files:**
+- Use relative paths: `../Resources/Images/folder/image.png`
+- The system automatically transforms them to version-specific paths:
+  - **6.1**: `/images_6_1/folder/image.png`
+  - **6.1.1**: `/images_6_1_1/folder/image.png`
+  - **5.13**: `/images_5_13/folder/image.png`
+  - **NextGen**: `/images_ng/folder/image.png`
+
+**Example:**
+```mdx
+<!-- In your MDX file -->
+![Screenshot](../Resources/Images/CMDB/dashboard.png)
+
+<!-- Automatically becomes (for 6.1) -->
+![Screenshot](/images_6_1/CMDB/dashboard.png)
+```
+
+**Image Folder Structure:**
+- Place images in `public/images_{version}/` folders
+- Maintain the same folder structure as `Resources/Images/`
+- Example: `public/images_6_1/CMDB/dashboard.png`
 
 ### Frontmatter Requirements
 
@@ -501,6 +568,108 @@ SEO metadata helps your documentation appear in Google search results. Without p
 
 ---
 
+## Recent Project Updates (January 2025)
+
+### 🎨 User Experience Enhancements
+
+#### 1. Feedback Survey System
+- **Added**: Integrated feedback form on all documentation pages
+- **Features**:
+  - Thumbs up/down initial feedback
+  - Follow-up questions based on feedback type
+  - Role selection and NPS scoring
+  - EmailJS integration for email delivery
+  - Submission tracking (max 2 per session)
+- **Location**: `src/components/FeedbackSection.tsx`
+- **Note**: Configure EmailJS service IDs before deployment
+
+#### 2. Cover Page Redesign
+- **Updated**: Hero section with premium white/slate design
+- **Features**:
+  - Clean, modern aesthetic
+  - Floating service icons
+  - Enhanced hover effects
+  - Improved visual hierarchy
+- **Location**: `src/components/HomePage.tsx`
+
+### 🖼️ Image Path Transformation
+
+#### Automatic Version-Aware Image Mapping
+- **Feature**: All MDX files automatically transform image paths based on version
+- **How It Works**:
+  - MDX files use: `../Resources/Images/...`
+  - System transforms to: `/images_{version}/...`
+  - Supports all versions: 6.1, 6.1.1, 5.13, NextGen
+- **Location**: `src/components/MDXContent.tsx` → `transformImagePaths()`
+- **Benefit**: No manual path updates needed when moving content between versions
+
+### 🧭 Navigation Improvements
+
+#### 1. Breadcrumb Fixes
+- **Fixed**: Admin module breadcrumb hierarchy
+- **Fixed**: Section detection for nested Admin sub-modules (SACM, Discovery, Users, etc.)
+- **Fixed**: Breadcrumb home icon now correctly navigates to homepage
+- **Result**: Accurate breadcrumbs matching TOC structure
+
+#### 2. Error Boundary Enhancements
+- **Added**: Route-based error state reset
+- **Feature**: Browser back button now recovers from error pages
+- **Implementation**: ErrorBoundary resets when route changes
+- **Location**: `src/components/ErrorBoundary.tsx` + `src/App.tsx`
+
+#### 3. GitHub Pages Routing
+- **Added**: Client-side redirect handling for deep links
+- **Feature**: Handles 404 redirects gracefully
+- **Implementation**: Session storage-based redirect recovery
+- **Location**: `src/main.tsx`
+
+### 📁 Content Organization
+
+#### NextGen Content Standardization
+- **Renamed**: All NextGen folders/files from `_6_1` to `_ng` suffix
+- **Standardized**: Module overview files now use `overview_ng.mdx` naming
+- **Cleaned**: Removed duplicate folders without `_ng` suffix
+- **Result**: Consistent naming convention across NextGen content
+
+### 🔧 Technical Improvements
+
+#### 1. Build System
+- **Added**: `emailjs-com` dependency for feedback forms
+- **Updated**: Vite config with EmailJS alias
+- **Fixed**: Package lock file synchronization
+
+#### 2. Content Loading
+- **Improved**: Graceful fallback for missing content
+- **Fixed**: Error logging for expected fallbacks
+- **Enhanced**: Version-specific path resolution
+
+#### 3. Constants Management
+- **Refactored**: Admin page constants moved to shared module
+- **Location**: `src/constants/adminPages.ts`
+- **Benefit**: Prevents duplicate declarations and initialization errors
+
+### 📊 Version-Specific Features
+
+**Version 6.1:**
+- ✅ Complete image path transformation
+- ✅ Full Admin module sub-section support
+- ✅ Enhanced breadcrumb hierarchy
+- ✅ All modules fully documented
+
+**NextGen:**
+- ✅ Standardized `_ng` naming convention
+- ✅ Image path transformation
+- ✅ Module overview standardization
+- ✅ Content replication for missing pages
+
+**All Versions:**
+- ✅ Consistent image path transformation
+- ✅ Feedback survey integration
+- ✅ Enhanced error handling
+- ✅ Improved navigation experience
+
+---
+
 ## Troubleshooting
 
 ### Common Issues
@@ -538,6 +707,28 @@ SEO metadata helps your documentation appear in Google search results. Without p
 2. Verify all imports are correct
 3. Check MDX file syntax
 4. Ensure frontmatter YAML is valid
+5. Run `npm install` if dependencies are missing
+
+#### Issue: Images not loading
+**Solution**:
+1. Verify images are in `public/images_{version}/` folder
+2. Check image paths in MDX use `../Resources/Images/...` format
+3. Ensure folder structure matches (e.g., `public/images_6_1/CMDB/image.png`)
+4. Check browser console for 404 errors
+
+#### Issue: Feedback form not sending emails
+**Solution**:
+1. Verify EmailJS service IDs are configured in `FeedbackSection.tsx`
+2. Check EmailJS service, template, and public key are set
+3. Verify `emailjs-com` is installed: `npm install`
+4. Check browser console for EmailJS errors
+
+#### Issue: Error page doesn't recover on back navigation
+**Solution**:
+1. Verify ErrorBoundary is wrapping AppContent in `App.tsx`
+2. Check that `resetKey` prop is being passed correctly
+3. Ensure route changes trigger ErrorBoundary reset
+4. Clear browser cache and try again
 
 ### Getting Help
 
@@ -584,11 +775,29 @@ npm run build                  # Build project (check for errors)
 
 ### Important Patterns
 - **6.1 Files**: `{topic}_6_1.mdx` or `{topic}-6_1.mdx`
-- **NextGen Files**: `{topic}.mdx`
+- **NextGen Files**: `{topic}.mdx` or `{topic}_ng.mdx`
+- **NextGen Overview**: `overview_ng.mdx` (not `about_*_ng.mdx`)
 - **Canonical URL**: `/{version}/{module}/{section}/{page}`
+- **Image Paths**: Use `../Resources/Images/...` (auto-transformed)
+
+### Version-Specific Image Folders
+- **6.1**: `public/images_6_1/`
+- **6.1.1**: `public/images_6_1_1/`
+- **5.13**: `public/images_5_13/`
+- **NextGen**: `public/images_ng/`
 
 ---
 
-**Last Updated**: November 2025  
+## Version History
+
+- **v1.1.0** (January 2025): Image path transformation, feedback survey, hero redesign, navigation fixes, error boundary improvements
+- **v1.0.0** (January 2025): Complete SEO/GEO implementation, breadcrumb fixes, NextGen support
+- **v0.9.0** (December 2024): Page loading fixes, error handling improvements
+- **v0.8.0** (December 2024): Multi-version support, Admin module expansion
+- **v0.7.0** (November 2024): Initial release with basic navigation
+
+---
+
+**Last Updated**: January 2025  
 **Live Site**: https://gopichand-virima.github.io/FeatureDocsite/  
 **Repository**: https://github.com/gopichand-virima/FeatureDocsite

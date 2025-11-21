@@ -7,14 +7,11 @@ import {
   AlertTriangle,
   Monitor,
   User,
-  Network,
   ClipboardList,
   TrendingUp,
   Search,
   Command,
   BookOpen,
-  Globe,
-  Lock,
   Zap,
   Workflow,
   Layers,
@@ -143,61 +140,8 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
     <div className="min-h-screen bg-white">
       {/* Hero Section - Ultra Premium Virima Design */}
       <div className="relative overflow-hidden bg-white">
-        {/* Ultra Sophisticated Background Elements - Premium Snow White */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Subtle elegant gradient orbs in pure white/light tones */}
-          <div className="absolute -top-48 -left-48 w-[900px] h-[900px] bg-gradient-to-br from-slate-50/40 via-white to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-gradient-to-bl from-slate-50/30 via-white to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-48 left-1/4 w-[800px] h-[800px] bg-gradient-to-t from-slate-50/35 via-white to-transparent rounded-full blur-3xl"></div>
-          
-          {/* Secondary ambient light effects - minimal and elegant */}
-          <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-gradient-to-br from-slate-50/25 to-transparent rounded-full blur-2xl"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-slate-50/30 to-transparent rounded-full blur-2xl"></div>
-          
-          {/* Refined grid pattern with minimal presence */}
-          <div className="absolute inset-0 opacity-[0.015]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px'
-          }}></div>
-          
-          {/* Diagonal accent lines - barely visible elegant touches */}
-          <div className="absolute inset-0">
-            <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-2"></div>
-            <div className="absolute top-[45%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/15 to-transparent transform rotate-1"></div>
-            <div className="absolute top-[75%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-1"></div>
-          </div>
-          
-          {/* Elegant floating service icons - subtle gray tones */}
-          <div className="absolute top-[20%] left-[12%] opacity-[0.025] transform hover:scale-110 transition-transform duration-700">
-            <Network className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[25%] right-[10%] opacity-[0.022] transform hover:scale-110 transition-transform duration-700">
-            <Database className="w-36 h-36 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute bottom-[25%] left-[8%] opacity-[0.02] transform hover:scale-110 transition-transform duration-700">
-            <Shield className="w-28 h-28 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute bottom-[30%] right-[15%] opacity-[0.028] transform hover:scale-110 transition-transform duration-700">
-            <Layers className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[50%] left-[6%] opacity-[0.018] transform hover:scale-110 transition-transform duration-700">
-            <Workflow className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[38%] right-[7%] opacity-[0.023] transform hover:scale-110 transition-transform duration-700">
-            <Globe className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
-          </div>
-          
-          {/* Additional decorative elements - subtle dots */}
-          <div className="absolute top-[12%] right-[25%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
-          <div className="absolute top-[65%] left-[20%] w-3 h-3 bg-slate-200/25 rounded-full"></div>
-          <div className="absolute bottom-[40%] right-[30%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
-          
-          {/* Glossy shine effect for premium feel */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white opacity-60"></div>
-        </div>
+        {/* Clean Snow White Background - No decorative elements */}
+        <div className="absolute inset-0 bg-white"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
 
@@ -282,18 +226,18 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </Button>
               </div>
 
-            {/* Premium Get Started Button */}
-            <div className="flex justify-center mb-4">
-              <Button
-                size="lg"
-                onClick={() => onModuleSelect('my-dashboard')}
-                className="relative bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-700 hover:via-green-700 hover:to-emerald-700 text-white px-10 py-6 text-base shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <span className="relative">Get Started</span>
-                <ArrowRight className="relative ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
-            </div>
+              {/* Premium Get Started Button */}
+              <div className="flex justify-center mb-4">
+                <Button
+                  size="lg"
+                  onClick={() => onModuleSelect('my-dashboard')}
+                  className="relative bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-700 hover:via-green-700 hover:to-emerald-700 text-white px-10 py-6 text-base shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <span className="relative">Get Started</span>
+                  <ArrowRight className="relative ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

@@ -1095,6 +1095,6 @@ With these steps, you'll keep SEO and GEO healthy as the documentation grows—n
 
 **Key Insight**: SEO optimization is the foundation for both search engines and LLMs. Focus on ranking well in search results, and LLMs will discover and cite your content naturally.
 
-Happy documenting! 🚀
+Happy documenting! 
 
 

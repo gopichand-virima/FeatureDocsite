@@ -15,12 +15,24 @@ function generateHeadingId(text: string): string {
 }
 
 /**
- * Transform image paths for NextGen content
- * Converts ../Resources/Images/... to /images_ng/...
+ * Transform image paths for versioned content
+ * Converts ../Resources/Images/... to /images_{version}/...
+ * - NextGen files → /images_ng/
+ * - 6_1 files → /images_6_1/
  */
-function transformNextGenImagePaths(content: string, filePath: string): string {
-  // Only transform if this is a NextGen file
-  if (!filePath.startsWith('/content/NG')) {
+function transformImagePaths(content: string, filePath: string): string {
+  // Determine which image folder to use based on file path
+  let imageFolder = '';
+  if (filePath.startsWith('/content/NG')) {
+    imageFolder = '/images_ng';
+  } else if (filePath.startsWith('/content/6_1')) {
+    imageFolder = '/images_6_1';
+  } else if (filePath.startsWith('/content/6_1_1')) {
+    imageFolder = '/images_6_1_1';
+  } else if (filePath.startsWith('/content/5_13')) {
+    imageFolder = '/images_5_13';
+  } else {
+    // No transformation for other versions or unknown paths
     return content;
   }
 
@@ -38,9 +50,9 @@ function transformNextGenImagePaths(content: string, filePath: string): string {
         // Extract the path after Resources/Images/
         const resourcesMatch = decodedPath.match(/Resources\/Images\/(.+)$/);
         if (resourcesMatch) {
-          // Reconstruct path with /images_ng/ prefix
+          // Reconstruct path with version-specific image folder prefix
           const relativePath = resourcesMatch[1];
-          const newPath = `/images_ng/${relativePath}`;
+          const newPath = `${imageFolder}/${relativePath}`;
           // Encode spaces and special characters, but keep slashes unencoded
           const encodedPath = newPath.split('/').map(segment => 
             segment ? encodeURIComponent(segment) : ''
@@ -84,8 +96,8 @@ export function MDXContent({ filePath }: MDXContentProps) {
           if (match) {
             content = match[2]; // Use content after frontmatter
           }
-          // Transform image paths for NextGen content
-          content = transformNextGenImagePaths(content, filePath);
+          // Transform image paths for versioned content
+          content = transformImagePaths(content, filePath);
           setContent(content);
         } else {
           // Content not found - this is expected for pages that fall back to DefaultContent

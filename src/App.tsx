@@ -1398,6 +1398,7 @@ function AppContent() {
               setSelectedModule('');
               setSelectedSection('');
               setSelectedPage('');
+              updateURL(selectedVersion, '', '', '');
             }}
             onModuleClick={() => {
               let section = '';

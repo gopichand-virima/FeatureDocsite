@@ -14,6 +14,50 @@ function generateHeadingId(text: string): string {
     .trim();
 }
 
+/**
+ * Transform image paths for NextGen content
+ * Converts ../Resources/Images/... to /images_ng/...
+ */
+function transformNextGenImagePaths(content: string, filePath: string): string {
+  // Only transform if this is a NextGen file
+  if (!filePath.startsWith('/content/NG')) {
+    return content;
+  }
+
+  // Pattern to match image markdown syntax: ![alt](path)
+  // Also handles URL-encoded paths like %20 for spaces
+  const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  
+  return content.replace(imagePattern, (match, altText, imagePath) => {
+    try {
+      // Decode URL-encoded paths (handles %20 for spaces, etc.)
+      let decodedPath = decodeURIComponent(imagePath);
+      
+      // Check if path contains Resources/Images/ (handles both ../Resources/Images/ and Resources/Images/)
+      if (decodedPath.includes('Resources/Images/')) {
+        // Extract the path after Resources/Images/
+        const resourcesMatch = decodedPath.match(/Resources\/Images\/(.+)$/);
+        if (resourcesMatch) {
+          // Reconstruct path with /images_ng/ prefix
+          const relativePath = resourcesMatch[1];
+          const newPath = `/images_ng/${relativePath}`;
+          // Encode spaces and special characters, but keep slashes unencoded
+          const encodedPath = newPath.split('/').map(segment => 
+            segment ? encodeURIComponent(segment) : ''
+          ).join('/');
+          return `![${altText}](${encodedPath})`;
+        }
+      }
+    } catch (e) {
+      // If decoding fails, return original
+      console.warn('Failed to transform image path:', imagePath, e);
+    }
+    
+    // Return original if no transformation needed or if error occurred
+    return match;
+  });
+}
+
 interface MDXContentProps {
   filePath: string;
 }
@@ -40,6 +84,8 @@ export function MDXContent({ filePath }: MDXContentProps) {
           if (match) {
             content = match[2]; // Use content after frontmatter
           }
+          // Transform image paths for NextGen content
+          content = transformNextGenImagePaths(content, filePath);
           setContent(content);
         } else {
           // Content not found - this is expected for pages that fall back to DefaultContent

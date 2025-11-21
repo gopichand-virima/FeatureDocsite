@@ -13,17 +13,24 @@ import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-
 import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
 import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
 
-// Import NextGen content
-import ngSystemIcons from './NG/my-dashboard/system-icons.mdx?raw';
-import ngCmdbOverview from './NG/cmdb/overview.mdx?raw';
-import ngDiscoveryScanOverview from './NG/discovery-scan/overview.mdx?raw';
-import ngItsmOverview from './NG/itsm/overview.mdx?raw';
-import ngItamOverview from './NG/itam/overview.mdx?raw';
-import ngVulnerabilityManagementOverview from './NG/vulnerability-management/overview.mdx?raw';
-import ngSelfServiceOverview from './NG/self-service/overview.mdx?raw';
-import ngProgramProjectManagementOverview from './NG/program-project-management/overview.mdx?raw';
-import ngRiskRegisterOverview from './NG/risk-register/overview.mdx?raw';
-import ngReportsOverview from './NG/reports/overview.mdx?raw';
+// Import NextGen content - Updated to use _ng file structure
+// My Dashboard
+import ngMyDashboardOverview from './NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx?raw';
+import ngDashboardOverview from './NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx?raw';
+import ngDashboardContents from './NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx?raw';
+import ngDashboardCustomization from './NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx?raw';
+import ngDashboardReportsActions from './NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx?raw';
+// Application Overview
+import ngSystemIcons from './NG/application_overview_ng/icons_ng.mdx?raw';
+// Module overviews - using overview_ng.mdx naming
+import ngItsmOverview from './NG/itsm_ng/overview_ng.mdx?raw';
+import ngItamOverview from './NG/itam_ng/overview_ng.mdx?raw';
+import ngSelfServiceOverview from './NG/self_service_ng/overview_ng.mdx?raw';
+import ngReportsOverview from './NG/reports_ng/reports_ng.mdx?raw';
+import ngProgramProjectManagementOverview from './NG/program-project-management_ng/overview_ng.mdx?raw';
+import ngRiskRegisterOverview from './NG/risk_register_ng/overview_ng.mdx?raw';
+// Note: CMDB, Discovery Scan, and Vulnerability Management don't have overview files
+// They will fall back to DefaultContent when accessed
 
 /**
  * Content map - maps file paths to their content
@@ -38,17 +45,24 @@ const contentMap: Record<string, string> = {
   '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
   '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
   '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
-  // NextGen content
-  '/content/NG/my-dashboard/system-icons.mdx': ngSystemIcons,
-  '/content/NG/cmdb/overview.mdx': ngCmdbOverview,
-  '/content/NG/discovery-scan/overview.mdx': ngDiscoveryScanOverview,
-  '/content/NG/itsm/overview.mdx': ngItsmOverview,
-  '/content/NG/itam/overview.mdx': ngItamOverview,
-  '/content/NG/vulnerability-management/overview.mdx': ngVulnerabilityManagementOverview,
-  '/content/NG/self-service/overview.mdx': ngSelfServiceOverview,
-  '/content/NG/program-project-management/overview.mdx': ngProgramProjectManagementOverview,
-  '/content/NG/risk-register/overview.mdx': ngRiskRegisterOverview,
-  '/content/NG/reports/overview.mdx': ngReportsOverview,
+  // NextGen content - Updated to match _ng file structure paths
+  // My Dashboard
+  '/content/NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx': ngMyDashboardOverview,
+  '/content/NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx': ngDashboardOverview,
+  '/content/NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx': ngDashboardContents,
+  '/content/NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx': ngDashboardCustomization,
+  '/content/NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx': ngDashboardReportsActions,
+  // Application Overview
+  '/content/NG/application_overview_ng/icons_ng.mdx': ngSystemIcons,
+  // Module overviews - using overview_ng.mdx paths
+  '/content/NG/itsm_ng/overview_ng.mdx': ngItsmOverview,
+  '/content/NG/itam_ng/overview_ng.mdx': ngItamOverview,
+  '/content/NG/self_service_ng/overview_ng.mdx': ngSelfServiceOverview,
+  '/content/NG/reports_ng/reports_ng.mdx': ngReportsOverview,
+  '/content/NG/program-project-management_ng/overview_ng.mdx': ngProgramProjectManagementOverview,
+  '/content/NG/risk_register_ng/overview_ng.mdx': ngRiskRegisterOverview,
+  // Note: Additional NextGen files can be added here as needed
+  // The path resolver will return paths, and files can be imported and mapped incrementally
 };
 
 /**

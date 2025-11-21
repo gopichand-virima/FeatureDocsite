@@ -2,6 +2,7 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
+  resetKey?: string | number; // Key to reset error boundary when route changes
 }
 
 interface State {
@@ -11,6 +12,8 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
+  private prevResetKey: string | number | undefined;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -18,6 +21,22 @@ class ErrorBoundary extends Component<Props, State> {
       error: null,
       errorInfo: null,
     };
+    this.prevResetKey = props.resetKey;
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    // Reset error state when resetKey changes (e.g., route change)
+    if (this.props.resetKey !== undefined && this.props.resetKey !== this.prevResetKey) {
+      this.prevResetKey = this.props.resetKey;
+      if (this.state.hasError) {
+        // Reset error state to allow recovery on navigation
+        this.setState({
+          hasError: false,
+          error: null,
+          errorInfo: null,
+        });
+      }
+    }
   }
 
   static getDerivedStateFromError(error: Error): State {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom';
 import { DocumentationLayout } from './components/DocumentationLayout';
 import { DocumentationContent } from './components/DocumentationContent';
@@ -6,6 +6,7 @@ import { HomePage } from './components/HomePage';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 import { HelmetProvider } from 'react-helmet-async';
 import { buildRoutePath } from './utils/routeBuilder';
+import ErrorBoundary from './components/ErrorBoundary';
 import {
   organizationalDetailsPages,
   discoveryPages,
@@ -1448,11 +1449,23 @@ function AppContent() {
   );
 }
 
+// ErrorBoundary wrapper that resets on route changes
+function ErrorBoundaryWithLocationReset({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  return (
+    <ErrorBoundary resetKey={location.pathname + location.search + location.hash}>
+      {children}
+    </ErrorBoundary>
+  );
+}
+
 export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter basename="/FeatureDocsite">
-        <AppContent />
+        <ErrorBoundaryWithLocationReset>
+          <AppContent />
+        </ErrorBoundaryWithLocationReset>
       </BrowserRouter>
     </HelmetProvider>
   );

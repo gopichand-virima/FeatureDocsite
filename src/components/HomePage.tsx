@@ -140,70 +140,127 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
     useState(false);
 
   return (
-    <div className="min-h-screen bg-[#E6F8ED] flex flex-col">
-      {/* Hero Section */}
-      <div className="flex-1 flex items-center justify-center px-4 py-12 sm:py-16">
-        <div className="relative w-full max-w-5xl rounded-[40px] bg-gradient-to-br from-[#F4FFF9] via-white to-[#E7F8EE] border border-white/70 shadow-[0_30px_80px_rgba(16,185,129,0.25)] overflow-hidden px-6 sm:px-12 py-14 sm:py-18 text-center">
-          {/* subtle top glow line */}
-          <div className="pointer-events-none absolute inset-x-4 top-0 h-1 rounded-b-full bg-gradient-to-r from-transparent via-emerald-400/70 to-transparent" />
+    <div className="min-h-screen bg-white">
+      {/* Hero Section - Premium Geometric Design */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-50/30">
+        {/* Modern Geometric Pattern Background */}
+        <div className="absolute inset-0 overflow-hidden opacity-40">
+          {/* Large circles */}
+          <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full border-[40px] border-green-200/20"></div>
+          <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border-[50px] border-green-100/25"></div>
+          <div className="absolute -bottom-48 left-1/4 w-[600px] h-[600px] rounded-full border-[60px] border-green-100/20"></div>
+          
+          {/* Medium overlapping circles */}
+          <div className="absolute top-1/4 right-1/4 w-80 h-80 rounded-full bg-green-100/15"></div>
+          <div className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full bg-green-50/30"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 rounded-full bg-green-100/20"></div>
+          
+          {/* Subtle geometric lines */}
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgb(16, 185, 129)" strokeWidth="0.5" opacity="0.08"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+          
+          {/* Diagonal accent shapes */}
+          <div className="absolute top-0 right-0 w-full h-full">
+            <div className="absolute top-[20%] right-[10%] w-32 h-32 rotate-45 bg-green-200/15"></div>
+            <div className="absolute top-[60%] left-[8%] w-24 h-24 rotate-12 bg-green-100/20"></div>
+            <div className="absolute bottom-[15%] right-[25%] w-28 h-28 -rotate-12 border-4 border-green-200/20"></div>
+          </div>
+        </div>
 
-          {/* Virima logo text */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-slate-900">
-            Virima
-          </h1>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
 
-          {/* green underline bar */}
-          <div className="mt-6 mb-10 flex justify-center">
-            <div className="relative h-2 w-40">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400" />
-              <div className="absolute inset-0 rounded-full blur-md bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 opacity-80" />
+          {/* Content */}
+          <div className="relative z-10 text-center max-w-5xl mx-auto py-12 px-8 rounded-3xl overflow-hidden shadow-2xl">
+            {/* Layered Background Design */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white via-green-50/40 to-emerald-50/30"></div>
+            
+            {/* Decorative mesh gradient overlay */}
+            <div className="absolute inset-0 opacity-60">
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-green-500/5 via-transparent to-emerald-500/5"></div>
+              <div className="absolute top-0 right-0 w-2/3 h-2/3 bg-gradient-to-bl from-green-400/8 to-transparent rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-2/3 h-2/3 bg-gradient-to-tr from-emerald-400/8 to-transparent rounded-full blur-3xl"></div>
             </div>
-          </div>
+            
+            {/* Subtle geometric pattern */}
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.05) 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }}></div>
+            
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-30"></div>
+            
+            {/* Corner accents */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-transparent rounded-br-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-green-500/8 to-transparent rounded-tr-full"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-emerald-500/8 to-transparent rounded-tl-full"></div>
+            
+            {/* Content wrapper */}
+            <div className="relative z-10">
+            {/* Virima Brand */}
+            <div className="mb-8">
+              <h1 className="text-7xl lg:text-8xl text-black-premium mb-6 tracking-tight">
+                Virima
+              </h1>
+              <div className="h-1.5 w-32 bg-gradient-to-r from-green-500 to-green-600 mx-auto rounded-full shadow-lg"></div>
+            </div>
 
-          {/* Title + description */}
-          <p className="text-xl sm:text-2xl text-slate-900 mb-4">
-            Welcome to the Documentation Platform
-          </p>
+            {/* Tagline */}
+            <div className="mb-6">
+              <p className="text-2xl lg:text-3xl text-black-premium mb-4 leading-relaxed">
+                Welcome to the Documentation Platform
+              </p>
+            </div>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Explore comprehensive feature documentation, release notes,
-            and more across all Virima modules and versions.
-          </p>
+            <p className="text-lg lg:text-xl text-slate-600 mb-6 max-w-3xl mx-auto leading-relaxed">
+              Explore comprehensive feature documentation,
+              release notes, and more across all Virima modules
+              and versions.
+            </p>
 
-          {/* Search bar */}
-          <div className="max-w-2xl mx-auto mb-10">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setSearchDialogOpen(true)}
-              className="w-full h-14 sm:h-16 justify-start gap-3 rounded-xl border border-slate-200 bg-white shadow-md hover:shadow-lg hover:border-emerald-400 transition-all"
-            >
-              <img
-                src={aiIcon}
-                alt="AI"
-                className="h-6 w-6 sm:h-7 sm:w-7"
-                style={{ imageRendering: "crisp-edges" }}
-              />
-              <span className="text-sm sm:text-base text-slate-400">
-                Ask AI anything about Virima
-              </span>
-              <div className="ml-auto flex items-center gap-1 text-[11px] sm:text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">
-                <Command className="h-3.5 w-3.5" />
-                <span>K</span>
-              </div>
-            </Button>
-          </div>
+            {/* Search CTA */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setSearchDialogOpen(true)}
+                className="w-full flex items-center gap-3 justify-start text-slate-700 bg-white hover:bg-slate-50 border-slate-200 hover:border-green-300 h-16 px-6 text-base transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <img
+                  src={aiIcon}
+                  alt="AI"
+                  className="h-7.5 w-7.5"
+                  style={{ imageRendering: "crisp-edges" }}
+                />
+                <span className="text-slate-400">
+                  Ask AI anything about Virima
+                </span>
+                <div className="ml-auto flex items-center gap-1 text-xs text-slate-500">
+                  <Command className="h-3 w-3.5" />
+                  <span>K</span>
+                </div>
+              </Button>
+            </div>
 
-          {/* Get Started button */}
-          <div className="flex justify-center">
-            <Button
-              size="lg"
-              onClick={() => onModuleSelect("my-dashboard")}
-              className="rounded-full bg-emerald-600 hover:bg-emerald-700 px-9 py-5 text-base sm:text-lg font-medium shadow-lg shadow-emerald-500/40 flex items-center gap-2"
-            >
-              Get Started
-              <ArrowRight className="h-5 w-5" />
-            </Button>
+            {/* Get Started Button */}
+            <div className="flex justify-center mb-12">
+              <Button
+                size="lg"
+                onClick={() => onModuleSelect('my-dashboard')}
+                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-6 text-base shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -215,7 +272,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       />
 
       {/* Value Proposition Section */}
-      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-24 pb-0 lg:pt-36 lg:pb-0">
+      <div className="bg-white pt-24 pb-0 lg:pt-36 lg:pb-0">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
@@ -227,7 +284,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               operations with the agility modern businesses
               demand.
             </p>
-            <div className="bg-white pt-16 pb-8 lg:pt-20 lg:pb-12">
+            <div className="bg-gradient-to-b from-white via-white to-white pt-16 pb-8 lg:pt-20 lg:pb-12">
               <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {modules.map((module) => {
@@ -235,12 +292,12 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                     return (
                       <div
                         key={module.id}
-                        className="group relative bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
+                        className="group relative bg-white border border-slate-200/60 rounded-3xl p-10 hover:shadow-2xl hover:shadow-slate-900/5 hover:border-green-500/20 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
                         onClick={() =>
                           onModuleSelect(module.id)
                         }
                       >
-                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-slate-50 via-white to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-green-500/5 via-blue-500/5 to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         <div className="relative flex flex-col flex-grow">
                           <div className="mb-8">
@@ -279,7 +336,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       {/* Platform Modules */}
 
       {/* Documentation Resources */}
-      <div className="bg-gradient-to-b from-white via-slate-50/20 to-white py-12 lg:py-16">
+      <div className="bg-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
@@ -288,7 +345,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <BookOpen className="h-7 w-7 text-white" />
               </div>
@@ -301,7 +358,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Zap className="h-7 w-7 text-white" />
               </div>
@@ -314,7 +371,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>
@@ -327,7 +384,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Database className="h-7 w-7 text-white" />
               </div>
@@ -340,7 +397,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <Workflow className="h-7 w-7 text-white" />
               </div>
@@ -353,7 +410,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
+            <div className="group bg-white border border-slate-200/60 hover:border-green-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Shield className="h-7 w-7 text-white" />
               </div>

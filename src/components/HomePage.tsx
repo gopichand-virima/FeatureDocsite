@@ -13,6 +13,8 @@ import {
   Search,
   Command,
   BookOpen,
+  Globe,
+  Lock,
   Zap,
   Workflow,
   Layers,
@@ -139,43 +141,99 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Clean Design Matching Screenshot */}
+      {/* Hero Section - Ultra Premium Virima Design */}
       <div className="relative overflow-hidden bg-white">
+        {/* Ultra Sophisticated Background Elements - Premium Snow White */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Subtle elegant gradient orbs in pure white/light tones */}
+          <div className="absolute -top-48 -left-48 w-[900px] h-[900px] bg-gradient-to-br from-slate-50/40 via-white to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-gradient-to-bl from-slate-50/30 via-white to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-48 left-1/4 w-[800px] h-[800px] bg-gradient-to-t from-slate-50/35 via-white to-transparent rounded-full blur-3xl"></div>
+          
+          {/* Secondary ambient light effects - minimal and elegant */}
+          <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-gradient-to-br from-slate-50/25 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-slate-50/30 to-transparent rounded-full blur-2xl"></div>
+          
+          {/* Refined grid pattern with minimal presence */}
+          <div className="absolute inset-0 opacity-[0.015]" style={{
+            backgroundImage: `
+              linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px'
+          }}></div>
+          
+          {/* Diagonal accent lines - barely visible elegant touches */}
+          <div className="absolute inset-0">
+            <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-2"></div>
+            <div className="absolute top-[45%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/15 to-transparent transform rotate-1"></div>
+            <div className="absolute top-[75%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-1"></div>
+          </div>
+          
+          {/* Elegant floating service icons - subtle gray tones */}
+          <div className="absolute top-[20%] left-[12%] opacity-[0.025] transform hover:scale-110 transition-transform duration-700">
+            <Network className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[25%] right-[10%] opacity-[0.022] transform hover:scale-110 transition-transform duration-700">
+            <Database className="w-36 h-36 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute bottom-[25%] left-[8%] opacity-[0.02] transform hover:scale-110 transition-transform duration-700">
+            <Shield className="w-28 h-28 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute bottom-[30%] right-[15%] opacity-[0.028] transform hover:scale-110 transition-transform duration-700">
+            <Layers className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[50%] left-[6%] opacity-[0.018] transform hover:scale-110 transition-transform duration-700">
+            <Workflow className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
+          </div>
+          <div className="absolute top-[38%] right-[7%] opacity-[0.023] transform hover:scale-110 transition-transform duration-700">
+            <Globe className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
+          </div>
+          
+          {/* Additional decorative elements - subtle dots */}
+          <div className="absolute top-[12%] right-[25%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
+          <div className="absolute top-[65%] left-[20%] w-3 h-3 bg-slate-200/25 rounded-full"></div>
+          <div className="absolute bottom-[40%] right-[30%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
+          
+          {/* Glossy shine effect for premium feel */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white opacity-60"></div>
+        </div>
+
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32">
-          {/* Main Content Card */}
-          <div className="relative text-center max-w-5xl mx-auto py-12 px-8 rounded-3xl overflow-hidden shadow-2xl">
-            {/* Card Background Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/98 via-emerald-50/70 to-green-50/50"></div>
+          {/* Premium Content Card */}
+          <div className="relative z-10 text-center max-w-5xl mx-auto py-20 px-10 rounded-[2rem] overflow-hidden shadow-2xl">
+            {/* Multi-layered Premium Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/98 via-emerald-50/70 to-green-50/50 backdrop-blur-xl"></div>
             
-            {/* Radial Gradient Overlays */}
-            <div className="absolute inset-0 opacity-60">
+            {/* Radial gradient overlays for depth */}
+            <div className="absolute inset-0 opacity-50">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-500/10 via-transparent to-green-500/12"></div>
-              <div className="absolute top-0 right-0 w-2/3 h-2/3 bg-gradient-to-bl from-emerald-400/12 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-2/3 h-2/3 bg-gradient-to-tr from-green-400/14 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-emerald-400/8 via-green-400/6 to-emerald-400/8 rounded-full blur-3xl"></div>
+              <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-gradient-to-bl from-emerald-400/12 to-transparent rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-gradient-to-tr from-green-400/14 to-transparent rounded-full blur-3xl"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 bg-gradient-to-r from-emerald-400/8 via-green-400/6 to-emerald-400/8 rounded-full blur-2xl"></div>
             </div>
             
-            {/* Dot Pattern */}
+            {/* Refined dot pattern */}
             <div className="absolute inset-0" style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.1) 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.1) 1px, transparent 0)`,
+              backgroundSize: '48px 48px'
             }}></div>
             
-            {/* Top Border Glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-30 shadow-lg shadow-emerald-500/30"></div>
+            {/* Elegant top border with glow */}
+            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-emerald-500 to-transparent shadow-lg shadow-emerald-500/30"></div>
             
-            {/* Corner Flourishes */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-transparent rounded-br-full"></div>
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-500/20 via-green-500/10 to-transparent rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-emerald-500/18 via-emerald-500/8 to-transparent rounded-tr-full"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-green-500/18 via-green-500/8 to-transparent rounded-tl-full"></div>
+            {/* Sophisticated corner flourishes */}
+            <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-transparent rounded-br-[4rem]"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-green-500/20 via-green-500/10 to-transparent rounded-bl-[4rem]"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-emerald-500/18 via-emerald-500/8 to-transparent rounded-tr-[4rem]"></div>
+            <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-tl from-green-500/18 via-green-500/8 to-transparent rounded-tl-[4rem]"></div>
             
-            {/* Inner Border */}
-            <div className="absolute inset-0 border border-emerald-500/10 rounded-3xl pointer-events-none"></div>
+            {/* Subtle inner border glow */}
+            <div className="absolute inset-4 rounded-[1.5rem] border border-emerald-500/10 shadow-inner"></div>
             
-            {/* Content */}
+            {/* Content wrapper with enhanced hierarchy */}
             <div className="relative z-10">
-              {/* Virima Brand */}
+              {/* Virima Brand with enhanced styling */}
               <div className="mb-10">
                 <h1 className="text-7xl lg:text-8xl text-slate-900 mb-6 tracking-tight" style={{
                   textShadow: '0 2px 40px rgba(16, 185, 129, 0.1)'
@@ -188,7 +246,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </div>
               </div>
 
-              {/* Welcome Message */}
+              {/* Tagline with refined styling */}
               <div className="mb-8">
                 <p className="text-2xl lg:text-3xl text-slate-900 mb-4 leading-relaxed" style={{
                   textShadow: '0 1px 20px rgba(0, 0, 0, 0.03)'
@@ -197,12 +255,13 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </p>
               </div>
 
-              {/* Description */}
               <p className="text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Explore comprehensive feature documentation, release notes, and more across all Virima modules and versions.
+                Explore comprehensive feature documentation,
+                release notes, and more across all Virima modules
+                and versions.
               </p>
 
-              {/* Search CTA */}
+              {/* Enhanced Search CTA */}
               <div className="max-w-2xl mx-auto mb-10">
                 <Button
                   variant="outline"
@@ -226,7 +285,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </Button>
               </div>
 
-              {/* Get Started Button */}
+              {/* Premium Get Started Button */}
               <div className="flex justify-center mb-4">
                 <Button
                   size="lg"
@@ -241,6 +300,9 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
             </div>
           </div>
         </div>
+
+        {/* Enhanced bottom gradient fade with glow */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </div>
 
       {/* AI Search Dialog */}
@@ -323,7 +385,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <BookOpen className="h-7 w-7 text-white" />
               </div>
@@ -336,7 +398,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Zap className="h-7 w-7 text-white" />
               </div>
@@ -349,7 +411,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>
@@ -362,7 +424,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Database className="h-7 w-7 text-white" />
               </div>
@@ -375,7 +437,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-200/60 hover:border-blue-500/20 rounded-3xl p-10 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <Workflow className="h-7 w-7 text-white" />
               </div>
@@ -388,7 +450,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500">
+            <div className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <Shield className="h-7 w-7 text-white" />
               </div>

@@ -139,112 +139,90 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Ultra Premium Virima Design */}
+      {/* Hero Section - Clean Design Matching Screenshot */}
       <div className="relative overflow-hidden bg-white">
-        {/* Clean Snow White Background - No decorative elements */}
-        <div className="absolute inset-0 bg-white"></div>
-
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
-
-          {/* Content */}
-          <div className="relative z-10 text-center max-w-5xl mx-auto py-12 px-8 rounded-3xl overflow-hidden shadow-2xl">
-            {/* Layered Background Design */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white via-green-50/40 to-emerald-50/30"></div>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32">
+          {/* Main Content Card */}
+          <div className="relative text-center max-w-4xl mx-auto py-16 px-8 lg:py-20 lg:px-12 rounded-3xl overflow-hidden shadow-lg">
+            {/* Light Green Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-50/70 via-white to-emerald-50/50"></div>
             
-            {/* Decorative mesh gradient overlay */}
-            <div className="absolute inset-0 opacity-60">
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-green-500/5 via-transparent to-emerald-500/5"></div>
-              <div className="absolute top-0 right-0 w-2/3 h-2/3 bg-gradient-to-bl from-green-400/8 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-2/3 h-2/3 bg-gradient-to-tr from-emerald-400/8 to-transparent rounded-full blur-3xl"></div>
+            {/* Subtle Geometric Pattern Overlay - Rounded squares in corners */}
+            <div className="absolute inset-0 opacity-20">
+              {/* Top-left corner geometric shape */}
+              <div className="absolute top-4 left-4 w-24 h-24 bg-green-200/30 rounded-2xl blur-sm"></div>
+              {/* Top-right corner geometric shape */}
+              <div className="absolute top-4 right-4 w-24 h-24 bg-emerald-200/30 rounded-2xl blur-sm"></div>
+              {/* Bottom-left corner geometric shape */}
+              <div className="absolute bottom-4 left-4 w-24 h-24 bg-green-200/30 rounded-2xl blur-sm"></div>
+              {/* Bottom-right corner geometric shape */}
+              <div className="absolute bottom-4 right-4 w-24 h-24 bg-emerald-200/30 rounded-2xl blur-sm"></div>
+              {/* Additional subtle shapes along edges */}
+              <div className="absolute top-1/2 left-0 w-16 h-16 bg-green-200/20 rounded-xl blur-md transform -translate-y-1/2"></div>
+              <div className="absolute top-1/2 right-0 w-16 h-16 bg-emerald-200/20 rounded-xl blur-md transform -translate-y-1/2"></div>
             </div>
             
-            {/* Subtle geometric pattern */}
-            <div className="absolute inset-0" style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.05) 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
-            }}></div>
-            
-            {/* Top accent line */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-30"></div>
-            
-            {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-transparent rounded-br-full"></div>
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-green-500/8 to-transparent rounded-tr-full"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-emerald-500/8 to-transparent rounded-tl-full"></div>
-            
-            {/* Content wrapper with enhanced hierarchy */}
+            {/* Content */}
             <div className="relative z-10">
-              {/* Virima Brand with enhanced styling */}
-              <div className="mb-10">
-                <h1 className="text-7xl lg:text-8xl text-slate-900 mb-6 tracking-tight" style={{
-                  textShadow: '0 2px 40px rgba(16, 185, 129, 0.1)'
-                }}>
+              {/* Virima Title */}
+              <div className="mb-8">
+                <h1 className="text-6xl lg:text-7xl font-bold text-slate-900 mb-4 tracking-tight">
                   Virima
                 </h1>
-                <div className="relative inline-block">
-                  <div className="h-2 w-40 bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 mx-auto rounded-full shadow-xl shadow-emerald-500/40"></div>
-                  <div className="absolute inset-0 h-2 w-40 bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-400 mx-auto rounded-full blur-sm"></div>
+                {/* Simple Green Underline */}
+                <div className="flex justify-center">
+                  <div className="h-1 w-32 bg-green-500 rounded-full"></div>
                 </div>
               </div>
 
-              {/* Tagline with refined styling */}
-              <div className="mb-8">
-                <p className="text-2xl lg:text-3xl text-slate-900 mb-4 leading-relaxed" style={{
-                  textShadow: '0 1px 20px rgba(0, 0, 0, 0.03)'
-                }}>
-                  Welcome to the Documentation Platform
-                </p>
-              </div>
-
-              <p className="text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Explore comprehensive feature documentation,
-                release notes, and more across all Virima modules
-                and versions.
+              {/* Welcome Message */}
+              <p className="text-2xl lg:text-3xl font-semibold text-slate-900 mb-6">
+                Welcome to the Documentation Platform
               </p>
 
-              {/* Enhanced Search CTA */}
+              {/* Description */}
+              <p className="text-lg lg:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Explore comprehensive feature documentation, release notes, and more across all Virima modules and versions.
+              </p>
+
+              {/* Search Bar */}
               <div className="max-w-2xl mx-auto mb-10">
                 <Button
                   variant="outline"
                   size="lg"
                   onClick={() => setSearchDialogOpen(true)}
-                  className="w-full flex items-center gap-3 justify-start text-slate-700 bg-white/90 backdrop-blur-sm hover:bg-emerald-50/80 border-2 border-slate-200 hover:border-emerald-400 h-16 px-6 text-base transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-emerald-500/25 group"
+                  className="w-full flex items-center gap-3 justify-start text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 h-14 px-5 text-base rounded-lg shadow-sm group"
                 >
                   <img
                     src={aiIcon}
                     alt="AI"
-                    className="h-7.5 w-7.5 group-hover:scale-110 transition-transform duration-300"
+                    className="h-5 w-5"
                     style={{ imageRendering: "crisp-edges" }}
                   />
-                  <span className="text-slate-400 group-hover:text-slate-600 transition-colors duration-300">
+                  <span className="text-slate-500">
                     Ask AI anything about Virima
                   </span>
-                  <div className="ml-auto flex items-center gap-1 text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                  <div className="ml-auto flex items-center gap-1 text-xs text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-200">
                     <Command className="h-3 w-3.5" />
                     <span>K</span>
                   </div>
                 </Button>
               </div>
 
-              {/* Premium Get Started Button */}
-              <div className="flex justify-center mb-4">
+              {/* Get Started Button */}
+              <div className="flex justify-center">
                 <Button
                   size="lg"
                   onClick={() => onModuleSelect('my-dashboard')}
-                  className="relative bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-700 hover:via-green-700 hover:to-emerald-700 text-white px-10 py-6 text-base shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
+                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="relative">Get Started</span>
-                  <ArrowRight className="relative ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <span>Get Started</span>
+                  <ArrowRight className="h-5 w-5" />
                 </Button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Enhanced bottom gradient fade with glow */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </div>
 
       {/* AI Search Dialog */}

@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   Monitor,
   User,
+  Network,
   ClipboardList,
   TrendingUp,
   Search,

@@ -2199,7 +2199,6 @@ export function DocumentationContent({
         <article className="prose prose-slate max-w-none -mt-9">
           {renderBreadcrumbs()}
           <MDXContent filePath={mdxPath} />
-          <FeedbackSection />
         </article>
       );
     }

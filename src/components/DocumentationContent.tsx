@@ -4011,6 +4011,56 @@ function DefaultContent({
   // Vulnerability Management hierarchy checks
   const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
   
+  // Application Overview pages (these appear under Application Overview section in my-dashboard module)
+  const applicationOverviewPages = [
+    "system-icons",
+    "user-specific-functions", 
+    "online-help",
+    ...sharedFunctionsPages,
+    "shared-functions" // parent page itself
+  ];
+  
+  // Getting Started pages (universal: works for all modules and versions)
+  const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
+  const isGettingStartedPage = gettingStartedPages.includes(page);
+  
+  // Admin sub-section page detection (using arrays declared above)
+  const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
+  const isDiscoveryPage = discoveryPages.includes(page);
+  const isSacmPage = sacmPages.includes(page);
+  const isUsersPage = usersPages.includes(page);
+  const isManagementFunctionsPage = managementFunctionsPages.includes(page);
+  const isIntegrationsPage = integrationsPages.includes(page);
+  const isOthersPage = othersPages.includes(page);
+  
+  // Detect if we're in Application Overview section based on page content
+  // Even if URL section is "my-dashboard", if page is an Application Overview page, 
+  // we should show "Application Overview" as the section
+  const isApplicationOverviewPage = applicationOverviewPages.includes(page);
+  
+  // Detect actual section: prioritize Getting Started, then Admin sub-sections, then Application Overview, then use provided section
+  // This must be declared before Admin hierarchy checks that use it
+  let actualSection = section;
+  if (module === 'my-dashboard' && isGettingStartedPage) {
+    actualSection = 'getting-started';
+  } else if (module === 'admin' && isOrganizationalDetailsPage) {
+    actualSection = 'organizational-details';
+  } else if (module === 'admin' && isDiscoveryPage) {
+    actualSection = 'discovery';
+  } else if (module === 'admin' && isSacmPage) {
+    actualSection = 'sacm';
+  } else if (module === 'admin' && isUsersPage) {
+    actualSection = 'users';
+  } else if (module === 'admin' && isManagementFunctionsPage) {
+    actualSection = 'management-functions';
+  } else if (module === 'admin' && isIntegrationsPage) {
+    actualSection = 'integrations';
+  } else if (module === 'admin' && isOthersPage) {
+    actualSection = 'others';
+  } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
+    actualSection = 'application-overview';
+  }
+  
   // Admin hierarchy checks
   const isUnderOrganizationalDetails = (actualSection === "organizational-details" || section === "admin") && (organizationalDetailsPages.includes(page) || page === "organizational-details");
   const isUnderDepartments = section === "admin" && (departmentsPages.includes(page) || page === "departments");
@@ -4047,55 +4097,6 @@ function DefaultContent({
   
   // Reports hierarchy checks
   const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
-  
-  // Application Overview pages (these appear under Application Overview section in my-dashboard module)
-  const applicationOverviewPages = [
-    "system-icons",
-    "user-specific-functions", 
-    "online-help",
-    ...sharedFunctionsPages,
-    "shared-functions" // parent page itself
-  ];
-  
-  // Getting Started pages (universal: works for all modules and versions)
-  const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
-  const isGettingStartedPage = gettingStartedPages.includes(page);
-  
-  // Admin sub-section page detection (using arrays declared above)
-  const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
-  const isDiscoveryPage = discoveryPages.includes(page);
-  const isSacmPage = sacmPages.includes(page);
-  const isUsersPage = usersPages.includes(page);
-  const isManagementFunctionsPage = managementFunctionsPages.includes(page);
-  const isIntegrationsPage = integrationsPages.includes(page);
-  const isOthersPage = othersPages.includes(page);
-  
-  // Detect if we're in Application Overview section based on page content
-  // Even if URL section is "my-dashboard", if page is an Application Overview page, 
-  // we should show "Application Overview" as the section
-  const isApplicationOverviewPage = applicationOverviewPages.includes(page);
-  
-  // Detect actual section: prioritize Getting Started, then Admin sub-sections, then Application Overview, then use provided section
-  let actualSection = section;
-  if (module === 'my-dashboard' && isGettingStartedPage) {
-    actualSection = 'getting-started';
-  } else if (module === 'admin' && isOrganizationalDetailsPage) {
-    actualSection = 'organizational-details';
-  } else if (module === 'admin' && isDiscoveryPage) {
-    actualSection = 'discovery';
-  } else if (module === 'admin' && isSacmPage) {
-    actualSection = 'sacm';
-  } else if (module === 'admin' && isUsersPage) {
-    actualSection = 'users';
-  } else if (module === 'admin' && isManagementFunctionsPage) {
-    actualSection = 'management-functions';
-  } else if (module === 'admin' && isIntegrationsPage) {
-    actualSection = 'integrations';
-  } else if (module === 'admin' && isOthersPage) {
-    actualSection = 'others';
-  } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
-    actualSection = 'application-overview';
-  }
   
   // Get section display name based on actual section
   const sectionDisplayName = getSectionDisplayName(actualSection);

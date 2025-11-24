@@ -10,194 +10,149 @@ Use this function to automate tasks, such as modifying the ITSM records or creat
 
 Business rules can be set to run at the time when any Add or Edit actions occurs.
 
-In the main window, click **Admin \> Others \> Business Rules**. The Business Rules window displays.
+In the main window, click **Admin > Others > Business Rules**. The Business Rules window displays.
 
-![biz rules main old 669x102](../Resources/Images/Admin - Other/biz-rules-main-old_669x102.png)
+!
 
-![arrow border](../Resources/Images/arrow-border.PNG)
+!
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Business Rule](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- -- ----- ----------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose an **New Business Rule**.
- -- ----- ----------------------------------------------------------------------------
+### New Business Rule
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Conditions](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+- From the *Select Actions* drop-down list, choose an **New Business Rule**.
 
-After adding a business rule, add the trigger conditions. You can combine two or more conditions using \"AND\" or \"OR\" logical operators.
+!
 
- -- ----- ---------------------------------
- 1. Open an existing business rule.
- -- ----- ---------------------------------
+- Complete the fields referring to the table below.
+- When all selections/entries are made, click **Add**.
 
- -- ----- --------------------------
- 2. Click **Add condition**.
- -- ----- --------------------------
+### Business Rules Fields
 
- -- ----- -----------------------------------------------------
- 3. Move to the *Trigger Conditions* *Details* section.
- -- ----- -----------------------------------------------------
+| Field | Description |
 
-::: {.Ind50
-![biz rules trigger conditions old](../Resources/Images/Admin - Other/biz-rules-trigger-conditions-old.PNG)
+| --- | --- |
 
- -- ----- -------------------------------------------------------
- 4. To ignore the conditions, select *Ignore Conditions*.
- -- ----- -------------------------------------------------------
+| **Rule Name** | Name for this rule. |
 
- -- ----- ------------------------------------------------------------------------
- 5. Select the *Property* and *Operator*. Then enter the applicable value.
- -- ----- ------------------------------------------------------------------------
+| Description | Description for this rule. |
 
- -- ----- -------------------------------------------------------------
- 6. Perform any of the actions below for additional conditions.
- -- ----- -------------------------------------------------------------
+| Order/Priority | The order in which this rule should be executed when there are multiple rules set for the selected module. Must be a numeric value. |
 
- -- ----- -------------------------------------------------------
- 7. When all selections/entries are made, click **Save**.
- -- ----- -------------------------------------------------------
+| Module | Name of this module for which the rule applies. Click the drop-down list and select an available module, such as Incidents, CMDB, and so forth. |
+
+| Turn on cascade execution | Enable this option to execute the next enabled business rule based on the Order/Priority for the same module. |
+
+| Enable rule | Specifies if the rule is enabled or disabled. |
+
+| Execute On | Specifies on what action the rule is executed. |
+
+| Associated Blueprints | Click **Add** and select the Blueprint(s) to associate with this business rule. |
+
+
+### Trigger Conditions
+
+After adding a business rule, add the trigger conditions. You can combine two or more conditions using "AND" or "OR" logical operators.
+
+- Open an existing business rule.
+- Click **Add condition**.
+- Move to the *Trigger Conditions* *Details* section.
+
+!
+
+- To ignore the conditions, select *Ignore Conditions*.
+- Select the *Property* and *Operator*. Then enter the applicable value.
+- Perform any of the actions below for additional conditions.
+- When all selections/entries are made, click **Save**.
 
 ### Add/Delete Condition Block
 
-::: Bullet1
-To add a condition block (which also adds the Action Details and Notifications blocks), click **Add Condition**.
+- To add a condition block (which also adds the Action Details and Notifications blocks), click **Add Condition**.
+- To delete a condition block, click **Delete Condition**. Then confirm the deletion.
 
-::: Bullet1
-To delete a condition block, click **Delete Condition**. Then confirm the deletion.
+### Apply AND Condition
 
-### Apply AND Condition
+To insert an AND condition:
 
-To insert an AND condition:
+- Click the **plus + sign icon**.
+- Enter the condition details.
+- Add more AND conditions, as required.
+- If there are no more conditions to add, click **Add**.
 
- -- ----- ---------------------------------
- 1. Click the **plus + sign icon**.
- -- ----- ---------------------------------
+### Apply OR condition
 
- -- ----- ------------------------------
- 2. Enter the condition details.
- -- ----- ------------------------------
+To insert an OR condition:
 
- -- ----- ---------------------------------------
- 3. Add more AND conditions, as required.
- -- ----- ---------------------------------------
-
- -- ----- --------------------------------------------------------
- 4. If there are no more conditions to add, click **Add**.
- -- ----- --------------------------------------------------------
-
-### Apply OR condition
-
-To insert an OR condition:
-
- -- ----- ------------------------
- 1. Click the **or icon**.
- -- ----- ------------------------
-
- -- ----- ------------------------------
- 2. Enter the condition details.
- -- ----- ------------------------------
-
- -- ----- ------------------------------------------
- 3. Include more OR conditions, as required.
- -- ----- ------------------------------------------
-
- -- ----- --------------------------------------------------------
- 4. If there are no more conditions to add, click **Add**.
- -- ----- --------------------------------------------------------
+- Click the **or icon**.
+- Enter the condition details.
+- Include more OR conditions, as required.
+- If there are no more conditions to add, click **Add**.
 
 ### Delete Single Condition
 
- -- ----- ---------------------------------
- 1. Locate the condition to delete.
- -- ----- ---------------------------------
+- Locate the condition to delete.
+- Click the **red x** **icon**.
 
- -- ----- ----------------------------------------------------------
- 2. Click the **red [x]{style="color: #dc143c;"}** **icon**.
- -- ----- ----------------------------------------------------------
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Details](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+### Action Details
 
 After a business rule has been added, the action details are added.
 
- -- ----- ---------------------------------
- 1. Open an existing business rule.
- -- ----- ---------------------------------
+- Open an existing business rule.
+- Move to the *Action Details* section.
 
- -- ----- ---------------------------------------
- 2. Move to the *Action Details* section.
- -- ----- ---------------------------------------
+!
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+- In the *Action Type* field, click the drop-down list and select the action to perform, such as updating the triggered record.
+- Select the *Property* and *Operator*. Then enter the applicable value.
+- Perform any of the actions below for additional conditions.
+- When all selections/entries are made, click **Save**.
 
- -- ----- ---------------------------------------------------------------------
- 1. To add a user notification when a rule is triggered, click **Add**.
- -- ----- ---------------------------------------------------------------------
+### Add/Delete Action Details
 
- -- ----- ----------------------------------------------------------------------------------------------------------------
- 2. In the Send Report To dialog box, search for a select the applicable users, groups, roles, and/or departments.
- -- ----- ----------------------------------------------------------------------------------------------------------------
+- To add a single action row, click the **plus + sign**.
+- To delete a single action row, click the **minus - sign**. Then confirm the deletion.
 
- -- ----- -----------------
- 3. Click **Save**.
- -- ----- -----------------
+### Add/Delete Action Details Block
 
- -- ----- ------------------------------------------------------------------------------------------------
- 4. To delete a notification, click the **X** next to the name (of the user, groups and so forth).
- -- ----- ------------------------------------------------------------------------------------------------
+- To add an action detail block, click **Add Action**. The window updates and an additional Action block displays.
+- To delete an action detail block, click **Delete Action**. Then confirm the deletion.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Business Rule](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+### Notifications
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
+- To add a user notification when a rule is triggered, click **Add**.
+- In the Send Report To dialog box, search for a select the applicable users, groups, roles, and/or departments.
+- Click **Save**.
+- To delete a notification, click the **X** next to the name (of the user, groups and so forth).
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
+### Edit Business Rule
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
+Not all functions include an option to edit record line items shown in the main window.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Business Rule](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- Navigate to the window containing the record to edit.
+- Click the line containing the record. The applicable window or dialog box displays.
+- Make the necessary modifications.
+- Click **Save** or **Add**, as applicable.
 
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
 
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+### Delete Business Rule
 
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
+Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
 
-::: Bullet1
-[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-::: Bullet1
-[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+- Click the line that contains the item to delete.
+- From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
 
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-::: Bullet1
-[Go To Page](../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+Other Functions and Page Elements
 
-::: Bullet1
-[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)
+- [Go To Page](/common_functions/go_to_page_6_1.mdx)
+- [Items Per Page](/common_topics/items_per_page_6_1.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
+- [Records per Page](/common_topics/records_per_page_6_1.mdx)
+- [Saved Filters](/common_topics/saved_filters_6_1.mdx)

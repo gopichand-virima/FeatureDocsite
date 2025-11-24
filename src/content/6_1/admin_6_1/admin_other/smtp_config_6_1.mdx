@@ -10,53 +10,79 @@ Simple Mail Transfer Protocol (SMTP) is an internet standard for transmission of
 
 Use this function to configure the SMTP.
 
-## Default SMTP Configuration
+## Default SMTP Configuration
 
- -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- 1. In the main window, click **Admin \> Others \> SMTP Configuration**. The STMP Configuration dialog box displays. The Default option is selected, be default. It uses the Virima configured SMTP server credentials.
- -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- In the main window, click **Admin > Others > SMTP Configuration**. The STMP Configuration dialog box displays. The Default option is selected, be default. It uses the Virima configured SMTP server credentials.
 
-::: {.Ind50
-![smtp config old 380x512](../Resources/Images/Admin - Other/smtp-config-old_380x512.png) Name of the SMTP server
- Password Password for the specific Username.
- From Sender\'s email address.
- Reply To Receiver\'s email address.
- Port SMTP Server port.
- Host The IP address of the host used by the SMTP server.
- [Protocol]{style="color: #000000;"} The Internet protocol address.
- Enable SSL When selected, establishes a secure link between the server and the client.
- Auth When selected, authenticates the SMTP server.
- TTLS Enable/Required Initiates a connection in decrypt mode on the given port, and if that connection is required.
- [Enable Proxy]{style="color: #000000;"} When selected, enables the proxy.
- [Proxy Details]{style="color: #000000;"} Identifies the Host, Port, User, and Password.
+!
 
-## Custom SMTP Configuration
+- Complete the fields according to the information in the table below.
+- When all entries are made, click **Save**.
 
- -- ----- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- 1. While viewing the SMTP Configuration dialog box, click **Custom**.![smtp config 6.1](../Resources/Images/Admin - Other/smtp-config-6.1.png)
- -- ----- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## SMTP Configuration: *Default* Fields
 
- -- ----- ----------------------------------------------------------------------
- 2. Complete the fields according to the information in the table below.
- -- ----- ----------------------------------------------------------------------
+| Field | Description |
 
- -- ----- -------------------------------------------------------
- 3. When all selections/entries are made, click **Save**.
- -- ----- -------------------------------------------------------
+| --- | --- |
 
-## SMTP Configuration: *Custom* Fields
+| Username | Name of the SMTP server |
 
- Field Description
- ----------------------------------------------- ----------------------------------------------------------------------------------------------------
- **Authentication** Authentication Type
- From Sender\'s email address.
- Email Type By default, SMTP is entered.
- Reply to Receiver\'s email address.
- Port SMTP server port number
- Host SMTP server IP address
- [Protocol]{style="color: #000000;"} Email server connection type
- Enable SSL Establishes a secure connection between the server and the client.
- Requires Auth? Authenticates the SMTP server. When selected, enter the Username and Password for the SMTP server.
- [Start TLS Enable]{style="color: #000000;"} Starts a connection in decrypt mode on the given port is initiated.
- [Start TLS Required]{style="color: #000000;"} Starts the TLS.
- Use Proxy Connects to the proxy server for intermediary requests from clients.
+| Password | Password for the specific Username. |
+
+| From | Sender's email address. |
+
+| Reply To | Receiver's email address. |
+
+| Port | SMTP Server port. |
+
+| Host | The IP address of the host used by the SMTP server. |
+
+| Protocol | The Internet protocol address. |
+
+| Enable SSL | When selected, establishes a secure link between the server and the client. |
+
+| Auth | When selected, authenticates the SMTP server. |
+
+| TTLS Enable/Required | Initiates a connection in decrypt mode on the given port, and if that connection is required. |
+
+| Enable Proxy | When selected, enables the proxy. |
+
+| Proxy Details | Identifies the Host, Port, User, and Password. |
+
+
+## Custom SMTP Configuration
+
+- While viewing the SMTP Configuration dialog box, click **Custom**.!
+- Complete the fields according to the information in the table below.
+- When all selections/entries are made, click **Save**.
+
+## SMTP Configuration: *Custom* Fields
+
+| Field | Description |
+
+| --- | --- |
+
+| **Authentication** | Authentication Type |
+
+| From | Sender's email address. |
+
+| Email Type | By default, SMTP is entered. |
+
+| Reply to | Receiver's email address. |
+
+| Port | SMTP server port number |
+
+| Host | SMTP server IP address |
+
+| Protocol | Email server connection type |
+
+| Enable SSL | Establishes a secure connection between the server and the client. |
+
+| Requires Auth? | Authenticates the SMTP server. When selected, enter the Username and Password for the SMTP server. |
+
+| Start TLS Enable | Starts a connection in decrypt mode on the given port is initiated. |
+
+| Start TLS Required | Starts the TLS. |
+
+| Use Proxy | Connects to the proxy server for intermediary requests from clients. |
+

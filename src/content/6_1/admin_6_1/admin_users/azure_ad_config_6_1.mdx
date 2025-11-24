@@ -8,81 +8,107 @@ viewport: width=device-width, initial-scale=1.0
 
 Use this function to configure Azure Active Directory (Azure AD), which is a multi-tenant, cloud-based directory and identity management service. Azure AD combines core directory services, advanced identity governance, and application access management.
 
-In the main window, click **Admin \> Users \> Azure AD Configuration**. The Azure AD Configuration window displays.
+In the main window, click **Admin > Users > Azure AD Configuration**. The Azure AD Configuration window displays.
 
-![azure ad config old 628x70](../Resources/Images/Admin - Users/azure-ad-config-old_628x70.png)
+!
 
-![arrow border](../Resources/Images/arrow-border.PNG)
+!
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Azure AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- -- ----- ----------------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose **New Azure AD Configuration**.
- -- ----- ----------------------------------------------------------------------------------
+### New Azure AD Configuration
 
- -- ----- -------------------------------------------------------
- 2. In the Configuration tab, enter the required details:
- -- ----- -------------------------------------------------------
+- From the *Select Actions* drop-down list, choose **New Azure AD Configuration**.
+- In the Configuration tab, enter the required details:
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Users](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+**Name** – Provide a configuration name.
 
- --- ------------------------------------------------------------
-   AZURE Web Services account credentials must be configured.
- --- ------------------------------------------------------------
+**Client ID** – Enter the Azure application client ID.
 
- -- ----- --------------------------------------------------------------------------------------------------------------------------
- 1. In the Azure AD Configuration window, Click the **Import Users** icon (down arrow next to the applicable configuration).
- -- ----- --------------------------------------------------------------------------------------------------------------------------
+**Tenant ID** – Enter the Azure tenant ID.
 
- -- ----- ------------------------------------
- 2. In the Azure AD Import dialog box:
- -- ----- ------------------------------------
+**Secret Key** – Provide the authentication method (secret key).
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Import](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+!
+
+**Certificate** – Provide the authentication method (certificate with private key).
+
+!
+
+- Click **Next**.
+- In the Map Property tab, select fields for import (for example: First Name, Last Name, Email, Phone, Roles, Groups).
+
+!
+
+- For each field, choose the property mapping from the drop-down list.
+- When all selections/entries are made, click **Finish**.
+
+
+### Import Users
+
+AZURE Web Services account credentials must be configured.
+
+
+- In the Azure AD Configuration window, Click the **Import Users** icon (down arrow next to the applicable configuration).
+- In the Azure AD Import dialog box:
+
+**Reflect AD Account Status** – Enable to match user login status with Azure AD.
+
+**Activate User Account** – Enable to make imported users active by default.
+
+**Send Activation Notification** – Enable to email users upon account activation.
+
+- Click **Import** to begin the process.
+
+
+### Schedule Import
 
 To schedule an import:
 
- -- ----- ----------------------------------------------------------------------------------------------------------------------------------
- 1. In the Azure AD Configuration window, click the **Schedule Import** (calendar icon). the Schedule AD Import dialog box displays.
- -- ----- ----------------------------------------------------------------------------------------------------------------------------------
+- In the Azure AD Configuration window, click the **Schedule Import** (calendar icon). the Schedule AD Import dialog box displays.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Mappings](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+!
 
- -- ----- ---------------------------------------------------------
- 1. Select an existing record. The Details window displays.
- -- ----- ---------------------------------------------------------
+- In the Schedule Azure AD Import dialog box, to turn on the schedule, click **Enable Schedule Import**.
+- Select **Reflect AD Account Status** to set the user's login status according to AD's account status; otherwise, it will be inactive.
+- Select **Activate User Account** to turn on the user's account after import.
+- To email a notification when the import is complete, click **Send Activation Notification**.
+- From the **Azure AD Import Frequency** drop-down list and select the applicable frequency. If necessary, modify the Every Day, Every 2 Days, Every Week, etc.
 
- -- ----- ------------------------------
- 2. Click **Property Mappings**.
- -- ----- ------------------------------
 
-::: {.Ind50
-![azure ad config prop map old 477x155](../Resources/Images/Admin - Users/azure-ad-config-prop-map-old_477x155.png)
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Azure AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+To clear the selection, click the *AD Import Frequency* drop-down list and make a different selection.
+
+
+- When all selections/entries are made, click **Add**.
+
+
+### Property Mappings
+
+- Select an existing record. The Details window displays.
+- Click **Property Mappings**.
+
+!
+
+- Check the checkbox next to the properties to include in the import.
+- Click the drop-down below the property field and select the property to match from the imported file.
+- When all selections are made, click **Save**.
+
+
+### Test Azure AD Configuration
 
 Use this function to validate configured credentials. An error will be shown if, for example, the password was changed in Azure.
 
-From the *Select Actions* drop-down list, choose **Test Azure AD Configuration**.
+From the *Select Actions* drop-down list, choose **Test Azure AD Configuration**.
 
 A message displays, indicating if the credential is valid or invalid.
 
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-::: Bullet1
-[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+Other Functions and Page Elements
 
-::: Bullet1
-[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Go To Page](../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)
+- [Go To Page](/common_functions/go_to_page_6_1.mdx)
+- [Items Per Page](/common_topics/items_per_page_6_1.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
+- [Records per Page](/common_topics/records_per_page_6_1.mdx)
+- [Saved Filters](/common_topics/saved_filters_6_1.mdx)

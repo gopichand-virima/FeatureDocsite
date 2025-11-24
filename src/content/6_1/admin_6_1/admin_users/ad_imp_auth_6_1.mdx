@@ -1,6 +1,6 @@
 ---
 lang: en-us
-title: AD Import and Authentication
+title: AD Configuration
 viewport: width=device-width, initial-scale=1.0
 ---
 
@@ -12,49 +12,48 @@ Active Directory (AD) is a directory service that Microsoft developed for Window
 
 ## What is Active Directory
 
-An AD domain controller authenticates and authorizes all users and computers in a Windows domain type network---assigning and enforcing security policies for all computers and installing or updating software. For example, when a user logs into a computer that is part of a Windows domain, Active Directory checks the submitted password and determines whether the user is a system administrator or normal user. Active Directory makes use of Lightweight Directory Access Protocol (LDAP) versions 2 and 3, Microsoft\'s version of Kerberos, and DNS.
+An AD domain controller authenticates and authorizes all users and computers in a Windows domain type network—assigning and enforcing security policies for all computers and installing or updating software. For example, when a user logs into a computer that is part of a Windows domain, Active Directory checks the submitted password and determines whether the user is a system administrator or normal user. Active Directory makes use of Lightweight Directory Access Protocol (LDAP) versions 2 and 3, Microsoft's version of Kerberos, and DNS.
 
-In the main window, click **Admin \> Users \> AD Configuration**. The AD Configuration window displays.
+In the main window, click **Admin > Users > AD Configuration**. The AD Configuration window displays.
 
-![AD Configuration 6.1](../Resources/Images/Admin - Users/AD_Configuration_6.1.png)
+!
 
-![arrow border](../Resources/Images/arrow-border.PNG)
+!
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- -- ----- ----------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose **AD New Configuration**.
- -- ----- ----------------------------------------------------------------------------
+### New AD Configuration
 
- -- ----- ----------------------------------
- 2. The **New** dialog box displays.
- -- ----- ----------------------------------
+- From the *Select Actions* drop-down list, choose **AD New Configuration**.
+- The **New** dialog box displays.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+!
 
- -- ----- ----------------------------------------------
- 1. Open the **AD Configuration** line item**.**
- -- ----- ----------------------------------------------
+- On the **Configuration** tab, fill in the values for the attributes.
 
- -- ----- -----------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Test AD Configuration**.
- -- ----- -----------------------------------------------------------------------------
 
- -- ----- -------------------------------------------------------------------
- 3. If successful: The system confirms the AD configuration is valid.
- -- ----- -------------------------------------------------------------------
+By default, the Login Attribute is set to *userPrincipalName*. When **Is Public** is selected, there is no *Client* field.
 
- -- ----- -------------------------------------------------------------
- 4. If unsuccessful: An Alert Message will appear. For example:
- -- ----- -------------------------------------------------------------
+
+- Click **Next**. The Map Properties tab displays.
+- Select (check) the fields that need to be imported, and map their values to that of an applicable AD property.
+- Click **Save**.
+
+
+### Testing AD Configuration
+
+- Open the **AD Configuration** line item**.**
+- From the *Select Actions* drop-down list, choose **Test AD Configuration**.
+- If successful: The system confirms the AD configuration is valid.
+- If unsuccessful: An Alert Message will appear. For example:
 
 "This discovery client is down. Please bring it up or select another discovery client."
 
 This means the configured discovery client is either not running or unavailable, and must be restarted or replaced.
 
-If you have set the values of the attributes correctly as per your organization\'s AD structure, then the connection will be a success. Otherwise, it will fail.
+If you have set the values of the attributes correctly as per your organization's AD structure, then the connection will be a success. Otherwise, it will fail.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Users](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+
+### Import Users
 
 While Importing users into Virima , Virima looks whether a particular Location, Role, Designation, Department and Group is present, if not Virima creates one.
 
@@ -62,108 +61,70 @@ For consecutive AD imports, the value of a user gets updated if the value has be
 
 After AD configuration, do the following:
 
- -- ----- -------------------------------------------------------------------
- 1. Click the **Import** icon to the right of the selected line item.
- -- ----- -------------------------------------------------------------------
+- Click the **Import** icon to the right of the selected line item.
 
-::: Ind50
-![icon import ad user old](../Resources/Images/Admin - Users/icon-import-ad-user-old.PNG)
+!
 
-::: Ind50
-The AD Import dialog box displays.
+The AD Import dialog box displays.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+!
+
+- For *Type of Import*, click the drop-down list and select the applicable option.
+- Select the other options, as necessary.
+- When all selections/entries are made, click **Import**.
+- A confirmation message displays. Click **OK**.
+
+
+### Scheduled AD Import
 
 After AD configuration, do the following:
 
- -- ----- --------------------------------------------------------------------------------
- 1. Click the **Schedule** **Import** icon to the right of the selected line item.
- -- ----- --------------------------------------------------------------------------------
+- Click the **Schedule** **Import** icon to the right of the selected line item.
 
-::: Ind50
-![icon schedule ad user import old](../Resources/Images/Admin - Users/icon-schedule-ad-user-import-old.PNG)
+!
 
-::: Ind50
-The Schedule AD Import dialog box displays.
+The Schedule AD Import dialog box displays.
 
- -- ----- -----------------------------------------------------------------
- 2. Select *Enable Schedule* Import to turn on the import function.
- -- ----- -----------------------------------------------------------------
+- Select *Enable Schedule* Import to turn on the import function.
+- Select *Activate User Account* to activate all users.
+- Select *Send completion notification* to the applicable users when the import is complete.
+- In the *AD Import Frequency* field, click the drop-down list and select the applicable import frequency, such as Every Day, Every 2 days, and so forth.
+- In the *Type of Import* field, click the drop-down list and select the type of import, such as All Users.
+- In the schedule area, select the appropriate timing.
+- When all selections/entries are made, click **Add**. (If you are editing the existing information, the **Add** button changes **Update**.)
 
- -- ----- -------------------------------------------------------
- 3. Select *Activate User Account* to activate all users.
- -- ----- -------------------------------------------------------
 
- -- ----- --------------------------------------------------------------------------------------------
- 4. Select *Send completion notification* to the applicable users when the import is complete.
- -- ----- --------------------------------------------------------------------------------------------
+### Edit AD Import Configuration
 
- -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------
- 5. In the *AD Import Frequency* field, click the drop-down list and select the applicable import frequency, such as Every Day, Every 2 days, and so forth.
- -- ----- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+Not all functions include an option to edit record line items shown in the main window.
 
- -- ----- -----------------------------------------------------------------------------------------------------------
- 6. In the *Type of Import* field, click the drop-down list and select the type of import, such as All Users.
- -- ----- -----------------------------------------------------------------------------------------------------------
 
- -- ----- ------------------------------------------------------
- 7. In the schedule area, select the appropriate timing.
- -- ----- ------------------------------------------------------
+- Navigate to the window containing the record to edit.
+- Click the line containing the record. The applicable window or dialog box displays.
+- Make the necessary modifications.
+- Click **Save** or **Add**, as applicable.
 
- -- ----- --------------------------------------------------------------------------------------------------------------------------------------------
- 8. When all selections/entries are made, click **Add**. (If you are editing the existing information, the **Add** button changes **Update**.)
- -- ----- --------------------------------------------------------------------------------------------------------------------------------------------
+When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx), [Comments](/discovery/comments_6_1.mdx), and [Attachments](/discovery/attachments_6_1.mdx) and viewing [History](/common_topics/history_6_1.mdx).
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+The options change based upon the function; therefore, not every option may be shown.
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
+### Delete AD Import Configuration
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
+Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
 
-When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
+- Click the line that contains the item to delete.
+- From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
 
- --- ---------------------------------------------------------------------------------------
-   The options change based upon the function; therefore, not every option may be shown.
- --- ---------------------------------------------------------------------------------------
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" AD Import Configuration](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Other Functions and Page Elements
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
-
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
-
-::: Bullet1
-[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
+- [Records per Page](/common_topics/records_per_page_6_1.mdx)
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
+- [Saved Filters](/common_topics/saved_filters_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Items Per Page](/common_topics/items_per_page_6_1.mdx)

@@ -10,218 +10,109 @@ Use this function to manage the stages and states.
 
 The following stages and states are pre-configured. These can be modified.
 
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
+
 | Order | Change Stage | Change States | Description |
-+=======+================+=============================+===========================================================================+
-| 1 | New | ::: Bullet1 | The stage when a change is submitted for authorization. |
-| Column 1 | Column 2 | Accepted | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Requested | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Rejected | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | RFI | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Submitted for Authorization | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
-| 2 | Planning | ::: Bullet1 | The Stage when the planning for a change is commenced. |
-| Column 1 | Column 2 | Approved | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Planning In Progress | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Rejected | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | RFI | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Submitted For Review | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
-| 3 | CAB Approval | ::: Bullet1 | The stage when a change is awaiting approval from the concern authority. |
-| Column 1 | Column 2 | Approval For Pending | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Approved | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Rejected | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
-| 4 | Implementation | ::: Bullet1 | The stage when the implementation of a change is carried out. |
-| Column 1 | Column 2 | Back Out | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Completed | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | In Progress | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | On Hold | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | RFI | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
-| 5 | Resolved | ::: Bullet1 | The stage when the implementation is resolved from the concern authority. |
-| Column 1 | Column 2 | Failed | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Completed | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | In Progress | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
-| 6 | Closed | ::: Bullet1 | The stage when the review is successful and the change is closed. |
-| Column 1 | Column 2 | Cancelled | Column 4 |
-| --- | --- | :---: | --- |
-| | | | |
-| | | ::: Bullet1 | |
-| | | In Progress | |
-| | | ::: | |
-| | | | |
-| | | ::: Bullet1 | |
-| | | Completed | |
-| | | ::: | |
-+-------+----------------+-----------------------------+---------------------------------------------------------------------------+
 
-In the main window, click **Admin \> Change Management \> Change Stage and State**. The Change Stage and State window displays.
+| --- | --- | --- | --- |
 
-![change stage state main old](../Resources/Images/Admin - Change/change-stage-state-main-old.PNG)
+| 1 | New | - Accepted - Requested - Rejected - RFI - Submitted for Authorization | The stage when a change is submitted for authorization. |
 
-![arrow border](../Resources/Images/arrow-border.PNG)
+| 2 | Planning | - Approved - Planning In Progress - Rejected - RFI - Submitted For Review | The Stage when the planning for a change is commenced. |
+
+| 3 | CAB Approval | - Approval For Pending - Approved - Rejected | The stage when a change is awaiting approval from the concern authority. |
+
+| 4 | Implementation | - Back Out - Completed - In Progress - On Hold - RFI | The stage when the implementation of a change is carried out. |
+
+| 5 | Resolved | - Failed - Completed - In Progress | The stage when the implementation is resolved from the concern authority. |
+
+| 6 | Closed | - Cancelled - In Progress - Completed | The stage when the review is successful and the change is closed. |
+
+
+In the main window, click **Admin > Change Management > Change Stage and State**. The Change Stage and State window displays.
+
+!
+
+!
 
 ## Stage Functions
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- -- ----- --------------------------------------------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose **New Change Stage**. The New Change Stage window displays.
- -- ----- --------------------------------------------------------------------------------------------------------------
+### New Change Stage
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+- From the *Select Actions* drop-down list, choose **New Change Stage**. The New Change Stage window displays.
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
+!
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
+- Enter a *Name* and *Description*.
+- In the *Stage Order* field, click the drop-down list and select the order for this stage.
+- Click **Add**.
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
+### Edit Change Stage
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change Stage](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Not all functions include an option to edit record line items shown in the main window.
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
+- Navigate to the window containing the record to edit.
+- Click the line containing the record. The applicable window or dialog box displays.
+- Make the necessary modifications.
+- Click **Save** or **Add**, as applicable.
 
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Delete Change Stage
+
+Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
+
+
+- Click the line that contains the item to delete.
+- From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
 
 ## State Functions
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
 
- -- ----- ---------------------------------------------------------------------------
- 1. Click the line item containing the stage to add a corresponding state(s).
- -- ----- ---------------------------------------------------------------------------
+### New Change State
 
- -- ----- ---------------------------------------------
- 2. In the new window, click the **State** tab.
- -- ----- ---------------------------------------------
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+- Click the line item containing the stage to add a corresponding state(s).
+- In the new window, click the **State** tab.
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+!
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
+- Click **New Change State**.
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
+!
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
+- Enter a *Name*, *Description* and *Action Name*.
+- To notify a user about this change, next to *Notify*, click **Add**, search for and select the applicable recipient, then click **Save**.
+- To select the roles to approve this change, next to Approver Roles, click **Add**, search for and select the applicable role, then click **Save**.
+- When all selections/entries are made, click **Save**.
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Change State](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+### Edit Change State
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Not all functions include an option to edit record line items shown in the main window.
 
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
 
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+- Navigate to the window containing the record to edit.
+- Click the line containing the record. The applicable window or dialog box displays.
+- Make the necessary modifications.
+- Click **Save** or **Add**, as applicable.
 
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
 
-::: Bullet1
-[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+### Delete Change State
 
-::: Bullet1
-[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
 
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
-::: Bullet1
-[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+- Click the line that contains the item to delete.
+- From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
 
-::: Bullet1
-[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
 
+Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
+- [Saved Filters](/common_topics/saved_filters_6_1.mdx)

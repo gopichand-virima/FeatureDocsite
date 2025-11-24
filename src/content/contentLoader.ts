@@ -13,6 +13,17 @@ import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-
 import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
 import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
 
+// Import Admin 6.1 content - Organizational Details
+import aboutOrgDetails61 from './6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx?raw';
+import organizationalDetails61 from './6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx?raw';
+import costCenter61 from './6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx?raw';
+import departments61 from './6_1/admin_6_1/admin_org_details/departments_6_1.mdx?raw';
+import departmentsMembers61 from './6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx?raw';
+import designations61 from './6_1/admin_6_1/admin_org_details/designations_6_1.mdx?raw';
+import holidays61 from './6_1/admin_6_1/admin_org_details/holidays_6_1.mdx?raw';
+import locations61 from './6_1/admin_6_1/admin_org_details/locations_6_1.mdx?raw';
+import operationalHours61 from './6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx?raw';
+
 // Import NextGen content - Updated to use _ng file structure
 // My Dashboard
 import ngMyDashboardOverview from './NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx?raw';
@@ -45,6 +56,16 @@ const contentMap: Record<string, string> = {
   '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
   '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
   '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
+  // Admin 6.1 - Organizational Details
+  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
+  '/content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx': organizationalDetails61,
+  '/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx': costCenter61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx': departments61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx': departmentsMembers61,
+  '/content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx': designations61,
+  '/content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx': holidays61,
+  '/content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx': locations61,
+  '/content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx': operationalHours61,
   // NextGen content - Updated to match _ng file structure paths
   // My Dashboard
   '/content/NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx': ngMyDashboardOverview,

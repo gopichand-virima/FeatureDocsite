@@ -1,90 +1,90 @@
+/// <reference types="vite/client" />
+
 /**
- * Content Loader - Statically imports all MDX content files
+ * Content Loader - Dynamically imports all MDX content files
  * This file maps file paths to their actual content for runtime access
  */
-
-// Import My Dashboard 6.1 content
-import dashboards61 from './6_1/my_dashboard_6_1/dashboards-6_1.mdx?raw';
-import dashboardsContents61 from './6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx?raw';
-import dashboardsCustomization61 from './6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx?raw';
-import dashboardsReportActions61 from './6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx?raw';
-import myDashboard61 from './6_1/my_dashboard_6_1/my-dashboard-6_1.mdx?raw';
-import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx?raw';
-import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
-import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
-
-// Import Admin 6.1 content - Organizational Details
-import aboutOrgDetails61 from './6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx?raw';
-import organizationalDetails61 from './6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx?raw';
-import costCenter61 from './6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx?raw';
-import departments61 from './6_1/admin_6_1/admin_org_details/departments_6_1.mdx?raw';
-import departmentsMembers61 from './6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx?raw';
-import designations61 from './6_1/admin_6_1/admin_org_details/designations_6_1.mdx?raw';
-import holidays61 from './6_1/admin_6_1/admin_org_details/holidays_6_1.mdx?raw';
-import locations61 from './6_1/admin_6_1/admin_org_details/locations_6_1.mdx?raw';
-import operationalHours61 from './6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx?raw';
-
-// Import NextGen content - Updated to use _ng file structure
-// My Dashboard
-import ngMyDashboardOverview from './NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx?raw';
-import ngDashboardOverview from './NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx?raw';
-import ngDashboardContents from './NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx?raw';
-import ngDashboardCustomization from './NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx?raw';
-import ngDashboardReportsActions from './NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx?raw';
-// Application Overview
-import ngSystemIcons from './NG/application_overview_ng/icons_ng.mdx?raw';
-// Module overviews - using overview_ng.mdx naming
-import ngItsmOverview from './NG/itsm_ng/overview_ng.mdx?raw';
-import ngItamOverview from './NG/itam_ng/overview_ng.mdx?raw';
-import ngSelfServiceOverview from './NG/self_service_ng/overview_ng.mdx?raw';
-import ngReportsOverview from './NG/reports_ng/reports_ng.mdx?raw';
-import ngProgramProjectManagementOverview from './NG/program-project-management_ng/overview_ng.mdx?raw';
-import ngRiskRegisterOverview from './NG/risk_register_ng/overview_ng.mdx?raw';
-// Note: CMDB, Discovery Scan, and Vulnerability Management don't have overview files
-// They will fall back to DefaultContent when accessed
 
 /**
  * Content map - maps file paths to their content
  */
-const contentMap: Record<string, string> = {
-  // My Dashboard 6.1
-  '/content/6_1/my_dashboard_6_1/dashboards-6_1.mdx': dashboards61,
-  '/content/6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx': dashboardsContents61,
-  '/content/6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx': dashboardsCustomization61,
-  '/content/6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx': dashboardsReportActions61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-6_1.mdx': myDashboard61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
-  '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
-  // Admin 6.1 - Organizational Details
-  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
-  '/content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx': organizationalDetails61,
-  '/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx': costCenter61,
-  '/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx': departments61,
-  '/content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx': departmentsMembers61,
-  '/content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx': designations61,
-  '/content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx': holidays61,
-  '/content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx': locations61,
-  '/content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx': operationalHours61,
-  // NextGen content - Updated to match _ng file structure paths
-  // My Dashboard
-  '/content/NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx': ngMyDashboardOverview,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx': ngDashboardOverview,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx': ngDashboardContents,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx': ngDashboardCustomization,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx': ngDashboardReportsActions,
-  // Application Overview
-  '/content/NG/application_overview_ng/icons_ng.mdx': ngSystemIcons,
-  // Module overviews - using overview_ng.mdx paths
-  '/content/NG/itsm_ng/overview_ng.mdx': ngItsmOverview,
-  '/content/NG/itam_ng/overview_ng.mdx': ngItamOverview,
-  '/content/NG/self_service_ng/overview_ng.mdx': ngSelfServiceOverview,
-  '/content/NG/reports_ng/reports_ng.mdx': ngReportsOverview,
-  '/content/NG/program-project-management_ng/overview_ng.mdx': ngProgramProjectManagementOverview,
-  '/content/NG/risk_register_ng/overview_ng.mdx': ngRiskRegisterOverview,
-  // Note: Additional NextGen files can be added here as needed
-  // The path resolver will return paths, and files can be imported and mapped incrementally
-};
+const contentMap: Record<string, string> = {};
+
+// Only use import.meta.glob if available (Vite environment)
+// In Node.js/tsx environments (like scripts), this will be undefined
+const globAvailable = typeof import.meta !== 'undefined' && typeof (import.meta as any).glob === 'function';
+
+if (globAvailable) {
+  // Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
+  // Using as: 'raw' - this works reliably and loads all files (4968 modules)
+  // Note: Deprecated but functional - will update when Vite 6 query syntax is stable
+  const content61Modules = (import.meta as any).glob('./6_1/**/*.mdx', {
+    eager: true,
+    as: 'raw',
+  }) as Record<string, string>;
+
+  // Import all NextGen content dynamically (covers every module referenced in the TOC)
+  const contentNGModules = (import.meta as any).glob('./NG/**/*.mdx', {
+    eager: true,
+    as: 'raw',
+  }) as Record<string, string>;
+
+  // Dynamically add all Version 6.1 content (every module and page)
+  for (const [relativePath, content] of Object.entries(content61Modules)) {
+    // Normalize path: remove './' prefix and ensure consistent format
+    let normalizedPath = relativePath.replace('./', '/content/');
+    // Ensure path uses forward slashes and doesn't have duplicate slashes
+    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
+    if (content && typeof content === 'string') {
+      contentMap[normalizedPath] = content;
+    } else {
+      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
+    }
+  }
+
+  // Dynamically add all NextGen content (every module and page)
+  for (const [relativePath, content] of Object.entries(contentNGModules)) {
+    // Normalize path: remove './' prefix and ensure consistent format
+    let normalizedPath = relativePath.replace('./', '/content/');
+    // Ensure path uses forward slashes and doesn't have duplicate slashes
+    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
+    if (content && typeof content === 'string') {
+      contentMap[normalizedPath] = content;
+    } else {
+      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
+    }
+  }
+  
+  // Debug: Log content map size (both dev and production for troubleshooting)
+  const contentCount = Object.keys(contentMap).length;
+  console.log(`[ContentLoader] Loaded ${contentCount} content files`);
+  
+  if (contentCount === 0) {
+    console.error('[ContentLoader] WARNING: No content files loaded! Check import.meta.glob configuration.');
+  } else {
+    const adminFiles = Object.keys(contentMap).filter(p => p.includes('admin_6_1'));
+    console.log(`[ContentLoader] Admin 6.1 files: ${adminFiles.length}`);
+    if (adminFiles.length > 0 && import.meta.env.DEV) {
+      console.log(`[ContentLoader] Sample admin paths:`, adminFiles.slice(0, 5));
+    }
+  }
+}
+
+/**
+ * Normalize a file path to match contentMap keys
+ * Handles various path formats and ensures consistency
+ */
+function normalizeContentPath(filePath: string): string {
+  // Remove query params and hash
+  let normalized = filePath.split('?')[0].split('#')[0];
+  // Ensure it starts with /content/
+  if (!normalized.startsWith('/content/')) {
+    normalized = `/content/${normalized.replace(/^\/+/, '')}`;
+  }
+  // Normalize slashes
+  normalized = normalized.replace(/\\/g, '/').replace(/\/+/g, '/');
+  return normalized;
+}
 
 /**
  * Get content for a given file path
@@ -92,7 +92,57 @@ const contentMap: Record<string, string> = {
  * @returns The content string or null if not found
  */
 export function getContent(filePath: string): string | null {
-  return contentMap[filePath] || null;
+  // Try exact match first
+  let normalizedPath = normalizeContentPath(filePath);
+  let content = contentMap[normalizedPath];
+  
+  // If not found, try without .mdx extension
+  if (!content && normalizedPath.endsWith('.mdx')) {
+    const withoutExt = normalizedPath.slice(0, -4);
+    content = contentMap[withoutExt];
+    if (content) {
+      normalizedPath = withoutExt;
+    }
+  }
+  
+  // If still not found, try with .mdx extension added
+  if (!content && !normalizedPath.endsWith('.mdx')) {
+    const withExt = `${normalizedPath}.mdx`;
+    content = contentMap[withExt];
+    if (content) {
+      normalizedPath = withExt;
+    }
+  }
+  
+  if (!content) {
+    // Debug: Log available paths that are close matches (both dev and production)
+    const availablePaths = Object.keys(contentMap);
+    const similarPaths = availablePaths.filter(path => {
+      const fileParts = normalizedPath.split('/').filter(Boolean);
+      const pathParts = path.split('/').filter(Boolean);
+      // Check if last 2-3 parts match
+      const fileEnd = fileParts.slice(-2).join('/');
+      const pathEnd = pathParts.slice(-2).join('/');
+      return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) || 
+             path.includes(fileParts[fileParts.length - 1]) ||
+             normalizedPath.includes(pathParts[pathParts.length - 1]);
+    });
+    
+    console.warn(`[ContentLoader] Content not found for: ${filePath} (normalized: ${normalizedPath})`);
+    console.warn(`[ContentLoader] Total available paths: ${availablePaths.length}`);
+    
+    if (similarPaths.length > 0) {
+      console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 10));
+    } else {
+      // Show some sample paths to help debug
+      const adminPaths = availablePaths.filter(p => p.includes('admin_6_1')).slice(0, 10);
+      if (adminPaths.length > 0) {
+        console.warn(`[ContentLoader] Sample admin paths available:`, adminPaths);
+      }
+    }
+  }
+  
+  return content || null;
 }
 
 /**

@@ -13,6 +13,7 @@ interface PathResolverParams {
   module: string;
   section: string;
   page: string;
+  currentPath?: string;
 }
 
 /**
@@ -531,10 +532,107 @@ function getAdmin61Path(section: string, page: string): string | null {
 // ============================================================================
 
 /**
+ * Try to resolve MDX path directly from the current URL when it already matches the file structure.
+ * Works for TOC links that use direct paths like /6_1/admin_6_1/admin_discovery/client_discovery_agents_6_1
+ */
+function resolvePathFromCurrentUrl(currentPath?: string): string | null {
+  if (!currentPath) return null;
+
+  let normalized = currentPath.split(/[?#]/)[0] || '';
+  if (!normalized) return null;
+
+  // Remove base path if present
+  normalized = normalized.replace(/^\/?FeatureDocsite/, '');
+
+  if (!normalized.startsWith('/')) {
+    normalized = `/${normalized}`;
+  }
+
+  normalized = normalized.replace(/\/+$/, '');
+  if (!normalized || normalized === '/') return null;
+
+  const parts = normalized.split('/').filter(Boolean);
+  if (parts.length < 2) return null;
+
+  const versionPart = parts[0].toLowerCase();
+  
+  // Handle NextGen paths (NextGen, NG, nextgen)
+  if (versionPart === 'nextgen' || versionPart === 'ng') {
+    const remainder = parts.slice(1).join('/');
+    if (!remainder) return null;
+    
+    // Check if it's already a direct path (contains admin_ng, etc.)
+    if (remainder.includes('admin_ng') || remainder.includes('_ng')) {
+      let candidate = `/content/NG/${remainder}`;
+      if (!candidate.endsWith('.mdx')) {
+        candidate = `${candidate}.mdx`;
+      }
+      return candidate;
+    }
+    
+    // For admin module with URL params, let the parameter-based resolver handle it
+    if (remainder.startsWith('admin/')) {
+      return null; // Fall back to parameter-based resolution
+    }
+    
+    let candidate = `/content/NG/${remainder}`;
+    if (!candidate.endsWith('.mdx')) {
+      candidate = `${candidate}.mdx`;
+    }
+    return candidate;
+  }
+
+  // Handle versioned paths (6.1, 6.1.1, 5.13, etc.)
+  const versionMap: Record<string, string> = {
+    '6_1': '6_1',
+    '6.1': '6_1',
+    '6_1_1': '6_1_1',
+    '6.1.1': '6_1_1',
+    '5_13': '5_13',
+    '5.13': '5_13',
+  };
+  
+  const mappedVersion = versionMap[versionPart];
+  if (!mappedVersion) return null;
+
+  const remainder = parts.slice(1).join('/');
+  if (!remainder) return null;
+
+  // Check if it's already a direct file path (contains admin_6_1, _6_1, etc.)
+  if (remainder.includes(`admin_${mappedVersion}`) || remainder.includes(`_${mappedVersion}`)) {
+    let candidate = `/content/${mappedVersion}/${remainder}`;
+    if (!candidate.endsWith('.mdx')) {
+      candidate = `${candidate}.mdx`;
+    }
+    return candidate;
+  }
+
+  // For admin module with URL params (e.g., admin/organizational-details/locations),
+  // fall back to parameter-based resolution which handles the conversion properly
+  if (remainder.startsWith('admin/')) {
+    return null; // Let parameter-based resolver handle admin module paths
+  }
+
+  // For other modules, try direct path
+  let candidate = `/content/${mappedVersion}/${remainder}`;
+  if (!candidate.endsWith('.mdx')) {
+    candidate = `${candidate}.mdx`;
+  }
+
+  return candidate;
+}
+
+/**
  * Resolve the path to the MDX file based on navigation parameters
  * Routes to NG or 6.1 specific handlers - completely independent
  */
-export function resolveMDXPath({ version, module, section, page }: PathResolverParams): string | null {
+export function resolveMDXPath({ version, module, section, page, currentPath }: PathResolverParams): string | null {
+  // First, try to resolve directly from current URL (for TOC links and deep links)
+  const directPath = resolvePathFromCurrentUrl(currentPath);
+  if (directPath) {
+    return directPath;
+  }
+
   // Route to NextGen handler - completely independent
   if (version === 'NextGen') {
     return getNextGenPath(module, section, page);

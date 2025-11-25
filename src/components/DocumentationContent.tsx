@@ -484,12 +484,12 @@ export function DocumentationContent({
 
   const resolvedMDXPath = useMemo(() => {
     try {
-      return resolveMDXPath({ version, module, section, page });
+      return resolveMDXPath({ version, module, section, page, currentPath: normalizedPath || undefined });
     } catch (error) {
       console.error("Error resolving MDX path:", error);
       return null;
     }
-  }, [version, module, section, page]);
+  }, [version, module, section, page, normalizedPath]);
 
   const contentEntry = useMemo(() => {
     if (!resolvedMDXPath) return null;

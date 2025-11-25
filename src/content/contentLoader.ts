@@ -54,11 +54,11 @@ if (globAvailable) {
       console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
     }
   }
-  
+
   // Debug: Log content map size (both dev and production for troubleshooting)
   const contentCount = Object.keys(contentMap).length;
   console.log(`[ContentLoader] Loaded ${contentCount} content files`);
-  
+
   if (contentCount === 0) {
     console.error('[ContentLoader] WARNING: No content files loaded! Check import.meta.glob configuration.');
   } else {
@@ -95,7 +95,7 @@ export function getContent(filePath: string): string | null {
   // Try exact match first
   let normalizedPath = normalizeContentPath(filePath);
   let content = contentMap[normalizedPath];
-  
+
   // If not found, try without .mdx extension
   if (!content && normalizedPath.endsWith('.mdx')) {
     const withoutExt = normalizedPath.slice(0, -4);
@@ -104,7 +104,7 @@ export function getContent(filePath: string): string | null {
       normalizedPath = withoutExt;
     }
   }
-  
+
   // If still not found, try with .mdx extension added
   if (!content && !normalizedPath.endsWith('.mdx')) {
     const withExt = `${normalizedPath}.mdx`;
@@ -113,7 +113,7 @@ export function getContent(filePath: string): string | null {
       normalizedPath = withExt;
     }
   }
-  
+
   if (!content) {
     // Debug: Log available paths that are close matches (both dev and production)
     const availablePaths = Object.keys(contentMap);
@@ -123,14 +123,14 @@ export function getContent(filePath: string): string | null {
       // Check if last 2-3 parts match
       const fileEnd = fileParts.slice(-2).join('/');
       const pathEnd = pathParts.slice(-2).join('/');
-      return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) || 
-             path.includes(fileParts[fileParts.length - 1]) ||
-             normalizedPath.includes(pathParts[pathParts.length - 1]);
+      return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) ||
+        path.includes(fileParts[fileParts.length - 1]) ||
+        normalizedPath.includes(pathParts[pathParts.length - 1]);
     });
-    
+
     console.warn(`[ContentLoader] Content not found for: ${filePath} (normalized: ${normalizedPath})`);
     console.warn(`[ContentLoader] Total available paths: ${availablePaths.length}`);
-    
+
     if (similarPaths.length > 0) {
       console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 10));
     } else {
@@ -141,7 +141,7 @@ export function getContent(filePath: string): string | null {
       }
     }
   }
-  
+
   return content || null;
 }
 
@@ -152,39 +152,39 @@ export function getContent(filePath: string): string | null {
 function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
-  
+
   if (!match) {
     return { frontmatter: {}, body: content };
   }
-  
+
   const frontmatterText = match[1];
   const body = match[2];
-  
+
   // Simple YAML parser for basic key-value pairs (browser-safe)
   const frontmatter: Record<string, unknown> = {};
   const lines = frontmatterText.split('\n');
-  
+
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) continue;
-    
+
     const colonIndex = trimmed.indexOf(':');
     if (colonIndex === -1) continue;
-    
+
     const key = trimmed.slice(0, colonIndex).trim();
     let value: unknown = trimmed.slice(colonIndex + 1).trim();
-    
+
     // Remove quotes if present
     if (typeof value === 'string') {
-      if ((value.startsWith('"') && value.endsWith('"')) || 
-          (value.startsWith("'") && value.endsWith("'"))) {
+      if ((value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))) {
         value = value.slice(1, -1);
       }
     }
-    
+
     frontmatter[key] = value;
   }
-  
+
   return { frontmatter, body };
 }
 
@@ -252,4 +252,23 @@ export function hasContent(filePath: string): boolean {
  */
 export function getAvailablePaths(): string[] {
   return Object.keys(contentMap);
+}
+
+/**
+ * Find content path by file name (ignoring directory structure)
+ * Useful for finding files when we only know the file name
+ * @param fileName - The name of the file to find (e.g., 'operational_hours_6_1.mdx')
+ * @returns The full path to the content file or null if not found
+ */
+export function findContentPath(fileName: string): string | null {
+  const normalizedFileName = fileName.endsWith('.mdx') ? fileName : `${fileName}.mdx`;
+
+  // Search in contentMap keys
+  for (const path of Object.keys(contentMap)) {
+    if (path.endsWith(`/${normalizedFileName}`)) {
+      return path;
+    }
+  }
+
+  return null;
 }

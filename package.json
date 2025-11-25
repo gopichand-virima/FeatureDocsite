@@ -55,7 +55,9 @@
       "devDependencies": {
             "@types/node": "^20.10.0",
             "@vitejs/plugin-react-swc": "^3.10.2",
+            "fast-xml-parser": "^5.3.2",
             "gh-pages": "^6.3.0",
+            "glob": "^13.0.0",
             "tsx": "^4.19.2",
             "vite": "6.3.5"
       },
@@ -65,8 +67,10 @@
             "add:frontmatter": "tsx scripts/add-frontmatter.ts",
             "normalize:frontmatter": "tsx scripts/normalize-frontmatter.ts",
             "cleanup:frontmatter": "tsx scripts/remove-added-frontmatter.ts",
+            "parse:toc": "tsx scripts/parse-toc.ts",
+            "verify:toc": "tsx scripts/verify-toc-alignment.ts",
             "prebuild": "npm run generate:sitemap",
-      "build": "vite build",
-      "deploy": "gh-pages -d build"
+            "build": "vite build",
+            "deploy": "gh-pages -d build"
       }
 }

@@ -206,6 +206,16 @@ const useNewFormatModules = new Set([
   "admin",
 ]);
 
+const sectionToSubfolder: Record<string, string> = {
+  'organizational-details': 'admin_org_details',
+  'discovery': 'admin_discovery',
+  'sacm': 'admin_sacm',
+  'users': 'admin_users',
+  'management-functions': 'admin_change_mngmnt',
+  'integrations': 'admin_integrations',
+  'others': 'admin_other',
+};
+
 export function buildRoutePath({
   version,
   module,
@@ -273,7 +283,14 @@ export function buildRoutePath({
         return `/${versionPath}/${moduleFolder}/${pageInfo.file}`;
       }
 
+      // Dynamic fallback using section
+      const subfolder = sectionToSubfolder[section];
       const fileName = `${page.replace(/-/g, "_")}_6_1`;
+
+      if (subfolder) {
+        return `/${versionPath}/${moduleFolder}/${subfolder}/${fileName}`;
+      }
+
       return `/${versionPath}/${moduleFolder}/${fileName}`;
     }
 

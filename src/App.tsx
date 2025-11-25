@@ -49,7 +49,7 @@ function AppContent() {
   const mapFileNameToPage = (fileName: string, module: string, subFolder?: string): { section: string; page: string } => {
     // Remove .mdx extension if present
     const cleanName = fileName.replace(/\.mdx$/, '').replace(/\.html$/, '');
-    
+
     // Handle shared functions (subfolder case)
     if (subFolder === 'shared_functions_6_1') {
       // Map shared function file names to page IDs
@@ -94,7 +94,7 @@ function AppContent() {
       const page = sharedFunctionMap[cleanName] || cleanName.replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'shared-functions', page };
     }
-    
+
     // For application overview module
     if (module === 'application-overview') {
       if (cleanName === 'all_about_virima_v6_1') {
@@ -110,7 +110,7 @@ function AppContent() {
         return { section: 'application-overview', page: 'online-help' };
       }
     }
-    
+
     // For my-dashboard module (check for application-overview pages that appear under my-dashboard)
     if (module === 'my-dashboard') {
       // Application overview pages that can appear under my-dashboard module
@@ -124,7 +124,7 @@ function AppContent() {
       if (cleanName === 'user_specific_functions_6_1') {
         return { section: 'application-overview', page: 'user-specific-functions' };
       }
-      
+
       // Getting Started pages (universal: works for all versions)
       const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
       const gettingStartedPageMap: Record<string, string> = {
@@ -146,7 +146,7 @@ function AppContent() {
       if (gettingStartedPages.includes(fallbackPageId)) {
         return { section: 'getting-started', page: fallbackPageId };
       }
-      
+
       // My-dashboard specific pages
       const pageMap: Record<string, string> = {
         'my-dashboard-overview-6_1': 'my-dashboard-overview',
@@ -166,7 +166,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '');
       return { section: 'my-dashboard', page: fallbackPage };
     }
-    
+
     // For CMDB module
     if (module === 'cmdb') {
       // CMDB page mappings - maps file names to page IDs
@@ -225,7 +225,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'cmdb', page: fallbackPage };
     }
-    
+
     // For Discovery Scan module
     if (module === 'discovery-scan') {
       // Discovery Scan page mappings - maps file names to page IDs
@@ -392,7 +392,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'discovery-scan', page: fallbackPage };
     }
-    
+
     // For ITSM module
     if (module === 'itsm') {
       // ITSM page mappings - maps file names to page IDs
@@ -450,15 +450,15 @@ function AppContent() {
       const page = pageMap[cleanName];
       if (page) {
         // Determine section based on page
-        if (page === 'configuration-management' || page === 'dashboard' || page === 'cmdb' || page === 'access-cmdb' || page === 'manage-cmdb' || 
-            ['audits', 'change-attributes', 'delete', 'export', 'new', 'copy-to-ivanti', 'copy-to-jira', 'copy-to-servicenow',
-             'generate-installed-software-report', 'process-adm', 'process-available-patch-report', 'process-cloud-hierarchy',
-             'process-devops', 'process-missing-components', 'process-network-connection', 'process-software-installation'].includes(page)) {
+        if (page === 'configuration-management' || page === 'dashboard' || page === 'cmdb' || page === 'access-cmdb' || page === 'manage-cmdb' ||
+          ['audits', 'change-attributes', 'delete', 'export', 'new', 'copy-to-ivanti', 'copy-to-jira', 'copy-to-servicenow',
+            'generate-installed-software-report', 'process-adm', 'process-available-patch-report', 'process-cloud-hierarchy',
+            'process-devops', 'process-missing-components', 'process-network-connection', 'process-software-installation'].includes(page)) {
           return { section: 'itsm', page };
         } else if (['ci-left-panel', 'contacts-on-ci', 'ci-details-and-tabs', 'details', 'manage-ci', 'business-service-map',
-                     'components', 'logon-events', 'itsm-tab', 'relationships', 'audits-tab', 'sla', 'maintenance',
-                     'vulnerability', 'private-properties', 'tasks', 'history', 'attachments', 'comments',
-                     'other-functions-and-page-elements', 'sync-logs', 'tags'].includes(page)) {
+          'components', 'logon-events', 'itsm-tab', 'relationships', 'audits-tab', 'sla', 'maintenance',
+          'vulnerability', 'private-properties', 'tasks', 'history', 'attachments', 'comments',
+          'other-functions-and-page-elements', 'sync-logs', 'tags'].includes(page)) {
           return { section: 'itsm', page };
         }
         return { section: 'itsm', page };
@@ -467,7 +467,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'itsm', page: fallbackPage };
     }
-    
+
     // For ITAM module
     if (module === 'itam') {
       // ITAM page mappings - maps file names to page IDs
@@ -541,18 +541,18 @@ function AppContent() {
       if (page) {
         // Determine section based on page
         if (page === 'configuration-management' || page === 'dashboard' || page === 'cmdb' || page === 'access-cmdb' || page === 'manage-cmdb' ||
-            ['audits', 'change-attributes', 'delete', 'export', 'new', 'copy-to-ivanti', 'copy-to-jira', 'copy-to-servicenow',
-             'generate-installed-software-report', 'process-adm', 'process-available-patch-report', 'process-cloud-hierarchy',
-             'process-devops', 'process-missing-components', 'process-network-connection', 'process-software-installation',
-             'process-network-virtualization-hierarchy'].includes(page)) {
+          ['audits', 'change-attributes', 'delete', 'export', 'new', 'copy-to-ivanti', 'copy-to-jira', 'copy-to-servicenow',
+            'generate-installed-software-report', 'process-adm', 'process-available-patch-report', 'process-cloud-hierarchy',
+            'process-devops', 'process-missing-components', 'process-network-connection', 'process-software-installation',
+            'process-network-virtualization-hierarchy'].includes(page)) {
           return { section: 'itam', page };
         } else if (['ci-left-panel', 'contacts-on-ci', 'ci-details-and-tabs', 'details', 'manage-ci', 'business-service-map',
-                     'components', 'logon-events', 'itsm', 'relationships', 'audits-tab', 'sla', 'maintenance',
-                     'vulnerability', 'private-properties', 'tasks', 'history', 'attachments', 'comments',
-                     'other-functions-and-page-elements', 'sync-logs', 'tags'].includes(page)) {
+          'components', 'logon-events', 'itsm', 'relationships', 'audits-tab', 'sla', 'maintenance',
+          'vulnerability', 'private-properties', 'tasks', 'history', 'attachments', 'comments',
+          'other-functions-and-page-elements', 'sync-logs', 'tags'].includes(page)) {
           return { section: 'itam', page };
         } else if (['requested-items', 'purchase-orders', 'purchase-order-line-items', 'receiving-slips',
-                     'receiving-slip-lines', 'transfer-order'].includes(page)) {
+          'receiving-slip-lines', 'transfer-order'].includes(page)) {
           return { section: 'itam', page };
         } else if (['about-financial-management', 'ci-financial-plan', 'service-financial-plan'].includes(page)) {
           return { section: 'itam', page };
@@ -563,7 +563,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'itam', page: fallbackPage };
     }
-    
+
     // For Self Service module
     if (module === 'self-service') {
       // Self Service page mappings - maps file names to page IDs
@@ -581,7 +581,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'self-service', page: fallbackPage };
     }
-    
+
     // For Program/Project Management module
     if (module === 'program-project-management') {
       // Program/Project Management page mappings - maps file names to page IDs
@@ -600,7 +600,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'program-project-management', page: fallbackPage };
     }
-    
+
     // For Risk Register module
     if (module === 'risk-register') {
       // Risk Register page mappings - maps file names to page IDs
@@ -618,7 +618,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'risk-register', page: fallbackPage };
     }
-    
+
     // For Reports module
     if (module === 'reports') {
       // Reports page mappings - maps file names to page IDs
@@ -640,7 +640,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'reports', page: fallbackPage };
     }
-    
+
     // For Admin module
     if (module === 'admin') {
       // Organizational Details pages (admin_org_details folder) - detect by subfolder
@@ -663,7 +663,7 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'organizational-details', page: fallbackPage };
       }
-      
+
       // Discovery pages (admin_discovery folder) - detect by subfolder
       if (subFolder === 'admin_discovery') {
         const discoveryPageMap: Record<string, string> = {
@@ -702,7 +702,7 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'discovery', page: fallbackPage };
       }
-      
+
       // SACM pages (admin_sacm folder) - detect by subfolder
       if (subFolder === 'admin_sacm') {
         const sacmPageMap: Record<string, string> = {
@@ -729,7 +729,7 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'sacm', page: fallbackPage };
       }
-      
+
       // Users pages (admin_users folder) - detect by subfolder
       if (subFolder === 'admin_users') {
         const usersPageMap: Record<string, string> = {
@@ -748,7 +748,7 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'users', page: fallbackPage };
       }
-      
+
       // Integrations pages (admin_integrations folder) - detect by subfolder
       if (subFolder === 'admin_integrations') {
         const integrationsPageMap: Record<string, string> = {
@@ -769,7 +769,7 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'integrations', page: fallbackPage };
       }
-      
+
       // Others pages (admin_other folder) - detect by subfolder
       if (subFolder === 'admin_other') {
         const othersPageMap: Record<string, string> = {
@@ -793,7 +793,41 @@ function AppContent() {
         const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
         return { section: 'others', page: fallbackPage };
       }
-      
+
+      // Management Functions pages - detect by subfolder
+      if (subFolder && [
+        'admin_change_mngmnt', 'admin_contract_mngmnt', 'admin_event_mngmnt',
+        'admin_hardware_asset_mngmnt', 'admin_incident_mngmnt', 'admin_knowledge_mngmnt',
+        'admin_problem_mngmnt', 'admin_procurement', 'admin_project_mngmnt',
+        'admin_release_mngmnt', 'admin_request_mngmnt', 'admin_vendor_mngmnt'
+      ].includes(subFolder)) {
+        // Try to find in managementFunctionsPages list via page ID match?
+        // For now, just rely on fallback or existing map if needed.
+        // But existing map is below. We can check it.
+        const managementPageMap: Record<string, string> = {
+          'about_change_mngmnt_6_1': 'change-management',
+          'about_contract_mngmnt_6_1': 'contract-management',
+          'about_event_mngmnt_6_1': 'event-management',
+          'hardware_asset_mngmnt_6_1': 'hardware-asset-management',
+          'about_incident_mngmnt_6_1': 'incident-management',
+          'about_knowledge_mngmnt_6_1': 'knowledge-management',
+          'about_problem_mngmnt_6_1': 'problem-management',
+          'about_procurement_6_1': 'about-procurement',
+          'procurement_properties_6_1': 'procurement-properties',
+          'procurement_property_group_6_1': 'procurement-property-group',
+          'about_project_mngmnt_6_1': 'project-management',
+          'about_release_mngmnt_6_1': 'release-management',
+          'about_request_mngmnt_6_1': 'request-management',
+          'about_vendor_mngmnt_6_1': 'vendor-management',
+        };
+        const page = managementPageMap[cleanName];
+        if (page) {
+          return { section: 'management-functions', page };
+        }
+        const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
+        return { section: 'management-functions', page: fallbackPage };
+      }
+
       // Admin page mappings - maps file names to page IDs
       const pageMap: Record<string, string> = {
         // Organizational Details pages (admin_org_details folder)
@@ -889,7 +923,7 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'admin', page: fallbackPage };
     }
-    
+
     // For Vulnerability Management module
     if (module === 'vulnerability-management') {
       // Vulnerability Management page mappings - maps file names to page IDs
@@ -909,20 +943,20 @@ function AppContent() {
       const fallbackPage = cleanName.replace(/-6_1$/, '').replace(/_6_1$/, '').replace(/_/g, '-');
       return { section: 'vulnerability-management', page: fallbackPage };
     }
-    
+
     // Default: try to extract section and page from file name
     // Enterprise-grade: Comprehensive fallback logic for all file name formats
     let normalizedPage = cleanName;
-    
+
     // Remove version suffix (handle both -6_1 and _6_1 formats)
     normalizedPage = normalizedPage.replace(/-6_1$/, '').replace(/_6_1$/, '');
-    
+
     // Convert underscores to hyphens for consistency with sidebar page IDs
     normalizedPage = normalizedPage.replace(/_/g, '-');
-    
+
     // Convert to lowercase for consistency
     normalizedPage = normalizedPage.toLowerCase();
-    
+
     return { section: module, page: normalizedPage };
   };
 
@@ -937,12 +971,12 @@ function AppContent() {
       .replace(/\/index\.html$/, '') // Remove trailing /index.html
       .replace(/index\.html$/, '') // Remove trailing index.html
       .replace(/\/$/, ''); // Remove trailing slash
-    
+
     // Also handle case where path might still have FeatureDocsite (defensive)
     if (path.startsWith('FeatureDocsite/')) {
       path = path.replace(/^FeatureDocsite\//, '');
     }
-    
+
     // If path is empty or just the base, show homepage
     if (!path || path === '' || path === 'index.html') {
       setSelectedModule('');
@@ -951,11 +985,11 @@ function AppContent() {
       setSelectedVersion('NextGen');
       return;
     }
-    
+
     // Debug logging for troubleshooting
     if (process.env.NODE_ENV === 'development') {
-      console.log('URL Parsing:', { 
-        originalPath: location.pathname, 
+      console.log('URL Parsing:', {
+        originalPath: location.pathname,
         cleanedPath: path,
         search: location.search,
         hash: location.hash
@@ -963,12 +997,12 @@ function AppContent() {
     }
 
     const parts = path.split('/').filter(Boolean); // Filter out empty strings
-    
+
     // Debug logging (remove in production)
     if (process.env.NODE_ENV === 'development') {
       console.log('Routing debug:', { path, parts, location: location.pathname });
     }
-    
+
     // Handle version detection - Enterprise-grade: supports all versions consistently
     // Supports both formats: dots (6.1, 6.1.1, 5.13) and underscores (6_1, 6_1_1, 5_13)
     // Also supports NG as alias for NextGen
@@ -990,26 +1024,26 @@ function AppContent() {
     } else {
       setSelectedVersion('NextGen');
     }
-    
+
     // Determine if this is new format (with underscores like 6_1) or old format (with dots like 6.1, 6.1.1, 5.13, or NextGen)
     // New format uses underscores: 6_1, 6_1_1, 5_13
     // Old format uses dots or NextGen: 6.1, 6.1.1, 5.13, NextGen
     const isNewFormat = parts[0] && (parts[0].includes('_') || parts[0] === '6_1' || parts[0] === '6_1_1' || parts[0] === '5_13');
     const isOldFormat = parts[0] && (
-      parts[0].includes('.') || 
-      parts[0] === 'NextGen' || 
-      parts[0] === '6.1' || 
-      parts[0] === '6.1.1' || 
+      parts[0].includes('.') ||
+      parts[0] === 'NextGen' ||
+      parts[0] === '6.1' ||
+      parts[0] === '6.1.1' ||
       parts[0] === '5.13'
     ) && !parts[0].includes('_');
-    
+
     // Handle old URL format: /6.1/module/section/page, /6.1.1/module/section/page, /5.13/module/section/page, or /NextGen/module/section/page
     if (isOldFormat && parts.length >= 2) {
       // Set module
       if (parts.length >= 2 && parts[1]) {
         setSelectedModule(parts[1]);
       }
-      
+
       // Handle different URL lengths
       if (parts.length >= 4 && parts[3]) {
         // Full path: /version/module/section/page
@@ -1089,12 +1123,12 @@ function AppContent() {
       }
       return;
     }
-    
+
     // New URL format: /6_1/module_folder/[subfolder/]file_name
     // Special case: /6_1/file_name (root level files like filter_by_6_1)
     if (parts.length >= 2 && parts[1]) {
       const moduleFolder = parts[1];
-      
+
       // Check if this is a root-level file (not a module folder)
       const rootLevelFiles = ['filter_by_6_1', 'glossary_6_1', 'common_tasks_v6_6_1'];
       if (rootLevelFiles.includes(moduleFolder) && parts.length === 2) {
@@ -1114,15 +1148,15 @@ function AppContent() {
         }
         return;
       }
-      
+
       const module = mapFolderToModule(moduleFolder);
       setSelectedModule(module);
-      
+
       // Check if we have a subfolder (like shared_functions_6_1 or cmdb_6_1 for ITSM)
       let fileName = '';
       let subFolder = '';
       let actualModule = module;
-      
+
       if (parts.length >= 4 && parts[2] === 'shared_functions_6_1') {
         // Format: /6_1/application_overview_6_1/shared_functions_6_1/file_name
         subFolder = parts[2];
@@ -1170,6 +1204,17 @@ function AppContent() {
         fileName = parts[3];
         actualModule = 'admin';
         setSelectedModule('admin');
+      } else if (parts.length >= 4 && moduleFolder === 'admin_6_1' && [
+        'admin_change_mngmnt', 'admin_contract_mngmt', 'admin_event_mngmnt',
+        'admin_hardware_asset_mngmnt', 'admin_incident_mngmnt', 'admin_knowledge_mngmnt',
+        'admin_problem_mngmnt', 'admin_procurement', 'admin_project_mngmnt',
+        'admin_release_mngmnt', 'admin_request_mngmnt', 'admin_vendor_mngmnt'
+      ].includes(parts[2])) {
+        // Format: /6_1/admin_6_1/[management_subfolder]/file_name
+        subFolder = parts[2];
+        fileName = parts[3];
+        actualModule = 'admin';
+        setSelectedModule('admin');
       } else if (parts.length >= 4 && parts[2] === parts[1]) {
         // Format: /6_1/module_folder/module_folder/page_id (duplicate module name)
         // Example: /6_1/cmdb/cmdb/copy-to-jira
@@ -1186,7 +1231,7 @@ function AppContent() {
         // Format: /6_1/module_folder/file_name
         fileName = parts[2];
       }
-      
+
       if (fileName) {
         const { section, page } = mapFileNameToPage(fileName, actualModule, subFolder);
         setSelectedSection(section);
@@ -1298,7 +1343,7 @@ function AppContent() {
           let correctSection = selectedSection;
           const applicationOverviewPages = [
             "system-icons",
-            "user-specific-functions", 
+            "user-specific-functions",
             "online-help",
             "shared-functions",
             "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
@@ -1314,11 +1359,11 @@ function AppContent() {
           if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
             correctSection = 'application-overview';
           }
-          
+
           // Detect Getting Started pages and set correct section (universal: works for all versions)
           const gettingStartedPages = ['quick-start', 'installation', 'configuration', 'first-steps'];
           const isGettingStartedPage = gettingStartedPages.includes(page);
-          
+
           // Detect Admin sub-section pages and set correct section (universal: works for all versions)
           // Using shared constants to avoid duplicate declarations and bundler reordering issues
           const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
@@ -1328,7 +1373,7 @@ function AppContent() {
           const isManagementFunctionsPage = managementFunctionsPages.includes(page);
           const isIntegrationsPage = integrationsPages.includes(page);
           const isOthersPage = othersPages.includes(page);
-          
+
           let actualSection = correctSection;
           if (selectedModule === 'my-dashboard' && isGettingStartedPage) {
             actualSection = 'getting-started';
@@ -1349,7 +1394,7 @@ function AppContent() {
           } else if (selectedModule === 'my-dashboard' && applicationOverviewPages.includes(page)) {
             actualSection = 'application-overview';
           }
-          
+
           setSelectedSection(actualSection);
           updateURL(selectedVersion, selectedModule, actualSection, page);
         }}

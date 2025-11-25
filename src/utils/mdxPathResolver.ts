@@ -8,6 +8,8 @@
  * Changes to NG paths will NOT affect 6.1 paths and vice versa.
  */
 
+import { findContentPath } from '../content/contentLoader';
+
 interface PathResolverParams {
   version: string;
   module: string;
@@ -87,7 +89,7 @@ function getNgAdminSubfolder(section: string): string | null {
 function getNgAdminPath(section: string, page: string): string | null {
   const basePath = '/content/NG';
   const moduleFolder = 'admin_ng';
-  
+
   // Comprehensive mapping of all Admin NG pages (following TOC structure)
   // All file names use _ng extension
   const ngAdminPageMap: Record<string, { file: string; subfolder: string }> = {
@@ -101,7 +103,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'operational-hours': { file: 'operational_hours_ng', subfolder: 'admin_org_details' },
     'organizational-details-nested': { file: 'organizational_details_ng', subfolder: 'admin_org_details' },
     'organizational-details': { file: 'about_org_details_ng', subfolder: 'admin_org_details' },
-    
+
     // Discovery
     'application-map': { file: 'application_map_ng', subfolder: 'admin_discovery' },
     'client': { file: 'client_ng', subfolder: 'admin_discovery' },
@@ -132,7 +134,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'scan-configuration': { file: 'scan_configuration_ng', subfolder: 'admin_discovery' },
     'sensors': { file: 'sensors_ng', subfolder: 'admin_discovery' },
     'graphical-workflows': { file: 'graphical_workflows_ng', subfolder: 'admin_discovery' },
-    
+
     // SACM
     'blueprints': { file: 'blueprints_ng', subfolder: 'admin_sacm' },
     'bsm-views': { file: 'custom_bsm_views_ng', subfolder: 'admin_sacm' },
@@ -147,7 +149,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'relationship-types': { file: 'relationship_types_ng', subfolder: 'admin_sacm' },
     'software-license-validity-check': { file: 'software_lic_validity_check_ng', subfolder: 'admin_sacm' },
     'software-usage-report': { file: 'software_usage_report_ng', subfolder: 'admin_sacm' },
-    
+
     // Users
     'ad-configuration': { file: 'ad_imp_auth_ng', subfolder: 'admin_users' },
     'azure-ad-configuration': { file: 'azure_ad_config_ng', subfolder: 'admin_users' },
@@ -156,7 +158,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'user-groups': { file: 'user_groups_ng', subfolder: 'admin_users' },
     'user-roles': { file: 'user_roles_ng', subfolder: 'admin_users' },
     'users-list': { file: 'users_ng', subfolder: 'admin_users' },
-    
+
     // Management Functions
     'change-management': { file: 'about_change_mngmnt_ng', subfolder: 'admin_change_mngmnt' },
     'contract-management': { file: 'about_contract_mngmnt_ng', subfolder: 'admin_contract_mngmt' },
@@ -172,7 +174,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'release-management': { file: 'about_release_mngmnt_ng', subfolder: 'admin_release_mngmnt' },
     'request-management': { file: 'about_request_mngmnt_ng', subfolder: 'admin_request_mngmnt' },
     'vendor-management': { file: 'about_vendor_mngmnt_ng', subfolder: 'admin_vendor_mngmnt' },
-    
+
     // Integrations
     'cherwell-credential': { file: 'cherwell_credential_ng', subfolder: 'admin_integrations' },
     'cherwell-mappings': { file: 'cherwell_mappings_ng', subfolder: 'admin_integrations' },
@@ -183,7 +185,7 @@ function getNgAdminPath(section: string, page: string): string | null {
     'jira-asset-mappings': { file: 'jira_mappings_ng', subfolder: 'admin_integrations' },
     'servicenow-credentials': { file: 'servicenow_credentials_ng', subfolder: 'admin_integrations' },
     'servicenow-mappings': { file: 'servicenow_mappings_ng', subfolder: 'admin_integrations' },
-    
+
     // Others
     'announcements': { file: 'announcements_ng', subfolder: 'admin_other' },
     'business-rules': { file: 'business_rules_ng', subfolder: 'admin_other' },
@@ -198,19 +200,19 @@ function getNgAdminPath(section: string, page: string): string | null {
     'risk-score-calculator': { file: 'risk_score_calculator_ng', subfolder: 'admin_other' },
     'admin-graphical-workflows': { file: 'admin_graphical_workflows_ng', subfolder: 'admin_other' },
   };
-  
+
   const pageMapping = ngAdminPageMap[page];
   if (pageMapping) {
     return `${basePath}/${moduleFolder}/${pageMapping.subfolder}/${pageMapping.file}.mdx`;
   }
-  
+
   // Fallback: try to construct path from section and page
   const subfolder = getNgAdminSubfolder(section);
   if (subfolder) {
     const fileName = pageIdToNgFileName(page);
     return `${basePath}/${moduleFolder}/${subfolder}/${fileName}.mdx`;
   }
-  
+
   return null;
 }
 
@@ -221,11 +223,11 @@ function getNgAdminPath(section: string, page: string): string | null {
 function getNextGenPath(module: string, section: string, page: string): string | null {
   const basePath = '/content/NG';
   const moduleFolder = moduleToNgFolder(module);
-  
+
   // Application Overview pages - use application_overview_ng folder
   const applicationOverviewPages = [
     "system-icons",
-    "user-specific-functions", 
+    "user-specific-functions",
     "online-help",
     "shared-functions",
     "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
@@ -238,7 +240,7 @@ function getNextGenPath(module: string, section: string, page: string): string |
     "saved-filters", "searching", "show-main-all-properties", "tasks",
     "updates", "version-control", "go-to-page", "send-report-to"
   ];
-  
+
   // Application Overview pages
   if (section === 'application-overview' || (module === 'my-dashboard' && applicationOverviewPages.includes(page))) {
     // Shared functions pages are in shared_functions_ng subfolder
@@ -251,12 +253,12 @@ function getNextGenPath(module: string, section: string, page: string): string |
       'reload-default-mapping', 're-scan', 're-sync-data', 'save',
       'saved-filters', 'searching', 'show-main-all-properties', 'tasks',
       'updates', 'version-control', 'go-to-page', 'send-report-to'];
-    
+
     if (page === 'shared-functions') {
       // Shared functions parent page
       return `${basePath}/application_overview_ng/shared_functions_ng/about_common_functions_ng.mdx`;
     }
-    
+
     if (sharedFunctionsPages.includes(page)) {
       // Special mappings for shared functions pages
       const sharedFunctionsFileMap: Record<string, string> = {
@@ -265,7 +267,7 @@ function getNextGenPath(module: string, section: string, page: string): string |
       const fileName = sharedFunctionsFileMap[page] || pageIdToNgFileName(page);
       return `${basePath}/application_overview_ng/shared_functions_ng/${fileName}.mdx`;
     }
-    
+
     // Other application overview pages (system-icons, user-specific-functions, online-help)
     if (applicationOverviewPages.includes(page)) {
       // Special mapping for system-icons -> icons_ng
@@ -275,12 +277,12 @@ function getNextGenPath(module: string, section: string, page: string): string |
       return `${basePath}/application_overview_ng/${pageIdToNgFileName(page)}.mdx`;
     }
   }
-  
+
   // Admin module - has subfolders
   if (module === 'admin') {
     return getNgAdminPath(section, page);
   }
-  
+
   // My Dashboard module
   if (module === 'my-dashboard') {
     // Special handling for my-dashboard-overview - file exists with -6_1 suffix (legacy)
@@ -305,7 +307,7 @@ function getNextGenPath(module: string, section: string, page: string): string |
     const fileName = pageIdToNgFileName(page);
     return `${basePath}/${moduleFolder}/${fileName}.mdx`;
   }
-  
+
   // For other modules, handle special cases first
   // Module overview pages that use "about_*_ng.mdx" naming
   if (page === 'overview' || page === `${module}-overview`) {
@@ -321,7 +323,7 @@ function getNextGenPath(module: string, section: string, page: string): string |
       return `${basePath}/${moduleFolder}/${overviewFile}.mdx`;
     }
   }
-  
+
   // For other pages, convert page ID to file name and use module folder
   const fileName = pageIdToNgFileName(page);
   return `${basePath}/${moduleFolder}/${fileName}.mdx`;
@@ -363,7 +365,7 @@ function get61AdminSubfolder(section: string): string | null {
  */
 function getMyDashboard61Path(page: string, section: string): string | null {
   const basePath = '/content/6_1/my_dashboard_6_1';
-  
+
   // Direct page-to-file mapping (all use _6_1 extension)
   const fileMap: Record<string, string> = {
     'dashboards': 'dashboards-6_1.mdx',
@@ -391,13 +393,13 @@ function getMyDashboard61Path(page: string, section: string): string | null {
  */
 function getAdmin61Path(section: string, page: string): string | null {
   const basePath = '/content/6_1/admin_6_1';
-  
+
   // Comprehensive mapping of all Admin 6.1 pages (following TOC structure)
   // All file names use _6_1 extension
   const admin61PageMap: Record<string, { file: string; subfolder: string }> = {
     // Admin Functions
     'admin-functions': { file: 'admin_functions_new_6_1', subfolder: 'admin' },
-    
+
     // Organizational Details
     'organizational-details': { file: 'about_org_details_6_1', subfolder: 'admin_org_details' },
     'organizational-details-nested': { file: 'organizational_details_6_1', subfolder: 'admin_org_details' },
@@ -408,7 +410,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'holidays': { file: 'holidays_6_1', subfolder: 'admin_org_details' },
     'locations': { file: 'locations_6_1', subfolder: 'admin_org_details' },
     'operational-hours': { file: 'operational_hours_6_1', subfolder: 'admin_org_details' },
-    
+
     // Discovery
     'discovery': { file: 'admin_discovery_6_1', subfolder: 'admin_discovery' },
     'application-map': { file: 'application_map_6_1', subfolder: 'admin_discovery' },
@@ -441,7 +443,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'scan-configuration': { file: 'scan_configuration_6_1', subfolder: 'admin_discovery' },
     'sensors': { file: 'sensors_6_1', subfolder: 'admin_discovery' },
     'graphical-workflows': { file: 'graphical_workflows_6_1', subfolder: 'admin_discovery' },
-    
+
     // SACM
     'sacm': { file: 'admin_sacm_6_1', subfolder: 'admin_sacm' },
     'blueprints': { file: 'blueprints_6_1', subfolder: 'admin_sacm' },
@@ -457,7 +459,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'relationship-types': { file: 'relationship_types_6_1', subfolder: 'admin_sacm' },
     'software-license-validity-check': { file: 'sw_lic_validity_check_6_1', subfolder: 'admin_sacm' },
     'software-usage-report': { file: 'software_usage_report_6_1', subfolder: 'admin_sacm' },
-    
+
     // Users
     'users': { file: 'admin_users_6_1', subfolder: 'admin_users' },
     'ad-configuration': { file: 'ad_imp_auth_6_1', subfolder: 'admin_users' },
@@ -467,7 +469,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'user-groups': { file: 'user_groups_6_1', subfolder: 'admin_users' },
     'user-roles': { file: 'user_roles_6_1', subfolder: 'admin_users' },
     'users-list': { file: 'users_6_1', subfolder: 'admin_users' },
-    
+
     // Management Functions
     'change-management': { file: 'about_change_mngmnt_6_1', subfolder: 'admin_change_mngmnt' },
     'contract-management': { file: 'about_contract_mngmnt_6_1', subfolder: 'admin_contract_mngmt' },
@@ -483,7 +485,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'release-management': { file: 'about_release_mngmnt_6_1', subfolder: 'admin_release_mngmnt' },
     'request-management': { file: 'about_request_mngmnt_6_1', subfolder: 'admin_request_mngmnt' },
     'vendor-management': { file: 'about_vendor_mngmnt_6_1', subfolder: 'admin_vendor_mngmnt' },
-    
+
     // Integrations
     'cherwell-credential': { file: 'cherwell_credential_6_1', subfolder: 'admin_integrations' },
     'cherwell-mappings': { file: 'cherwell_mappings_6_1', subfolder: 'admin_integrations' },
@@ -494,7 +496,7 @@ function getAdmin61Path(section: string, page: string): string | null {
     'jira-asset-mappings': { file: 'jira_mappings_6_1', subfolder: 'admin_integrations' },
     'servicenow-credentials': { file: 'servicenow_credentials_6_1', subfolder: 'admin_integrations' },
     'servicenow-mappings': { file: 'servicenow_mappings_6_1', subfolder: 'admin_integrations' },
-    
+
     // Others
     'announcements': { file: 'announcements_6_1', subfolder: 'admin_other' },
     'business-rules': { file: 'business_rules_6_1', subfolder: 'admin_other' },
@@ -509,13 +511,13 @@ function getAdmin61Path(section: string, page: string): string | null {
     'risk-score-calculator': { file: 'risk_score_calculator_6_1', subfolder: 'admin_other' },
     'admin-graphical-workflows': { file: 'admin_graphical_workflows_6_1', subfolder: 'admin' },
   };
-  
+
   // Try to find exact page match
   const pageMapping = admin61PageMap[page];
   if (pageMapping) {
     return `${basePath}/${pageMapping.subfolder}/${pageMapping.file}.mdx`;
   }
-  
+
   // Try to determine subfolder from section
   const subfolder = get61AdminSubfolder(section);
   if (subfolder) {
@@ -523,7 +525,15 @@ function getAdmin61Path(section: string, page: string): string | null {
     const fileName = pageIdTo61FileName(page);
     return `${basePath}/${subfolder}/${fileName}.mdx`;
   }
-  
+
+  // Final fallback: search for the file by name using contentLoader
+  // This allows new files to be found even if they are not in the map or standard subfolder
+  const fileName = pageIdTo61FileName(page);
+  const foundPath = findContentPath(fileName);
+  if (foundPath) {
+    return foundPath;
+  }
+
   return null;
 }
 
@@ -555,12 +565,12 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
   if (parts.length < 2) return null;
 
   const versionPart = parts[0].toLowerCase();
-  
+
   // Handle NextGen paths (NextGen, NG, nextgen)
   if (versionPart === 'nextgen' || versionPart === 'ng') {
     const remainder = parts.slice(1).join('/');
     if (!remainder) return null;
-    
+
     // Check if it's already a direct path (contains admin_ng, etc.)
     if (remainder.includes('admin_ng') || remainder.includes('_ng')) {
       let candidate = `/content/NG/${remainder}`;
@@ -569,12 +579,12 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
       }
       return candidate;
     }
-    
+
     // For admin module with URL params, let the parameter-based resolver handle it
     if (remainder.startsWith('admin/')) {
       return null; // Fall back to parameter-based resolution
     }
-    
+
     let candidate = `/content/NG/${remainder}`;
     if (!candidate.endsWith('.mdx')) {
       candidate = `${candidate}.mdx`;
@@ -591,7 +601,7 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
     '5_13': '5_13',
     '5.13': '5_13',
   };
-  
+
   const mappedVersion = versionMap[versionPart];
   if (!mappedVersion) return null;
 
@@ -637,22 +647,22 @@ export function resolveMDXPath({ version, module, section, page, currentPath }: 
   if (version === 'NextGen') {
     return getNextGenPath(module, section, page);
   }
-  
+
   // Route to 6.1 handler - completely independent
   if (version === '6.1') {
     // My Dashboard 6.1
     if (module === 'my-dashboard') {
       return getMyDashboard61Path(page, section);
     }
-    
+
     // Admin 6.1
     if (module === 'admin') {
       return getAdmin61Path(section, page);
     }
-    
+
     // Other 6.1 modules can be added here with their own handlers
   }
-  
+
   // For other versions or unsupported combinations, return null
   // The component will fall back to hardcoded content
   return null;
@@ -662,7 +672,7 @@ export function resolveMDXPath({ version, module, section, page, currentPath }: 
  * Check if a specific module/version combination has custom file structure
  */
 export function hasCustomFileStructure(module: string, version: string): boolean {
-  return (module === 'my-dashboard' && version === '6.1') || 
-         (module === 'admin' && version === '6.1') ||
-         version === 'NextGen';
+  return (module === 'my-dashboard' && version === '6.1') ||
+    (module === 'admin' && version === '6.1') ||
+    version === 'NextGen';
 }

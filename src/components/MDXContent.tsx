@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { getContent, hasContent, getAvailablePaths } from '../content/contentLoader';
+import { getContent, hasContent } from '../content/contentLoader';
 import { FeedbackSection } from './FeedbackSection';
 
 // Helper function to generate ID from heading text
@@ -103,27 +103,7 @@ export function MDXContent({ filePath }: MDXContentProps) {
         } else {
           // Content not found - this is expected for pages that fall back to DefaultContent
           // Don't throw error, just set error state (parent component will handle fallback)
-          // Add debugging info in development
-          if (import.meta.env.DEV) {
-            const availablePaths = getAvailablePaths();
-            const similarPaths = availablePaths.filter(path => {
-              const fileParts = filePath.split('/').filter(Boolean);
-              const pathParts = path.split('/').filter(Boolean);
-              // Check if last 2-3 parts match
-              const fileEnd = fileParts.slice(-2).join('/');
-              const pathEnd = pathParts.slice(-2).join('/');
-              return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) || 
-                     path.includes(fileParts[fileParts.length - 1]) ||
-                     filePath.includes(pathParts[pathParts.length - 1]);
-            });
-            const errorMsg = similarPaths.length > 0
-              ? `Content not found for path: ${filePath}\nSimilar paths found:\n${similarPaths.slice(0, 5).join('\n')}`
-              : `Content not found for path: ${filePath}\nTotal available paths: ${availablePaths.length}`;
-            console.warn('[MDXContent]', errorMsg);
-            setError(errorMsg);
-          } else {
-            setError(`Content not found for path: ${filePath}`);
-          }
+          setError(`Content not found for path: ${filePath}`);
         }
       } catch (err) {
         // Only log unexpected errors, not missing content

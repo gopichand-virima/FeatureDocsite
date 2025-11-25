@@ -164,24 +164,3 @@ export const othersPages: readonly string[] = [
   "graphical-workflows",
 ];
 
-// Application Overview and Shared Functions pages - used across multiple components
-export const sharedFunctionsPages: readonly string[] = [
-  "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
-  "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
-  "delete-remove", "email-preferences", "enable-disable-editing", "export",
-  "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
-  "other-asset-info", "outage-calendar", "personalize-columns", "print",
-  "process-adm", "process-missing-components", "records-per-page",
-  "reload-default-mapping", "re-scan", "re-sync-data", "save",
-  "saved-filters", "searching", "show-main-all-properties", "tasks",
-  "updates", "version-control", "go-to-page", "send-report-to"
-];
-
-export const applicationOverviewPages: readonly string[] = [
-  "system-icons",
-  "user-specific-functions", 
-  "online-help",
-  "shared-functions",
-  ...sharedFunctionsPages,
-];
-

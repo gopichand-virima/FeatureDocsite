@@ -148,11 +148,11 @@ FeatureDocsite/
 │   │
 │   ├── content/             # 📝 YOUR CONTENT GOES HERE
 │   │   ├── 6_1/            # Version 6.1 content
-│   │   │   ├── admin_6_1/  # Admin module (229 files - COMPLETE)
-│   │   │   ├── cmdb_6_1/   # CMDB module (37 files - IN PROGRESS)
-│   │   │   ├── discovery_scan_6_1/  # Discovery Scan (347 files)
-│   │   │   ├── itsm_6_1/   # ITSM module (251 files)
-│   │   │   ├── itam_6_1/   # ITAM module (110 files)
+│   │   │   ├── admin_6_1/  # Admin module (223 files)
+│   │   │   ├── cmdb_6_1/   # CMDB module (37 files)
+│   │   │   ├── discovery_scan_6_1/  # Discovery Scan (355 files)
+│   │   │   ├── itsm_6_1/   # ITSM module
+│   │   │   ├── itam_6_1/   # ITAM module (101 files)
 │   │   │   ├── my_dashboard_6_1/  # My Dashboard (18 files)
 │   │   │   └── ...         # Other modules
 │   │   │
@@ -568,230 +568,6 @@ SEO metadata helps your documentation appear in Google search results. Without p
 
 ---
 
-## Current Project Status (January 2025)
-
-### Content Migration Status
-
-**Version 6.1 - Admin Module** ✅ **COMPLETE**
-- **Total Files**: 229 MDX files migrated
-- **Sub-modules Completed**:
-  - ✅ Admin Functions (8 files)
-  - ✅ Organizational Details (9 files)
-  - ✅ Discovery (55 files)
-  - ✅ SACM (26 files)
-  - ✅ Users (15 files)
-  - ✅ Change Management (8 files)
-  - ✅ Contract Management (3 files)
-  - ✅ Event Management (5 files)
-  - ✅ Hardware Asset Management (3 files)
-  - ✅ Incident Management (8 files)
-  - ✅ Knowledge Management (6 files)
-  - ✅ Problem Management (8 files)
-  - ✅ Procurement (3 files)
-  - ✅ Procurement Management (3 files)
-  - ✅ Project Management (3 files)
-  - ✅ Release Management (10 files)
-  - ✅ Request Management (10 files)
-  - ✅ Vendor Management (3 files)
-  - ✅ Integrations (13 files)
-  - ✅ Others (20 files)
-- **Source**: `MDX/admin/` → **Target**: `src/content/6_1/admin_6_1/`
-- **Status**: All Admin 6.1 content successfully migrated with proper frontmatter and single line break after frontmatter
-
-**Version 6.1 - CMDB Module** 🔄 **IN PROGRESS**
-- **Total Files**: 37 MDX files identified
-- **Source**: `MDX/cmdb_left_nav/` → **Target**: `src/content/6_1/cmdb_6_1/`
-- **Status**: Migration in progress
-
-**Version 6.1 - Other Modules** 📋 **PENDING**
-- Discovery Scan: 347 files
-- ITAM: 110 files
-- ITSM: 251 files (including sub-modules)
-- My Dashboard: 18 files
-- Other modules: Various file counts
-
-### Path Resolution Architecture
-
-**Independent Version Paths** ✅ **COMPLETE**
-- **NextGen (NG)**: Completely independent path resolution using `_ng` file extensions
-- **Version 6.1**: Completely independent path resolution using `_6_1` file extensions
-- **Location**: `src/utils/mdxPathResolver.ts`
-- **Key Feature**: Changes to NG paths do NOT affect 6.1 paths and vice versa
-- **Structure**: Both versions follow the same TOC structure but maintain independent implementations
-
-### Content Loading Status
-
-**Content Loader Integration** 🔄 **IN PROGRESS**
-- **Organizational Details**: ✅ Fully integrated and viewable
-- **Other Admin Sub-modules**: 🔄 Integration in progress
-- **Location**: `src/content/contentLoader.ts`
-- **Status**: Files are migrated but need to be imported into contentLoader for runtime access
-
-### Navigation & TOC Status
-
-**Table of Contents (TOC)** ✅ **COMPLETE**
-- **Admin 6.1 TOC**: ✅ Built and mapped in `src/content/6_1/index.mdx`
-- **TOC Structure**: Based on `Virima_v6_1_toc.fltoc` reference file
-- **Status**: All Admin sections properly mapped with correct file links
-
----
-
-## File Format Documentation
-
-### MDX Files (`.mdx`)
-
-**What They Contain:**
-- **Format**: Markdown + JSX (MDX)
-- **Structure**: YAML frontmatter + Markdown content
-- **Purpose**: Documentation content pages
-
-**File Structure:**
-```mdx
----
-title: "Page Title"                    # SEO title (50-60 chars)
-description: "Page description..."     # SEO description (150-160 chars)
-canonical: "/6_1/admin/discovery/client"  # Canonical URL path
-keywords:                              # SEO keywords (3-10 items)
-  - "virima"
-  - "admin"
-  - "discovery"
-lastUpdated: "2025-01-15"             # Last update date (YYYY-MM-DD)
----
-
-# Page Title
-
-Your markdown content here...
-
-## Section 1
-
-Content with **bold**, *italic*, `code`, and [links](url).
-
-![Image](../Resources/Images/folder/image.png)
-```
-
-**Key Components:**
-1. **Frontmatter** (YAML): Metadata for SEO and routing
-2. **Content** (Markdown): Documentation text, headings, lists, tables, code blocks
-3. **Images**: Use `../Resources/Images/...` (auto-transformed to version-specific paths)
-
-**File Naming Conventions:**
-- **6.1 Files**: `{topic}_6_1.mdx` or `{topic}-6_1.mdx`
-- **NextGen Files**: `{topic}_ng.mdx` or `{topic}.mdx`
-- **Format**: kebab-case (lowercase with hyphens)
-
-### TypeScript Files (`.ts`, `.tsx`)
-
-**What They Contain:**
-- **Format**: TypeScript/React code
-- **Purpose**: Application logic, components, utilities
-
-**Key Files:**
-- `src/utils/mdxPathResolver.ts`: Path resolution logic (NG and 6.1 independent)
-- `src/content/contentLoader.ts`: MDX file imports and content mapping
-- `src/components/DocumentationContent.tsx`: Content rendering and breadcrumbs
-- `src/components/MDXContent.tsx`: MDX rendering with image path transformation
-
-**Data Structures:**
-```typescript
-// Path resolver maps URL params to file paths
-interface PathResolverParams {
-  version: string;    // "NextGen" or "6.1"
-  module: string;    // "admin", "cmdb", etc.
-  section: string;   // "discovery", "sacm", etc.
-  page: string;      // "client", "credentials", etc.
-}
-
-// Content loader maps file paths to content
-const contentMap: Record<string, string> = {
-  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
-  // ... more mappings
-};
-```
-
-### Configuration Files
-
-**`package.json`**
-- **Contains**: Project dependencies, npm scripts, project metadata
-- **Key Scripts**:
-  - `npm run dev`: Start development server
-  - `npm run build`: Build for production
-  - `npm run normalize:frontmatter`: Clean frontmatter
-
-**`src/config/seoConfig.ts`**
-- **Contains**: SEO configuration (canonical host, default meta tags)
-- **Data**: Canonical URL base, default SEO values
-
-**`src/content/6_1/index.mdx`**
-- **Contains**: Table of Contents (TOC) for version 6.1
-- **Format**: MDX with navigation links
-- **Structure**: Hierarchical navigation matching TOC structure
-
-### Image Files
-
-**Location**: `public/images_{version}/`
-- **6.1**: `public/images_6_1/`
-- **NextGen**: `public/images_ng/`
-- **6.1.1**: `public/images_6_1_1/`
-- **5.13**: `public/images_5_13/`
-
-**What They Contain:**
-- Screenshots, diagrams, icons
-- Organized in folders matching `Resources/Images/` structure
-- **Reference in MDX**: `../Resources/Images/folder/image.png` (auto-transformed)
-
-### TOC Reference File (`.fltoc`)
-
-**Location**: `C:\Users\GopichandY\Downloads\Source_Files\Source_Files\v6.1 Help Files\Project\TOCs\Virima_v6_1_toc.fltoc`
-
-**What It Contains:**
-- XML-based Table of Contents structure
-- Hierarchical navigation structure
-- Link mappings to HTML files
-- **Purpose**: Reference for building navigation and TOC in `index.mdx`
-
-**Format:**
-```xml
-<TocEntry Title="Admin" Link="/Content/Admin/Admin-Functions-new.htm">
-  <TocEntry Title="Organizational Details" Link="/Content/Admin - Org Details/About-Org-Details.htm">
-    <TocEntry Title="Cost Center" Link="/Content/Admin - Org Details/Cost-Center.htm" />
-  </TocEntry>
-</TocEntry>
-```
-
-### Source Migration Files
-
-**Location**: `MDX/` (source folder)
-
-**What They Contain:**
-- Original MDX files before migration
-- **Structure**: Module-first organization
-- **Format**: MDX with frontmatter (may need normalization)
-- **Purpose**: Source for content migration to version-first structure
-
-**Migration Pattern:**
-- **Source**: `MDX/{module}/{subfolder}/{file}_6_1.mdx`
-- **Target**: `src/content/6_1/{module}_6_1/{subfolder}/{file}_6_1.mdx`
-- **Process**: Copy content (excluding frontmatter), add single line break after frontmatter
-
-### Build Output Files
-
-**`dist/`** (generated on build)
-- **Contains**: Compiled production files
-- **Format**: HTML, CSS, JavaScript bundles
-- **Purpose**: Deployed to GitHub Pages
-
-**`public/sitemap.xml`** (generated)
-- **Contains**: XML sitemap for search engines
-- **Format**: XML with URL entries
-- **Generated by**: `scripts/generate-sitemap.ts`
-
-**`public/robots.txt`**
-- **Contains**: Search engine crawler rules
-- **Format**: Plain text
-- **Purpose**: Control search engine indexing
-
----
-
 ## Recent Project Updates (January 2025)
 
 ### 🎨 User Experience Enhancements
@@ -857,29 +633,17 @@ const contentMap: Record<string, string> = {
 
 ### 🔧 Technical Improvements
 
-#### 1. Path Resolution Architecture (January 2025)
-- **Refactored**: Complete separation of NG and 6.1 path resolution logic
-- **Key Feature**: Independent path handlers - changes to NG don't affect 6.1 and vice versa
-- **Implementation**:
-  - NG functions: All use `_ng` file extensions
-  - 6.1 functions: All use `_6_1` file extensions
-  - Separate helper functions for each version
-  - Same TOC structure but independent implementations
-- **Location**: `src/utils/mdxPathResolver.ts`
-- **Benefit**: Future-proof architecture allowing versions to evolve independently
-
-#### 2. Build System
+#### 1. Build System
 - **Added**: `emailjs-com` dependency for feedback forms
 - **Updated**: Vite config with EmailJS alias
 - **Fixed**: Package lock file synchronization
 
-#### 3. Content Loading
+#### 2. Content Loading
 - **Improved**: Graceful fallback for missing content
 - **Fixed**: Error logging for expected fallbacks
 - **Enhanced**: Version-specific path resolution
-- **Status**: Admin 6.1 Organizational Details fully integrated
 
-#### 4. Constants Management
+#### 3. Constants Management
 - **Refactored**: Admin page constants moved to shared module
 - **Location**: `src/constants/adminPages.ts`
 - **Benefit**: Prevents duplicate declarations and initialization errors
@@ -1034,6 +798,6 @@ npm run build                  # Build project (check for errors)
 
 ---
 
-**Last Updated**: November 2025  
+**Last Updated**: January 2025  
 **Live Site**: https://gopichand-virima.github.io/FeatureDocsite/  
 **Repository**: https://github.com/gopichand-virima/FeatureDocsite

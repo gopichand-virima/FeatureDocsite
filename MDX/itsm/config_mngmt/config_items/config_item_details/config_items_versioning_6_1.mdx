@@ -1,0 +1,34 @@
+---
+title: "CI: Versioning"
+description: "Open topic with navigation"
+version: ""
+module: "Itsm"
+section: "Config Mngmt"
+page: "CI: Versioning"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Config Mngmt"
+  - "Config Items"
+  - "Config Item Details"
+  - "Config Items Versioning"
+  - "CI: Versioning"
+---
+
+# CI: Versioning
+
+The versioning of a configuration item starts from Production status and when changes are made in the CI, the version increments by 0.1.
+
+
+You cannot set a version as a baseline which was versioned due to one of its components.
+
+
+Below are the conditions that versions a configuration item:
+
+- Changing one or more property values of a CI
+- [Adding a New Property](/admin_sacm/add_new_property_6_1.mdx)
+- Adding a [new CI Component](/itsm/config_mngmt/config_items/config_item_new_6_1.mdx), for example, a Software Instance, Network Adapter, etc.
+- Removing a component from a CI
+
+If the first two conditions (mentioned above) happen in any of the CI components, both the CI Component and the CI are versioned.

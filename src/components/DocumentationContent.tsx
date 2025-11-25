@@ -42,8 +42,6 @@ import {
   jiraCredentialsPages,
   servicenowCredentialsPages,
   othersPages,
-  sharedFunctionsPages,
-  applicationOverviewPages,
 } from "../constants/adminPages";
 
 interface DocumentationContentProps {
@@ -170,7 +168,18 @@ function getSectionDisplayName(section: string): string {
 
 // Helper function to get parent topic information
 function getParentTopic(section: string, page: string): string | null {
-  // Shared Functions pages (imported from constants - using sharedFunctionsPages from adminPages)
+  // Shared Functions pages
+  const sharedFunctionsPages = [
+    "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
+    "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
+    "delete-remove", "email-preferences", "enable-disable-editing", "export",
+    "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
+    "other-asset-info", "outage-calendar", "personalize-columns", "print",
+    "process-adm", "process-missing-components", "records-per-page",
+    "reload-default-mapping", "re-scan", "re-sync-data", "save",
+    "saved-filters", "searching", "show-main-all-properties", "tasks",
+    "updates", "version-control"
+  ];
   
   // CMDB pages
   const manageCmdbPages = [
@@ -475,12 +484,12 @@ export function DocumentationContent({
 
   const resolvedMDXPath = useMemo(() => {
     try {
-      return resolveMDXPath({ version, module, section, page, currentPath: normalizedPath || undefined });
+      return resolveMDXPath({ version, module, section, page });
     } catch (error) {
       console.error("Error resolving MDX path:", error);
       return null;
     }
-  }, [version, module, section, page, normalizedPath]);
+  }, [version, module, section, page]);
 
   const contentEntry = useMemo(() => {
     if (!resolvedMDXPath) return null;
@@ -733,7 +742,18 @@ export function DocumentationContent({
   // This uses the same complete hierarchy logic as DefaultContent
   const renderBreadcrumbs = () => {
     // Import all hierarchy arrays and logic from DefaultContent
-    // My Dashboard - Application Overview hierarchy (using imported constants)
+    // My Dashboard - Application Overview hierarchy
+    const sharedFunctionsPages = [
+      "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
+      "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
+      "delete-remove", "email-preferences", "enable-disable-editing", "export",
+      "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
+      "other-asset-info", "outage-calendar", "personalize-columns", "print",
+      "process-adm", "process-missing-components", "records-per-page",
+      "reload-default-mapping", "re-scan", "re-sync-data", "save",
+      "saved-filters", "searching", "show-main-all-properties", "tasks",
+      "updates", "version-control", "go-to-page", "send-report-to"
+    ];
     
     // My Dashboard - My Dashboard section hierarchy
     const dashboardsPages = ["contents", "customization", "report-actions", "my-dashboard-section"];
@@ -1079,7 +1099,14 @@ export function DocumentationContent({
     
     // Admin breadcrumb hierarchy (using module-level constants declared above)
     
-    // Application Overview pages (using imported constants)
+    // Application Overview pages (these appear under Application Overview section in my-dashboard module)
+    const applicationOverviewPages = [
+      "system-icons",
+      "user-specific-functions", 
+      "online-help",
+      ...sharedFunctionsPages,
+      "shared-functions" // parent page itself
+    ];
     
     // Getting Started pages (universal: works for all modules and versions)
     const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
@@ -2163,7 +2190,8 @@ export function DocumentationContent({
   const renderContent = () => {
     const contentKey = `${section}-${page}`;
     
-    const mdxPath = resolvedMDXPath;
+    // Try to resolve MDX file path first
+    const mdxPath = resolveMDXPath({ version, module, section, page });
     
     // If we have a valid MDX path, try to load it
     if (mdxPath) {
@@ -3557,7 +3585,17 @@ function DefaultContent({
   });
   
   // My Dashboard - Application Overview hierarchy
-  // Using imported sharedFunctionsPages from constants
+  const sharedFunctionsPages = [
+    "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
+    "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
+    "delete-remove", "email-preferences", "enable-disable-editing", "export",
+    "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
+    "other-asset-info", "outage-calendar", "personalize-columns", "print",
+    "process-adm", "process-missing-components", "records-per-page",
+    "reload-default-mapping", "re-scan", "re-sync-data", "save",
+    "saved-filters", "searching", "show-main-all-properties", "tasks",
+    "updates", "version-control"
+  ];
   
   // My Dashboard - My Dashboard section hierarchy
   const dashboardsPages = ["contents", "customization", "report-actions", "my-dashboard-section"];
@@ -3973,7 +4011,14 @@ function DefaultContent({
   // Vulnerability Management hierarchy checks
   const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
   
-  // Application Overview pages (using imported constants)
+  // Application Overview pages (these appear under Application Overview section in my-dashboard module)
+  const applicationOverviewPages = [
+    "system-icons",
+    "user-specific-functions", 
+    "online-help",
+    ...sharedFunctionsPages,
+    "shared-functions" // parent page itself
+  ];
   
   // Getting Started pages (universal: works for all modules and versions)
   const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];

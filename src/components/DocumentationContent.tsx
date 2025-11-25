@@ -484,12 +484,12 @@ export function DocumentationContent({
 
   const resolvedMDXPath = useMemo(() => {
     try {
-      return resolveMDXPath({ version, module, section, page });
+      return resolveMDXPath({ version, module, section, page, currentPath: normalizedPath || undefined });
     } catch (error) {
       console.error("Error resolving MDX path:", error);
       return null;
     }
-  }, [version, module, section, page]);
+  }, [version, module, section, page, normalizedPath]);
 
   const contentEntry = useMemo(() => {
     if (!resolvedMDXPath) return null;
@@ -2190,8 +2190,7 @@ export function DocumentationContent({
   const renderContent = () => {
     const contentKey = `${section}-${page}`;
     
-    // Try to resolve MDX file path first
-    const mdxPath = resolveMDXPath({ version, module, section, page });
+    const mdxPath = resolvedMDXPath;
     
     // If we have a valid MDX path, try to load it
     if (mdxPath) {

@@ -8,11 +8,14 @@
  * Changes to NG paths will NOT affect 6.1 paths and vice versa.
  */
 
+import { hasContent } from '../content/contentLoader';
+
 interface PathResolverParams {
   version: string;
   module: string;
   section: string;
   page: string;
+  currentPath?: string;
 }
 
 /**
@@ -25,6 +28,57 @@ interface PathResolverParams {
 function formatVersionForPath(version: string): string {
   if (version === 'NextGen') return 'NG';
   return version.replace(/\./g, '_');
+}
+
+const directPathVersionMap: Record<string, string> = {
+  '6_1': '6_1',
+  '6.1': '6_1',
+  '6_1_1': '6_1_1',
+  '6.1.1': '6_1_1',
+  '5_13': '5_13',
+  '5.13': '5_13',
+};
+
+/**
+ * Try to resolve MDX path directly from the current URL when it already matches the file structure.
+ * Works for version-first content (6.1, 6.1.1, 5.13) where TOC links point to actual file paths.
+ */
+function resolvePathFromCurrentUrl(currentPath?: string): string | null {
+  if (!currentPath) return null;
+
+  let normalized = currentPath.split(/[?#]/)[0] || '';
+  if (!normalized) return null;
+
+  // Remove base path if present
+  normalized = normalized.replace(/^\/?FeatureDocsite/, '');
+
+  if (!normalized.startsWith('/')) {
+    normalized = `/${normalized}`;
+  }
+
+  normalized = normalized.replace(/\/+$/, '');
+  if (!normalized || normalized === '/') return null;
+
+  const parts = normalized.split('/').filter(Boolean);
+  if (parts.length < 2) return null;
+
+  const versionPart = parts[0];
+  const mappedVersion = directPathVersionMap[versionPart];
+  if (!mappedVersion) return null;
+
+  const remainder = parts.slice(1).join('/');
+  if (!remainder) return null;
+
+  let candidate = `/content/${mappedVersion}/${remainder}`;
+  if (!candidate.endsWith('.mdx')) {
+    candidate = `${candidate}.mdx`;
+  }
+
+  if (hasContent(candidate)) {
+    return candidate;
+  }
+
+  return null;
 }
 
 // ============================================================================
@@ -534,7 +588,13 @@ function getAdmin61Path(section: string, page: string): string | null {
  * Resolve the path to the MDX file based on navigation parameters
  * Routes to NG or 6.1 specific handlers - completely independent
  */
-export function resolveMDXPath({ version, module, section, page }: PathResolverParams): string | null {
+export function resolveMDXPath({ version, module, section, page, currentPath }: PathResolverParams): string | null {
+  // First, attempt to resolve directly from the current URL (covers TOC links and deep links)
+  const directPath = resolvePathFromCurrentUrl(currentPath);
+  if (directPath) {
+    return directPath;
+  }
+
   // Route to NextGen handler - completely independent
   if (version === 'NextGen') {
     return getNextGenPath(module, section, page);

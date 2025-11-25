@@ -1,28 +1,15 @@
+/// <reference types="vite/client" />
+
 /**
  * Content Loader - Statically imports all MDX content files
  * This file maps file paths to their actual content for runtime access
  */
 
-// Import My Dashboard 6.1 content
-import dashboards61 from './6_1/my_dashboard_6_1/dashboards-6_1.mdx?raw';
-import dashboardsContents61 from './6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx?raw';
-import dashboardsCustomization61 from './6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx?raw';
-import dashboardsReportActions61 from './6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx?raw';
-import myDashboard61 from './6_1/my_dashboard_6_1/my-dashboard-6_1.mdx?raw';
-import myDashboardContents61 from './6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx?raw';
-import myDashboardOverview61 from './6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx?raw';
-import systemIcons61 from './6_1/my_dashboard_6_1/system-icons-6_1.mdx?raw';
-
-// Import Admin 6.1 content - Organizational Details
-import aboutOrgDetails61 from './6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx?raw';
-import organizationalDetails61 from './6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx?raw';
-import costCenter61 from './6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx?raw';
-import departments61 from './6_1/admin_6_1/admin_org_details/departments_6_1.mdx?raw';
-import departmentsMembers61 from './6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx?raw';
-import designations61 from './6_1/admin_6_1/admin_org_details/designations_6_1.mdx?raw';
-import holidays61 from './6_1/admin_6_1/admin_org_details/holidays_6_1.mdx?raw';
-import locations61 from './6_1/admin_6_1/admin_org_details/locations_6_1.mdx?raw';
-import operationalHours61 from './6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx?raw';
+// Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
+const content61Modules = import.meta.glob('./6_1/**/*.mdx', {
+  eager: true,
+  as: 'raw',
+}) as Record<string, string>;
 
 // Import NextGen content - Updated to use _ng file structure
 // My Dashboard
@@ -47,25 +34,6 @@ import ngRiskRegisterOverview from './NG/risk_register_ng/overview_ng.mdx?raw';
  * Content map - maps file paths to their content
  */
 const contentMap: Record<string, string> = {
-  // My Dashboard 6.1
-  '/content/6_1/my_dashboard_6_1/dashboards-6_1.mdx': dashboards61,
-  '/content/6_1/my_dashboard_6_1/dashboards-contents-6_1.mdx': dashboardsContents61,
-  '/content/6_1/my_dashboard_6_1/dashboards-customization-6_1.mdx': dashboardsCustomization61,
-  '/content/6_1/my_dashboard_6_1/dashboards-report-actions-6_1.mdx': dashboardsReportActions61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-6_1.mdx': myDashboard61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-contents-6_1.mdx': myDashboardContents61,
-  '/content/6_1/my_dashboard_6_1/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
-  '/content/6_1/my_dashboard_6_1/system-icons-6_1.mdx': systemIcons61,
-  // Admin 6.1 - Organizational Details
-  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
-  '/content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx': organizationalDetails61,
-  '/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx': costCenter61,
-  '/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx': departments61,
-  '/content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx': departmentsMembers61,
-  '/content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx': designations61,
-  '/content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx': holidays61,
-  '/content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx': locations61,
-  '/content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx': operationalHours61,
   // NextGen content - Updated to match _ng file structure paths
   // My Dashboard
   '/content/NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx': ngMyDashboardOverview,
@@ -85,6 +53,12 @@ const contentMap: Record<string, string> = {
   // Note: Additional NextGen files can be added here as needed
   // The path resolver will return paths, and files can be imported and mapped incrementally
 };
+
+// Dynamically add all Version 6.1 content (every module and page)
+for (const [relativePath, content] of Object.entries(content61Modules)) {
+  const normalizedPath = relativePath.replace('./', '/content/');
+  contentMap[normalizedPath] = content;
+}
 
 /**
  * Get content for a given file path

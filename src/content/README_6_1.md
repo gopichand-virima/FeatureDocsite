@@ -27,7 +27,7 @@ This documentation site provides comprehensive guides, references, and tutorials
 
 **Live Site**: https://gopichand-virima.github.io/FeatureDocsite/
 
-## Current Project Status
+## Current Project Status (Nov 2025)
 
 ### ✅ Completed Features
 
@@ -37,7 +37,22 @@ This documentation site provides comprehensive guides, references, and tutorials
    - Version 6.1
    - Version 5.13
 
-2. **Complete Module Coverage**
+2. **Version 6.1 Content Migration** ✅ **MAJOR PROGRESS**
+   - **Admin Module**: ✅ **COMPLETE** (229 files migrated)
+     - All 20 sub-modules fully migrated
+     - Proper frontmatter and formatting applied
+     - Single line break after frontmatter maintained
+   - **CMDB Module**: 🔄 **IN PROGRESS** (37 files identified)
+   - **Other Modules**: 📋 **PENDING** (Discovery Scan: 347, ITAM: 110, ITSM: 251, etc.)
+
+3. **Independent Path Resolution Architecture** ✅ **COMPLETE**
+   - **Version 6.1**: Completely independent path resolution using `_6_1` file extensions
+   - **NextGen (NG)**: Completely independent path resolution using `_ng` file extensions
+   - **Key Feature**: Changes to NG paths do NOT affect 6.1 paths and vice versa
+   - **Location**: `src/utils/mdxPathResolver.ts`
+   - **Structure**: Both versions follow the same TOC structure but maintain independent implementations
+
+4. **Complete Module Coverage**
    - My Dashboard (Application Overview, Shared Functions)
    - CMDB (Configuration Management Database)
    - Discovery Scan
@@ -48,9 +63,9 @@ This documentation site provides comprehensive guides, references, and tutorials
    - Program/Project Management
    - Risk Register
    - Reports
-   - Admin (with full submodule hierarchy)
+   - Admin (with full submodule hierarchy - 229 files migrated)
 
-3. **SEO/GEO Foundation**
+5. **SEO/GEO Foundation**
    - ✅ Canonical URLs with proper hostname
    - ✅ `robots.txt` for production and staging
    - ✅ Dynamic `sitemap.xml` generation
@@ -59,33 +74,79 @@ This documentation site provides comprehensive guides, references, and tutorials
    - ✅ HTML lang attributes and og:locale
    - ✅ Frontmatter support in all MDX files
 
-4. **Navigation & Breadcrumbs**
+6. **Navigation & Breadcrumbs**
    - ✅ 7-level breadcrumb structure: `Home > Version > Module > Section > Parent Topic > Nested > Page`
    - ✅ All breadcrumb levels are clickable
    - ✅ Automatic section detection (e.g., Application Overview for Shared Functions)
    - ✅ Dynamic parent topic detection
    - ✅ Full hierarchy matching TOC structure
+   - ✅ Admin 6.1 TOC built and mapped in `src/content/6_1/index.mdx`
 
-5. **Content Loading**
+7. **Content Loading**
    - ✅ Browser-safe MDX content loading (no Node.js dependencies)
    - ✅ Frontmatter parsing without Buffer dependency
    - ✅ Error handling with fallback content
-   - ✅ NextGen path resolution
+   - ✅ Version 6.1 path resolution (independent from NG)
+   - ✅ NextGen path resolution (independent from 6.1)
    - ✅ Version-specific content mapping
+   - ✅ Organizational Details fully integrated and viewable
 
-6. **Error Handling**
+8. **Error Handling**
    - ✅ React Error Boundary for graceful error handling
    - ✅ Defensive checks for missing props
    - ✅ Fallback content for missing pages
    - ✅ Console error logging
+   - ✅ Route-based error state reset
 
 ### 🚧 In Progress / Future Enhancements
 
+- **Content Migration**: CMDB module and other modules (Discovery Scan, ITAM, ITSM, etc.)
+- **Content Loader Integration**: Importing remaining Admin 6.1 sub-modules into contentLoader
 - Additional NextGen content files
 - Internationalization (i18n) with hreflang tags
 - Advanced search functionality
 - Analytics integration
 - Performance optimizations (code splitting)
+
+### 📊 Version 6.1 Migration Status
+
+**Admin Module (6.1)** - ✅ **100% COMPLETE**
+- **Total Files**: 229 MDX files
+- **Sub-modules Migrated**:
+  - ✅ Admin Functions (8 files)
+  - ✅ Organizational Details (9 files) - Fully integrated
+  - ✅ Discovery (55 files)
+  - ✅ SACM (26 files)
+  - ✅ Users (15 files)
+  - ✅ Change Management (8 files)
+  - ✅ Contract Management (3 files)
+  - ✅ Event Management (5 files)
+  - ✅ Hardware Asset Management (3 files)
+  - ✅ Incident Management (8 files)
+  - ✅ Knowledge Management (6 files)
+  - ✅ Problem Management (8 files)
+  - ✅ Procurement (3 files)
+  - ✅ Procurement Management (3 files)
+  - ✅ Project Management (3 files)
+  - ✅ Release Management (10 files)
+  - ✅ Request Management (10 files)
+  - ✅ Vendor Management (3 files)
+  - ✅ Integrations (13 files)
+  - ✅ Others (20 files)
+- **Source**: `MDX/admin/` → **Target**: `src/content/6_1/admin_6_1/`
+- **Status**: All files migrated with proper frontmatter and formatting
+
+**CMDB Module (6.1)** - 🔄 **IN PROGRESS**
+- **Total Files**: 37 MDX files identified
+- **Source**: `MDX/cmdb_left_nav/` → **Target**: `src/content/6_1/cmdb_6_1/`
+- **Status**: Migration in progress
+
+**Other Modules (6.1)** - 📋 **PENDING**
+- Discovery Scan: 347 files
+- ITAM: 110 files
+- ITSM: 251 files (including sub-modules)
+- My Dashboard: 18 files
+- Other modules: Various file counts
 
 ## Key Features
 
@@ -1172,14 +1233,35 @@ src/content/6_1/
 
 **Location**: `src/utils/mdxPathResolver.ts`
 
+**Architecture**: Completely independent from NextGen (NG) path resolution
+
 **Special Handling:**
 1. **My Dashboard 6.1**: Custom path mapping for dashboard-related pages
-2. **Admin > SACM**: Specific file name mappings for SACM submodule pages
+2. **Admin 6.1**: Comprehensive page mapping for all Admin sub-modules
+   - Organizational Details: 9 pages mapped
+   - Discovery: 55 pages mapped
+   - SACM: 26 pages mapped
+   - Users: 15 pages mapped
+   - Management Functions: All sub-modules mapped
+   - Integrations: 13 pages mapped
+   - Others: 20 pages mapped
 3. **Admin Sub-sections**: Automatic detection of Admin sub-folders (org_details, discovery, sacm, users, etc.)
+
+**Path Resolution Functions:**
+- `getAdmin61Path(section, page)`: Resolves Admin 6.1 paths with comprehensive page mapping
+- `getMyDashboard61Path(page, section)`: Resolves My Dashboard 6.1 paths
+- `get61AdminSubfolder(section)`: Maps sections to 6.1 admin subfolders
+- `pageIdTo61FileName(pageId)`: Converts page IDs to 6.1 file names
 
 **Example Path Resolution:**
 - URL: `/6.1/admin/sacm/cmdb-graphical-workflow`
 - Resolved Path: `/content/6_1/admin_6_1/admin_sacm/cmdb_graphical_workflow_6_1.mdx`
+
+- URL: `/6.1/admin/discovery/client/restart-client`
+- Resolved Path: `/content/6_1/admin_6_1/admin_discovery/client_restart_6_1.mdx`
+
+- URL: `/6.1/admin/org-details/cost-center`
+- Resolved Path: `/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx`
 
 ### Admin Module Sub-sections
 
@@ -1319,6 +1401,30 @@ Content here...
   - Automatically transformed to `/images_6_1/...` at runtime
   - Version-aware path resolution
 - **Result**: All 6.1 images load correctly without manual path updates
+
+#### 9. Independent Path Resolution Architecture (January 2025)
+- **Implementation**: Complete separation of NG and 6.1 path resolution logic
+  - NG functions: All use `_ng` file extensions
+  - 6.1 functions: All use `_6_1` file extensions
+  - Separate helper functions for each version
+  - Same TOC structure but independent implementations
+- **Location**: `src/utils/mdxPathResolver.ts`
+- **Result**: Versions can evolve independently without cross-contamination
+
+#### 10. Admin 6.1 Content Migration (January 2025)
+- **Implementation**: Complete migration of Admin 6.1 module
+  - 229 MDX files migrated from `MDX/admin/` to `src/content/6_1/admin_6_1/`
+  - All 20 sub-modules fully migrated
+  - Proper frontmatter and formatting applied
+  - Single line break after frontmatter maintained
+- **Result**: All Admin 6.1 content available and properly structured
+
+#### 11. Admin 6.1 TOC Integration (January 2025)
+- **Implementation**: Complete TOC structure for Admin 6.1
+  - TOC built in `src/content/6_1/index.mdx`
+  - Based on `Virima_v6_1_toc.fltoc` reference file
+  - All Admin sections properly mapped with correct file links
+- **Result**: Full navigation structure for Admin 6.1 module
 
 ## Documentation Modules
 
@@ -1473,11 +1579,37 @@ For issues or questions:
 ### Version 6.1 Change Log
 
 **January 2025:**
+
+- ✅ **Admin Module Content Migration**: Complete migration of 229 Admin 6.1 files
+  - All 20 sub-modules migrated (Organizational Details, Discovery, SACM, Users, Management Functions, Integrations, Others)
+  - Proper frontmatter and formatting applied
+  - Single line break after frontmatter maintained
+  - Source: `MDX/admin/` → Target: `src/content/6_1/admin_6_1/`
+
+- ✅ **Independent Path Resolution Architecture**: Complete separation of NG and 6.1 paths
+  - 6.1 functions use `_6_1` extensions (independent from NG)
+  - NG functions use `_ng` extensions (independent from 6.1)
+  - Same TOC structure but independent implementations
+  - Changes to one version don't affect the other
+
 - ✅ **Image Path Transformation**: Automatic conversion of `../Resources/Images/...` to `/images_6_1/...` for all 6.1 MDX files
+
 - ✅ **Admin Module Breadcrumbs**: Fixed breadcrumb hierarchy for Admin sub-sections (SACM, Discovery, Users, etc.)
-- ✅ **Content Path Resolution**: Enhanced path resolver for 6.1 Admin sub-modules
+
+- ✅ **Content Path Resolution**: Enhanced path resolver for 6.1 Admin sub-modules with comprehensive page mapping
+
+- ✅ **Admin 6.1 TOC**: Complete TOC structure built in `src/content/6_1/index.mdx` based on `Virima_v6_1_toc.fltoc`
+
+- ✅ **Content Loader Integration**: Organizational Details fully integrated and viewable
+
 - ✅ **Feedback Survey**: Added feedback form to all 6.1 documentation pages
+
 - ✅ **Error Boundary**: Improved error handling with route-based reset for 6.1 pages
+
+**In Progress:**
+- 🔄 CMDB Module migration (37 files)
+- 🔄 Content loader integration for remaining Admin sub-modules
+- 📋 Other modules migration (Discovery Scan, ITAM, ITSM, etc.)
 
 ---
 

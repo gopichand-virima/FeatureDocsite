@@ -5,33 +5,41 @@
  * This file maps file paths to their actual content for runtime access
  */
 
-// Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
-const content61Modules = import.meta.glob('./6_1/**/*.mdx', {
-  eager: true,
-  as: 'raw',
-}) as Record<string, string>;
-
-// Import all NextGen content dynamically (covers every module referenced in the TOC)
-const contentNGModules = import.meta.glob('./NG/**/*.mdx', {
-  eager: true,
-  as: 'raw',
-}) as Record<string, string>;
-
 /**
  * Content map - maps file paths to their content
  */
 const contentMap: Record<string, string> = {};
 
-// Dynamically add all Version 6.1 content (every module and page)
-for (const [relativePath, content] of Object.entries(content61Modules)) {
-  const normalizedPath = relativePath.replace('./', '/content/');
-  contentMap[normalizedPath] = content;
-}
+// Only use import.meta.glob if available (Vite environment)
+// In Node.js/tsx environments (like scripts), this will be undefined
+const globAvailable = typeof import.meta !== 'undefined' && typeof (import.meta as any).glob === 'function';
 
-// Dynamically add all NextGen content (every module and page)
-for (const [relativePath, content] of Object.entries(contentNGModules)) {
-  const normalizedPath = relativePath.replace('./', '/content/');
-  contentMap[normalizedPath] = content;
+if (globAvailable) {
+  // Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
+  const content61Modules = (import.meta as any).glob('./6_1/**/*.mdx', {
+    eager: true,
+    query: '?raw',
+    import: 'default',
+  }) as Record<string, string>;
+
+  // Import all NextGen content dynamically (covers every module referenced in the TOC)
+  const contentNGModules = (import.meta as any).glob('./NG/**/*.mdx', {
+    eager: true,
+    query: '?raw',
+    import: 'default',
+  }) as Record<string, string>;
+
+  // Dynamically add all Version 6.1 content (every module and page)
+  for (const [relativePath, content] of Object.entries(content61Modules)) {
+    const normalizedPath = relativePath.replace('./', '/content/');
+    contentMap[normalizedPath] = content;
+  }
+
+  // Dynamically add all NextGen content (every module and page)
+  for (const [relativePath, content] of Object.entries(contentNGModules)) {
+    const normalizedPath = relativePath.replace('./', '/content/');
+    contentMap[normalizedPath] = content;
+  }
 }
 
 /**

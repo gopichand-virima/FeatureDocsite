@@ -11,51 +11,25 @@ const content61Modules = import.meta.glob('./6_1/**/*.mdx', {
   as: 'raw',
 }) as Record<string, string>;
 
-// Import NextGen content - Updated to use _ng file structure
-// My Dashboard
-import ngMyDashboardOverview from './NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx?raw';
-import ngDashboardOverview from './NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx?raw';
-import ngDashboardContents from './NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx?raw';
-import ngDashboardCustomization from './NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx?raw';
-import ngDashboardReportsActions from './NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx?raw';
-// Application Overview
-import ngSystemIcons from './NG/application_overview_ng/icons_ng.mdx?raw';
-// Module overviews - using overview_ng.mdx naming
-import ngItsmOverview from './NG/itsm_ng/overview_ng.mdx?raw';
-import ngItamOverview from './NG/itam_ng/overview_ng.mdx?raw';
-import ngSelfServiceOverview from './NG/self_service_ng/overview_ng.mdx?raw';
-import ngReportsOverview from './NG/reports_ng/reports_ng.mdx?raw';
-import ngProgramProjectManagementOverview from './NG/program-project-management_ng/overview_ng.mdx?raw';
-import ngRiskRegisterOverview from './NG/risk_register_ng/overview_ng.mdx?raw';
-// Note: CMDB, Discovery Scan, and Vulnerability Management don't have overview files
-// They will fall back to DefaultContent when accessed
+// Import all NextGen content dynamically (covers every module referenced in the TOC)
+const contentNGModules = import.meta.glob('./NG/**/*.mdx', {
+  eager: true,
+  as: 'raw',
+}) as Record<string, string>;
 
 /**
  * Content map - maps file paths to their content
  */
-const contentMap: Record<string, string> = {
-  // NextGen content - Updated to match _ng file structure paths
-  // My Dashboard
-  '/content/NG/my_dashboard_ng/my-dashboard-overview-6_1.mdx': ngMyDashboardOverview,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_overview_ng.mdx': ngDashboardOverview,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_contents_ng.mdx': ngDashboardContents,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_customization_ng.mdx': ngDashboardCustomization,
-  '/content/NG/my_dashboard_ng/dashboards/dashboard_reports_actions_ng.mdx': ngDashboardReportsActions,
-  // Application Overview
-  '/content/NG/application_overview_ng/icons_ng.mdx': ngSystemIcons,
-  // Module overviews - using overview_ng.mdx paths
-  '/content/NG/itsm_ng/overview_ng.mdx': ngItsmOverview,
-  '/content/NG/itam_ng/overview_ng.mdx': ngItamOverview,
-  '/content/NG/self_service_ng/overview_ng.mdx': ngSelfServiceOverview,
-  '/content/NG/reports_ng/reports_ng.mdx': ngReportsOverview,
-  '/content/NG/program-project-management_ng/overview_ng.mdx': ngProgramProjectManagementOverview,
-  '/content/NG/risk_register_ng/overview_ng.mdx': ngRiskRegisterOverview,
-  // Note: Additional NextGen files can be added here as needed
-  // The path resolver will return paths, and files can be imported and mapped incrementally
-};
+const contentMap: Record<string, string> = {};
 
 // Dynamically add all Version 6.1 content (every module and page)
 for (const [relativePath, content] of Object.entries(content61Modules)) {
+  const normalizedPath = relativePath.replace('./', '/content/');
+  contentMap[normalizedPath] = content;
+}
+
+// Dynamically add all NextGen content (every module and page)
+for (const [relativePath, content] of Object.entries(contentNGModules)) {
   const normalizedPath = relativePath.replace('./', '/content/');
   contentMap[normalizedPath] = content;
 }

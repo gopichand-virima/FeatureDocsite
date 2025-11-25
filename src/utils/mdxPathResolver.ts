@@ -9,6 +9,7 @@
  */
 
 import { hasContent } from '../content/contentLoader';
+import { applicationOverviewPages, sharedFunctionsPages } from '../constants/adminPages';
 
 interface PathResolverParams {
   version: string;
@@ -41,7 +42,7 @@ const directPathVersionMap: Record<string, string> = {
 
 /**
  * Try to resolve MDX path directly from the current URL when it already matches the file structure.
- * Works for version-first content (6.1, 6.1.1, 5.13) where TOC links point to actual file paths.
+ * Works for version-first content (6.1, 6.1.1, 5.13, NextGen) where TOC links point to actual file paths.
  */
 function resolvePathFromCurrentUrl(currentPath?: string): string | null {
   if (!currentPath) return null;
@@ -62,7 +63,25 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
   const parts = normalized.split('/').filter(Boolean);
   if (parts.length < 2) return null;
 
-  const versionPart = parts[0];
+  const versionPart = parts[0].toLowerCase();
+  
+  // Handle NextGen paths (NextGen, NG, nextgen)
+  if (versionPart === 'nextgen' || versionPart === 'ng') {
+    const remainder = parts.slice(1).join('/');
+    if (!remainder) return null;
+    
+    let candidate = `/content/NG/${remainder}`;
+    if (!candidate.endsWith('.mdx')) {
+      candidate = `${candidate}.mdx`;
+    }
+    
+    if (hasContent(candidate)) {
+      return candidate;
+    }
+    return null;
+  }
+
+  // Handle versioned paths (6.1, 6.1.1, 5.13, etc.)
   const mappedVersion = directPathVersionMap[versionPart];
   if (!mappedVersion) return null;
 
@@ -275,36 +294,8 @@ function getNextGenPath(module: string, section: string, page: string): string |
   const basePath = '/content/NG';
   const moduleFolder = moduleToNgFolder(module);
   
-  // Application Overview pages - use application_overview_ng folder
-  const applicationOverviewPages = [
-    "system-icons",
-    "user-specific-functions", 
-    "online-help",
-    "shared-functions",
-    "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
-    "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
-    "delete-remove", "email-preferences", "enable-disable-editing", "export",
-    "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
-    "other-asset-info", "outage-calendar", "personalize-columns", "print",
-    "process-adm", "process-missing-components", "records-per-page",
-    "reload-default-mapping", "re-scan", "re-sync-data", "save",
-    "saved-filters", "searching", "show-main-all-properties", "tasks",
-    "updates", "version-control", "go-to-page", "send-report-to"
-  ];
-  
   // Application Overview pages
   if (section === 'application-overview' || (module === 'my-dashboard' && applicationOverviewPages.includes(page))) {
-    // Shared functions pages are in shared_functions_ng subfolder
-    const sharedFunctionsPages = ['advanced-search', 'attachments', 'auto-refresh', 'collapse-maximize',
-      'comments', 'copy-to-cherwell', 'copy-to-ivanti', 'copy-to-servicenow',
-      'delete-remove', 'email-preferences', 'enable-disable-editing', 'export',
-      'filter-by', 'history', 'import', 'items-per-page', 'mark-as-knowledge',
-      'other-asset-info', 'outage-calendar', 'personalize-columns', 'print',
-      'process-adm', 'process-missing-components', 'records-per-page',
-      'reload-default-mapping', 're-scan', 're-sync-data', 'save',
-      'saved-filters', 'searching', 'show-main-all-properties', 'tasks',
-      'updates', 'version-control', 'go-to-page', 'send-report-to'];
-    
     if (page === 'shared-functions') {
       // Shared functions parent page
       return `${basePath}/application_overview_ng/shared_functions_ng/about_common_functions_ng.mdx`;

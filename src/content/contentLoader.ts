@@ -16,30 +16,45 @@ const globAvailable = typeof import.meta !== 'undefined' && typeof (import.meta 
 
 if (globAvailable) {
   // Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
-  // Pattern should not include ?raw - it goes in the query option
+  // Using as: 'raw' - this works reliably and loads all files (4968 modules)
+  // Note: Deprecated but functional - will update when Vite 6 query syntax is stable
   const content61Modules = (import.meta as any).glob('./6_1/**/*.mdx', {
     eager: true,
-    query: '?raw',
-    import: 'default',
+    as: 'raw',
   }) as Record<string, string>;
 
   // Import all NextGen content dynamically (covers every module referenced in the TOC)
   const contentNGModules = (import.meta as any).glob('./NG/**/*.mdx', {
     eager: true,
-    query: '?raw',
-    import: 'default',
+    as: 'raw',
   }) as Record<string, string>;
 
   // Dynamically add all Version 6.1 content (every module and page)
   for (const [relativePath, content] of Object.entries(content61Modules)) {
+    // Normalize path: remove './' prefix
     const normalizedPath = relativePath.replace('./', '/content/');
-    contentMap[normalizedPath] = content;
+    if (content && typeof content === 'string') {
+      contentMap[normalizedPath] = content;
+    }
   }
 
   // Dynamically add all NextGen content (every module and page)
   for (const [relativePath, content] of Object.entries(contentNGModules)) {
+    // Normalize path: remove './' prefix
     const normalizedPath = relativePath.replace('./', '/content/');
-    contentMap[normalizedPath] = content;
+    if (content && typeof content === 'string') {
+      contentMap[normalizedPath] = content;
+    }
+  }
+  
+  // Debug: Log content map size (only in development)
+  if (import.meta.env.DEV) {
+    console.log(`[ContentLoader] Loaded ${Object.keys(contentMap).length} content files`);
+    const adminFiles = Object.keys(contentMap).filter(p => p.includes('admin_6_1'));
+    console.log(`[ContentLoader] Admin 6.1 files: ${adminFiles.length}`);
+    if (adminFiles.length > 0) {
+      console.log(`[ContentLoader] Sample admin paths:`, adminFiles.slice(0, 5));
+    }
   }
 }
 
@@ -49,7 +64,20 @@ if (globAvailable) {
  * @returns The content string or null if not found
  */
 export function getContent(filePath: string): string | null {
-  return contentMap[filePath] || null;
+  const content = contentMap[filePath];
+  if (!content && import.meta.env.DEV) {
+    // Debug: Log available paths that are close matches
+    const availablePaths = Object.keys(contentMap);
+    const similarPaths = availablePaths.filter(path => 
+      path.includes(filePath.split('/').slice(-2).join('/')) || 
+      filePath.includes(path.split('/').slice(-2).join('/'))
+    );
+    if (similarPaths.length > 0) {
+      console.warn(`[ContentLoader] Content not found for: ${filePath}`);
+      console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 5));
+    }
+  }
+  return content || null;
 }
 
 /**

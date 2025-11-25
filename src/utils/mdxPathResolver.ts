@@ -44,6 +44,10 @@ const directPathVersionMap: Record<string, string> = {
 /**
  * Try to resolve MDX path directly from the current URL when it already matches the file structure.
  * Works for version-first content (6.1, 6.1.1, 5.13, NextGen) where TOC links point to actual file paths.
+ * 
+ * For admin module, handles special structure:
+ * - /6_1/admin_6_1/admin_org_details/locations_6_1 -> direct match
+ * - /6_1/admin/organizational-details/locations -> needs conversion to admin_6_1/admin_org_details/locations_6_1
  */
 function resolvePathFromCurrentUrl(currentPath?: string): string | null {
   if (!currentPath) return null;
@@ -71,12 +75,25 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
     const remainder = parts.slice(1).join('/');
     if (!remainder) return null;
     
+    // Check if it's already a direct path (contains admin_ng, etc.)
+    if (remainder.includes('admin_ng') || remainder.includes('_ng')) {
+      let candidate = `/content/NG/${remainder}`;
+      if (!candidate.endsWith('.mdx')) {
+        candidate = `${candidate}.mdx`;
+      }
+      return candidate;
+    }
+    
+    // For admin module with URL params, let the parameter-based resolver handle it
+    // This ensures proper conversion of admin/organizational-details -> admin_ng/admin_org_details
+    if (remainder.startsWith('admin/')) {
+      return null; // Fall back to parameter-based resolution
+    }
+    
     let candidate = `/content/NG/${remainder}`;
     if (!candidate.endsWith('.mdx')) {
       candidate = `${candidate}.mdx`;
     }
-    
-    // Return the candidate path - let contentLoader handle existence check
     return candidate;
   }
 
@@ -87,13 +104,27 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
   const remainder = parts.slice(1).join('/');
   if (!remainder) return null;
 
+  // Check if it's already a direct file path (contains admin_6_1, _6_1, etc.)
+  if (remainder.includes(`admin_${mappedVersion}`) || remainder.includes(`_${mappedVersion}`)) {
+    let candidate = `/content/${mappedVersion}/${remainder}`;
+    if (!candidate.endsWith('.mdx')) {
+      candidate = `${candidate}.mdx`;
+    }
+    return candidate;
+  }
+
+  // For admin module with URL params (e.g., admin/organizational-details/locations),
+  // fall back to parameter-based resolution which handles the conversion properly
+  if (remainder.startsWith('admin/')) {
+    return null; // Let parameter-based resolver handle admin module paths
+  }
+
+  // For other modules, try direct path
   let candidate = `/content/${mappedVersion}/${remainder}`;
   if (!candidate.endsWith('.mdx')) {
     candidate = `${candidate}.mdx`;
   }
 
-  // Return the candidate path - let contentLoader handle existence check
-  // This allows paths to be resolved even if contentMap isn't fully populated yet
   return candidate;
 }
 
@@ -580,24 +611,39 @@ export function resolveMDXPath({ version, module, section, page, currentPath }: 
   // First, attempt to resolve directly from the current URL (covers TOC links and deep links)
   const directPath = resolvePathFromCurrentUrl(currentPath);
   if (directPath) {
+    if (typeof window !== 'undefined' && import.meta.env.DEV) {
+      console.log(`[PathResolver] Direct path resolved: ${directPath} from URL: ${currentPath}`);
+    }
     return directPath;
   }
 
   // Route to NextGen handler - completely independent
   if (version === 'NextGen') {
-    return getNextGenPath(module, section, page);
+    const ngPath = getNextGenPath(module, section, page);
+    if (typeof window !== 'undefined' && import.meta.env.DEV) {
+      console.log(`[PathResolver] NextGen path resolved: ${ngPath} (version=${version}, module=${module}, section=${section}, page=${page})`);
+    }
+    return ngPath;
   }
   
   // Route to 6.1 handler - completely independent
   if (version === '6.1') {
     // My Dashboard 6.1
     if (module === 'my-dashboard') {
-      return getMyDashboard61Path(page, section);
+      const path = getMyDashboard61Path(page, section);
+      if (typeof window !== 'undefined' && import.meta.env.DEV) {
+        console.log(`[PathResolver] My Dashboard 6.1 path resolved: ${path}`);
+      }
+      return path;
     }
     
     // Admin 6.1
     if (module === 'admin') {
-      return getAdmin61Path(section, page);
+      const path = getAdmin61Path(section, page);
+      if (typeof window !== 'undefined' && import.meta.env.DEV) {
+        console.log(`[PathResolver] Admin 6.1 path resolved: ${path} (section=${section}, page=${page})`);
+      }
+      return path;
     }
     
     // Other 6.1 modules can be added here with their own handlers
@@ -605,6 +651,9 @@ export function resolveMDXPath({ version, module, section, page, currentPath }: 
   
   // For other versions or unsupported combinations, return null
   // The component will fall back to hardcoded content
+  if (typeof window !== 'undefined' && import.meta.env.DEV) {
+    console.warn(`[PathResolver] No path resolved for: version=${version}, module=${module}, section=${section}, page=${page}`);
+  }
   return null;
 }
 

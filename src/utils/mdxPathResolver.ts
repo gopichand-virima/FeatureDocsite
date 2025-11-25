@@ -8,7 +8,8 @@
  * Changes to NG paths will NOT affect 6.1 paths and vice versa.
  */
 
-import { hasContent } from '../content/contentLoader';
+// hasContent is no longer needed - path resolution doesn't check content existence
+// Content existence is handled by contentLoader.getContent()
 import { applicationOverviewPages, sharedFunctionsPages } from '../constants/adminPages';
 
 interface PathResolverParams {
@@ -75,10 +76,8 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
       candidate = `${candidate}.mdx`;
     }
     
-    if (hasContent(candidate)) {
-      return candidate;
-    }
-    return null;
+    // Return the candidate path - let contentLoader handle existence check
+    return candidate;
   }
 
   // Handle versioned paths (6.1, 6.1.1, 5.13, etc.)
@@ -93,11 +92,9 @@ function resolvePathFromCurrentUrl(currentPath?: string): string | null {
     candidate = `${candidate}.mdx`;
   }
 
-  if (hasContent(candidate)) {
-    return candidate;
-  }
-
-  return null;
+  // Return the candidate path - let contentLoader handle existence check
+  // This allows paths to be resolved even if contentMap isn't fully populated yet
+  return candidate;
 }
 
 // ============================================================================

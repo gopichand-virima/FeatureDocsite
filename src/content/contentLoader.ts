@@ -16,6 +16,7 @@ const globAvailable = typeof import.meta !== 'undefined' && typeof (import.meta 
 
 if (globAvailable) {
   // Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
+  // Pattern should not include ?raw - it goes in the query option
   const content61Modules = (import.meta as any).glob('./6_1/**/*.mdx', {
     eager: true,
     query: '?raw',

@@ -2,6 +2,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { getAvailablePaths } from "./content/contentLoader";
 
 // Handle redirect from 404.html for GitHub Pages
 // This ensures React Router can handle the deep URL
@@ -23,6 +24,13 @@ import "./index.css";
       console.warn('Failed to handle redirect:', e);
       delete sessionStorage.redirect;
     }
+  }
+  
+  // Verify content is loaded on app initialization
+  const availablePaths = getAvailablePaths();
+  console.log(`[App Init] Content paths available: ${availablePaths.length}`);
+  if (availablePaths.length === 0) {
+    console.error('[App Init] CRITICAL: No content paths available! Content may not be loading correctly.');
   }
 })();
 

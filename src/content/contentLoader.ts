@@ -31,31 +31,59 @@ if (globAvailable) {
 
   // Dynamically add all Version 6.1 content (every module and page)
   for (const [relativePath, content] of Object.entries(content61Modules)) {
-    // Normalize path: remove './' prefix
-    const normalizedPath = relativePath.replace('./', '/content/');
+    // Normalize path: remove './' prefix and ensure consistent format
+    let normalizedPath = relativePath.replace('./', '/content/');
+    // Ensure path uses forward slashes and doesn't have duplicate slashes
+    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
     if (content && typeof content === 'string') {
       contentMap[normalizedPath] = content;
+    } else {
+      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
     }
   }
 
   // Dynamically add all NextGen content (every module and page)
   for (const [relativePath, content] of Object.entries(contentNGModules)) {
-    // Normalize path: remove './' prefix
-    const normalizedPath = relativePath.replace('./', '/content/');
+    // Normalize path: remove './' prefix and ensure consistent format
+    let normalizedPath = relativePath.replace('./', '/content/');
+    // Ensure path uses forward slashes and doesn't have duplicate slashes
+    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
     if (content && typeof content === 'string') {
       contentMap[normalizedPath] = content;
+    } else {
+      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
     }
   }
   
-  // Debug: Log content map size (only in development)
-  if (import.meta.env.DEV) {
-    console.log(`[ContentLoader] Loaded ${Object.keys(contentMap).length} content files`);
+  // Debug: Log content map size (both dev and production for troubleshooting)
+  const contentCount = Object.keys(contentMap).length;
+  console.log(`[ContentLoader] Loaded ${contentCount} content files`);
+  
+  if (contentCount === 0) {
+    console.error('[ContentLoader] WARNING: No content files loaded! Check import.meta.glob configuration.');
+  } else {
     const adminFiles = Object.keys(contentMap).filter(p => p.includes('admin_6_1'));
     console.log(`[ContentLoader] Admin 6.1 files: ${adminFiles.length}`);
-    if (adminFiles.length > 0) {
+    if (adminFiles.length > 0 && import.meta.env.DEV) {
       console.log(`[ContentLoader] Sample admin paths:`, adminFiles.slice(0, 5));
     }
   }
+}
+
+/**
+ * Normalize a file path to match contentMap keys
+ * Handles various path formats and ensures consistency
+ */
+function normalizeContentPath(filePath: string): string {
+  // Remove query params and hash
+  let normalized = filePath.split('?')[0].split('#')[0];
+  // Ensure it starts with /content/
+  if (!normalized.startsWith('/content/')) {
+    normalized = `/content/${normalized.replace(/^\/+/, '')}`;
+  }
+  // Normalize slashes
+  normalized = normalized.replace(/\\/g, '/').replace(/\/+/g, '/');
+  return normalized;
 }
 
 /**
@@ -64,19 +92,56 @@ if (globAvailable) {
  * @returns The content string or null if not found
  */
 export function getContent(filePath: string): string | null {
-  const content = contentMap[filePath];
-  if (!content && import.meta.env.DEV) {
-    // Debug: Log available paths that are close matches
-    const availablePaths = Object.keys(contentMap);
-    const similarPaths = availablePaths.filter(path => 
-      path.includes(filePath.split('/').slice(-2).join('/')) || 
-      filePath.includes(path.split('/').slice(-2).join('/'))
-    );
-    if (similarPaths.length > 0) {
-      console.warn(`[ContentLoader] Content not found for: ${filePath}`);
-      console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 5));
+  // Try exact match first
+  let normalizedPath = normalizeContentPath(filePath);
+  let content = contentMap[normalizedPath];
+  
+  // If not found, try without .mdx extension
+  if (!content && normalizedPath.endsWith('.mdx')) {
+    const withoutExt = normalizedPath.slice(0, -4);
+    content = contentMap[withoutExt];
+    if (content) {
+      normalizedPath = withoutExt;
     }
   }
+  
+  // If still not found, try with .mdx extension added
+  if (!content && !normalizedPath.endsWith('.mdx')) {
+    const withExt = `${normalizedPath}.mdx`;
+    content = contentMap[withExt];
+    if (content) {
+      normalizedPath = withExt;
+    }
+  }
+  
+  if (!content) {
+    // Debug: Log available paths that are close matches (both dev and production)
+    const availablePaths = Object.keys(contentMap);
+    const similarPaths = availablePaths.filter(path => {
+      const fileParts = normalizedPath.split('/').filter(Boolean);
+      const pathParts = path.split('/').filter(Boolean);
+      // Check if last 2-3 parts match
+      const fileEnd = fileParts.slice(-2).join('/');
+      const pathEnd = pathParts.slice(-2).join('/');
+      return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) || 
+             path.includes(fileParts[fileParts.length - 1]) ||
+             normalizedPath.includes(pathParts[pathParts.length - 1]);
+    });
+    
+    console.warn(`[ContentLoader] Content not found for: ${filePath} (normalized: ${normalizedPath})`);
+    console.warn(`[ContentLoader] Total available paths: ${availablePaths.length}`);
+    
+    if (similarPaths.length > 0) {
+      console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 10));
+    } else {
+      // Show some sample paths to help debug
+      const adminPaths = availablePaths.filter(p => p.includes('admin_6_1')).slice(0, 10);
+      if (adminPaths.length > 0) {
+        console.warn(`[ContentLoader] Sample admin paths available:`, adminPaths);
+      }
+    }
+  }
+  
   return content || null;
 }
 

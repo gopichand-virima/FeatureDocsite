@@ -70,21 +70,32 @@ async function discoverContentFiles(version: string): Promise<string[]> {
  * Fetches content from a file path
  */
 async function fetchContent(filePath: string): Promise<string> {
-  console.log(`📥 Fetching content from: ${filePath}`);
+  // Safety: Remove backticks if somehow they still exist
+  let cleanPath = filePath;
+  if (cleanPath.startsWith('`') && cleanPath.endsWith('`')) {
+    console.warn(`⚠️ Found backticks in file path, removing: ${cleanPath}`);
+    cleanPath = cleanPath.slice(1, -1);
+  }
+  
+  console.log(`📥 Fetching content from: ${cleanPath}`);
+  console.log(`📥 File path length: ${cleanPath.length}, has backticks: ${cleanPath.includes('`')}`);
   
   try {
-    const response = await fetch(filePath);
+    const response = await fetch(cleanPath);
     
     if (!response.ok) {
+      console.error(`❌ HTTP Error ${response.status} for ${cleanPath}`);
+      console.error(`❌ Response statusText: ${response.statusText}`);
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     
     const content = await response.text();
-    console.log(`✅ Loaded content (${content.length} chars) from ${filePath}`);
+    console.log(`✅ Loaded content (${content.length} chars) from ${cleanPath}`);
     
     return content;
   } catch (error) {
-    console.error(`❌ Failed to fetch content from ${filePath}:`, error);
+    console.error(`❌ Failed to fetch content from ${cleanPath}:`, error);
+    console.error(`❌ Error type:`, error instanceof Error ? error.message : typeof error);
     throw error;
   }
 }

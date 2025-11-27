@@ -46,9 +46,11 @@ async function fetchIndexFile(path: string): Promise<string> {
     if (versionMatch) {
       const versionId = versionMatch[1];
       const staticContent = getIndexContent(versionId);
-      if (staticContent) {
+      if (staticContent && staticContent.includes('##')) {
         console.log(`✅ Using static content for ${path}, length: ${staticContent.length}`);
         return staticContent;
+      } else {
+        console.log(`⚠️ Static content for ${versionId} is empty or invalid, falling back to fetch`);
       }
     }
     

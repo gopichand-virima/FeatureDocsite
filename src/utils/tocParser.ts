@@ -2,9 +2,19 @@
  * Parses the index.mdx file and generates the complete TOC structure
  */
 export function parseTocFile(content: string, version: string): TocStructure {
-  console.log(`🔧 parseTocFile called for version: ${version}, content length: ${content.length}`);
+  console.log(`🔧 [TOC Parser] parseTocFile called for version: ${version}, content length: ${content.length}`);
+  console.log(`🔧 [TOC Parser] First 500 chars of content:`, content.substring(0, 500));
   
-  const lines = content.split('\n');
+  // Handle both Unix (\n) and Windows (\r\n) line endings
+  const lines = content.split(/\r?\n/);
+  console.log(`🔧 [TOC Parser] Split into ${lines.length} lines`);
+  console.log(`🔧 [TOC Parser] Sample lines (first 10):`, lines.slice(0, 10));
+  console.log(`🔧 [TOC Parser] Line 22 (should be ## Application Overview):`, lines[22]);
+  console.log(`🔧 [TOC Parser] Line 22 char codes:`, lines[22] ? Array.from(lines[22]).map(c => c.charCodeAt(0)) : 'undefined');
+  console.log(`🔧 [TOC Parser] Looking for lines with "## "...`);
+  const moduleLines = lines.filter(l => l.trim().startsWith('## '));
+  console.log(`🔧 [TOC Parser] Found ${moduleLines.length} lines starting with "## ":`, moduleLines);
+  
   const modules: TocModule[] = [];
   const missingFiles: string[] = [];
   const validationErrors: string[] = [];
@@ -33,7 +43,7 @@ export function parseTocFile(content: string, version: string): TocStructure {
       const moduleId = convertToId(moduleName);
       
       moduleCount++;
-      console.log(`  📁 Module ${moduleCount}: "${moduleName}" -> ID: "${moduleId}"`);
+      console.log(`  📁 [TOC Parser] Module ${moduleCount}: "${moduleName}" -> ID: "${moduleId}"`);
       
       currentModule = {
         id: moduleId,
@@ -77,7 +87,12 @@ export function parseTocFile(content: string, version: string): TocStructure {
       const match = trimmed.match(/^-\s+(.+?)\s+→\s+(.+)$/);
       if (match && currentSection) {
         const pageName = match[1].trim();
-        const filePath = match[2].trim();
+        // Clean the file path - remove backticks if present
+        let filePath = match[2].trim();
+        // Remove leading and trailing backticks
+        if (filePath.startsWith('`') && filePath.endsWith('`')) {
+          filePath = filePath.slice(1, -1);
+        }
         const pageId = convertToId(pageName);
 
         pageCount++;
@@ -122,7 +137,7 @@ export function parseTocFile(content: string, version: string): TocStructure {
   // Validation: Check if files exist (this will be done at runtime)
   // For now, we'll just return the structure
 
-  console.log(`🔧 parseTocFile complete for ${version}:`, {
+  console.log(`🔧 [TOC Parser] parseTocFile complete for ${version}:`, {
     totalModules: moduleCount,
     totalSections: sectionCount,
     totalPages: pageCount,
@@ -130,8 +145,14 @@ export function parseTocFile(content: string, version: string): TocStructure {
   });
   
   if (modules.length === 0) {
-    console.error(`❌ ERROR: No modules were parsed for version ${version}!`);
-    console.log(`First 500 chars of content:`, content.substring(0, 500));
+    console.error(`❌ [TOC Parser] ERROR: No modules were parsed for version ${version}!`);
+    console.error(`❌ [TOC Parser] Module detection details:`, {
+      moduleCount,
+      totalLines: lines.length,
+      linesWithDoubleHash: lines.filter(l => l.trim().startsWith('## ')).length,
+    });
+    console.log(`📄 [TOC Parser] First 500 chars of content:`, content.substring(0, 500));
+    console.log(`📄 [TOC Parser] Lines that start with ##:`, lines.filter(l => l.trim().startsWith('## ')).slice(0, 10));
   }
 
   return {
@@ -326,4 +347,38 @@ export function resolveFilePath(
 
   const page = findPage(section.pages, pageId);
   return page ? page.filePath : null;
+}
+
+// Type definitions
+export interface TocStructure {
+  version: string;
+  modules: TocModule[];
+  missingFiles: string[];
+  validationErrors: string[];
+}
+
+export interface TocModule {
+  id: string;
+  label: string;
+  sections: TocSection[];
+}
+
+export interface TocSection {
+  id: string;
+  title: string;
+  label: string;
+  pages: TocPage[];
+}
+
+export interface TocPage {
+  id: string;
+  label: string;
+  filePath?: string;
+  subPages?: TocPage[];
+}
+
+export interface BreadcrumbItem {
+  label: string;
+  id: string;
+  type: 'home' | 'version' | 'module' | 'section' | 'parent' | 'nested' | 'page';
 }

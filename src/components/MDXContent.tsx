@@ -138,9 +138,6 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
               })}
             </BreadcrumbList>
           </Breadcrumb>
-          <span className="text-xs text-slate-500">
-            Last updated: November 10, 2025
-          </span>
         </div>
       )}
       

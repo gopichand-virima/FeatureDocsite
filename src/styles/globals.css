@@ -278,12 +278,12 @@ html {
 
 .resize-handle-left:hover,
 .resize-handle-right:hover {
-  background: rgba(16, 185, 129, 0.15) !important;
+  background: rgba(16, 185, 129, 0.12) !important;
 }
 
 .resize-handle-left:active,
 .resize-handle-right:active {
-  background: rgba(16, 185, 129, 0.25) !important;
+  background: rgba(16, 185, 129, 0.18) !important;
 }
 
 /* Enhanced resize handle visibility */
@@ -293,12 +293,12 @@ html {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
+  width: 4px;
   height: 40px;
-  background: rgba(16, 185, 129, 0.4);
-  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.85);
+  border-radius: 2px;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
   pointer-events: none;
 }
 

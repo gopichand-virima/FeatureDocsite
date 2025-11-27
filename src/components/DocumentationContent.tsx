@@ -336,18 +336,18 @@ export function DocumentationContent({
   };
 
   return (
-    <div className="flex max-w-[1920px] mx-auto">
-      <div className="flex-1 px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-16 max-w-4xl">
+    <div className="flex w-full overflow-x-hidden">
+      <div className="flex-1 min-w-0 px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-16 max-w-[1200px] mx-auto">
         {renderContent()}
       </div>
       <ResizableSidebar
         initialWidth={rightSidebarWidth}
         onResize={setRightSidebarWidth}
         minWidth={200}
-        maxWidth={400}
+        maxWidth={500}
         side="right"
       >
-        <aside className="h-full px-6 py-12 lg:py-16 border-l border-slate-200/60 overflow-y-auto">
+        <aside className="h-full w-full px-6 py-12 lg:py-16 border-l border-slate-200/60 overflow-y-auto overflow-x-hidden">
         <div className="-mt-12 mb-6 pb-6 border-b border-slate-200/60">
           <div className="flex items-start gap-2 mb-3">
             <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />

@@ -42,27 +42,26 @@ export function TableOfContents({ items, autoExtract = true }: TableOfContentsPr
     }
   }, [items, autoExtract]);
 
-  // Track active heading on scroll
+  // Intersection Observer to track which heading is in view
   useEffect(() => {
-    if (tocItems.length === 0) return;
+    const observerOptions = {
+      rootMargin: '-80px 0px -80% 0px',
+      threshold: 0
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-80px 0px -80% 0px' }
-    );
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id);
+        }
+      });
+    };
 
-    tocItems.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all headings
+    const headingElements = document.querySelectorAll('h2[id], h3[id], h4[id]');
+    headingElements.forEach((heading) => observer.observe(heading));
 
     return () => observer.disconnect();
   }, [tocItems]);
@@ -84,12 +83,12 @@ export function TableOfContents({ items, autoExtract = true }: TableOfContentsPr
             <a
               key={item.id}
               href={`#${item.id}`}
-              className={`block text-sm py-1 transition-colors ${
-                item.level === 2 ? 'pl-0' : item.level === 3 ? 'pl-4' : 'pl-8'
+              className={`block text-sm py-1.5 px-2 rounded transition-colors ${
+                item.level === 2 ? 'pl-2' : item.level === 3 ? 'pl-4' : 'pl-8'
               } ${
                 activeId === item.id
-                  ? 'text-emerald-600 font-medium'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'text-green-600 bg-green-50 font-medium'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
               onClick={(e) => {
                 e.preventDefault();

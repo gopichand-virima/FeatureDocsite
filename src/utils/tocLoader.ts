@@ -6,9 +6,11 @@
  */
 
 import { parseTocFile, TocStructure } from './tocParser';
-import { getIndexContent } from './indexContentMap';
+import { getIndexContent, indexContentMap } from './indexContentMap';
 
 // Cache for loaded TOC structures
+// Cache version - increment this when parser logic changes to invalidate old cache
+const CACHE_VERSION = 2;
 const tocCache: Map<string, TocStructure> = new Map();
 
 /**
@@ -29,22 +31,24 @@ const VERSION_PATH_MAP: Record<string, string> = {
 
 /**
  * Loads raw content from index.mdx files
- * Uses the indexContentMap which dynamically generates TOC content
+ * Uses the index content map which contains all TOC structures
  */
 async function loadIndexContent(versionPath: string): Promise<string> {
-  console.log(`🔍 Loading TOC content for version path: ${versionPath}`);
+  console.log(`🔍 [TOC Loader] Loading TOC content for version path: ${versionPath}`);
   
-  // Use the getIndexContent function from indexContentMap
+  // Get content from the index content map
   const content = getIndexContent(versionPath);
   
   if (content && content.length > 0) {
-    console.log(`✅ Using generated TOC content for ${versionPath}, length: ${content.length}`);
-    console.log(`📄 First 300 chars:`, content.substring(0, 300));
+    console.log(`✅ [TOC Loader] Loaded TOC content for ${versionPath}, length: ${content.length}`);
+    console.log(`📄 [TOC Loader] First 200 chars:`, content.substring(0, 200));
+    console.log(`📄 [TOC Loader] Has "## Admin"?:`, content.includes('## Admin'));
+    console.log(`📄 [TOC Loader] Has "## Application Overview"?:`, content.includes('## Application Overview'));
     return content;
   }
   
-  // Fallback if getIndexContent returns null
-  console.warn(`⚠️ No content from indexContentMap for ${versionPath}, using fallback`);
+  // Fallback
+  console.warn(`⚠️ [TOC Loader] No content found in map for ${versionPath}, using minimal fallback`);
   return generateFallbackToc(versionPath);
 }
 
@@ -147,13 +151,16 @@ function pathToVersionDisplay(path: string): string {
  * Loads the TOC for a specific version
  */
 export async function loadTocForVersion(version: string): Promise<TocStructure> {
+  // Create cache key with version number to invalidate on parser changes
+  const cacheKey = `${version}_v${CACHE_VERSION}`;
+  
   // Check cache first
-  if (tocCache.has(version)) {
-    console.log(`TOC cache hit for version ${version}`);
-    return tocCache.get(version)!;
+  if (tocCache.has(cacheKey)) {
+    console.log(`✅ TOC cache hit for version ${version} (cache v${CACHE_VERSION})`);
+    return tocCache.get(cacheKey)!;
   }
 
-  console.log(`Loading TOC for version ${version}...`);
+  console.log(`🔄 Loading fresh TOC for version ${version} (cache v${CACHE_VERSION})...`);
 
   try {
     const versionPath = VERSION_PATH_MAP[version] || version;
@@ -167,6 +174,14 @@ export async function loadTocForVersion(version: string): Promise<TocStructure> 
       throw new Error(`Invalid TOC content for ${version}`);
     }
 
+    // Debug: Check content before parsing
+    console.log('🔍 [TOC Loader] About to parse content...');
+    console.log('🔍 [TOC Loader] Content type:', typeof content);
+    console.log('🔍 [TOC Loader] Content length:', content.length);
+    console.log('🔍 [TOC Loader] First char code:', content.charCodeAt(0));
+    console.log('🔍 [TOC Loader] Has ## Application Overview:', content.includes('## Application Overview'));
+    console.log('🔍 [TOC Loader] Content substring 0-100:', content.substring(0, 100));
+    
     // Parse the TOC
     const structure = parseTocFile(content, version);
     
@@ -175,8 +190,9 @@ export async function loadTocForVersion(version: string): Promise<TocStructure> 
       modules: structure.modules.map(m => m.id),
     });
     
-    // Cache the result
-    tocCache.set(version, structure);
+    // Cache the result with versioned key
+    tocCache.set(cacheKey, structure);
+    console.log(`✅ Cached TOC for ${version} with key: ${cacheKey}`);
     
     return structure;
   } catch (error) {
@@ -197,6 +213,22 @@ export async function loadTocForVersion(version: string): Promise<TocStructure> 
  */
 export function clearTocCache(): void {
   tocCache.clear();
+  console.log('🗑️ TOC cache cleared - next load will read fresh index.mdx files');
+}
+
+/**
+ * Clears cache for a specific version
+ */
+export function clearTocCacheForVersion(version: string): void {
+  // Clear all cache keys for this version (including versioned variants)
+  const keysToDelete: string[] = [];
+  for (const key of tocCache.keys()) {
+    if (key.startsWith(version)) {
+      keysToDelete.push(key);
+    }
+  }
+  keysToDelete.forEach(key => tocCache.delete(key));
+  console.log(`🗑️ TOC cache cleared for version ${version} (${keysToDelete.length} entries)`);
 }
 
 /**

@@ -6,6 +6,8 @@ import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
+// Import debug helpers to expose to window
+import './utils/debugHelpers';
 
 export default function App() {
   const [selectedVersion, setSelectedVersion] = useState('NextGen');

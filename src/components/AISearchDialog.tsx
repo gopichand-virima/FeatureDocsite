@@ -517,6 +517,7 @@ export function AISearchDialog({
     "Incident workflow setup",
   ]);
   const [isListening, setIsListening] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
 
   // AI Chat state
   const [messages, setMessages] = useState<Message[]>([]);
@@ -527,6 +528,7 @@ export function AISearchDialog({
   >(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const aiInputRef = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<any>(null);
 
   // Auto-scroll messages
   useEffect(() => {
@@ -607,16 +609,165 @@ export function AISearchDialog({
     }
   };
 
-  const toggleVoiceInput = () => {
-    if (!isListening) {
+  // Initialize speech recognition
+  useEffect(() => {
+    // Check if browser supports Speech Recognition
+    const SpeechRecognition = 
+      (window as any).SpeechRecognition || 
+      (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      console.warn("Speech Recognition API not supported in this browser");
+      return;
+    }
+
+    // Check for secure context (HTTPS or localhost)
+    if (!window.isSecureContext && window.location.hostname !== 'localhost') {
+      console.warn("Speech Recognition requires HTTPS");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
       setIsListening(true);
-      // Simulate voice recognition
-      setTimeout(() => {
-        setSearchQuery("How do I configure network discovery?");
-        setIsListening(false);
-      }, 2000);
-    } else {
+      setVoiceError(null);
+    };
+
+    recognition.onresult = (event: any) => {
+      let interimTranscript = "";
+      let finalTranscript = "";
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + " ";
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      if (finalTranscript) {
+        setSearchQuery(finalTranscript.trim());
+      } else if (interimTranscript) {
+        // Show interim results as user speaks
+        setSearchQuery(interimTranscript.trim());
+      }
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
       setIsListening(false);
+      
+      switch (event.error) {
+        case "no-speech":
+          setVoiceError("No speech detected. Please try speaking again.");
+          break;
+        case "audio-capture":
+          setVoiceError("No microphone found. Please connect a microphone and try again.");
+          break;
+        case "not-allowed":
+          // Check if it's a permission issue or HTTPS issue
+          if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+            setVoiceError("Voice input requires HTTPS. This page must be served over a secure connection.");
+          } else {
+            setVoiceError("Microphone access blocked. Click the microphone icon in your browser's address bar to allow access.");
+          }
+          break;
+        case "network":
+          setVoiceError("Network error. Please check your internet connection.");
+          break;
+        case "aborted":
+          // User manually stopped, don't show error
+          setVoiceError(null);
+          break;
+        default:
+          setVoiceError(`Voice input error: ${event.error}. Please try again.`);
+      }
+
+      // Clear error after 8 seconds for longer messages
+      if (event.error !== "aborted") {
+        setTimeout(() => setVoiceError(null), 8000);
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+
+    // Cleanup on unmount
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch (e) {
+          // Ignore errors during cleanup
+        }
+      }
+    };
+  }, []);
+
+  const toggleVoiceInput = async () => {
+    if (!recognitionRef.current) {
+      // Check why it's not available and provide helpful message
+      const SpeechRecognition = 
+        (window as any).SpeechRecognition || 
+        (window as any).webkitSpeechRecognition;
+      
+      if (!SpeechRecognition) {
+        setVoiceError("Voice input is not supported in this browser. Try Chrome, Edge, or Safari.");
+      } else if (!window.isSecureContext && window.location.hostname !== 'localhost') {
+        setVoiceError("Voice input requires HTTPS. This page must be served over a secure connection.");
+      } else {
+        setVoiceError("Speech recognition unavailable. Please refresh the page.");
+      }
+      setTimeout(() => setVoiceError(null), 8000);
+      return;
+    }
+
+    if (!isListening) {
+      try {
+        // Request microphone permission explicitly
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          try {
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+          } catch (permError: any) {
+            if (permError.name === 'NotAllowedError') {
+              setVoiceError("Microphone access denied. Please allow microphone access in your browser settings and try again.");
+            } else if (permError.name === 'NotFoundError') {
+              setVoiceError("No microphone detected. Please connect a microphone.");
+            } else {
+              setVoiceError("Could not access microphone. Please check your settings.");
+            }
+            setTimeout(() => setVoiceError(null), 8000);
+            return;
+          }
+        }
+        
+        recognitionRef.current.start();
+      } catch (error: any) {
+        console.error("Error starting speech recognition:", error);
+        if (error.message && error.message.includes('already started')) {
+          // Recognition already running, just stop it
+          recognitionRef.current.stop();
+        } else {
+          setVoiceError("Failed to start voice input. Please try again.");
+          setTimeout(() => setVoiceError(null), 5000);
+        }
+      }
+    } else {
+      try {
+        recognitionRef.current.stop();
+      } catch (error) {
+        console.error("Error stopping speech recognition:", error);
+        setIsListening(false);
+      }
     }
   };
 
@@ -735,19 +886,30 @@ export function AISearchDialog({
 
           {/* Voice input indicator */}
           {isListening && (
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-400 via-red-500 to-red-400 animate-pulse">
-              <div
-                className="h-full bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                style={{
-                  animation: "shimmer 2s linear infinite",
-                }}
-              >
-                <style>{`
-                  @keyframes shimmer {
-                    0% { transform: translateX(-100%); }
-                    100% { transform: translateX(100%); }
-                  }
-                `}</style>
+            <div className="mt-2 flex items-center gap-2 text-sm text-red-600">
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span>Listening...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Voice error message */}
+          {voiceError && (
+            <div className="mt-2 flex items-start gap-2 text-sm text-red-700 bg-red-50 px-4 py-3 rounded-lg border border-red-200 shadow-sm">
+              <X className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="font-medium">{voiceError}</p>
+                {voiceError.includes("blocked") && (
+                  <p className="text-xs text-red-600 mt-1">
+                    Look for the microphone icon 🎤 in your browser's address bar and click "Allow"
+                  </p>
+                )}
+                {voiceError.includes("HTTPS") && (
+                  <p className="text-xs text-red-600 mt-1">
+                    Voice input only works on HTTPS websites or localhost for security reasons
+                  </p>
+                )}
               </div>
             </div>
           )}

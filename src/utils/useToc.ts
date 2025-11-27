@@ -15,6 +15,7 @@ export interface UseTocResult {
   error: string | null;
   modules: TocModule[];
   getModuleNavigation: (moduleId: string) => Promise<TocModule | null>;
+  reload: () => void;
 }
 
 /**
@@ -24,6 +25,7 @@ export function useToc(version: string): UseTocResult {
   const [structure, setStructure] = useState<TocStructure | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     let mounted = true;
@@ -66,10 +68,15 @@ export function useToc(version: string): UseTocResult {
     return () => {
       mounted = false;
     };
-  }, [version]);
+  }, [version, reloadTrigger]);
 
   const getModuleNavigation = async (moduleId: string): Promise<TocModule | null> => {
     return await getNavigationForModule(version, moduleId);
+  };
+
+  const reload = () => {
+    console.log('🔄 useToc: Triggering reload...');
+    setReloadTrigger(prev => prev + 1);
   };
 
   return {
@@ -78,6 +85,7 @@ export function useToc(version: string): UseTocResult {
     error,
     modules: structure?.modules || [],
     getModuleNavigation,
+    reload,
   };
 }
 

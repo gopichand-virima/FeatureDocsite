@@ -1,4 +1,4 @@
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, RefreshCw } from "lucide-react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -23,6 +23,7 @@ interface DocumentationHeaderProps {
   onVersionDropdownOpenChange: (open: boolean) => void;
   onSearchDialogOpen: () => void;
   onLoginDialogOpen: () => void;
+  onRefreshTOC?: () => void;
 }
 
 export function DocumentationHeader({
@@ -39,6 +40,7 @@ export function DocumentationHeader({
   onVersionDropdownOpenChange,
   onSearchDialogOpen,
   onLoginDialogOpen,
+  onRefreshTOC,
 }: DocumentationHeaderProps) {
   return (
     <header className="border-b border-slate-200/60 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
@@ -109,6 +111,19 @@ export function DocumentationHeader({
           >
             <span>Log in</span>
           </Button>
+
+          {!isHomePage && onRefreshTOC && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onRefreshTOC}
+              className="flex items-center gap-1.5 text-slate-700 hover:text-green-600 text-sm px-2 sm:px-3"
+              title="Refresh TOC - Reload navigation from index.mdx files"
+            >
+              <RefreshCw className="h-4 w-4" />
+              <span className="hidden xl:inline text-xs">Refresh TOC</span>
+            </Button>
+          )}
 
           {!isHomePage && (
             <Button

@@ -116,8 +116,8 @@ export function NavigationMenu({
                   }}
                   className={`flex-1 text-left px-2 py-1.5 rounded transition-colors ${
                     isActive
-                      ? "text-black-premium"
-                      : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
+                      ? "text-green-600 bg-green-50"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
                   <span>{section.title || section.label || section.id}</span>
@@ -162,7 +162,7 @@ export function NavigationMenu({
                             className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                               selectedPage === page.id && isActive
                                 ? "text-green-600 bg-green-50"
-                                : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
+                                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                             } ${!hasSubPages ? 'ml-5' : ''}`}
                           >
                             {page.label}
@@ -207,7 +207,7 @@ export function NavigationMenu({
                                       className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                         selectedPage === subPage.id && isActive
                                           ? "text-green-600 bg-green-50"
-                                          : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
+                                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                                       } ${!hasNestedSubPages ? 'ml-5' : ''}`}
                                     >
                                       {subPage.label}
@@ -227,7 +227,7 @@ export function NavigationMenu({
                                           className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors ${
                                             selectedPage === nestedSubPage.id && isActive
                                               ? "text-green-600 bg-green-50"
-                                              : "text-slate-600 hover:text-black-premium hover:bg-slate-50"
+                                              : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                                           }`}
                                         >
                                           {nestedSubPage.label}

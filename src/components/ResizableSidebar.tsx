@@ -19,6 +19,7 @@ export function ResizableSidebar({
   side = 'left',
 }: ResizableSidebarProps) {
   const [isResizing, setIsResizing] = useState(false);
+  const [isHoveringHandle, setIsHoveringHandle] = useState(false);
 
   const handleClasses = side === 'left' 
     ? { right: 'resize-handle-left' }
@@ -27,20 +28,20 @@ export function ResizableSidebar({
   const handleStyles = side === 'left'
     ? {
         right: {
-          width: '8px',
-          right: '-4px',
+          width: '6px',
+          right: '-3px',
           cursor: 'col-resize',
           background: 'transparent',
-          zIndex: 10,
+          zIndex: 100,
         },
       }
     : {
         left: {
-          width: '8px',
-          left: '-4px',
+          width: '6px',
+          left: '-3px',
           cursor: 'col-resize',
           background: 'transparent',
-          zIndex: 10,
+          zIndex: 100,
         },
       };
 
@@ -79,16 +80,34 @@ export function ResizableSidebar({
       enable={enableConfig}
       handleStyles={handleStyles}
       handleClasses={handleClasses}
-      className="hidden lg:block relative"
+      className="hidden lg:block relative flex-shrink-0"
+      style={{ overflow: 'visible' }}
     >
-      <div className={`h-full relative ${isResizing ? 'resizing' : ''}`}>
+      <div className={`h-full w-full relative ${isResizing ? 'resizing' : ''}`}>
         {children}
-        {/* Resize handle indicator */}
+        
+        {/* Hover detection area for resize handle */}
         <div 
-          className={`absolute ${side === 'left' ? 'right-0' : 'left-0'} top-0 bottom-0 w-1 bg-transparent hover:bg-emerald-500/50 transition-all duration-200 pointer-events-none z-20 ${isResizing ? 'bg-emerald-500/50' : ''}`}
-        >
-          <div className={`absolute ${side === 'left' ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-1 h-16 bg-emerald-600/70 rounded-full transition-opacity duration-200 ${isResizing ? 'opacity-100' : 'opacity-0'}`}></div>
-        </div>
+          className={`absolute ${side === 'left' ? 'right-0' : 'left-0'} top-0 bottom-0 w-[6px] z-[90]`}
+          style={{ 
+            [side === 'left' ? 'right' : 'left']: '-3px',
+          }}
+          onMouseEnter={() => setIsHoveringHandle(true)}
+          onMouseLeave={() => setIsHoveringHandle(false)}
+        />
+        
+        {/* Resize handle indicator - visible only when hovering the handle or dragging */}
+        <div 
+          className={`absolute ${side === 'left' ? 'right-0' : 'left-0'} top-0 bottom-0 transition-opacity duration-150 pointer-events-none z-[60]`}
+          style={{ 
+            [side === 'left' ? 'right' : 'left']: '0px',
+            width: '2px',
+            backgroundColor: '#10b981',
+            opacity: isResizing || isHoveringHandle ? 0.4 : 0,
+            boxShadow: 'none',
+            filter: 'none',
+          }}
+        ></div>
       </div>
     </Resizable>
   );

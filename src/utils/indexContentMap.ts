@@ -13,7 +13,7 @@
  * This ensures all versions have identical navigation structure
  */
 function generateTOC(versionCode: string, versionName: string): string {
-  console.log(`🔧 [TOC Generator v2.0] Generating TOC for ${versionName} (${versionCode})`);
+  console.log(`🔧 [TOC Generator] Generating TOC for ${versionName} (${versionCode})`);
   const tocContent = `# Virima Documentation - Version ${versionName}
 
 > Master Table of Contents for Version ${versionName}
@@ -736,18 +736,177 @@ function generateTOC(versionCode: string, versionName: string): string {
 - Graphical Workflows → /content/${versionCode}/admin_${versionCode}/others/graphical_workflows_${versionCode}.mdx
 `;
   
-  console.log(`✅ [TOC Generator v2.0] Generated TOC with ${tocContent.split('##').length - 1} modules`);
+  const moduleCount = tocContent.split('##').length - 1;
+  const lineCount = tocContent.split('\n').length;
+  console.log(`✅ [TOC Generator] Generated TOC with ${moduleCount} modules, ${lineCount} lines`);
+  console.log(`✅ [TOC Generator] First 800 chars:`, tocContent.substring(0, 800));
+  console.log(`✅ [TOC Generator] Lines 20-25:`, tocContent.split('\n').slice(20, 25));
+  return tocContent;
+}
+
+/**
+ * Generates NG-specific TOC that matches the actual NG/index.mdx structure
+ */
+function generateNGTOC(): string {
+  const tocContent = `# Virima Documentation - Version NextGen
+
+> Master Table of Contents for Version NextGen
+> Single source of truth for all navigation, routing, and structure
+
+---
+
+## Application Overview
+
+### Getting Started
+
+- Application Overview → /content/NG/all_about_virima_ng.mdx
+- System Icons → /content/NG/admin_ng/admin/icons_ng.mdx
+- User Specific Functions → /content/NG/user_specific_functions_ng.mdx
+
+### Shared Functions
+
+- Advanced Search → /content/NG/common_topics/advanced_search_ng.mdx
+- Attachments → /content/NG/common_topics/attachments_ng.mdx
+
+### Online Help
+
+- Online Help → /content/NG/online_help_ng.mdx
+
+---
+
+## Dashboards
+
+### Overview
+
+- Contents → /content/NG/my_dashboard/dashboards_contents_ng.mdx
+- Customization → /content/NG/my_dashboard/dashboards_customization_ng.mdx
+
+---
+
+## CMDB
+
+### Getting Started
+
+- CMDB Overview → /content/NG/cmdb_ng/cmdb_overview_ng.mdx
+- Access CMDB → /content/NG/cmdb_ng/access_cmdb_ng.mdx
+
+---
+
+## Discovery Scan
+
+### Overview
+
+- About Discovery Scan → /content/NG/discovery_ng/about_discovery_scan_ng.mdx
+
+---
+
+## ITSM
+
+### Overview
+
+- About ITSM → /content/NG/itsm_ng/about_itsm_ng.mdx
+
+---
+
+## Vulnerability Management
+
+### Overview
+
+- Vulnerability Management → /content/NG/vulnerability_managment_ng/vulnerability_management_ng.mdx
+
+---
+
+## ITAM
+
+### Overview
+
+- About ITAM → /content/NG/itam_ng/about_itam_ng.mdx
+
+---
+
+## Program/Project Management
+
+### Overview
+
+- About Program/Project Management → /content/NG/prog_proj_mngmnt_ng/about_prog_proj_mngmnt_ng.mdx
+
+---
+
+## Risk Register
+
+### Overview
+
+- About Risk Register → /content/NG/risk_register_ng/about_risk_register_ng.mdx
+
+---
+
+## Reports
+
+### Overview
+
+- Reports → /content/NG/reports_ng/reports_ng.mdx
+
+---
+
+## Admin
+
+### Overview
+
+- About Admin → /content/NG/admin_ng/admin/about_admin_ng.mdx
+
+### Organizational Details
+
+- About Organizational Details → /content/NG/admin_ng/admin_org_details/about_org_details_ng.mdx
+- Cost Center → /content/NG/admin_ng/admin_org_details/cost_center_ng.mdx
+- Departments → /content/NG/admin_ng/admin_org_details/departments_ng.mdx
+- Designations → /content/NG/admin_ng/admin_org_details/designations_ng.mdx
+- Holidays → /content/NG/admin_ng/admin_org_details/holidays_ng.mdx
+- Locations → /content/NG/admin_ng/admin_org_details/locations_ng.mdx
+- Operational Hours → /content/NG/admin_ng/admin_org_details/operational_hours_ng.mdx
+- Organizational Details → /content/NG/admin_ng/admin_org_details/organizational_details_ng.mdx
+
+### Discovery
+
+- Admin Discovery → /content/NG/admin_ng/admin_discovery/admin_discovery_ng.mdx
+
+### Users
+
+- AD Configuration → /content/NG/admin_ng/admin_users/ad_imp_auth_ng.mdx
+- Azure AD Configuration → /content/NG/admin_ng/admin_users/azure_ad_config_ng.mdx
+- User Groups → /content/NG/admin_ng/admin_users/user_groups_ng.mdx
+- User Roles → /content/NG/admin_ng/admin_users/user_roles_ng.mdx
+- Users → /content/NG/admin_ng/admin_users/users_ng.mdx
+`;
+
+  console.log(`✅ [TOC Generator - NG] Generated NextGen TOC`);
+  console.log(`✅ [TOC Generator - NG] Content length: ${tocContent.length} chars`);
+  console.log(`✅ [TOC Generator - NG] Line count: ${tocContent.split('\n').length}`);
+  console.log(`✅ [TOC Generator - NG] Module markers (##): ${tocContent.split('##').length - 1}`);
+  
   return tocContent;
 }
 
 console.log('📦 [indexContentMap] Initializing TOC content map...');
 
+const ngContent = generateNGTOC();
+const v61Content = generateTOC('6_1', '6.1');
+const v611Content = generateTOC('6_1_1', '6.1.1');
+const v513Content = generateTOC('5_13', '5.13');
+
 export const indexContentMap: Record<string, string> = {
-  'NG': generateTOC('NG', 'NextGen'),
-  '6_1': generateTOC('6_1', '6.1'),
-  '6_1_1': generateTOC('6_1_1', '6.1.1'),
-  '5_13': generateTOC('5_13', '5.13'),
+  'NG': ngContent,
+  '6_1': v61Content,
+  '6_1_1': v611Content,
+  '5_13': v513Content,
 };
+
+// Test the NG content immediately
+console.log('🧪 [indexContentMap] Testing NG content...');
+console.log('🧪 [indexContentMap] NG content length:', ngContent.length);
+console.log('🧪 [indexContentMap] NG has newlines:', ngContent.includes('\n'));
+console.log('🧪 [indexContentMap] NG line count:', ngContent.split('\n').length);
+console.log('🧪 [indexContentMap] NG first line:', ngContent.split('\n')[0]);
+console.log('🧪 [indexContentMap] NG lines 20-25:', ngContent.split('\n').slice(20, 25));
 
 console.log('✅ [indexContentMap] TOC map initialized with', Object.keys(indexContentMap).length, 'versions');
 console.log('📊 [indexContentMap] Sample NG content length:', indexContentMap['NG']?.length || 0);
@@ -755,10 +914,22 @@ console.log('📊 [indexContentMap] NG content includes "My Dashboard":', indexC
 
 /**
  * Gets the index content for a version
+ * Returns programmatic content from the indexContentMap
  */
 export function getIndexContent(version: string): string | null {
   const versionPath = versionToPath(version);
-  return indexContentMap[versionPath] || null;
+  console.log(`🔍 [getIndexContent] Called with version: "${version}", mapped to path: "${versionPath}"`);
+  
+  const content = indexContentMap[versionPath];
+  
+  if (content) {
+    console.log(`✅ [getIndexContent] Returning content for ${versionPath}: ${content.length} chars`);
+    return content;
+  }
+  
+  console.warn(`⚠️ [getIndexContent] No content found for version "${versionPath}"`);
+  console.log(`📋 [getIndexContent] Available versions:`, Object.keys(indexContentMap));
+  return null;
 }
 
 /**

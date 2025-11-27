@@ -1,0 +1,281 @@
+# Routing Rules
+
+Use this function to configure automatic routing and assignment rules that direct tickets to the appropriate support teams and technicians.
+
+Routing rules analyze ticket attributes and automatically assign tickets to the most appropriate group or individual, reducing manual triage time and ensuring faster response.
+
+In the main window, click **Admin > Service Desk > Routing Rules**. The Routing Rules window displays.
+
+## New Routing Rule
+
+From the *Select Actions* drop-down list, choose **New Routing Rule**. The New Routing Rule window displays.
+
+Enter a *Name* and *Description* for this rule.
+
+Configure the **Rule Settings**:
+
+**Is Active**: Check to enable this rule.
+
+**Priority Order**: Set the execution order (rules are evaluated in priority order).
+
+**Applies To**: Select ticket types (Incident, Request, Problem, Change).
+
+### Define Conditions
+
+Configure the conditions that trigger this routing rule.
+
+Click **Add Condition**.
+
+Build conditions using the following criteria:
+
+**Ticket Attributes**:
+
+- **Category**: Route based on ticket category
+- **Priority**: Route based on priority level
+- **Type**: Route based on ticket type
+- **Impact**: Route based on impact level
+- **Urgency**: Route based on urgency
+- **Source**: Route based on submission channel (email, portal, phone)
+
+**Requester Attributes**:
+
+- **Department**: Route based on user's department
+- **Location**: Route based on user's location
+- **VIP Status**: Route VIP users differently
+- **User Group**: Route based on group membership
+
+**Time-Based**:
+
+- **Business Hours**: Route differently during/after hours
+- **Day of Week**: Different routing on weekends
+- **Holidays**: Special routing on holidays
+
+**CI Attributes**:
+
+- **CI Type**: Route based on affected CI type
+- **CI Category**: Route based on CI category
+- **CI Assignment**: Route to CI support group
+
+**Content-Based**:
+
+- **Keywords in Subject**: Route based on subject line keywords
+- **Keywords in Description**: Route based on description content
+
+**Custom Fields**:
+
+- Route based on custom field values
+
+Use AND/OR logic to combine multiple conditions.
+
+### Define Actions
+
+Configure what happens when conditions are met.
+
+**Assignment Actions**:
+
+**Assign to Group**:
+
+- Select the target assignment group
+- Option: Auto-assign to available technician in group
+
+**Assign to User**:
+
+- Select specific user
+- Or use assignment method:
+  - Round-robin: Distribute evenly
+  - Least busy: Assign to user with fewest open tickets
+  - Skill-based: Match required skills
+  - Workload-based: Consider ticket complexity
+
+**Escalate Immediately**:
+
+- Skip level 1 and escalate to senior support
+
+**Field Update Actions**:
+
+**Set Priority**: Auto-adjust priority.
+
+**Set Category**: Auto-categorize ticket.
+
+**Add Tags**: Apply specific tags.
+
+**Update Custom Fields**: Set custom field values.
+
+**Notification Actions**:
+
+**Notify Assignment Group**: Alert the assigned group.
+
+**Notify Manager**: Notify department manager.
+
+**Notify Requester**: Confirm assignment to user.
+
+**Custom Notification**: Send to specific recipients.
+
+Click **Save** to save the routing rule.
+
+## Example Routing Rules
+
+### VIP User Routing
+
+**Condition**: Requester is VIP
+**Action**: 
+- Assign to VIP Support group
+- Set priority to High
+- Notify VIP support manager
+
+### Hardware Issue Routing
+
+**Condition**: Category is "Hardware" AND Location is "Building A"
+**Action**:
+- Assign to Field Services - Building A group
+- Set tags: hardware, on-site
+
+### After-Hours Routing
+
+**Condition**: Submitted outside business hours
+**Action**:
+- Assign to 24/7 Support group
+- Notify on-call technician
+
+### Network Issue Routing
+
+**Condition**: Keywords "network" OR "connectivity" OR "internet" in subject
+**Action**:
+- Assign to Network Operations group
+- Set category to Network
+- Set priority based on affected users count
+
+### Password Reset Routing
+
+**Condition**: Category is "Password Reset"
+**Action**:
+- Auto-assign using round-robin
+- Set to auto-close after resolution
+- Link to password reset knowledge article
+
+## Edit Routing Rule
+
+Navigate to the window containing the rule to edit.
+
+Click the line containing the rule. The rule details window displays.
+
+Make modifications to:
+
+- Rule conditions
+- Assignment actions
+- Notification settings
+- Priority order
+
+Click **Save**.
+
+## Rule Priority and Order
+
+The order in which rules are executed matters. Rules are evaluated from highest to lowest priority.
+
+To reorder rules:
+
+Click **Manage Rule Order**.
+
+Drag and drop rules to reorder them.
+
+Click **Save Order**.
+
+**Best Practice**: Place more specific rules higher in the order, with general "catch-all" rules lower.
+
+## Test Routing Rule
+
+Before activating a rule, test it with sample data:
+
+Select a routing rule.
+
+Click **Test Rule**.
+
+Enter sample ticket data:
+
+- Category
+- Priority
+- Requester
+- Subject line
+- Other attributes
+
+Click **Test**.
+
+The system shows:
+
+- Which rules would be triggered
+- Resulting assignment
+- Other actions that would be performed
+
+Make adjustments as needed.
+
+## Activate/Deactivate Rule
+
+To activate a rule:
+
+Select the rule.
+
+From the *Select Actions* drop-down list, choose **Activate**.
+
+To deactivate:
+
+Select an active rule.
+
+From the *Select Actions* drop-down list, choose **Deactivate**.
+
+Deactivated rules will not process tickets but are retained for future use.
+
+## Clone Routing Rule
+
+To create a new rule based on an existing one:
+
+Select a rule.
+
+From the *Select Actions* drop-down list, choose **Clone Rule**.
+
+Enter a new name and make modifications as needed.
+
+Click **Add**.
+
+## Delete Routing Rule
+
+Click the line that contains the rule to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Routing Analytics
+
+View routing rule effectiveness:
+
+Click **Routing Analytics**.
+
+Available metrics:
+
+- Tickets processed by each rule
+- Auto-assignment success rate
+- Rules with highest usage
+- Rules that need review
+- Unrouted tickets (no rules matched)
+
+Use analytics to refine routing rules over time.
+
+## Default Routing
+
+Configure what happens when no routing rules match:
+
+Click **Configure Default Routing**.
+
+Set:
+
+- **Default Assignment Group**: Fallback group
+- **Default Assignee**: Fallback user or method
+- **Notification**: Alert service desk supervisor
+
+Click **Save**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

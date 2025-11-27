@@ -1,0 +1,537 @@
+# Report Builder
+
+Use this function to create custom reports with flexible data sources, visualizations, and layouts.
+
+The Report Builder provides a powerful drag-and-drop interface for creating sophisticated reports without coding, while also supporting advanced SQL queries for power users.
+
+In the main window, click **Admin > Reports > Report Builder**. The Report Builder window displays.
+
+## Report Builder Interface
+
+The Report Builder consists of:
+
+- **Data Source Panel**: Select tables and fields
+- **Design Canvas**: Drag and drop report elements
+- **Properties Panel**: Configure element properties
+- **Preview Panel**: See report output in real-time
+- **Toolbar**: Access tools and actions
+
+## Create New Report
+
+Click **New Report**.
+
+### Step 1: Report Information
+
+**Basic Details**:
+
+- **Report Name**: Monthly Incident Summary
+- **Description**: Comprehensive monthly incident metrics
+- **Category**: Operational Reports > Incidents
+- **Tags**: incidents, monthly, metrics
+
+**Report Type**:
+
+- **Tabular Report**: Row and column data
+- **Summary Report**: Aggregated data with subtotals
+- **Chart Report**: Visual charts and graphs
+- **Dashboard**: Multiple widgets and visualizations
+- **Matrix Report**: Cross-tab analysis
+- **Custom Report**: Advanced SQL-based report
+
+Select report type and click **Next**.
+
+### Step 2: Data Source
+
+**Select Data Source**:
+
+- **Primary Table**: Incidents
+- **Related Tables**: Users, Assignment Groups, Categories
+
+**Join Configuration**:
+
+| Table | Join Type | Join Condition |
+|-------|-----------|----------------|
+| Users | Left Join | incidents.assigned_to = users.user_id |
+| Assignment Groups | Left Join | incidents.group = groups.group_id |
+| Categories | Left Join | incidents.category = categories.category_id |
+
+**Add Additional Data Sources**: Click **+ Add Table**
+
+Click **Next**.
+
+### Step 3: Select Fields
+
+**Available Fields**:
+
+Drag fields from left panel to report:
+
+**Incident Fields**:
+
+- ☑ Incident Number
+- ☑ Title
+- ☑ Priority
+- ☑ Status
+- ☑ Category
+- ☑ Created Date
+- ☑ Resolved Date
+- ☑ Assigned To
+- ☑ Assignment Group
+
+**Calculated Fields**:
+
+Create custom calculated fields:
+
+**Resolution Time**:
+
+```
+Formula: DATEDIFF(resolved_date, created_date, 'hours')
+Data Type: Number
+Format: 0.00 hours
+```
+
+**Priority Score**:
+
+```
+Formula: CASE 
+  WHEN priority = 'Critical' THEN 4
+  WHEN priority = 'High' THEN 3
+  WHEN priority = 'Medium' THEN 2
+  ELSE 1
+END
+```
+
+Click **Next**.
+
+### Step 4: Filters
+
+Add report filters:
+
+**Static Filters**:
+
+Always applied to report:
+
+- Status IN ('Resolved', 'Closed')
+- Created Date >= FIRST_DAY_OF_CURRENT_MONTH
+- Priority != 'Low'
+
+**Dynamic Filters** (User Prompts):
+
+Allow users to filter at runtime:
+
+- **Date Range**: Start Date to End Date
+- **Priority**: Multi-select dropdown
+- **Category**: Single-select dropdown
+- **Assigned To**: User picker
+
+**Filter Logic**:
+
+```
+(Status = 'Resolved' OR Status = 'Closed')
+AND Created Date BETWEEN @StartDate AND @EndDate
+AND (@Priority IS NULL OR Priority = @Priority)
+```
+
+Click **Next**.
+
+### Step 5: Grouping and Sorting
+
+**Group By**:
+
+- Primary Group: Category
+- Secondary Group: Priority
+- Tertiary Group: Assignment Group
+
+**Sort Order**:
+
+1. Category (Ascending)
+2. Priority (Descending by priority order)
+3. Created Date (Descending)
+
+**Aggregations**:
+
+- Count of Incidents
+- Average Resolution Time
+- Sum of Priority Scores
+
+Click **Next**.
+
+### Step 6: Layout Design
+
+**Report Layout**:
+
+Choose layout style:
+
+- **Classic Table**: Traditional rows and columns
+- **Grouped Layout**: Grouped with subtotals
+- **Card Layout**: Card-style presentation
+- **Pivot Table**: Cross-tab analysis
+- **Custom Layout**: Freeform design
+
+**Column Configuration**:
+
+| Column | Width | Alignment | Format |
+|--------|-------|-----------|--------|
+| Number | 100px | Left | Text |
+| Title | 300px | Left | Text |
+| Priority | 80px | Center | Badge |
+| Status | 100px | Center | Badge |
+| Created | 120px | Right | MM/DD/YYYY |
+| Resolution Time | 100px | Right | 0.00 hrs |
+
+**Styling**:
+
+- **Header Style**: Bold, dark background
+- **Row Style**: Alternating colors
+- **Footer Style**: Bold totals
+- **Conditional Formatting**: Highlight critical priority
+
+Click **Next**.
+
+### Step 7: Visualizations
+
+Add charts and graphs:
+
+**Chart 1: Incidents by Priority**:
+
+- **Chart Type**: Pie Chart
+- **Data**: Count of incidents grouped by priority
+- **Colors**: Critical=Red, High=Orange, Medium=Yellow, Low=Green
+- **Show Labels**: Yes
+- **Show Legend**: Yes
+
+**Chart 2: Trend Over Time**:
+
+- **Chart Type**: Line Chart
+- **X-Axis**: Created Date (grouped by week)
+- **Y-Axis**: Count of incidents
+- **Series**: Priority levels
+- **Show Data Points**: Yes
+- **Show Grid**: Yes
+
+**Chart 3: Top Categories**:
+
+- **Chart Type**: Horizontal Bar Chart
+- **Data**: Top 10 categories by incident count
+- **Color**: Gradient blue
+- **Show Values**: Yes
+
+Position charts on report canvas.
+
+Click **Next**.
+
+### Step 8: Summary and Totals
+
+**Summary Sections**:
+
+**Report Header**:
+
+- Report Title
+- Report Period
+- Generation Date
+- Total Incidents
+
+**Group Subtotals**:
+
+- Incidents per category
+- Average resolution time per category
+- Total per priority level
+
+**Report Footer**:
+
+- Grand Total Incidents
+- Overall Average Resolution Time
+- Compliance Metrics
+
+Click **Next**.
+
+### Step 9: Format and Style
+
+**Page Settings**:
+
+- **Orientation**: Portrait or Landscape
+- **Page Size**: Letter, A4, Legal
+- **Margins**: Top: 0.5", Bottom: 0.5", Left: 0.5", Right: 0.5"
+
+**Fonts and Colors**:
+
+- **Title Font**: Arial, 18pt, Bold
+- **Header Font**: Arial, 12pt, Bold
+- **Body Font**: Arial, 10pt
+- **Color Scheme**: Corporate colors
+
+**Branding**:
+
+- ☑ Include company logo
+- ☑ Include report header
+- ☑ Include page numbers
+- ☑ Include generation timestamp
+
+Click **Next**.
+
+### Step 10: Output Options
+
+**Default Output Format**: PDF
+
+**Available Formats**:
+
+- ☑ PDF
+- ☑ Excel
+- ☑ CSV
+- ☑ HTML
+- ☐ PowerPoint
+
+**Excel-Specific Options**:
+
+- Create separate sheets for charts
+- Freeze header row
+- Auto-fit columns
+- Include formulas
+
+**PDF-Specific Options**:
+
+- Enable printing
+- Enable copying
+- Password protection
+- Digital signature
+
+Click **Save Report**.
+
+## Report Elements
+
+### Data Tables
+
+**Table Properties**:
+
+- Column headers
+- Row styling
+- Cell formatting
+- Borders and gridlines
+- Pagination
+
+**Table Actions**:
+
+- Sort by column
+- Filter inline
+- Export table data
+- Drill-down to details
+
+### Charts and Graphs
+
+**Available Chart Types**:
+
+- **Bar Chart**: Horizontal or vertical
+- **Line Chart**: Trends over time
+- **Pie Chart**: Proportional distribution
+- **Donut Chart**: Pie with center hole
+- **Area Chart**: Filled line chart
+- **Scatter Plot**: Correlation analysis
+- **Gauge**: KPI metrics
+- **Funnel**: Conversion metrics
+- **Heatmap**: Intensity visualization
+
+**Chart Configuration**:
+
+- Data series
+- Axes labels
+- Legend position
+- Color palette
+- Interactive tooltips
+
+### Text Elements
+
+**Text Boxes**:
+
+- Static text
+- Dynamic field values
+- Formatted rich text
+- Markdown support
+
+**Labels and Titles**:
+
+- Report title
+- Section headers
+- Field labels
+- Footnotes
+
+### Images and Logos
+
+**Image Elements**:
+
+- Company logo
+- Charts as images
+- Custom graphics
+- QR codes
+
+**Image Properties**:
+
+- Size and position
+- Alignment
+- Border
+- Transparency
+
+### KPI Widgets
+
+**KPI Card**:
+
+- Large number display
+- Trend indicator (up/down)
+- Comparison to target
+- Sparkline chart
+
+**Example KPI**:
+
+```
+Total Incidents: 1,234
+vs Last Month: ↑ 15%
+Target: 1,000 (over target)
+```
+
+## Advanced Features
+
+### SQL Query Mode
+
+For advanced users:
+
+Click **Switch to SQL Mode**.
+
+**Custom SQL Query**:
+
+```sql
+SELECT 
+  i.number,
+  i.title,
+  i.priority,
+  i.status,
+  u.full_name AS assigned_to,
+  g.group_name,
+  DATEDIFF(i.resolved_date, i.created_date, 'hours') AS resolution_hours,
+  CASE 
+    WHEN i.priority = 'Critical' THEN 4
+    WHEN i.priority = 'High' THEN 3
+    WHEN i.priority = 'Medium' THEN 2
+    ELSE 1
+  END AS priority_score
+FROM incidents i
+LEFT JOIN users u ON i.assigned_to = u.user_id
+LEFT JOIN assignment_groups g ON i.group_id = g.group_id
+WHERE i.status IN ('Resolved', 'Closed')
+  AND i.created_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+ORDER BY i.created_date DESC
+```
+
+**Query Parameters**:
+
+```sql
+WHERE created_date BETWEEN @start_date AND @end_date
+  AND (@priority IS NULL OR priority = @priority)
+```
+
+### Drill-Down Reports
+
+Configure drill-down navigation:
+
+**Parent Report**: Incident Summary by Category
+
+**Child Report**: Incident Details
+
+**Drill-Down Link**: Click category to see details
+
+**Parameter Passing**:
+
+```
+Parent passes: category_id = 'Hardware'
+Child filters: WHERE category_id = @passed_category_id
+```
+
+### Subreports
+
+Embed reports within reports:
+
+**Main Report**: Monthly Summary
+
+**Subreport 1**: Incident Breakdown (embedded)
+
+**Subreport 2**: SLA Compliance (embedded)
+
+**Data Context**: Shared or independent
+
+### Conditional Formatting
+
+Apply formatting based on values:
+
+**Rule 1: Highlight Overdue**:
+
+```
+Condition: resolution_hours > sla_target_hours
+Format: Red background, white text
+```
+
+**Rule 2: Priority Colors**:
+
+```
+Critical: Red badge
+High: Orange badge
+Medium: Yellow badge
+Low: Green badge
+```
+
+**Rule 3: Trend Indicators**:
+
+```
+Increase: ↑ Green
+Decrease: ↓ Red
+No Change: → Gray
+```
+
+## Test Report
+
+Click **Preview Report**.
+
+**Preview Options**:
+
+- Use sample data
+- Use live data (limited rows)
+- Apply test filters
+
+**Preview Modes**:
+
+- Desktop view
+- Mobile view
+- Print preview
+
+Verify layout and data accuracy.
+
+## Save and Publish
+
+**Save Options**:
+
+- **Save Draft**: Work in progress
+- **Save and Activate**: Make available to users
+- **Save as Template**: Reusable template
+
+**Publication Settings**:
+
+- **Visibility**: Public, Private, or Specific roles
+- **Permissions**: Who can view/edit/run
+- **Location**: Report category/folder
+
+Click **Save and Activate**.
+
+## Clone Report
+
+Create copy of existing report:
+
+Select a report.
+
+Click **Clone Report**.
+
+Modify as needed and save with new name.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Import](/common_topics/import_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

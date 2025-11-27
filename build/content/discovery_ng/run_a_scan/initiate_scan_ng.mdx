@@ -1,0 +1,49 @@
+---
+title: "Initiating a Scan"
+description: "Enter IP Range"
+version: ""
+module: "Discovery"
+section: "Run A Scan"
+page: "Initiating a Scan"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Discovery"
+  - "Run A Scan"
+  - "Initiate Scan"
+  - "Initiating a Scan"
+---
+
+# Initiating a Scan
+
+# **Enter IP Range**
+
+Specify the target network using one of the following formats:
+
+- **Single IP:** 192.168.1.10
+- **Multiple IPs (space-separated):** 192.168.1.10 192.168.1.15 192.168.1.20
+- **CIDR Notation:** 192.168.1.0/24
+- **IP Range:** 192.168.1.1-192.168.1.254
+
+# **Choose a Client**
+
+Select a **Discovery Client** (discovery server) from the dropdown.
+
+- If no clients appear, configure one in **Admin > Discovery > Clients**.
+- The client must be **active** and **reachable** from the Virima server.
+
+# **Type of Scan**
+
+Choose from available scan types, such as:
+
+- **Deep Host Scan** – Full system inventory (OS, hardware, software, services, etc.)
+- **Basic Host Scan** – Minimal data (IP, hostname, MAC, OS)
+- **Port Scan** – Identifies open ports
+- **Website Discovery** – Web URL scanning
+- **Certificate Scan** – SSL certificate details
+
+# **Scan Behavior**
+
+- Once the scan starts, it appears in **Recent Scans** with a **Running** status.
+- Discovered assets populate **Discovered Items** upon completion.
+- If the scan **fails**, check the **Logs** tab for detailed error information (credential issues, unreachable hosts, etc.).

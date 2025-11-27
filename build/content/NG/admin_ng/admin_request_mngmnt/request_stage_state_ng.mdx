@@ -1,0 +1,118 @@
+# Request Stage and State
+
+Use this function to manage request lifecycle stages and their associated states.
+
+The following stages and states are pre-configured. These can be modified to match your organization's request management process.
+
+| Order | Request Stage | Request States | Description |
+| 1 | New | - New<br>- Submitted | Initial stage when a request is submitted. |
+| 2 | Approval | - Pending Approval<br>- Approved<br>- Rejected | Stage when the request requires approval. |
+| 3 | Fulfillment | - Assigned<br>- In Progress<br>- Pending | Stage when the request is being fulfilled. |
+| 4 | Completed | - Fulfilled<br>- Delivered | Stage when fulfillment is complete. |
+| 5 | Closed | - Closed<br>- Cancelled | Final stage when the request is closed. |
+
+In the main window, click **Admin > Request Management > Request Stage and State**. The Request Stage and State window displays.
+
+## Stage Functions
+
+### New Request Stage
+
+From the *Select Actions* drop-down list, choose **New Request Stage**. The New Request Stage window displays.
+
+Enter a *Name* and *Description*.
+
+In the *Stage Order* field, click the drop-down list and select the order for this stage.
+
+Specify if this stage should trigger any automated actions:
+
+- Send notifications
+- Update SLA timers
+- Trigger workflows
+- Change assignment
+
+Click **Add**.
+
+### Edit Request Stage
+
+Navigate to the window containing the stage record to edit.
+
+Click the line containing the stage. The stage window displays.
+
+Make the necessary modifications.
+
+Click **Save**.
+
+### Delete Request Stage
+
+Click the line that contains the stage to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## State Functions
+
+### New Request State
+
+Click the line item containing the stage to add a corresponding state(s).
+
+In the new window, click the **State** tab.
+
+Click **New Request State**.
+
+Enter a *Name*, *Description* and *Action Name*.
+
+Configure state properties:
+
+**Notify**: Click **Add** to select users or roles to notify when a request enters this state.
+
+**Approver Roles**: Click **Add** to select roles that can approve requests in this state.
+
+**SLA Pause**: Check if SLA timers should pause in this state.
+
+**Auto-Fulfill**: Check if requests can be automatically fulfilled in this state.
+
+When all selections/entries are made, click **Save**.
+
+### Edit Request State
+
+Select the stage containing the state.
+
+Click the **State** tab.
+
+Click the line containing the state to edit.
+
+Make the necessary modifications.
+
+Click **Save**.
+
+### Delete Request State
+
+Select the stage containing the state.
+
+Click the **State** tab.
+
+Select the state to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## State Transitions
+
+Configure which state transitions are allowed:
+
+Click **Manage Transitions**.
+
+For each state, define:
+
+- Allowed next states
+- Required fields for transition
+- Approval requirements
+- Notification triggers
+
+Click **Save**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

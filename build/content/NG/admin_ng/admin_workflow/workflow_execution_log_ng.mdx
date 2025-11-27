@@ -1,0 +1,445 @@
+# Workflow Execution Log
+
+Use this function to view, monitor, and troubleshoot workflow execution history and performance.
+
+The Workflow Execution Log provides visibility into workflow runs, helping identify issues, optimize performance, and maintain audit trails.
+
+In the main window, click **Admin > Workflow Management > Workflow Execution Log**. The Workflow Execution Log window displays.
+
+## Overview
+
+The execution log captures:
+
+- All workflow executions
+- Trigger events
+- Conditions evaluated
+- Actions performed
+- Success/failure status
+- Execution duration
+- Error messages
+- Variable values
+
+## View Execution Log
+
+The log displays recent workflow executions.
+
+**Log Columns**:
+
+- **Execution ID**: Unique identifier
+- **Workflow Name**: Which workflow ran
+- **Triggered By**: Event or user that triggered
+- **Record**: Associated ticket/record number
+- **Start Time**: When execution began
+- **End Time**: When execution completed
+- **Duration**: Total execution time
+- **Status**: Success, Failed, Partial, Cancelled
+- **Actions Executed**: Number of actions run
+- **Error Count**: Number of errors encountered
+
+## Filter Execution Log
+
+Narrow down log entries using filters:
+
+**Filter By Workflow**:
+
+- Select specific workflow
+- View all executions of that workflow
+
+**Filter By Status**:
+
+- Success: Completed without errors
+- Failed: Execution failed
+- Partial: Some actions failed
+- Running: Currently executing
+- Cancelled: Manually stopped
+
+**Filter By Date Range**:
+
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+- Custom date range
+
+**Filter By Record**:
+
+- Enter ticket number
+- View all workflows for that ticket
+
+**Filter By User**:
+
+- Triggered by specific user
+- Actions affecting specific user
+
+**Filter By Execution Time**:
+
+- Fast (< 1 second)
+- Normal (1-10 seconds)
+- Slow (> 10 seconds)
+- Very slow (> 60 seconds)
+
+Click **Apply Filters**.
+
+## View Execution Details
+
+Click an execution entry to view detailed information.
+
+### Execution Summary
+
+**Basic Information**:
+
+- Execution ID
+- Workflow name and version
+- Start and end timestamps
+- Total duration
+- Overall status
+
+**Trigger Details**:
+
+- Trigger type (event, schedule, manual)
+- Trigger source
+- Related record
+- User who initiated
+
+**Execution Context**:
+
+- Server instance
+- Process ID
+- Thread ID
+- Memory usage
+
+### Execution Timeline
+
+Visual timeline showing workflow progression:
+
+**Timeline View**:
+
+```
+[Start] → [Trigger] → [Condition Check] → [Action 1] → [Action 2] → [Action 3] → [Complete]
+  |         0ms          5ms              10ms         250ms        500ms        520ms
+```
+
+Each step shows:
+
+- Step name
+- Start time (relative)
+- Duration
+- Status indicator
+- Click to view step details
+
+### Conditions Evaluated
+
+View all condition checks:
+
+**Condition Results**:
+
+| Condition | Result | Evaluation Time |
+|-----------|--------|-----------------|
+| Priority = Critical | True | 2ms |
+| Category = Hardware | True | 1ms |
+| Assigned = empty | False | 1ms |
+| **Overall** | **True** | **4ms** |
+
+Shows why workflow did or didn't execute.
+
+### Actions Executed
+
+Detailed list of all actions performed:
+
+**Action List**:
+
+For each action:
+
+**Action 1: Update Status**
+
+- Action Type: Field Update
+- Status: Success ✓
+- Duration: 15ms
+- Details:
+  - Field: Status
+  - Old Value: New
+  - New Value: In Progress
+- Timestamp: 2024-01-15 10:23:45
+
+**Action 2: Send Notification**
+
+- Action Type: Email Notification
+- Status: Success ✓
+- Duration: 235ms
+- Details:
+  - To: john.doe@company.com
+  - Subject: Ticket #12345 Assigned
+  - Delivery: Sent successfully
+- Timestamp: 2024-01-15 10:23:45
+
+**Action 3: Create Task**
+
+- Action Type: Create Record
+- Status: Success ✓
+- Duration: 45ms
+- Details:
+  - Record Type: Task
+  - Record ID: TASK-789
+  - Fields Set: 7
+- Timestamp: 2024-01-15 10:23:45
+
+### Variables and Data
+
+View workflow variables during execution:
+
+**Variable Values**:
+
+| Variable Name | Type | Value | Last Updated |
+|---------------|------|-------|--------------|
+| ticketPriority | String | Critical | Step 2 |
+| assignedGroup | String | Network Team | Step 3 |
+| escalationLevel | Number | 2 | Step 5 |
+| notificationSent | Boolean | true | Step 7 |
+
+Helps debug workflow logic issues.
+
+### Error Details
+
+If execution failed, view error information:
+
+**Error Summary**:
+
+- Error count
+- First error
+- Last error
+- Error severity
+
+**Error List**:
+
+For each error:
+
+**Error 1**:
+
+- Error Type: API Call Failed
+- Severity: High
+- Step: Action 3 - Update External System
+- Message: "Connection timeout to external API"
+- Stack Trace: [View Full Stack]
+- Timestamp: 2024-01-15 10:23:50
+- Retry Attempts: 3
+
+**Error 2**:
+
+- Error Type: Validation Error
+- Severity: Medium
+- Step: Action 5 - Update Field
+- Message: "Required field 'Category' is empty"
+- Resolution: Field auto-populated with default
+- Timestamp: 2024-01-15 10:23:52
+
+### Retry History
+
+If actions were retried:
+
+**Retry Log**:
+
+- Attempt 1: Failed - Connection timeout
+- Attempt 2: Failed - Connection timeout
+- Attempt 3: Success - Connected successfully
+
+Shows retry logic in action.
+
+## Search Execution Log
+
+Advanced search capabilities:
+
+Click **Advanced Search**.
+
+**Search Criteria**:
+
+- Workflow name contains text
+- Error message contains text
+- Duration greater than X seconds
+- Triggered by specific event
+- Actions include specific type
+- Variables contain specific values
+
+Combine multiple search criteria.
+
+Click **Search**.
+
+## Export Execution Log
+
+Export log data for analysis:
+
+From the *Select Actions* drop-down list, choose **Export Log**.
+
+**Export Options**:
+
+- **Format**: CSV, Excel, JSON, PDF
+- **Columns**: Select which columns to include
+- **Date Range**: Specify time period
+- **Include Details**: Export full execution details
+
+Click **Export**.
+
+## Execution Statistics
+
+View aggregate statistics:
+
+Click **View Statistics**.
+
+**Overall Metrics**:
+
+- Total executions today/week/month
+- Success rate percentage
+- Average execution time
+- Total workflows executed
+- Most executed workflows
+
+**Performance Metrics**:
+
+- Fastest workflow
+- Slowest workflow
+- Most errors
+- Peak execution times
+
+**Trend Analysis**:
+
+- Executions over time (chart)
+- Success rate trend
+- Performance trend
+- Error rate trend
+
+## Real-Time Monitoring
+
+Monitor active workflow executions:
+
+Click **Real-Time Monitor**.
+
+**Active Executions**:
+
+View currently running workflows:
+
+- Workflow name
+- Triggered at
+- Current step
+- Elapsed time
+- Progress indicator
+
+**Auto-Refresh**:
+
+- Enable auto-refresh (5/10/30 seconds)
+- Watch workflows in real-time
+
+## Troubleshooting Tools
+
+Tools for diagnosing workflow issues:
+
+**Identify Failed Workflows**:
+
+Filter by Status = Failed.
+
+Review error messages.
+
+Common issues:
+
+- API connectivity problems
+- Permission issues
+- Invalid data
+- Timeout errors
+- Resource constraints
+
+**Identify Slow Workflows**:
+
+Filter by Duration > 30 seconds.
+
+Analyze which actions are slow.
+
+Optimize:
+
+- Reduce database queries
+- Optimize condition logic
+- Batch operations
+- Use async processing
+
+**Identify Frequent Failures**:
+
+Group by Workflow and Error Type.
+
+Identify patterns:
+
+- Always fails at same step
+- Fails for specific conditions
+- Time-dependent failures
+- Data-dependent failures
+
+## Replay Failed Execution
+
+To retry a failed workflow:
+
+Select a failed execution.
+
+Click **Replay Execution**.
+
+Options:
+
+- **Replay All**: Re-run entire workflow
+- **Replay from Failed Step**: Continue from failure point
+- **Debug Mode**: Step through with logging
+
+Click **Replay**.
+
+## Cleanup Old Logs
+
+Manage log retention:
+
+Click **Log Retention Settings**.
+
+**Retention Policy**:
+
+- Keep successful executions: 30 days
+- Keep failed executions: 90 days
+- Keep debugging logs: 7 days
+- Archive old logs: After 1 year
+
+**Manual Cleanup**:
+
+- Select date range
+- Select status types
+- Click **Delete Selected Logs**
+
+**Automated Cleanup**:
+
+- Schedule: Daily at 2 AM
+- Delete logs older than policy
+- Archive before deletion
+
+Click **Save**.
+
+## Execution Alerts
+
+Configure alerts for workflow issues:
+
+Click **Configure Alerts**.
+
+**Alert Conditions**:
+
+- Workflow fails X times in Y minutes
+- Workflow duration exceeds threshold
+- Error rate exceeds percentage
+- Specific workflow fails
+- Critical errors occur
+
+**Alert Actions**:
+
+- Email notification
+- SMS alert
+- Slack/Teams message
+- Create incident ticket
+- Page on-call engineer
+
+Click **Save Alerts**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Go To Page](/common_functions/go_to_page_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Records per Page](/common_topics/records_per_page_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

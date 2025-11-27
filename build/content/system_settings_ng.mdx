@@ -1,0 +1,451 @@
+# System Settings
+
+Use this function to configure global system settings, preferences, and default values.
+
+System Settings control application-wide behavior, defaults, and core functionality that affects all users and modules.
+
+In the main window, click **Admin > System > System Settings**. The System Settings window displays.
+
+## General Settings
+
+Configure basic system information:
+
+### Company Information
+
+**Organization Details**:
+
+- **Company Name**: Your Company Inc.
+- **Company Logo**: Upload logo (recommended: 200x60px PNG)
+- **Company Website**: https://www.yourcompany.com
+- **Support Email**: support@yourcompany.com
+- **Support Phone**: +1-555-123-4567
+
+**Address Information**:
+
+- **Street Address**: 123 Main Street
+- **City**: Boston
+- **State/Province**: Massachusetts
+- **Postal Code**: 02101
+- **Country**: United States
+
+Click **Save**.
+
+### System Information
+
+**Instance Details**:
+
+- **Instance Name**: Virima Production
+- **Instance URL**: https://virima.yourcompany.com
+- **Instance ID**: inst_abc123xyz
+- **Environment**: Production
+
+**Version Information**:
+
+- **Virima Version**: NextGen 1.0.0
+- **Build Number**: 20240127.1
+- **Last Updated**: 2024-01-27
+- **License Type**: Enterprise
+
+### Localization
+
+**Default Settings**:
+
+- **Default Language**: English (US)
+- **Default Timezone**: America/New_York (EST/EDT)
+- **Default Date Format**: MM/DD/YYYY
+- **Default Time Format**: 12-hour (AM/PM)
+- **Default Currency**: USD ($)
+
+**Regional Settings**:
+
+- **First Day of Week**: Sunday
+- **Decimal Separator**: . (period)
+- **Thousands Separator**: , (comma)
+- **Number Format**: 1,234.56
+
+**Supported Languages**:
+
+- ☑ English (US)
+- ☑ English (UK)
+- ☑ Spanish
+- ☑ French
+- ☑ German
+- ☐ Japanese
+- ☐ Chinese (Simplified)
+
+Click **Save**.
+
+## Application Settings
+
+### Session Management
+
+**Session Configuration**:
+
+- **Session Timeout**: 30 minutes of inactivity
+- **Absolute Session Timeout**: 12 hours
+- **Warning Before Timeout**: 5 minutes
+- **Concurrent Sessions Per User**: 2
+- **Remember Me Duration**: 30 days
+- **Require Reauthentication For**: Sensitive operations
+
+**Session Security**:
+
+- ☑ Secure cookies (HTTPS only)
+- ☑ HttpOnly cookies
+- ☑ SameSite cookie policy: Strict
+- ☑ Session token rotation
+- ☑ Logout on password change
+
+Click **Save**.
+
+### User Interface
+
+**UI Preferences**:
+
+- **Default Theme**: Light
+- **Allow Dark Mode**: ☑ Yes
+- **Compact View**: ☐ No
+- **Animation Effects**: ☑ Enabled
+- **Transition Speed**: Medium
+
+**Navigation**:
+
+- **Default Landing Page**: Dashboard
+- **Breadcrumb Navigation**: ☑ Enabled
+- **Quick Search**: ☑ Enabled in header
+- **Recent Items**: Show last 10 items
+
+**Table Settings**:
+
+- **Default Records Per Page**: 50
+- **Allow Export**: ☑ Yes
+- **Allow Column Customization**: ☑ Yes
+- **Persist Column Settings**: ☑ Per user
+
+Click **Save**.
+
+### Email Settings
+
+**SMTP Configuration**:
+
+- **SMTP Server**: smtp.office365.com
+- **SMTP Port**: 587 (TLS)
+- **Security**: TLS
+- **Authentication**: Username/Password
+- **Username**: virima@yourcompany.com
+- **Password**: ••••••••••
+
+**Email Defaults**:
+
+- **From Name**: Virima Support
+- **From Email**: noreply@yourcompany.com
+- **Reply-To Email**: support@yourcompany.com
+- **BCC Admin**: ☐ No
+
+**Email Templates**:
+
+- **Header**: Include company logo
+- **Footer**: Include contact information
+- **Signature**: Standard email signature
+
+**Test Email**: Send test email to verify configuration
+
+Click **Save**.
+
+### File Attachments
+
+**Attachment Settings**:
+
+- **Allow Attachments**: ☑ Yes
+- **Max File Size**: 25 MB per file
+- **Max Total Size Per Record**: 100 MB
+- **Max Files Per Record**: 10 files
+
+**Allowed File Types**:
+
+- **Documents**: pdf, doc, docx, xls, xlsx, ppt, pptx, txt
+- **Images**: jpg, jpeg, png, gif, bmp
+- **Archives**: zip, rar, 7z
+- **Other**: csv, xml, json, log
+
+**Blocked File Types**:
+
+- **Executables**: exe, bat, cmd, sh, com
+- **Scripts**: vbs, js, jar
+- **System Files**: dll, sys
+
+**Storage Location**:
+
+- Local file system
+- Cloud storage (AWS S3, Azure Blob)
+- Network storage (NAS/SAN)
+
+**Virus Scanning**:
+
+- ☑ Scan uploads for viruses
+- **Scanner**: ClamAV, Windows Defender
+- **Action on Detection**: Block and alert
+
+Click **Save**.
+
+### Search Configuration
+
+**Search Settings**:
+
+- **Enable Full-Text Search**: ☑ Yes
+- **Search Engine**: Elasticsearch
+- **Index Update Frequency**: Real-time
+- **Search Results Per Page**: 25
+
+**Search Scope**:
+
+- ☑ Incidents
+- ☑ Requests
+- ☑ Assets
+- ☑ Knowledge Articles
+- ☑ Users
+- ☑ Configuration Items
+
+**Advanced Search**:
+
+- ☑ Enable wildcards (* and ?)
+- ☑ Enable fuzzy search
+- ☑ Enable phrase search
+- **Minimum Search Length**: 3 characters
+
+Click **Save**.
+
+## Security Settings
+
+### Password Policy
+
+**Password Requirements**:
+
+- **Minimum Length**: 12 characters
+- **Require Uppercase**: ☑ Yes
+- **Require Lowercase**: ☑ Yes
+- **Require Numbers**: ☑ Yes
+- **Require Special Characters**: ☑ Yes
+- **Allowed Special Characters**: !@#$%^&*()_+-=[]{}|;:,.<>?
+
+**Password Restrictions**:
+
+- **Prevent Common Passwords**: ☑ Yes
+- **Prevent Dictionary Words**: ☑ Yes
+- **Prevent Username in Password**: ☑ Yes
+- **Prevent Personal Info**: ☑ Yes (name, email)
+
+**Password History**:
+
+- **Remember Last**: 10 passwords
+- **Cannot Reuse For**: 365 days
+
+**Password Expiration**:
+
+- **Expires After**: 90 days
+- **Warning Before Expiration**: 14 days
+- **Grace Logins**: 3 logins after expiration
+- **Force Change on First Login**: ☑ Yes
+
+Click **Save**.
+
+### Login Security
+
+**Failed Login Protection**:
+
+- **Lockout After**: 5 failed attempts
+- **Lockout Duration**: 30 minutes
+- **Reset Counter After**: 15 minutes
+- **Permanent Lockout After**: 10 attempts
+- **CAPTCHA After**: 3 failed attempts
+
+**Login Notifications**:
+
+- ☑ Notify user on successful login
+- ☑ Notify user on failed login
+- ☑ Notify admin on account lockout
+- ☑ Email security alerts
+
+**IP Restrictions**:
+
+- **Allow from Any IP**: ☐ No
+- **Whitelist IP Ranges**: Configure allowed IPs
+- **Block Suspicious IPs**: ☑ Yes
+- **GeoIP Restrictions**: Block certain countries
+
+Click **Save**.
+
+### Audit Settings
+
+**Audit Logging**:
+
+- **Enable Audit Log**: ☑ Yes
+- **Log Level**: Detailed
+- **Log Retention**: 1 year
+- **Archive After**: 90 days
+
+**Logged Events**:
+
+- ☑ User login/logout
+- ☑ Failed login attempts
+- ☑ Permission changes
+- ☑ Data modifications
+- ☑ Configuration changes
+- ☑ Administrative actions
+- ☑ Security events
+
+**Compliance Logging**:
+
+- ☑ HIPAA compliance logging
+- ☑ SOC 2 compliance logging
+- ☑ GDPR compliance logging
+
+Click **Save**.
+
+## Performance Settings
+
+### Caching
+
+**Cache Configuration**:
+
+- **Enable Caching**: ☑ Yes
+- **Cache Provider**: Redis
+- **Cache Server**: localhost:6379
+- **Default TTL**: 3600 seconds (1 hour)
+
+**Cache Policies**:
+
+- **Page Cache**: 5 minutes
+- **API Response Cache**: 30 seconds
+- **Static Assets Cache**: 1 day
+- **Database Query Cache**: 5 minutes
+
+**Cache Invalidation**:
+
+- Automatic on data update
+- Manual purge available
+- Scheduled purge: Daily at 3 AM
+
+Click **Save**.
+
+### Database Optimization
+
+**Connection Pooling**:
+
+- **Min Connections**: 10
+- **Max Connections**: 100
+- **Connection Timeout**: 30 seconds
+- **Idle Timeout**: 300 seconds
+
+**Query Optimization**:
+
+- ☑ Enable query cache
+- ☑ Enable prepared statements
+- ☑ Log slow queries (> 1 second)
+- **Query Timeout**: 60 seconds
+
+Click **Save**.
+
+### Background Jobs
+
+**Job Scheduler**:
+
+- **Enable Scheduler**: ☑ Yes
+- **Max Concurrent Jobs**: 10
+- **Job Timeout**: 3600 seconds
+- **Retry Failed Jobs**: 3 attempts
+
+**Scheduled Maintenance**:
+
+- Database optimization: Daily at 2 AM
+- Cache cleanup: Daily at 3 AM
+- Log rotation: Daily at 4 AM
+- Backup: Daily at 1 AM
+
+Click **Save**.
+
+## Data Management
+
+### Data Retention
+
+**Record Retention Policies**:
+
+| Record Type | Retention Period | Archive After | Delete After |
+|-------------|------------------|---------------|--------------|
+| Closed Incidents | 7 years | 1 year | Never |
+| Resolved Requests | 5 years | 1 year | After 7 years |
+| Audit Logs | 7 years | 90 days | Never |
+| Attachment Files | 5 years | 2 years | After 7 years |
+| Discovery Data | 2 years | 6 months | After 2 years |
+
+**Compliance Requirements**:
+
+- SOX: 7 years
+- HIPAA: 6 years
+- GDPR: Varies by data type
+
+Click **Save**.
+
+### Data Privacy
+
+**PII Protection**:
+
+- ☑ Mask sensitive data in logs
+- ☑ Encrypt PII at rest
+- ☑ Encrypt PII in transit
+- ☑ Redact PII in exports
+
+**Data Subject Rights**:
+
+- ☑ Enable data export (GDPR)
+- ☑ Enable data deletion (GDPR)
+- ☑ Enable data correction
+- **Response Time**: 30 days
+
+Click **Save**.
+
+## Notification Settings
+
+### Global Notifications
+
+**Email Notifications**:
+
+- ☑ Enable email notifications
+- **Batch Notifications**: Group similar notifications
+- **Batch Interval**: 5 minutes
+- **Max Emails Per User Per Day**: 100
+
+**System Alerts**:
+
+- ☑ System maintenance notifications
+- ☑ Security alerts
+- ☑ Performance warnings
+- ☑ Backup status notifications
+
+Click **Save**.
+
+## Integration Settings
+
+### API Settings
+
+**API Configuration**:
+
+- **Enable API**: ☑ Yes
+- **API Version**: v1
+- **API Rate Limit**: 1000 requests/hour
+- **API Timeout**: 30 seconds
+
+**CORS Settings**:
+
+- **Allow CORS**: ☑ Yes
+- **Allowed Origins**: *, specific domains
+- **Allowed Methods**: GET, POST, PUT, PATCH, DELETE
+- **Allowed Headers**: Authorization, Content-Type
+
+Click **Save**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

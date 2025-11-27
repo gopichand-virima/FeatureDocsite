@@ -1,0 +1,58 @@
+# Request Priority Calculator
+
+Use this function to configure how request priority is automatically calculated based on urgency and impact values.
+
+The Priority Calculator uses a matrix approach where the combination of Impact and Urgency determines the resulting Priority level.
+
+In the main window, click **Admin > Request Management > Request Priority Calculator**. The Priority Calculator window displays.
+
+## Priority Calculation Matrix
+
+The matrix shows how priorities are calculated:
+
+| Impact / Urgency | Critical | High | Medium | Low |
+| Critical | P1 | P1 | P2 | P3 |
+| High | P1 | P2 | P3 | P4 |
+| Medium | P2 | P3 | P4 | P5 |
+| Low | P3 | P4 | P5 | P5 |
+
+## Configure Priority Calculation
+
+To modify the priority calculation matrix:
+
+Click on a cell in the matrix to edit.
+
+Select the desired priority level for that combination of Impact and Urgency.
+
+The changes are saved automatically.
+
+## Define Priority Levels
+
+Configure the priority levels used in your organization:
+
+Click **Manage Priority Levels**.
+
+For each priority level, define:
+
+- **Priority Name**: (e.g., P1, Critical, High)
+- **Priority Level**: Numeric value (1-5)
+- **Color Code**: Visual indicator
+- **Target Fulfillment Time**: Associated completion timeframe
+- **Description**: What this priority means
+
+Click **Save**.
+
+## Auto-Calculate Priority
+
+To enable automatic priority calculation:
+
+Check **Enable Auto-Calculate Priority**.
+
+When enabled, the priority will be automatically set based on the selected Impact and Urgency values.
+
+Users can still manually override the calculated priority if needed.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

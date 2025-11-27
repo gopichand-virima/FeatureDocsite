@@ -1,0 +1,575 @@
+# Webhooks
+
+Use this function to configure outbound webhooks that send real-time notifications to external systems when events occur in Virima.
+
+Webhooks enable event-driven integrations, allowing external systems to receive immediate notifications about Virima activities without continuous polling.
+
+In the main window, click **Admin > Integration > Webhooks**. The Webhooks window displays.
+
+## Overview
+
+Webhooks provide:
+
+- Real-time event notifications to external systems
+- HTTP POST requests with event data
+- Flexible payload customization
+- Retry logic for failed deliveries
+- Signature verification for security
+- Event filtering and routing
+
+## Webhook List
+
+View all configured webhooks:
+
+**Webhook Columns**:
+
+- **Name**: Webhook name
+- **URL**: Destination endpoint
+- **Events**: Subscribed events
+- **Status**: Active, Inactive, Error
+- **Last Triggered**: Last execution time
+- **Success Rate**: Delivery success percentage
+- **Created**: Creation date
+
+## Create New Webhook
+
+From the *Select Actions* drop-down list, choose **New Webhook**. The New Webhook window displays.
+
+### Basic Information
+
+**Webhook Details**:
+
+- **Name**: Descriptive name (e.g., "Slack Critical Incident Alerts")
+- **Description**: Purpose and usage
+- **Endpoint URL**: https://external-system.com/api/virima/webhook
+- **Status**: ☑ Active
+
+### Event Subscription
+
+Select which events trigger this webhook:
+
+**Incident Events**:
+
+- ☑ Incident Created
+- ☑ Incident Updated
+- ☐ Incident Assigned
+- ☑ Incident Priority Changed
+- ☐ Incident Status Changed
+- ☑ Incident Closed
+- ☐ Incident Reopened
+- ☐ Incident Comment Added
+
+**Request Events**:
+
+- ☑ Request Created
+- ☐ Request Approved
+- ☐ Request Rejected
+- ☐ Request Fulfilled
+- ☐ Request Cancelled
+
+**Change Events**:
+
+- ☑ Change Created
+- ☑ Change Approved
+- ☑ Change Implemented
+- ☐ Change Failed
+- ☐ Change Completed
+
+**Asset Events**:
+
+- ☐ Asset Discovered
+- ☐ Asset Updated
+- ☐ Asset Retired
+- ☐ Asset Compliance Change
+
+**User Events**:
+
+- ☐ User Created
+- ☐ User Activated
+- ☐ User Deactivated
+
+**SLA Events**:
+
+- ☑ SLA Warning (75% threshold)
+- ☑ SLA Breach
+- ☐ SLA Milestone Reached
+
+**Custom Events**:
+
+- Add custom event triggers
+- Workflow-generated events
+
+### Event Filters
+
+Add conditions to filter which events trigger webhook:
+
+**Filter Conditions**:
+
+```
+Incident Priority = Critical OR Incident Priority = High
+```
+
+```
+Incident Category = "Production Issue"
+```
+
+```
+Assigned Group = "Network Team"
+```
+
+Only events matching ALL conditions will trigger webhook.
+
+### HTTP Configuration
+
+**Request Method**: POST (standard for webhooks)
+
+**Headers**:
+
+Add custom HTTP headers:
+
+| Header Name | Header Value |
+|-------------|--------------|
+| Content-Type | application/json |
+| X-API-Key | your-secret-api-key |
+| X-Virima-Event | {{event_type}} |
+| X-Virima-Signature | {{signature}} |
+
+**Authentication**:
+
+**None**: No authentication
+
+**Basic Auth**:
+
+- Username: api_user
+- Password: ••••••••
+
+**Bearer Token**:
+
+- Token: your-bearer-token
+
+**API Key**:
+
+- Header: X-API-Key
+- Value: your-api-key
+
+**Custom Authentication**:
+
+- Define custom auth headers
+
+### Payload Configuration
+
+Define the data sent to webhook endpoint:
+
+**Payload Format**:
+
+- JSON (recommended)
+- XML
+- Form-encoded
+- Custom format
+
+**Payload Template**:
+
+**Standard Payload**:
+
+```json
+{
+  "event": "incident.created",
+  "timestamp": "2024-01-27T14:30:00Z",
+  "instance": "virima.company.com",
+  "data": {
+    "incident_number": "INC-12345",
+    "title": "Server not responding",
+    "priority": "Critical",
+    "status": "New",
+    "assigned_to": "john.doe@company.com",
+    "created_by": "user@company.com",
+    "created_at": "2024-01-27T14:30:00Z",
+    "description": "Production web server is not responding to requests",
+    "category": "Infrastructure",
+    "impact": "High",
+    "urgency": "High"
+  },
+  "links": {
+    "incident": "https://virima.company.com/incidents/INC-12345",
+    "api": "https://virima.company.com/api/v1/incidents/12345"
+  }
+}
+```
+
+**Custom Payload**:
+
+Use template variables to customize:
+
+```json
+{
+  "event_type": "{{event_type}}",
+  "ticket_id": "{{ticket.number}}",
+  "priority": "{{ticket.priority}}",
+  "summary": "{{ticket.title}}",
+  "url": "{{ticket.url}}",
+  "custom_field": "{{ticket.custom.field_name}}"
+}
+```
+
+**Available Variables**:
+
+- `{{event_type}}`: Event name
+- `{{timestamp}}`: Event timestamp
+- `{{ticket.*}}`: All ticket fields
+- `{{user.*}}`: User who triggered event
+- `{{assignee.*}}`: Assigned user details
+- `{{custom.*}}`: Custom field values
+
+### Retry Configuration
+
+**Retry Settings**:
+
+- **Max Retries**: 3 attempts
+- **Retry Interval**: Exponential backoff
+  - 1st retry: 1 minute
+  - 2nd retry: 5 minutes
+  - 3rd retry: 15 minutes
+- **Timeout**: 30 seconds per attempt
+
+**Failure Handling**:
+
+- ☑ Log failed webhook deliveries
+- ☑ Alert after max retries exceeded
+- ☐ Disable webhook after X consecutive failures
+- ☑ Send failure notification to admin
+
+### Security
+
+**Signature Verification**:
+
+Enable webhook signature for security:
+
+- **Secret Key**: Generate or enter secret
+- **Algorithm**: HMAC-SHA256
+- **Header**: X-Virima-Signature
+
+Receiving system can verify signature to ensure authenticity.
+
+**Signature Generation**:
+
+```
+signature = HMAC-SHA256(secret_key, payload)
+```
+
+**IP Whitelist**:
+
+Restrict webhook to specific destination IPs:
+
+- 203.0.113.0/24
+- 198.51.100.50
+
+**SSL/TLS**:
+
+- ☑ Require HTTPS
+- ☑ Verify SSL certificate
+- ☐ Allow self-signed certificates (not recommended)
+
+Click **Save** to create webhook.
+
+## Test Webhook
+
+Test webhook before activation:
+
+Select a webhook.
+
+Click **Test Webhook**.
+
+**Test Options**:
+
+**Send Test Payload**:
+
+- Use sample event data
+- Trigger with real recent event
+- Custom test payload
+
+**Test Configuration**:
+
+Choose test event type: Incident Created
+
+Sample data populated.
+
+Click **Send Test**.
+
+**Test Results**:
+
+- ✓ Request sent successfully
+- Response code: 200 OK
+- Response time: 145ms
+- Response body: {"status": "received"}
+
+**Validation**:
+
+- Endpoint reachable
+- Authentication accepted
+- Payload valid
+- Signature verified (if applicable)
+
+## View Webhook Activity
+
+Monitor webhook executions:
+
+Select a webhook.
+
+Click **View Activity**.
+
+### Execution History
+
+**Recent Deliveries**:
+
+| Timestamp | Event | Status | Response Code | Response Time | Retries |
+|-----------|-------|--------|---------------|---------------|---------|
+| 14:30:15 | incident.created | Success | 200 | 145ms | 0 |
+| 14:25:32 | incident.priority_changed | Success | 200 | 132ms | 0 |
+| 14:20:10 | sla.warning | Success | 200 | 158ms | 0 |
+| 14:15:45 | incident.created | Failed | 500 | 5000ms | 3 |
+| 14:10:22 | change.approved | Success | 201 | 167ms | 0 |
+
+**Delivery Details**:
+
+Click a delivery to view:
+
+**Request**:
+
+- HTTP method and URL
+- Request headers
+- Request payload (formatted)
+- Timestamp
+
+**Response**:
+
+- Response code and status
+- Response headers
+- Response body
+- Response time
+
+**Retry History** (if applicable):
+
+- Attempt 1: 500 Server Error
+- Attempt 2: 500 Server Error
+- Attempt 3: 200 Success
+
+### Webhook Statistics
+
+**Performance Metrics**:
+
+- Total triggers: 1,456
+- Successful: 1,423 (97.7%)
+- Failed: 33 (2.3%)
+- Average response time: 152ms
+- Fastest response: 87ms
+- Slowest response: 3,245ms
+
+**Failure Analysis**:
+
+- Network errors: 15
+- Server errors (5xx): 12
+- Client errors (4xx): 6
+- Timeout errors: 0
+
+**Event Breakdown**:
+
+| Event Type | Count | Success Rate |
+|------------|-------|--------------|
+| incident.created | 543 | 98.2% |
+| incident.priority_changed | 234 | 99.1% |
+| sla.warning | 187 | 100% |
+| change.approved | 156 | 96.8% |
+
+## Edit Webhook
+
+Navigate to the webhook list.
+
+Click the webhook to edit.
+
+Make modifications to:
+
+- Endpoint URL
+- Subscribed events
+- Event filters
+- Payload template
+- Authentication
+- Retry settings
+
+Click **Save**.
+
+## Clone Webhook
+
+Create a copy of an existing webhook:
+
+Select a webhook.
+
+From the *Select Actions* drop-down list, choose **Clone Webhook**.
+
+Enter new name and endpoint URL.
+
+Modify as needed.
+
+Click **Save**.
+
+## Disable Webhook
+
+Temporarily disable without deleting:
+
+Select webhook.
+
+From the *Select Actions* drop-down list, choose **Disable**.
+
+Webhook stops triggering but configuration is preserved.
+
+## Enable Webhook
+
+Re-enable a disabled webhook:
+
+Select disabled webhook.
+
+From the *Select Actions* drop-down list, choose **Enable**.
+
+Webhook resumes normal operation.
+
+## Delete Webhook
+
+Permanently remove webhook:
+
+Select webhook.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+**Deletion Warning**: This action cannot be undone.
+
+Confirm deletion.
+
+## Webhook Debugging
+
+Troubleshoot webhook issues:
+
+### Common Issues
+
+**Webhook Not Triggering**:
+
+- Verify webhook is active
+- Check event filters match
+- Verify event subscription
+- Review event log
+
+**Delivery Failures**:
+
+- Check endpoint URL is correct
+- Verify network connectivity
+- Review firewall rules
+- Check authentication credentials
+- Verify SSL certificate valid
+
+**Timeout Errors**:
+
+- Increase timeout setting
+- Optimize endpoint response time
+- Check network latency
+
+**4xx Errors**:
+
+- Verify authentication
+- Check payload format
+- Review API endpoint requirements
+
+**5xx Errors**:
+
+- Check endpoint system status
+- Review endpoint logs
+- Verify payload doesn't cause errors
+
+### Debug Mode
+
+Enable debug logging:
+
+Select webhook.
+
+Click **Enable Debug Mode**.
+
+**Debug Information**:
+
+- Full request/response logs
+- Detailed error messages
+- Network trace
+- Timing breakdown
+
+Debug mode increases log verbosity for troubleshooting.
+
+## Webhook Security Best Practices
+
+**Use HTTPS**: Always use secure endpoints
+
+**Verify Signatures**: Implement signature verification on receiving end
+
+**Authenticate**: Use API keys or tokens
+
+**IP Whitelist**: Restrict to known IPs when possible
+
+**Rate Limiting**: Implement rate limiting on receiving endpoint
+
+**Validate Payload**: Validate incoming data on receiving end
+
+**Monitor**: Watch for suspicious activity
+
+**Rotate Secrets**: Periodically rotate secret keys
+
+## Webhook Examples
+
+### Slack Notification Webhook
+
+**Name**: Slack Critical Alerts
+
+**URL**: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+
+**Events**: incident.created (Priority = Critical)
+
+**Payload**:
+
+```json
+{
+  "text": "🚨 Critical Incident Created",
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Incident:* <{{ticket.url}}|{{ticket.number}}>\n*Title:* {{ticket.title}}\n*Priority:* {{ticket.priority}}\n*Assigned:* {{assignee.name}}"
+      }
+    }
+  ]
+}
+```
+
+### Microsoft Teams Webhook
+
+**Name**: Teams Incident Notifications
+
+**URL**: https://outlook.office.com/webhook/YOUR-TEAMS-WEBHOOK
+
+**Events**: incident.created, incident.updated
+
+**Payload**: Adaptive Card format for Teams
+
+### Custom ITSM Integration
+
+**Name**: External ITSM Sync
+
+**URL**: https://itsm.company.com/api/incidents/webhook
+
+**Events**: incident.created, incident.updated, incident.closed
+
+**Authentication**: Bearer token
+
+**Payload**: Custom format matching external system API
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

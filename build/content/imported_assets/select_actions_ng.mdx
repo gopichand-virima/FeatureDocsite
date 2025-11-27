@@ -1,0 +1,43 @@
+---
+title: "Select Actions"
+description: "The Select Actions dropdown provides administrators with options to perform bulk operations on one or more selected records."
+version: ""
+module: "Discovery"
+section: "Imported Assets"
+page: "Select Actions"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Discovery"
+  - "Imported Assets"
+  - "Select Actions"
+  - "Select Actions"
+---
+
+# **Select Actions**
+
+The **Select Actions** dropdown provides administrators with options to perform bulk operations on one or more selected records.
+
+# Move to CMDB
+
+- Select one or more assets.
+- From the **Select Actions** menu, choose **Move to CMDB**.
+- A confirmation dialog appears:  
+**"Are you sure you want to move the selected assets to CMDB?"**
+
+- Click **Yes** to proceed.
+- The selected assets are promoted to the CMDB.
+- Assets that are successfully moved are removed from the **Imported Assets** page.
+- A background job processes the move, so no further action is required.
+- If the move fails for any reason, the asset will remain in the **Imported Assets** list.
+
+# Delete
+
+- Select one or more assets.
+- From the **Select Actions** menu, choose **Delete**.
+- A confirmation dialog appears:  
+**"Are you sure you want to delete the selected assets?"**
+
+- Confirm the deletion.
+- The selected assets are permanently removed from the Imported Assets page.
+- If an asset was already moved to CMDB, deleting it here will not remove the CI from CMDB.

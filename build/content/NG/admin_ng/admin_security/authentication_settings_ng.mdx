@@ -1,0 +1,489 @@
+# Authentication Settings
+
+Use this function to configure authentication methods, login policies, and security controls for user access.
+
+Authentication settings determine how users prove their identity when accessing Virima, ensuring secure and flexible access control.
+
+In the main window, click **Admin > Security > Authentication Settings**. The Authentication Settings window displays.
+
+## Overview
+
+Configure multiple authentication methods:
+
+- Local authentication (Virima database)
+- LDAP/Active Directory integration
+- SAML 2.0 single sign-on
+- OAuth 2.0 / OpenID Connect
+- Multi-factor authentication
+- Biometric authentication
+- Certificate-based authentication
+
+## Local Authentication
+
+Configure built-in authentication:
+
+Click **Local Authentication Settings**.
+
+### Password Requirements
+
+**Password Complexity**:
+
+- **Minimum Length**: 12 characters
+- **Require Uppercase**: ☑ At least one uppercase letter
+- **Require Lowercase**: ☑ At least one lowercase letter
+- **Require Numbers**: ☑ At least one number
+- **Require Special Characters**: ☑ At least one (!@#$%^&*)
+- **Prevent Common Passwords**: ☑ Block dictionary words
+- **Prevent Personal Information**: ☑ Block username, name, email
+
+**Password History**:
+
+- **Remember Last**: 10 passwords
+- **Cannot Reuse**: Previous passwords for 365 days
+
+**Password Expiration**:
+
+- **Expire After**: 90 days
+- **Warning Before Expiration**: 14 days
+- **Grace Logins After Expiration**: 3 logins
+- **Force Change on First Login**: ☑ Enabled
+
+**Password Reset**:
+
+- **Self-Service Reset**: ☑ Allow users to reset
+- **Reset Method**: Email verification code
+- **Reset Link Expiry**: 24 hours
+- **Security Questions**: Require 3 questions
+- **Admin Reset**: Admin can reset without verification
+
+Click **Save**.
+
+### Account Lockout Policies
+
+**Failed Login Protection**:
+
+- **Lockout Threshold**: 5 failed attempts
+- **Lockout Duration**: 30 minutes
+- **Reset Counter After**: 15 minutes of successful login
+- **Permanent Lockout**: After 10 failed attempts
+- **Notify User**: ☑ Email on account lockout
+- **Notify Admin**: ☑ Email security team
+
+**Unlock Methods**:
+
+- Automatic unlock after duration
+- Admin manual unlock
+- Self-service unlock via email verification
+- Password reset unlocks account
+
+Click **Save**.
+
+### Session Management
+
+**Session Settings**:
+
+- **Session Timeout**: 30 minutes of inactivity
+- **Absolute Session Timeout**: 12 hours maximum
+- **Warning Before Timeout**: 5 minutes
+- **Remember Me**: ☐ Disabled for security
+- **Concurrent Sessions**: 2 allowed per user
+- **Force Logout on Password Change**: ☑ Enabled
+
+**Session Security**:
+
+- **Secure Cookies**: ☑ HTTPS only
+- **HttpOnly Cookies**: ☑ Prevent XSS
+- **SameSite Cookies**: Strict
+- **Session Token Rotation**: Every 15 minutes
+
+Click **Save**.
+
+## LDAP / Active Directory
+
+Configure directory integration:
+
+Click **LDAP/AD Configuration**.
+
+### Connection Settings
+
+**LDAP Server**:
+
+- **Server Address**: ldap://dc1.company.com
+- **Port**: 389 (LDAP) or 636 (LDAPS)
+- **Use SSL/TLS**: ☑ Secure connection
+- **Certificate Validation**: ☑ Verify server certificate
+
+**Authentication**:
+
+- **Bind DN**: CN=virima-service,OU=Service Accounts,DC=company,DC=com
+- **Bind Password**: ••••••••••
+- **Connection Timeout**: 30 seconds
+
+**Base DN**:
+
+- **User Base DN**: OU=Users,DC=company,DC=com
+- **Group Base DN**: OU=Groups,DC=company,DC=com
+
+Click **Test Connection** to verify settings.
+
+### User Mapping
+
+**LDAP Attributes to Virima Fields**:
+
+| Virima Field | LDAP Attribute |
+|--------------|----------------|
+| Username | sAMAccountName |
+| Email | mail |
+| First Name | givenName |
+| Last Name | sn |
+| Display Name | displayName |
+| Phone | telephoneNumber |
+| Mobile | mobile |
+| Department | department |
+| Title | title |
+| Manager | manager |
+
+**User Filter**:
+
+```
+(&(objectClass=user)(memberOf=CN=Virima Users,OU=Groups,DC=company,DC=com))
+```
+
+Only import users matching this filter.
+
+### Group Mapping
+
+**Sync Groups to Roles**:
+
+| AD Group | Virima Role |
+|----------|-------------|
+| Virima-Admins | System Administrator |
+| Virima-ServiceDesk | Service Desk Agent |
+| Virima-Managers | Service Desk Manager |
+
+**Group Sync**:
+
+- **Sync Frequency**: Every 4 hours
+- **Auto-Create Roles**: ☐ Manually map only
+- **Remove Users on Group Removal**: ☑ Deactivate
+
+### Synchronization
+
+**Sync Options**:
+
+- **Sync Schedule**: Daily at 2:00 AM
+- **Full Sync**: Weekly on Sunday
+- **Delta Sync**: Hourly during business hours
+- **Create New Users**: ☑ Auto-create on sync
+- **Update Existing Users**: ☑ Update user attributes
+- **Deactivate Removed Users**: ☑ When removed from AD
+
+**Conflict Resolution**:
+
+- LDAP data overwrites Virima data
+- Virima data takes precedence
+- Manual review required
+
+Click **Save** and **Sync Now** to test.
+
+## SAML 2.0 Single Sign-On
+
+Configure SAML SSO:
+
+Click **SAML Configuration**.
+
+### Identity Provider (IdP) Settings
+
+**IdP Details**:
+
+- **IdP Name**: Okta, Azure AD, OneLogin, etc.
+- **IdP Entity ID**: https://idp.company.com
+- **SSO URL**: https://idp.company.com/saml/sso
+- **SLO URL**: https://idp.company.com/saml/logout
+- **X.509 Certificate**: Upload IdP certificate
+
+**SAML Binding**:
+
+- HTTP-POST
+- HTTP-Redirect
+- SOAP
+
+### Service Provider (SP) Settings
+
+**Virima SP Details**:
+
+- **SP Entity ID**: https://virima.company.com
+- **Assertion Consumer Service (ACS) URL**: https://virima.company.com/saml/acs
+- **Single Logout URL**: https://virima.company.com/saml/logout
+
+**SP Certificate**: Auto-generated or upload custom
+
+### Attribute Mapping
+
+**SAML Attributes to Virima Fields**:
+
+| Virima Field | SAML Attribute |
+|--------------|----------------|
+| Username | NameID |
+| Email | email |
+| First Name | firstName |
+| Last Name | lastName |
+| Department | department |
+| Role | role |
+
+**Custom Attributes**:
+
+Map additional SAML attributes to custom fields.
+
+### SSO Options
+
+**Just-in-Time Provisioning**:
+
+- ☑ Auto-create users on first SSO login
+- Default role: End User
+- Auto-assign to groups based on SAML attributes
+
+**Force SSO**:
+
+- ☐ Allow local login as fallback
+- ☑ Force SSO for all users
+- ☑ Except administrators (emergency access)
+
+**Session Settings**:
+
+- **SSO Session Timeout**: Match IdP session
+- **Require Re-authentication**: For sensitive actions
+
+Click **Save** and **Test SSO** to verify.
+
+## OAuth 2.0 / OpenID Connect
+
+Configure OAuth authentication:
+
+Click **OAuth Configuration**.
+
+### OAuth Provider
+
+**Provider Type**:
+
+- Google
+- Microsoft Azure AD
+- GitHub
+- Custom OAuth provider
+
+**OAuth Endpoints**:
+
+- **Authorization URL**: https://provider.com/oauth/authorize
+- **Token URL**: https://provider.com/oauth/token
+- **User Info URL**: https://provider.com/oauth/userinfo
+
+**Client Credentials**:
+
+- **Client ID**: your-client-id
+- **Client Secret**: ••••••••••
+- **Redirect URI**: https://virima.company.com/oauth/callback
+
+**Scopes**:
+
+- openid
+- profile
+- email
+
+### Claim Mapping
+
+**OAuth Claims to Virima Fields**:
+
+| Virima Field | OAuth Claim |
+|--------------|-------------|
+| Username | preferred_username |
+| Email | email |
+| First Name | given_name |
+| Last Name | family_name |
+
+Click **Save** and **Test OAuth** to verify.
+
+## Multi-Factor Authentication
+
+Configure MFA requirements:
+
+Click **MFA Settings**.
+
+### MFA Methods
+
+**Supported Methods**:
+
+- ☑ Authenticator App (TOTP) - Google Authenticator, Microsoft Authenticator
+- ☑ SMS Text Message
+- ☑ Email Verification Code
+- ☑ Hardware Token (FIDO2/WebAuthn)
+- ☐ Biometric (if supported by device)
+- ☑ Backup Codes (recovery)
+
+**Preferred Method Order**:
+
+1. Authenticator App (most secure)
+2. Hardware Token
+3. SMS
+4. Email (least secure)
+
+### MFA Enforcement
+
+**Require MFA For**:
+
+- ☑ All administrators
+- ☑ Users with elevated privileges
+- ☐ All users
+- ☑ Remote access (outside corporate network)
+- ☑ Sensitive operations (config changes)
+
+**MFA Exceptions**:
+
+- Service accounts
+- API access (use API keys instead)
+- Emergency administrator access
+
+**Enrollment**:
+
+- **Force Enrollment**: On next login
+- **Grace Period**: 7 days
+- **Enrollment Method**: Self-service via profile
+
+### Remember Devices
+
+**Trusted Devices**:
+
+- ☑ Remember device for 30 days
+- Require MFA on new device
+- Require MFA if IP changes significantly
+- Users can revoke trusted devices
+
+### Backup Codes
+
+**Recovery Codes**:
+
+- Generate 10 backup codes per user
+- Single-use codes
+- Automatically regenerate when depleted
+- Securely store or provide to user
+
+Click **Save**.
+
+## IP-Based Access Control
+
+Configure IP restrictions:
+
+Click **IP Access Control**.
+
+### Allowed IP Ranges
+
+**Whitelist IP Addresses**:
+
+| IP Range | Description | Access Level |
+|----------|-------------|--------------|
+| 192.168.1.0/24 | Corporate Office | Full Access |
+| 10.0.0.0/8 | Internal Network | Full Access |
+| 203.0.113.0/24 | Remote Office | Full Access |
+
+**Blacklist IP Addresses**:
+
+Block specific IPs or ranges due to security threats.
+
+### Geographic Restrictions
+
+**Allow From Countries**:
+
+- United States
+- Canada
+- United Kingdom
+
+**Block From Countries**:
+
+- High-risk countries
+- Countries with no business presence
+
+### Access Rules
+
+**Rule-Based Access**:
+
+- Corporate network: No restrictions
+- Home network (VPN): Require MFA
+- Public network: Require MFA + Limited access
+- Unknown location: Block + Alert security
+
+Click **Save**.
+
+## Certificate-Based Authentication
+
+Configure client certificate authentication:
+
+Click **Certificate Settings**.
+
+**Certificate Authority**:
+
+- Upload trusted CA certificates
+- Configure certificate validation
+
+**Certificate Requirements**:
+
+- Client certificate required for specific roles
+- Certificate + password authentication
+- Certificate validity checking
+
+**Certificate Mapping**:
+
+- Map certificate subject to username
+- Map certificate email to user email
+
+Click **Save**.
+
+## Login Page Customization
+
+Customize the login experience:
+
+Click **Login Page Settings**.
+
+**Branding**:
+
+- **Company Logo**: Upload logo
+- **Background Image**: Custom background
+- **Primary Color**: Brand color
+- **Login Page Title**: "Virima Login"
+
+**Login Options Display**:
+
+- Show local login form
+- Show SSO button
+- Show social login options
+- Remember username checkbox
+
+**Security Messages**:
+
+- Authorized use only warning
+- Privacy policy link
+- Terms of service link
+
+Click **Save**.
+
+## Authentication Audit
+
+Monitor authentication events:
+
+Click **Authentication Audit**.
+
+**Audit Log**:
+
+- Successful logins
+- Failed login attempts
+- Password changes
+- Account lockouts
+- MFA enrollment
+- SSO events
+- IP blocks
+
+**Export Audit Data**: For compliance reporting
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

@@ -1,0 +1,564 @@
+# API Management
+
+Use this function to configure and manage REST API endpoints, authentication, and API documentation for Virima.
+
+API Management provides tools to expose, secure, and monitor APIs for external integrations and custom applications.
+
+In the main window, click **Admin > Integration > API Management**. The API Management window displays.
+
+## Overview
+
+API Management includes:
+
+- REST API endpoint configuration
+- API authentication and authorization
+- API versioning and deprecation
+- Rate limiting and quotas
+- API documentation and testing
+- API analytics and monitoring
+- Developer portal management
+
+## API Endpoints
+
+View all available API endpoints:
+
+**Endpoint Categories**:
+
+- Incidents API
+- Assets API
+- Users API
+- Changes API
+- Problems API
+- Requests API
+- Discovery API
+- Reports API
+- Admin API
+
+### Incidents API Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | /api/v1/incidents | List all incidents | Yes |
+| GET | /api/v1/incidents/{id} | Get incident details | Yes |
+| POST | /api/v1/incidents | Create incident | Yes |
+| PUT | /api/v1/incidents/{id} | Update incident | Yes |
+| PATCH | /api/v1/incidents/{id} | Partial update | Yes |
+| DELETE | /api/v1/incidents/{id} | Delete incident | Yes |
+| GET | /api/v1/incidents/{id}/comments | Get comments | Yes |
+| POST | /api/v1/incidents/{id}/comments | Add comment | Yes |
+
+## API Versioning
+
+Manage API versions:
+
+**Current Versions**:
+
+- **v1**: Current stable version
+- **v2**: Beta version (new features)
+- **v0**: Deprecated (sunset date: 2024-12-31)
+
+**Version Strategy**:
+
+- Maintain backward compatibility within major version
+- Deprecation notice: 6 months before sunset
+- Multiple versions supported concurrently
+
+**API Version Header**:
+
+```http
+GET /api/v1/incidents
+Accept: application/vnd.virima.v1+json
+```
+
+## API Authentication
+
+Configure authentication methods:
+
+Click **Authentication Settings**.
+
+### API Key Authentication
+
+**Usage**:
+
+```http
+GET /api/v1/incidents
+Authorization: Bearer virima_sk_abc123...
+```
+
+**Configuration**:
+
+- Enable API key authentication: ☑
+- Key prefix: virima_sk_
+- Key length: 64 characters
+- Key expiration: Configurable per key
+
+### OAuth 2.0
+
+**OAuth Flows**:
+
+- Authorization Code Flow (for user context)
+- Client Credentials Flow (for service accounts)
+- Refresh Token Flow
+
+**OAuth Endpoints**:
+
+- Authorization: `/oauth/authorize`
+- Token: `/oauth/token`
+- Revoke: `/oauth/revoke`
+
+**Sample OAuth Request**:
+
+```http
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&client_id=your_client_id
+&client_secret=your_client_secret
+&scope=incidents:read incidents:write
+```
+
+### JWT Token Authentication
+
+**JWT Configuration**:
+
+- Algorithm: RS256 (recommended) or HS256
+- Token expiration: 1 hour
+- Refresh token expiration: 30 days
+- Include claims: user_id, roles, permissions
+
+**Sample JWT Token**:
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+## API Rate Limiting
+
+Configure rate limits to prevent abuse:
+
+Click **Rate Limiting**.
+
+### Global Rate Limits
+
+**Default Limits**:
+
+- **Per API Key**: 1000 requests/hour
+- **Per IP Address**: 100 requests/hour (unauthenticated)
+- **Burst Limit**: 50 requests/minute
+
+### Endpoint-Specific Limits
+
+**Custom Limits by Endpoint**:
+
+| Endpoint | Requests/Hour | Burst/Minute |
+|----------|---------------|--------------|
+| GET /incidents | 5000 | 100 |
+| POST /incidents | 500 | 20 |
+| GET /assets | 10000 | 200 |
+| POST /discovery | 100 | 10 |
+
+### Rate Limit Headers
+
+**Response Headers**:
+
+```http
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 847
+X-RateLimit-Reset: 1640995200
+```
+
+**Rate Limit Exceeded Response**:
+
+```http
+HTTP/1.1 429 Too Many Requests
+Content-Type: application/json
+Retry-After: 3600
+
+{
+  "error": "rate_limit_exceeded",
+  "message": "API rate limit exceeded",
+  "limit": 1000,
+  "reset_at": "2024-01-27T15:00:00Z"
+}
+```
+
+## API Request/Response Format
+
+### Request Format
+
+**Headers**:
+
+```http
+Content-Type: application/json
+Authorization: Bearer your_api_key
+Accept: application/json
+X-Virima-Client: MyApp/1.0
+```
+
+**Query Parameters**:
+
+```
+GET /api/v1/incidents?
+  status=new,in_progress
+  &priority=critical,high
+  &limit=50
+  &offset=0
+  &sort=-created_at
+```
+
+**Request Body** (POST/PUT):
+
+```json
+{
+  "title": "Server not responding",
+  "description": "Production web server is down",
+  "priority": "critical",
+  "category": "infrastructure",
+  "assigned_to": "john.doe@company.com"
+}
+```
+
+### Response Format
+
+**Success Response**:
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "12345",
+    "number": "INC-12345",
+    "title": "Server not responding",
+    "priority": "critical",
+    "status": "new",
+    "created_at": "2024-01-27T14:30:00Z"
+  },
+  "meta": {
+    "request_id": "req_abc123",
+    "timestamp": "2024-01-27T14:30:01Z"
+  }
+}
+```
+
+**Error Response**:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "validation_error",
+    "message": "Invalid priority value",
+    "details": {
+      "field": "priority",
+      "provided": "super_high",
+      "allowed": ["critical", "high", "medium", "low"]
+    }
+  },
+  "meta": {
+    "request_id": "req_abc123",
+    "timestamp": "2024-01-27T14:30:01Z"
+  }
+}
+```
+
+## Error Codes
+
+Standard HTTP error codes:
+
+| Code | Status | Description |
+|------|--------|-------------|
+| 200 | OK | Request successful |
+| 201 | Created | Resource created |
+| 204 | No Content | Successful with no response body |
+| 400 | Bad Request | Invalid request parameters |
+| 401 | Unauthorized | Authentication required |
+| 403 | Forbidden | Insufficient permissions |
+| 404 | Not Found | Resource not found |
+| 409 | Conflict | Resource conflict |
+| 422 | Unprocessable Entity | Validation error |
+| 429 | Too Many Requests | Rate limit exceeded |
+| 500 | Internal Server Error | Server error |
+| 503 | Service Unavailable | Service temporarily unavailable |
+
+## API Documentation
+
+Interactive API documentation:
+
+Click **View API Documentation**.
+
+### Swagger/OpenAPI Documentation
+
+**Features**:
+
+- Interactive API explorer
+- Try-it-now functionality
+- Request/response examples
+- Schema definitions
+- Authentication testing
+
+**Swagger UI Access**:
+
+```
+https://virima.company.com/api/docs
+```
+
+### API Reference
+
+**Detailed Documentation**:
+
+- Endpoint descriptions
+- Parameter definitions
+- Response schemas
+- Error codes
+- Code examples in multiple languages
+
+### Code Examples
+
+**Python Example**:
+
+```python
+import requests
+
+api_key = 'virima_sk_abc123...'
+url = 'https://virima.company.com/api/v1/incidents'
+
+headers = {
+    'Authorization': f'Bearer {api_key}',
+    'Content-Type': 'application/json'
+}
+
+data = {
+    'title': 'Server not responding',
+    'priority': 'critical',
+    'description': 'Production web server is down'
+}
+
+response = requests.post(url, json=data, headers=headers)
+print(response.json())
+```
+
+**JavaScript Example**:
+
+```javascript
+const apiKey = 'virima_sk_abc123...';
+const url = 'https://virima.company.com/api/v1/incidents';
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiKey}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: 'Server not responding',
+    priority: 'critical',
+    description: 'Production web server is down'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+**cURL Example**:
+
+```bash
+curl -X POST https://virima.company.com/api/v1/incidents \
+  -H "Authorization: Bearer virima_sk_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Server not responding",
+    "priority": "critical",
+    "description": "Production web server is down"
+  }'
+```
+
+## API Monitoring
+
+Monitor API usage and performance:
+
+Click **API Analytics**.
+
+### Usage Analytics
+
+**Metrics**:
+
+- Total API requests: 1,234,567
+- Requests today: 45,678
+- Average response time: 145ms
+- Success rate: 99.2%
+- Error rate: 0.8%
+
+**Top Endpoints**:
+
+| Endpoint | Requests | Avg Response | Errors |
+|----------|----------|--------------|--------|
+| GET /incidents | 567,890 | 87ms | 123 |
+| GET /assets | 345,678 | 145ms | 45 |
+| POST /incidents | 123,456 | 234ms | 67 |
+
+**Top Consumers**:
+
+| API Key | Application | Requests | Quota Used |
+|---------|-------------|----------|------------|
+| sk_abc... | ServiceNow | 234,567 | 23% |
+| sk_def... | Monitoring | 156,789 | 16% |
+| sk_ghi... | Mobile App | 89,012 | 9% |
+
+### Performance Monitoring
+
+**Response Time Distribution**:
+
+- < 100ms: 45%
+- 100-200ms: 35%
+- 200-500ms: 15%
+- 500ms-1s: 4%
+- > 1s: 1%
+
+**Performance Trends**:
+
+Charts showing:
+
+- Response time over time
+- Request volume over time
+- Error rate trends
+- Peak usage times
+
+### Error Analysis
+
+**Error Breakdown**:
+
+| Error Code | Count | Percentage |
+|------------|-------|------------|
+| 400 Bad Request | 234 | 40% |
+| 401 Unauthorized | 156 | 27% |
+| 404 Not Found | 123 | 21% |
+| 429 Rate Limit | 67 | 11% |
+| 500 Server Error | 5 | 1% |
+
+**Error Details**:
+
+- Most common error messages
+- Endpoints with highest error rates
+- Error trends over time
+
+## API Webhooks
+
+Configure webhooks for event notifications:
+
+**Webhook Events**:
+
+- incident.created
+- incident.updated
+- incident.closed
+- asset.discovered
+- user.created
+
+**Webhook Payload**:
+
+```json
+{
+  "event": "incident.created",
+  "timestamp": "2024-01-27T14:30:00Z",
+  "data": {
+    "incident_id": "12345",
+    "number": "INC-12345",
+    "title": "Server not responding",
+    "priority": "critical"
+  },
+  "webhook_id": "wh_abc123"
+}
+```
+
+## API Deprecation
+
+Manage API deprecation:
+
+### Deprecation Notice
+
+**Deprecated Endpoints**:
+
+| Endpoint | Deprecated On | Sunset Date | Replacement |
+|----------|---------------|-------------|-------------|
+| /api/v0/tickets | 2023-06-01 | 2024-12-31 | /api/v1/incidents |
+
+**Deprecation Headers**:
+
+```http
+Deprecation: true
+Sunset: Sat, 31 Dec 2024 23:59:59 GMT
+Link: </api/v1/incidents>; rel="successor-version"
+```
+
+### Migration Guide
+
+Provide migration documentation:
+
+- Breaking changes
+- New endpoint URLs
+- Parameter changes
+- Authentication updates
+- Code examples
+
+## Developer Portal
+
+Manage developer access:
+
+Click **Developer Portal**.
+
+### Portal Features
+
+- API key self-service
+- Interactive documentation
+- Code samples and SDKs
+- Tutorials and guides
+- Community forum
+- Support ticketing
+
+### Developer Registration
+
+**Approval Process**:
+
+- Developer submits application
+- Admin reviews and approves
+- Developer receives API credentials
+- Usage subject to quotas
+
+## API Security
+
+Security best practices:
+
+### TLS/SSL Requirements
+
+- Require HTTPS for all API calls
+- Minimum TLS version: 1.2
+- Strong cipher suites only
+
+### Input Validation
+
+- Validate all input parameters
+- Sanitize user input
+- Prevent SQL injection
+- Prevent XSS attacks
+
+### Output Filtering
+
+- Filter sensitive data
+- Respect field-level permissions
+- Mask PII data when appropriate
+
+### Security Headers
+
+```http
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+```
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

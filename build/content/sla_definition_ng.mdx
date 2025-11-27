@@ -1,0 +1,333 @@
+# SLA Definition
+
+Use this function to create and manage Service Level Agreement definitions that establish response and resolution commitments.
+
+SLA definitions specify the targets for responding to and resolving tickets based on various criteria such as priority, category, and customer tier.
+
+In the main window, click **Admin > SLA Management > SLA Definition**. The SLA Definition window displays.
+
+## New SLA Definition
+
+From the *Select Actions* drop-down list, choose **New SLA Definition**. The New SLA Definition window displays.
+
+Enter a *Name* and *Description* for this SLA.
+
+Configure the **SLA Settings**:
+
+### Basic Information
+
+**SLA Type**:
+
+- Customer SLA: Service commitments to external customers
+- Internal SLA: Service commitments to internal users
+- OLA: Operational Level Agreement for internal teams
+- Underpinning Contract: Third-party vendor commitments
+
+**Is Active**: Check to enable this SLA.
+
+**Priority**: Set execution priority if multiple SLAs could apply.
+
+**Business Hours Calendar**: Select the business hours calendar for SLA calculations.
+
+### Applicability Conditions
+
+Define which tickets this SLA applies to:
+
+Click **Add Condition**.
+
+**Applies To**:
+
+- **Ticket Type**: Incident, Request, Problem, Change
+- **Priority**: Specific priority levels
+- **Category**: Specific categories
+- **Impact**: Impact levels
+- **Urgency**: Urgency levels
+- **Assignment Group**: Specific support teams
+- **Requester**: Specific users or user groups
+- **VIP Status**: VIP users only
+- **Location**: Specific locations
+- **Department**: Specific departments
+- **CI Type**: Affected CI types
+- **Service Tier**: Gold, Silver, Bronze
+
+Use AND/OR logic to combine conditions.
+
+### SLA Targets
+
+Define the time targets for this SLA.
+
+#### Response Time Target
+
+**Response Time**: Time allowed to first respond to ticket.
+
+For each priority level, configure:
+
+| Priority | Response Time Target |
+|----------|---------------------|
+| P1 - Critical | 15 minutes |
+| P2 - High | 1 hour |
+| P3 - Medium | 4 hours |
+| P4 - Low | 8 hours |
+| P5 - Planning | 1 business day |
+
+**Response Definition**: What constitutes a "response"
+
+- First public comment
+- Status change from New
+- Ticket assignment
+- Initial diagnosis
+
+#### Resolution Time Target
+
+**Resolution Time**: Time allowed to resolve the ticket.
+
+For each priority level, configure:
+
+| Priority | Resolution Time Target |
+|----------|----------------------|
+| P1 - Critical | 4 hours |
+| P2 - High | 8 hours |
+| P3 - Medium | 2 business days |
+| P4 - Low | 5 business days |
+| P5 - Planning | 10 business days |
+
+**Resolution Definition**: What constitutes "resolution"
+
+- Status changed to Resolved
+- Status changed to Closed
+- Resolution code applied
+- User confirms resolution
+
+#### Additional Milestones
+
+Add custom SLA milestones:
+
+Click **Add Milestone**.
+
+Examples:
+
+- **Initial Assessment**: Within 30 minutes
+- **Root Cause Identified**: Within 2 hours for P1
+- **Workaround Provided**: Within 1 hour for P1
+- **Change Approval**: Within 4 hours
+- **User Notification**: Within 15 minutes of resolution
+
+For each milestone, define:
+
+- **Milestone Name**: Descriptive name
+- **Target Time**: Time allowed (by priority)
+- **Trigger**: When milestone starts
+- **Completion**: What marks milestone as complete
+
+### SLA Calculation
+
+Configure how SLA time is calculated:
+
+**Calculation Method**:
+
+- **Calendar Hours**: 24/7 time calculation
+- **Business Hours**: Only during business hours
+- **Custom Calendar**: Use specific calendar
+
+**Pause Conditions**:
+
+Define when SLA timer should pause:
+
+- **Awaiting Customer**: When waiting for customer response
+- **Awaiting Vendor**: When waiting for third-party
+- **On Hold**: When ticket is on hold
+- **Pending Approval**: During approval process
+- **Scheduled Maintenance**: During planned maintenance
+- **Specific States**: Custom pause states
+
+**Resume Conditions**:
+
+- Customer responds
+- Hold removed
+- Approval complete
+- State changes
+
+### Escalation and Notifications
+
+Configure notifications as SLA targets approach or breach.
+
+Click **Configure Escalations**.
+
+#### Breach Warnings
+
+**Warning Thresholds**:
+
+- **50% Elapsed**: First warning notification
+- **75% Elapsed**: Second warning notification
+- **90% Elapsed**: Critical warning notification
+
+For each threshold, configure:
+
+**Notify**:
+
+- Assignee
+- Assignment group
+- Manager
+- Service desk supervisor
+- Executive team
+
+**Actions**:
+
+- Send email notification
+- Create escalation task
+- Increase priority
+- Reassign ticket
+- Trigger workflow
+
+#### Breach Notifications
+
+When SLA is breached:
+
+**Immediate Actions**:
+
+- Notify executive team
+- Create incident report
+- Auto-escalate ticket
+- Update breach counter
+- Log breach event
+
+**Breach Response**:
+
+- Assign to breach resolution team
+- Require justification
+- Trigger corrective action
+- Update metrics
+
+### Exclusions and Exceptions
+
+Define exceptions to this SLA:
+
+**Excluded Times**:
+
+- Holidays
+- System maintenance windows
+- Emergency situations
+- Force majeure events
+
+**Excluded Tickets**:
+
+- Test tickets
+- Internal projects
+- Training exercises
+- Duplicate tickets
+
+Click **Save** when all configurations are complete.
+
+## SLA Templates
+
+Create SLA templates for common scenarios:
+
+### Gold Tier SLA
+
+- Response: 15 min / 30 min / 1 hour / 4 hours / 8 hours
+- Resolution: 2 hours / 4 hours / 1 day / 3 days / 5 days
+- 24/7 support
+
+### Silver Tier SLA
+
+- Response: 30 min / 1 hour / 4 hours / 8 hours / 1 day
+- Resolution: 4 hours / 8 hours / 2 days / 5 days / 10 days
+- Business hours support
+
+### Bronze Tier SLA
+
+- Response: 1 hour / 4 hours / 8 hours / 1 day / 2 days
+- Resolution: 8 hours / 1 day / 3 days / 7 days / 14 days
+- Business hours support
+
+## Edit SLA Definition
+
+Navigate to the window containing the SLA to edit.
+
+Click the line containing the SLA. The SLA details window displays.
+
+Make modifications to any section.
+
+Click **Save**.
+
+## Test SLA
+
+Before activating, test the SLA with sample tickets:
+
+Select an SLA definition.
+
+Click **Test SLA**.
+
+Enter sample ticket data:
+
+- Priority
+- Category
+- Requester type
+- Creation time
+
+The system shows:
+
+- Whether this SLA applies
+- Calculated response time
+- Calculated resolution time
+- Escalation schedule
+
+## Clone SLA Definition
+
+To create a new SLA based on an existing one:
+
+Select an SLA.
+
+From the *Select Actions* drop-down list, choose **Clone SLA**.
+
+Enter a new name and make modifications.
+
+Click **Add**.
+
+## Activate/Deactivate SLA
+
+To activate an SLA:
+
+Select the SLA.
+
+From the *Select Actions* drop-down list, choose **Activate**.
+
+To deactivate:
+
+Select an active SLA.
+
+From the *Select Actions* drop-down list, choose **Deactivate**.
+
+## Delete SLA Definition
+
+Ensure no active tickets are using this SLA before deletion.
+
+Click the line that contains the SLA to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## SLA Compliance Reporting
+
+View SLA performance:
+
+Select an SLA definition.
+
+Click **View Compliance Report**.
+
+Available metrics:
+
+- Overall compliance percentage
+- Compliance by priority
+- Breaches this month
+- Average response time
+- Average resolution time
+- Breach trends
+- Performance by assignee
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

@@ -1,0 +1,404 @@
+# Create Custom Field
+
+Use this function to add custom fields to extend the data model for various record types.
+
+Custom fields allow you to capture additional information specific to your organization's needs.
+
+In the main window, click **Admin > Custom Fields > Create Custom Field**. The Create Custom Field window displays.
+
+## Step 1: Basic Information
+
+**Field Configuration**:
+
+- **Field Name**: Internal field name (no spaces, use underscores)
+  - Example: `custom_purchase_order`
+- **Field Label**: Display name shown to users
+  - Example: "Purchase Order Number"
+- **Apply To**: Select record type
+  - Incidents
+  - Requests
+  - Assets
+  - Changes
+  - Problems
+  - Users
+  - Configuration Items
+- **Description**: Purpose of this field
+- **Help Text**: Guidance for users filling this field
+
+Click **Next**.
+
+## Step 2: Field Type
+
+Select the appropriate field type:
+
+**Single Line Text**:
+
+- Best for: Short text entries
+- Max length: 1-255 characters
+- Example: Purchase Order #, Employee ID
+
+**Multi-Line Text**:
+
+- Best for: Long text entries
+- Rows: 3-10 rows
+- Max length: Up to 10,000 characters
+- Example: Detailed notes, comments
+
+**Rich Text**:
+
+- Best for: Formatted content
+- Features: Bold, italic, lists, links
+- Example: Resolution notes, documentation
+
+**Integer**:
+
+- Best for: Whole numbers
+- Range: -2,147,483,648 to 2,147,483,647
+- Example: Quantity, count
+
+**Decimal**:
+
+- Best for: Numbers with decimals
+- Precision: Up to 10 decimal places
+- Example: Cost, percentage
+
+**Currency**:
+
+- Best for: Monetary values
+- Currency symbol: $, €, £, ¥
+- Decimal places: 2
+- Example: Purchase price, budget
+
+**Date**:
+
+- Best for: Dates only
+- Format: MM/DD/YYYY (configurable)
+- Date picker: Yes
+- Example: Warranty expiration, purchase date
+
+**Date/Time**:
+
+- Best for: Date and time
+- Format: MM/DD/YYYY HH:MM AM/PM
+- Example: Scheduled time, deadline
+
+**Dropdown (Single Select)**:
+
+- Best for: Choose one option
+- Options: Define list of values
+- Example: Priority, status, category
+
+**Multi-Select**:
+
+- Best for: Choose multiple options
+- Options: Define list of values
+- Example: Skills, affected systems
+
+**Checkbox**:
+
+- Best for: Yes/No, True/False
+- Default: Unchecked
+- Example: Approved, critical
+
+**User Reference**:
+
+- Best for: Link to user
+- Lookup: Search users
+- Example: Approver, backup contact
+
+**URL**:
+
+- Best for: Web links
+- Validation: Valid URL format
+- Example: Vendor website, documentation link
+
+**Email**:
+
+- Best for: Email addresses
+- Validation: Valid email format
+- Example: Vendor contact, alternate email
+
+**Phone**:
+
+- Best for: Phone numbers
+- Format: (###) ###-####
+- Example: Emergency contact, vendor phone
+
+**File Attachment**:
+
+- Best for: Attach files
+- Max size: Configurable
+- Allowed types: pdf, doc, xls, etc.
+- Example: Contracts, invoices
+
+Click **Next**.
+
+## Step 3: Field Options
+
+Configure field-specific options:
+
+### For Text Fields
+
+**Text Configuration**:
+
+- **Min Length**: Minimum characters required
+- **Max Length**: Maximum characters allowed
+- **Default Value**: Pre-populated value
+- **Placeholder Text**: Hint text in empty field
+- **Regular Expression**: Pattern validation
+  - Example for PO#: `^PO-\d{6}$`
+
+### For Numeric Fields
+
+**Numeric Configuration**:
+
+- **Min Value**: Minimum allowed value
+- **Max Value**: Maximum allowed value
+- **Default Value**: Starting value
+- **Decimal Places**: For decimal/currency (0-10)
+- **Prefix**: Text before number (e.g., $)
+- **Suffix**: Text after number (e.g., %)
+
+### For Date Fields
+
+**Date Configuration**:
+
+- **Date Format**: MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD
+- **Default Value**: 
+  - Current date
+  - Specific date
+  - Calculated (e.g., +30 days from creation)
+- **Min Date**: Earliest allowed date
+- **Max Date**: Latest allowed date
+- **Show Calendar**: Date picker enabled
+
+### For Dropdown Fields
+
+**Dropdown Options**:
+
+Click **Add Option** for each choice:
+
+| Value | Label | Color | Default |
+|-------|-------|-------|---------|
+| critical | Critical | Red | No |
+| high | High | Orange | No |
+| medium | Medium | Yellow | Yes |
+| low | Low | Green | No |
+
+**Dropdown Settings**:
+
+- **Allow Add New**: Users can add options
+- **Sorted Alphabetically**: Auto-sort options
+- **Searchable**: Enable search in dropdown
+- **Dependent On**: Cascading dropdown based on another field
+
+### For Reference Fields
+
+**Reference Configuration**:
+
+- **Reference Table**: Users, Groups, Assets, etc.
+- **Filter**: Limit available options
+  - Example: Active users only
+- **Display Field**: What shows in dropdown
+  - Example: User's full name
+- **Multiple Selection**: Allow selecting multiple
+
+Click **Next**.
+
+## Step 4: Validation Rules
+
+**Required Field**:
+
+- ☑ Make this field required
+- Required when: Always, or conditional
+
+**Unique Values**:
+
+- ☑ Values must be unique
+- Scope: Within this record type
+
+**Custom Validation**:
+
+- **Validation Rule**: JavaScript expression
+  - Example: `value > 0 && value < 100`
+- **Error Message**: "Value must be between 0 and 100"
+
+**Conditional Requirements**:
+
+```
+Required when: Priority = "Critical"
+Required when: Status = "Approved"
+```
+
+Click **Next**.
+
+## Step 5: Display Configuration
+
+**Field Position**:
+
+- **Form Section**: Select which section
+  - Main Information
+  - Additional Details
+  - Custom Section
+- **Field Order**: Position in section (1, 2, 3...)
+- **Column Width**: Full width, Half width, Third
+
+**Visibility**:
+
+- **Always Visible**: ☑ Show to all users
+- **Read-Only**: ☐ Users can view but not edit
+- **Hidden**: ☐ Hide from users (system use only)
+
+**Conditional Display**:
+
+Show field only when conditions are met:
+
+```
+Show when: Type = "Hardware"
+Show when: Impact = "High" OR Urgency = "High"
+Hide when: Status = "Closed"
+```
+
+**Dependent Fields**:
+
+Configure cascading behavior:
+
+```
+When "Category" = "Hardware":
+  Show "Hardware Type" field
+  Show "Manufacturer" field
+  
+When "Category" = "Software":
+  Show "Software Version" field
+  Show "License Type" field
+```
+
+Click **Next**.
+
+## Step 6: Permissions
+
+**View Permissions**:
+
+Who can see this field:
+
+- ☑ All Users
+- ☐ Specific Roles: Admin, Manager
+- ☐ Specific Groups: IT Team
+
+**Edit Permissions**:
+
+Who can modify this field:
+
+- ☐ All Users
+- ☑ Specific Roles: Admin, Asset Manager
+- ☐ Field Owner Only
+
+**Required Permissions**:
+
+Different requirements per role:
+
+- Admin: Optional
+- End User: Required
+- Manager: Required
+
+Click **Next**.
+
+## Step 7: Integration
+
+**API Access**:
+
+- **API Field Name**: `custom_purchase_order`
+- **Include in API**: ☑ Yes
+- **Read-Only via API**: ☐ No
+
+**Reporting**:
+
+- **Include in Reports**: ☑ Yes
+- **Searchable**: ☑ Yes
+- **Filterable**: ☑ Yes
+- **Sortable**: ☑ Yes
+
+**Import/Export**:
+
+- **Include in CSV Import**: ☑ Yes
+- **Include in CSV Export**: ☑ Yes
+- **Required on Import**: ☐ No
+
+**Workflow Integration**:
+
+- **Available in Workflows**: ☑ Yes
+- **Trigger Workflows on Change**: ☑ Yes
+
+Click **Next**.
+
+## Step 8: Review and Save
+
+**Summary**:
+
+Review all settings:
+
+- Field Name: custom_purchase_order
+- Label: Purchase Order Number
+- Type: Single Line Text
+- Required: Yes
+- Max Length: 20
+- Applied To: Assets
+- Visible To: All Users
+- Editable By: Admins, Asset Managers
+
+**Test Field**:
+
+Preview how the field appears and behaves.
+
+Click **Create Field**.
+
+**Field Created Successfully** ✓
+
+## Field Examples
+
+### Example 1: Purchase Order Number
+
+- **Name**: `custom_po_number`
+- **Type**: Single Line Text
+- **Max Length**: 20
+- **Pattern**: `^PO-\d{6}$`
+- **Required**: Yes (for purchases)
+- **Unique**: Yes
+
+### Example 2: Asset Cost Center
+
+- **Name**: `custom_cost_center`
+- **Type**: Dropdown
+- **Options**: Finance, IT, HR, Operations, Sales
+- **Required**: Yes
+- **Default**: IT
+
+### Example 3: Warranty Expiration
+
+- **Name**: `custom_warranty_expiry`
+- **Type**: Date
+- **Required**: No
+- **Min Date**: Today
+- **Alert**: 30 days before expiration
+
+### Example 4: Criticality Score
+
+- **Name**: `custom_criticality`
+- **Type**: Integer
+- **Range**: 1-10
+- **Required**: Yes
+- **Default**: 5
+
+### Example 5: Vendor Contact
+
+- **Name**: `custom_vendor_contact`
+- **Type**: Email
+- **Required**: No
+- **Validation**: Valid email format
+
+## Other Functions and Page Elements
+
+- [Edit Custom Field](/admin_ng/admin_custom_fields/edit_custom_field_ng.mdx)
+- [Delete Custom Field](/admin_ng/admin_custom_fields/delete_custom_field_ng.mdx)
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

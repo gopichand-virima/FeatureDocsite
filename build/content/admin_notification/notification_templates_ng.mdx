@@ -1,0 +1,464 @@
+# Notification Templates
+
+Use this function to create and manage notification templates for emails, SMS messages, and in-app notifications.
+
+Notification templates ensure consistent, professional communication and reduce the time required to configure notifications.
+
+In the main window, click **Admin > Notification Management > Notification Templates**. The Notification Templates window displays.
+
+## Overview
+
+Templates can be created for:
+
+- Email notifications
+- SMS text messages
+- In-app notifications
+- Mobile push notifications
+- Slack/Teams messages
+
+Templates support:
+
+- Dynamic variables
+- Conditional content
+- HTML formatting
+- Multi-language support
+- Personalization
+
+## New Notification Template
+
+From the *Select Actions* drop-down list, choose **New Template**. The New Template window displays.
+
+Enter a *Template Name* and *Description*.
+
+### Template Type
+
+Select the notification type:
+
+**Email Template**:
+
+- Full HTML email
+- Rich formatting options
+- Attachments supported
+- Images and logos
+
+**SMS Template**:
+
+- Plain text only
+- 160 character limit per segment
+- No formatting
+- Unicode support
+
+**In-App Template**:
+
+- Notification center message
+- Limited formatting
+- Action buttons supported
+
+**Push Notification**:
+
+- Mobile device notification
+- Title and body
+- Badge and sound
+- Deep links to app
+
+**Chat Template** (Slack/Teams):
+
+- Markdown formatting
+- Interactive buttons
+- Rich cards
+- Threaded conversations
+
+Select the template type.
+
+### Template Settings
+
+Configure template properties:
+
+**Category**: Select template category
+
+- Ticket Notifications
+- Approval Notifications
+- SLA Notifications
+- System Notifications
+- Marketing Communications
+
+**Priority**: Set default priority
+
+- High (Critical alerts)
+- Normal (Standard notifications)
+- Low (Informational)
+
+**Language**: Select primary language
+
+**Active**: Check to enable this template
+
+### Email Template Configuration
+
+For email templates, configure:
+
+#### Subject Line
+
+Enter the email subject with dynamic variables:
+
+Examples:
+
+```
+Ticket #{ticket_number} - {ticket_subject}
+```
+
+```
+Action Required: Approval Needed for {request_type}
+```
+
+```
+SLA Warning: {ticket_number} approaching breach
+```
+
+**Available Variables**:
+
+- `{ticket_number}`: Ticket reference number
+- `{ticket_subject}`: Ticket title
+- `{ticket_priority}`: Priority level
+- `{ticket_status}`: Current status
+- `{requester_name}`: Name of requester
+- `{requester_email}`: Requester email
+- `{assigned_to}`: Assigned technician
+- `{assignment_group}`: Support team
+- `{category}`: Ticket category
+- `{created_date}`: Creation date
+- `{due_date}`: Due date
+- `{sla_remaining}`: Time until SLA breach
+
+#### Email Body
+
+Compose the email content with HTML formatting:
+
+**Visual Editor**:
+
+Use the WYSIWYG editor for easy formatting:
+
+- Bold, italic, underline
+- Bullet and numbered lists
+- Text alignment
+- Font colors
+- Links and buttons
+- Tables
+- Images
+
+**HTML Editor**:
+
+Switch to HTML mode for advanced customization:
+
+```html
+<p>Hello {requester_name},</p>
+
+<p>Your ticket <strong>#{ticket_number}</strong> has been updated.</p>
+
+<table>
+  <tr>
+    <td><strong>Status:</strong></td>
+    <td>{ticket_status}</td>
+  </tr>
+  <tr>
+    <td><strong>Assigned To:</strong></td>
+    <td>{assigned_to}</td>
+  </tr>
+  <tr>
+    <td><strong>Priority:</strong></td>
+    <td>{ticket_priority}</td>
+  </tr>
+</table>
+
+<p><a href="{ticket_url}">View Ticket</a></p>
+
+<p>Best regards,<br>
+{company_name} Support Team</p>
+```
+
+**Dynamic Content Blocks**:
+
+Add conditional content:
+
+```
+{if priority = "Critical"}
+⚠️ This is a CRITICAL priority ticket requiring immediate attention.
+{endif}
+```
+
+```
+{if sla_percentage > 75}
+Note: This ticket is approaching its SLA target.
+{endif}
+```
+
+#### Email Header and Footer
+
+**Header**:
+
+- Company logo
+- Banner image
+- Contact information
+
+**Footer**:
+
+- Unsubscribe link
+- Privacy policy
+- Contact details
+- Social media links
+- Legal disclaimer
+
+**Branding**:
+
+- Primary color scheme
+- Font selection
+- Button styles
+- Layout template
+
+### SMS Template Configuration
+
+For SMS templates:
+
+**Message Text**:
+
+Plain text message with variables:
+
+```
+{company_name}: Ticket #{ticket_number} assigned to you. Priority: {ticket_priority}. View: {short_url}
+```
+
+**Character Count**:
+
+- Monitor character count (160 per segment)
+- Unicode characters use more space
+- URLs can be shortened automatically
+
+**Variables**:
+
+Use concise variable names:
+
+- `{ticket_num}` instead of `{ticket_number}`
+- `{url}` for shortened URLs
+- `{assignee}` for assigned technician
+
+### In-App Template Configuration
+
+For in-app notifications:
+
+**Title**: Short notification title
+
+```
+Ticket #{ticket_number} Updated
+```
+
+**Message**: Notification body
+
+```
+{assigned_by} assigned ticket to you. Priority: {ticket_priority}
+```
+
+**Action Buttons**:
+
+- View Ticket
+- Acknowledge
+- Dismiss
+
+**Icon**: Select icon or emoji
+
+**Sound**: Notification sound selection
+
+**Badge**: Show badge count
+
+### Template Variables
+
+Complete list of available variables:
+
+**Ticket Variables**:
+
+- `{ticket_number}` - Ticket ID
+- `{ticket_subject}` - Ticket title
+- `{ticket_description}` - Full description
+- `{ticket_priority}` - Priority level
+- `{ticket_status}` - Current status
+- `{ticket_state}` - Current state
+- `{ticket_category}` - Category
+- `{ticket_subcategory}` - Subcategory
+- `{ticket_url}` - Link to ticket
+- `{created_date}` - Creation timestamp
+- `{updated_date}` - Last update
+- `{resolved_date}` - Resolution date
+- `{due_date}` - Due date
+
+**User Variables**:
+
+- `{requester_name}` - Requester full name
+- `{requester_email}` - Requester email
+- `{requester_phone}` - Phone number
+- `{requester_department}` - Department
+- `{requester_location}` - Location
+- `{assigned_to}` - Assigned technician
+- `{assigned_by}` - Who assigned
+- `{assignment_group}` - Support team
+
+**SLA Variables**:
+
+- `{sla_target}` - Target resolution time
+- `{sla_remaining}` - Time remaining
+- `{sla_elapsed}` - Time elapsed
+- `{sla_percentage}` - Percentage used
+- `{sla_breach_time}` - When SLA breaches
+
+**System Variables**:
+
+- `{company_name}` - Organization name
+- `{support_email}` - Support email address
+- `{support_phone}` - Support phone
+- `{portal_url}` - Portal link
+- `{current_date}` - Today's date
+- `{current_time}` - Current time
+
+**Custom Field Variables**:
+
+- `{custom_field_name}` - Any custom field
+
+### Test Template
+
+Test the template before saving:
+
+Click **Test Template**.
+
+Enter sample values for variables.
+
+**Test Options**:
+
+- **Preview**: See how template renders
+- **Send Test Email**: Send to test address
+- **Send Test SMS**: Send to test number
+- **Render HTML**: View HTML output
+
+Review test and make adjustments.
+
+## Clone Template
+
+To create a copy of an existing template:
+
+Select a template.
+
+From the *Select Actions* drop-down list, choose **Clone Template**.
+
+Enter a new name.
+
+Modify as needed.
+
+Click **Save**.
+
+## Edit Template
+
+Navigate to the window containing the template.
+
+Click the line containing the template.
+
+Make modifications to:
+
+- Subject line
+- Body content
+- Variables
+- Formatting
+- Settings
+
+Click **Save**.
+
+## Template Versioning
+
+Maintain version history:
+
+**Version Control**:
+
+- Auto-save previous versions
+- Compare versions
+- Restore previous version
+- Document changes
+
+**Version History**:
+
+Click **View Version History**.
+
+See all previous versions with:
+
+- Version number
+- Modified date
+- Modified by
+- Change description
+
+Click **Restore** to revert to previous version.
+
+## Multi-Language Templates
+
+Create templates in multiple languages:
+
+Click **Add Translation**.
+
+Select language.
+
+Translate:
+
+- Subject line
+- Body content
+- Button text
+
+System automatically uses recipient's language preference.
+
+## Template Categories
+
+Organize templates by category:
+
+**Pre-Built Categories**:
+
+- Incident Notifications
+- Request Notifications
+- Problem Notifications
+- Change Notifications
+- Approval Requests
+- SLA Alerts
+- System Announcements
+
+**Custom Categories**:
+
+Create custom categories for organization-specific needs.
+
+## Delete Template
+
+Ensure no active notification rules use this template.
+
+Click the line that contains the template to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Template Library
+
+Access pre-built templates:
+
+Click **Template Library**.
+
+**Available Templates**:
+
+- Ticket Created
+- Ticket Assigned
+- Ticket Updated
+- Ticket Resolved
+- Ticket Closed
+- SLA Warning
+- SLA Breach
+- Approval Required
+- Approval Granted
+- Approval Rejected
+
+Select and customize for your needs.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Import](/common_topics/import_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

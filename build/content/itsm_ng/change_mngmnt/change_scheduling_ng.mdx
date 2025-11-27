@@ -1,0 +1,376 @@
+---
+title: "Change Scheduling"
+description: "Guide to scheduling and coordinating change implementations"
+version: ""
+module: "Itsm"
+section: "Change Management"
+page: "Change Scheduling"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Change Management"
+  - "Change Scheduling"
+---
+
+# Change Scheduling
+
+Effective change scheduling minimizes business disruption and ensures successful implementation of changes.
+
+## Scheduling Overview
+
+Change scheduling involves coordinating:
+- Implementation time windows
+- Resource availability
+- Business impact
+- Technical dependencies
+- Blackout periods
+
+## Change Calendar
+
+### Accessing the Change Calendar
+
+1. Navigate to **ITSM** > **Change Management**
+2. Click **Change Calendar** tab
+3. View scheduled changes in calendar format
+
+### Calendar Views
+
+#### Month View
+- Overview of all scheduled changes
+- Color-coded by change type
+- Quick identification of busy periods
+
+#### Week View
+- Detailed daily schedule
+- Time slots for each change
+- Resource allocation visibility
+
+#### Day View
+- Hour-by-hour schedule
+- Detailed change information
+- Conflict detection
+
+### Calendar Filters
+
+Filter calendar display by:
+- Change type
+- Priority
+- Assigned team
+- Affected systems
+- Change category
+
+## Scheduling a Change
+
+### Prerequisites
+
+Before scheduling a change:
+- Change must be approved
+- Implementation plan completed
+- Resources identified
+- Backout plan documented
+
+### Scheduling Steps
+
+1. Open the approved change request
+2. Click **Schedule** button
+3. Select implementation date
+4. Choose time window
+5. Verify resource availability
+6. Check for conflicts
+7. Confirm schedule
+
+### Scheduling Fields
+
+#### Implementation Date
+- Planned start date for change
+- Must be after approval date
+- Should align with maintenance windows
+
+#### Start Time
+- Specific time change will begin
+- Consider time zones for global changes
+- Factor in preparation time
+
+#### End Time
+- Expected completion time
+- Include buffer for issues
+- Account for verification activities
+
+#### Maintenance Window
+- Select from predefined windows
+- Custom window option available
+- Aligned with business requirements
+
+## Maintenance Windows
+
+### Predefined Windows
+
+Standard maintenance windows:
+
+**Production Systems**
+- Saturday: 2:00 AM - 6:00 AM
+- Sunday: 2:00 AM - 6:00 AM
+
+**Non-Production Systems**
+- Weekdays: 6:00 PM - 8:00 PM
+- Weekends: Any time
+
+**Critical Systems**
+- Quarterly scheduled windows
+- Pre-announced to organization
+- Extended duration (4-8 hours)
+
+### Custom Maintenance Windows
+
+Create custom windows for specific needs:
+
+1. Navigate to **Admin** > **Change Management**
+2. Select **Maintenance Windows**
+3. Click **New Window**
+4. Define:
+   - Window name
+   - Day and time
+   - Duration
+   - Recurrence pattern
+   - Applicable systems
+
+## Blackout Periods
+
+Blackout periods are times when changes are not permitted.
+
+### Common Blackout Periods
+
+- **Financial Year End**: 2 weeks
+- **Holiday Seasons**: Major holidays ± 1 week
+- **Peak Business Periods**: Based on business calendar
+- **Audit Periods**: During external audits
+
+### Configuring Blackout Periods
+
+1. Go to **Admin** > **Change Management** > **Blackout Periods**
+2. Click **New Blackout Period**
+3. Specify:
+   - Name and description
+   - Start and end dates
+   - Affected systems
+   - Exception process
+   - Approval authority for exceptions
+
+### Blackout Period Exemptions
+
+Emergency changes may be exempted:
+- Requires senior management approval
+- Documented business justification
+- Risk assessment completed
+- Extra precautions implemented
+
+## Conflict Detection
+
+### Automatic Conflict Checks
+
+System automatically checks for:
+
+#### Resource Conflicts
+- Team members assigned to multiple changes
+- Insufficient staff for implementation
+- Key personnel unavailable
+
+#### System Conflicts
+- Multiple changes to same CI
+- Dependent system changes
+- Network maintenance conflicts
+
+#### Schedule Conflicts
+- Overlapping time windows
+- Blackout period violations
+- Maintenance window capacity
+
+### Resolving Conflicts
+
+When conflicts detected:
+
+1. Review conflict details
+2. Evaluate options:
+   - Reschedule one or more changes
+   - Adjust implementation time
+   - Reassign resources
+   - Coordinate simultaneous changes
+3. Update schedule
+4. Recheck for conflicts
+
+## Change Coordination
+
+### Coordinating Multiple Changes
+
+When scheduling related changes:
+
+#### Sequential Changes
+- Change A must complete before Change B
+- Set dependencies in system
+- Schedule with buffer time between
+- Monitor first change completion
+
+#### Parallel Changes
+- Can occur simultaneously
+- May share resources
+- Coordinate communication
+- Have unified rollback plan
+
+### Change Dependencies
+
+Define dependencies between changes:
+
+1. Open change request
+2. Navigate to **Relationships** tab
+3. Click **Add Dependency**
+4. Select related change
+5. Define dependency type:
+   - **Blocks**: This change must complete first
+   - **Blocked By**: Other change must complete first
+   - **Related**: Changes are related but independent
+
+## Resource Scheduling
+
+### Resource Availability
+
+Check resource availability:
+1. Click **Resources** in scheduling dialog
+2. View team member calendars
+3. Identify available personnel
+4. Assign to change tasks
+
+### Resource Allocation
+
+Allocate resources effectively:
+
+- **Primary Implementation Team**: Core implementers
+- **Backup Resources**: In case of issues
+- **Support Staff**: For user communications
+- **Monitoring Team**: Track implementation progress
+
+## Rescheduling Changes
+
+### When to Reschedule
+
+Reschedule if:
+- Conflicts identified
+- Resources unavailable
+- Dependencies not met
+- Business priorities change
+- Risk level increases
+
+### Rescheduling Process
+
+1. Open scheduled change
+2. Click **Reschedule**
+3. System releases current time slot
+4. Select new date/time
+5. Recheck conflicts
+6. Notify stakeholders
+7. Update change calendar
+
+### Rescheduling Notifications
+
+Automatic notifications sent to:
+- Change requestor
+- Implementation team
+- Approvers
+- Affected users
+- Management (for critical changes)
+
+## Change Freeze Periods
+
+### What is a Change Freeze?
+
+Temporary halt on all non-emergency changes during critical periods.
+
+### Implementing Change Freeze
+
+1. Announce freeze period in advance
+2. Complete pending changes before freeze
+3. Set freeze dates in system
+4. Define emergency approval process
+5. Communicate to all stakeholders
+
+### Managing During Freeze
+
+- Only emergency changes permitted
+- Requires executive approval
+- Full CAB review post-implementation
+- Extended testing requirements
+
+## Schedule Optimization
+
+### Best Practices
+
+#### Spread Changes Over Time
+- Avoid scheduling too many changes simultaneously
+- Distribute across available windows
+- Allow time for issue resolution
+
+#### Group Related Changes
+- Combine changes to same system
+- Coordinate dependent changes
+- Reduce total maintenance time
+
+#### Consider Time Zones
+- Schedule global changes carefully
+- Minimize impact on all regions
+- Rotate maintenance windows fairly
+
+## Scheduling Notifications
+
+### Automated Reminders
+
+**Implementation Team**
+- 7 days before: Preparation reminder
+- 3 days before: Final preparation
+- 1 day before: Ready check
+- 2 hours before: Implementation reminder
+
+**Stakeholders**
+- 7 days before: Advance notice
+- 1 day before: Final reminder
+- Implementation start: Change in progress
+- Completion: Change completed successfully
+
+## Scheduling Metrics
+
+### Key Performance Indicators
+
+- **Schedule Adherence**: % changes completed on schedule
+- **Schedule Conflicts**: Number of scheduling conflicts
+- **Rescheduling Rate**: % changes rescheduled
+- **Window Utilization**: % of maintenance window capacity used
+
+### Reporting
+
+Generate scheduling reports:
+1. Navigate to **Reports** > **Change Management**
+2. Select **Scheduling Analysis**
+3. Choose reporting period
+4. Review metrics and trends
+
+## Integration with Other Modules
+
+### CMDB Integration
+- View CI maintenance schedules
+- Check CI availability
+- Identify affected services
+
+### Incident Management
+- Coordinate with incident resolution
+- Schedule preventive changes
+- Track change-related incidents
+
+### Problem Management
+- Schedule problem resolution changes
+- Coordinate with root cause fixes
+- Plan preventive measures
+
+## Related Topics
+
+- [CAB Meetings](/content/NG/itsm_ng/change_mngmnt/cab_meetings_ng.mdx)
+- [Changes](/content/NG/itsm_ng/change_mngmnt/changes_ng.mdx)
+- [Manage Changes](/content/NG/itsm_ng/change_mngmnt/manage_changes_ng.mdx)

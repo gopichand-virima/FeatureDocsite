@@ -1,0 +1,457 @@
+---
+title: "Incident Status"
+description: "Understanding incident status workflow and lifecycle"
+version: ""
+module: "Itsm"
+section: "Incident Management"
+page: "Incident Status"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Incident Management"
+  - "Incident Status"
+---
+
+# Incident Status
+
+Incident status indicates the current state of an incident in its lifecycle from creation through resolution and closure.
+
+## Status Lifecycle
+
+Incidents progress through the following statuses:
+
+```
+New → Assigned → In Progress → Resolved → Closed
+                        ↓
+                    On Hold
+                        ↓
+                  Cancelled
+```
+
+## Status Definitions
+
+### New
+
+**Description:**
+Incident has been created but not yet assigned or worked.
+
+**Characteristics:**
+- Initial status for all new incidents
+- Awaiting triage and assignment
+- No work has begun
+- SLA clock started
+
+**Typical Duration:** Minutes to hours
+
+**Next Actions:**
+- Review incident details
+- Assign to appropriate person/group
+- Begin triage
+- Change status to Assigned
+
+**Who Can Set:**
+- System (automatic on creation)
+- Service desk agent
+- Self-service portal
+
+### Assigned
+
+**Description:**
+Incident has been assigned to a person or group but work hasn't started.
+
+**Characteristics:**
+- Owner identified
+- In queue for work
+- Resources allocated
+- Awaiting technician availability
+
+**Typical Duration:** Minutes to hours
+
+**Next Actions:**
+- Technician reviews details
+- Contacts user if needed
+- Begins troubleshooting
+- Changes status to In Progress
+
+**Who Can Set:**
+- Assignment rules (automatic)
+- Incident manager
+- Team lead
+- Service desk
+
+### In Progress
+
+**Description:**
+Active work is being performed on the incident.
+
+**Characteristics:**
+- Troubleshooting underway
+- Regular communication with user
+- Work notes being added
+- Progress toward resolution
+
+**Typical Duration:** Hours to days (based on priority)
+
+**Activities:**
+- Investigating root cause
+- Testing solutions
+- Implementing fixes
+- Escalating if needed
+- Providing updates
+
+**Next Actions:**
+- Continue troubleshooting
+- Implement solution
+- Test resolution
+- Change to Resolved or On Hold
+
+**Who Can Set:**
+- Assigned technician
+- Anyone working the incident
+- System (on first update)
+
+### On Hold
+
+**Description:**
+Work is temporarily paused waiting for something.
+
+**Characteristics:**
+- Progress blocked
+- Awaiting external input
+- Cannot proceed currently
+- May pause SLA clock (configurable)
+
+**Common Reasons:**
+- **Awaiting User Response**: User needs to provide information
+- **Awaiting Vendor**: Third-party support engaged
+- **Awaiting Change**: Change must be implemented first
+- **Awaiting Parts**: Hardware replacement ordered
+- **Awaiting Approval**: Management decision needed
+
+**Duration:** Variable (hours to weeks)
+
+**Required Fields:**
+- **Hold Reason**: Why incident is on hold
+- **Expected Resume Date**: When work can continue
+- **Awaiting Response From**: Who/what we're waiting for
+
+**Next Actions:**
+- Monitor hold condition
+- Follow up regularly
+- Resume work when unblocked
+- Return to In Progress or Resolve
+
+**Who Can Set:**
+- Assigned technician
+- Incident manager
+- System (automatic triggers)
+
+### Resolved
+
+**Description:**
+Solution has been implemented and awaiting user confirmation.
+
+**Characteristics:**
+- Fix applied
+- Resolution documented
+- Awaiting user verification
+- SLA resolution timer stopped
+- Incident can still be reopened
+
+**Typical Duration:** 1-3 days (auto-close period)
+
+**Required Fields:**
+- **Resolution Notes**: Detailed solution description
+- **Resolution Code**: Category of resolution
+- **Resolution Date/Time**: When resolved (automatic)
+
+**Resolution Codes:**
+- Fixed
+- Workaround Provided
+- Cannot Reproduce
+- Closed/Resolved by Caller
+- Duplicate Incident
+- No Issue Found
+
+**Next Actions:**
+- User tests solution
+- User confirms resolution or reopens
+- Auto-close after X days (typically 3)
+- Create knowledge article if valuable
+
+**Who Can Set:**
+- Assigned technician
+- Incident manager
+- Anyone working incident
+
+### Closed
+
+**Description:**
+Incident is complete and requires no further action.
+
+**Characteristics:**
+- Final status
+- User confirmed resolution
+- No further work possible
+- Counted in resolution metrics
+- Historical record only
+
+**How Incidents Close:**
+- **User Confirmation**: User agrees issue resolved
+- **Auto-Close**: After X days in Resolved (no response)
+- **Manual Close**: Technician closes with justification
+
+**Required Information:**
+- Resolution notes
+- Resolution code
+- Actual resolution time
+- User satisfaction (optional survey)
+
+**Post-Closure:**
+- Incident is read-only
+- Can view for reference
+- Cannot edit (admin exception)
+- Used for reporting and metrics
+
+**Who Can Set:**
+- Requester (confirming resolution)
+- System (auto-close)
+- Incident manager
+- Assigned technician
+
+### Cancelled
+
+**Description:**
+Incident was withdrawn or created in error.
+
+**Characteristics:**
+- No resolution provided
+- Not counted in resolution metrics
+- Removed from active work
+- Audit trail maintained
+
+**Cancellation Reasons:**
+- **Duplicate**: Same as another incident
+- **Created in Error**: Shouldn't have been created
+- **User Withdrew**: Requester cancelled request
+- **Spam**: Not a legitimate incident
+- **Wrong Process**: Should be request or change
+
+**Required Fields:**
+- **Cancellation Reason**: Why cancelled
+- **Related Incident**: If duplicate
+
+**Who Can Set:**
+- Requester (own incidents only)
+- Incident manager
+- Service desk supervisor
+- System administrator
+
+## Status Change Rules
+
+### Allowed Transitions
+
+Valid status changes (configurable):
+
+**From New:**
+- ✅ Assigned
+- ✅ In Progress
+- ✅ Cancelled
+- ❌ Resolved (must work incident first)
+- ❌ Closed (must resolve first)
+
+**From Assigned:**
+- ✅ In Progress
+- ✅ On Hold
+- ✅ Cancelled
+- ❌ Resolved (must work incident)
+- ❌ Closed
+
+**From In Progress:**
+- ✅ On Hold
+- ✅ Resolved
+- ✅ Assigned (reassignment)
+- ✅ Cancelled
+- ❌ New (cannot reverse to new)
+
+**From On Hold:**
+- ✅ In Progress
+- ✅ Assigned
+- ✅ Cancelled
+- ✅ Resolved (if issue resolved while on hold)
+
+**From Resolved:**
+- ✅ Closed
+- ✅ In Progress (if reopened)
+- ❌ Cannot move to other statuses
+
+**From Closed:**
+- ✅ In Progress (reopen only)
+- ❌ All other transitions blocked
+
+**From Cancelled:**
+- ❌ No transitions allowed (final)
+
+### Status Change Notifications
+
+Automatic notifications sent when status changes:
+
+**To Requester:**
+- Any status change
+- Explanation of what it means
+- Expected next steps
+- Current ETA if available
+
+**To Assigned Technician:**
+- Incident becomes Assigned
+- Incident returns from On Hold
+- Incident reopened
+
+**To Management:**
+- High priority to On Hold
+- SLA breach while In Progress
+- Reopen after Closed
+
+## Status Metrics
+
+### Time in Status
+
+Track time spent in each status:
+
+**Reports Show:**
+- Average time in each status
+- Bottlenecks (long status durations)
+- Status distribution
+- Workflow efficiency
+
+**Access Reports:**
+1. Navigate to **Reports** > **Incident Management**
+2. Select **Status Analysis**
+3. View time-in-status metrics
+
+### Status-Based SLAs
+
+Different SLA rules by status:
+
+**SLA Timing:**
+- **Running**: New, Assigned, In Progress
+- **Paused**: On Hold (configurable)
+- **Stopped**: Resolved, Closed, Cancelled
+
+**Configuration:**
+1. Admin > SLA Management
+2. Configure status SLA rules
+3. Set pause/resume conditions
+
+## Best Practices
+
+### Keep Status Current
+
+**Update Promptly:**
+- Change status immediately when state changes
+- Don't leave incidents in wrong status
+- Accurate status = accurate metrics
+- Users rely on status for updates
+
+### Use On Hold Appropriately
+
+**Do Use On Hold:**
+- Genuinely waiting for something
+- External dependency
+- User unavailable
+- Parts on order
+
+**Don't Use On Hold:**
+- Just busy with other work
+- Forgot about incident
+- Avoiding SLA breach
+- Don't know how to fix
+
+### Document Status Changes
+
+**Always Add Notes:**
+- Why status changed
+- What triggered the change
+- What happens next
+- Expected timeline
+
+**Example Work Note:**
+```
+Status changed to On Hold.
+Reason: Awaiting replacement part from vendor.
+Expected delivery: Nov 30, 2024
+Will resume troubleshooting upon arrival.
+```
+
+### Resolve vs. Close
+
+**Use Resolved:**
+- Solution implemented
+- Need user confirmation
+- Want feedback period
+- Allow time for verification
+
+**Use Closed:**
+- User confirmed fix
+- Auto-close period elapsed
+- Verified working
+- No further action needed
+
+## Reopening Incidents
+
+### When to Reopen
+
+Reopen if:
+- Original issue returned
+- Solution didn't work
+- New information available
+- Related to same root cause
+
+### How to Reopen
+
+**Method 1: User Requests**
+1. User replies to closed incident
+2. System detects reply
+3. Automatic reopen (configurable)
+4. Assigned to previous technician
+
+**Method 2: Manual Reopen**
+1. Open closed incident
+2. Click **Reopen** button
+3. Add reason for reopening
+4. Status returns to In Progress
+5. SLA clock restarts
+
+### Reopen Best Practices
+
+- Document why reopening
+- Check if new incident more appropriate
+- Link to related incidents
+- Analyze why initial resolution failed
+
+## Status Reports
+
+### Standard Status Reports
+
+**Open Incidents by Status:**
+- Count in each status
+- Age of incidents in status
+- Trend over time
+
+**Status Transition Report:**
+- How incidents flow through statuses
+- Bottlenecks identified
+- Average time per status
+
+**Access Reports:**
+1. **Reports** > **Incident Management**
+2. Select **Status Reports**
+3. Choose report type
+4. Filter as needed
+
+## Related Topics
+
+- [Manage Incidents](/content/NG/itsm_ng/incident_mngmt/manage_incidents_ng.mdx)
+- [Incident Priority](/content/NG/itsm_ng/incident_mngmt/incident_priority_ng.mdx)
+- [SLA Management](/content/NG/itsm_ng/incident_mngmt/sla_management_ng.mdx)

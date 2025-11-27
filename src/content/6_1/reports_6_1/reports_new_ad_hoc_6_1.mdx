@@ -1,72 +1,87 @@
 ---
-lang: en-us
-title: New Ad Hoc Reports
-viewport: width=device-width, initial-scale=1.0
+title: "New Ad Hoc Reports"
+description: "Use this function to create view and modify Ad Hoc reports and save Canned Reports."
+version: ""
+module: "Reports"
+section: "Reports New Ad Hoc"
+page: "New Ad Hoc Reports"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Reports"
+  - "Reports New Ad Hoc"
+  - "New Ad Hoc Reports"
 ---
 
 # New Ad Hoc Reports
 
-Use this function to create view and modify Ad Hoc reports and save [Canned Reports](Reports-Canned.mdx).
+Use this function to create view and modify Ad Hoc reports and save [Canned Reports](/reports/reports_canned_6_1.mdx).
 
 There are three steps in the process:
 
-::: Ind25
 Step 1. Specify the **Identifying Information** such as visibility and frequency. *See below*.
 
-::: Ind25
-Step 2. Select the **Report Properties** and set the **Conditions**. *Refer to* [Report Properties and Conditions](Reports-Props-Conds.mdx){style="font-style: italic;"}*.*
+Step 2. Select the **Report Properties** and set the **Conditions**. *Refer to* [Report Properties and Conditions](/reports/reports_props_conds_6_1.mdx)*.*
 
-::: Ind25
-Step 3. **Run** (or Generate) the report. *Refer to* [Run Report](Reports-Run.mdx){style="font-style: italic;"}*.*
+Step 3. **Run** (or Generate) the report. *Refer to* [Run Report](/reports/reports_run_6_1.mdx)*.*
 
- --- -----------------------------------------------------------------
-   To *edit* a report, following the same steps as outlined above.
- --- -----------------------------------------------------------------
+
+To *edit* a report, following the same steps as outlined above.
+
 
 ## Identifying Information
 
- -- ----- --------------------------------------------------------------------------------------------
- 1. In the navigation pane, select **Reports \> Ad Hoc Reports**. The Reports window displays.
- -- ----- --------------------------------------------------------------------------------------------
+In the navigation pane, select **Reports > Ad Hoc Reports**. The Reports window displays.
 
- -- ----- ------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, select **New Report**.
- -- ----- ------------------------------------------------------------------
+From the *Select Actions* drop-down list, select **New Report**.
 
-::: {.Ind50
-![ad hoc main old](../Resources/Images/Reports/ad-hoc-main-old.PNG)
-
-::: {.Ind50
 The report window updates.
 
-::: Ind50
-![schedule report frequency 345x178](../Resources/Images/Reports/schedule-report-frequency_345x178.png) |
-| | ::: |
-+---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Complete the fields in the upper portion of the window, referring to the information below.
 
- -- ----- ---------------------------------------------------------------------------------------------------------------
- 3. To remove the data currently entered, move to the *Select Actions* drop-down list and choose **Clear Query**.
- -- ----- ---------------------------------------------------------------------------------------------------------------
 
- -- ----- -----------------------------------------------------------------
- 4. To remove the data currently entered, click **Clear All Query**
- -- ----- -----------------------------------------------------------------
+| Field | Description |
 
- -- ----- --------------------------------------------------------------------
- 5. When all selections/entries are made, click **Save and Continue**.
- -- ----- --------------------------------------------------------------------
+| Name | Name to identify the report. |
 
- -- ----- -------------------------------------------------------------------------------------------------------------------
- 6. To continue the process, follow the instructions for [Report Properties and Conditions](Reports-Props-Conds.mdx).
- -- ----- -------------------------------------------------------------------------------------------------------------------
+| Is Private | Marks the report as private so only visible to those designated in the *Visible* field. |
 
- 
+| Visibility | The names of the users, group, roles or departments who can see the report. This field Is only displayed when the *Is Private* option is selected.
 
-**Related Topics**
+To select those who can see the report, do the following:.
 
-::: Bullet1
-[About Reports](/reports/reports_6_1.mdx)
+Click the **Add** button. Click **+**icon.The Send Report To dialog box displays.
 
-::: Bullet1
-[About Canned Reports](Reports-Canned.mdx)
+Select the applicable recipients (users, roles, etc.).
 
+![send report to dialog box](../Resources/Images/Reports/send-report-to-dialog-box.PNG)
+
+When all selections/entries are made, click **Save**. |
+
+| Is Scheduled | The frequency at which the report is generated. |
+
+| Send Report To | The names of the users, group, roles or departments to whom the report is sent. This field is only displayed when the *Is Scheduled* option is selected. To select those who will receive the report, follow the instructions above for Visibility. |
+
+| Schedule Report Frequency | Specifies the frequency at which the scan should run. There are two ways to set a frequency.
+**Option 1**
+To designated a *predefined* frequency (for example, every 30 minutes, every hour, etc.), click the drop-own list and select the applicable time based on the Scan Frequency selection. The Second, Minute, Hour, Day, Month and Weekday fields are updated appropriately to match the section.
+**Option 2**
+To configure a specific frequency:
+
+Click the drop-down list and select **Current Time Settings**.
+
+In the displayed columns (Second, Minute and so forth), select the applicable times. In the example below, the report will generate **every hour** on **Tue** and **Thu** only.
+
+![schedule report frequency](../Resources/Images/Reports/schedule-report-frequency.PNG) |
+
+
+To remove the data currently entered, move to the *Select Actions* drop-down list and choose **Clear Query**.
+
+To remove the data currently entered, click **Clear All Query**
+
+When all selections/entries are made, click **Save and Continue**.
+
+To continue the process, follow the instructions for [Report Properties and Conditions](/reports/reports_props_conds_6_1.mdx).
+
+- [About Reports](/reports/reports_6_1.mdx)
+- [About Canned Reports](/reports/reports_canned_6_1.mdx)

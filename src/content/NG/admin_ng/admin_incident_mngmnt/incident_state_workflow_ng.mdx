@@ -1,0 +1,164 @@
+# Incident State Workflow
+
+Use this function to create automated workflows that define how incidents progress through their lifecycle stages.
+
+By associating an incident workflow with an incident, the process is quicker and eliminates the need for manual stage/state changes by users with relevant access. Once an incident workflow is associated with an incident, the stage/state transitions happen automatically based on defined conditions, and relevant roles are notified.
+
+In the main window, click **Admin > Incident Management > Incident State Workflow**. The Incident State Workflow window displays.
+
+## New Incident State Workflow
+
+From the *Select Actions* drop-down list, choose **New Incident Workflow**. The Incident State Workflow window displays.
+
+Enter a *Name* and *Description* for this workflow.
+
+Click **Add**.
+
+Continue with the steps under *Workflow Details* below.
+
+## Workflow Details
+
+To specify the details of the workflow, you must edit the workflow just created.
+
+Select the workflow just created. The window displays workflow configuration options.
+
+Click **Add Workflow Step**.
+
+Configure each workflow step:
+
+### Trigger Conditions
+
+Define when this workflow step should execute:
+
+- **State Change**: When incident enters a specific state
+- **Time-Based**: After a specified duration
+- **Field Update**: When specific fields are modified
+- **SLA Breach**: When SLA thresholds are reached
+- **Manual Trigger**: User-initiated
+
+### Actions
+
+Define what should happen when triggered:
+
+**Change State/Stage**:
+
+- Select the target stage
+- Select the target state
+
+**Send Notifications**:
+
+- Click **Add** under *Notify*
+- Select roles, groups, or specific users to notify
+- Customize notification template if needed
+
+**Update Fields**:
+
+- Select fields to auto-update
+- Define the new values or formulas
+
+**Assignment**:
+
+- Auto-assign to specific user or group
+- Use round-robin assignment
+- Use workload-based assignment
+
+**Create Tasks**:
+
+- Auto-create related tasks
+- Define task templates
+
+### Conditions and Rules
+
+Set additional conditions for this workflow step:
+
+- **Only if Priority is**: Specify priority levels
+- **Only if Category is**: Specify categories
+- **Only if Assigned to**: Specify groups or users
+- **Custom Conditions**: Use advanced rule builder
+
+Click **Save** to save the workflow step.
+
+## Add Multiple Workflow Steps
+
+To create a complete workflow with multiple transitions:
+
+Click **Add Workflow Step** for each stage transition.
+
+Configure the sequence order.
+
+Define dependencies between steps.
+
+Test the workflow using the **Test Workflow** button.
+
+## Edit Incident State Workflow
+
+Navigate to the window containing the workflow to edit.
+
+Click the line containing the workflow. The workflow details window displays.
+
+To modify a workflow step:
+
+- Click the **pencil** icon next to the step
+- Make the necessary modifications
+- Click **Save**
+
+To reorder workflow steps:
+
+- Use the drag handles to reorder steps
+- Click **Save Order**
+
+## Clone Workflow
+
+To create a new workflow based on an existing one:
+
+Select a workflow.
+
+From the *Select Actions* drop-down list, choose **Clone Workflow**.
+
+Enter a new name and make modifications as needed.
+
+Click **Add**.
+
+## Activate/Deactivate Workflow
+
+To activate a workflow:
+
+Select the workflow.
+
+Click **Activate**.
+
+To deactivate:
+
+Select an active workflow.
+
+Click **Deactivate**.
+
+Deactivated workflows will not execute even if associated with incidents.
+
+## Delete Incident State Workflow
+
+Click the line that contains the workflow to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Test Workflow
+
+Before deploying a workflow to production:
+
+Select the workflow.
+
+Click **Test Workflow**.
+
+Provide sample incident data.
+
+Review the workflow execution path and resulting actions.
+
+Make adjustments as needed.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

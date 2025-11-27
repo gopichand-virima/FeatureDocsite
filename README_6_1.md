@@ -1325,7 +1325,7 @@ Content here...
 ### Complete Module List
 
 1. **My Dashboard**
-   - Application Overview (System Icons, User Specific Functions, Online Help)
+   - Application Overview (System Icons, User Specific Functions, Technical Design Documents)
    - Shared Functions (37+ common functions)
    - My Dashboard (Dashboards, Customization, Report Actions)
 

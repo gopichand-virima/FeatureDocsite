@@ -1,254 +1,158 @@
 ---
-lang: en-us
-title: CMDB Process Jobs
-viewport: width=device-width, initial-scale=1.0
+title: "CMDB Process Jobs"
+description: "&#160;"
+version: ""
+module: "Itsm"
+section: "Config Mngmt"
+page: "CMDB Process Jobs"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Config Mngmt"
+  - "Conf Items"
+  - "Cmdb Process Jobs"
+  - "CMDB Process Jobs"
 ---
 
 # CMDB Process Jobs
 
- 
-
 When any of the these actions are chosen in the Configuration Items *Select Actions* drop-down list, the following occurs:
 
-::: Bullet1
-A confirmation message displays.
+- A confirmation message displays.
 
- -- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- - Click **Yes** (to start processing). If **Yes** is selected, a Success Message displays, indicating the process has started and will work in the background. Click **OK**.
- -- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Click **Yes** (to start processing). If **Yes** is selected, a Success Message displays, indicating the process has started and will work in the background. Click **OK**.
 
- -- ---- -----------------------------------
- - or **No** (to cancel the action).
- -- ---- -----------------------------------
+or **No** (to cancel the action).
 
-::: Bullet1
-As the processing takes place, a message scrolls across the menu.
+- As the processing takes place, a message scrolls across the menu.
+- When processing is complete, an email notification is sent to the user who initiated the process, confirming the process is complete.
 
-::: Bullet1
-When processing is complete, an email notification is sent to the user who initiated the process, confirming the process is complete.
-
-![arrow border](../../../Resources/Images/arrow-border.PNG)
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Cloud Hierarchy](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process Cloud Hierarchy
 
 **Purpose**: Creates relationship between the cloud imported CIs: -
 
 **Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
 
-### [Azure Instances]
+### Azure Instances
 
 #### Azure SQL Server Contains Database
 
-::: Bullet1
-Relationship Type: Contains
+- Relationship Type: Contains
+- Source: Azure SQL Server
+- Target: Database
 
-::: Bullet1
-Source: Azure SQL Server
-
-::: Bullet1
-Target: Database
-
-### [AWS Instances]
+### AWS Instances
 
 #### AWS Load Balancer Contains Target Group
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS Load Balancer
-
-::: Bullet1
-Target: Target Group
+- Relationship Type: Contains
+- Source: AWS Load Balancer
+- Target: Target Group
 
 #### AWS Load Balancer Secured By AWS Security Group
 
-::: Bullet1
-Relationship Type: Secured By
-
-::: Bullet1
-Source: AWS Load Balancer
-
-::: Bullet1
-Target: AWS Security Group
+- Relationship Type: Secured By
+- Source: AWS Load Balancer
+- Target: AWS Security Group
 
 #### AWS VPC Contains AWS Load Balancer
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS VPC
-
-::: Bullet1
-Target: AWS Load Balancer
+- Relationship Type: Contains
+- Source: AWS VPC
+- Target: AWS Load Balancer
 
 #### AWS EC2 Instance Secured By AWS Security Group
 
-::: Bullet1
-Relationship Type: Secured By
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: AWS Security Group
+- Relationship Type: Secured By
+- Source: AWS EC2 Instance
+- Target: AWS Security Group
 
 #### AWS EC2 Instance Instantiates "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
 
-::: Bullet1
-Relationship Type: Instantiates
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
+- Relationship Type: Instantiates
+- Source: AWS EC2 Instance
+- Target: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
 
 #### AWS EC2 Instance Attached To AWS EBS
 
-::: Bullet1
-Relationship Type: Attached To
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: AWS EBS
+- Relationship Type: Attached To
+- Source: AWS EC2 Instance
+- Target: AWS EBS
 
 #### AWS EC2 Instance Belongs To AWS VPC
 
-::: Bullet1
-Relationship Type: Belongs To
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: AWS VPC
+- Relationship Type: Belongs To
+- Source: AWS EC2 Instance
+- Target: AWS VPC
 
 #### AWS EC2 Instance Contains Target Group
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: Target Group
+- Relationship Type: Contains
+- Source: AWS EC2 Instance
+- Target: Target Group
 
 #### AWS NAT Gateways Contains AWS Subnet
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS NAT Gateways
-
-::: Bullet1
-Target: AWS Subnet
+- Relationship Type: Contains
+- Source: AWS NAT Gateways
+- Target: AWS Subnet
 
 #### AWS Subnet Contains AWS Route Table
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS Subnet
-
-::: Bullet1
-Target: AWS Route Table
+- Relationship Type: Contains
+- Source: AWS Subnet
+- Target: AWS Route Table
 
 #### AWS EC2 Instance Parts Of AWS Subnet
 
-::: Bullet1
-Relationship Type: Parts Of
-
-::: Bullet1
-Source: AWS EC2 Instance
-
-::: Bullet1
-Target: AWS Subnet
+- Relationship Type: Parts Of
+- Source: AWS EC2 Instance
+- Target: AWS Subnet
 
 #### AWS Network ACL Contains AWS Subnet
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: AWS Network ACL
-
-::: Bullet1
-Target: AWS Subnet
+- Relationship Type: Contains
+- Source: AWS Network ACL
+- Target: AWS Subnet
 
 #### AWS Internet Gateway Used By Route
 
-::: Bullet1
-Relationship Type: Used By
-
-::: Bullet1
-Source: AWS Internet Gateway
-
-::: Bullet1
-Target: Route
+- Relationship Type: Used By
+- Source: AWS Internet Gateway
+- Target: Route
 
 #### AWS Database Cluster Secured By AWS Security Group
 
-::: Bullet1
-Relationship Type: Secured By
-
-::: Bullet1
-Source: AWS Database Cluster
-
-::: Bullet1
-Target: AWS Security Group
+- Relationship Type: Secured By
+- Source: AWS Database Cluster
+- Target: AWS Security Group
 
 #### AWS DocumentDB Used By Route
 
-::: Bullet1
-Relationship Type: Used By
-
-::: Bullet1
-Source: AWS DocumentDB
-
-::: Bullet1
-Target: Route
+- Relationship Type: Used By
+- Source: AWS DocumentDB
+- Target: Route
 
 #### AWS Neptune Used By Route
 
-::: Bullet1
-Relationship Type: Used By
-
-::: Bullet1
-Source: AWS Neptune
-
-::: Bullet1
-Target: Route
+- Relationship Type: Used By
+- Source: AWS Neptune
+- Target: Route
 
 #### AWS RDS Used By Route
 
-::: Bullet1
-Relationship Type: Used By
-
-::: Bullet1
-Source: AWS RDS
-
-::: Bullet1
-Target: Route
+- Relationship Type: Used By
+- Source: AWS RDS
+- Target: Route
 
 #### AWS Internet Gateway Used By Route
 
-::: Bullet1
-Relationship Type: Used By
+- Relationship Type: Used By
+- Source: AWS Internet Gateway
+- Target: Route
 
-::: Bullet1
-Source: AWS Internet Gateway
-
-::: Bullet1
-Target: Route
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Software Installation](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process Software Installation
 
 **Purpose**: Creates relationship for Software
 
@@ -256,50 +160,32 @@ Target: Route
 
 #### Software License Key Component Of Software
 
-::: Bullet1
-Relationship Type: Component Of
-
-::: Bullet1
-Source: Software License Key
-
-::: Bullet1
-Target: Software
+- Relationship Type: Component Of
+- Source: Software License Key
+- Target: Software
 
 #### Software Installed On "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
 
-::: Bullet1
-Relationship Type: Installed On
+- Relationship Type: Installed On
+- Source: Software
+- Target: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
 
-::: Bullet1
-Source: Software
-
-::: Bullet1
-Target: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" ADM](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process ADM
 
 **Purpose**: Creates relationship between various Software and CI's.
 
 **Limitation/Usage**: This can be processed for single/multiple selected CIs. If no CI is selected then this process will run for the entire CMDB when triggered.
 
-::: Bullet1
-*Source Blueprints*: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"/ "Software Instance"
+- *Source Blueprints*: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"/ "Software Instance"
+- *Target Blueprints*: "Software Instance"
 
-::: Bullet1
-*Target Blueprints*: "Software Instance"
+####  Communicates With
 
-#### \<Source Blueprints\> Communicates With \<Target Blueprints\>
+- Relationship Type: Communicates With
+- Source: 
+- Target: 
 
-::: Bullet1
-Relationship Type: Communicates With
-
-::: Bullet1
-Source: \<Source Blueprints\>
-
-::: Bullet1
-Target: \<Target Blueprints\>
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" VCenter Hierarchy](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process VCenter Hierarchy
 
 **Purpose**: Creates relationship for VCenter
 
@@ -307,16 +193,11 @@ Target: \<Target Blueprints\>
 
 #### Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server" Esxi virtualises host ESXi Host
 
-::: Bullet1
-Relationship Type: Esxi virtualises host
+- Relationship Type: Esxi virtualises host
+- Source: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
+- Target: ESXi Host
 
-::: Bullet1
-Source: "Windows Server"/ "Windows Host"/ "Unix Server"/ "Linux Server"
-
-::: Bullet1
-Target: ESXi Host
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Network Connections](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process Network Connections
 
 **Purpose**: Creates relationship for Switch, Routers and Vlans
 
@@ -324,272 +205,158 @@ Target: ESXi Host
 
 ### VLAN Connected To VLAN
 
-::: Bullet1
-Relationship Type: Connected To
+- Relationship Type: Connected To
+- Source: VLAN
+- Target: VLAN
 
-::: Bullet1
-Source: VLAN
+### VLAN Connected To
 
-::: Bullet1
-Target: VLAN
-
-### VLAN Connected To \<Any Blueprint\>
-
-::: Bullet1
-Relationship Type: Connected To
-
-::: Bullet1
-Source: VLAN
-
-::: Bullet1
-Target: Any Blueprint
+- Relationship Type: Connected To
+- Source: VLAN
+- Target: Any Blueprint
 
 ### VLAN Connected To "Switch"/ "Router"
 
-::: Bullet1
-Relationship Type: Connected To
+- Relationship Type: Connected To
+- Source: VLAN
+- Target: "Switch"/ "Router"
 
-::: Bullet1
-Source: VLAN
+###  Connected To "Switch"/ "Router"
 
-::: Bullet1
-Target: "Switch"/ "Router"
+- Relationship Type: Connected To
+- Source: Any Blueprint
+- Target: "Switch"/ "Router"
 
-### \<Any Blueprint\> Connected To "Switch"/ "Router"
-
-::: Bullet1
-Relationship Type: Connected To
-
-::: Bullet1
-Source: Any Blueprint
-
-::: Bullet1
-Target: "Switch"/ "Router"
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Dev Ops](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Process Dev Ops
 
 **Purpose**: Creates relationship between the cloud imported CIs: -
 
 **Limitation/Usage**: This cannot be processed for single/multiple selected CIs. This process will run for the entire CMDB when triggered.
 
-#### Website Hosted On \<Any Blueprint\>
+#### Website Hosted On
 
-::: Bullet1
-Relationship Type: Hosted On
-
-::: Bullet1
-Source: Website
-
-::: Bullet1
-Target: \<Any Blueprint\>
+- Relationship Type: Hosted On
+- Source: Website
+- Target: 
 
 #### Application Hosts Software Instance
 
-::: Bullet1
-Relationship Type: Hosts
-
-::: Bullet1
-Source: Application
-
-::: Bullet1
-Target: Software Instance
+- Relationship Type: Hosts
+- Source: Application
+- Target: Software Instance
 
 #### Software Instance Load Balancer For Software Instance
 
-::: Bullet1
-Relationship Type: Load Balancer For
-
-::: Bullet1
-Source: Software Instance
-
-::: Bullet1
-Target: Software Instance
+- Relationship Type: Load Balancer For
+- Source: Software Instance
+- Target: Software Instance
 
 #### Database Load Balancer For Application
 
-::: Bullet1
-Relationship Type: Load Balancer For
-
-::: Bullet1
-Source: Database
-
-::: Bullet1
-Target: Application
+- Relationship Type: Load Balancer For
+- Source: Database
+- Target: Application
 
 #### Database Hosts Application
 
-::: Bullet1
-Relationship Type: Hosts
-
-::: Bullet1
-Source: Database
-
-::: Bullet1
-Target: Application
+- Relationship Type: Hosts
+- Source: Database
+- Target: Application
 
 #### Database Hosted On Software Instance
 
-::: Bullet1
-Relationship Type: Hosted On
+- Relationship Type: Hosted On
+- Source: Database
+- Target: Software Instance
 
-::: Bullet1
-Source: Database
-
-::: Bullet1
-Target: Software Instance
-
-### [IIS Websites]
+### IIS Websites
 
 #### IIS Website HOSTED ON Application
 
-::: Bullet1
-Relationship Type: Hosts
-
-::: Bullet1
-Source: IIS Website
-
-::: Bullet1
-Target: Application
+- Relationship Type: Hosts
+- Source: IIS Website
+- Target: Application
 
 #### Windows Server / Windows Host Runs IIS Website
 
-::: Bullet1
-Relationship Type: Runs
+- Relationship Type: Runs
+- Source: Windows Server / Windows Host
+- Target : IIS Website
 
-::: Bullet1
-Source: Windows Server / Windows Host
+#### Windows Server / Windows Host \[Relationship mentioned in port configuration\]
 
-::: Bullet1
-Target : IIS Website
-
-#### Windows Server / Windows Host \[Relationship mentioned in port configuration\] \<Any blueprint\>
-
-::: Bullet1
-Relationship Type: Relationship mentioned in port configuration
-
-::: Bullet1
-Source: Windows Server / Windows Host
-
-::: Bullet1
-Target: Any Main Blueprint
+- Relationship Type: Relationship mentioned in port configuration
+- Source: Windows Server / Windows Host
+- Target: Any Main Blueprint
 
 #### Windows Server / Windows Host Load Balances Windows Server / windows Host with Microsoft NLB's Dedicated IP
 
-::: Bullet1
-Relationship Type: Load Balances
+- Relationship Type: Load Balances
+- Source: Windows Server/ windows Host
+- Target: Windows Server / Windows Host with Microsoft NLB's Dedicated IP
 
-::: Bullet1
-Source: Windows Server/ windows Host
-
-::: Bullet1
-Target: Windows Server / Windows Host with Microsoft NLB's Dedicated IP
-
-### [MSSQL Instance]
+### MSSQL Instance
 
 #### Windows Server RUNS MSSQL Instance
 
-::: Bullet1
-Relationship Type: Runs
-
-::: Bullet1
-Source: Windows Server
-
-::: Bullet1
-Target: MSSQL Instance
+- Relationship Type: Runs
+- Source: Windows Server
+- Target: MSSQL Instance
 
 #### Software Instance Instantiates MSSQL Instance
 
-::: Bullet1
-Relationship Type: Instantiates
+- Relationship Type: Instantiates
+- Source: Software Instance
+- Target: MSSQL Instance
 
-::: Bullet1
-Source: Software Instance
-
-::: Bullet1
-Target: MSSQL Instance
-
-### [Windows Cluster]
+### Windows Cluster
 
 #### Windows Cluster Cluster Of Windows Cluster Node
 
-::: Bullet1
-Relationship Type: Cluster Of
-
-::: Bullet1
-Source: Windows Cluster
-
-::: Bullet1
-Target: Windows Cluster Node
+- Relationship Type: Cluster Of
+- Source: Windows Cluster
+- Target: Windows Cluster Node
 
 #### Windows Cluster Node Hosted On Windows Server/Windows Host
 
-::: Bullet1
-Relationship Type: Windows Cluster
+- Relationship Type: Windows Cluster
+- Source: Windows Cluster Node
+- Target: Windows Server/Windows Host
 
-::: Bullet1
-Source: Windows Cluster Node
-
-::: Bullet1
-Target: Windows Server/Windows Host
-
-### [Oracle Cluster]
+### Oracle Cluster
 
 #### Linux Server Hosts Oracle Cluster
 
-::: Bullet1
-Relationship Type: Hosts
-
-::: Bullet1
-Source: Linux Server
-
-::: Bullet1
-Target: Oracle Cluster
+- Relationship Type: Hosts
+- Source: Linux Server
+- Target: Oracle Cluster
 
 #### Oracle Cluster Cluster Of Software Instance
 
-::: Bullet1
-Relationship Type: Cluster Of
+- Relationship Type: Cluster Of
+- Source: Oracle Cluster
+- Target: Software Instance
 
-::: Bullet1
-Source: Oracle Cluster
-
-::: Bullet1
-Target: Software Instance
-
-### [Cisco]
+### Cisco
 
 #### Cisco UCS Contains Cisco UCS Chassis
 
-::: Bullet1
-Relationship Type: Contains
-
-::: Bullet1
-Source: Cisco UCS
-
-::: Bullet1
-Target: Cisco UCS Chassis
+- Relationship Type: Contains
+- Source: Cisco UCS
+- Target: Cisco UCS Chassis
 
 #### Cisco UCS Chassis Contains Cisco Blade Server
 
-::: Bullet1
-Relationship Type: Contains
+- Relationship Type: Contains
+- Source: Cisco UCS
+- Target: Cisco UCS Chassis
 
-::: Bullet1
-Source: Cisco UCS
-
-::: Bullet1
-Target: Cisco UCS Chassis
-
-### [HyperV]
+### HyperV
 
 #### HyperV Virtualizes Windows Server/Windows Host
 
-::: Bullet1
-Relationship Type: Virtualizes
+- Relationship Type: Virtualizes
+- Source: HyperV
+- Target: Windows Server/Windows Host
 
-::: Bullet1
-Source: HyperV
-
-::: Bullet1
-Target: Windows Server/Windows Host
-
+ 

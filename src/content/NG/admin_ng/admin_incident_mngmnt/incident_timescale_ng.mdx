@@ -1,57 +1,125 @@
----
-lang: en-us
-title: Incident Timescale
-viewport: width=device-width, initial-scale=1.0
----
-
 # Incident Timescale
 
-Use this function to configure a resolution according to a priority basis.
+Use this function to configure response and resolution time targets based on incident priority levels.
 
-In the main window, click **Admin \> Incident Management \> Incident Timescale**. The Incident Timescale window displays. ![Incident Timescale 6.1](../Resources/Images/Admin - Incident/Incident-Timescale-6.1.png)
+Timescale settings define the Service Level Agreements (SLAs) for incident response and resolution. These targets help ensure incidents are addressed within appropriate timeframes based on their priority.
 
-::: Bullet1
-1 day is equal to 24 working hours. (For more info, see [Operational Hours](../Admin%20-%20Org%20Details/Operational-Hours.mdx).)
+In the main window, click **Admin > Incident Management > Incident Timescale**. The Incident Timescale window displays.
 
-::: Bullet1
-The numbers must be entered manually.
+## Configure Timescale
 
-::: Bullet1
-The timescale definitions for the various types of priorities are shown below.
+The timescale configuration displays a matrix of priority levels and their associated time targets.
 
-::: Bullet1
-Click in the field, and scroll the up or down arrows until the desired time interval is displayed.
+For each **Priority Level**, configure:
 
-## Timescale Definitions
+### Response Time
 
- Parameter Hours of Support Response Target Resolution Target
- ------------------------------ ------------------ ----------------- -------------------
- Priority 1 -- Major Incident 24×7 15 minutes 2 hours
- Priority 2 - Critical Business Hours 30 minutes 4 business hours
- Priority 3 - High Business Hours 2 hours 1 business day
- Priority 4 - Normal Business Hours 1 business day 5 business days
+The maximum time allowed from when the incident is logged until the first response is provided.
 
-## Escalate
+Enter the response time in the following format:
 
-If the incident is breached during the defined time, the escalation matrix goes into effect.
+- **Days**: Number of business days
+- **Hours**: Number of hours
+- **Minutes**: Number of minutes
 
-![timescale escalate old](../Resources/Images/Admin - Change/timescale-escalate-old.PNG)
+Example: 0 days, 4 hours, 0 minutes = 4-hour response time
 
- -- ----- ----------------------------------------------------------------------------------------------
- 1. Click the drop-down list and select if the time is *Before* or *After* the defined interval.
- -- ----- ----------------------------------------------------------------------------------------------
+### Resolution Time
 
- -- ----- --------------------------------------------------------------------------------------------------
- 2. Click in the field and scroll the up or down arrow until the desired time interval is displayed.
- -- ----- --------------------------------------------------------------------------------------------------
+The maximum time allowed from when the incident is logged until it is resolved.
 
- -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------------------
- 3. To send a report on an escalation, in the *To* field, click **Add**, make the applicable selections in the *Send Report To* dialog box, and click **Save**.
- -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enter the resolution time in the same format as response time.
 
-::: {.Ind50
-![send report to old](../Resources/Images/Admin - Incident/send-report-to-old.PNG)
+Example: 1 day, 8 hours, 0 minutes = 1 business day and 8 hours
 
- -- ----- --------------------------------------------------------------
- 4. When all the escalation selections are made, click **Save**.
- -- ----- --------------------------------------------------------------
+### Business Hours
+
+Specify whether the timescale should use:
+
+- **Business Hours**: SLA timers count only during defined business hours
+- **Calendar Hours**: SLA timers count 24/7
+
+Select the appropriate business hours calendar if using business hours.
+
+## Priority Level Configuration
+
+Configure timescales for each priority level:
+
+| Priority | Typical Response Time | Typical Resolution Time | Description |
+| P1 - Critical | 15-30 minutes | 4 hours | Critical business impact, immediate attention required |
+| P2 - High | 1-2 hours | 8 hours | High business impact, urgent resolution needed |
+| P3 - Medium | 4-8 hours | 2 business days | Moderate impact, standard resolution timeframe |
+| P4 - Low | 1 business day | 5 business days | Low impact, can be scheduled as resources permit |
+| P5 - Planning | 2 business days | 10 business days | Minimal impact, enhancement or future planning |
+
+## SLA Breach Notifications
+
+Configure notifications when SLA targets are at risk or breached:
+
+Click **Configure Notifications**.
+
+For each notification trigger, set:
+
+**Warning Threshold**: Notify when X% of time has elapsed (e.g., 75%)
+
+**Critical Threshold**: Notify when X% of time has elapsed (e.g., 90%)
+
+**Breach Notification**: Notify immediately when SLA is breached
+
+**Recipients**: Select users, groups, or roles to notify
+
+**Notification Method**: Email, SMS, or in-app notification
+
+Click **Save**.
+
+## Escalation Rules
+
+Define automatic escalation when SLA targets are at risk:
+
+Click **Configure Escalations**.
+
+For each escalation level:
+
+**Trigger**: Set the threshold (e.g., 80% of response time elapsed)
+
+**Action**: Define the escalation action
+
+- Reassign to senior technician
+- Notify management
+- Increase priority
+- Add to escalation queue
+
+**Escalation Path**: Define the sequence of escalations
+
+Click **Save**.
+
+## Business Hours Calendars
+
+To configure business hours calendars:
+
+Click **Manage Business Hours**.
+
+Define business hours for each day of the week.
+
+Specify holidays and non-working days.
+
+Create multiple calendars for different locations or teams if needed.
+
+Click **Save**.
+
+## Apply Timescale Changes
+
+When all timescale configurations are complete, click **Save**.
+
+To apply the new timescale to existing open incidents:
+
+Check **Apply to Existing Incidents**.
+
+Select the scope (all incidents or specific criteria).
+
+Click **Apply Changes**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

@@ -210,3 +210,115 @@
 html {
   font-size: var(--font-size);
 }
+
+/* Premium floating animations for hero icons */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(-2deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 10s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Resize handle styles */
+.resize-handle-left,
+.resize-handle-right {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.resize-handle-left:hover,
+.resize-handle-right:hover {
+  background: rgba(16, 185, 129, 0.15) !important;
+}
+
+.resize-handle-left:active,
+.resize-handle-right:active {
+  background: rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Enhanced resize handle visibility */
+.resize-handle-left::after,
+.resize-handle-right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 40px;
+  background: rgba(16, 185, 129, 0.4);
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.resize-handle-left::after {
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.resize-handle-right::after {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.resize-handle-left:hover::after,
+.resize-handle-right:hover::after {
+  opacity: 1;
+}
+
+/* Smooth resize transition */
+.resizing {
+  transition: none !important;
+  user-select: none;
+}

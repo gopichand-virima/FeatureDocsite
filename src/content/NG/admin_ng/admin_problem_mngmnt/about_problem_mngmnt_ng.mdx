@@ -1,38 +1,36 @@
----
-lang: en-us
-title: Problem Management
-viewport: width=device-width, initial-scale=1.0
----
-
 # About Problem Management
 
- --- --------------------------------------------------------------
-   Admin functions are only available to System Administrators.
- --- --------------------------------------------------------------
+The Problem Management module provides comprehensive tools for identifying, analyzing, and resolving the root causes of incidents. This section covers the administrative configuration options available for problem management.
 
-This module includes the following functions:
+Problem Management in Virima enables organizations to:
 
-::: Bullet1
-[Category](Problem-Category.mdx)
+- Identify and log problems (root causes of incidents)
+- Investigate and analyze problems to find permanent solutions
+- Track known errors and workarounds
+- Link related incidents to problems
+- Prevent recurring incidents through proactive problem management
+- Generate reports on problem trends and resolution effectiveness
 
-::: Bullet1
-[Closure Code](Problem-Closure-Code.mdx)
+## Key Configuration Areas
 
-::: Bullet1
-[Error Code](Problem-Error-Code.mdx)
+The following administrative functions are available for Problem Management:
 
-::: Bullet1
-[Graphical Workflows](../Admin/Admin-Graphical-Workflows.mdx)
+- **Problem Categories**: Define categorization schemes for problems
+- **Problem Priorities**: Configure priority levels
+- **Problem States**: Manage problem lifecycle stages
+- **Problem Types**: Define different types of problems
+- **Root Cause Analysis**: Configure RCA templates and methods
+- **Closure Codes**: Define closure classifications
+- **Known Error Database**: Manage known errors and workarounds
+- **Problem Models**: Create reusable problem templates
 
-::: Bullet1
-[Model](Problem-Model.mdx)
+Each of these areas can be configured to match your organization's specific problem management processes and ITIL best practices.
 
-::: Bullet1
-[Priority Calculator](Problem-Priority-Calculator.mdx)
+## Problem vs Incident
 
-::: Bullet1
-[State](Problem-State.mdx)
+Understanding the distinction:
 
-::: Bullet1
-[Timescale](Problem-Timescale.mdx)
+- **Incidents**: Focus on restoring service as quickly as possible
+- **Problems**: Focus on identifying and eliminating root causes
 
+Multiple incidents may be linked to a single underlying problem. Problem Management aims to prevent incidents from recurring by addressing their root causes.

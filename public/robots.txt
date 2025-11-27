@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://docs.virima.com/sitemap.xml
-
-

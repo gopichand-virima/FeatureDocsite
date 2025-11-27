@@ -1,7 +1,19 @@
 ---
-lang: en-us
-title: Configuration Items
-viewport: width=device-width, initial-scale=1.0
+title: "Configuration Items (CI)"
+description: "Configuration Items (CI) are components or other service assets that must be managed to deliver an IT service."
+version: ""
+module: "Itsm"
+section: "Config Mngmt"
+page: "Configuration Items (CI)"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Config Mngmt"
+  - "Config Items"
+  - "Config Item Details"
+  - "Config Items"
+  - "Configuration Items (CI)"
 ---
 
 # Configuration Items (CI)
@@ -10,135 +22,35 @@ Configuration Items (CI) are components or other service assets that must be man
 
 In Virima:
 
-::: Bullet1
-Each CI is derived from a Blueprint, with components that can be Network Adapters, Storage Disks, Software Instances, etc.
+- Each CI is derived from a Blueprint, with components that can be Network Adapters, Storage Disks, Software Instances, and so forth.
+- Each CI component is associated with the parent CI using Relationships--for example, Installed On, Component Of, Hosted On, Virtualized On, and so forth.
+- Each CI/CI Component in Virima has a unique Asset ID.
 
-::: Bullet1
-Each CI component is associated with the parent CI using Relationships, for example, Installed On, Component Of, Hosted On, Virtualized On, etc.
+CI's are added when they are:
 
-::: Bullet1
-Each CI/CI Component in Ecosystem Manager has a unique Asset ID.
+- Moved manually into CMDB.
+- Discovered by the Discovery application as they are moved into CMDB.
+- Imported from a file (.xls, .xlsx, or .csv).
 
-CI\'s are added when they are:
+To configure items, do the following:
 
-::: Bullet1
-Moved manually into CMDB.
+In the navigation pane, select **ITSM > Configuration Management > Configuration Items**. The Configuration Items window displays.
 
-::: Bullet1
-Discovered by the Discovery application as they are moved into CMDB.
+From the *Select Actions* drop-down list, choose an action: [New](/itsm/config_mngmt/config_items/config_item_new/config_items_new_6_1.mdx), [Delete](/common_topics/delete_remove_6_1.mdx), or [Export](/discovery/import_data_files/export_6_1.mdx).
 
-::: Bullet1
-Imported from a file (.xls, .xlsx, or .csv).
 
-In the navigation pane, select **ITSM \> Configuration Management \> CMDB**. The Configuration Items window displays.
+- [New Configuration Items](/itsm/config_mngmt/config_items/config_item_new/config_items_new_6_1.mdx)
+- [Edit Configuration Items](/itsm/config_mngmt/config_items/config_item_edit/config_items_edit_6_1.mdx)
+- [Configuration Item Options](/itsm/config_mngmt/config_items/config_item_options/config_items_options_6_1.mdx)
+- [Other Asset Info](/common_topics/other_asset_info_6_1.mdx)
 
-In the navigation pane, select **ITAM \> Configuration Management \> CMDB**. The Configuration Items window displays.
 
-![arrow border](../../../../Resources/Images/arrow-border.PNG)
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Configuration Items](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
-
-Refer to [New Configuration Items](../Config-Item-New.mdx).
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Options](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
-
- -- ----- --------------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose any of the following actions:
- -- ----- --------------------------------------------------------------------------------
-
-::: Bullet2
-[Audits](/itsm/config_mngmt/audits/audits_6_1.mdx)
-
-::: Bullet2
-**Change Attributes**. Changes the properties of single or multiple CIs. The attributes change based on the type of CI selected*. Refer to [Configuration Management - CMDB](#).*
-
-::: Bullet2
-[**[Copy to Ivanti](../../../../Common%20Functions/Copy-to-Ivanti.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}**]{style="color: #dc143c;"}
-
-::: Bullet2
-[Copy to ServiceNow](../../../../Common%20Functions/Copy-to-ServiceNow.mdx)
-
-- *.*
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Configuration Items](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
-
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
-
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
-
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
-
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
-
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
-
-When editing an existing item, other options may be available, such as adding [Tasks](/itsm/release_mngmt/tasks_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, [Comments](/discovery/comments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}, and [Attachments](/discovery/attachments_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a} and viewing [History](/common_topics/history_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}.
-
- --- ---------------------------------------------------------------------------------------
-   The options change based upon the function; therefore, not every option may be shown.
- --- ---------------------------------------------------------------------------------------
-
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Configuration Items](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
-
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
-
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-**Related Topics**
-
-::: Bullet1
-[Asset Details](Config-Items-Asset-Details.mdx)
-
-::: Bullet1
-[Components](../Config%20Item%20Components/About-CI-Components.mdx)
-
-::: Bullet1
-[Select Actions](../Config-Item-Select-Actions.mdx)
-
-::: Bullet1
-[Other Asset Info](../../../../Common%20Functions/Other-Asset-Info.mdx)
-
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
-
-::: Bullet1
-[Auto Refresh](../../../../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Delete](../../../../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Go To Page](../../../../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Personalize Columns](../../../../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Saved Filters](../../../../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Process Missing Components](../../../../Common%20Functions/Process-Missing-Components.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Outage Calendar](../../../../Common%20Functions/Outage-Calendar.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
+- [Records per Page](/common_topics/records_per_page_6_1.mdx)
+- [Items per Page](/common_topics/items_per_page_6_1.mdx)
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
+- [Outage Calendar](/common_topics/outage_calendar_6_1.mdx)
+- [Process Missing Components](/common_topics/process_missing_components_6_1.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
+- [Saved Filters](/common_topics/saved_filters_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)

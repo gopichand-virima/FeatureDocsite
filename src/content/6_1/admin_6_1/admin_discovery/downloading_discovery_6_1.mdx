@@ -1,20 +1,10 @@
----
-lang: en-us
-title: Downloading the Discovery Application
-viewport: width=device-width, initial-scale=1.0
----
-
 # Download the Discovery Application
 
-[In the main window, click ]{.span_1}[Admin]{.span_2}[ \> ]{.span_1}[Discovery]{.span_2}[ \> ]{.span_1}[Download Application.]{.span_2}
+In the main window, clickAdmin>Discovery>Download Application.
 
- -- ----- ------------------------------------------------------------------------------------------------------------
- 1. [Select the type of the Application OS and click ]{.span_1}[Download.]{.span_2}
- -- ----- ------------------------------------------------------------------------------------------------------------
+Select the type of the Application OS and clickDownload.
 
- -- ----- --------------------------------------------------------------------------------------------
- 2. [Perform any of the following installations: [Windows](Installation-Windows.mdx)]{.span_1}
- -- ----- --------------------------------------------------------------------------------------------
+Perform any of the following installations: [Windows](/admin_discovery/installation_windows_6_1.mdx)
 
 ## Minimum Hardware Requirements
 
@@ -22,20 +12,11 @@ The following are the minimum hardware requirements to install the Discovery App
 
 ### **Computer requirements**
 
-::: Bullet1
-Standalone server or VMware instance
-
-::: Bullet1
-Windows OS
-
-::: Bullet1
-64-bit Machine
-
-::: Bullet1
-8 GB RAM
-
-::: Bullet1
-Java Runtime 21
+- Standalone server or VMware instance
+- Windows OS
+- 64-bit Machine
+- 8 GB RAM
+- Java Runtime 21
 
 ### **Communication to Virima Cloud Instance**
 
@@ -43,32 +24,13 @@ The Discovery Server listens on port 8081 for all communication from the applica
 
 ### **Discovery Application Communication within Network**
 
-+--------------------------------+-----------------------+-----------------------------+
 | Port | Device Type | Authentication |
-+:===============================+:======================+:============================+
-| 22(SSH) | Unix, Linux, Solaris\ | SSH Username,\ |
-| | MAC | Password and Private keys |
-+--------------------------------+-----------------------+-----------------------------+
-| 135,137,138,139 (WMI) and\ | Windows | Windows |
-| 445 (File and Printer Sharing) | | |
-+--------------------------------+-----------------------+-----------------------------+
-| Port 5985 | Windows | Windows Username/\ |
-| | | Password |
-+--------------------------------+-----------------------+-----------------------------+
-| **161(SNMP)** | Network Device,\ | Community String (v1, v2),\ |
-| | Router and Switches | UserID/Password (v3) |
-+--------------------------------+-----------------------+-----------------------------+
+|------|-------------|----------------|
+| 22(SSH) | Unix, Linux, Solaris<br>MAC | SSH Username,<br>Password and Private keys |
+| 135,137,138,139 (WMI) and<br>445 (File and Printer Sharing) | Windows | Windows |
+| Port 5985 | Windows | Windows Username/<br>Password |
+| **161(SNMP)** | Network Device,<br>Router and Switches | Community String (v1, v2),<br>UserID/Password (v3) |
 
- 
-
-**Related Topics**
-
-::: Bullet1
-[Configuring Services Account](Config-Services-Account.mdx)
-
-::: Bullet1
-[Installing and Running the Windows Application](Installation-Windows.mdx)
-
-::: Bullet1
-[Uninstalling the Discovery Application](Installation-Uninstall.mdx)
-
+- [Configuring Services Account](/admin_discovery/config_services_account_6_1.mdx)
+- [Installing and Running the Windows Application](/admin_discovery/installation_windows_6_1.mdx)
+- [Uninstalling the Discovery Application](/admin_discovery/installation_uninstall_6_1.mdx)

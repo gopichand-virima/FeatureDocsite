@@ -1,0 +1,428 @@
+# Workflow Approvals
+
+Use this function to configure approval processes within workflows, including single approvers, approval chains, and complex approval routing.
+
+Approval workflows ensure proper authorization and governance for changes, requests, and other activities requiring management oversight.
+
+In the main window, click **Admin > Workflow Management > Workflow Approvals**. The Workflow Approvals window displays.
+
+## Overview
+
+Approval workflows enable:
+
+- Single approver configurations
+- Multi-level approval chains
+- Parallel approval (all or any)
+- Conditional approval routing
+- Delegate and substitute approvers
+- Approval timeouts and escalations
+- Approval history and audit trails
+
+## Configure Approval Process
+
+Click **New Approval Process**.
+
+Enter a *Process Name* and *Description*.
+
+### Approval Type
+
+Select the approval configuration:
+
+**Single Approver**:
+
+- One person approves or rejects
+- Fastest approval process
+- Use for low-risk items
+
+**Sequential Approval**:
+
+- Multiple approvers in sequence
+- Each must approve before next
+- Common for hierarchical approvals
+
+**Parallel Approval - All Required**:
+
+- Multiple approvers simultaneously
+- All must approve to proceed
+- Use for committee decisions
+
+**Parallel Approval - Any Approves**:
+
+- Multiple approvers simultaneously
+- First approval proceeds workflow
+- Use for "any available manager"
+
+**Conditional Approval**:
+
+- Routing based on conditions
+- Dynamic approver selection
+- Complex approval scenarios
+
+### Define Approvers
+
+Configure who can approve:
+
+**Approver Selection**:
+
+**Specific User**:
+
+- Select individual user
+- Direct assignment
+- Use for dedicated approvers
+
+**Role-Based**:
+
+- Select role (e.g., "Manager", "Director")
+- Dynamic based on role assignment
+- Adapts to organizational changes
+
+**Related User**:
+
+- Requester's manager
+- Assignment group manager
+- CI owner
+- Department head
+- Dynamically determined
+
+**Group-Based**:
+
+- Approval group
+- Any member can approve
+- Use for team decisions
+
+**Custom Logic**:
+
+- Script-based approver selection
+- Complex business rules
+- Advanced scenarios
+
+### Approval Stages
+
+For sequential approvals, define stages:
+
+Click **Add Approval Stage**.
+
+**Stage 1: Manager Approval**
+
+- Approver: Requester's direct manager
+- Required: Yes
+- Timeout: 24 hours
+- On Timeout: Escalate to next level
+
+**Stage 2: Department Head**
+
+- Approver: Department head
+- Required: If value > $5,000
+- Timeout: 48 hours
+- On Timeout: Auto-approve
+
+**Stage 3: Executive Approval**
+
+- Approver: VP or C-level
+- Required: If value > $50,000
+- Timeout: 72 hours
+- On Timeout: Notify and escalate
+
+Configure each stage and click **Save**.
+
+### Approval Conditions
+
+Define when approvals are required:
+
+**Conditional Rules**:
+
+```
+IF Request Type = "Software Purchase"
+AND Estimated Cost > $1,000
+THEN Require manager approval
+```
+
+```
+IF Change Risk = "High"
+THEN Require CAB approval
+```
+
+```
+IF User is VIP
+THEN Skip level 1, go to manager
+```
+
+**Field-Based Conditions**:
+
+- Priority level
+- Category
+- Cost/value
+- Risk assessment
+- Impact level
+- Urgency
+
+### Approval Actions
+
+Configure what happens during approval process:
+
+**On Approval Request**:
+
+- Send notification to approver
+- Add approval comment to ticket
+- Update ticket state to "Pending Approval"
+- Pause SLA timer
+- Set approval due date
+
+**On Approval Granted**:
+
+- Update ticket state
+- Notify requester of approval
+- Proceed to next stage or complete
+- Resume SLA timer
+- Log approval in history
+
+**On Approval Rejected**:
+
+- Update state to "Rejected"
+- Notify requester with reason
+- Close workflow or return to requester
+- Log rejection with comments
+- Option to request resubmission
+
+**On Approval Timeout**:
+
+- Send reminder to approver
+- Escalate to manager
+- Auto-approve (if configured)
+- Auto-reject (if configured)
+- Notify administrators
+
+### Approval Delegation
+
+Configure delegation options:
+
+**Allow Delegation**:
+
+- ☑ Approvers can delegate to others
+- Define delegation rules
+- Track delegation chain
+
+**Substitute Approvers**:
+
+- Configure backup approvers
+- Automatic substitution when unavailable
+- Out-of-office handling
+
+**Approval Hierarchy**:
+
+- Manager can approve for subordinates
+- Executive approval covers all lower levels
+- Skip redundant approvals
+
+### Approval Notifications
+
+Configure approval notifications:
+
+**Approval Request Email**:
+
+- Subject: "Approval Required: [Ticket Number]"
+- Body: Ticket details, approval link, deadline
+- Recipients: Approvers
+- Priority: High for urgent approvals
+
+**Reminder Notifications**:
+
+- First reminder: 50% of timeout period
+- Second reminder: 75% of timeout period
+- Final reminder: 90% of timeout period
+
+**Decision Notifications**:
+
+- Notify requester of approval decision
+- Notify next approver in chain
+- Notify stakeholders
+- Update team members
+
+### Approval Interface
+
+Configure how approvers respond:
+
+**Approval Methods**:
+
+**Email Approval**:
+
+- Approve via email reply
+- Click link in email
+- One-click approval
+
+**Portal Approval**:
+
+- Login to portal
+- View approval queue
+- Review details and approve
+
+**Mobile Approval**:
+
+- Mobile app notifications
+- Quick approve/reject
+- On-the-go approvals
+
+**API Approval**:
+
+- Programmatic approval
+- Integration with external systems
+- Automated approval workflows
+
+### Approval Requirements
+
+Define information required for approval:
+
+**Approver Must Provide**:
+
+- Approval comments (optional/required)
+- Justification for rejection
+- Risk assessment
+- Cost approval
+- Signature (if required)
+
+**Information Provided to Approver**:
+
+- Full ticket details
+- Requester information
+- Impact analysis
+- Cost/benefit data
+- Related approvals
+- Supporting documentation
+
+Click **Save** to create the approval process.
+
+## Common Approval Scenarios
+
+### Manager Approval for Requests
+
+**Use Case**: Service requests over $500 require manager approval
+
+**Configuration**:
+
+- Trigger: Request created
+- Condition: Estimated cost > $500
+- Approver: Requester's manager
+- Timeout: 48 hours
+- Action on timeout: Escalate to department head
+
+### CAB Approval for Changes
+
+**Use Case**: High-risk changes require Change Advisory Board approval
+
+**Configuration**:
+
+- Trigger: Change request created
+- Condition: Risk = High or Impact = Major
+- Approver: CAB group (any member)
+- Timeout: 5 business days
+- Action on timeout: Schedule CAB meeting
+
+### Executive Approval for Major Purchases
+
+**Use Case**: Purchases over $10,000 require executive approval
+
+**Configuration**:
+
+- Stage 1: Manager approval (< $5,000 stops here)
+- Stage 2: Director approval (< $10,000 stops here)  
+- Stage 3: VP/Executive approval (> $10,000)
+- Timeout: 72 hours per stage
+- Action on timeout: Notify and escalate
+
+### Peer Review Approval
+
+**Use Case**: Technical changes require peer review
+
+**Configuration**:
+
+- Trigger: Change in production environment
+- Approver: Technical peer review group
+- Approval type: Any 2 of 5 must approve
+- Timeout: 24 hours
+- Action on timeout: Auto-escalate to lead
+
+## Edit Approval Process
+
+Navigate to the window containing the approval process.
+
+Click the line containing the process.
+
+Make modifications to:
+
+- Approval stages
+- Approvers
+- Conditions
+- Timeouts
+- Notifications
+
+Click **Save**.
+
+## Test Approval Process
+
+Test the approval workflow:
+
+Select an approval process.
+
+Click **Test Approval Process**.
+
+Simulate approval scenario:
+
+- Create test ticket
+- Trigger approval
+- Verify approvers notified
+- Test approval/rejection
+- Verify workflow progression
+
+Review test results and refine.
+
+## Approval Analytics
+
+View approval metrics:
+
+Click **Approval Analytics**.
+
+**Metrics**:
+
+- Average approval time
+- Approval rate (approved vs rejected)
+- Timeout rate
+- Approvals by user
+- Bottlenecks in approval chain
+- Delegation frequency
+
+**Reports**:
+
+- Pending approvals
+- Overdue approvals
+- Approval trends
+- Performance by approver
+
+## Clone Approval Process
+
+To create a similar approval process:
+
+Select an approval process.
+
+From the *Select Actions* drop-down list, choose **Clone Process**.
+
+Enter a new name.
+
+Modify as needed.
+
+Click **Save**.
+
+## Delete Approval Process
+
+Ensure no active workflows are using this approval process.
+
+Click the line that contains the process to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

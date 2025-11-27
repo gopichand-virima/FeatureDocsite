@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Calendar, Clock, ArrowRight, Home } from "lucide-react";
@@ -21,39 +21,18 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { MDXContent } from "./MDXContent";
-import { Seo, PageSeo, BreadcrumbEntry } from "./Seo";
-import { resolveMDXPath } from "../utils/mdxPathResolver";
-import { getContentEntry } from "../content/contentLoader";
+import { resolveMDXPathFromTOC } from "../utils/tocPathResolver";
 import { FeedbackSection } from "./FeedbackSection";
-import {
-  organizationalDetailsPages,
-  departmentsPages,
-  discoveryPages,
-  clientPages,
-  credentialsPages,
-  monitoringProfilePages,
-  sacmPages,
-  usersPages,
-  managementFunctionsPages,
-  procurementPages,
-  integrationsPages,
-  cherwellCredentialPages,
-  ivantiCredentialsPages,
-  jiraCredentialsPages,
-  servicenowCredentialsPages,
-  othersPages,
-} from "../constants/adminPages";
+import { ResizableSidebar } from "./ResizableSidebar";
 
 interface DocumentationContentProps {
   version: string;
   module: string;
   section: string;
   page: string;
-  currentPath?: string;
   onHomeClick?: () => void;
   onModuleClick?: () => void;
   onVersionClick?: () => void;
-  onPageClick?: (version: string, module: string, section: string, page: string) => void;
 }
 
 const moduleNames: Record<string, string> = {
@@ -71,79 +50,11 @@ const moduleNames: Record<string, string> = {
   reports: "Reports",
 };
 
-const parentTopicPageMap: Record<string, string> = {
-  "Shared Functions": "shared-functions",
-  "Dashboards": "dashboards",
-  "Manage CMDB": "manage-cmdb",
-  "View and Edit a CI": "view-and-edit-ci",
-  "CI Details and Tabs": "ci-details-and-tabs",
-  "Dashboard": "dashboard",
-  "Run a Scan": "run-a-scan",
-  "Recent Scans": "recent-scans",
-  "Azure AD User Import Logs": "azure-ad-user-import-logs",
-  "Scheduled Scans and Imports": "scheduled-scans-and-imports",
-  "IPAM Networks": "ipam-networks",
-  "Discovered Items": "discovered-items",
-  "Import from AWS": "import-from-aws",
-  "Import from Azure": "import-from-azure",
-  "Import from Meraki": "import-from-meraki",
-  "Import from Intune": "import-from-intune",
-  "Import Data Files": "import-data-files",
-  "Imported Assets": "imported-assets",
-  "AD User Import Logs": "ad-user-import-logs",
-  "Configuration Management": "configuration-management",
-  "CMDB": "cmdb",
-  "Details": "details",
-  "Other Functions and Page Elements": "other-functions-and-page-elements",
-  "Procurement": "procurement",
-  "Self Service": "self-service",
-  "Program/Project Management": "program-project-management",
-  "Programs": "programs",
-  "Projects": "projects",
-  "Risk Register": "risk-register",
-  "Reports": "reports",
-  "Organizational Details": "organizational-details",
-  "Departments": "departments",
-  "Discovery": "discovery",
-  "Client": "client",
-  "Credentials": "credentials",
-  "Monitoring Profile": "monitoring-profile",
-  "SACM": "sacm",
-  "Users": "users",
-  "Management Functions": "management-functions",
-  "Integrations": "integrations",
-  "Cherwell Credential": "cherwell-credential",
-  "Ivanti Credentials": "ivanti-credentials",
-  "Jira Credentials": "jira-credentials",
-  "ServiceNow Credentials": "servicenow-credentials",
-  "Others": "others",
-  "My Dashboard": "my-dashboard-section",
-  "Initiate and Configure Discovery Scan": "initiate-and-configure-discovery-scan",
-  "Configure Discovery Scan": "configure-discovery-scan",
-  "View Recent Scan": "view-recent-scan",
-  "View Import Log Details": "view-import-log-details",
-  "Scans and Import Options": "scans-and-import-options",
-  "IPAM Functions Overview": "ipam-functions-overview",
-  "Scan Function": "scan-function",
-  "Manage Discovered Items": "manage-discovered-items",
-  "Detailed View of Discovered Items": "detailed-view-of-discovered-items",
-  "Manage Import Data Files": "manage-import-data-files",
-  "View an Imported Data File": "view-an-imported-data-file",
-  "Vulnerability Management": "vulnerability-management",
-};
-
 // Helper function to get section display name
 function getSectionDisplayName(section: string): string {
   const sectionNames: Record<string, string> = {
     "getting-started": "Getting Started",
     "application-overview": "Application Overview",
-    "organizational-details": "Organizational Details",
-    "discovery": "Discovery",
-    "sacm": "SACM",
-    "users": "Users",
-    "management-functions": "Management Functions",
-    "integrations": "Integrations",
-    "others": "Others",
     "online-help": "OnlineHelp",
     "api-integration": "API Integration",
     "compatibility-matrix": "Compatibility Matrix",
@@ -206,138 +117,6 @@ function getParentTopic(section: string, page: string): string | null {
   const runAScanPages = ["pre-requisites-for-scan", "access-run-a-scan", "probes-configuration", "client-configuration"];
   const recentScansPages = ["access-recent-scan", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
   const azureAdPages = ["azure-ad-configuration-and-import", "access-the-azure-ad-user-import-logs", "customize-columns", "delete-azure-ad-user-import-logs"];
-  // Discovery Scan - additional sections from Flare TOC
-  const scheduledScansImportsPages = [
-    "prerequisites-scheduled-scans-imports",
-    "accessing-scheduled-scan-and-imports",
-    "key-features-and-options-on-the-landing-page",
-    "scans-and-import-options",
-    "scan-and-import-schedule-list",
-    "schedule-a-network-scan",
-    "editing-a-scheduled-scan",
-    "history-of-scheduled-scan-execution",
-    "bulk-update-scan",
-    "exporting-a-scan",
-    "importing-scan-schedule",
-    "deleting-a-scan-schedule",
-    "scheduled-import-setup",
-    "aws-import",
-    "azure-import",
-    "meraki-import",
-  ];
-  const scansAndImportOptionsPages = ["scan-and-import-schedule-list"];
-  const ipamNetworksPages = [
-    "ipam-procedure",
-    "infoblox-configuration",
-    "ipam-ip-address-management",
-    "ipam-functions-overview",
-    "scan-function",
-    "status-update",
-    "regular-scan",
-    "sync-instant-and-scheduled",
-    "view-and-edit-a-network",
-    "other-functions-and-page-elements",
-  ];
-  const ipamFunctionsOverviewPages = ["scan-function", "status-update", "regular-scan"];
-  const scanFunctionPages = ["status-update", "regular-scan"];
-  const discoveredItemsPages = [
-    "prerequisites-discovered-items",
-    "access-discovered-items",
-    "manage-discovered-items",
-    "delete",
-    "export",
-    "export-without-selecting-any-record",
-    "move-to-cmdb",
-    "re-scan",
-    "column-descriptions",
-    "detailed-view-of-discovered-items",
-    "primary-details-block",
-    "owner-block",
-    "main-information-area",
-    "action-buttons",
-    "navigation-tabs",
-    "other-functions-and-page-elements",
-    "toolbar-or-control-bar",
-    "filter-by-discovered-items",
-  ];
-  const importFromAwsPages = [
-    "access-the-import-aws-window",
-    "import-aws-record",
-    "view-aws-import-record",
-    "key-columns",
-    "move-items-to-cmdb",
-    "logs",
-    "delete-aws-record",
-    "export-aws-records",
-    "view-a-discovered-aws-record",
-  ];
-  const importFromAzurePages = [
-    "access-the-import-azure-window",
-    "import-azure-record",
-    "view-azure-import-record",
-    "common-controls",
-    "key-columns",
-    "move-items-to-the-cmdb",
-    "delete-azure-record",
-    "export-azure-records",
-    "view-a-discovered-azure-record",
-    "discovered-item-view-overview",
-    "top-right-actions",
-    "tabs-main-panel",
-  ];
-  const importFromMerakiPages = [
-    "prerequisites-meraki",
-    "assess-import-meraki-window",
-    "import-meraki-record",
-    "view-meraki-import-record",
-    "common-controls",
-    "key-columns",
-    "move-items-to-the-cmdb",
-    "logs",
-    "delete-meraki-record",
-    "export-meraki-records",
-    "view-a-discovered-meraki-record",
-    "discovered-item-view-overview",
-    "top-right-actions",
-    "tabs-main-panel",
-  ];
-  const importFromIntunePages = [
-    "access-import-from-intune",
-    "import-intune-record",
-    "view-intune-import-record",
-    "delete-intune-record",
-    "export-intune-records",
-    "view-a-discovered-intune-record",
-  ];
-  const importDataFilesPages = [
-    "access-the-import-data-files",
-    "manage-import-data-files",
-    "import-ci",
-    "view-an-imported-data-file",
-    "all-tab",
-    "authorized-tab",
-    "unauthorized-tab",
-    "import-asset-ci-relations",
-    "delete",
-    "export",
-  ];
-  const importedAssetsPages = [
-    "access-the-imported-assets",
-    "manage-imported-assets",
-    "imported-asset-details",
-  ];
-  const adUserImportLogsPages = [
-    "ad-configuration-and-import",
-    "ad-configuration-property-descriptions",
-    "testing-ad-configuration",
-    "import-users",
-    "scheduled-ad-import",
-    "access-the-ad-user-import-logs",
-    "view-import-log-details",
-    "details-tab",
-    "tabs-for-extended-information",
-    "customize-columns",
-  ];
   
   if (section === "application-overview" && sharedFunctionsPages.includes(page)) {
     return "Shared Functions";
@@ -365,281 +144,42 @@ export function DocumentationContent({
   module,
   section,
   page,
-  currentPath,
   onHomeClick,
   onModuleClick,
   onVersionClick,
-  onPageClick,
 }: DocumentationContentProps) {
+  const [rightSidebarWidth, setRightSidebarWidth] = useState(256); // 64 * 4 = 256px (w-64)
+  const [mdxPath, setMdxPath] = useState<string | null>(null);
+  const [loadingPath, setLoadingPath] = useState(true);
   const moduleName = moduleNames[module] || module;
-  
-  // Helper function to get page label from page ID (matches TOC structure)
-  // This ensures breadcrumb labels match the TOC exactly
-  const getPageLabel = (pageId: string): string => {
-    // Map of page IDs to their display labels (matching TOC structure)
-    const pageLabelMap: Record<string, string> = {
-      // Application Overview pages
-      "system-icons": "System Icons",
-      "user-specific-functions": "User Specific Functions",
-      "online-help": "Online Help",
-      "shared-functions": "Shared Functions",
-      "advanced-search": "Advanced Search",
-      "attachments": "Attachments",
-      "auto-refresh": "Auto Refresh",
-      "collapse-maximize": "Collapse/Maximize",
-      "comments": "Comments",
-      "copy-to-cherwell": "Copy to Cherwell",
-      "copy-to-ivanti": "Copy to Ivanti",
-      "copy-to-jira": "Copy to Jira",
-      "copy-to-servicenow": "Copy to ServiceNow",
-      "delete-remove": "Delete/Remove",
-      "email-preferences": "Email Preferences",
-      "enable-disable-editing": "Enable/Disable Editing",
-      "export": "Export",
-      "filter-by": "Filter By",
-      "history": "History",
-      "import": "Import",
-      "items-per-page": "Items per Page",
-      "mark-as-knowledge": "Mark as Knowledge",
-      "other-asset-info": "Other Asset Info",
-      "outage-calendar": "Outage Calendar",
-      "personalize-columns": "Personalize Columns",
-      "print": "Print",
-      "process-adm": "Process ADM",
-      "process-missing-components": "Process Missing Components",
-      "records-per-page": "Records per Page",
-      "reload-default-mapping": "Reload Default Mapping",
-      "re-scan": "Re-scan",
-      "re-sync-data": "Re-Sync Data",
-      "save": "Save",
-      "saved-filters": "Saved Filters",
-      "searching": "Searching",
-      "show-main-all-properties": "Show Main/All Properties",
-      "tasks": "Tasks",
-      "updates": "Updates",
-      "version-control": "Version Control",
-      // My Dashboard pages
-      "my-dashboard-overview": "Overview",
-      "dashboards": "Dashboards",
-      "dashboards-contents": "Contents",
-      "customization": "Customization",
-      "report-actions": "Report Actions",
-      "my-dashboard-section": "My Dashboard",
-      "my-dashboard-contents": "Contents",
-      // Add more mappings as needed - this ensures consistency with TOC
-    };
+
+  // Load MDX path from TOC when navigation changes
+  useEffect(() => {
+    let mounted = true;
     
-    // If we have a label mapping, use it; otherwise format from page ID
-    if (pageLabelMap[pageId]) {
-      return pageLabelMap[pageId];
+    async function loadPath() {
+      setLoadingPath(true);
+      try {
+        const path = await resolveMDXPathFromTOC({ version, module, section, page });
+        if (mounted) {
+          setMdxPath(path);
+          setLoadingPath(false);
+        }
+      } catch (error) {
+        console.error('Error loading MDX path from TOC:', error);
+        if (mounted) {
+          setMdxPath(null);
+          setLoadingPath(false);
+        }
+      }
     }
     
-    // Fallback: format page ID to readable label
-    // Ensure CMDB and SACM are always uppercase
-    return pageId
-      .split("-")
-      .map(word => {
-        const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
-        // Ensure CMDB and SACM are always uppercase
-        if (capitalized === "Cmdb") return "CMDB";
-        if (capitalized === "Sacm") return "SACM";
-        return capitalized;
-      })
-      .join(" ")
-      .replace(/\bCmdb\b/g, "CMDB")
-      .replace(/\bSacm\b/g, "SACM");
-  };
-  
-  // Helper function to get parent topic page ID from parent topic name
-  const getParentTopicPageId = (parentTopicName: string): string | null => {
-    return parentTopicPageMap[parentTopicName] || null;
-  };
-  
-  // Handler for parent topic clicks
-  const handleParentTopicClick = (parentTopicName: string) => {
-    if (!onPageClick) return;
-    const parentPageId = getParentTopicPageId(parentTopicName);
-    if (parentPageId) {
-      onPageClick(version, module, section, parentPageId);
-    }
-  };
-  
-  // Handler for nested topic clicks
-  const handleNestedTopicClick = (nestedTopicName: string, nestedPageId: string) => {
-    if (!onPageClick) return;
-    onPageClick(version, module, section, nestedPageId);
-  };
-  
-  // Helper to create clickable breadcrumb link props for nested topics
-  const getClickableBreadcrumbProps = (topicName: string, pageId: string) => ({
-    onClick: () => handleNestedTopicClick(topicName, pageId),
-    className: "text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors",
-  });
-
-  const normalizedPath = currentPath
-    ? currentPath.startsWith("/")
-      ? currentPath
-      : `/${currentPath}`
-    : null;
-
-  const resolvedMDXPath = useMemo(() => {
-    try {
-      return resolveMDXPath({ version, module, section, page, currentPath: normalizedPath || undefined });
-    } catch (error) {
-      console.error("Error resolving MDX path:", error);
-      return null;
-    }
-  }, [version, module, section, page, normalizedPath]);
-
-  const contentEntry = useMemo(() => {
-    if (!resolvedMDXPath) return null;
-    return getContentEntry(resolvedMDXPath);
-  }, [resolvedMDXPath]);
-
-  const pageSeo = useMemo<PageSeo | null>(() => {
-    if (!contentEntry) return null;
-    const data = contentEntry.frontmatter || {};
-
-    const toStringArray = (value: unknown): string[] | undefined => {
-      if (Array.isArray(value)) {
-        const filtered = value.filter((item): item is string => typeof item === "string");
-        return filtered.length ? filtered : undefined;
-      }
-      if (typeof value === "string") {
-        const parts = value
-          .split(",")
-          .map((part) => part.trim())
-          .filter(Boolean);
-        return parts.length ? parts : undefined;
-      }
-      return undefined;
+    loadPath();
+    
+    return () => {
+      mounted = false;
     };
-
-    const coerceBoolean = (value: unknown): boolean | undefined => {
-      if (typeof value === "boolean") return value;
-      if (typeof value === "string") {
-        const lowered = value.toLowerCase();
-        if (lowered === "true") return true;
-        if (lowered === "false") return false;
-      }
-      return undefined;
-    };
-
-    const typedData = data as Record<string, unknown>;
-
-    const seo: PageSeo = {
-      title: typeof typedData.title === "string" ? typedData.title : undefined,
-      description: typeof typedData.description === "string" ? typedData.description : undefined,
-      canonical: typeof typedData.canonical === "string" ? typedData.canonical : undefined,
-      keywords: toStringArray(typedData.keywords),
-      lastUpdated: typeof typedData.lastUpdated === "string" ? typedData.lastUpdated : undefined,
-      ogImage: typeof typedData.ogImage === "string" ? typedData.ogImage : undefined,
-      noindex: coerceBoolean(typedData.noindex),
-    };
-
-    return seo;
-  }, [contentEntry]);
-
-  const pageDisplayNameForSeo = getPageLabel(page);
-  const fallbackTitle = pageDisplayNameForSeo || moduleName;
-  const fallbackDescription = `${moduleName}${
-    pageDisplayNameForSeo ? ` – ${pageDisplayNameForSeo}` : ""
-  } documentation for Virima.`;
-
-  const versionLabelMap: Record<string, string> = {
-    NextGen: "NextGen",
-    "6_1": "6.1",
-    "6_1_1": "6.1.1",
-    "5_13": "5.13",
-  };
-
-  const segmentLabelOverrides: Record<string, string> = {
-    "my-dashboard": "My Dashboard",
-    "my-dashboard-6_1": "My Dashboard",
-    admin: "Admin",
-    "admin_6_1": "Admin",
-    cmdb: "CMDB",
-    "cmdb_6_1": "CMDB",
-    "discovery-scan": "Discovery Scan",
-    "discovery_scan_6_1": "Discovery Scan",
-    itsm: "ITSM",
-    itam: "ITAM",
-    "itam_6_1": "ITAM",
-    "self-service": "Self Service",
-    "self-service-6_1": "Self Service",
-    "program-project-management": "Program and Project Management",
-    "program-project-management-6_1": "Program and Project Management",
-    "risk-register": "Risk Register",
-    reports: "Reports",
-    "reports_6_1": "Reports",
-    "vulnerability-management": "Vulnerability Management",
-    "vulnerability_management-6_1": "Vulnerability Management",
-    NG: "NextGen",
-    admin_discovery: "Discovery",
-    admin_sacm: "SACM",
-    admin_users: "Users",
-    admin_change_mngmnt: "Change Management",
-    admin_contract_mngmt: "Contract Management",
-    admin_event_mngmnt: "Event Management",
-    admin_hardware_asset_mngmnt: "Hardware Asset Management",
-    admin_incident_mngmnt: "Incident Management",
-    admin_knowledge_mngmnt: "Knowledge Management",
-    admin_procurement: "Procurement",
-    admin_procurement_mngmnt: "Procurement Management",
-    admin_project_mngmnt: "Project Management",
-    admin_release_mngmnt: "Release Management",
-    admin_request_mngmnt: "Request Management",
-    admin_vendor_mngmnt: "Vendor Management",
-    admin_integrations: "Integrations",
-    admin_other: "Other Functions",
-    admin_org_details: "Organizational Details",
-  };
-
-  const toTitleCase = (value: string) =>
-    value
-      .split(" ")
-      .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : ""))
-      .join(" ")
-      .replace(/\bCmdb\b/g, "CMDB")
-      .replace(/\bItsm\b/g, "ITSM")
-      .replace(/\bItam\b/g, "ITAM");
-
-  const formatSegmentLabel = (segment: string): string => {
-    if (!segment) return "";
-    if (versionLabelMap[segment]) return versionLabelMap[segment];
-    if (segmentLabelOverrides[segment]) return segmentLabelOverrides[segment];
-
-    const normalizedModule = module.replace(/[-_]/g, "");
-    if (segment.replace(/[-_]/g, "") === normalizedModule) {
-      return moduleName;
-    }
-
-    const withoutVersion = segment.replace(/[-_](6_1_1|6_1|5_13)$/i, "");
-    const strippedAdmin = withoutVersion.replace(/^admin[-_]/i, "");
-    const normalized = strippedAdmin.replace(/[-_]/g, " ");
-    return toTitleCase(normalized);
-  };
-
-  const seoBreadcrumbs = useMemo<BreadcrumbEntry[]>(() => {
-    if (!normalizedPath) return [];
-    const trimmed = normalizedPath.replace(/\/+$/, "");
-    if (!trimmed || trimmed === "/") return [];
-
-    const segments = trimmed.slice(1).split("/");
-    if (segments.length <= 1) return [];
-
-    const items: BreadcrumbEntry[] = [];
-    let accumulated = "";
-    for (let i = 0; i < segments.length - 1; i += 1) {
-      const segment = segments[i];
-      accumulated += `/${segment}`;
-      items.push({
-        label: formatSegmentLabel(segment),
-        path: accumulated,
-      });
-    }
-    return items;
-  }, [normalizedPath, module, moduleName]);
+  }, [version, module, section, page]);
 
   const getTOCItems = () => {
     const contentKey = `${section}-${page}`;
@@ -738,1468 +278,37 @@ export function DocumentationContent({
     );
   };
 
-  // Comprehensive breadcrumb rendering function (shared across all content types)
-  // This uses the same complete hierarchy logic as DefaultContent
-  const renderBreadcrumbs = () => {
-    // Import all hierarchy arrays and logic from DefaultContent
-    // My Dashboard - Application Overview hierarchy
-    const sharedFunctionsPages = [
-      "advanced-search", "attachments", "auto-refresh", "collapse-maximize",
-      "comments", "copy-to-cherwell", "copy-to-ivanti", "copy-to-servicenow",
-      "delete-remove", "email-preferences", "enable-disable-editing", "export",
-      "filter-by", "history", "import", "items-per-page", "mark-as-knowledge",
-      "other-asset-info", "outage-calendar", "personalize-columns", "print",
-      "process-adm", "process-missing-components", "records-per-page",
-      "reload-default-mapping", "re-scan", "re-sync-data", "save",
-      "saved-filters", "searching", "show-main-all-properties", "tasks",
-      "updates", "version-control", "go-to-page", "send-report-to"
-    ];
-    
-    // My Dashboard - My Dashboard section hierarchy
-    const dashboardsPages = ["contents", "customization", "report-actions", "my-dashboard-section"];
-    const myDashboardSectionPages = ["contents"];
-    
-    // CMDB breadcrumb hierarchy
-    const manageCmdbPages = [
-      "audits", "change-attributes", "delete", "export", "new",
-      "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow",
-      "generate-installed-software-report", "process-adm",
-      "process-available-patch-report", "process-cloud-hierarchy",
-      "process-devops", "process-missing-components", "process-network-connection",
-      "process-software-installation", "process-network-virtualization-hierarchy"
-    ];
-    
-    const viewEditCiPages = ["ci-left-panel", "contacts-on-ci"];
-    
-    const ciDetailsPages = [
-      "details", "components", "logon-events", "itsm", "relationships",
-      "audits-tab", "sla", "maintenance", "vulnerability", "private-properties",
-      "tasks", "history", "attachments"
-    ];
-    
-    const detailsNestedPages = ["manage-ci", "business-service-map"];
-    
-    // Discovery Scan breadcrumb hierarchy
-    const dashboardPages = ["access-dashboard", "dashboard-features", "add-contents", "dashboard-customization"];
-    
-    const runAScanPages = ["pre-requisites-for-scan", "access-run-a-scan", "initiate-and-configure-discovery-scan", "configure-discovery-scan", "probes-configuration", "client-configuration"];
-    const initiateConfigurePages = ["access-run-a-scan", "configure-discovery-scan", "probes-configuration", "client-configuration"];
-    const configureDiscoveryPages = ["probes-configuration", "client-configuration"];
-    
-    const recentScansPages = ["access-recent-scan", "view-recent-scan", "details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
-    const viewRecentScanPages = ["details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
-    const recentScanDetailsPages = ["export-scan-report", "refresh"];
-    
-    const azureAdPages = [
-      "azure-ad-configuration-and-import",
-      "azure-ad-configuration-property-descriptions",
-      "testing-ad-configuration-azure",
-      "import-users-azure",
-      "scheduled-azure-ad-import",
-      "access-the-azure-ad-user-import-logs",
-      "view-import-log-details-azure",
-      "details-tab-azure",
-      "key-information-displayed",
-      "tabs-for-extended-information-azure",
-      "customize-columns-azure",
-    ];
-    const azureAdConfigurationAndImportPages = [
-      "azure-ad-configuration-property-descriptions",
-      "testing-ad-configuration-azure",
-      "import-users-azure",
-      "scheduled-azure-ad-import",
-    ];
-    const viewImportLogDetailsAzurePages = [
-      "details-tab-azure",
-      "key-information-displayed",
-      "tabs-for-extended-information-azure",
-      "customize-columns-azure",
-    ];
-    
-    const scheduledScansImportsPages = [
-      "prerequisites",
-      "accessing-scheduled-scan-and-imports",
-      "key-features-and-options-on-the-landing-page",
-      "scans-and-import-options",
-      "scan-and-import-schedule-list",
-      "schedule-a-network-scan",
-      "editing-a-scheduled-scan",
-      "history-of-scheduled-scan-execution",
-      "bulk-update-scan",
-      "exporting-a-scan",
-      "importing-scan-schedules",
-      "deleting-a-scan-schedule",
-      "scheduled-import-setup",
-      "aws-import",
-      "azure-import",
-    ];
-    const scansAndImportOptionsPages = [
-      "scan-and-import-schedule-list",
-      "schedule-a-network-scan",
-      "editing-a-scheduled-scan",
-      "history-of-scheduled-scan-execution",
-      "bulk-update-scan",
-      "exporting-a-scan",
-      "importing-scan-schedules",
-      "deleting-a-scan-schedule",
-    ];
-    const scheduledImportSetupPages = ["aws-import", "azure-import"];
-    const ipamNetworksPages = [
-      "ipam-procedure",
-      "infoblox-configuration",
-      "ipam-ip-address-management",
-      "ipam-functions-overview",
-      "scan-function",
-      "status-update",
-      "regular-scan",
-      "sync-instant-and-scheduled",
-      "view-and-edit-a-network",
-      "other-functions-and-page-elements-ipam",
-    ];
-    const ipamFunctionsOverviewPages = [
-      "scan-function",
-      "status-update",
-      "regular-scan",
-      "sync-instant-and-scheduled",
-      "view-and-edit-a-network",
-      "other-functions-and-page-elements-ipam",
-    ];
-    const scanFunctionPages = ["status-update", "regular-scan"];
-    const discoveredItemsPages = [
-      "prerequisites-discovered-items",
-      "access-discovered-items",
-      "manage-discovered-items",
-      "delete-discovered-items",
-      "export-discovered-items",
-      "export-without-selecting-any-record",
-      "move-to-cmdb",
-      "re-scan",
-      "column-descriptions",
-      "detailed-view-of-discovered-items",
-      "primary-details-block",
-      "owner-block",
-      "main-information-area",
-      "action-buttons",
-      "navigation-tabs",
-      "other-functions-and-page-elements-discovered-items",
-      "toolbar-or-control-bar",
-      "filter-by",
-    ];
-    const manageDiscoveredItemsPages = [
-      "delete-discovered-items",
-      "export-discovered-items",
-      "export-without-selecting-any-record",
-      "move-to-cmdb",
-      "re-scan",
-    ];
-    const detailedViewDiscoveredItemsPages = [
-      "primary-details-block",
-      "owner-block",
-      "main-information-area",
-      "action-buttons",
-      "navigation-tabs",
-      "other-functions-and-page-elements-discovered-items",
-    ];
-    const otherFunctionsDiscoveredItemsPages = ["toolbar-or-control-bar", "filter-by"];
-    const importFromAwsPages = [
-      "access-the-import-aws-window",
-      "import-aws-record",
-      "view-aws-import-record",
-      "key-columns-aws",
-      "move-items-to-cmdb-aws",
-      "logs-aws",
-      "delete-aws-record",
-      "export-aws-records",
-      "view-a-discovered-aws-record",
-    ];
-    const viewAwsImportRecordPages = ["key-columns-aws", "move-items-to-cmdb-aws", "logs-aws"];
-    const importFromAzurePages = [
-      "access-import-azure-window",
-      "import-azure-record",
-      "view-azure-import-record",
-      "common-controls-azure",
-      "key-columns-azure",
-      "move-items-to-the-cmdb-azure",
-      "delete-azure-record",
-      "export-azure-records",
-      "view-a-discovered-azure-record",
-      "discovered-item-view-overview-azure",
-      "top-right-actions-azure",
-      "tabs-main-panel-azure",
-    ];
-    const viewAzureImportRecordPages = [
-      "common-controls-azure",
-      "key-columns-azure",
-      "move-items-to-the-cmdb-azure",
-      "delete-azure-record",
-      "export-azure-records",
-      "view-a-discovered-azure-record",
-      "discovered-item-view-overview-azure",
-      "top-right-actions-azure",
-      "tabs-main-panel-azure",
-    ];
-    const importFromMerakiPages = [
-      "prerequisites-meraki",
-      "assess-import-meraki-window",
-      "import-meraki-record",
-      "view-meraki-import-record",
-      "common-controls-meraki",
-      "key-columns-meraki",
-      "move-items-to-the-cmdb-meraki",
-      "logs-meraki",
-      "delete-meraki-record",
-      "export-meraki-records",
-      "view-a-discovered-meraki-record",
-      "discovered-item-view-overview-meraki",
-      "top-right-actions-meraki",
-      "tabs-main-panel-meraki",
-    ];
-    const viewMerakiImportRecordPages = [
-      "common-controls-meraki",
-      "key-columns-meraki",
-      "move-items-to-the-cmdb-meraki",
-      "logs-meraki",
-      "delete-meraki-record",
-      "export-meraki-records",
-      "view-a-discovered-meraki-record",
-      "discovered-item-view-overview-meraki",
-      "top-right-actions-meraki",
-      "tabs-main-panel-meraki",
-    ];
-    const importFromIntunePages = [
-      "access-import-from-intune",
-      "import-intune-record",
-      "view-intune-import-record",
-      "delete-intune-record",
-      "export-intune-records",
-      "view-a-discovered-intune-record",
-    ];
-    const viewIntuneImportRecordPages = [
-      "delete-intune-record",
-      "export-intune-records",
-      "view-a-discovered-intune-record",
-    ];
-    const importDataFilesPages = [
-      "access-the-import-data-files",
-      "manage-import-data-files",
-      "import-ci",
-      "view-an-imported-data-file",
-      "all-tab",
-      "authorized-tab",
-      "unauthorized-tab",
-      "import-asset-ci-relations",
-      "delete-import-data-files",
-      "export-import-data-files",
-    ];
-    const viewImportedDataFilePages = ["all-tab", "authorized-tab", "unauthorized-tab"];
-    const importedAssetsPages = [
-      "access-the-imported-assets",
-      "manage-imported-assets",
-      "imported-asset-details",
-    ];
-    const adUserImportLogsPages = [
-      "ad-configuration-and-import",
-      "ad-configuration-property-descriptions",
-      "testing-ad-configuration",
-      "import-users",
-      "scheduled-ad-import",
-      "access-the-ad-user-import-logs",
-      "view-import-log-details",
-      "details-tab",
-      "tabs-for-extended-information",
-      "customize-columns",
-    ];
-    const adConfigurationAndImportPages = [
-      "ad-configuration-property-descriptions",
-      "testing-ad-configuration",
-      "import-users",
-      "scheduled-ad-import",
-    ];
-    const viewImportLogDetailsPages = ["details-tab", "tabs-for-extended-information", "customize-columns"];
-    
-    // ITSM breadcrumb hierarchy
-    const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
-    
-    const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
-    
-    const itsmManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation"];
-    
-    const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
-    
-    const itsmCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
-    
-    const itsmDetailsNestedPages = ["manage-ci", "business-service-map"];
-    
-    const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
-    
-    // ITAM breadcrumb hierarchy
-    const itamConfigurationManagementPages = [
-      "dashboard", "cmdb", "access-cmdb", "manage-cmdb",
-      "view-and-edit-ci", "ci-details-and-tabs",
-      "other-functions-and-page-elements"
-    ];
-    const itamCmdbPages = [
-      "access-cmdb", "manage-cmdb", "view-and-edit-ci",
-      "ci-details-and-tabs", "other-functions-and-page-elements"
-    ];
-    const itamManageCmdbPages = [
-      "audits", "change-attributes", "delete", "export", "new",
-      "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow",
-      "generate-installed-software-report", "process-adm",
-      "process-available-patch-report", "process-cloud-hierarchy",
-      "process-devops", "process-missing-components",
-      "process-network-connection", "process-software-installation",
-      "process-network-virtualization-hierarchy"
-    ];
-    const itamViewEditCiPages = [
-      "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details",
-      "manage-ci", "business-service-map", "components", "logon-events",
-      "itsm", "relationships", "audits-tab", "sla", "maintenance",
-      "vulnerability", "private-properties", "tasks", "history",
-      "attachments", "comments"
-    ];
-    const itamCiDetailsPages = [
-      "details", "manage-ci", "business-service-map", "components",
-      "logon-events", "itsm", "relationships", "audits-tab", "sla",
-      "maintenance", "vulnerability", "private-properties", "tasks",
-      "history", "attachments", "comments"
-    ];
-    const itamDetailsNestedPages = [
-      "manage-ci", "business-service-map", "components", "logon-events",
-      "itsm", "relationships", "audits-tab", "sla", "maintenance",
-      "vulnerability", "private-properties", "tasks", "history",
-      "attachments", "comments"
-    ];
-    const itamOtherFunctionsPages = ["sync-logs", "tags", "audits"];
-    const itamProcurementPages = [
-      "requested-items", "purchase-orders", "purchase-order-line-items",
-      "receiving-slips", "receiving-slip-lines", "transfer-order"
-    ];
-    
-    
-    
-    
-    
-    // Self Service breadcrumb hierarchy
-    const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
-    
-    // Program/Project Management breadcrumb hierarchy
-    const programProjectManagementPages = ["programs", "projects", "program-dashboard", "project-dashboard"];
-    const programsPages = ["program-dashboard"];
-    const projectsPages = ["project-dashboard"];
-    
-    // Risk Register breadcrumb hierarchy
-    const riskRegisterPages = ["risk-dashboard", "risks"];
-    
-    // Reports breadcrumb hierarchy
-    const reportsPages = ["ad-hoc-reports", "canned-reports", "properties-and-conditions", "run-report", "delete-report"];
-    
-    // Vulnerability Management breadcrumb hierarchy
-    const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
-    
-    // Admin breadcrumb hierarchy (using module-level constants declared above)
-    
-    // Application Overview pages (these appear under Application Overview section in my-dashboard module)
-    const applicationOverviewPages = [
-      "system-icons",
-      "user-specific-functions", 
-      "online-help",
-      ...sharedFunctionsPages,
-      "shared-functions" // parent page itself
-    ];
-    
-    // Getting Started pages (universal: works for all modules and versions)
-    const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
-    const isGettingStartedPage = gettingStartedPages.includes(page);
-    
-    // Detect if we're in Application Overview section based on page content
-    // Even if URL section is "my-dashboard", if page is an Application Overview page, 
-    // we should treat it as "application-overview" for breadcrumb and routing purposes
-    const isApplicationOverviewPage = applicationOverviewPages.includes(page);
-    
-    // Detect actual section: prioritize Getting Started, then Application Overview, then use provided section
-    let actualSection = section;
-    if (module === 'my-dashboard' && isGettingStartedPage) {
-      actualSection = 'getting-started';
-    } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
-      actualSection = 'application-overview';
-    }
-    
-    // Calculate all hierarchy checks using actualSection
-    const isUnderSharedFunctions = actualSection === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
-    const isApplicationOverviewDirectPage = actualSection === "application-overview" && (page === "system-icons" || page === "user-specific-functions" || page === "online-help");
-    const isUnderDashboards = section === "my-dashboard" && (dashboardsPages.includes(page) || page === "dashboards");
-    const isUnderMyDashboardSection = section === "my-dashboard" && (myDashboardSectionPages.includes(page) && page !== "contents") || page === "my-dashboard-section";
-    
-    const isUnderManageCmdb = section === "cmdb" && (manageCmdbPages.includes(page) || page === "manage-cmdb");
-    const isUnderViewEditCi = section === "cmdb" && (viewEditCiPages.includes(page) || page === "view-and-edit-ci");
-    const isUnderCiDetails = section === "cmdb" && (ciDetailsPages.includes(page) || page === "ci-details-and-tabs");
-    const isUnderDetailsNested = section === "cmdb" && (detailsNestedPages.includes(page) || page === "details");
-    
-    const isUnderDashboard = section === "discovery-scan" && (dashboardPages.includes(page) || page === "dashboard");
-    const isUnderRunAScan = section === "discovery-scan" && runAScanPages.includes(page);
-    const isUnderInitiateConfigure = section === "discovery-scan" && (initiateConfigurePages.includes(page) || page === "initiate-and-configure-discovery-scan");
-    const isUnderConfigureDiscovery = section === "discovery-scan" && (configureDiscoveryPages.includes(page) || page === "configure-discovery-scan");
-    const isUnderRecentScans = section === "discovery-scan" && (recentScansPages.includes(page) || page === "recent-scans");
-    const isUnderViewRecentScan = section === "discovery-scan" && (viewRecentScanPages.includes(page) || page === "view-recent-scan");
-    const isUnderRecentScanDetails = section === "discovery-scan" && (recentScanDetailsPages.includes(page) || page === "details");
-    const isUnderScheduledScansImports = section === "discovery-scan" && (scheduledScansImportsPages.includes(page) || page === "scheduled-scans-and-imports");
-    const isUnderScansImportOptions = section === "discovery-scan" && (scansAndImportOptionsPages.includes(page) || page === "scans-and-import-options");
-    const isUnderScheduledImportSetup = section === "discovery-scan" && (scheduledImportSetupPages.includes(page) || page === "scheduled-import-setup");
-    const isUnderIpamNetworks = section === "discovery-scan" && (ipamNetworksPages.includes(page) || page === "ipam-networks");
-    const isUnderIpamFunctionsOverview = section === "discovery-scan" && (ipamFunctionsOverviewPages.includes(page) || page === "ipam-functions-overview");
-    const isUnderScanFunction = section === "discovery-scan" && (scanFunctionPages.includes(page) || page === "scan-function");
-    const isUnderDiscoveredItems = section === "discovery-scan" && (discoveredItemsPages.includes(page) || page === "discovered-items");
-    const isUnderManageDiscoveredItems = section === "discovery-scan" && (manageDiscoveredItemsPages.includes(page) || page === "manage-discovered-items");
-    const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (detailedViewDiscoveredItemsPages.includes(page) || page === "detailed-view-of-discovered-items");
-    const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (otherFunctionsDiscoveredItemsPages.includes(page) || page === "other-functions-and-page-elements-discovered-items");
-    const isUnderImportFromAWS = section === "discovery-scan" && (importFromAwsPages.includes(page) || page === "import-from-aws");
-    const isUnderViewAwsImportRecord = section === "discovery-scan" && (viewAwsImportRecordPages.includes(page) || page === "view-aws-import-record");
-    const isUnderImportFromAzure = section === "discovery-scan" && (importFromAzurePages.includes(page) || page === "import-from-azure");
-    const isUnderViewAzureImportRecord = section === "discovery-scan" && (viewAzureImportRecordPages.includes(page) || page === "view-azure-import-record");
-    const isUnderImportFromMeraki = section === "discovery-scan" && (importFromMerakiPages.includes(page) || page === "import-from-meraki");
-    const isUnderViewMerakiImportRecord = section === "discovery-scan" && (viewMerakiImportRecordPages.includes(page) || page === "view-meraki-import-record");
-    const isUnderImportFromIntune = section === "discovery-scan" && (importFromIntunePages.includes(page) || page === "import-from-intune");
-    const isUnderViewIntuneImportRecord = section === "discovery-scan" && (viewIntuneImportRecordPages.includes(page) || page === "view-intune-import-record");
-    const isUnderImportDataFiles = section === "discovery-scan" && (importDataFilesPages.includes(page) || page === "import-data-files");
-    const isUnderViewImportedDataFile = section === "discovery-scan" && (viewImportedDataFilePages.includes(page) || page === "view-an-imported-data-file");
-    const isUnderImportedAssets = section === "discovery-scan" && (importedAssetsPages.includes(page) || page === "imported-assets");
-    const isUnderAdUserImportLogs = section === "discovery-scan" && (adUserImportLogsPages.includes(page) || page === "ad-user-import-logs");
-    const isUnderAdConfigurationAndImport = section === "discovery-scan" && (adConfigurationAndImportPages.includes(page) || page === "ad-configuration-and-import");
-    const isUnderViewImportLogDetails = section === "discovery-scan" && (viewImportLogDetailsPages.includes(page) || page === "view-import-log-details");
-    const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
-    const isUnderAzureAdConfigurationAndImport = section === "discovery-scan" && (azureAdConfigurationAndImportPages.includes(page) || page === "azure-ad-configuration-and-import");
-    const isUnderViewImportLogDetailsAzure = section === "discovery-scan" && (viewImportLogDetailsAzurePages.includes(page) || page === "view-import-log-details-azure");
-    
-    // ITSM hierarchy checks
-    const isUnderConfigurationManagement = section === "itsm" && (configurationManagementPages.includes(page) || page === "configuration-management");
-    const isUnderItsmCmdb = section === "itsm" && (itsmCmdbPages.includes(page) || page === "cmdb");
-    const isUnderItsmManageCmdb = section === "itsm" && (itsmManageCmdbPages.includes(page) || page === "manage-cmdb");
-    const isUnderItsmViewEditCi = section === "itsm" && (itsmViewEditCiPages.includes(page) || page === "view-and-edit-ci");
-    const isUnderItsmCiDetails = section === "itsm" && (itsmCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
-    const isUnderItsmDetailsNested = section === "itsm" && (itsmDetailsNestedPages.includes(page) || page === "details");
-    const isUnderItsmOtherFunctions = section === "itsm" && (itsmOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
-    
-    // ITAM hierarchy checks
-    const isUnderItamCmdb = section === "itam" && (itamCmdbPages.includes(page) || page === "cmdb");
-    const isUnderItamManageCmdb = section === "itam" && (itamManageCmdbPages.includes(page) || page === "manage-cmdb");
-    const isUnderItamViewEditCi = section === "itam" && (itamViewEditCiPages.includes(page) || page === "view-and-edit-ci");
-    const isUnderItamCiDetails = section === "itam" && (itamCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
-    const isUnderItamDetailsNested = section === "itam" && (itamDetailsNestedPages.includes(page) || page === "details");
-    const isUnderItamOtherFunctions = section === "itam" && (itamOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
-    const isUnderItamProcurement = section === "itam" && (itamProcurementPages.includes(page) || page === "procurement");
-    
-    // Self Service hierarchy checks
-    const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
-    
-    // Program/Project Management hierarchy checks
-    const isUnderProgramProjectManagement = section === "program-project-management" && (programProjectManagementPages.includes(page) || page === "program-project-management");
-    const isUnderPrograms = section === "program-project-management" && (programsPages.includes(page) || page === "programs");
-    const isUnderProjects = section === "program-project-management" && (projectsPages.includes(page) || page === "projects");
-    
-    // Risk Register hierarchy checks
-    const isUnderRiskRegister = section === "risk-register" && (riskRegisterPages.includes(page) || page === "risk-register");
-    
-    // Reports hierarchy checks
-    const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
-    
-    // Vulnerability Management hierarchy checks
-    const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
-    
-    // Admin hierarchy checks
-    const isUnderOrganizationalDetails = section === "admin" && (organizationalDetailsPages.includes(page) || page === "organizational-details");
-    const isUnderDepartments = section === "admin" && (departmentsPages.includes(page) || page === "departments");
-    
-    const isUnderDiscovery = section === "admin" && (discoveryPages.includes(page) || page === "discovery");
-    const isUnderClient = section === "admin" && (clientPages.includes(page) || page === "client");
-    const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
-    const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
-    
-    const isUnderSacm = (actualSection === "sacm" || section === "admin") && (sacmPages.includes(page) || page === "sacm");
-    const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
-    
-    const isUnderManagementFunctions = section === "admin" && (managementFunctionsPages.includes(page) || page === "management-functions");
-    const isUnderProcurement = section === "admin" && (procurementPages.includes(page) || page === "procurement");
-    
-    const isUnderIntegrations = section === "admin" && (integrationsPages.includes(page) || page === "integrations");
-    const isUnderCherwellCredential = section === "admin" && (cherwellCredentialPages.includes(page) || page === "cherwell-credential");
-    const isUnderIvantiCredentials = section === "admin" && (ivantiCredentialsPages.includes(page) || page === "ivanti-credentials");
-    const isUnderJiraCredentials = section === "admin" && (jiraCredentialsPages.includes(page) || page === "jira-credentials");
-    const isUnderServicenowCredentials = section === "admin" && (servicenowCredentialsPages.includes(page) || page === "servicenow-credentials");
-    const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
-    
-    // Get section display name based on actual section
-    const sectionDisplayName = getSectionDisplayName(actualSection);
-    
-    // Determine parent topic to show after section
-    // Important: Only set parentTopic if we're NOT on the parent page itself
-    let parentTopic: string | null = null;
-    if (isUnderSharedFunctions && page !== "shared-functions") parentTopic = "Shared Functions";
-    else if (isUnderDashboards && page !== "dashboards") parentTopic = "Dashboards";
-    else if (isUnderManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
-    else if (isUnderViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
-    else if (isUnderCiDetails || isUnderDetailsNested) parentTopic = "CI Details and Tabs";
-    else if (isUnderDashboard && page !== "dashboard") parentTopic = "Dashboard";
-    else if (isUnderRunAScan && page !== "run-a-scan") parentTopic = "Run a Scan";
-    else if (isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan") parentTopic = "Initiate and Configure Discovery Scan";
-    else if (isUnderConfigureDiscovery && page !== "configure-discovery-scan") parentTopic = "Configure Discovery Scan";
-    else if (isUnderRecentScans && page !== "recent-scans") parentTopic = "Recent Scans";
-    else if (isUnderViewRecentScan && page !== "view-recent-scan") parentTopic = "View Recent Scan";
-    else if (isUnderRecentScanDetails && page !== "details") parentTopic = "Details";
-    else if (isUnderScheduledScansImports && page !== "scheduled-scans-and-imports") parentTopic = "Scheduled Scans and Imports";
-    else if (isUnderScansImportOptions && page !== "scans-and-import-options") parentTopic = "Scans and Import Options";
-    else if (isUnderScheduledImportSetup && page !== "scheduled-import-setup") parentTopic = "Scheduled Import Setup";
-    else if (isUnderIpamNetworks && page !== "ipam-networks") parentTopic = "IPAM Networks";
-    else if (isUnderIpamFunctionsOverview && page !== "ipam-functions-overview") parentTopic = "IPAM Functions Overview";
-    else if (isUnderScanFunction && page !== "scan-function") parentTopic = "Scan Function";
-    else if (isUnderDiscoveredItems && page !== "discovered-items") parentTopic = "Discovered Items";
-    else if (isUnderManageDiscoveredItems && page !== "manage-discovered-items") parentTopic = "Manage Discovered Items";
-    else if (isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items") parentTopic = "Detailed View of Discovered Items";
-    else if (isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements-discovered-items") parentTopic = "Other Functions and Page Elements";
-    else if (isUnderImportFromAWS && page !== "import-from-aws") parentTopic = "Import from AWS";
-    else if (isUnderViewAwsImportRecord && page !== "view-aws-import-record") parentTopic = "View AWS Import Record";
-    else if (isUnderImportFromAzure && page !== "import-from-azure") parentTopic = "Import from Azure";
-    else if (isUnderViewAzureImportRecord && page !== "view-azure-import-record") parentTopic = "View AZURE Import Record";
-    else if (isUnderImportFromMeraki && page !== "import-from-meraki") parentTopic = "Import from Meraki";
-    else if (isUnderViewMerakiImportRecord && page !== "view-meraki-import-record") parentTopic = "View Meraki Import Record";
-    else if (isUnderImportFromIntune && page !== "import-from-intune") parentTopic = "Import from Intune";
-    else if (isUnderViewIntuneImportRecord && page !== "view-intune-import-record") parentTopic = "View Intune Import Record";
-    else if (isUnderImportDataFiles && page !== "import-data-files") parentTopic = "Import Data Files";
-    else if (isUnderViewImportedDataFile && page !== "view-an-imported-data-file") parentTopic = "View an Imported Data File";
-    else if (isUnderImportedAssets && page !== "imported-assets") parentTopic = "Imported Assets";
-    else if (isUnderAdUserImportLogs && page !== "ad-user-import-logs") parentTopic = "AD User Import Logs";
-    else if (isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import") parentTopic = "AD Configuration and Import";
-    else if (isUnderViewImportLogDetails && page !== "view-import-log-details") parentTopic = "View Import Log Details";
-    else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
-    else if (isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import") parentTopic = "Azure AD Configuration and Import";
-    else if (isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure") parentTopic = "View Import Log Details";
-    else if (isUnderConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
-    else if (isUnderItsmCmdb && page !== "cmdb") parentTopic = "CMDB";
-    else if (isUnderItsmManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
-    else if (isUnderItsmViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
-    else if (isUnderItsmCiDetails || isUnderItsmDetailsNested) parentTopic = "CI Details and Tabs";
-    else if (isUnderItsmDetailsNested && page !== "details") parentTopic = "Details";
-    else if (isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
-    else if ((section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management") parentTopic = "Configuration Management";
-    else if (isUnderItamCmdb && page !== "cmdb") parentTopic = "CMDB";
-    else if (isUnderItamManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
-    else if (isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions) parentTopic = "View and Edit a CI";
-    else if (isUnderItamCiDetails || isUnderItamDetailsNested) parentTopic = "CI Details and Tabs";
-    else if (isUnderItamDetailsNested && page !== "details") parentTopic = "Details";
-    else if (isUnderItamOtherFunctions && page !== "other-functions-and-page-elements") parentTopic = "Other Functions and Page Elements";
-    else if (isUnderItamProcurement && page !== "procurement") parentTopic = "Procurement";
-    else if ((section === "self-service" && (["service-catalog", "my-incidents", "my-requests"].includes(page) || page === "self-service")) && page !== "self-service") parentTopic = "Self Service";
-    else if (((section === "program-project-management") && (["programs","projects","program-dashboard","project-dashboard"].includes(page) || page === "program-project-management")) && page !== "program-project-management") parentTopic = "Program/Project Management";
-    else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
-    else if (isUnderReports && page !== "reports") parentTopic = "Reports";
-    else if (isUnderOrganizationalDetails && page !== "organizational-details" && !isUnderDepartments) parentTopic = "Organizational Details";
-    else if (isUnderDepartments && page !== "departments") parentTopic = "Departments";
-    else if (isUnderDiscovery && page !== "discovery" && !isUnderClient && !isUnderCredentials && !isUnderMonitoringProfile) parentTopic = "Discovery";
-    else if (isUnderClient && page !== "client") parentTopic = "Client";
-    else if (isUnderCredentials && page !== "credentials") parentTopic = "Credentials";
-    else if (isUnderMonitoringProfile && page !== "monitoring-profile") parentTopic = "Monitoring Profile";
-    else if (isUnderSacm && page !== "sacm") parentTopic = "SACM";
-    else if (isUnderUsers && page !== "users") parentTopic = "Users";
-    else if (isUnderManagementFunctions && page !== "management-functions" && !isUnderProcurement) parentTopic = "Management Functions";
-    else if (isUnderProcurement && page !== "procurement") parentTopic = "Procurement";
-    else if (isUnderIntegrations && page !== "integrations" && !isUnderCherwellCredential && !isUnderIvantiCredentials && !isUnderJiraCredentials && !isUnderServicenowCredentials) parentTopic = "Integrations";
-    else if (isUnderCherwellCredential && page !== "cherwell-credential") parentTopic = "Cherwell Credential";
-    else if (isUnderIvantiCredentials && page !== "ivanti-credentials") parentTopic = "Ivanti Credentials";
-    else if (isUnderJiraCredentials && page !== "jira-credentials") parentTopic = "Jira Credentials";
-    else if (isUnderServicenowCredentials && page !== "servicenow-credentials") parentTopic = "ServiceNow Credentials";
-    else if (isUnderOthers && page !== "others") parentTopic = "Others";
-    else if (isUnderVulnerabilityManagement && page !== "vulnerability-management") parentTopic = "Vulnerability Management";
-    
-    // Format page name for display using TOC label lookup
-    const pageDisplayName = getPageLabel(page);
-    
-    return (
-      <div className="flex flex-col gap-3 mb-8 not-prose">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                onClick={onHomeClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                <Home className="w-4 h-4" />
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink 
-                onClick={onVersionClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {version}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink 
-                onClick={onModuleClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {moduleNames[module] || module}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink 
-                onClick={() => {
-                  // Navigate to section (first page of the section)
-                  if (onPageClick) {
-                    // Get the first page of the section based on module and actual section
-                    let firstPage = '';
-                    if (actualSection === 'getting-started') {
-                      firstPage = 'quick-start';
-                    } else if (actualSection === 'application-overview') {
-                      firstPage = 'system-icons';
-                    } else if (actualSection === 'organizational-details') {
-                      firstPage = 'organizational-details';
-                    } else if (actualSection === 'discovery') {
-                      firstPage = 'application-map';
-                    } else if (actualSection === 'sacm') {
-                      firstPage = 'blueprints';
-                    } else if (actualSection === 'users') {
-                      firstPage = 'ad-configuration';
-                    } else if (actualSection === 'management-functions') {
-                      firstPage = 'change-management';
-                    } else if (actualSection === 'integrations') {
-                      firstPage = 'cherwell-credential';
-                    } else if (actualSection === 'others') {
-                      firstPage = 'announcements';
-                    } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
-                      firstPage = 'my-dashboard-overview';
-                    } else if (module === 'cmdb' && actualSection === 'cmdb') {
-                      firstPage = 'access-cmdb';
-                    } else if (module === 'discovery-scan' && actualSection === 'discovery-scan') {
-                      firstPage = 'access-dashboard';
-                    } else {
-                      firstPage = 'advanced-search';
-                    }
-                    onPageClick(version, module, actualSection, firstPage);
-                  }
-                }}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {sectionDisplayName}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            {parentTopic && (
-              <>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleParentTopicClick(parentTopic)}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
-                    {parentTopic}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-              </>
-            )}
-            <BreadcrumbSeparator />
-            {/* My Dashboard nested hierarchy */}
-            {isUnderMyDashboardSection && page !== "my-dashboard-section" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("My Dashboard", "my-dashboard-section")}>
-                    My Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - Manage CMDB */}
-            {isUnderManageCmdb && page !== "manage-cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - View and Edit a CI */}
-            {isUnderViewEditCi && page !== "view-and-edit-ci" && !isUnderCiDetails && !isUnderDetailsNested && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - CI Details and Tabs */}
-            {(isUnderCiDetails || isUnderDetailsNested) && page !== "ci-details-and-tabs" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - Details */}
-            {isUnderDetailsNested && page !== "details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Run a Scan hierarchy */}
-            {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
-                    Initiate and Configure Discovery Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
-                    Initiate and Configure Discovery Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configure Discovery Scan", "configure-discovery-scan")}>
-                    Configure Discovery Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {page === "configure-discovery-scan" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
-                    Initiate and Configure Discovery Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Recent Scans hierarchy */}
-            {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
-                    View Recent Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderRecentScanDetails && page !== "details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
-                    View Recent Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleNestedTopicClick("Details", "details")}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
-                    View Recent Scan
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Azure AD User Import Logs hierarchy */}
-            {isUnderAzureAd && page !== "azure-ad-user-import-logs" && !isUnderAzureAdConfigurationAndImport && !isUnderViewImportLogDetailsAzure && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD Configuration and Import", "azure-ad-configuration-and-import")}>
-                    Azure AD Configuration and Import
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details-azure")}>
-                    View Import Log Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
-            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
-                    Scans and Import Options
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Dashboard hierarchy */}
-            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - IPAM Networks hierarchy */}
-            {isUnderIpamNetworks && page !== "ipam-networks" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && !isUnderScanFunction && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
-                    IPAM Functions Overview
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderScanFunction && page !== "scan-function" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
-                    IPAM Functions Overview
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scan Function", "scan-function")}>
-                    Scan Function
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Discovered Items hierarchy */}
-            {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
-                    Manage Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
-                    Detailed View of Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from AWS hierarchy */}
-            {isUnderImportFromAWS && page !== "import-from-aws" && !isUnderViewAwsImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
-                    Import from AWS
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewAwsImportRecord && page !== "view-aws-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
-                    Import from AWS
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-aws-import-record")}>
-                    View AWS Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Azure hierarchy */}
-            {isUnderImportFromAzure && page !== "import-from-azure" && !isUnderViewAzureImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
-                    Import from Azure
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewAzureImportRecord && page !== "view-azure-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
-                    Import from Azure
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AZURE Import Record", "view-azure-import-record")}>
-                    View AZURE Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Meraki hierarchy */}
-            {isUnderImportFromMeraki && page !== "import-from-meraki" && !isUnderViewMerakiImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
-                    Import from Meraki
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewMerakiImportRecord && page !== "view-meraki-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
-                    Import from Meraki
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-meraki-import-record")}>
-                    View Meraki Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Intune hierarchy */}
-            {isUnderImportFromIntune && page !== "import-from-intune" && !isUnderViewIntuneImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
-                    Import from Intune
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewIntuneImportRecord && page !== "view-intune-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
-                    Import from Intune
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-intune-import-record")}>
-                    View Intune Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import Data Files hierarchy */}
-            {isUnderImportDataFiles && page !== "import-data-files" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
-                    Import Data Files
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
-                    Import Data Files
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
-                    View an Imported Data File
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Imported Assets hierarchy */}
-            {isUnderImportedAssets && page !== "imported-assets" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Imported Assets", "imported-assets")}>
-                    Imported Assets
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - AD User Import Logs hierarchy */}
-            {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && !isUnderAdConfigurationAndImport && !isUnderViewImportLogDetails && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD Configuration and Import", "ad-configuration-and-import")}>
-                    AD Configuration and Import
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportLogDetails && page !== "view-import-log-details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
-                    View Import Log Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - Configuration Management hierarchy */}
-            {isUnderConfigurationManagement && page !== "configuration-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
-            {isUnderItsmCmdb && page !== "cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
-            {isUnderItsmManageCmdb && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
-              </>
-            )}
-            {/* ITSM - View and Edit a CI level (nested under CMDB) */}
-            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - CI Details and Tabs level (nested under View and Edit a CI) */}
-            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - Details nested level (nested under CI Details and Tabs) */}
-            {isUnderItsmDetailsNested && page !== "details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - Other Functions and Page Elements level (nested under CMDB) */}
-            {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Configuration Management hierarchy */}
-            {(section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
-            {isUnderItamCmdb && page !== "cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
-                    CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
-            {isUnderItamManageCmdb && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
-              </>
-            )}
-            {/* ITAM - View and Edit a CI level (nested under CMDB) */}
-            {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - CI Details and Tabs level (nested under View and Edit a CI) */}
-            {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Details nested level (nested under CI Details and Tabs) */}
-            {isUnderItamDetailsNested && page !== "details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Other Functions and Page Elements level (nested under CMDB) */}
-            {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Procurement hierarchy */}
-            {isUnderItamProcurement && page !== "procurement" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
-                    Procurement
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin nested hierarchy */}
-            {isUnderDepartments && page !== "departments" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
-                    Departments
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderClient && page !== "client" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
-                    Client
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderCredentials && page !== "credentials" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
-                    Credentials
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderProcurement && page !== "procurement" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
-                    Procurement
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderCherwellCredential && page !== "cherwell-credential" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
-                    Cherwell Credential
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
-                    Ivanti Credentials
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderJiraCredentials && page !== "jira-credentials" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
-                    Jira Credentials
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
-                    ServiceNow Credentials
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Program/Project Management - Programs nested level */}
-            {isUnderPrograms && page !== "programs" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Programs", "programs")}>
-                    Programs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Program/Project Management - Projects nested level */}
-            {isUnderProjects && page !== "projects" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Projects", "projects")}>
-                    Projects
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
-                {pageDisplayName}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-    );
-  };
-
   const renderContent = () => {
     const contentKey = `${section}-${page}`;
     
-    // Try to resolve MDX file path first
-    const mdxPath = resolveMDXPath({ version, module, section, page });
+    console.log('DocumentationContent - Rendering:', { version, module, section, page });
+    console.log('DocumentationContent - MDX Path resolved from TOC:', mdxPath);
     
-    // If we have a valid MDX path, try to load it
+    // Show loading state while resolving path
+    if (loadingPath) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-slate-500">Loading...</div>
+        </div>
+      );
+    }
+    
+    // If we have a valid MDX path from TOC, try to load it
     if (mdxPath) {
       return (
-        <article className="prose prose-slate max-w-none -mt-9">
-          {renderBreadcrumbs()}
-          <MDXContent filePath={mdxPath} />
-        </article>
+        <MDXContent
+          filePath={mdxPath}
+          version={version}
+          module={module}
+          moduleName={moduleName}
+          section={section}
+          sectionName={getSectionDisplayName(section)}
+          page={page}
+          pageName={page ? page.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : undefined}
+          onHomeClick={onHomeClick}
+          onVersionClick={onVersionClick}
+          onModuleClick={onModuleClick}
+        />
       );
     }
 
@@ -2242,48 +351,44 @@ export function DocumentationContent({
             onHomeClick={onHomeClick}
             onModuleClick={onModuleClick}
             onVersionClick={onVersionClick}
-            onPageClick={onPageClick}
           />
         );
     }
   };
 
   return (
-    <>
-      <Seo
-        page={pageSeo}
-        fallbackTitle={fallbackTitle}
-        fallbackDescription={fallbackDescription}
-        canonicalPath={normalizedPath}
-        breadcrumbs={seoBreadcrumbs}
-      />
-      <div className="flex max-w-[1800px] mx-auto">
-        <div className="flex-1 px-6 lg:px-12 py-12 lg:py-16 max-w-4xl">
-          {renderContent()}
-        </div>
-        <aside className="w-64 px-6 py-12 lg:py-16 border-l border-slate-200/60 hidden xl:block">
-          <div className="-mt-12 mb-6 pb-6 border-b border-slate-200/60">
-            <div className="flex items-start gap-2 mb-3">
-              <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />
-              <div>
-                <div className="text-xs text-slate-500 mb-0.5">Release Date</div>
-                <div className="text-sm text-slate-700 text-[14px]">November 1, 2025</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-2">
-              <Clock className="w-4 h-4 text-slate-500 mt-0.5" />
-              <div>
-                <div className="text-xs text-slate-500 mb-0.5">Last Updated</div>
-                <div className="text-sm text-slate-700">November 10, 2025</div>
-              </div>
+    <div className="flex max-w-[1920px] mx-auto">
+      <div className="flex-1 px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-16 max-w-4xl">
+        {renderContent()}
+      </div>
+      <ResizableSidebar
+        initialWidth={rightSidebarWidth}
+        onResize={setRightSidebarWidth}
+        minWidth={200}
+        maxWidth={400}
+        side="right"
+      >
+        <aside className="h-full px-6 py-12 lg:py-16 border-l border-slate-200/60 overflow-y-auto">
+        <div className="-mt-12 mb-6 pb-6 border-b border-slate-200/60">
+          <div className="flex items-start gap-2 mb-3">
+            <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />
+            <div>
+              <div className="text-xs text-slate-500 mb-0.5">Release Date</div>
+              <div className="text-sm text-slate-700 text-[14px]">November 1, 2025</div>
             </div>
           </div>
-          {/* TableOfContents auto-detects H2/H3 headings from content - works for all modules and versions */}
-          {/* contentSelector targets: article elements, .prose class, and article.prose combinations */}
-          <TableOfContents items={[]} contentSelector="article, .prose, article.prose" />
-        </aside>
-      </div>
-    </>
+          <div className="flex items-start gap-2">
+            <Clock className="w-4 h-4 text-slate-500 mt-0.5" />
+            <div>
+              <div className="text-xs text-slate-500 mb-0.5">Last Updated</div>
+              <div className="text-sm text-slate-700">November 10, 2025</div>
+            </div>
+          </div>
+        </div>
+        <TableOfContents autoExtract={true} />
+      </aside>
+      </ResizableSidebar>
+    </div>
   );
 }
 
@@ -2306,6 +411,8 @@ function OnlineHelpOverview({
   onModuleClick?: () => void;
   onVersionClick?: () => void;
 }) {
+  const sectionDisplayName = getSectionDisplayName(section);
+  
   const getModuleDescription = () => {
     switch (module) {
       case "admin":
@@ -2335,24 +442,6 @@ function OnlineHelpOverview({
     }
   };
 
-  // Get page display name
-  const getPageLabel = (pageId: string): string => {
-    const pageLabelMap: Record<string, string> = {
-      "online-help": "Online Help",
-      "system-icons": "System Icons",
-      "user-specific-functions": "User Specific Functions",
-    };
-    if (pageLabelMap[pageId]) {
-      return pageLabelMap[pageId];
-    }
-    return pageId
-      .split("-")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
-  const pageDisplayName = getPageLabel(page || "online-help");
-  const sectionDisplayName = getSectionDisplayName(section);
-
   return (
     <article className="prose prose-slate max-w-none">
       <div className="flex flex-col gap-3 mb-8 not-prose">
@@ -2377,7 +466,7 @@ function OnlineHelpOverview({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink 
+              <BreadcrumbLink
                 onClick={onModuleClick}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
@@ -2386,16 +475,8 @@ function OnlineHelpOverview({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink 
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {sectionDisplayName}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
               <BreadcrumbPage className="text-slate-900">
-                {pageDisplayName}
+                {sectionDisplayName}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -2405,9 +486,9 @@ function OnlineHelpOverview({
         </span>
       </div>
 
-      <h1 id="my-dashboard-overview" className="text-slate-900 mb-6 scroll-mt-20">{moduleName} Overview</h1>
+      <h1 className="mb-4">{moduleName} Overview</h1>
 
-      <p className="text-slate-600 leading-relaxed mb-4">
+      <p className="text-lg text-slate-600 leading-relaxed mb-8">
         {getModuleDescription()}
       </p>
 
@@ -2601,6 +682,7 @@ function OnlineHelpOverview({
         features, and expanded integration options for{" "}
         {moduleName}.
       </p>
+
       <FeedbackSection />
     </article>
   );
@@ -2656,16 +738,15 @@ function LatestRelease({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink 
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {getSectionDisplayName(section)}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
               <BreadcrumbPage className="text-slate-900">
-                Latest Release
+                {section
+                  .split("-")
+                  .map(
+                    (word) =>
+                      word.charAt(0).toUpperCase() +
+                      word.slice(1),
+                  )
+                  .join(" ")}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -2680,7 +761,7 @@ function LatestRelease({
         </div>
       </div>
 
-      <h1 className="text-slate-900 mb-6">{moduleName} - Release Notes</h1>
+      <h1 className="mb-4">{moduleName} - Release Notes</h1>
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         Version {version} brings enhanced performance, new
         features, and important bug fixes to {moduleName}.
@@ -2789,6 +870,7 @@ function LatestRelease({
           proceeding.
         </p>
       </div>
+
       <FeedbackSection />
     </article>
   );
@@ -2864,7 +946,7 @@ function QuickStart({
         </Breadcrumb>
       </div>
 
-      <h1 className="text-slate-900 mb-6">{moduleName} - Quick Start</h1>
+      <h1 className="mb-4">{moduleName} - Quick Start</h1>
 
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         Get started with {moduleName} in just a few minutes.
@@ -2980,6 +1062,7 @@ function QuickStart({
         <li>Create custom reports and dashboards</li>
         <li>Review security and compliance best practices</li>
       </ul>
+
       <FeedbackSection />
     </article>
   );
@@ -3034,6 +1117,14 @@ function APIOverview({
                 onClick={onModuleClick}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
+                {moduleName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink 
+                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+              >
                 {sectionDisplayName}
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -3047,7 +1138,7 @@ function APIOverview({
         </Breadcrumb>
       </div>
 
-      <h1 className="text-slate-900 mb-6">{moduleName} - API Integration</h1>
+      <h1 className="mb-4">{moduleName} - API Integration</h1>
 
       <p className="text-lg text-slate-600 leading-relaxed mb-12">
         The {moduleName} API provides comprehensive REST
@@ -3199,6 +1290,7 @@ function APIOverview({
           support for higher limits or enterprise plans.
         </p>
       </div>
+
       <FeedbackSection />
     </article>
   );
@@ -3274,7 +1366,7 @@ function SystemRequirements({
         </Breadcrumb>
       </div>
 
-      <h1 className="text-slate-900 mb-6">
+      <h1 className="mb-4">
         {moduleName} - System Requirements
       </h1>
 
@@ -3427,6 +1519,7 @@ function SystemRequirements({
           for detailed sizing and planning assistance.
         </p>
       </div>
+
       <FeedbackSection />
     </article>
   );
@@ -3441,7 +1534,6 @@ function DefaultContent({
   onHomeClick,
   onModuleClick,
   onVersionClick,
-  onPageClick,
 }: {
   section: string;
   page: string;
@@ -3451,7 +1543,6 @@ function DefaultContent({
   onHomeClick?: () => void;
   onModuleClick?: () => void;
   onVersionClick?: () => void;
-  onPageClick?: (version: string, module: string, section: string, page: string) => void;
 }) {
   /**
    * BREADCRUMB HIERARCHY SYSTEM
@@ -3466,123 +1557,6 @@ function DefaultContent({
    * - CMDB: Manage CMDB / View and Edit a CI / CI Details and Tabs > [child pages] > Details > [nested child pages]
    * - Discovery Scan: Dashboard / Run a Scan / Recent Scans / Azure AD User Import Logs > [child pages with nested hierarchies]
    */
-  
-  // Helper function to get page label from page ID (matches TOC structure)
-  // This ensures breadcrumb labels match the TOC exactly
-  const getPageLabel = (pageId: string): string => {
-    // Map of page IDs to their display labels (matching TOC structure)
-    const pageLabelMap: Record<string, string> = {
-      // Application Overview pages
-      "system-icons": "System Icons",
-      "user-specific-functions": "User Specific Functions",
-      "online-help": "Online Help",
-      "shared-functions": "Shared Functions",
-      "advanced-search": "Advanced Search",
-      "attachments": "Attachments",
-      "auto-refresh": "Auto Refresh",
-      "collapse-maximize": "Collapse/Maximize",
-      "comments": "Comments",
-      "copy-to-cherwell": "Copy to Cherwell",
-      "copy-to-ivanti": "Copy to Ivanti",
-      "copy-to-jira": "Copy to Jira",
-      "copy-to-servicenow": "Copy to ServiceNow",
-      "delete-remove": "Delete/Remove",
-      "email-preferences": "Email Preferences",
-      "enable-disable-editing": "Enable/Disable Editing",
-      "export": "Export",
-      "filter-by": "Filter By",
-      "history": "History",
-      "import": "Import",
-      "items-per-page": "Items per Page",
-      "mark-as-knowledge": "Mark as Knowledge",
-      "other-asset-info": "Other Asset Info",
-      "outage-calendar": "Outage Calendar",
-      "personalize-columns": "Personalize Columns",
-      "print": "Print",
-      "process-adm": "Process ADM",
-      "process-missing-components": "Process Missing Components",
-      "records-per-page": "Records per Page",
-      "reload-default-mapping": "Reload Default Mapping",
-      "re-scan": "Re-scan",
-      "re-sync-data": "Re-Sync Data",
-      "save": "Save",
-      "saved-filters": "Saved Filters",
-      "searching": "Searching",
-      "show-main-all-properties": "Show Main/All Properties",
-      "tasks": "Tasks",
-      "updates": "Updates",
-      "version-control": "Version Control",
-      // My Dashboard pages
-      "my-dashboard-overview": "Overview",
-      "dashboards": "Dashboards",
-      "dashboards-contents": "Contents",
-      "customization": "Customization",
-      "report-actions": "Report Actions",
-      "my-dashboard-section": "My Dashboard",
-      "my-dashboard-contents": "Contents",
-      // SACM pages
-      "cmdb-graphical-workflow": "CMDB Graphical Workflow",
-      "blueprints": "Blueprints",
-      "bsm-views": "Custom BSM Views",
-      "cmdb-properties": "CMDB Properties",
-      "confidence-configuration": "Confidence Configuration",
-      "duplicates-remediation": "Duplicates Remediation",
-      "export-ci-template": "Export CI Template",
-      "ip-connection-score-threshold": "IP Connection Score Threshold",
-      "process-tags": "Process Tags",
-      "property-group": "Property Group",
-      "relationship-types": "Relationship Types",
-      "software-license-validity-check": "Software License Validity Check",
-      "software-usage-report": "Software Usage Report",
-      // Add more mappings as needed - this ensures consistency with TOC
-    };
-    
-    // If we have a label mapping, use it; otherwise format from page ID
-    if (pageLabelMap[pageId]) {
-      return pageLabelMap[pageId];
-    }
-    
-    // Fallback: format page ID to readable label
-    // Ensure CMDB and SACM are always uppercase
-    return pageId
-      .split("-")
-      .map(word => {
-        const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
-        // Ensure CMDB and SACM are always uppercase
-        if (capitalized === "Cmdb") return "CMDB";
-        if (capitalized === "Sacm") return "SACM";
-        return capitalized;
-      })
-      .join(" ")
-      .replace(/\bCmdb\b/g, "CMDB")
-      .replace(/\bSacm\b/g, "SACM");
-  };
-  
-  // Helper function to get parent topic page ID from parent topic name
-  const getParentTopicPageId = (parentTopicName: string): string | null => {
-    return parentTopicPageMap[parentTopicName] || null;
-  };
-  
-  // Handler for parent topic clicks
-  const handleParentTopicClick = (parentTopicName: string) => {
-    if (!onPageClick) return;
-    const parentPageId = getParentTopicPageId(parentTopicName);
-    if (parentPageId) {
-      onPageClick(version, module, section, parentPageId);
-    }
-  };
-  
-  // Handler for nested topic clicks
-  const handleNestedTopicClick = (nestedTopicName: string, nestedPageId: string) => {
-    if (!onPageClick) return;
-    onPageClick(version, module, section, nestedPageId);
-  };
-  
-  // Helper to create clickable breadcrumb link props for nested topics
-  const getClickableBreadcrumbProps = (topicName: string, pageId: string) => ({
-    onClick: () => handleNestedTopicClick(topicName, pageId),
-    className: "text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors",
-  });
   
   // My Dashboard - Application Overview hierarchy
   const sharedFunctionsPages = [
@@ -3630,330 +1604,42 @@ function DefaultContent({
   
   const recentScansPages = ["access-recent-scan", "view-recent-scan", "details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
   const viewRecentScanPages = ["details", "export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
-  const recentScanDetailsPages = ["export-scan-report", "refresh"];
+  const recentScanDetailsPages = ["export-scan-report", "refresh", "logs", "tasks", "comments", "attachments"];
   
-  const azureAdPages = [
-    "azure-ad-configuration-and-import",
-    "azure-ad-configuration-property-descriptions",
-    "testing-ad-configuration-azure",
-    "import-users-azure",
-    "scheduled-azure-ad-import",
-    "access-the-azure-ad-user-import-logs",
-    "view-import-log-details-azure",
-    "details-tab-azure",
-    "key-information-displayed",
-    "tabs-for-extended-information-azure",
-    "customize-columns-azure",
-  ];
-  const azureAdConfigurationAndImportPages = [
-    "azure-ad-configuration-property-descriptions",
-    "testing-ad-configuration-azure",
-    "import-users-azure",
-    "scheduled-azure-ad-import",
-  ];
-  const viewImportLogDetailsAzurePages = [
-    "details-tab-azure",
-    "key-information-displayed",
-    "tabs-for-extended-information-azure",
-    "customize-columns-azure",
-  ];
-  
-  const scheduledScansImportsPages = [
-    "prerequisites",
-    "accessing-scheduled-scan-and-imports",
-    "key-features-and-options-on-the-landing-page",
-    "scans-and-import-options",
-    "scan-and-import-schedule-list",
-    "schedule-a-network-scan",
-    "editing-a-scheduled-scan",
-    "history-of-scheduled-scan-execution",
-    "bulk-update-scan",
-    "exporting-a-scan",
-    "importing-scan-schedules",
-    "deleting-a-scan-schedule",
-    "scheduled-import-setup",
-    "aws-import",
-    "azure-import",
-  ];
-  const scansAndImportOptionsPages = [
-    "scan-and-import-schedule-list",
-    "schedule-a-network-scan",
-    "editing-a-scheduled-scan",
-    "history-of-scheduled-scan-execution",
-    "bulk-update-scan",
-    "exporting-a-scan",
-    "importing-scan-schedules",
-    "deleting-a-scan-schedule",
-  ];
-  const scheduledImportSetupPages = ["aws-import", "azure-import"];
-  const ipamNetworksPages = [
-    "ipam-procedure",
-    "infoblox-configuration",
-    "ipam-ip-address-management",
-    "ipam-functions-overview",
-    "scan-function",
-    "status-update",
-    "regular-scan",
-    "sync-instant-and-scheduled",
-    "view-and-edit-a-network",
-    "other-functions-and-page-elements-ipam",
-  ];
-  const ipamFunctionsOverviewPages = [
-    "scan-function",
-    "status-update",
-    "regular-scan",
-    "sync-instant-and-scheduled",
-    "view-and-edit-a-network",
-    "other-functions-and-page-elements-ipam",
-  ];
-  const scanFunctionPages = ["status-update", "regular-scan"];
-  const discoveredItemsPages = [
-    "prerequisites-discovered-items",
-    "access-discovered-items",
-    "manage-discovered-items",
-    "delete-discovered-items",
-    "export-discovered-items",
-    "export-without-selecting-any-record",
-    "move-to-cmdb",
-    "re-scan",
-    "column-descriptions",
-    "detailed-view-of-discovered-items",
-    "primary-details-block",
-    "owner-block",
-    "main-information-area",
-    "action-buttons",
-    "navigation-tabs",
-    "other-functions-and-page-elements-discovered-items",
-    "toolbar-or-control-bar",
-    "filter-by",
-  ];
-  const manageDiscoveredItemsPages = [
-    "delete-discovered-items",
-    "export-discovered-items",
-    "export-without-selecting-any-record",
-    "move-to-cmdb",
-    "re-scan",
-  ];
-  const detailedViewDiscoveredItemsPages = [
-    "primary-details-block",
-    "owner-block",
-    "main-information-area",
-    "action-buttons",
-    "navigation-tabs",
-    "other-functions-and-page-elements-discovered-items",
-  ];
-  const otherFunctionsDiscoveredItemsPages = ["toolbar-or-control-bar", "filter-by"];
-  const importFromAwsPages = [
-    "access-the-import-aws-window",
-    "import-aws-record",
-    "view-aws-import-record",
-    "key-columns-aws",
-    "move-items-to-cmdb-aws",
-    "logs-aws",
-    "delete-aws-record",
-    "export-aws-records",
-    "view-a-discovered-aws-record",
-  ];
-  const viewAwsImportRecordPages = ["key-columns-aws", "move-items-to-cmdb-aws", "logs-aws"];
-  const importFromAzurePages = [
-    "access-import-azure-window",
-    "import-azure-record",
-    "view-azure-import-record",
-    "common-controls-azure",
-    "key-columns-azure",
-    "move-items-to-the-cmdb-azure",
-    "delete-azure-record",
-    "export-azure-records",
-    "view-a-discovered-azure-record",
-    "discovered-item-view-overview-azure",
-    "top-right-actions-azure",
-    "tabs-main-panel-azure",
-  ];
-  const viewAzureImportRecordPages = [
-    "common-controls-azure",
-    "key-columns-azure",
-    "move-items-to-the-cmdb-azure",
-    "delete-azure-record",
-    "export-azure-records",
-    "view-a-discovered-azure-record",
-    "discovered-item-view-overview-azure",
-    "top-right-actions-azure",
-    "tabs-main-panel-azure",
-  ];
-  const importFromMerakiPages = [
-    "prerequisites-meraki",
-    "assess-import-meraki-window",
-    "import-meraki-record",
-    "view-meraki-import-record",
-    "common-controls-meraki",
-    "key-columns-meraki",
-    "move-items-to-the-cmdb-meraki",
-    "logs-meraki",
-    "delete-meraki-record",
-    "export-meraki-records",
-    "view-a-discovered-meraki-record",
-    "discovered-item-view-overview-meraki",
-    "top-right-actions-meraki",
-    "tabs-main-panel-meraki",
-  ];
-  const viewMerakiImportRecordPages = [
-    "common-controls-meraki",
-    "key-columns-meraki",
-    "move-items-to-the-cmdb-meraki",
-    "logs-meraki",
-    "delete-meraki-record",
-    "export-meraki-records",
-    "view-a-discovered-meraki-record",
-    "discovered-item-view-overview-meraki",
-    "top-right-actions-meraki",
-    "tabs-main-panel-meraki",
-  ];
-  const importFromIntunePages = [
-    "access-import-from-intune",
-    "import-intune-record",
-    "view-intune-import-record",
-    "delete-intune-record",
-    "export-intune-records",
-    "view-a-discovered-intune-record",
-  ];
-  const viewIntuneImportRecordPages = [
-    "delete-intune-record",
-    "export-intune-records",
-    "view-a-discovered-intune-record",
-  ];
-  const importDataFilesPages = [
-    "access-the-import-data-files",
-    "manage-import-data-files",
-    "import-ci",
-    "view-an-imported-data-file",
-    "all-tab",
-    "authorized-tab",
-    "unauthorized-tab",
-    "import-asset-ci-relations",
-    "delete-import-data-files",
-    "export-import-data-files",
-  ];
-  const viewImportedDataFilePages = ["all-tab", "authorized-tab", "unauthorized-tab"];
-  const importedAssetsPages = [
-    "access-the-imported-assets",
-    "manage-imported-assets",
-    "imported-asset-details",
-  ];
-  const adUserImportLogsPages = [
-    "ad-configuration-and-import",
-    "ad-configuration-property-descriptions",
-    "testing-ad-configuration",
-    "import-users",
-    "scheduled-ad-import",
-    "access-the-ad-user-import-logs",
-    "view-import-log-details",
-    "details-tab",
-    "tabs-for-extended-information",
-    "customize-columns",
-  ];
-  const adConfigurationAndImportPages = [
-    "ad-configuration-property-descriptions",
-    "testing-ad-configuration",
-    "import-users",
-    "scheduled-ad-import",
-  ];
-  const viewImportLogDetailsPages = ["details-tab", "tabs-for-extended-information", "customize-columns"];
+  const azureAdPages = ["azure-ad-configuration-and-import", "access-the-azure-ad-user-import-logs", "view-import-log-details", "customize-columns", "delete-azure-ad-user-import-logs"];
+  const viewImportLogPages = ["customize-columns", "delete-azure-ad-user-import-logs"];
   
   // ITSM breadcrumb hierarchy
-  const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
+  const configurationManagementPages = ["dashboard", "cmdb", "access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
   
-  const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
+  const itsmCmdbPages = ["access-cmdb", "manage-cmdb", "view-and-edit-ci", "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags"];
   
-  const itsmManageCmdbPages = ["audits", "change-attributes", "delete", "export", "new", "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow", "generate-installed-software-report", "process-adm", "process-available-patch-report", "process-cloud-hierarchy", "process-devops", "process-missing-components", "process-network-connection", "process-software-installation"];
+  const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements"];
   
-  const itsmViewEditCiPages = ["ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments", "other-functions-and-page-elements", "sync-logs", "tags", "audits"];
+  const itsmCiDetailsPages = ["details", "components", "logon-events", "itsm-tab", "relationships", "audits", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
   
-  const itsmCiDetailsPages = ["details", "manage-ci", "business-service-map", "components", "logon-events", "itsm-tab", "relationships", "audits-tab", "sla", "maintenance", "vulnerability", "private-properties", "tasks", "history", "attachments", "comments"];
+  // Admin breadcrumb hierarchy
+  const organizationalDetailsPages = ["cost-center", "departments", "members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
+  const departmentsPages = ["members", "designations", "holidays", "locations", "operational-hours", "organizational-details-nested"];
   
-  const itsmDetailsNestedPages = ["manage-ci", "business-service-map"];
+  const discoveryPages = ["application-map", "client", "discovery-agents", "remote-install", "restart-client", "correlation", "credentials", "details", "backup-file", "flush-credential", "download-application", "import-templates", "ignore-adm-process", "ignore-process", "major-software", "monitoring-profile", "patterns", "port-configuration", "probe-workflow", "probes", "scan-configuration", "sensors"];
+  const clientPages = ["discovery-agents", "remote-install", "restart-client"];
+  const credentialsPages = ["details", "backup-file", "flush-credential"];
   
-  const itsmOtherFunctionsPages = ["sync-logs", "tags", "audits"];
+  const sacmPages = ["blueprints", "bsm-views", "cmdb-graphical-workflow", "cmdb-properties", "confidence-configuration", "duplicates-remediation", "export-ci-template", "ip-connection-score-threshold", "process-tags", "property-group", "relationship-types", "software-license-validity-check", "software-usage-report"];
   
-  // ITAM breadcrumb hierarchy
-  const itamConfigurationManagementPages = [
-    "dashboard", "cmdb", "access-cmdb", "manage-cmdb",
-    "view-and-edit-ci", "ci-details-and-tabs",
-    "other-functions-and-page-elements"
-  ];
-  const itamCmdbPages = [
-    "access-cmdb", "manage-cmdb", "view-and-edit-ci",
-    "ci-details-and-tabs", "other-functions-and-page-elements"
-  ];
-  const itamManageCmdbPages = [
-    "audits", "change-attributes", "delete", "export", "new",
-    "copy-to-ivanti", "copy-to-jira", "copy-to-servicenow",
-    "generate-installed-software-report", "process-adm",
-    "process-available-patch-report", "process-cloud-hierarchy",
-    "process-devops", "process-missing-components",
-    "process-network-connection", "process-software-installation",
-    "process-network-virtualization-hierarchy"
-  ];
-  const itamViewEditCiPages = [
-    "ci-left-panel", "contacts-on-ci", "ci-details-and-tabs", "details",
-    "manage-ci", "business-service-map", "components", "logon-events",
-    "itsm", "relationships", "audits-tab", "sla", "maintenance",
-    "vulnerability", "private-properties", "tasks", "history",
-    "attachments", "comments"
-  ];
-  const itamCiDetailsPages = [
-    "details", "manage-ci", "business-service-map", "components",
-    "logon-events", "itsm", "relationships", "audits-tab", "sla",
-    "maintenance", "vulnerability", "private-properties", "tasks",
-    "history", "attachments", "comments"
-  ];
-  const itamDetailsNestedPages = [
-    "manage-ci", "business-service-map", "components", "logon-events",
-    "itsm", "relationships", "audits-tab", "sla", "maintenance",
-    "vulnerability", "private-properties", "tasks", "history",
-    "attachments", "comments"
-  ];
-  const itamOtherFunctionsPages = ["sync-logs", "tags", "audits"];
-  const itamProcurementPages = [
-    "requested-items", "purchase-orders", "purchase-order-line-items",
-    "receiving-slips", "receiving-slip-lines", "transfer-order"
-  ];
+  const usersPages = ["ad-import-and-authentication", "azure-ad-configuration", "saml-configuration", "time-track-reports", "user-groups", "user-roles", "users-list"];
   
-  // ITAM hierarchy checks
-  const isUnderItamConfigurationManagement =
-    section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management");
-  const isUnderItamCmdb =
-    section === "itam" && (itamCmdbPages.includes(page) || page === "cmdb");
-  const isUnderItamManageCmdb =
-    section === "itam" && (itamManageCmdbPages.includes(page) || page === "manage-cmdb");
-  const isUnderItamViewEditCi =
-    section === "itam" && (itamViewEditCiPages.includes(page) || page === "view-and-edit-ci");
-  const isUnderItamCiDetails =
-    section === "itam" && (itamCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
-  const isUnderItamDetailsNested =
-    section === "itam" && (itamDetailsNestedPages.includes(page) || page === "details");
-  const isUnderItamOtherFunctions =
-    section === "itam" && (itamOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
-  const isUnderItamProcurement =
-    section === "itam" && (itamProcurementPages.includes(page) || page === "procurement");
+  const managementFunctionsPages = ["change-management", "contract-management", "event-management", "hardware-asset-management", "incident-management", "knowledge-management", "problem-management", "procurement", "procurement-properties", "about-procurement", "procurement-property-group", "project-management", "release-management", "request-management", "vendor-management"];
+  const procurementPages = ["procurement-properties", "about-procurement", "procurement-property-group"];
   
-  // Self Service breadcrumb hierarchy
-  const selfServicePages = ["service-catalog", "my-incidents", "my-requests"];
+  const integrationsPages = ["cherwell-credential", "mappings", "infoblox-configuration", "ivanti-credentials", "ivanti-mappings", "jira-credentials", "jira-mappings", "servicenow-credentials", "servicenow-mappings"];
+  const cherwellCredentialPages = ["mappings"];
+  const ivantiCredentialsPages = ["ivanti-mappings"];
+  const jiraCredentialsPages = ["jira-mappings"];
+  const servicenowCredentialsPages = ["servicenow-mappings"];
   
-  // Program/Project Management breadcrumb hierarchy
-  const programProjectManagementPages = ["programs", "projects", "program-dashboard", "project-dashboard"];
-  const programsPages = ["program-dashboard"];
-  const projectsPages = ["project-dashboard"];
-  
-  // Risk Register breadcrumb hierarchy
-  const riskRegisterPages = ["risk-dashboard", "risks"];
-  
-  // Reports breadcrumb hierarchy
-  const reportsPages = ["ad-hoc-reports", "canned-reports", "properties-and-conditions", "run-report", "delete-report"];
-  
-  // Vulnerability Management breadcrumb hierarchy
-  const vulnerabilityManagementPages = ["core-functionality", "access-vulnerability-management", "view-vulnerability-management", "best-practices", "limitations-and-considerations"];
-  
-  // Admin breadcrumb hierarchy (using module-level constants declared above)
+  const othersPages = ["announcements", "business-rules", "custom-reports", "documentation-and-tester", "inbox-configuration-itsm", "kpis", "reports", "role-access", "service-level-agreements", "smtp-configuration", "graphical-workflows"];
   
   const isUnderSharedFunctions = section === "application-overview" && (sharedFunctionsPages.includes(page) || page === "shared-functions");
   const isUnderDashboards = section === "my-dashboard" && (dashboardsPages.includes(page) || page === "dashboards");
@@ -3971,180 +1657,52 @@ function DefaultContent({
   const isUnderRecentScans = section === "discovery-scan" && (recentScansPages.includes(page) || page === "recent-scans");
   const isUnderViewRecentScan = section === "discovery-scan" && (viewRecentScanPages.includes(page) || page === "view-recent-scan");
   const isUnderRecentScanDetails = section === "discovery-scan" && (recentScanDetailsPages.includes(page) || page === "details");
-  const isUnderScheduledScansImports = section === "discovery-scan" && (scheduledScansImportsPages.includes(page) || page === "scheduled-scans-and-imports");
-  const isUnderScansImportOptions = section === "discovery-scan" && (scansAndImportOptionsPages.includes(page) || page === "scans-and-import-options");
-  const isUnderScheduledImportSetup = section === "discovery-scan" && (scheduledImportSetupPages.includes(page) || page === "scheduled-import-setup");
-  const isUnderIpamNetworks = section === "discovery-scan" && (ipamNetworksPages.includes(page) || page === "ipam-networks");
-  const isUnderIpamFunctionsOverview = section === "discovery-scan" && (ipamFunctionsOverviewPages.includes(page) || page === "ipam-functions-overview");
-  const isUnderScanFunction = section === "discovery-scan" && (scanFunctionPages.includes(page) || page === "scan-function");
-  const isUnderDiscoveredItems = section === "discovery-scan" && (discoveredItemsPages.includes(page) || page === "discovered-items");
-  const isUnderManageDiscoveredItems = section === "discovery-scan" && (manageDiscoveredItemsPages.includes(page) || page === "manage-discovered-items");
-  const isUnderDetailedViewDiscoveredItems = section === "discovery-scan" && (detailedViewDiscoveredItemsPages.includes(page) || page === "detailed-view-of-discovered-items");
-  const isUnderOtherFunctionsDiscoveredItems = section === "discovery-scan" && (otherFunctionsDiscoveredItemsPages.includes(page) || page === "other-functions-and-page-elements-discovered-items");
-  const isUnderImportFromAWS = section === "discovery-scan" && (importFromAwsPages.includes(page) || page === "import-from-aws");
-  const isUnderViewAwsImportRecord = section === "discovery-scan" && (viewAwsImportRecordPages.includes(page) || page === "view-aws-import-record");
-  const isUnderImportFromAzure = section === "discovery-scan" && (importFromAzurePages.includes(page) || page === "import-from-azure");
-  const isUnderViewAzureImportRecord = section === "discovery-scan" && (viewAzureImportRecordPages.includes(page) || page === "view-azure-import-record");
-  const isUnderImportFromMeraki = section === "discovery-scan" && (importFromMerakiPages.includes(page) || page === "import-from-meraki");
-  const isUnderViewMerakiImportRecord = section === "discovery-scan" && (viewMerakiImportRecordPages.includes(page) || page === "view-meraki-import-record");
-  const isUnderImportFromIntune = section === "discovery-scan" && (importFromIntunePages.includes(page) || page === "import-from-intune");
-  const isUnderViewIntuneImportRecord = section === "discovery-scan" && (viewIntuneImportRecordPages.includes(page) || page === "view-intune-import-record");
-  const isUnderImportDataFiles = section === "discovery-scan" && (importDataFilesPages.includes(page) || page === "import-data-files");
-  const isUnderViewImportedDataFile = section === "discovery-scan" && (viewImportedDataFilePages.includes(page) || page === "view-an-imported-data-file");
-  const isUnderImportedAssets = section === "discovery-scan" && (importedAssetsPages.includes(page) || page === "imported-assets");
-  const isUnderAdUserImportLogs = section === "discovery-scan" && (adUserImportLogsPages.includes(page) || page === "ad-user-import-logs");
-  const isUnderAdConfigurationAndImport = section === "discovery-scan" && (adConfigurationAndImportPages.includes(page) || page === "ad-configuration-and-import");
-  const isUnderViewImportLogDetails = section === "discovery-scan" && (viewImportLogDetailsPages.includes(page) || page === "view-import-log-details");
   const isUnderAzureAd = section === "discovery-scan" && (azureAdPages.includes(page) || page === "azure-ad-user-import-logs");
-  const isUnderAzureAdConfigurationAndImport = section === "discovery-scan" && (azureAdConfigurationAndImportPages.includes(page) || page === "azure-ad-configuration-and-import");
-  const isUnderViewImportLogDetailsAzure = section === "discovery-scan" && (viewImportLogDetailsAzurePages.includes(page) || page === "view-import-log-details-azure");
+  const isUnderViewImportLog = section === "discovery-scan" && (viewImportLogPages.includes(page) || page === "view-import-log-details");
   
   // ITSM hierarchy checks
   const isUnderConfigurationManagement = section === "itsm" && (configurationManagementPages.includes(page) || page === "configuration-management");
   const isUnderItsmCmdb = section === "itsm" && (itsmCmdbPages.includes(page) || page === "cmdb");
-  const isUnderItsmManageCmdb = section === "itsm" && (itsmManageCmdbPages.includes(page) || page === "manage-cmdb");
   const isUnderItsmViewEditCi = section === "itsm" && (itsmViewEditCiPages.includes(page) || page === "view-and-edit-ci");
   const isUnderItsmCiDetails = section === "itsm" && (itsmCiDetailsPages.includes(page) || page === "ci-details-and-tabs");
-  const isUnderItsmDetailsNested = section === "itsm" && (itsmDetailsNestedPages.includes(page) || page === "details");
-  const isUnderItsmOtherFunctions = section === "itsm" && (itsmOtherFunctionsPages.includes(page) || page === "other-functions-and-page-elements");
-  
-  // Vulnerability Management hierarchy checks
-  const isUnderVulnerabilityManagement = section === "vulnerability-management" && (vulnerabilityManagementPages.includes(page) || page === "vulnerability-management");
-  
-  // Application Overview pages (these appear under Application Overview section in my-dashboard module)
-  const applicationOverviewPages = [
-    "system-icons",
-    "user-specific-functions", 
-    "online-help",
-    ...sharedFunctionsPages,
-    "shared-functions" // parent page itself
-  ];
-  
-  // Getting Started pages (universal: works for all modules and versions)
-  const gettingStartedPages = ["quick-start", "installation", "configuration", "first-steps"];
-  const isGettingStartedPage = gettingStartedPages.includes(page);
-  
-  // Admin sub-section page detection (using arrays declared above)
-  const isOrganizationalDetailsPage = organizationalDetailsPages.includes(page);
-  const isDiscoveryPage = discoveryPages.includes(page);
-  const isSacmPage = sacmPages.includes(page);
-  const isUsersPage = usersPages.includes(page);
-  const isManagementFunctionsPage = managementFunctionsPages.includes(page);
-  const isIntegrationsPage = integrationsPages.includes(page);
-  const isOthersPage = othersPages.includes(page);
-  
-  // Detect if we're in Application Overview section based on page content
-  // Even if URL section is "my-dashboard", if page is an Application Overview page, 
-  // we should show "Application Overview" as the section
-  const isApplicationOverviewPage = applicationOverviewPages.includes(page);
-  
-  // Detect actual section: prioritize Getting Started, then Admin sub-sections, then Application Overview, then use provided section
-  // This must be declared before Admin hierarchy checks that use it
-  let actualSection = section;
-  if (module === 'my-dashboard' && isGettingStartedPage) {
-    actualSection = 'getting-started';
-  } else if (module === 'admin' && isOrganizationalDetailsPage) {
-    actualSection = 'organizational-details';
-  } else if (module === 'admin' && isDiscoveryPage) {
-    actualSection = 'discovery';
-  } else if (module === 'admin' && isSacmPage) {
-    actualSection = 'sacm';
-  } else if (module === 'admin' && isUsersPage) {
-    actualSection = 'users';
-  } else if (module === 'admin' && isManagementFunctionsPage) {
-    actualSection = 'management-functions';
-  } else if (module === 'admin' && isIntegrationsPage) {
-    actualSection = 'integrations';
-  } else if (module === 'admin' && isOthersPage) {
-    actualSection = 'others';
-  } else if (module === 'my-dashboard' && isApplicationOverviewPage) {
-    actualSection = 'application-overview';
-  }
   
   // Admin hierarchy checks
-  const isUnderOrganizationalDetails = (actualSection === "organizational-details" || section === "admin") && (organizationalDetailsPages.includes(page) || page === "organizational-details");
+  const isUnderOrganizationalDetails = section === "admin" && (organizationalDetailsPages.includes(page) || page === "organizational-details");
   const isUnderDepartments = section === "admin" && (departmentsPages.includes(page) || page === "departments");
   
-  const isUnderDiscovery = (actualSection === "discovery" || section === "admin") && (discoveryPages.includes(page) || page === "discovery");
+  const isUnderDiscovery = section === "admin" && (discoveryPages.includes(page) || page === "discovery");
   const isUnderClient = section === "admin" && (clientPages.includes(page) || page === "client");
   const isUnderCredentials = section === "admin" && (credentialsPages.includes(page) || page === "credentials");
-  const isUnderMonitoringProfile = section === "admin" && (monitoringProfilePages.includes(page) || page === "monitoring-profile");
   
-  const isUnderSacm = (actualSection === "sacm" || section === "admin") && (sacmPages.includes(page) || page === "sacm");
-  const isUnderUsers = (actualSection === "users" || section === "admin") && (usersPages.includes(page) || page === "users");
+  const isUnderSacm = section === "admin" && (sacmPages.includes(page) || page === "sacm");
+  const isUnderUsers = section === "admin" && (usersPages.includes(page) || page === "users");
   
-  const isUnderManagementFunctions = (actualSection === "management-functions" || section === "admin") && (managementFunctionsPages.includes(page) || page === "management-functions");
+  const isUnderManagementFunctions = section === "admin" && (managementFunctionsPages.includes(page) || page === "management-functions");
   const isUnderProcurement = section === "admin" && (procurementPages.includes(page) || page === "procurement");
   
-  const isUnderIntegrations = (actualSection === "integrations" || section === "admin") && (integrationsPages.includes(page) || page === "integrations");
+  const isUnderIntegrations = section === "admin" && (integrationsPages.includes(page) || page === "integrations");
   const isUnderCherwellCredential = section === "admin" && (cherwellCredentialPages.includes(page) || page === "cherwell-credential");
   const isUnderIvantiCredentials = section === "admin" && (ivantiCredentialsPages.includes(page) || page === "ivanti-credentials");
   const isUnderJiraCredentials = section === "admin" && (jiraCredentialsPages.includes(page) || page === "jira-credentials");
   const isUnderServicenowCredentials = section === "admin" && (servicenowCredentialsPages.includes(page) || page === "servicenow-credentials");
   
-  const isUnderOthers = (actualSection === "others" || section === "admin") && (othersPages.includes(page) || page === "others");
+  const isUnderOthers = section === "admin" && (othersPages.includes(page) || page === "others");
   
-  // Self Service hierarchy checks
-  const isUnderSelfService = section === "self-service" && (selfServicePages.includes(page) || page === "self-service");
-  
-  // Program/Project Management hierarchy checks
-  const isUnderProgramProjectManagement = section === "program-project-management" && (programProjectManagementPages.includes(page) || page === "program-project-management");
-  const isUnderPrograms = section === "program-project-management" && (programsPages.includes(page) || page === "programs");
-  const isUnderProjects = section === "program-project-management" && (projectsPages.includes(page) || page === "projects");
-  
-  // Risk Register hierarchy checks
-  const isUnderRiskRegister = section === "risk-register" && (riskRegisterPages.includes(page) || page === "risk-register");
-  
-  // Reports hierarchy checks
-  const isUnderReports = section === "reports" && (reportsPages.includes(page) || page === "reports");
-  
-  // Get section display name based on actual section
-  const sectionDisplayName = getSectionDisplayName(actualSection);
+  // Get section display name
+  const sectionDisplayName = getSectionDisplayName(section);
   
   // Determine parent topic to show after section
   // Important: Only set parentTopic if we're NOT on the parent page itself
   let parentTopic: string | null = null;
-  // Application Overview direct pages (system-icons, user-specific-functions, online-help) don't have a parent topic
-  // Only Shared Functions pages have "Shared Functions" as parent topic
-  if ((actualSection === "application-overview" && sharedFunctionsPages.includes(page)) && page !== "shared-functions") parentTopic = "Shared Functions";
+  if (isUnderSharedFunctions && page !== "shared-functions") parentTopic = "Shared Functions";
   else if (isUnderDashboards && page !== "dashboards") parentTopic = "Dashboards";
   else if (isUnderManageCmdb && page !== "manage-cmdb") parentTopic = "Manage CMDB";
   else if (isUnderViewEditCi && page !== "view-and-edit-ci") parentTopic = "View and Edit a CI";
   else if (isUnderCiDetails || isUnderDetailsNested) parentTopic = "CI Details and Tabs";
   else if (isUnderDashboard && page !== "dashboard") parentTopic = "Dashboard";
   else if (isUnderRunAScan && page !== "run-a-scan") parentTopic = "Run a Scan";
-  else if (isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan") parentTopic = "Initiate and Configure Discovery Scan";
-  else if (isUnderConfigureDiscovery && page !== "configure-discovery-scan") parentTopic = "Configure Discovery Scan";
   else if (isUnderRecentScans && page !== "recent-scans") parentTopic = "Recent Scans";
-  else if (isUnderViewRecentScan && page !== "view-recent-scan") parentTopic = "View Recent Scan";
-  else if (isUnderRecentScanDetails && page !== "details") parentTopic = "Details";
-  else if (isUnderScheduledScansImports && page !== "scheduled-scans-and-imports") parentTopic = "Scheduled Scans and Imports";
-  else if (isUnderScansImportOptions && page !== "scans-and-import-options") parentTopic = "Scans and Import Options";
-  else if (isUnderScheduledImportSetup && page !== "scheduled-import-setup") parentTopic = "Scheduled Import Setup";
-  else if (isUnderIpamNetworks && page !== "ipam-networks") parentTopic = "IPAM Networks";
-  else if (isUnderIpamFunctionsOverview && page !== "ipam-functions-overview") parentTopic = "IPAM Functions Overview";
-  else if (isUnderScanFunction && page !== "scan-function") parentTopic = "Scan Function";
-  else if (isUnderDiscoveredItems && page !== "discovered-items") parentTopic = "Discovered Items";
-  else if (isUnderManageDiscoveredItems && page !== "manage-discovered-items") parentTopic = "Manage Discovered Items";
-  else if (isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items") parentTopic = "Detailed View of Discovered Items";
-  else if (isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements-discovered-items") parentTopic = "Other Functions and Page Elements";
-  else if (isUnderImportFromAWS && page !== "import-from-aws") parentTopic = "Import from AWS";
-  else if (isUnderViewAwsImportRecord && page !== "view-aws-import-record") parentTopic = "View AWS Import Record";
-  else if (isUnderImportFromAzure && page !== "import-from-azure") parentTopic = "Import from Azure";
-  else if (isUnderViewAzureImportRecord && page !== "view-azure-import-record") parentTopic = "View AZURE Import Record";
-  else if (isUnderImportFromMeraki && page !== "import-from-meraki") parentTopic = "Import from Meraki";
-  else if (isUnderViewMerakiImportRecord && page !== "view-meraki-import-record") parentTopic = "View Meraki Import Record";
-  else if (isUnderImportFromIntune && page !== "import-from-intune") parentTopic = "Import from Intune";
-  else if (isUnderViewIntuneImportRecord && page !== "view-intune-import-record") parentTopic = "View Intune Import Record";
-  else if (isUnderImportDataFiles && page !== "import-data-files") parentTopic = "Import Data Files";
-  else if (isUnderViewImportedDataFile && page !== "view-an-imported-data-file") parentTopic = "View an Imported Data File";
-  else if (isUnderImportedAssets && page !== "imported-assets") parentTopic = "Imported Assets";
-  else if (isUnderAdUserImportLogs && page !== "ad-user-import-logs") parentTopic = "AD User Import Logs";
-  else if (isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import") parentTopic = "AD Configuration and Import";
-  else if (isUnderViewImportLogDetails && page !== "view-import-log-details") parentTopic = "View Import Log Details";
   else if (isUnderAzureAd && page !== "azure-ad-user-import-logs") parentTopic = "Azure AD User Import Logs";
-  else if (isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import") parentTopic = "Azure AD Configuration and Import";
-  else if (isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure") parentTopic = "View Import Log Details";
   else if (isUnderConfigurationManagement && page !== "configuration-management") parentTopic = "Configuration Management";
   else if (isUnderOrganizationalDetails && page !== "organizational-details") parentTopic = "Organizational Details";
   else if (isUnderDiscovery && page !== "discovery") parentTopic = "Discovery";
@@ -4153,14 +1711,6 @@ function DefaultContent({
   else if (isUnderManagementFunctions && page !== "management-functions") parentTopic = "Management Functions";
   else if (isUnderIntegrations && page !== "integrations") parentTopic = "Integrations";
   else if (isUnderOthers && page !== "others") parentTopic = "Others";
-  else if (isUnderSelfService && page !== "self-service") parentTopic = "Self Service";
-  else if (isUnderProgramProjectManagement && page !== "program-project-management") parentTopic = "Program/Project Management";
-  else if (isUnderRiskRegister && page !== "risk-register") parentTopic = "Risk Register";
-  else if (isUnderReports && page !== "reports") parentTopic = "Reports";
-  else if (isUnderVulnerabilityManagement && page !== "vulnerability-management") parentTopic = "Vulnerability Management";
-
-  // Format page name for display using TOC label lookup
-  const pageDisplayName = getPageLabel(page);
 
   return (
     <article className="prose prose-slate max-w-none -mt-9">
@@ -4190,49 +1740,12 @@ function DefaultContent({
                 onClick={onModuleClick}
                 className="text-slate-700 hover:text-emerald-600 cursor-pointer"
               >
-                {moduleNames[module] || module}
+                {moduleName}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink 
-                onClick={() => {
-                  // Navigate to section (first page of the section)
-                  if (onPageClick) {
-                    // Get the first page of the section based on module and actual section
-                    let firstPage = '';
-                    if (actualSection === 'getting-started') {
-                      firstPage = 'quick-start';
-                    } else if (actualSection === 'application-overview') {
-                      firstPage = 'system-icons';
-                    } else if (actualSection === 'organizational-details') {
-                      firstPage = 'organizational-details';
-                    } else if (actualSection === 'discovery') {
-                      firstPage = 'application-map';
-                    } else if (actualSection === 'sacm') {
-                      firstPage = 'blueprints';
-                    } else if (actualSection === 'users') {
-                      firstPage = 'ad-configuration';
-                    } else if (actualSection === 'management-functions') {
-                      firstPage = 'change-management';
-                    } else if (actualSection === 'integrations') {
-                      firstPage = 'cherwell-credential';
-                    } else if (actualSection === 'others') {
-                      firstPage = 'announcements';
-                    } else if (module === 'my-dashboard' && actualSection === 'my-dashboard') {
-                      firstPage = 'my-dashboard-overview';
-                    } else if (module === 'cmdb' && actualSection === 'cmdb') {
-                      firstPage = 'access-cmdb';
-                    } else if (module === 'discovery-scan' && actualSection === 'discovery-scan') {
-                      firstPage = 'access-dashboard';
-                    } else {
-                      firstPage = 'advanced-search';
-                    }
-                    onPageClick(version, module, actualSection, firstPage);
-                  }
-                }}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
+              <BreadcrumbLink className="text-slate-700 hover:text-emerald-600 cursor-pointer">
                 {sectionDisplayName}
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -4240,10 +1753,7 @@ function DefaultContent({
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleParentTopicClick(parentTopic)}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
+                  <BreadcrumbLink className="text-slate-700">
                     {parentTopic}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4254,57 +1764,18 @@ function DefaultContent({
             {isUnderMyDashboardSection && page !== "my-dashboard-section" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("My Dashboard", "my-dashboard-section")}>
+                  <BreadcrumbLink className="text-slate-700">
                     My Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* CMDB nested hierarchy - Manage CMDB */}
-            {isUnderManageCmdb && page !== "manage-cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - View and Edit a CI */}
-            {isUnderViewEditCi && page !== "view-and-edit-ci" && !isUnderCiDetails && !isUnderDetailsNested && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - CI Details and Tabs */}
-            {(isUnderCiDetails || isUnderDetailsNested) && page !== "ci-details-and-tabs" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* CMDB nested hierarchy - Details */}
+            {/* CMDB nested hierarchy */}
             {isUnderDetailsNested && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4315,7 +1786,7 @@ function DefaultContent({
             {isUnderInitiateConfigure && page !== "initiate-and-configure-discovery-scan" && !isUnderConfigureDiscovery && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4325,13 +1796,13 @@ function DefaultContent({
             {isUnderConfigureDiscovery && page !== "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configure Discovery Scan", "configure-discovery-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4341,7 +1812,7 @@ function DefaultContent({
             {page === "configure-discovery-scan" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Initiate and Configure Discovery Scan", "initiate-and-configure-discovery-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Initiate and Configure Discovery Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4352,7 +1823,7 @@ function DefaultContent({
             {isUnderViewRecentScan && page !== "view-recent-scan" && !isUnderRecentScanDetails && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4362,16 +1833,13 @@ function DefaultContent({
             {isUnderRecentScanDetails && page !== "details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink 
-                    onClick={() => handleNestedTopicClick("Details", "details")}
-                    className="text-slate-700 hover:text-emerald-600 cursor-pointer transition-colors"
-                  >
+                  <BreadcrumbLink className="text-slate-700">
                     Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -4381,623 +1849,181 @@ function DefaultContent({
             {page === "details" && section === "discovery-scan" && isUnderViewRecentScan && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Recent Scan", "view-recent-scan")}>
+                  <BreadcrumbLink className="text-slate-700">
                     View Recent Scan
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Azure AD User Import Logs hierarchy */}
-            {isUnderAzureAd && page !== "azure-ad-user-import-logs" && !isUnderAzureAdConfigurationAndImport && !isUnderViewImportLogDetailsAzure && (
+            {/* Discovery Scan - Azure AD hierarchy */}
+            {isUnderViewImportLog && page !== "view-import-log-details" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderAzureAdConfigurationAndImport && page !== "azure-ad-configuration-and-import" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD Configuration and Import", "azure-ad-configuration-and-import")}>
-                    Azure AD Configuration and Import
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportLogDetailsAzure && page !== "view-import-log-details-azure" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Azure AD User Import Logs", "azure-ad-user-import-logs")}>
-                    Azure AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details-azure")}>
+                  <BreadcrumbLink className="text-slate-700">
                     View Import Log Details
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* Discovery Scan - Scheduled Scans and Imports hierarchy */}
-            {isUnderScansImportOptions && page !== "scans-and-import-options" && (
+            {/* ITSM - Configuration Management > CMDB hierarchy */}
+            {isUnderItsmCmdb && page !== "cmdb" && !isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scans and Import Options", "scans-and-import-options")}>
-                    Scans and Import Options
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Dashboard hierarchy */}
-            {isUnderDashboard && page !== "dashboard" && !isUnderRunAScan && !isUnderRecentScans && !isUnderScheduledScansImports && !isUnderIpamNetworks && !isUnderDiscoveredItems && !isUnderImportFromAWS && !isUnderImportFromAzure && !isUnderImportFromMeraki && !isUnderImportFromIntune && !isUnderImportDataFiles && !isUnderImportedAssets && !isUnderAdUserImportLogs && !isUnderAzureAd && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Dashboard", "dashboard")}>
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - IPAM Networks hierarchy */}
-            {isUnderIpamNetworks && page !== "ipam-networks" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderIpamFunctionsOverview && page !== "ipam-functions-overview" && !isUnderScanFunction && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
-                    IPAM Functions Overview
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderScanFunction && page !== "scan-function" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Networks", "ipam-networks")}>
-                    IPAM Networks
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("IPAM Functions Overview", "ipam-functions-overview")}>
-                    IPAM Functions Overview
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Scan Function", "scan-function")}>
-                    Scan Function
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Discovered Items hierarchy */}
-            {isUnderManageDiscoveredItems && page !== "manage-discovered-items" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage Discovered Items", "manage-discovered-items")}>
-                    Manage Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderDetailedViewDiscoveredItems && page !== "detailed-view-of-discovered-items" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Detailed View of Discovered Items", "detailed-view-of-discovered-items")}>
-                    Detailed View of Discovered Items
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderOtherFunctionsDiscoveredItems && page !== "other-functions-and-page-elements" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from AWS hierarchy */}
-            {isUnderImportFromAWS && page !== "import-from-aws" && !isUnderViewAwsImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
-                    Import from AWS
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewAwsImportRecord && page !== "view-aws-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from AWS", "import-from-aws")}>
-                    Import from AWS
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AWS Import Record", "view-aws-import-record")}>
-                    View AWS Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Azure hierarchy */}
-            {isUnderImportFromAzure && page !== "import-from-azure" && !isUnderViewAzureImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
-                    Import from Azure
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewAzureImportRecord && page !== "view-azure-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Azure", "import-from-azure")}>
-                    Import from Azure
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View AZURE Import Record", "view-azure-import-record")}>
-                    View AZURE Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Meraki hierarchy */}
-            {isUnderImportFromMeraki && page !== "import-from-meraki" && !isUnderViewMerakiImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
-                    Import from Meraki
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewMerakiImportRecord && page !== "view-meraki-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Meraki", "import-from-meraki")}>
-                    Import from Meraki
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Meraki Import Record", "view-meraki-import-record")}>
-                    View Meraki Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import from Intune hierarchy */}
-            {isUnderImportFromIntune && page !== "import-from-intune" && !isUnderViewIntuneImportRecord && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
-                    Import from Intune
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewIntuneImportRecord && page !== "view-intune-import-record" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import from Intune", "import-from-intune")}>
-                    Import from Intune
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Intune Import Record", "view-intune-import-record")}>
-                    View Intune Import Record
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Import Data Files hierarchy */}
-            {isUnderImportDataFiles && page !== "import-data-files" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
-                    Import Data Files
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportedDataFile && page !== "view-an-imported-data-file" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Import Data Files", "import-data-files")}>
-                    Import Data Files
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View an Imported Data File", "view-an-imported-data-file")}>
-                    View an Imported Data File
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - Imported Assets hierarchy */}
-            {isUnderImportedAssets && page !== "imported-assets" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Imported Assets", "imported-assets")}>
-                    Imported Assets
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Discovery Scan - AD User Import Logs hierarchy */}
-            {isUnderAdUserImportLogs && page !== "ad-user-import-logs" && !isUnderAdConfigurationAndImport && !isUnderViewImportLogDetails && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderAdConfigurationAndImport && page !== "ad-configuration-and-import" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD Configuration and Import", "ad-configuration-and-import")}>
-                    AD Configuration and Import
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {isUnderViewImportLogDetails && page !== "view-import-log-details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("AD User Import Logs", "ad-user-import-logs")}>
-                    AD User Import Logs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View Import Log Details", "view-import-log-details")}>
-                    View Import Log Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - Configuration Management hierarchy */}
-            {isUnderConfigurationManagement && page !== "configuration-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITSM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
-            {isUnderItsmCmdb && page !== "cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                  <BreadcrumbLink className="text-slate-700">
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
-            {isUnderItsmManageCmdb && (
+            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
+                  <BreadcrumbLink className="text-slate-700">
+                    CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
-              </>
-            )}
-            {/* ITSM - View and Edit a CI level (nested under CMDB) */}
-            {isUnderItsmViewEditCi && page !== "view-and-edit-ci" && !isUnderItsmCiDetails && !isUnderItsmOtherFunctions && (
-              <>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                  <BreadcrumbLink className="text-slate-700">
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - CI Details and Tabs level (nested under View and Edit a CI) */}
-            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && !isUnderItsmDetailsNested && (
+            {isUnderItsmCiDetails && page !== "ci-details-and-tabs" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                  <BreadcrumbLink className="text-slate-700">
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink className="text-slate-700">
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
+                  <BreadcrumbLink className="text-slate-700">
                     CI Details and Tabs
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Details nested level (nested under CI Details and Tabs) */}
-            {isUnderItsmDetailsNested && page !== "details" && (
+            {page === "ci-details-and-tabs" && section === "itsm" && isUnderItsmViewEditCi && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
+                  <BreadcrumbLink className="text-slate-700">
+                    CMDB
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink className="text-slate-700">
                     View and Edit a CI
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
               </>
             )}
-            {/* ITSM - Other Functions and Page Elements level (nested under CMDB) */}
-            {isUnderItsmOtherFunctions && page !== "other-functions-and-page-elements" && (
+            {page === "view-and-edit-ci" && section === "itsm" && isUnderItsmCmdb && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Configuration Management hierarchy */}
-            {(section === "itam" && (itamConfigurationManagementPages.includes(page) || page === "configuration-management")) && page !== "configuration-management" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Configuration Management", "configuration-management")}>
-                    Configuration Management
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - CMDB level (show for all CMDB pages under Configuration Management, including manage-cmdb) */}
-            {isUnderItamCmdb && page !== "cmdb" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CMDB", "cmdb")}>
+                  <BreadcrumbLink className="text-slate-700">
                     CMDB
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
-            {/* ITAM - Manage CMDB level (show for manage-cmdb page and its child pages) */}
-            {isUnderItamManageCmdb && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Manage CMDB", "manage-cmdb")}>
-                    Manage CMDB
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                {page !== "manage-cmdb" && <BreadcrumbSeparator />}
-              </>
-            )}
-            {/* ITAM - View and Edit a CI level (nested under CMDB) */}
-            {isUnderItamViewEditCi && page !== "view-and-edit-ci" && !isUnderItamCiDetails && !isUnderItamOtherFunctions && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - CI Details and Tabs level (nested under View and Edit a CI) */}
-            {isUnderItamCiDetails && page !== "ci-details-and-tabs" && !isUnderItamDetailsNested && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Details nested level (nested under CI Details and Tabs) */}
-            {isUnderItamDetailsNested && page !== "details" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("View and Edit a CI", "view-and-edit-ci")}>
-                    View and Edit a CI
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("CI Details and Tabs", "ci-details-and-tabs")}>
-                    CI Details and Tabs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Details", "details")}>
-                    Details
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Other Functions and Page Elements level (nested under CMDB) */}
-            {isUnderItamOtherFunctions && page !== "other-functions-and-page-elements" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Other Functions and Page Elements", "other-functions-and-page-elements")}>
-                    Other Functions and Page Elements
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* ITAM - Procurement hierarchy */}
-            {isUnderItamProcurement && page !== "procurement" && (
-              <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
-                    Procurement
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </>
-            )}
-            {/* Admin nested hierarchy */}
+            {/* Admin - Organizational Details > Departments hierarchy */}
             {isUnderDepartments && page !== "departments" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Departments", "departments")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Departments
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Discovery > Client hierarchy */}
             {isUnderClient && page !== "client" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Client", "client")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Client
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Discovery > Credentials hierarchy */}
             {isUnderCredentials && page !== "credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Credentials", "credentials")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Management Functions > Procurement hierarchy */}
             {isUnderProcurement && page !== "procurement" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Procurement", "procurement")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Procurement
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Integrations > Cherwell Credential hierarchy */}
             {isUnderCherwellCredential && page !== "cherwell-credential" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Cherwell Credential", "cherwell-credential")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Cherwell Credential
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Integrations > Ivanti Credentials hierarchy */}
             {isUnderIvantiCredentials && page !== "ivanti-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Ivanti Credentials", "ivanti-credentials")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Ivanti Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Integrations > Jira Credentials hierarchy */}
             {isUnderJiraCredentials && page !== "jira-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("Jira Credentials", "jira-credentials")}>
+                  <BreadcrumbLink className="text-slate-700">
                     Jira Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )}
+            {/* Admin - Integrations > ServiceNow Credentials hierarchy */}
             {isUnderServicenowCredentials && page !== "servicenow-credentials" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink {...getClickableBreadcrumbProps("ServiceNow Credentials", "servicenow-credentials")}>
+                  <BreadcrumbLink className="text-slate-700">
                     ServiceNow Credentials
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -5006,14 +2032,22 @@ function DefaultContent({
             )}
             <BreadcrumbItem>
               <BreadcrumbPage className="text-slate-900">
-                {pageDisplayName}
+                {page
+                  .split("-")
+                  .map(
+                    (word) =>
+                      word.toLowerCase() === "cmdb"
+                        ? "CMDB"
+                        : word.charAt(0).toUpperCase() + word.slice(1),
+                  )
+                  .join(" ")}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
 
-      <h1 className="text-slate-900 mb-6">
+      <h1 className="mb-4">
         {page
           .split("-")
           .map(
@@ -5031,15 +2065,6 @@ function DefaultContent({
         The content is maintained in MDX format for easy updates
         and version control.
       </p>
-
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-12 not-prose">
-        <p className="text-sm text-blue-900">
-          <strong>MDX Content Source:</strong>{" "}
-          <code className="text-xs bg-blue-100 px-2 py-1 rounded">
-            /content/{version}/{module}/{page}.mdx
-          </code>
-        </p>
-      </div>
 
       <h2 id="overview" className="mt-12 mb-6">
         Overview
@@ -5071,25 +2096,6 @@ function DefaultContent({
         Sample configuration and code snippets:
       </p>
 
-      <div className="bg-slate-900 text-slate-100 p-6 rounded-lg text-sm font-mono not-prose mb-12 overflow-x-auto">
-        <pre>{`// Example configuration for ${moduleName}
-{
-  "version": "${version}",
-  "module": "${module}",
-  "section": "${section}",
-  "page": "${page}",
-  "enabled": true,
-  "settings": {
-    "autoSync": true,
-    "interval": 3600,
-    "notifications": {
-      "email": true,
-      "sms": false
-    }
-  }
-}`}</pre>
-      </div>
-
       <h2 id="additional-resources" className="mt-12 mb-6">
         Additional Resources
       </h2>
@@ -5102,6 +2108,7 @@ function DefaultContent({
         <li>Knowledge base articles and FAQs</li>
         <li>Support resources and contact information</li>
       </ul>
+
       <FeedbackSection />
     </article>
   );

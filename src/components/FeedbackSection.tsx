@@ -67,6 +67,17 @@ export function FeedbackSection() {
   const handleThumbClick = (type: FeedbackType) => {
     if (!canSubmit && !isSubmitted) return;
     
+    // If clicking the same button again, close the form
+    if (feedbackType === type && showForm) {
+      setShowForm(false);
+      setFeedbackType(null);
+      setSelectedReasons([]);
+      setComments('');
+      setNpsScore(null);
+      setOtherRoleText('');
+      return;
+    }
+    
     setFeedbackType(type);
     setShowForm(true);
     setIsSubmitted(false);
@@ -103,7 +114,6 @@ export function FeedbackSection() {
       const pageTitle = document.title;
       
       // Format the email content
-      const reasons = feedbackType === 'positive' ? positiveReasons : negativeReasons;
       const emailContent = {
         to_email: 'gopichand.y@virima.com',
         from_name: 'Virima Documentation Feedback',
@@ -112,7 +122,7 @@ export function FeedbackSection() {
         feedback_type: feedbackType === 'positive' ? '👍 Positive' : '👎 Negative',
         user_role: feedbackData.role || 'Not specified',
         reasons: selectedReasons.length > 0 
-          ? selectedReasons.map(r => reasons.find(reason => reason.id === r)?.label).filter(Boolean).join(', ')
+          ? selectedReasons.map(r => reasons.find(reason => reason.id === r)?.label).join(', ')
           : 'None selected',
         comments: comments || 'No additional comments',
         nps_score: feedbackType === 'positive' && npsScore !== null 
@@ -156,15 +166,15 @@ export function FeedbackSection() {
   const reasons = feedbackType === 'positive' ? positiveReasons : negativeReasons;
 
   return (
-    <div className="mt-16 pt-12 border-t border-slate-200">
+    <div className="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-slate-200">
       <div className="max-w-2xl">
-        <h3 className="text-slate-900 mb-2">Was this page helpful?</h3>
-        <p className="text-sm text-slate-600 mb-6">
+        <div className="text-lg font-semibold text-slate-900 mb-2">Was this page helpful?</div>
+        <p className="text-sm text-slate-600 mb-4 sm:mb-6">
           Your feedback helps us improve our documentation.
         </p>
 
         {/* Thumbs Up/Down Buttons */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Button
             variant="outline"
             size="lg"
@@ -232,11 +242,11 @@ export function FeedbackSection() {
         {showForm && feedbackType && (
           <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-6">
             <div>
-              <h4 className="text-slate-900 mb-4">
+              <div className="font-semibold text-slate-900 mb-4">
                 {feedbackType === 'positive' 
                   ? 'What did you find helpful?' 
                   : 'What can we improve?'}
-              </h4>
+              </div>
 
               {/* Role Selection */}
               <div className="mb-6">
@@ -265,16 +275,6 @@ export function FeedbackSection() {
                     rows={2}
                   />
                 )}
-                {!selectedRole && (
-                  <span className="text-xs text-slate-500 mt-1 block">
-                    * Role is required
-                  </span>
-                )}
-                {selectedRole === 'other' && !otherRoleText.trim() && (
-                  <span className="text-xs text-slate-500 mt-1 block">
-                    * Please specify your role
-                  </span>
-                )}
               </div>
 
               {/* NPS Question - Only for positive feedback */}
@@ -284,13 +284,13 @@ export function FeedbackSection() {
                     How likely are you to recommend this event to a <span className="text-emerald-600">friend or colleague?</span>
                   </Label>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto pb-2">
                       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
                         <button
                           key={score}
                           type="button"
                           onClick={() => setNpsScore(score)}
-                          className={`w-10 h-10 rounded-md border-2 transition-all ${
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-md border-2 transition-all flex-shrink-0 text-sm sm:text-base ${
                             npsScore === score
                               ? 'bg-emerald-600 border-emerald-600 text-white scale-110 shadow-md'
                               : 'border-slate-300 text-slate-700 hover:border-emerald-400 hover:bg-emerald-50'
@@ -350,7 +350,7 @@ export function FeedbackSection() {
             <div className="flex items-center gap-3 pt-4 border-t border-slate-200">
               <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting || !selectedRole || (selectedRole === 'other' && !otherRoleText.trim())}
+                disabled={!selectedRole || (selectedRole === 'other' && !otherRoleText.trim())}
                 className="bg-emerald-600 hover:bg-emerald-700 text-white"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
@@ -369,6 +369,16 @@ export function FeedbackSection() {
               >
                 Cancel
               </Button>
+              {!selectedRole && (
+                <span className="text-xs text-slate-500">
+                  * Role is required
+                </span>
+              )}
+              {selectedRole === 'other' && !otherRoleText.trim() && (
+                <span className="text-xs text-slate-500">
+                  * Please specify your role
+                </span>
+              )}
               {submitError && (
                 <div className="flex items-center gap-2 text-sm text-red-500">
                   <AlertCircle className="w-4 h-4" />
@@ -382,4 +392,3 @@ export function FeedbackSection() {
     </div>
   );
 }
-

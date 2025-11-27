@@ -1,104 +1,58 @@
----
-lang: en-us
-title: Request Priority Calendar
-viewport: width=device-width, initial-scale=1.0
----
-
 # Request Priority Calculator
 
-Use this function to set the value for Urgency and Impact for a request.
+Use this function to configure how request priority is automatically calculated based on urgency and impact values.
 
- --- -------------------------------------------------------
-   Role access must be given to perform these functions.
- --- -------------------------------------------------------
+The Priority Calculator uses a matrix approach where the combination of Impact and Urgency determines the resulting Priority level.
 
-In the main window, click **Admin \> Request Management \> Request Priority Calculator**. The Request Priority Calculator window displays.
+In the main window, click **Admin > Request Management > Request Priority Calculator**. The Priority Calculator window displays.
 
-![request priority calculation old](../Resources/Images/Admin - Request/request-priority-calculation-old.PNG)
+## Priority Calculation Matrix
 
-![arrow border](../Resources/Images/arrow-border.PNG)
+The matrix shows how priorities are calculated:
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Request Priority Calculator](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+| Impact / Urgency | Critical | High | Medium | Low |
+| Critical | P1 | P1 | P2 | P3 |
+| High | P1 | P2 | P3 | P4 |
+| Medium | P2 | P3 | P4 | P5 |
+| Low | P3 | P4 | P5 | P5 |
 
- -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- 1. Set the values according to the table below. Once the **Impact** and **Urgency** are defined as shown in the figure above, the **Priority** is set automatically when creating a request.
- -- ----- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Configure Priority Calculation
 
- --- ---------------------------------------------------------------
-   Priority is always set to 1-Very High if the Reporter is VIP.
- --- ---------------------------------------------------------------
+To modify the priority calculation matrix:
 
- -- ----- -----------------------------------------------
- 2. When all selections are made, click **Save**.
- -- ----- -----------------------------------------------
+Click on a cell in the matrix to edit.
 
-### Priority Calculator Values
+Select the desired priority level for that combination of Impact and Urgency.
 
- Impact Urgency Priority
- -------- --------- -------------
- High High 1-Very High
- High Medium 2- High
- High Low 3- Medium
- Medium High 2- High
- Medium Medium 3- Medium
- Medium Low 4-Low
- Low High 3- Medium
- Low Medium 4-Low
- Low Low 5-Very Low
+The changes are saved automatically.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Request Priority Calculator](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+## Define Priority Levels
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+Configure the priority levels used in your organization:
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
+Click **Manage Priority Levels**.
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
+For each priority level, define:
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
+- **Priority Name**: (e.g., P1, Critical, High)
+- **Priority Level**: Numeric value (1-5)
+- **Color Code**: Visual indicator
+- **Target Fulfillment Time**: Associated completion timeframe
+- **Description**: What this priority means
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
+Click **Save**.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" Request Priority Calculator](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+## Auto-Calculate Priority
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To enable automatic priority calculation:
 
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
+Check **Enable Auto-Calculate Priority**.
 
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+When enabled, the priority will be automatically set based on the selected Impact and Urgency values.
 
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
+Users can still manually override the calculated priority if needed.
 
-::: Bullet1
-[Auto Refresh](../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+## Other Functions and Page Elements
 
-::: Bullet1
-[Delete](../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Go To Page](../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Personalize Columns](../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
-::: Bullet1
-[Saved Filters](../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
-
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

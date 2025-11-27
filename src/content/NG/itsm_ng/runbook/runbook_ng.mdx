@@ -1,82 +1,80 @@
 ---
-lang: en-us
-title: About RunBook
-viewport: width=device-width, initial-scale=1.0
+title: "RunBook"
+description: ""
+version: ""
+module: "Itsm"
+section: "Runbook"
+page: "RunBook"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Runbook"
+  - "Runbook"
+  - "RunBook"
 ---
 
 # RunBook
 
 Use this function to create a RunBook, which is a documented procedure that is carried out regularly to maintain performance within monitored IT environment. RunBook automation is a system whereby this procedure is able to be completed without manual input, therefore increasing efficiency and reliability.
 
-In the navigation pane, select **ITSM \> RunBook**. The RunBook window displays.
+In the navigation pane, select **ITSM > RunBook**. The RunBook window displays.
 
-![runbook main old](../../Resources/Images/ITSM/Runbook/runbook-main-old.PNG)
+New RunBook
 
-![arrow border](../../Resources/Images/arrow-border.PNG)
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" RunBook](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+A RunBook must be added before tasks can be created.
 
- --- ------------------------------------------------------
-   A RunBook must be added before tasks can be created.
- --- ------------------------------------------------------
 
- -- ----- ----------------------------------------------------------------------------------------------------
- 1. From the *Select Actions* drop-down list, choose **New RunBook**. The New RunBook window displays.
- -- ----- ----------------------------------------------------------------------------------------------------
+From the *Select Actions* drop-down list, choose **New RunBook**. The New RunBook window displays.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" RunBook](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+Enter a *RunBook Name* and *Description*.
 
- --- -----------------------------------------------------------------------------------------
-   Not all functions include an option to edit record line items shown in the main window.
- --- -----------------------------------------------------------------------------------------
+Click **Add**.
 
- -- ----- -------------------------------------------------------
- 1. Navigate to the window containing the record to edit.
- -- ----- -------------------------------------------------------
+### Add a RunBook Task
 
- -- ----- -------------------------------------------------------------------------------------
- 2. Click the line containing the record. The applicable window or dialog box displays.
- -- ----- -------------------------------------------------------------------------------------
+In the main window, select the RunBook to which a task is to be added.
 
- -- ----- -----------------------------------
- 3. Make the necessary modifications.
- -- ----- -----------------------------------
+In the RunBook window, click **New Task**. The Add Task dialog box displays. Note: The dialog box changes based on whether the "*User Defined Command*" or "*Select Probe*" option is selected.
 
- -- ----- -------------------------------------------
- 4. Click **Save** or **Add**, as applicable.
- -- ----- -------------------------------------------
+Complete the fields, referring to the table below.
 
-[[[Closed]{.image .placeholder .MCDropDown_Image_Icon original-image-src="../../../Skins/Default/Stylesheets/Images/transparent.gif" original-image-title="" height="12" width="16" RunBook](javascript:void(0)){.MCDropDownHotSpot .dropDownHotspot .MCDropDownHotSpot_ .MCHotSpotImage aria-expanded="false"}]{.MCDropDownHead .dropDownHead}
+When all selections/entries are made, click **Add**.
 
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Deleting is a permanent action and cannot be undone. Deleting may affect other functionality and information in the application such as data in configured reports, fields in windows, selectable options, etc. Therefore, be sure to understand the potential effects before making a deletion.
- --- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#### Add Task Fields
 
- -- ----- --------------------------------------------------
- 1. Click the line that contains the item to delete.
- -- ----- --------------------------------------------------
+| Field | Description |
 
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
- 2. From the *Select Actions* drop-down list, choose **Delete**. If a confirmation message is displayed, type **Delete** and click **Delete**to confirm.
- -- ----- ------------------------------------------------------------------------------------------------------------------------------------------------------
+| Name | Enter the name for this task. |
 
-[Other Functions and Page Elements]{style="font-family: Verdana;"}
+| Order | Enter a number for the order in which the command will be executed. |
 
-::: Bullet1
-[Auto Refresh](../../Common%20Functions/Auto-Refresh.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| Command Type | Click the drop-down list and select the applicable command (such as Windows or Unix) to be executed. |
 
-::: Bullet1
-[Delete](../../Common%20Functions/Delete-Remove.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| Timeout (sec) | Enter the time interval in seconds to execute the command. |
 
-::: Bullet1
-[Export](/discovery/import_data_files/export_6_1.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| User Defined Command | Select if a command will be entered in the Command box. |
 
-::: Bullet1
-[Go To Page](../../Common%20Functions/Go-to-Page.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| Command | Enter a command. This field is only displayed if "User Defined Command" is selected. |
 
-::: Bullet1
-[Personalize Columns](../../Common%20Functions/Personalize-Columns.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| Select Probe | Select if a probe will be specified. |
 
-::: Bullet1
-[Saved Filters](../../Common%20Functions/Saved-Filters.mdx){.MCTopicPopup .MCTopicPopupHotSpot .a}
+| Select Probe Type | From the drop-down list, select the required probe. This field is only displayed if "Select Probe" is selected. |
 
+| Cascade on Error
+
+Cascade on Success | If *Cascade on Error* is **Yes**, and *Cascade on Success* is **Yes**, the command is executed.
+
+If *Cascade on Error* is **No** and *Cascade on Success* is **Yes**, the command execution will be stopped. |
+
+| Wait Time (sec) | Enter the time in seconds to wait before the next command is executed. |
+
+| Host | Click **Add** then search for select the applicable host.
+
+Click the **plus + sign**, then search for select the applicable host. |
+
+| Client | From the drop-down list, select the applicable Client. The update to the Runbook occurs. |
+
+
+Edit RunBook Delete RunBook

@@ -1,0 +1,59 @@
+# Asset States
+
+Use this function to configure asset lifecycle states and state transitions.
+
+Asset States track assets through their lifecycle from acquisition to disposal.
+
+In the main window, click **Admin > Asset Management > Asset States**. The Asset States window displays.
+
+## Default Asset States
+
+**Standard States**:
+
+- **Ordered**: Asset has been requested/ordered
+- **Received**: Asset delivered but not deployed
+- **In Stock**: Asset in inventory
+- **Deployed**: Asset assigned but not in use
+- **In Use**: Asset actively being used
+- **In Repair**: Asset being serviced
+- **Reserved**: Asset reserved for future use
+- **Retired**: Asset decommissioned
+- **Disposed**: Asset removed from inventory
+
+## Create Custom State
+
+**State Details**:
+
+- **State Name**: Pending Approval
+- **Description**: Awaiting management approval
+- **State Type**: Active, Inactive, Transitional
+- **Color Code**: Yellow
+- **Icon**: Clock icon
+
+**State Transitions**:
+
+Define allowed state changes:
+
+From "Ordered" can transition to:
+
+- Received
+- Cancelled
+
+From "In Use" can transition to:
+
+- In Repair
+- Retired
+- In Stock
+
+**Workflow Actions**:
+
+- Send notification on state change
+- Update related records
+- Create audit log entry
+
+Click **Save**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)

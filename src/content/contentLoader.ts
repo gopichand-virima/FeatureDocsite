@@ -1,90 +1,156 @@
-/// <reference types="vite/client" />
-
 /**
- * Content Loader - Dynamically imports all MDX content files
+ * Content Loader - Statically imports all MDX content files
  * This file maps file paths to their actual content for runtime access
  */
+
+// Import My Dashboard 6.1 content
+import dashboards61 from './6_1/my-dashboard/dashboards-6_1.mdx?raw';
+import dashboardsContents61 from './6_1/my-dashboard/dashboards-contents-6_1.mdx?raw';
+import dashboardsCustomization61 from './6_1/my-dashboard/dashboards-customization-6_1.mdx?raw';
+import dashboardsReportActions61 from './6_1/my-dashboard/dashboards-report-actions-6_1.mdx?raw';
+import myDashboard61 from './6_1/my-dashboard/my-dashboard-6_1.mdx?raw';
+import myDashboardContents61 from './6_1/my-dashboard/my-dashboard-contents-6_1.mdx?raw';
+import myDashboardOverview61 from './6_1/my-dashboard/my-dashboard-overview-6_1.mdx?raw';
+import systemIcons61 from './6_1/my-dashboard/system-icons-6_1.mdx?raw';
+
+// Import CMDB 6.1 content
+import accessCmdb61 from './6_1/cmdb_6_1/access_cmdb_6_1.mdx?raw';
+import attachments61 from './6_1/cmdb_6_1/attachments_6_1.mdx?raw';
+import audits61 from './6_1/cmdb_6_1/audits_6_1.mdx?raw';
+import auditsTab61 from './6_1/cmdb_6_1/audits_tab_6_1.mdx?raw';
+import businessServiceMap61 from './6_1/cmdb_6_1/business_service_map_6_1.mdx?raw';
+import changeAttributes61 from './6_1/cmdb_6_1/change_attributes_6_1.mdx?raw';
+import ciDetailsAndTabs61 from './6_1/cmdb_6_1/ci_details_and_tabs_6_1.mdx?raw';
+import ciLeftPanel61 from './6_1/cmdb_6_1/ci_left_panel_6_1.mdx?raw';
+import cmdbOverview61 from './6_1/cmdb_6_1/cmdb_overview_6_1.mdx?raw';
+import comments61 from './6_1/cmdb_6_1/comments_6_1.mdx?raw';
+import components61 from './6_1/cmdb_6_1/components_6_1.mdx?raw';
+import contactsOnACi61 from './6_1/cmdb_6_1/contacts_on_a_ci_6_1.mdx?raw';
+import copyToIvanti61 from './6_1/cmdb_6_1/copy_to_ivanti_6_1.mdx?raw';
+import copyToJira61 from './6_1/cmdb_6_1/copy_to_jira_6_1.mdx?raw';
+import copyToServicenow61 from './6_1/cmdb_6_1/copy_to_servicenow_6_1.mdx?raw';
+import deleteCi61 from './6_1/cmdb_6_1/delete_6_1.mdx?raw';
+import details61 from './6_1/cmdb_6_1/details_6_1.mdx?raw';
+import exportCi61 from './6_1/cmdb_6_1/export_6_1.mdx?raw';
+import generateInstalledSoftwareReport61 from './6_1/cmdb_6_1/generate_installed_software_report_6_1.mdx?raw';
+import history61 from './6_1/cmdb_6_1/history_6_1.mdx?raw';
+import itsm61 from './6_1/cmdb_6_1/itsm_6_1.mdx?raw';
+import logonEvents61 from './6_1/cmdb_6_1/logon_events_6_1.mdx?raw';
+import maintenance61 from './6_1/cmdb_6_1/maintenance_6_1.mdx?raw';
+import manageCi61 from './6_1/cmdb_6_1/manage_ci_6_1.mdx?raw';
+import manageCmdb61 from './6_1/cmdb_6_1/manage_cmdb_6_1.mdx?raw';
+import newCi61 from './6_1/cmdb_6_1/new_6_1.mdx?raw';
+import otherFunctionsAndPageElements61 from './6_1/cmdb_6_1/other_functions_and_page_elements_6_1.mdx?raw';
+import privateProperties61 from './6_1/cmdb_6_1/private_properties_6_1.mdx?raw';
+import procesNetworkVirtualizationHierarchy61 from './6_1/cmdb_6_1/proce_network_virtualization_hierarchy_6_1.mdx?raw';
+import processAdm61 from './6_1/cmdb_6_1/process_adm_6_1.mdx?raw';
+import processAvailablePatchReport61 from './6_1/cmdb_6_1/process_available_patch_report_6_1.mdx?raw';
+import processCloudHierarchy61 from './6_1/cmdb_6_1/process_cloud_hierarchy_6_1.mdx?raw';
+import processDevops61 from './6_1/cmdb_6_1/process_devops_6_1.mdx?raw';
+import processMissingComponents61 from './6_1/cmdb_6_1/process_missing_components_6_1.mdx?raw';
+import processNetworkConnection61 from './6_1/cmdb_6_1/process_network_connection_6_1.mdx?raw';
+import processSoftwareInstallation61 from './6_1/cmdb_6_1/process_software_installation_6_1.mdx?raw';
+import relationships61 from './6_1/cmdb_6_1/relationships_6_1.mdx?raw';
+import sla61 from './6_1/cmdb_6_1/sla_6_1.mdx?raw';
+import tasks61 from './6_1/cmdb_6_1/tasks_6_1.mdx?raw';
+import viewAndEditACi61 from './6_1/cmdb_6_1/view_and_edit_a_ci_6_1.mdx?raw';
+import vulnerability61 from './6_1/cmdb_6_1/vulnerability_6_1.mdx?raw';
+
+// Import Admin 6.1 content - admin subfolder
+import adminFunctionsNew61 from './6_1/admin_6_1/admin/admin_functions_new_6_1.mdx?raw';
+
+// Import Admin 6.1 content - admin_org_details subfolder  
+import aboutOrgDetails61 from './6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx?raw';
+import organizationalDetails61 from './6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx?raw';
+import costCenter61 from './6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx?raw';
+import departments61 from './6_1/admin_6_1/admin_org_details/departments_6_1.mdx?raw';
+import departmentsMembers61 from './6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx?raw';
+import designations61 from './6_1/admin_6_1/admin_org_details/designations_6_1.mdx?raw';
+import holidays61 from './6_1/admin_6_1/admin_org_details/holidays_6_1.mdx?raw';
+import locations61 from './6_1/admin_6_1/admin_org_details/locations_6_1.mdx?raw';
+import operationalHours61 from './6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx?raw';
+
+// Import Discovery 6.1 content
+import aboutDiscoveryScan61 from './6_1/discovery_6_1/about_discovery_scan_6_1.mdx?raw';
+import discoveredItems61 from './6_1/discovery_6_1/discovered_items_6_1.mdx?raw';
+import importedAssets61 from './6_1/discovery_6_1/imported_assets_6_1.mdx?raw';
 
 /**
  * Content map - maps file paths to their content
  */
-const contentMap: Record<string, string> = {};
+const contentMap: Record<string, string> = {
+  // My Dashboard 6.1
+  '/content/6_1/my-dashboard/dashboards-6_1.mdx': dashboards61,
+  '/content/6_1/my-dashboard/dashboards-contents-6_1.mdx': dashboardsContents61,
+  '/content/6_1/my-dashboard/dashboards-customization-6_1.mdx': dashboardsCustomization61,
+  '/content/6_1/my-dashboard/dashboards-report-actions-6_1.mdx': dashboardsReportActions61,
+  '/content/6_1/my-dashboard/my-dashboard-6_1.mdx': myDashboard61,
+  '/content/6_1/my-dashboard/my-dashboard-contents-6_1.mdx': myDashboardContents61,
+  '/content/6_1/my-dashboard/my-dashboard-overview-6_1.mdx': myDashboardOverview61,
+  '/content/6_1/my-dashboard/system-icons-6_1.mdx': systemIcons61,
+  
+  // CMDB 6.1
+  '/content/6_1/cmdb_6_1/access_cmdb_6_1.mdx': accessCmdb61,
+  '/content/6_1/cmdb_6_1/attachments_6_1.mdx': attachments61,
+  '/content/6_1/cmdb_6_1/audits_6_1.mdx': audits61,
+  '/content/6_1/cmdb_6_1/audits_tab_6_1.mdx': auditsTab61,
+  '/content/6_1/cmdb_6_1/business_service_map_6_1.mdx': businessServiceMap61,
+  '/content/6_1/cmdb_6_1/change_attributes_6_1.mdx': changeAttributes61,
+  '/content/6_1/cmdb_6_1/ci_details_and_tabs_6_1.mdx': ciDetailsAndTabs61,
+  '/content/6_1/cmdb_6_1/ci_left_panel_6_1.mdx': ciLeftPanel61,
+  '/content/6_1/cmdb_6_1/cmdb_overview_6_1.mdx': cmdbOverview61,
+  '/content/6_1/cmdb_6_1/comments_6_1.mdx': comments61,
+  '/content/6_1/cmdb_6_1/components_6_1.mdx': components61,
+  '/content/6_1/cmdb_6_1/contacts_on_a_ci_6_1.mdx': contactsOnACi61,
+  '/content/6_1/cmdb_6_1/copy_to_ivanti_6_1.mdx': copyToIvanti61,
+  '/content/6_1/cmdb_6_1/copy_to_jira_6_1.mdx': copyToJira61,
+  '/content/6_1/cmdb_6_1/copy_to_servicenow_6_1.mdx': copyToServicenow61,
+  '/content/6_1/cmdb_6_1/delete_6_1.mdx': deleteCi61,
+  '/content/6_1/cmdb_6_1/details_6_1.mdx': details61,
+  '/content/6_1/cmdb_6_1/export_6_1.mdx': exportCi61,
+  '/content/6_1/cmdb_6_1/generate_installed_software_report_6_1.mdx': generateInstalledSoftwareReport61,
+  '/content/6_1/cmdb_6_1/history_6_1.mdx': history61,
+  '/content/6_1/cmdb_6_1/itsm_6_1.mdx': itsm61,
+  '/content/6_1/cmdb_6_1/logon_events_6_1.mdx': logonEvents61,
+  '/content/6_1/cmdb_6_1/maintenance_6_1.mdx': maintenance61,
+  '/content/6_1/cmdb_6_1/manage_ci_6_1.mdx': manageCi61,
+  '/content/6_1/cmdb_6_1/manage_cmdb_6_1.mdx': manageCmdb61,
+  '/content/6_1/cmdb_6_1/new_6_1.mdx': newCi61,
+  '/content/6_1/cmdb_6_1/other_functions_and_page_elements_6_1.mdx': otherFunctionsAndPageElements61,
+  '/content/6_1/cmdb_6_1/private_properties_6_1.mdx': privateProperties61,
+  '/content/6_1/cmdb_6_1/proce_network_virtualization_hierarchy_6_1.mdx': procesNetworkVirtualizationHierarchy61,
+  '/content/6_1/cmdb_6_1/process_adm_6_1.mdx': processAdm61,
+  '/content/6_1/cmdb_6_1/process_available_patch_report_6_1.mdx': processAvailablePatchReport61,
+  '/content/6_1/cmdb_6_1/process_cloud_hierarchy_6_1.mdx': processCloudHierarchy61,
+  '/content/6_1/cmdb_6_1/process_devops_6_1.mdx': processDevops61,
+  '/content/6_1/cmdb_6_1/process_missing_components_6_1.mdx': processMissingComponents61,
+  '/content/6_1/cmdb_6_1/process_network_connection_6_1.mdx': processNetworkConnection61,
+  '/content/6_1/cmdb_6_1/process_software_installation_6_1.mdx': processSoftwareInstallation61,
+  '/content/6_1/cmdb_6_1/relationships_6_1.mdx': relationships61,
+  '/content/6_1/cmdb_6_1/sla_6_1.mdx': sla61,
+  '/content/6_1/cmdb_6_1/tasks_6_1.mdx': tasks61,
+  '/content/6_1/cmdb_6_1/view_and_edit_a_ci_6_1.mdx': viewAndEditACi61,
+  '/content/6_1/cmdb_6_1/vulnerability_6_1.mdx': vulnerability61,
 
-// Only use import.meta.glob if available (Vite environment)
-// In Node.js/tsx environments (like scripts), this will be undefined
-const globAvailable = typeof import.meta !== 'undefined' && typeof (import.meta as any).glob === 'function';
+  // Admin 6.1 - admin subfolder
+  '/content/6_1/admin_6_1/admin/admin_functions_new_6_1.mdx': adminFunctionsNew61,
 
-if (globAvailable) {
-  // Import all Version 6.1 content dynamically (covers every module referenced in the TOC)
-  // Using as: 'raw' - this works reliably and loads all files (4968 modules)
-  // Note: Deprecated but functional - will update when Vite 6 query syntax is stable
-  const content61Modules = (import.meta as any).glob('./6_1/**/*.mdx', {
-    eager: true,
-    as: 'raw',
-  }) as Record<string, string>;
+  // Admin 6.1 - admin_org_details subfolder
+  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
+  '/content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx': organizationalDetails61,
+  '/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx': costCenter61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx': departments61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx': departmentsMembers61,
+  '/content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx': designations61,
+  '/content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx': holidays61,
+  '/content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx': locations61,
+  '/content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx': operationalHours61,
 
-  // Import all NextGen content dynamically (covers every module referenced in the TOC)
-  const contentNGModules = (import.meta as any).glob('./NG/**/*.mdx', {
-    eager: true,
-    as: 'raw',
-  }) as Record<string, string>;
-
-  // Dynamically add all Version 6.1 content (every module and page)
-  for (const [relativePath, content] of Object.entries(content61Modules)) {
-    // Normalize path: remove './' prefix and ensure consistent format
-    let normalizedPath = relativePath.replace('./', '/content/');
-    // Ensure path uses forward slashes and doesn't have duplicate slashes
-    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
-    if (content && typeof content === 'string') {
-      contentMap[normalizedPath] = content;
-    } else {
-      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
-    }
-  }
-
-  // Dynamically add all NextGen content (every module and page)
-  for (const [relativePath, content] of Object.entries(contentNGModules)) {
-    // Normalize path: remove './' prefix and ensure consistent format
-    let normalizedPath = relativePath.replace('./', '/content/');
-    // Ensure path uses forward slashes and doesn't have duplicate slashes
-    normalizedPath = normalizedPath.replace(/\\/g, '/').replace(/\/+/g, '/');
-    if (content && typeof content === 'string') {
-      contentMap[normalizedPath] = content;
-    } else {
-      console.warn(`[ContentLoader] Skipping invalid content for: ${normalizedPath}`, typeof content);
-    }
-  }
-
-  // Debug: Log content map size (both dev and production for troubleshooting)
-  const contentCount = Object.keys(contentMap).length;
-  console.log(`[ContentLoader] Loaded ${contentCount} content files`);
-
-  if (contentCount === 0) {
-    console.error('[ContentLoader] WARNING: No content files loaded! Check import.meta.glob configuration.');
-  } else {
-    const adminFiles = Object.keys(contentMap).filter(p => p.includes('admin_6_1'));
-    console.log(`[ContentLoader] Admin 6.1 files: ${adminFiles.length}`);
-    if (adminFiles.length > 0 && import.meta.env.DEV) {
-      console.log(`[ContentLoader] Sample admin paths:`, adminFiles.slice(0, 5));
-    }
-  }
-}
-
-/**
- * Normalize a file path to match contentMap keys
- * Handles various path formats and ensures consistency
- */
-function normalizeContentPath(filePath: string): string {
-  // Remove query params and hash
-  let normalized = filePath.split('?')[0].split('#')[0];
-  // Ensure it starts with /content/
-  if (!normalized.startsWith('/content/')) {
-    normalized = `/content/${normalized.replace(/^\/+/, '')}`;
-  }
-  // Normalize slashes
-  normalized = normalized.replace(/\\/g, '/').replace(/\/+/g, '/');
-  return normalized;
-}
+  // Discovery 6.1
+  '/content/6_1/discovery_6_1/about_discovery_scan_6_1.mdx': aboutDiscoveryScan61,
+  '/content/6_1/discovery_6_1/discovered_items_6_1.mdx': discoveredItems61,
+  '/content/6_1/discovery_6_1/imported_assets_6_1.mdx': importedAssets61,
+};
 
 /**
  * Get content for a given file path
@@ -92,149 +158,45 @@ function normalizeContentPath(filePath: string): string {
  * @returns The content string or null if not found
  */
 export function getContent(filePath: string): string | null {
-  // Try exact match first
-  let normalizedPath = normalizeContentPath(filePath);
-  let content = contentMap[normalizedPath];
-
-  // If not found, try without .mdx extension
-  if (!content && normalizedPath.endsWith('.mdx')) {
-    const withoutExt = normalizedPath.slice(0, -4);
-    content = contentMap[withoutExt];
-    if (content) {
-      normalizedPath = withoutExt;
-    }
-  }
-
-  // If still not found, try with .mdx extension added
-  if (!content && !normalizedPath.endsWith('.mdx')) {
-    const withExt = `${normalizedPath}.mdx`;
-    content = contentMap[withExt];
-    if (content) {
-      normalizedPath = withExt;
-    }
-  }
-
-  if (!content) {
-    // Debug: Log available paths that are close matches (both dev and production)
-    const availablePaths = Object.keys(contentMap);
-    const similarPaths = availablePaths.filter(path => {
-      const fileParts = normalizedPath.split('/').filter(Boolean);
-      const pathParts = path.split('/').filter(Boolean);
-      // Check if last 2-3 parts match
-      const fileEnd = fileParts.slice(-2).join('/');
-      const pathEnd = pathParts.slice(-2).join('/');
-      return pathEnd.includes(fileEnd) || fileEnd.includes(pathEnd) ||
-        path.includes(fileParts[fileParts.length - 1]) ||
-        normalizedPath.includes(pathParts[pathParts.length - 1]);
-    });
-
-    console.warn(`[ContentLoader] Content not found for: ${filePath} (normalized: ${normalizedPath})`);
-    console.warn(`[ContentLoader] Total available paths: ${availablePaths.length}`);
-
-    if (similarPaths.length > 0) {
-      console.warn(`[ContentLoader] Similar paths found:`, similarPaths.slice(0, 10));
-    } else {
-      // Show some sample paths to help debug
-      const adminPaths = availablePaths.filter(p => p.includes('admin_6_1')).slice(0, 10);
-      if (adminPaths.length > 0) {
-        console.warn(`[ContentLoader] Sample admin paths available:`, adminPaths);
-      }
-    }
-  }
-
-  return content || null;
-}
-
-/**
- * Simple frontmatter parser (browser-safe, no Buffer dependency)
- * Extracts frontmatter from YAML between --- delimiters
- */
-function parseFrontmatter(content: string): { frontmatter: Record<string, unknown>; body: string } {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-  const match = content.match(frontmatterRegex);
-
-  if (!match) {
-    return { frontmatter: {}, body: content };
-  }
-
-  const frontmatterText = match[1];
-  const body = match[2];
-
-  // Simple YAML parser for basic key-value pairs (browser-safe)
-  const frontmatter: Record<string, unknown> = {};
-  const lines = frontmatterText.split('\n');
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-
-    const colonIndex = trimmed.indexOf(':');
-    if (colonIndex === -1) continue;
-
-    const key = trimmed.slice(0, colonIndex).trim();
-    let value: unknown = trimmed.slice(colonIndex + 1).trim();
-
-    // Remove quotes if present
-    if (typeof value === 'string') {
-      if ((value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))) {
-        value = value.slice(1, -1);
-      }
-    }
-
-    frontmatter[key] = value;
-  }
-
-  return { frontmatter, body };
-}
-
-interface ContentEntry {
-  body: string;
-  frontmatter: Record<string, unknown>;
-}
-
-const parsedContentCache = new Map<string, ContentEntry>();
-
-/**
- * Return MDX content and parsed frontmatter for a given file path (browser-safe).
- */
-export function getContentEntry(filePath: string): ContentEntry | null {
-  if (parsedContentCache.has(filePath)) {
-    return parsedContentCache.get(filePath)!;
-  }
-
-  try {
-    const raw = getContent(filePath);
-    if (!raw) return null;
-
-    const { frontmatter, body } = parseFrontmatter(raw);
-    const entry: ContentEntry = {
-      body: body.startsWith('\n') ? body.slice(1) : body,
-      frontmatter,
-    };
-
-    parsedContentCache.set(filePath, entry);
-    return entry;
-  } catch (error) {
-    console.error(`Error parsing content for ${filePath}:`, error);
+  console.log('contentLoader.getContent called with:', filePath);
+  console.log('Available paths:', Object.keys(contentMap));
+  console.log('Content exists?', filePath in contentMap);
+  
+  const rawContent = contentMap[filePath];
+  
+  if (!rawContent) {
+    console.log('Content not found!');
     return null;
   }
-}
-
-/**
- * Return only the parsed frontmatter for a given file path.
- */
-export function getContentFrontmatter(filePath: string): Record<string, unknown> | null {
-  const entry = getContentEntry(filePath);
-  return entry ? entry.frontmatter : null;
-}
-
-/**
- * Return the MDX body content (without frontmatter) for a given file path.
- */
-export function getContentBody(filePath: string): string | null {
-  const entry = getContentEntry(filePath);
-  return entry ? entry.body : null;
+  
+  console.log('Raw content type:', typeof rawContent);
+  console.log('Raw content:', rawContent);
+  
+  // Handle different types of content
+  let content: string;
+  
+  if (typeof rawContent === 'string') {
+    content = rawContent;
+  } else if (typeof rawContent === 'object' && rawContent !== null) {
+    // If it's an object with a default property (ESM default export)
+    if ('default' in rawContent) {
+      content = (rawContent as any).default;
+    } else {
+      // Try to stringify it
+      content = JSON.stringify(rawContent);
+    }
+  } else {
+    console.error('Unexpected content type:', typeof rawContent);
+    return null;
+  }
+  
+  console.log('Final content type:', typeof content);
+  console.log('Content length:', content?.length || 0);
+  if (typeof content === 'string' && content.length > 0) {
+    console.log('First 100 chars:', content.substring(0, 100));
+  }
+  
+  return content;
 }
 
 /**
@@ -252,23 +214,4 @@ export function hasContent(filePath: string): boolean {
  */
 export function getAvailablePaths(): string[] {
   return Object.keys(contentMap);
-}
-
-/**
- * Find content path by file name (ignoring directory structure)
- * Useful for finding files when we only know the file name
- * @param fileName - The name of the file to find (e.g., 'operational_hours_6_1.mdx')
- * @returns The full path to the content file or null if not found
- */
-export function findContentPath(fileName: string): string | null {
-  const normalizedFileName = fileName.endsWith('.mdx') ? fileName : `${fileName}.mdx`;
-
-  // Search in contentMap keys
-  for (const path of Object.keys(contentMap)) {
-    if (path.endsWith(`/${normalizedFileName}`)) {
-      return path;
-    }
-  }
-
-  return null;
 }

@@ -4,8 +4,7 @@ import { DocumentationContent } from './components/DocumentationContent';
 import { HomePage } from './components/HomePage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
-import { loadTocForVersion } from './utils/tocLoader';
-import { getSectionsForModule } from './data/navigationData';
+import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 
 export default function App() {
@@ -93,60 +92,34 @@ export default function App() {
     saveScrollPosition(); // Save before changing
     setSelectedModule(module);
     
-    // Load TOC to get the first section and page
+    // Load hierarchical TOC to get the first section and page
     try {
-      const toc = await loadTocForVersion(selectedVersion);
+      const toc = await loadHierarchicalToc(selectedVersion);
       const selectedModuleData = toc.modules.find(m => m.id === module);
       
       if (selectedModuleData && selectedModuleData.sections.length > 0) {
         const firstSection = selectedModuleData.sections[0];
-        const firstPage = firstSection.pages[0];
         
-        if (firstSection && firstPage) {
+        if (firstSection && firstSection.pages.length > 0) {
+          const firstPage = firstSection.pages[0];
           setSelectedSection(firstSection.id);
           setSelectedPage(firstPage.id);
+          console.log('✅ Set section and page from hierarchical TOC:', {
+            section: firstSection.id,
+            page: firstPage.id
+          });
           return; // Successfully set from TOC
         }
       }
+      
+      console.warn('⚠️ Module has no sections or pages:', module);
     } catch (error) {
-      console.error('Failed to load TOC for module selection:', error);
+      console.error('❌ Failed to load hierarchical TOC for module selection:', error);
     }
     
-    // Fallback to hardcoded sections if TOC fails or is empty
-    console.log('Using hardcoded sections fallback for module:', module);
-    const hardcodedSections = getSectionsForModule(module);
-    
-    if (hardcodedSections && hardcodedSections.length > 0) {
-      const firstSection = hardcodedSections[0];
-      if (firstSection.pages && firstSection.pages.length > 0) {
-        const firstPage = firstSection.pages[0];
-        setSelectedSection(firstSection.id);
-        setSelectedPage(firstPage.id);
-        console.log('Set section and page from hardcoded data:', {
-          section: firstSection.id,
-          page: firstPage.id
-        });
-      }
-    } else {
-      // Ultimate fallback to common patterns
-      console.warn('No sections found for module, using ultimate fallback');
-      if (module === 'cmdb') {
-        setSelectedSection('cmdb');
-        setSelectedPage('access-cmdb');
-      } else if (module === 'discovery-scan') {
-        setSelectedSection('discovery-scan');
-        setSelectedPage('dashboard');
-      } else if (module === 'my-dashboard') {
-        setSelectedSection('getting-started');
-        setSelectedPage('quick-start');
-      } else if (module === 'admin') {
-        setSelectedSection('admin');
-        setSelectedPage('organizational-details');
-      } else {
-        setSelectedSection('getting-started');
-        setSelectedPage('quick-start');
-      }
-    }
+    // If we get here, couldn't load from TOC - set empty to trigger module landing page
+    setSelectedSection('');
+    setSelectedPage('');
   };
 
   const handleHomeClick = () => {
@@ -192,24 +165,29 @@ export default function App() {
             section={selectedSection}
             page={selectedPage}
             onHomeClick={handleHomeClick}
-            onModuleClick={() => {
+            onModuleClick={async () => {
               saveScrollPosition();
-              if (selectedModule === 'cmdb') {
-                setSelectedSection('cmdb');
-                setSelectedPage('access-cmdb');
-              } else if (selectedModule === 'discovery-scan') {
-                setSelectedSection('discovery-scan');
-                setSelectedPage('access-dashboard');
-              } else if (selectedModule === 'my-dashboard') {
-                setSelectedSection('my-dashboard');
-                setSelectedPage('my-dashboard-overview');
-              } else if (selectedModule === 'admin') {
-                setSelectedSection('admin');
-                setSelectedPage('admin-functions-new');
-              } else {
-                setSelectedSection('application-overview');
-                setSelectedPage('advanced-search');
+              // Load TOC and navigate to first page of module
+              try {
+                const toc = await loadHierarchicalToc(selectedVersion);
+                const module = toc.modules.find(m => m.id === selectedModule);
+                
+                if (module && module.sections.length > 0) {
+                  const firstSection = module.sections[0];
+                  if (firstSection && firstSection.pages.length > 0) {
+                    const firstPage = firstSection.pages[0];
+                    setSelectedSection(firstSection.id);
+                    setSelectedPage(firstPage.id);
+                    return;
+                  }
+                }
+              } catch (error) {
+                console.error('Failed to load module:', error);
               }
+              
+              // Fallback: set empty
+              setSelectedSection('');
+              setSelectedPage('');
             }}
             onVersionClick={() => {
               versionDropdownTriggerRef.current?.();

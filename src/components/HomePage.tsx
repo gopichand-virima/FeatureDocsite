@@ -141,8 +141,8 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Ultra Premium Virima Design */}
-      <div className="relative overflow-hidden bg-white">
+      {/* Full Cover Page - Ultra Premium Virima Design */}
+      <div className="relative overflow-hidden bg-white min-h-screen flex items-center">
         {/* Ultra Sophisticated Background Elements - Premium Snow White */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Subtle elegant gradient orbs in pure white/light tones */}
@@ -199,9 +199,9 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
           <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white opacity-60"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pt-28 xl:pb-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-6">
           {/* Premium Content Card */}
-          <div className="relative z-10 text-center max-w-5xl mx-auto py-12 sm:py-16 lg:py-20 px-6 sm:px-8 lg:px-10 rounded-2xl sm:rounded-3xl lg:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl">
+          <div className="relative z-10 text-center max-w-6xl mx-auto py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-12 rounded-2xl sm:rounded-3xl lg:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl">
             {/* Multi-layered Premium Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/98 via-emerald-50/70 to-green-50/50 backdrop-blur-xl"></div>
             
@@ -234,8 +234,8 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
             {/* Content wrapper with enhanced hierarchy */}
             <div className="relative z-10">
               {/* Virima Brand with enhanced styling */}
-              <div className="mb-6 sm:mb-8 lg:mb-10">
-                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl text-slate-900 mb-4 sm:mb-6 tracking-tight" style={{
+              <div className="mb-4 sm:mb-6 lg:mb-8">
+                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl text-slate-900 mb-3 sm:mb-4 tracking-tight" style={{
                   textShadow: '0 2px 40px rgba(16, 185, 129, 0.1)'
                 }}>
                   Virima
@@ -256,22 +256,22 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </div>
 
               {/* Tagline with refined styling */}
-              <div className="mb-6 sm:mb-8">
-                <p className="text-2xl lg:text-3xl text-slate-900 mb-4 leading-relaxed" style={{
+              <div className="mb-4 sm:mb-6">
+                <p className="text-2xl lg:text-3xl text-slate-900 mb-3 leading-relaxed" style={{
                   textShadow: '0 1px 20px rgba(0, 0, 0, 0.03)'
                 }}>
                   Welcome to the Documentation Platform
                 </p>
               </div>
 
-              <p className="text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg lg:text-xl text-slate-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
                 Explore comprehensive feature documentation,
                 release notes, and more across all Virima modules
                 and versions.
               </p>
 
               {/* Enhanced Search CTA */}
-              <div className="max-w-2xl mx-auto mb-10">
+              <div className="max-w-2xl mx-auto mb-6 sm:mb-8">
                 <Button
                   variant="outline"
                   size="lg"
@@ -295,7 +295,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </div>
 
               {/* Premium Get Started Button */}
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-2">
                 <Button
                   size="lg"
                   onClick={() => onModuleSelect('my-dashboard')}
@@ -311,7 +311,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
         </div>
 
         {/* Enhanced bottom gradient fade with glow */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </div>
 
       {/* AI Search Dialog */}
@@ -321,7 +321,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       />
 
       {/* Value Proposition Section */}
-      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-24 pb-0 lg:pt-36 lg:pb-0">
+      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-8 pb-0 lg:pt-12 lg:pb-0">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">

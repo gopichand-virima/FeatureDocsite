@@ -1,0 +1,370 @@
+---
+title: "Create New Incident"
+description: "Step-by-step guide to creating a new incident in Virima"
+version: ""
+module: "Itsm"
+section: "Incident Management"
+page: "Create New Incident"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Incident Management"
+  - "Create New Incident"
+---
+
+# Create New Incident
+
+This guide walks you through the process of creating a new incident in Virima Incident Management.
+
+## Before You Begin
+
+### When to Create an Incident
+
+Create an incident when:
+- IT service is disrupted
+- User cannot access required resources
+- System or application malfunction
+- Performance degradation affecting users
+- Hardware failure
+
+### When NOT to Create an Incident
+
+Do not create incidents for:
+- **Requests**: Use Request Fulfillment instead
+- **Questions**: Use Knowledge Management or FAQ
+- **Known Issues**: Link to existing incident or problem
+- **Changes**: Use Change Management
+- **Complaints**: Use appropriate feedback channel
+
+## Creating an Incident
+
+### Method 1: From Incident List
+
+1. Navigate to **ITSM** > **Incident Management**
+2. Click **New Incident** button
+3. Complete incident form
+4. Click **Submit**
+
+### Method 2: Quick Create
+
+1. Click **+** icon in top navigation
+2. Select **New Incident**
+3. Fill in required fields
+4. Click **Create**
+
+### Method 3: Self-Service Portal
+
+End users can create incidents via self-service:
+1. Access the Self-Service Portal
+2. Click **Report an Issue**
+3. Describe the issue
+4. Submit the incident
+
+### Method 4: Email
+
+Create incidents via email:
+1. Send email to `support@yourcompany.com`
+2. System automatically creates incident
+3. Confirmation sent to requester
+4. Incident assigned based on rules
+
+### Method 5: Phone
+
+For phone-reported incidents:
+1. Support agent receives call
+2. Opens **New Incident** form
+3. Records caller information
+4. Documents issue details
+5. Creates incident on behalf of caller
+
+## Incident Form Fields
+
+### Required Fields
+
+#### Caller/Requester *
+The person reporting the incident
+- Type name to search
+- Select from list
+- Can be different from logged-in user
+
+#### Short Description *
+Brief summary of the issue
+- Max 100 characters
+- Descriptive and concise
+- Example: "Email not sending to external addresses"
+
+#### Description *
+Detailed description of the issue
+- What happened
+- When it started
+- Impact on work
+- Steps already taken
+- Error messages received
+
+#### Category *
+Type of incident
+- Hardware
+- Software
+- Network
+- Access/Security
+- Performance
+- Other
+
+#### Impact *
+Business effect of the incident
+- **High**: Multiple users or critical service affected
+- **Medium**: Several users or important service affected
+- **Low**: Single user or minor service affected
+
+#### Urgency *
+Time sensitivity
+- **High**: Work stopped, immediate action needed
+- **Medium**: Work impaired, quick resolution desired
+- **Low**: Work proceeding, resolution can wait
+
+**Note**: Priority is automatically calculated from Impact × Urgency
+
+### Optional Fields
+
+#### Configuration Item (CI)
+Affected system, device, or service
+- Select from CMDB
+- Helps identify related incidents
+- Links to CI details
+
+#### Location
+Physical location of the issue
+- Building
+- Floor
+- Room/Desk
+- Helps with on-site support
+
+#### Contact Method
+Preferred contact method for updates
+- Email
+- Phone
+- Chat
+- Self-Service Portal
+
+#### Preferred Contact Time
+Best time to reach the caller
+- Useful for complex issues
+- Schedule callbacks
+
+## Priority Assignment
+
+Priority is automatically calculated:
+
+| Impact | Urgency | Priority |
+|--------|---------|----------|
+| High | High | Critical (P1) |
+| High | Medium | High (P2) |
+| High | Low | Medium (P3) |
+| Medium | High | High (P2) |
+| Medium | Medium | Medium (P3) |
+| Medium | Low | Low (P4) |
+| Low | High | Medium (P3) |
+| Low | Medium | Low (P4) |
+| Low | Low | Low (P4) |
+
+## Adding Attachments
+
+Include supporting documentation:
+
+1. In the incident form, locate **Attachments** section
+2. Click **Add Attachment**
+3. Select files to upload:
+   - Screenshots of errors
+   - Log files
+   - Photos of hardware issues
+   - Related documents
+4. Add description for each file
+5. Click **Upload**
+
+**Supported Formats:**
+- Images: JPG, PNG, GIF
+- Documents: PDF, DOC, DOCX, XLS, XLSX
+- Logs: TXT, LOG, CSV
+- Maximum file size: 10 MB per file
+
+## Assignment Options
+
+### Auto-Assignment
+System assigns based on rules:
+- Category-based routing
+- Location-based routing
+- Load balancing
+- Skill-based routing
+
+### Manual Assignment
+Assign to specific person or group:
+
+#### Assign to Group
+1. Check **Assign to Group** option
+2. Select assignment group
+3. Group members can claim incident
+
+#### Assign to Individual
+1. Select **Assigned To** field
+2. Search for user
+3. Choose from results
+4. User receives notification
+
+### Leave Unassigned
+Leave blank for manual assignment later:
+- Incident goes to unassigned queue
+- Manager assigns based on availability
+- Useful for complex issues requiring assessment
+
+## Additional Options
+
+### Link Related Incidents
+Connect related incidents:
+1. Scroll to **Related Incidents** section
+2. Click **Add Related Incident**
+3. Search for incident number
+4. Select relationship type:
+   - Parent/Child
+   - Related
+   - Duplicate
+
+### Link to Problem
+If incident relates to known problem:
+1. In **Problem** field
+2. Search for problem record
+3. Select matching problem
+4. Incident tracked as part of problem
+
+### Link to Configuration Item
+Associate with affected CI:
+1. Click **Configuration Item** field
+2. Search CMDB
+3. Select affected CI
+4. CI details automatically attached
+
+## Incident Submission
+
+### Review Before Submitting
+
+Verify the following:
+- [ ] All required fields completed
+- [ ] Description is clear and detailed
+- [ ] Category is accurate
+- [ ] Impact and urgency correctly set
+- [ ] Attachments included if relevant
+- [ ] Contact information correct
+
+### Submit Incident
+
+1. Review all information
+2. Click **Submit** button
+3. System generates incident number
+4. Confirmation message displays
+5. Notifications sent to:
+   - Requester
+   - Assigned person/group
+   - Incident manager (for high priority)
+
+### After Submission
+
+What happens next:
+
+1. **Automatic Actions:**
+   - Incident number generated (e.g., INC-00001234)
+   - Status set to "New"
+   - SLA clock starts
+   - Assignment rules execute
+   - Notifications sent
+
+2. **Tracking:**
+   - Incident appears in relevant queues
+   - SLA countdown begins
+   - Audit trail created
+   - Metrics tracking starts
+
+3. **Requester Receives:**
+   - Email confirmation with incident number
+   - Link to track status
+   - Estimated resolution time
+   - Support contact information
+
+## Viewing Created Incident
+
+After creation, view incident details:
+
+1. Note the incident number from confirmation
+2. Navigate to **Incident Management**
+3. Search for incident number
+4. Or click link in confirmation email
+5. View full incident details
+
+## Saving as Draft
+
+Save incomplete incidents as draft:
+
+1. Fill in available information
+2. Click **Save as Draft** instead of Submit
+3. Draft saved to your drafts
+4. Complete and submit later
+5. Drafts don't trigger SLA or notifications
+
+### Accessing Drafts
+
+1. Navigate to **Incident Management**
+2. Select **My Drafts** view
+3. Click draft to continue editing
+4. Submit when complete
+
+## Best Practices
+
+### Provide Complete Information
+- Include all relevant details
+- Attach screenshots or error messages
+- Document steps to reproduce
+- Note any workarounds attempted
+
+### Use Clear Language
+- Avoid technical jargon if calling for someone
+- Be specific and concise
+- Focus on business impact
+- Include error messages verbatim
+
+### Set Appropriate Priority
+- Be honest about impact and urgency
+- Don't inflate priority
+- Explain why it's urgent if high priority
+- Consider business context
+
+### Include Contact Information
+- Provide best contact method
+- Include alternate contact
+- Specify availability
+- Note if traveling or remote
+
+## Common Mistakes to Avoid
+
+❌ **Vague Descriptions**
+- Bad: "Computer not working"
+- Good: "Cannot log in to Windows - error message 'Account locked'"
+
+❌ **Wrong Category**
+- Submitting requests as incidents
+- Using generic "Other" category
+- Misclassifying technical issues
+
+❌ **Inflated Priority**
+- Marking everything as Critical
+- Overstating impact
+- Unnecessary urgency
+
+❌ **Missing Information**
+- No error messages included
+- Cannot contact requester
+- Insufficient details for diagnosis
+
+## Related Topics
+
+- [Manage Incidents](/content/NG/itsm_ng/incident_mngmt/manage_incidents_ng.mdx)
+- [Incident Status](/content/NG/itsm_ng/incident_mngmt/incident_status_ng.mdx)
+- [Incident Priority](/content/NG/itsm_ng/incident_mngmt/incident_priority_ng.mdx)

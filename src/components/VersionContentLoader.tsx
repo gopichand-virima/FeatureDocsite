@@ -1,12 +1,13 @@
 /**
  * Version Content Loader Component
  * 
- * Intelligently loads content based on version-specific architecture
- * Routes to appropriate content loading strategy (TOC-driven vs path-based)
+ * Automatically loads content based on hierarchical TOC structure
+ * NO MANUAL UPDATES NEEDED - reads from index.mdx files!
  */
 
-import { ReactNode } from 'react';
-import { useVersionContent, useVersionStrategy } from '../utils/useVersionContent';
+import { ReactNode, useEffect, useState } from 'react';
+import { resolveHierarchicalFilePath } from '../utils/hierarchicalTocLoader';
+import { getContent } from '../content/contentLoader';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Skeleton } from './ui/skeleton';
 
@@ -15,13 +16,13 @@ interface VersionContentLoaderProps {
   moduleId: string;
   sectionId: string;
   pageId: string;
-  children: (props: { filePath: string; loadedFrom: string }) => ReactNode;
+  children: (props: { content: string; filePath: string }) => ReactNode;
   loadingComponent?: ReactNode;
   errorComponent?: ReactNode;
 }
 
 /**
- * Main component for version-aware content loading
+ * Main component for automatic content loading from TOC hierarchy
  */
 export function VersionContentLoader({
   version,
@@ -32,25 +33,90 @@ export function VersionContentLoader({
   loadingComponent,
   errorComponent,
 }: VersionContentLoaderProps) {
-  const { filePath, error, loading, loadedFrom } = useVersionContent(
-    version,
-    moduleId,
-    sectionId,
-    pageId
-  );
-  const { isTOCDriven, strategy } = useVersionStrategy(version);
+  const [state, setState] = useState<{
+    content: string | null;
+    filePath: string | null;
+    loading: boolean;
+    error: string | null;
+  }>({
+    content: null,
+    filePath: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadContent() {
+      console.log(`🔄 Loading content for ${version}/${moduleId}/${sectionId}/${pageId}`);
+      
+      setState({ content: null, filePath: null, loading: true, error: null });
+
+      try {
+        // Step 1: Resolve file path from TOC hierarchy
+        const filePath = await resolveHierarchicalFilePath(
+          version,
+          moduleId,
+          sectionId,
+          pageId
+        );
+
+        if (!filePath) {
+          throw new Error('Page not found in TOC hierarchy');
+        }
+
+        console.log(`✅ Resolved file path: ${filePath}`);
+
+        // Step 2: Load content from file
+        const content = await getContent(filePath);
+
+        if (!content) {
+          throw new Error(`Failed to load content from ${filePath}`);
+        }
+
+        console.log(`✅ Loaded content (${content.length} chars)`);
+
+        if (isMounted) {
+          setState({
+            content,
+            filePath,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        console.error('❌ Failed to load content:', error);
+        
+        if (isMounted) {
+          setState({
+            content: null,
+            filePath: null,
+            loading: false,
+            error: error instanceof Error ? error.message : String(error),
+          });
+        }
+      }
+    }
+
+    loadContent();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [version, moduleId, sectionId, pageId]);
 
   // Loading state
-  if (loading) {
+  if (state.loading) {
     return loadingComponent || <DefaultLoadingComponent />;
   }
 
   // Error state
-  if (error || !filePath) {
+  if (state.error || !state.content) {
     return (
       errorComponent || (
         <DefaultErrorComponent
-          error={error || 'Content not found'}
+          error={state.error || 'Content not found'}
           version={version}
           moduleId={moduleId}
           sectionId={sectionId}
@@ -60,8 +126,8 @@ export function VersionContentLoader({
     );
   }
 
-  // Success - render children with file path
-  return <>{children({ filePath, loadedFrom })}</>;
+  // Success - render children with content
+  return <>{children({ content: state.content, filePath: state.filePath! })}</>;
 }
 
 /**
@@ -127,17 +193,11 @@ function DefaultErrorComponent({
  * Version-specific content info badge
  */
 export function VersionContentInfo({ version }: { version: string }) {
-  const { isTOCDriven, strategy } = useVersionStrategy(version);
-
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-md text-xs text-slate-700">
       <span className="font-medium">{version}</span>
       <span className="text-slate-400">•</span>
-      <span className={isTOCDriven ? 'text-emerald-600' : 'text-amber-600'}>
-        {strategy === 'toc-driven' && '📋 TOC-Driven'}
-        {strategy === 'path-based' && '📁 Path-Based'}
-        {strategy === 'hybrid' && '🔀 Hybrid'}
-      </span>
+      <span className="text-emerald-600">📋 TOC-Driven</span>
     </div>
   );
 }

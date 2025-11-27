@@ -24,6 +24,10 @@ import { MDXContent } from "./MDXContent";
 import { resolveMDXPathFromTOC } from "../utils/tocPathResolver";
 import { FeedbackSection } from "./FeedbackSection";
 import { ResizableSidebar } from "./ResizableSidebar";
+import { 
+  buildBreadcrumbPath, 
+  type BreadcrumbItem as HierarchicalBreadcrumbItem 
+} from "../utils/hierarchicalTocLoader";
 
 interface DocumentationContentProps {
   version: string;
@@ -151,30 +155,38 @@ export function DocumentationContent({
   const [rightSidebarWidth, setRightSidebarWidth] = useState(256); // 64 * 4 = 256px (w-64)
   const [mdxPath, setMdxPath] = useState<string | null>(null);
   const [loadingPath, setLoadingPath] = useState(true);
+  const [breadcrumbs, setBreadcrumbs] = useState<HierarchicalBreadcrumbItem[]>([]);
   const moduleName = moduleNames[module] || module;
 
-  // Load MDX path from TOC when navigation changes
+  // Load MDX path and breadcrumbs from TOC when navigation changes
   useEffect(() => {
     let mounted = true;
     
-    async function loadPath() {
+    async function loadPathAndBreadcrumbs() {
       setLoadingPath(true);
       try {
-        const path = await resolveMDXPathFromTOC({ version, module, section, page });
+        // Load both the MDX path and breadcrumbs
+        const [path, breadcrumbPath] = await Promise.all([
+          resolveMDXPathFromTOC({ version, module, section, page }),
+          buildBreadcrumbPath(version, module, section, page)
+        ]);
+        
         if (mounted) {
           setMdxPath(path);
+          setBreadcrumbs(breadcrumbPath);
           setLoadingPath(false);
         }
       } catch (error) {
         console.error('Error loading MDX path from TOC:', error);
         if (mounted) {
           setMdxPath(null);
+          setBreadcrumbs([]);
           setLoadingPath(false);
         }
       }
     }
     
-    loadPath();
+    loadPathAndBreadcrumbs();
     
     return () => {
       mounted = false;
@@ -293,7 +305,7 @@ export function DocumentationContent({
       );
     }
     
-    // If we have a valid MDX path from TOC, try to load it
+    // If we have a valid MDX path from TOC, load it
     if (mdxPath) {
       return (
         <MDXContent
@@ -312,48 +324,15 @@ export function DocumentationContent({
       );
     }
 
-    // Fallback to hardcoded content for specific pages
-    switch (contentKey) {
-      case "application-overview-online-help":
-        return (
-          <OnlineHelpOverview
-            version={version}
-            module={module}
-            moduleName={moduleName}
-            section={section}
-            page={page}
-            onHomeClick={onHomeClick}
-            onModuleClick={onModuleClick}
-            onVersionClick={onVersionClick}
-          />
-        );
-      case "getting-started-quick-start":
-        return (
-          <QuickStart
-            version={version}
-            module={module}
-            moduleName={moduleName}
-            section={section}
-            page={page}
-            onHomeClick={onHomeClick}
-            onModuleClick={onModuleClick}
-            onVersionClick={onVersionClick}
-          />
-        );
-      default:
-        return (
-          <DefaultContent
-            section={section}
-            page={page}
-            version={version}
-            module={module}
-            moduleName={moduleName}
-            onHomeClick={onHomeClick}
-            onModuleClick={onModuleClick}
-            onVersionClick={onVersionClick}
-          />
-        );
-    }
+    // No MDX file found - show error
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-8">
+        <div className="text-slate-700 mb-4">Content not available</div>
+        <div className="text-sm text-slate-500">
+          MDX file not found for this page. Please check the TOC configuration.
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -447,38 +426,38 @@ function OnlineHelpOverview({
       <div className="flex flex-col gap-3 mb-8 not-prose">
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                onClick={onHomeClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                <Home className="w-4 h-4" />
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink 
-                onClick={onVersionClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {version}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                onClick={onModuleClick}
-                className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-              >
-                {moduleName}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
-                {sectionDisplayName}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
+            {breadcrumbs.map((crumb, index) => {
+              const isLast = index === breadcrumbs.length - 1;
+              const isHome = crumb.type === 'home';
+              
+              return (
+                <div key={`${crumb.type}-${index}`} className="contents">
+                  <BreadcrumbItem>
+                    {isLast ? (
+                      <BreadcrumbPage className="text-slate-900">
+                        {crumb.label}
+                      </BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink
+                        onClick={() => {
+                          if (crumb.type === 'home' && onHomeClick) {
+                            onHomeClick();
+                          } else if (crumb.type === 'version' && onVersionClick) {
+                            onVersionClick();
+                          } else if (crumb.type === 'module' && onModuleClick) {
+                            onModuleClick();
+                          }
+                        }}
+                        className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+                      >
+                        {isHome ? <Home className="w-4 h-4" /> : crumb.label}
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                  {!isLast && <BreadcrumbSeparator />}
+                </div>
+              );
+            })}
           </BreadcrumbList>
         </Breadcrumb>
         <span className="text-xs text-slate-500">

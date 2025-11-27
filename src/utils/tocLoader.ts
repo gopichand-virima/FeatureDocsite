@@ -6,57 +6,7 @@
  */
 
 import { parseTocFile, TocStructure } from './tocParser';
-import { NG_TOC_CONTENT } from './tocContent';
-
-// Statically import all index.mdx files as raw text
-// These must be static imports for the bundler to process them
-import index513Raw from '../content/5_13/index.mdx?raw';
-import index61Raw from '../content/6_1/index.mdx?raw';
-import index611Raw from '../content/6_1_1/index.mdx?raw';
-
-// Helper function to extract raw string content from imports
-function getRawContent(imported: any): string {
-  console.log('🔍 getRawContent called with type:', typeof imported);
-  
-  if (typeof imported === 'string') {
-    console.log('  ✅ Already a string, length:', imported.length);
-    return imported;
-  }
-  
-  if (imported && typeof imported === 'object') {
-    console.log('  ℹ️ Is an object, checking for default property');
-    if ('default' in imported) {
-      console.log('  ℹ️ Has default property, type:', typeof imported.default);
-      return typeof imported.default === 'string' ? imported.default : '';
-    }
-    // Sometimes Vite returns the content directly as a property
-    if ('content' in imported) {
-      console.log('  ℹ️ Has content property, type:', typeof imported.content);
-      return typeof imported.content === 'string' ? imported.content : '';
-    }
-  }
-  
-  console.log('  ❌ Could not extract string content from import');
-  return '';
-}
-
-// Process imports to ensure we have strings
-const index513Content = getRawContent(index513Raw);
-const index61Content = getRawContent(index61Raw);
-const index611Content = getRawContent(index611Raw);
-// Use hardcoded content for NG
-const indexNGContent = NG_TOC_CONTENT;
-
-console.log('🔍 NG Content after replacement (first 300 chars):', indexNGContent.substring(0, 300));
-console.log('🔍 Looking for backticks in NG content:', indexNGContent.includes('`') ? 'FOUND' : 'NOT FOUND');
-console.log('🔍 Looking for escaped backticks in NG content:', indexNGContent.includes('\\`') ? 'STILL ESCAPED' : 'PROPERLY UNESCAPED');
-
-const TOC_FILES: Record<string, string> = {
-  '5_13': index513Content,
-  '6_1': index61Content,
-  '6_1_1': index611Content,
-  'NG': indexNGContent,
-};
+import { getIndexContent } from './indexContentMap';
 
 // Cache for loaded TOC structures
 const tocCache: Map<string, TocStructure> = new Map();
@@ -79,43 +29,23 @@ const VERSION_PATH_MAP: Record<string, string> = {
 
 /**
  * Loads raw content from index.mdx files
- * This function fetches the files since they can't be statically imported
+ * Uses the indexContentMap which dynamically generates TOC content
  */
 async function loadIndexContent(versionPath: string): Promise<string> {
-  // First, try to fetch from the public directory
-  const indexPath = `/content/${versionPath}/index.mdx`;
-  console.log(`🔍 Attempting to fetch TOC from: ${indexPath}`);
+  console.log(`🔍 Loading TOC content for version path: ${versionPath}`);
   
-  try {
-    const response = await fetch(indexPath);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    
-    const content = await response.text();
-    console.log(`✅ Successfully fetched TOC, length: ${content.length}`);
-    console.log(`📄 First 300 chars of fetched content:`, content.substring(0, 300));
+  // Use the getIndexContent function from indexContentMap
+  const content = getIndexContent(versionPath);
+  
+  if (content && content.length > 0) {
+    console.log(`✅ Using generated TOC content for ${versionPath}, length: ${content.length}`);
+    console.log(`📄 First 300 chars:`, content.substring(0, 300));
     return content;
-  } catch (fetchError) {
-    console.error(`❌ Fetch failed for ${indexPath}:`, fetchError);
-    
-    // Fallback to embedded content if available
-    console.log(`🔍 Checking embedded TOC_FILES for ${versionPath}:`, {
-      exists: versionPath in TOC_FILES,
-      hasContent: TOC_FILES[versionPath] && TOC_FILES[versionPath].length > 0,
-      contentLength: TOC_FILES[versionPath]?.length || 0,
-    });
-    
-    if (TOC_FILES[versionPath] && TOC_FILES[versionPath].length > 0) {
-      console.log(`✅ Using embedded TOC content for ${versionPath}, length: ${TOC_FILES[versionPath].length}`);
-      return TOC_FILES[versionPath];
-    }
-    
-    // Last resort: generate fallback
-    console.warn(`⚠️ Using fallback TOC structure for ${versionPath}`);
-    return generateFallbackToc(versionPath);
   }
+  
+  // Fallback if getIndexContent returns null
+  console.warn(`⚠️ No content from indexContentMap for ${versionPath}, using fallback`);
+  return generateFallbackToc(versionPath);
 }
 
 /**

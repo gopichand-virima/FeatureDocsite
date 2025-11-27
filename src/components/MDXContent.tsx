@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { getContent, hasContent } from '../content/contentLoader';
+import { getContent } from '../content/contentLoader';
 import { FeedbackSection } from './FeedbackSection';
 import { ContentNotAvailable } from './ContentNotAvailable';
 import { generateSlug } from '../utils/extractHeadings';
@@ -15,6 +15,10 @@ import {
   BreadcrumbSeparator,
 } from './ui/breadcrumb';
 import { Home } from 'lucide-react';
+import { 
+  buildBreadcrumbPath, 
+  type BreadcrumbItem as HierarchicalBreadcrumbItem 
+} from '../utils/hierarchicalTocLoader';
 
 interface MDXContentProps {
   filePath: string;
@@ -34,15 +38,16 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [breadcrumbs, setBreadcrumbs] = useState<HierarchicalBreadcrumbItem[]>([]);
 
   useEffect(() => {
-    const loadContent = () => {
+    const loadContent = async () => {
       setLoading(true);
       setError(null);
       
       try {
-        // Try to get content from the static content loader
-        const mdxContent = getContent(filePath);
+        // Load content dynamically from contentLoader (async)
+        const mdxContent = await getContent(filePath);
         
         console.log('MDXContent - Loading file:', filePath);
         console.log('MDXContent - Content found:', mdxContent ? `Yes (${mdxContent.length} chars)` : 'No');
@@ -51,6 +56,18 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
           setContent(mdxContent);
         } else {
           throw new Error(`Content not found for path: ${filePath}`);
+        }
+
+        // Load breadcrumbs if we have the necessary params
+        if (version && module && section && page) {
+          try {
+            const breadcrumbPath = await buildBreadcrumbPath(version, module, section, page);
+            setBreadcrumbs(breadcrumbPath);
+          } catch (breadcrumbError) {
+            console.error('Error loading breadcrumbs:', breadcrumbError);
+            // Don't fail the whole component if breadcrumbs fail
+            setBreadcrumbs([]);
+          }
         }
       } catch (err) {
         console.error('Error loading MDX content:', err);
@@ -61,7 +78,7 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
     };
 
     loadContent();
-  }, [filePath]);
+  }, [filePath, version, module, section, page]);
 
   if (loading) {
     return (
@@ -83,64 +100,42 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
   return (
     <div className="prose prose-slate max-w-none">
       {/* Breadcrumb Navigation */}
-      {(version || module || section || page) && (
+      {breadcrumbs.length > 0 && (
         <div className="flex flex-col gap-3 mb-8 not-prose">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink
-                  onClick={onHomeClick}
-                  className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-                >
-                  <Home className="w-4 h-4" />
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              {version && version.trim() !== '' && (
-                <>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink
-                      onClick={onVersionClick}
-                      className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-                    >
-                      {version}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </>
-              )}
-              {module && module.trim() !== '' && (moduleName && moduleName.trim() !== '' || module) && (
-                <>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink
-                      onClick={onModuleClick}
-                      className="text-slate-700 hover:text-emerald-600 cursor-pointer"
-                    >
-                      {moduleName || module}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </>
-              )}
-              {section && section.trim() !== '' && (sectionName && sectionName.trim() !== '' || section) && (
-                <>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink className="text-slate-700 hover:text-emerald-600 cursor-pointer">
-                      {sectionName || section}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </>
-              )}
-              {page && page.trim() !== '' && (pageName && pageName.trim() !== '' || page) && (
-                <>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="text-slate-900">
-                      {pageName || page}
-                    </BreadcrumbPage>
-                  </BreadcrumbItem>
-                </>
-              )}
+              {breadcrumbs.map((crumb, index) => {
+                const isLast = index === breadcrumbs.length - 1;
+                const isHome = crumb.type === 'home';
+                
+                return (
+                  <div key={`${crumb.type}-${index}`} className="contents">
+                    <BreadcrumbItem>
+                      {isLast ? (
+                        <BreadcrumbPage className="text-slate-900">
+                          {crumb.label}
+                        </BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink
+                          onClick={() => {
+                            if (crumb.type === 'home' && onHomeClick) {
+                              onHomeClick();
+                            } else if (crumb.type === 'version' && onVersionClick) {
+                              onVersionClick();
+                            } else if (crumb.type === 'module' && onModuleClick) {
+                              onModuleClick();
+                            }
+                          }}
+                          className="text-slate-700 hover:text-emerald-600 cursor-pointer"
+                        >
+                          {isHome ? <Home className="w-4 h-4" /> : crumb.label}
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                    {!isLast && <BreadcrumbSeparator />}
+                  </div>
+                );
+              })}
             </BreadcrumbList>
           </Breadcrumb>
           <span className="text-xs text-slate-500">

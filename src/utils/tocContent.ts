@@ -311,4 +311,170 @@ export const NG_TOC_CONTENT = `# Virima Documentation - Version NextGen
 - Other Functions and Page Elements → \`/content/NG/cmdb_ng/other_functions_and_page_elements_ng.mdx\`
 
 ---
+
+## Admin
+
+### Overview
+- About Admin → \`/content/NG/admin_ng/admin/about_admin_ng.mdx\`
+- Admin Graphical Workflows → \`/content/NG/admin_ng/admin/admin_graphical_workflows_ng.mdx\`
+- Graphical Workflows → \`/content/NG/admin_ng/admin/graphical_workflows_ng.mdx\`
+- Modify Properties → \`/content/NG/admin_ng/admin/modify_properties_ng.mdx\`
+- New Model → \`/content/NG/admin_ng/admin/new_model_ng.mdx\`
+- State → \`/content/NG/admin_ng/admin/state_ng.mdx\`
+- Timescale → \`/content/NG/admin_ng/admin/timescale_ng.mdx\`
+- Workflow → \`/content/NG/admin_ng/admin/workflow_ng.mdx\`
+
+### Security
+- About Security → \`/content/NG/admin_ng/admin_security/about_security_ng.mdx\`
+- API Key Management → \`/content/NG/admin_ng/admin_security/api_key_management_ng.mdx\`
+- Authentication Settings → \`/content/NG/admin_ng/admin_security/authentication_settings_ng.mdx\`
+- Role Management → \`/content/NG/admin_ng/admin_security/role_management_ng.mdx\`
+- Security Audit Log → \`/content/NG/admin_ng/admin_security/security_audit_log_ng.mdx\`
+- User Management → \`/content/NG/admin_ng/admin_security/user_management_ng.mdx\`
+
+### Users
+- Users → \`/content/NG/admin_ng/admin_users/users_ng.mdx\`
+
+### Discovery
+- Admin Discovery → \`/content/NG/admin_ng/admin_discovery/admin_discovery_ng.mdx\`
+- Application Map → \`/content/NG/admin_ng/admin_discovery/application_map_ng.mdx\`
+- Client → \`/content/NG/admin_ng/admin_discovery/client_ng.mdx\`
+- Client Agent Schedules → \`/content/NG/admin_ng/admin_discovery/client_agents_schedules_ng.mdx\`
+- Client Build Agent → \`/content/NG/admin_ng/admin_discovery/client_build_agent_ng.mdx\`
+- Client Details → \`/content/NG/admin_ng/admin_discovery/client_details_ng.mdx\`
+- Client Discovery Agents → \`/content/NG/admin_ng/admin_discovery/client_discovery_agents_ng.mdx\`
+- Client Edit → \`/content/NG/admin_ng/admin_discovery/client_edit_ng.mdx\`
+- Client Remote Install → \`/content/NG/admin_ng/admin_discovery/client_remote_install_ng.mdx\`
+- Client Restart → \`/content/NG/admin_ng/admin_discovery/client_restart_ng.mdx\`
+- Client Scan → \`/content/NG/admin_ng/admin_discovery/client_scan_ng.mdx\`
+- Credential → \`/content/NG/admin_ng/admin_discovery/credential_ng.mdx\`
+- Credential Profile → \`/content/NG/admin_ng/admin_discovery/credential_profile_ng.mdx\`
+- Data Import → \`/content/NG/admin_ng/admin_discovery/data_import_ng.mdx\`
+- Device Blacklist → \`/content/NG/admin_ng/admin_discovery/device_blacklist_ng.mdx\`
+- Discovery Schedule → \`/content/NG/admin_ng/admin_discovery/discovery_schedule_ng.mdx\`
+- IP Network → \`/content/NG/admin_ng/admin_discovery/ip_network_ng.mdx\`
+- MAC Vendor → \`/content/NG/admin_ng/admin_discovery/mac_vendor_ng.mdx\`
+- Manage Discovery Jobs → \`/content/NG/admin_ng/admin_discovery/manage_discovery_jobs_ng.mdx\`
+- Normalization → \`/content/NG/admin_ng/admin_discovery/normalization_ng.mdx\`
+- Reconciliation → \`/content/NG/admin_ng/admin_discovery/reconciliation_ng.mdx\`
+- Scan Profile → \`/content/NG/admin_ng/admin_discovery/scan_profile_ng.mdx\`
+- Transformation → \`/content/NG/admin_ng/admin_discovery/transformation_ng.mdx\`
+
+### System
+- About System → \`/content/NG/admin_ng/admin_system/about_system_ng.mdx\`
+- System Settings → \`/content/NG/admin_ng/admin_system/system_settings_ng.mdx\`
+
+---
+
+## ITAM
+
+### Overview
+- About ITAM → \`/content/NG/itam_ng/about_itam_ng.mdx\`
+- About ITAM (New UI) → \`/content/NG/itam_ng/about_itam_newui_ng.mdx\`
+- About ITAM (Old UI) → \`/content/NG/itam_ng/about_itam_oldui_ng.mdx\`
+
+### Hardware Asset Management
+- Hardware Assets → \`/content/NG/itam_ng/hw_assets/hw_assets_ng.mdx\`
+- Hardware Asset → \`/content/NG/itam_ng/hw_asset_ng.mdx\`
+  - New Hardware Asset → \`/content/NG/itam_ng/hw_asset_new_ng.mdx\`
+  - Edit Hardware Asset → \`/content/NG/itam_ng/hw_asset_edit_ng.mdx\`
+
+### License Management
+- Asset License Entitlement → \`/content/NG/itam_ng/asset_lic_entitlement_ng.mdx\`
+  - New Asset License Entitlement → \`/content/NG/itam_ng/asset_lic_entitlement_new_ng.mdx\`
+  - Edit Asset License Entitlement → \`/content/NG/itam_ng/asset_lic_entitlement_edit_ng.mdx\`
+- User License Entitlement → \`/content/NG/itam_ng/user_license_entitle_ng.mdx\`
+- User Entitlement → \`/content/NG/itam_ng/user_entitle_ng.mdx\`
+  - New User Entitlement → \`/content/NG/itam_ng/user_entitle_new_ng.mdx\`
+  - Edit User Entitlement → \`/content/NG/itam_ng/user_entitle_edit_ng.mdx\`
+
+### Contract Management
+- Contract Management → \`/content/NG/itam_ng/contract_management/contract_mngmnt_ng.mdx\`
+  - New Contract → \`/content/NG/itam_ng/contract_management/contract_mngmnt_new_ng.mdx\`
+  - Edit Contract → \`/content/NG/itam_ng/contract_management/contract_mngmnt_edit_ng.mdx\`
+- Contract Management (Root) → \`/content/NG/itam_ng/contract_mngmnt_ng.mdx\`
+  - New Contract (Root) → \`/content/NG/itam_ng/contract_mngmnt_new_ng.mdx\`
+  - Edit Contract (Root) → \`/content/NG/itam_ng/contract_mngmnt_edit_ng.mdx\`
+
+### Vendor Management
+- Vendor Management → \`/content/NG/itam_ng/vendor_mngmnt_ng.mdx\`
+  - New Vendor → \`/content/NG/itam_ng/vendor_mngmnt_new_ng.mdx\`
+  - Edit Vendor → \`/content/NG/itam_ng/vendor_mngmnt_edit_ng.mdx\`
+
+### Procurement
+- About Procurement → \`/content/NG/itam_ng/procurement/about_procurement_ng.mdx\`
+- Purchase Orders → \`/content/NG/itam_ng/procurement/po_ng.mdx\`
+  - New Purchase Order → \`/content/NG/itam_ng/procurement/po_new_ng.mdx\`
+  - Edit Purchase Order → \`/content/NG/itam_ng/procurement/po_edit_ng.mdx\`
+- PO Line Items → \`/content/NG/itam_ng/procurement/po_line_items_ng.mdx\`
+  - New PO Line Item → \`/content/NG/itam_ng/procurement/po_line_items_new_ng.mdx\`
+  - Edit PO Line Item → \`/content/NG/itam_ng/procurement/po_line_items_edit_ng.mdx\`
+
+### Financial Management
+- About Financial Management → \`/content/NG/itam_ng/financial_management/about_financial_management_ng.mdx\`
+- CI Financial Plan → \`/content/NG/itam_ng/financial_management/ci_financial_plan_ng.mdx\`
+- Service Financial Plan → \`/content/NG/itam_ng/financial_management/service_financial_plan_ng.mdx\`
+- Financial Management Content → \`/content/NG/itam_ng/financial_mngmnt_content_hold_ng.mdx\`
+- Service Financial Plan (Root) → \`/content/NG/itam_ng/service_financial_plan_ng.mdx\`
+
+### Stockroom Management
+- Stockroom → \`/content/NG/itam_ng/stockroom_ng.mdx\`
+  - New Stockroom → \`/content/NG/itam_ng/stockroom_new_ng.mdx\`
+  - Edit Stockroom → \`/content/NG/itam_ng/stockroom_edit_ng.mdx\`
+- Stockroom Type → \`/content/NG/itam_ng/stockroom_type_ng.mdx\`
+  - New Stockroom Type → \`/content/NG/itam_ng/stockroom_type_new_ng.mdx\`
+  - Edit Stockroom Type → \`/content/NG/itam_ng/stockroom_type_edit_ng.mdx\`
+
+### Other Features
+- Audits → \`/content/NG/itam_ng/audits_itam_ng.mdx\`
+- Service Design Package → \`/content/NG/itam_ng/service_design_package_ng.mdx\`
+- Access CMDB → \`/content/NG/itam_ng/itam_cmdb/access_cmdb_itam_ng.mdx\`
+
+---
+
+## ITSM
+
+### About ITSM
+- About ITSM → \`/content/NG/itsm_ng/about_itsm_ng.mdx\`
+
+### Change Management
+- Overview of Change Management → \`/content/NG/itsm_ng/change_mngmnt/about_change_mngmnt_ng.mdx\`
+- Access CMDB → \`/content/NG/itsm_ng/change_mngmnt/access_cmdb_itsm_ng.mdx\`
+- CAB Meetings → \`/content/NG/itsm_ng/change_mngmnt/cab_meetings_ng.mdx\`
+- Change Proposals → \`/content/NG/itsm_ng/change_mngmnt/change_proposals_ng.mdx\`
+- New Change Request → \`/content/NG/itsm_ng/change_mngmnt/change_request_ng.mdx\`
+- Changes → \`/content/NG/itsm_ng/change_mngmnt/changes_ng.mdx\`
+- Outages → \`/content/NG/itsm_ng/change_mngmnt/outages_ng.mdx\`
+- Overview of Change Management → \`/content/NG/itsm_ng/change_mngmnt/overview_change_mngmnt_ng.mdx\`
+- Request for Changes → \`/content/NG/itsm_ng/change_mngmnt/request_changes_ng.mdx\`
+
+### Configuration Management
+- About Configuration Management → \`/content/NG/itsm_ng/config_mngmt/about_conf_mngt_ng.mdx\`
+- Add CIs → \`/content/NG/itsm_ng/config_mngmt/add_cis_ng.mdx\`
+- Dashboard → \`/content/NG/itsm_ng/config_mngmt/dashboard_ng.mdx\`
+- Sync Logs → \`/content/NG/itsm_ng/config_mngmt/sync_logs_ng.mdx\`
+- Tags → \`/content/NG/itsm_ng/config_mngmt/tags_ng.mdx\`
+
+### Incident Management
+- About Incident Management → \`/content/NG/itsm_ng/incident_mngmt/about_itsm_incident_mngmnt_ng.mdx\`
+
+### Knowledge Management
+- About Knowledge Management → \`/content/NG/itsm_ng/knowledge_mngmt/about_knowledge_mngmnt_ng.mdx\`
+
+### Problem Management
+- About Problem Management → \`/content/NG/itsm_ng/problem_mngmt/about_problem_mngmnt_ng.mdx\`
+
+### Release Management
+- About Release Management → \`/content/NG/itsm_ng/release_mngmt/about_release_mngmnt_ng.mdx\`
+
+### Request Fulfillment
+- About Request Fulfillment → \`/content/NG/itsm_ng/request_fulfillment/about_request_fulfillment_ng.mdx\`
+
+### Runbook
+- RunBook → \`/content/NG/itsm_ng/runbook/runbook_ng.mdx\`
+
+### Service Portfolio
+- About Service Portfolio → \`/content/NG/itsm_ng/service_portfolio/about_service_portfolio_ng.mdx\`
+
+---
 `;

@@ -28,6 +28,14 @@ export async function resolveMDXPathFromTOC({
   try {
     console.log('resolveMDXPathFromTOC called with:', { version, module, section, page });
     
+    // Handle case where only module is specified (empty section and page)
+    // This happens when navigating to a module without a specific page
+    if (module && !section && !page) {
+      const moduleIndexPath = `/content/versions/${version}/${module}/index.mdx`;
+      console.log('✅ Returning module index path:', moduleIndexPath);
+      return moduleIndexPath;
+    }
+    
     // Load the TOC structure for this version
     const structure = await loadTocForVersion(version);
     

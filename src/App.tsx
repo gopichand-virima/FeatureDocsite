@@ -4,10 +4,27 @@ import { DocumentationContent } from './components/DocumentationContent';
 import { HomePage } from './components/HomePage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
+import { GlobalChatProvider } from './components/GlobalChatProvider';
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 // Import debug helpers to expose to window
 import './utils/debugHelpers';
+// Import sample content registration
+import './content/registerSampleContent';
+// Import all content registration
+import './content/registerAllContent';
+// Import nested content registration
+import './content/registerNestedContent';
+// Import admin modules registration
+import './content/registerAdminModules';
+// Import remaining content registration
+import './content/registerRemainingContent';
+// Import missing files registration
+import './content/registerMissingFiles';
+// Import NextGen content registration
+import './content/registerNextGenContent';
+// Import 6.1 Admin Discovery registration
+import './content/register61AdminDiscovery';
 
 export default function App() {
   const [selectedVersion, setSelectedVersion] = useState('NextGen');
@@ -132,11 +149,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* AI Discovery Monitoring Dashboard (dev mode only) */}
-      <AIMonitoringDashboard />
-      
-      <DocumentationLayout
+    <GlobalChatProvider
+      currentModule={selectedModule}
+      currentPage={selectedPage}
+    >
+      <div className="min-h-screen bg-white">
+        {/* AI Discovery Monitoring Dashboard (dev mode only) */}
+        <AIMonitoringDashboard />
+        
+        <DocumentationLayout
         logo={logo}
         selectedVersion={selectedVersion}
         onVersionChange={setSelectedVersion}
@@ -198,13 +219,14 @@ export default function App() {
         )}
       </DocumentationLayout>
 
-      {/* AI Search Dialog */}
-      <AISearchDialogSimplified
-        isOpen={searchDialogOpen}
-        onClose={() => setSearchDialogOpen(false)}
-        currentModule={selectedModule}
-        currentPage={selectedPage}
-      />
-    </div>
+        {/* AI Search Dialog */}
+        <AISearchDialogSimplified
+          isOpen={searchDialogOpen}
+          onClose={() => setSearchDialogOpen(false)}
+          currentModule={selectedModule}
+          currentPage={selectedPage}
+        />
+      </div>
+    </GlobalChatProvider>
   );
 }

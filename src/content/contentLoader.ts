@@ -14,6 +14,8 @@ import {
   loadSectionPages, 
   type HierarchicalPage 
 } from '../utils/hierarchicalTocLoader';
+import { getMDXContent } from './mdxContentBundle';
+import { getRegisteredContent, isContentRegistered } from './mdxContentRegistry';
 
 // Cache for loaded content
 const contentCache = new Map<string, string>();
@@ -68,6 +70,7 @@ async function discoverContentFiles(version: string): Promise<string[]> {
 
 /**
  * Fetches content from a file path
+ * Tries multiple strategies to load MDX content
  */
 async function fetchContent(filePath: string): Promise<string> {
   // Safety: Remove backticks if somehow they still exist
@@ -80,24 +83,78 @@ async function fetchContent(filePath: string): Promise<string> {
   console.log(`📥 Fetching content from: ${cleanPath}`);
   console.log(`📥 File path length: ${cleanPath.length}, has backticks: ${cleanPath.includes('`')}`);
   
+  // Strategy 1: Check the manual content registry first
+  if (isContentRegistered(cleanPath)) {
+    const content = getRegisteredContent(cleanPath);
+    if (content) {
+      console.log(`✅ Strategy 1: Loaded from registry (${content.length} chars)`);
+      return content;
+    }
+  }
+  
+  // Strategy 2: Try the MDX content bundle
   try {
+    const content = await getMDXContent(cleanPath);
+    
+    if (content) {
+      console.log(`✅ Strategy 2: Loaded from MDX bundle (${content.length} chars)`);
+      return content;
+    }
+  } catch (error) {
+    console.warn(`⚠️ Strategy 2 (MDX bundle) failed:`, error);
+  }
+  
+  // Strategy 3: Try direct dynamic import with ?raw
+  try {
+    console.log(`🔄 Strategy 3: Attempting direct import with ?raw`);
+    const module = await import(/* @vite-ignore */ `${cleanPath}?raw`);
+    
+    if (module.default && typeof module.default === 'string') {
+      console.log(`✅ Strategy 3: Loaded via ?raw import (${module.default.length} chars)`);
+      return module.default;
+    }
+  } catch (error) {
+    console.warn(`⚠️ Strategy 3 (?raw import) failed:`, error);
+  }
+  
+  // Strategy 4: Try reading the file content directly from the module
+  try {
+    console.log(`🔄 Strategy 4: Attempting to read MDX file directly`);
+    
+    // For MDX files in Figma Make, we need to handle them specially
+    // Let's try to import and extract the raw content
     const response = await fetch(cleanPath);
     
-    if (!response.ok) {
-      console.error(`❌ HTTP Error ${response.status} for ${cleanPath}`);
-      console.error(`❌ Response statusText: ${response.statusText}`);
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    if (response.ok) {
+      const text = await response.text();
+      
+      // Check if we got HTML instead of MDX (Figma Make wraps files)
+      if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+        console.error(`❌ Strategy 4: Got HTML wrapper instead of raw MDX`);
+        
+        // Try to extract content from HTML if possible
+        const match = text.match(/<pre[^>]*>([\s\S]*?)<\/pre>/);
+        if (match) {
+          const extracted = match[1]
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"');
+          console.log(`✅ Strategy 4: Extracted from HTML wrapper (${extracted.length} chars)`);
+          return extracted;
+        }
+      } else {
+        console.log(`✅ Strategy 4: Loaded via fetch (${text.length} chars)`);
+        return text;
+      }
     }
-    
-    const content = await response.text();
-    console.log(`✅ Loaded content (${content.length} chars) from ${cleanPath}`);
-    
-    return content;
   } catch (error) {
-    console.error(`❌ Failed to fetch content from ${cleanPath}:`, error);
-    console.error(`❌ Error type:`, error instanceof Error ? error.message : typeof error);
-    throw error;
+    console.warn(`⚠️ Strategy 4 (fetch) failed:`, error);
   }
+  
+  // All strategies failed
+  console.error(`❌ All strategies failed for ${cleanPath}`);
+  throw new Error(`Content not found: ${cleanPath} - All loading strategies failed`);
 }
 
 /**

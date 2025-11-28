@@ -23,11 +23,12 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { AISearchDialog } from "./AISearchDialog";
+import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Footer } from "./Footer";
 import { Binoculars } from "./icons/Binoculars";
 import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
+import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
 
 interface HomePageProps {
   onModuleSelect: (module: string) => void;
@@ -141,125 +142,31 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Full Cover Page - Ultra Premium Virima Design */}
+      {/* Full Cover Page - Hero Background Design */}
       <div className="relative overflow-hidden bg-white min-h-screen flex items-center">
-        {/* Ultra Sophisticated Background Elements - Premium Snow White */}
+        {/* Hero Background - Green Hexagonal Pattern */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Subtle elegant gradient orbs in pure white/light tones */}
-          <div className="absolute -top-48 -left-48 w-[900px] h-[900px] bg-gradient-to-br from-slate-50/40 via-white to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-gradient-to-bl from-slate-50/30 via-white to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-48 left-1/4 w-[800px] h-[800px] bg-gradient-to-t from-slate-50/35 via-white to-transparent rounded-full blur-3xl"></div>
-          
-          {/* Secondary ambient light effects - minimal and elegant */}
-          <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-gradient-to-br from-slate-50/25 to-transparent rounded-full blur-2xl"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-slate-50/30 to-transparent rounded-full blur-2xl"></div>
-          
-          {/* Refined grid pattern with minimal presence */}
-          <div className="absolute inset-0 opacity-[0.015]" style={{
-            backgroundImage: `
-              linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px'
-          }}></div>
-          
-          {/* Diagonal accent lines - barely visible elegant touches */}
-          <div className="absolute inset-0">
-            <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-2"></div>
-            <div className="absolute top-[45%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/15 to-transparent transform rotate-1"></div>
-            <div className="absolute top-[75%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200/20 to-transparent transform -rotate-1"></div>
-          </div>
-          
-          {/* Elegant floating service icons - subtle gray tones */}
-          <div className="absolute top-[20%] left-[12%] opacity-[0.025] transform hover:scale-110 transition-transform duration-700">
-            <Network className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[25%] right-[10%] opacity-[0.022] transform hover:scale-110 transition-transform duration-700">
-            <Database className="w-36 h-36 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute bottom-[25%] left-[8%] opacity-[0.02] transform hover:scale-110 transition-transform duration-700">
-            <Shield className="w-28 h-28 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute bottom-[30%] right-[15%] opacity-[0.028] transform hover:scale-110 transition-transform duration-700">
-            <Layers className="w-32 h-32 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[50%] left-[6%] opacity-[0.018] transform hover:scale-110 transition-transform duration-700">
-            <Workflow className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
-          </div>
-          <div className="absolute top-[38%] right-[7%] opacity-[0.023] transform hover:scale-110 transition-transform duration-700">
-            <Globe className="w-30 h-30 text-slate-300" strokeWidth={1.5} />
-          </div>
-          
-          {/* Additional decorative elements - subtle dots */}
-          <div className="absolute top-[12%] right-[25%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
-          <div className="absolute top-[65%] left-[20%] w-3 h-3 bg-slate-200/25 rounded-full"></div>
-          <div className="absolute bottom-[40%] right-[30%] w-2 h-2 bg-slate-200/30 rounded-full"></div>
-          
-          {/* Glossy shine effect for premium feel */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white opacity-60"></div>
+          {/* Hero Background Image */}
+          <ImageWithFallback
+            src={coverImage}
+            alt="Virima Documentation Platform"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-6">
-          {/* Premium Content Card */}
-          <div className="relative z-10 text-center max-w-6xl mx-auto py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-12 rounded-2xl sm:rounded-3xl lg:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl">
-            {/* Multi-layered Premium Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/98 via-emerald-50/70 to-green-50/50 backdrop-blur-xl"></div>
-            
-            {/* Radial gradient overlays for depth */}
-            <div className="absolute inset-0 opacity-50">
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-500/10 via-transparent to-green-500/12"></div>
-              <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-gradient-to-bl from-emerald-400/12 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-gradient-to-tr from-green-400/14 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 bg-gradient-to-r from-emerald-400/8 via-green-400/6 to-emerald-400/8 rounded-full blur-2xl"></div>
-            </div>
-            
-            {/* Refined dot pattern */}
-            <div className="absolute inset-0 hidden sm:block" style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.1) 1px, transparent 0)`,
-              backgroundSize: '48px 48px'
-            }}></div>
-            
-            {/* Elegant top border with glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 sm:h-2 bg-gradient-to-r from-transparent via-emerald-500 to-transparent shadow-lg shadow-emerald-500/30"></div>
-            
-            {/* Sophisticated corner flourishes - hidden on mobile */}
-            <div className="absolute top-0 left-0 w-32 sm:w-40 h-32 sm:h-40 bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-transparent rounded-br-[3rem] sm:rounded-br-[4rem]"></div>
-            <div className="absolute top-0 right-0 w-32 sm:w-40 h-32 sm:h-40 bg-gradient-to-bl from-green-500/20 via-green-500/10 to-transparent rounded-bl-[3rem] sm:rounded-bl-[4rem]"></div>
-            <div className="absolute bottom-0 left-0 w-40 sm:w-48 h-40 sm:h-48 bg-gradient-to-tr from-emerald-500/18 via-emerald-500/8 to-transparent rounded-tr-[3rem] sm:rounded-tr-[4rem]"></div>
-            <div className="absolute bottom-0 right-0 w-40 sm:w-48 h-40 sm:h-48 bg-gradient-to-tl from-green-500/18 via-green-500/8 to-transparent rounded-tl-[3rem] sm:rounded-tl-[4rem]"></div>
-            
-            {/* Subtle inner border glow */}
-            <div className="absolute inset-3 sm:inset-4 rounded-2xl sm:rounded-[1.5rem] border border-emerald-500/10 shadow-inner"></div>
-            
-            {/* Content wrapper with enhanced hierarchy */}
-            <div className="relative z-10">
-              {/* Virima Brand with enhanced styling */}
+          {/* Content wrapper */}
+          <div className="relative z-10 text-center max-w-6xl mx-auto py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-12">
+              {/* Virima Brand */}
               <div className="mb-4 sm:mb-6 lg:mb-8">
-                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl text-slate-900 mb-3 sm:mb-4 tracking-tight" style={{
-                  textShadow: '0 2px 40px rgba(16, 185, 129, 0.1)'
-                }}>
+                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl text-slate-900 mb-3 sm:mb-4 tracking-tight text-center font-bold font-normal no-underline px-[2px] py-[0px] text-[90px]">
                   Virima
                 </h1>
-                <div className="relative inline-block">
-                  <div className="h-1.5 sm:h-2 w-32 sm:w-40 bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 mx-auto rounded-full shadow-xl shadow-emerald-500/40"></div>
-                  <div className="absolute inset-0 h-1.5 sm:h-2 w-32 sm:w-40 bg-gradient-to-r from-emerald-300 via-green-400 to-emerald-300 mx-auto rounded-full blur-sm animate-pulse" style={{
-                    animation: 'shimmer 3s ease-in-out infinite, pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                  }}>
-                    <style>{`
-                      @keyframes shimmer {
-                        0%, 100% { opacity: 0.75; }
-                        50% { opacity: 1; }
-                      }
-                    `}</style>
-                  </div>
-                </div>
               </div>
 
-              {/* Tagline with refined styling */}
+              {/* Tagline */}
               <div className="mb-4 sm:mb-6">
-                <p className="text-2xl lg:text-3xl text-slate-900 mb-3 leading-relaxed" style={{
-                  textShadow: '0 1px 20px rgba(0, 0, 0, 0.03)'
-                }}>
+                <p className="text-2xl lg:text-3xl text-slate-900 mb-3 leading-relaxed">
                   Welcome to the Documentation Platform
                 </p>
               </div>
@@ -270,7 +177,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 and versions.
               </p>
 
-              {/* Enhanced Search CTA */}
+              {/* Search CTA */}
               <div className="max-w-2xl mx-auto mb-6 sm:mb-8">
                 <Button
                   variant="outline"
@@ -294,11 +201,11 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </Button>
               </div>
 
-              {/* Premium Get Started Button */}
+              {/* Get Started Button */}
               <div className="flex justify-center mb-2">
                 <Button
                   size="lg"
-                  onClick={() => onModuleSelect('my-dashboard')}
+                  onClick={() => onModuleSelect('admin')}
                   className="relative bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-700 hover:via-green-700 hover:to-emerald-700 text-white px-10 py-6 text-base shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -307,17 +214,16 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 </Button>
               </div>
             </div>
-          </div>
         </div>
 
-        {/* Enhanced bottom gradient fade with glow */}
+        {/* Bottom gradient fade */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
       </div>
 
       {/* AI Search Dialog */}
-      <AISearchDialog
-        open={searchDialogOpen}
-        onOpenChange={setSearchDialogOpen}
+      <AISearchDialogSimplified
+        isOpen={searchDialogOpen}
+        onClose={() => setSearchDialogOpen(false)}
       />
 
       {/* Value Proposition Section */}

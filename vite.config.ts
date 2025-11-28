@@ -2,22 +2,11 @@
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
-  import { viteStaticCopy } from 'vite-plugin-static-copy';
 
   export default defineConfig({
-    plugins: [
-      react(),
-      viteStaticCopy({
-        targets: [
-          {
-            src: 'src/content/**/*',
-            dest: 'content',
-          },
-        ],
-      }),
-    ],
+    plugins: [react()],
     resolve: {
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.mdx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
         'vaul@1.1.2': 'vaul',
         'sonner@2.0.3': 'sonner',
@@ -28,6 +17,7 @@
         'next-themes@0.4.6': 'next-themes',
         'lucide-react@0.487.0': 'lucide-react',
         'input-otp@1.4.2': 'input-otp',
+        'figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png': path.resolve(__dirname, './src/assets/dfabb390914b79df631271c3335e876d8bc63966.png'),
         'figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png': path.resolve(__dirname, './src/assets/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png'),
         'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png': path.resolve(__dirname, './src/assets/20803a9cc590c8a78bca4489c80f3bfca906561c.png'),
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
@@ -66,20 +56,6 @@
     build: {
       target: 'esnext',
       outDir: 'build',
-      rollupOptions: {
-        output: {
-          // Preserve directory structure for content files
-          assetFileNames: (assetInfo) => {
-            // Keep MDX files in their original structure
-            if (assetInfo.name && assetInfo.name.endsWith('.mdx')) {
-              return assetInfo.name;
-            }
-            return 'assets/[name]-[hash][extname]';
-          },
-        },
-      },
-      // Copy static content files to build output
-      copyPublicDir: true,
     },
     server: {
       port: 3000,

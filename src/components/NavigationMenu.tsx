@@ -87,6 +87,27 @@ export function NavigationMenu({
             return null;
           }
 
+          // Check if any child page is selected within this section
+          const hasChildPageSelected = section.pages.some((page: any) => {
+            // Check if the page itself is selected
+            if (selectedPage === page.id) return true;
+            // Check if any subpage is selected
+            if (page.subPages && page.subPages.length > 0) {
+              if (page.subPages.some((subPage: any) => {
+                if (selectedPage === subPage.id) return true;
+                // Check nested subpages
+                if (subPage.subPages && subPage.subPages.length > 0) {
+                  return subPage.subPages.some((nested: any) => selectedPage === nested.id);
+                }
+                return false;
+              })) return true;
+            }
+            return false;
+          });
+
+          // Parent section should NEVER be green if any child is selected
+          const isSectionDirectlySelected = false; // Parents should never be green when children exist
+
           return (
             <div key={section.id} className="space-y-1">
               <div className="flex items-center gap-1">
@@ -115,8 +136,10 @@ export function NavigationMenu({
                     }
                   }}
                   className={`flex-1 text-left px-2 py-1.5 rounded transition-colors ${
-                    isActive
-                      ? "text-green-600 bg-green-50"
+                    isSectionDirectlySelected
+                      ? "text-green-600 bg-green-50 font-medium"
+                      : hasChildPageSelected
+                      ? "text-slate-900 hover:text-slate-900 hover:bg-slate-50 font-medium"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
@@ -129,6 +152,16 @@ export function NavigationMenu({
                   {section.pages.map((page: any) => {
                     const hasSubPages = page.subPages && page.subPages.length > 0;
                     const isPageExpanded = expandedPages.has(page.id);
+                    
+                    // Check if any subpage is selected
+                    const isSubPageSelected = hasSubPages && page.subPages.some((subPage: any) => 
+                      selectedPage === subPage.id || 
+                      (subPage.subPages && subPage.subPages.some((nested: any) => selectedPage === nested.id))
+                    );
+                    
+                    // Page should only be green if directly selected AND no subpage is selected
+                    // If a subpage is selected, the page parent should be slate/black
+                    const isPageDirectlySelected = selectedPage === page.id && isActive && !isSubPageSelected;
                     
                     return (
                       <div key={page.id}>
@@ -160,8 +193,10 @@ export function NavigationMenu({
                               }
                             }}
                             className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                              selectedPage === page.id && isActive
+                              isPageDirectlySelected
                                 ? "text-green-600 bg-green-50"
+                                : isSubPageSelected
+                                ? "text-slate-900 hover:text-slate-900 hover:bg-slate-50 font-medium"
                                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                             } ${!hasSubPages ? 'ml-5' : ''}`}
                           >
@@ -174,6 +209,12 @@ export function NavigationMenu({
                             {page.subPages.map((subPage: any) => {
                               const hasNestedSubPages = subPage.subPages && subPage.subPages.length > 0;
                               const isSubPageExpanded = expandedSubPages.has(subPage.id);
+                              
+                              // Check if any nested subpage is selected
+                              const isNestedSubPageSelected = hasNestedSubPages && subPage.subPages.some((nested: any) => selectedPage === nested.id);
+                              
+                              // Only show green if this exact subpage is selected, not a nested subpage
+                              const isSubPageDirectlySelected = selectedPage === subPage.id && isActive && !isNestedSubPageSelected;
                               
                               return (
                                 <div key={subPage.id}>
@@ -205,8 +246,10 @@ export function NavigationMenu({
                                         }
                                       }}
                                       className={`flex-1 text-left text-sm py-1.5 px-2 rounded transition-colors ${
-                                        selectedPage === subPage.id && isActive
+                                        isSubPageDirectlySelected
                                           ? "text-green-600 bg-green-50"
+                                          : isNestedSubPageSelected
+                                          ? "text-slate-900 hover:text-slate-900 hover:bg-slate-50 font-medium"
                                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                                       } ${!hasNestedSubPages ? 'ml-5' : ''}`}
                                     >

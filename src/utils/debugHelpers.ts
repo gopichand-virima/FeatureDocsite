@@ -6,6 +6,9 @@
 import { loadTocForVersion, clearTocCache, clearTocCacheForVersion } from './tocLoader';
 import { resolveMDXPathFromTOC } from './tocPathResolver';
 import { clearContentCache, getCacheStats } from '../content/contentLoader';
+import { getAllMDXPaths, getMDXCount, mdxExists } from '../content/mdxManifest';
+import { getMDXCacheStats, clearMDXCache } from '../content/mdxContentBundle';
+import { getRegisteredPaths, getRegistrySize, isContentRegistered } from '../content/mdxContentRegistry';
 
 /**
  * Debug helper to check if a page can be resolved
@@ -101,7 +104,71 @@ export function debugClearAllCaches() {
   console.log('🧹 Clearing all caches...');
   clearTocCache();
   clearContentCache();
+  clearMDXCache();
   console.log('✅ All caches cleared - reload the page to fetch fresh data');
+}
+
+/**
+ * Check MDX manifest status
+ */
+export function debugMDXManifest() {
+  console.group('📦 MDX Manifest Status');
+  
+  const totalFiles = getMDXCount();
+  const allPaths = getAllMDXPaths();
+  const mdxCacheStats = getMDXCacheStats();
+  const registeredCount = getRegistrySize();
+  const registeredPaths = getRegisteredPaths();
+  
+  console.log('Total MDX files in manifest:', totalFiles);
+  console.log('Manually registered files:', registeredCount);
+  console.log('Cached MDX files:', mdxCacheStats.size);
+  
+  if (registeredCount > 0) {
+    console.log('\n📝 Manually Registered Files:');
+    registeredPaths.forEach(path => console.log(`  ✅ ${path}`));
+  }
+  
+  if (allPaths.length > 0) {
+    console.log('\n📋 Sample manifest paths (first 20):');
+    allPaths.slice(0, 20).forEach(path => console.log(`  - ${path}`));
+  }
+  
+  console.groupEnd();
+}
+
+/**
+ * Test if a specific MDX file exists in manifest
+ */
+export function debugCheckMDXFile(filePath: string) {
+  console.group(`🔍 Checking MDX file: ${filePath}`);
+  
+  const existsInManifest = mdxExists(filePath);
+  const existsInRegistry = isContentRegistered(filePath);
+  
+  console.log('Exists in manifest:', existsInManifest);
+  console.log('Exists in registry:', existsInRegistry);
+  
+  if (existsInRegistry) {
+    console.log('✅ File is manually registered and ready to use');
+  } else if (existsInManifest) {
+    console.log('⚠️ File is in manifest but not manually registered');
+  } else {
+    console.log('❌ File not found in either manifest or registry');
+    
+    // Find similar files
+    const allPaths = [...getAllMDXPaths(), ...getRegisteredPaths()];
+    const fileName = filePath.split('/').pop() || '';
+    const similarPaths = allPaths.filter(p => p.includes(fileName));
+    
+    console.log('Similar files found:', similarPaths.length);
+    if (similarPaths.length > 0) {
+      console.log('Similar paths:');
+      similarPaths.forEach(p => console.log(`  - ${p}`));
+    }
+  }
+  
+  console.groupEnd();
 }
 
 /**
@@ -153,6 +220,8 @@ if (typeof window !== 'undefined') {
     clearCaches: debugClearAllCaches,
     cacheStats: debugCacheStats,
     testFilePath: debugTestFilePath,
+    mdxManifest: debugMDXManifest,
+    checkMDXFile: debugCheckMDXFile,
   };
   
   console.log('🔧 Virima Debug Tools Available:');
@@ -161,6 +230,9 @@ if (typeof window !== 'undefined') {
   console.log('  window.virimaDebug.clearCaches()');
   console.log('  window.virimaDebug.cacheStats()');
   console.log('  window.virimaDebug.testFilePath(path)');
+  console.log('  window.virimaDebug.mdxManifest()');
+  console.log('  window.virimaDebug.checkMDXFile(path)');
   console.log('');
   console.log('Example: window.virimaDebug.resolvePath("6.1", "admin", "organizational-details", "members")');
+  console.log('Example: window.virimaDebug.checkMDXFile("/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx")');
 }

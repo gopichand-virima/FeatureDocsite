@@ -94,8 +94,19 @@ export function TableOfContents({ items, autoExtract = true }: TableOfContentsPr
                 e.preventDefault();
                 const element = document.getElementById(item.id);
                 if (element) {
-                  const top = element.getBoundingClientRect().top + window.pageYOffset - 80;
-                  window.scrollTo({ top, behavior: 'smooth' });
+                  const headerOffset = 100;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                  
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                  
+                  // Update URL hash
+                  setTimeout(() => {
+                    window.history.pushState(null, '', `#${item.id}`);
+                  }, 100);
                 }
               }}
             >

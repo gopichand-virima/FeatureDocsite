@@ -601,11 +601,11 @@ function generateTOC(versionCode: string, versionName: string): string {
 
 ### Ignore ADM Process
 
-- Ignore ADM Process → /content/${versionCode}/admin_${versionCode}/ignore_adm_process_${versionCode}.mdx
+- Ignore ADM Process → /content/${versionCode}/admin_${versionCode}/admin_discovery/ignore_adm_process_${versionCode}.mdx
 
 ### Ignore Process
 
-- Ignore Process → /content/${versionCode}/admin_${versionCode}/ignore_process_${versionCode}.mdx
+- Ignore Process → /content/${versionCode}/admin_${versionCode}/admin_discovery/ignore_process_${versionCode}.mdx
 
 ### Major Software
 

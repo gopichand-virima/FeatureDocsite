@@ -1,0 +1,74 @@
+---
+title: "Release Model"
+description: ""
+version: ""
+module: "Admin Release Mngmnt"
+section: "Release Model"
+page: "Release Model"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Admin Release Mngmnt"
+  - "Release Model"
+  - "Release Model"
+---
+
+# Release Model
+
+Use this function to create a model for the process responsible for planning, scheduling, and controlling the build, in addition to testing and deploying Releases ensuring to deliver new and enhanced services required by the business.
+
+In the main window, click **Admin > Release Management > Release Model**.
+
+New Release Model
+
+From the *Select Actions* drop-down list, choose **New Release Model**.
+
+Click **New**.
+
+Complete the fields, referring to the table below.
+
+When all selections/entries are made, click **Add**.
+
+### Release Model Fields
+
+| Section | Field Descriptions |
+
+| Primary Details | **Template Name**. A generic name given to a change model.
+**Title**. A identifying name for this change model.
+**Private Property Visibility**. Fields that are marked as private can be viewed only by these Role(s).
+**Private Property Editable by Role**. Properties can only edited by those with a specific role.
+**Workflow**. Specifies the workflow which this change must pass through.
+**Confidential**. The user(s) designated to see this change. |
+
+| Record Details | **Category**. Determines the type of a change: Major, Minor, Standard and Significant.
+**SubCategory**. Division of a CI category--for example, Laptop can be a CI Subcategory of Desktop.
+**Impact Level**. The measure of the effect of a change on the Business Process. Impact is used to assign the priority: Impact: High, Medium and Low.
+**Urgency**. A measure of how long it will be a change and has a significant Impact on the Business: High, Medium and Low.
+**Priority**. A Category used to identify the relative importance of a change. Priority is based on Impact and Urgency, each level of priority has a specified SLA within which a change needs to be resolved.
+**Risk**. A category that determines the complexity involved in implementing the change: High, Medium and Low.
+**Type**. Determines whether the change is a Normal, Emergency or Standard type.
+**State**. A category which is a sub set of Stage: Accepted, Rejected, Requested.
+**Assignee/Group Assignee**. The role assigned the change. This category is used when it's unknown who can work on the change at the time of creation.
+**Associated CIs**. The CI’s associated with this release.
+**Related Changes**. The changes to associate with this release.
+**Description**. A brief description about the change.
+**Custom Timescale**. When selected, enter the relevant times. If applicable, enter the *Escalate* parameters.
+
+- If *Response* and *Resolution* Times are not specified here, they can be specified when a change request is submitted.
+- custom Timescale can be defined only during the creation stage and the same can't be defined after a change is created.
+- If a Custom Timescale is set, then Priority based timescale SLA and escalation hierarchy are not considered.
+
+**Planned Start/End**. The dates applicable to this release. |
+
+| Related Records | Other records related to this one, such as problems, incidents, requests and so forth. Click **Addthe plus + sign** and search for and select the applicable related record. |
+
+| Notes | Any details related to this release. |
+
+| Resolution Information | Details on how the release was resolved. |
+
+| Closure Information | Details related to the closure of the release. Select a *Closure Code* and enter any relevant details. |
+
+
+Modify Properties Edit Release Model Delete Release Model
+
+- [Import](/common_topics/import_ng.mdx)

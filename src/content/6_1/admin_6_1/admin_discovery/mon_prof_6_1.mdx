@@ -1,24 +1,52 @@
+---
+title: "Discovery Monitoring Profile"
+description: ""
+version: ""
+module: "Admin Discovery"
+section: "Mon Prof"
+page: "Discovery Monitoring Profile"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Admin Discovery"
+  - "Mon Prof"
+  - "Discovery Monitoring Profile"
+---
+
 # Discovery Monitoring Profile
 
-Use this function to configure monitoring profiles for scheduled monitoring based on a Cron Expression.
+Use this function to monitor machines based on certain defined properties, which are set as Trigger Conditions at a given frequency. If a condition matches, it creates an ITSM record with pre-defined values based on Action Details.
 
-In the main window, click **Admin > Discovery > Discovery Monitoring Profile**. The Monitoring Profiles window displays.
+## Workflow Example
 
-From the *Select Actions* drop-down list, choose an action: **New Monitoring Profile**, [Delete](/common_topics/delete_remove_6_1.mdx), or [Export](/discovery/import_data_files/export_6_1.mdx).
+- IF the [Trigger Condition](/admin_discovery/mon_prof_trigger_conditions_6_1.mdx) *Property* is **RAM(MB)** and *Operator* **Is Empty**...
+- AND the [Action Details](/admin_discovery/mon_prof_action_details_6_1.mdx) *Target Module* is **Incident**, then an incident will be created in the application...
+- THEN **[Notifications](/admin_discovery/mon_prof_notifications_6_1.mdx)** will be sent to the configured users, roles, groups, or departments.
 
-In the *Name* field, type the name for this profile.
+New Monitoring Profile
 
-In the *Cron Expression* field, enter a valid cron expression (e.g., 0 0 12 \* \* ? for daily at noon).
+To add a monitoring profile, do the following:
 
-Under *Select Scope*, choose the configuration items to monitor:
-- Click **Select** to add items.
-- Use the search function to find and select items.
-- Click **Done**.
+In the main window, clickAdmin>Discovery** > Discovery Monitoring Profile**. The Discovery Monitoring Profile window displays.
+
+From the *Select Actions* drop-down list, choose an action: **New**, [Delete](/common_topics/delete_remove_6_1.mdx) or [Export](/discovery/import_data_files/export_6_1.mdx).
+
+Refer to the following:
+
+- [Details](/admin_discovery/mon_prof_details_6_1.mdx)
+- [Action Details](/admin_discovery/mon_prof_action_details_6_1.mdx)
+- [Frequency](/admin_discovery/mon_prof_frequency_6_1.mdx)
+- [Notifications](/admin_discovery/mon_prof_notifications_6_1.mdx)
+- [Trigger Conditions](/admin_discovery/mon_prof_trigger_conditions_6_1.mdx)
 
 When all selections/entries are made, click **Add**.
 
-## Edit Monitoring Profile
+Edit Monitoring Profile Delete Monitoring Profile
 
 - [Records per Page](/common_topics/records_per_page_6_1.mdx)
+- [Auto Refresh](/common_topics/auto_refresh_6_1.mdx)
 - [Personalize Columns](/common_topics/personalize_columns_6_1.mdx)
 - [Saved Filters](/common_topics/saved_filters_6_1.mdx)
+- [Export](/discovery/import_data_files/export_6_1.mdx)
+- [Delete](/common_topics/delete_remove_6_1.mdx)
+- [Items per Page](/common_topics/items_per_page_6_1.mdx)

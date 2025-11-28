@@ -1,6 +1,6 @@
 ---
 title: "Importing Meraki Record"
-description: "Use this function to import the required Meraki devices into the Discovery application."
+description: "Use this function to import the required Meraki resources into the Discovery application."
 version: ""
 module: "Discovery"
 section: "Import From Meraki"
@@ -16,17 +16,25 @@ breadcrumbs:
 
 # Importing Meraki Record
 
-Use this function to import the required Meraki devices into the Discovery application.
+Use this function to import the required Meraki resources into the Discovery application.
 
-1. Open the Import From Meraki page.
-2. From the **Select Actions** drop-down list, choose **Import**. The Import From Meraki dialog box displays.
-3. In the **Name** field, enter a name for the import action.
-4. In the **Credential** field, click the drop-down list and select the appropriate credential to access the Meraki service.
-   - If no credentials are listed in the dropdown, add credentials by navigating to **Admin > Discovery > Credentials**.
-5. Select all required device types to be imported from the listed Meraki resources.
-6. Click **Add** to import the Meraki devices to Virima.
-   - User will be redirected to the Import from Meraki page, where the new import record will be shown with the Status as "**Importing**".
-   - Once the status is "**Completed**", click on the imported record to view the imported Meraki resources.
-   - To view the details of the CI, click on the CI. This redirects you to the discovered item page, where you can view the imported CI details.
+- Open the Import From Meraki page, From the **Select Actions** drop-down list, choose **Import**.
 
-**Note:** If you do not have the necessary permissions to import—such as lacking access to authenticate with proper API credentials—the system will display an error message: **"Please check your Meraki credentials."**
+- The Import From Meraki dialog box displays.
+
+- In the Name field, enter a name for the import action.
+- In the Credential field, click the drop-down list and select the appropriate credential to access the Meraki service.
+  - If no credentials are listed in the dropdown, add credentials by navigating to **Admin > Discovery > Credentials**.
+- Click **Add** to import the Meraki services to virima.
+
+The system displays an error if Add is clicked without selecting credentials.
+
+- User will be redirected to the import From Meraki page,
+  - The import record will first appear with the status “**Importing**” (the process is running and in progress).
+  - The status will then change to “**Adding Data**” (the imported information from Meraki is being processed and added to your system).
+  - Once the process is finished, the status will update to “**Completed**”.
+  - After the status is “**Completed**”, click on the imported record to view the imported Meraki resources.
+  - To view the details of a CI, click on the CI. This redirects you to the discovered item page, where you can view the imported CI details.
+
+If you do not have the necessary permissions to import—such as lacking access to authenticate with a certificate or Secret Key —the system will display an error message:  
+**"Please check your Meraki credentials."**

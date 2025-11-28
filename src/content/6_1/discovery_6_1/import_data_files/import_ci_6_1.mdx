@@ -1,20 +1,20 @@
 ---
-title: "Import CI's"
+title: "Import CI’s"
 description: "From the Select Actions menu, click Import CI's."
 version: ""
 module: "Discovery"
 section: "Import Data Files"
-page: "Import CI's"
+page: "Import CI’s"
 breadcrumbs:
   - "Home"
   - ""
   - "Discovery"
   - "Import Data Files"
   - "Import Ci"
-  - "Import CI's"
+  - "Import CI’s"
 ---
 
-# Import CI's
+# Import CI’s
 
 # Import CI without using existing Field Mapping Template
 
@@ -35,7 +35,7 @@ breadcrumbs:
   The name of the asset (e.g., server host + IP).
 
 - **IP Address** (possible correlator)  
-  The host's primary IP (e.g., 10.14.80.36). If your blueprint uses IP as a correlator, this helps match to an existing CI.
+  The host’s primary IP (e.g., 10.14.80.36). If your blueprint uses IP as a correlator, this helps match to an existing CI.
 
 - **Host Name** (possible correlator)  
   Host name of the device (e.g., ADSERVERLD). Another common correlator.
@@ -44,7 +44,7 @@ breadcrumbs:
   Physical MAC address (e.g., 00:50:56:B4:01:5). Use standard notation and only one MAC per row.
 
 - **Blueprint Name** **(Mandatory)**  
-  The CMDB blueprint that defines the CI's schema (e.g., **Windows Server**). Must exactly match an existing blueprint name.
+  The CMDB blueprint that defines the CI’s schema (e.g., **Windows Server**). Must exactly match an existing blueprint name.
 
 - **Asset Id** (Mandatory only for updates)  
   The CMDB ID of an **existing** CI (e.g., AST003156).
@@ -74,8 +74,8 @@ breadcrumbs:
   - Ensure all correlator properties are mapped.
   - If a property is highlighted in **red**, it means it is not properly mapped to an application field; use **Skip Column** if you do not wish to map that property.
   - If a property is highlighted in **green**, it means it is successfully mapped to an application field.
-- If a record in your Excel (or CSV) import file does not have a value for the "Blueprint Name" column, that record will not appear in the Import Data Files.
-- If a record has a "**Blueprint Name**" but does not have any correlator (such as IP Address, Host Name, or MAC Address—as required by the blueprint), that record will also not be shown in the Import Data Files.
+- If a record in your Excel (or CSV) import file does not have a value for the “Blueprint Name” column, that record will not appear in the Import Data Files.
+- If a record has a “**Blueprint Name**” but does not have any correlator (such as IP Address, Host Name, or MAC Address—as required by the blueprint), that record will also not be shown in the Import Data Files.
 
 1. When prompted, a confirmation pop-up will ask if you want to save the current mapping as a template.
 
@@ -91,7 +91,7 @@ breadcrumbs:
 
 # Import CI using existing Field Mapping Template
 
-1. From the **Select Actions** menu, click **Import CI's**.
+1. From the **Select Actions** menu, click **Import CI’s**.
 
 1. The **Attach CI Data Files** window appears, allowing you to proceed with uploading and mapping the configuration item data files.
 

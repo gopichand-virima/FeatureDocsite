@@ -1,3 +1,203 @@
+---
+title: "Project Template"
+description: "Generate the help and recheck this topic.https://wiki.virima.com/wiki/doku.php?id=admin:projectmanagement:project_template&amp;s[]=phase"
+version: ""
+module: "Admin Project Mngmnt"
+section: "Project Template"
+page: "Project Template"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Admin Project Mngmnt"
+  - "Project Template"
+  - "Project Template"
+---
+
 # Project Template
 
-Content for Project Template - Version 6.1
+Generate the help and recheck this topic.  
+
+
+Use this function to create a project template that defines the basic structure of a project.
+
+
+A project template can be created, edited, and deleted by all the Roles expect the end user.
+
+
+In the navigation pane, click **Admin > Project Management > Project Template**. The Project Template window displays.
+
+New Project Template
+
+From the *Select Actions* drop-down list, choose **New Project Template**. The New Project Template window displays.
+
+Enter a *Name* and *Description*
+
+In the *Cost Center* field, click **Add**, then search for and select the applicable cost center.
+
+In the *Duration* field, enter the length of time this template is valid.
+
+In the *Billing Code* field, enter the code associated with billing.
+
+When all selections/entries are made, click **Add**.
+
+Once the template has been created, it must be edited to add more information.  *See Phases.*
+
+Phases
+
+A project template always starts with a phase and then has associated tasks. A project can be associated with multiple phases and, in turn, a phase can have multiple tasks.
+
+In the Project Template window, select an existing template.
+
+Click the **Phases** tab.
+
+From the *Select Actions* drop-down list, choose **Add Phase**. The Phase Information dialog box displays.
+
+Complete the fields, referring to the table below.
+
+When all selections/entries are made, click Add.
+
+### Phase Information Fields
+
+| Field | Description |
+
+| Type | Specifies the phase name. |
+
+| Duration | Indicates the number of days by which the phase or task must be completed. Duration is based on the organization working days. |
+
+| Name | The name for the task. |
+
+| Planned Start | For the first phase, the date will be set to value of the Project’s Planned Start. Subsequent Phases Planned Start will be computed based on the previous phase’s duration. In other words this date will be same as the previous phase’s Planned End date. |
+
+| Planned End | Computed based on the latest due date of that phase or task deliverable/milestone. |
+
+| Actual Start | This filed is set automatically when the State of a Phase is set to Started and also when the Project is set to Active.
+
+The State for the First phase is set to Started the moment the any of the deliverable/milestone task is completed. Once a date is set, there can be no further modifications made. |
+
+| Actual End | This date is computed and set, when that phase’s task state is set to ‘Completed.’ Once this date is set, it cannot be changed. |
+
+| Status | There are four statuses:
+
+- **Not started**. Initial stage of a phase/task.
+- **Started**. It indicates that a phase/task is started and sets the actual start date of a phase/task.
+- **Active**. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active.
+- **Completed**. Indicates that the task is completed and it sets the actual end date.
+
+This field cannot be edited for a Project Template.
+
+A Phase is marked as *Completed* when *Go under Review* is selected.
+
+Once a phase/task is completed, attributes are no longer editable. |
+
+| Gate Type | This is available only for Phase. There are two types of Gates:
+
+**Hard Gate**. If a phase has a hard gate its successor phase cannot be started/made active without completing its top level phase. Hard Gate phases are shown in red.
+**Soft Gate**. If a phase has a soft gate its successor phase can be made active/started irrespective of its top level phase |
+
+| Review | This is available only for Phase.
+
+- **Go.** This option will be available only when all the mandatory tasks of a phase are completed. Selecting this option marks the current phase as Completed and the succeeding phase status will be changed to Active automatically.
+- **Suspended**. A phase can be suspended at any status and that would in turn suspend the project. |
+
+| Percentage Complete | The percentage of completion for this phase. |
+
+| Notes | Additional information about this phase. |
+
+
+Gate type can be changed only during the Not Started State.
+
+
+Tasks
+
+
+A phase and its associated tasks (even if the tasks status is Not Started) cannot be Deleted/Edited once the phase is Completed or Suspended. An alert message displays if this is the case.
+
+
+Locate the line item containing the phase to which a task will be added.
+
+Click the **plus + sign** on the right-hand side of the row. The Task Information window displays.
+
+Complete the fields, referring the table below.
+
+When all selections/entries are made, click **Add**.
+
+### Task Information Fields
+
+| Field | Description |
+
+| Type | Specifies the task type. Task Type is available only for Task and indicates the type of a task.
+
+Click the drop-down list and select the relevant type: *Milestone*, *Deliverable*, *Change* *Task*, *Request Task* and *Release Task*.
+
+For tasks types *Change*, *Request*, and *Release*, respective records can be created when a task is created. Click the link to associate the Change, Request, or Release.
+
+Deliverable/Milestone is the final stage of a task. |
+
+| Duration | Indicates the number of days by which the task must be completed. Duration is based on the organization working days. |
+
+| Name | The name for the task. |
+
+| Planned Start | The date on which the task will begin. |
+
+| Planned End | Computed based on the latest due date of that task deliverable/milestone. |
+
+| Actual Start | This filed is set automatically when the state is set to Started and also when the Project is set to Active. |
+
+| Actual End | This date is computed and set, when the task's state is set to ‘Completed.’ |
+
+| Status | There are four statuses:
+
+- **Not started**. Initial stage of a phase/task.
+- **Started**. It indicates that a phase/task is started and sets the actual start date of a phase/task.
+- **Active**. This status set the actual start date of a phase/task as well. The first phase of the project will be set to Active automatically, when the project status is changed to Active.
+- **Completed**. Indicates that the task is completed and it sets the actual end date.
+
+This field is cannot be edited for a Project Template.
+
+A Phase is marked as completed when Go under Review is selected.
+
+Once a phase/task is completed then you won’t be able edit any attributes. |
+
+| Mandatory | Specifies this task must be completed. |
+
+| Percentage Complete | Indicates the percentage of the task completed. This value must be manually entered. |
+
+| Notes | Additional information about this task. |
+
+
+Once a task is started, the *Task Type* cannot be changed.
+
+
+Once a start date is set, there can be no further modifications made.
+
+
+Once this end date is set, it cannot be changed.
+
+
+Other Functions
+
+- To move a task up or down in the list, click **the up/down arrows**.
+- To delete a task, click the **Trashcan** icon.
+- To update the project duration after any changes are made to an existing task, or a task or phase is added, click the **Refresh icon**. This will reset the baseline.
+- To add information for the related areas, select a task. Then, in the Task Information dialog box, click the applicable tab.
+
+
+The tabs change based upon the *Task Type*.
+
+- **Predecessor**. Check the box of a phase to show the preceding phases and its associated tasks.
+
+- **Assignee**. Check a user name to assign to the task, and enter the Start and End dates. An Assignee has to be defined in the parent phase, and only those assignees can be assigned for its associated tasks. These are dates that will be shown as the Assignee in the Resource Chart.
+
+- **Attachments**. To add an attachment, click **Add Attachment**, then in the Attach File dialog box **Browse** for and select the attachment, enter a description (optional), and click **Upload**.
+
+- **Associated Requests**. If a Request/Change/Release is created from the task, then its associated Request/Change/Release is displayed.
+
+- **Time Tracking.** To keep track of time spent by an Assignee on a task, the hours are entered manually. Once the Time Tracker is added by the Assignee, the same information is shown the [Resource Chart](/prog_proj_mngmnt/projects_6_1.mdx#ResourceChart).
+
+The *Select Actions* drop-down list includes these options:
+
+- **Add Phase**. Creates a phase.
+- **Rebaseline Project**. Updates the project after any changes are made to an existing task, or a task or phase is added.
+- **View RunBook**. Displays a list of related Runbook records.
+
+Edit Project Template Delete Project Template

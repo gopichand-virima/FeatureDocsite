@@ -289,6 +289,16 @@ function isPriorityFile(pathOrSlug: string): boolean {
  * Fetches content from a file path
  * Tries multiple strategies to load MDX content (CORRECT ORDER)
  */
+// Get base path from Vite config or default to /FeatureDocsite/
+function getBasePath(): string {
+  // Check if we're in a GitHub Pages environment
+  const pathname = window.location.pathname;
+  if (pathname.startsWith('/FeatureDocsite/')) {
+    return '/FeatureDocsite';
+  }
+  return '';
+}
+
 async function fetchContent(filePath: string): Promise<string> {
   // Safety: Remove backticks if somehow they still exist
   let cleanPath = filePath;
@@ -297,8 +307,16 @@ async function fetchContent(filePath: string): Promise<string> {
     cleanPath = cleanPath.slice(1, -1);
   }
   
-  console.log(`📥 [fetchContent] Input: ${cleanPath}`);
-  const isFullPath = cleanPath.startsWith('/content/') || cleanPath.startsWith('content/');
+  // Add base path for absolute paths
+  const basePath = getBasePath();
+  if (cleanPath.startsWith('/content/')) {
+    cleanPath = `${basePath}${cleanPath}`;
+  } else if (cleanPath.startsWith('content/')) {
+    cleanPath = `${basePath}/${cleanPath}`;
+  }
+  
+  console.log(`📥 [fetchContent] Input: ${filePath} -> ${cleanPath}`);
+  const isFullPath = cleanPath.includes('/content/') || cleanPath.includes('content/');
   console.log(`📥 [fetchContent] Is full path: ${isFullPath}`);
   console.log(`📥 [fetchContent] Current version: ${currentVersion}`);
   
@@ -376,11 +394,17 @@ async function fetchContent(filePath: string): Promise<string> {
   
   const priorityFilePath = getPriorityFilePath(cleanPath);
   if (priorityFilePath) {
-    console.log(`✅ [Strategy 1] Found in priority registry! Path: ${priorityFilePath}`);
+    // Add base path to priority file path
+    const basePath = getBasePath();
+    const fullPriorityPath = priorityFilePath.startsWith('/') 
+      ? `${basePath}${priorityFilePath}` 
+      : `${basePath}/${priorityFilePath}`;
+    
+    console.log(`✅ [Strategy 1] Found in priority registry! Path: ${fullPriorityPath}`);
     
     // Try Method A: Dynamic import with ?raw suffix
     try {
-      const rawPath = `${priorityFilePath}?raw`;
+      const rawPath = `${fullPriorityPath}?raw`;
       const module = await import(/* @vite-ignore */ rawPath);
       
       if (module && module.default) {
@@ -395,7 +419,7 @@ async function fetchContent(filePath: string): Promise<string> {
     
     // Try Method B: Regular fetch with HTML extraction
     try {
-      const response = await fetch(priorityFilePath);
+      const response = await fetch(fullPriorityPath);
       if (response.ok) {
         const text = await response.text();
         
@@ -559,7 +583,12 @@ export async function hasContent(filePath: string): Promise<boolean> {
   
   // Try to fetch it
   try {
-    const response = await fetch(filePath, { method: 'HEAD' });
+    // Add base path for file existence check
+    const basePath = getBasePath();
+    const fullFilePath = filePath.startsWith('/') 
+      ? `${basePath}${filePath}` 
+      : `${basePath}/${filePath}`;
+    const response = await fetch(fullFilePath, { method: 'HEAD' });
     return response.ok;
   } catch {
     return false;

@@ -49,6 +49,7 @@
   }
 
   export default defineConfig({
+    base: '/FeatureDocsite/',
     plugins: [
       react(),
       copyContentPlugin(),

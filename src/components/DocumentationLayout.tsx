@@ -412,7 +412,7 @@ export function DocumentationLayout({
         {/* Main content area */}
         <div className="flex-1 flex overflow-hidden">
           <main
-            className="flex-1 overflow-auto bg-white"
+            className={`flex-1 ${isHomePage ? 'overflow-visible' : 'overflow-auto'} bg-white`}
             ref={contentContainerRef}
           >
             {children}

@@ -2,7 +2,6 @@ import {
   ArrowRight,
   PieChart,
   Database,
-  FlaskConical,
   FileText,
   AlertTriangle,
   Monitor,
@@ -13,8 +12,6 @@ import {
   Search,
   Command,
   BookOpen,
-  Globe,
-  Lock,
   Zap,
   Workflow,
   Layers,
@@ -244,12 +241,12 @@ export function HomePage3D({ onModuleSelect }: HomePage3DProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="w-full h-full bg-white overflow-hidden relative" style={{ minHeight: 'calc(100vh - 64px)' }}>
       {/* Hero Section with 3D Design */}
-      <div className="relative min-h-screen flex items-center overflow-hidden">
+      <div className="relative w-full flex items-center" style={{ minHeight: '100vh', overflow: 'visible' }}>
         {/* Left Side - White Background with Hexagons */}
         <div 
-          className="absolute left-0 top-0 w-2/3 h-full bg-white z-10"
+          className="absolute left-0 top-0 w-2/3 h-full bg-white z-10 overflow-visible"
           style={{
             transform: `perspective(1000px) rotateY(${(mousePosition.x - 50) * 0.01}deg)`,
             transformStyle: "preserve-3d",
@@ -266,15 +263,15 @@ export function HomePage3D({ onModuleSelect }: HomePage3DProps) {
           ))}
 
           {/* Content on White Background */}
-          <div className="relative z-20 h-full flex flex-col justify-center items-start pl-12 pr-8">
+          <div className="relative z-20 h-full flex flex-col justify-center items-start pl-8 md:pl-12 pr-4 md:pr-8">
             <div className="max-w-2xl">
-              <h1 className="text-7xl lg:text-9xl font-bold text-slate-900 mb-6 tracking-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-slate-900 mb-4 md:mb-6 tracking-tight">
                 Virima
               </h1>
-              <p className="text-3xl lg:text-4xl text-slate-900 mb-4 leading-relaxed">
+              <p className="text-2xl sm:text-3xl md:text-4xl text-slate-900 mb-3 md:mb-4 leading-relaxed">
                 Welcome to the Documentation Platform
               </p>
-              <p className="text-xl lg:text-2xl text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl text-slate-600 mb-6 md:mb-8 leading-relaxed">
                 Explore comprehensive feature documentation, release notes, and more across all Virima modules and versions.
               </p>
 
@@ -316,7 +313,7 @@ export function HomePage3D({ onModuleSelect }: HomePage3DProps) {
 
         {/* Right Side - Large Green Shape with Cut-outs */}
         <div 
-          className="absolute right-0 top-0 w-1/3 h-full z-0"
+          className="absolute right-0 top-0 w-1/3 h-full z-0 overflow-visible"
           style={{
             transform: `perspective(1000px) rotateY(${(mousePosition.x - 50) * -0.01}deg)`,
             transformStyle: "preserve-3d",
@@ -379,7 +376,7 @@ export function HomePage3D({ onModuleSelect }: HomePage3DProps) {
       />
 
       {/* Value Proposition Section */}
-      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-8 pb-0 lg:pt-12 lg:pb-0 relative z-20">
+      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-8 pb-0 lg:pt-12 lg:pb-0 relative z-20 w-full">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-slate-900 mb-8 tracking-tight">

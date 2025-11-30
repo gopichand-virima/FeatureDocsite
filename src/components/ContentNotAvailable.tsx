@@ -8,9 +8,10 @@ import { AlertTriangle } from 'lucide-react';
 interface ContentNotAvailableProps {
   filePath?: string;
   errorDetails?: string;
+  version?: string;
 }
 
-export function ContentNotAvailable({ filePath, errorDetails }: ContentNotAvailableProps) {
+export function ContentNotAvailable({ filePath, errorDetails, version }: ContentNotAvailableProps) {
   return (
     <div className="border-l-4 border-l-amber-500 bg-amber-50 rounded-r-md p-6">
       <div className="flex items-start gap-3">
@@ -19,6 +20,9 @@ export function ContentNotAvailable({ filePath, errorDetails }: ContentNotAvaila
           <h3 className="text-amber-800 font-semibold text-lg">Content Not Available</h3>
           <p className="text-slate-700">
             The documentation for this page is currently being prepared.
+            {version && (
+              <span className="text-amber-700 font-medium"> (Version {version} only)</span>
+            )}
           </p>
           {filePath && (
             <div className="space-y-2">

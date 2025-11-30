@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { DocumentationLayout } from './components/DocumentationLayout';
 import { DocumentationContent } from './components/DocumentationContent';
-import { HomePage3D } from './components/HomePage3D';
+import { CoverPage } from './components/CoverPage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
@@ -221,7 +221,7 @@ export default function App() {
         onSearchDialogOpen={() => setSearchDialogOpen(true)}
       >
         {showHomePage ? (
-          <HomePage3D onModuleSelect={handleModuleChange} />
+          <CoverPage onModuleSelect={handleModuleChange} />
         ) : (
           <DocumentationContent
             version={selectedVersion}

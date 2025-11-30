@@ -5,7 +5,7 @@ This document provides a comprehensive summary of all registered MDX content fil
 
 ## Registration Statistics
 
-**Total Files Registered: 634 files** (Target was 610 - exceeded by 24 files!)
+**Total Files Registered: 822 files**
 
 ### Breakdown by Registration File:
 
@@ -36,7 +36,8 @@ This document provides a comprehensive summary of all registered MDX content fil
    - ITSM Config Management: 3 files
    - ITAM Nested: 17 files
 
-4. **registerAdminModules.ts** - 80 files
+4. **registerAdminModules.ts** - 84 files
+   - Admin Overview: 4 files (overview for all 4 versions)
    - Admin Change Management: 19 files
    - Admin Incident Management: 8 files
    - Admin Problem Management: 6 files
@@ -59,6 +60,9 @@ This document provides a comprehensive summary of all registered MDX content fil
    - ITAM Extended: 17 files
    - Additional Modules: 23 files
    - Comprehensive Additional: 185 files
+
+6. **registerNextGenContent.ts** - 184 files
+   - NextGen-specific content for all modules
 
 ## Module Distribution
 
@@ -169,7 +173,7 @@ When the application loads, you'll see console messages indicating successful re
 ✅ [Admin Discovery] Registered 73 admin discovery files
 ✅ [CMDB] Registered 41 CMDB files
 ... (and so on)
-🎉 [Registration Complete] All 634 MDX files registered!
+🎉 [Registration Complete] All 822 MDX files registered!
 ```
 
 ## Topics from Image
@@ -203,3 +207,22 @@ The topics shown in your image are all registered in the Admin Discovery section
 - Each file has meaningful descriptions based on its filename and location
 - The green resize indicator values (2px width, 0.4 opacity) remain unchanged as requested
 - Version isolation is maintained - each version has independent content
+
+## Recent Changes
+
+### Admin Module Restructuring (Latest)
+- ✅ Removed "About Admin" topic from all versions
+- ✅ Removed "Admin Functions" topic from Overview section
+- ✅ Created new "Overview" pages for all 4 versions (5.13, 6.1, 6.1.1, NextGen)
+- ✅ Merged About Admin content into Overview pages
+- ✅ Updated TOC structure in `/utils/indexContentMap.ts`
+- ✅ Registered all 4 Overview files in `/content/registerAdminModules.ts`
+- ✅ Updated error handling instructions in `/components/ContentNotAvailable.tsx`
+- ✅ Deleted 7 files total:
+  - about_admin_6_1.mdx
+  - about_admin_ng.mdx
+  - admin_functions_new_6_1.mdx
+  - admin_functions_old_6_1.mdx
+  - admin_functions_v5_6_1.mdx
+  - admin_functions_v6_6_1.mdx
+  - admin_mngmnt_functions_6_1.mdx

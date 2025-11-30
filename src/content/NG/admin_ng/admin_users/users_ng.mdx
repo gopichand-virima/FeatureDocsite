@@ -1,25 +1,8 @@
----
-title: "Users"
-description: "Use this function to create new users in the application."
-version: ""
-module: "Admin Users"
-section: "Users"
-page: "Users"
-breadcrumbs:
-  - "Home"
-  - ""
-  - "Admin Users"
-  - "Users"
-  - "Users"
----
-
 # Users
 
 Use this function to create new users in the application.
 
-
 [Role Access](/admin_other/role_access_ng.mdx) permissions must be set before adding a user.
-
 
 In the main window, click **Admin > Users > Users**. The Access Management window displays.
 
@@ -34,15 +17,10 @@ When all selections/entries are made, click **Add**.
 ### New User Details Fields
 
 | Field | Description |
-
 | Email | User's email address. |
-
 | Username | Username for logging into the system. |
-
 | Is VIP | Identifies a user for whom their tickets are given a 1-Priority, by default. |
-
 | Is Active | When selected, the user is active in the application and can perform the assigned activities. |
-
 | Enable MFA | When enabled, upon trying to log in, the user receives an email verification screen and can select to use either **Email** or **Two-Factor Authentication**.
 
 ![MFA 6.1](../Resources/Images/Admin%20-%20Users/MFA_6.1.png)
@@ -53,73 +31,56 @@ If **Email** is selected, an MFA code is sent and that code must be entered. If 
 **Two-Factor Authentication**
 If **Two-Factor Authentication** is selected, follow the instructions in this dialog box and do one of the following:
 
-If the QR code is scanned, click **Continue**, check the Google Authenticator app, enter the token, and click **Verify Token**.
+If the QR code is scanned, click **Continue**, check the Google Authenticator app, enter the token, and click **Verify Token**.
 
 ![MFA Twofactor 6.1](../Resources/Images/Admin%20-%20Users/MFA_Twofactor_6.1.png)
 
 Enter the code shown into the Google Authenticator app.
 
 To disable the verification process, click **Reset MFA**. |
-
 | Authentications | Check based on the organization authentication process. Choices are AD, AZURE AD, SAML, and Normal. |
-
 | Password | The password associated with the username. The password must be validated by entering it a second time in the **Re-Enter Password** field. To display the password, click **Show Password** checkbox or click the **Show** icon. |
-
-| User Profile Fields | Requires **First Name** and **Last Name**. **Display Name** is optional and, by default, is set to “FirstName LastName,” customize if needed. |
-
+| User Profile Fields | Requires **First Name** and **Last Name**. **Display Name** is optional and, by default, is set to "FirstName LastName," customize if needed. |
 | User Information Fields | Specifies the information to display within the application. |
-
 | [Location](/admin_org_details/locations_ng.mdx) | Specifies the location of the user.
 
 Click **Add** and, in the Location dialog box, search for and select the applicable location. If a location is not shown, it has not been set up in the application.
 
 Click the **plus + sign** then search for and select the applicable location. |
-
 | [Roles](/admin_users/user_roles_ng.mdx) | Assigns a role(s) to the user that allows the user to perform assigned responsibilities.
 
 Click **Add** and in the Roles dialog box, search for and select the applicable role(s).
 
 Click the **plus + sign** then search for and select the applicable role(s). |
-
 | [Departments](/admin_org_details/departments_ng.mdx) | Associates the user with a department.
 
 Click **Add** then search for and select the applicable department.
 
 Click the **plus + sign** then search for and select the applicable department. |
-
 | [Groups](/admin_users/user_groups_ng.mdx) | Associates the user with a group.
 
 Click **Add** then search for and select the applicable group.
 
 Click the **plus + sign** then search for and select the applicable group. |
-
 | Report To | Specifies to whom the user reports.
 
 Click **Add** then search for and select the applicable user.
 
 Click the **plus + sign** then search for and select the applicable user. |
-
 | [Designation](/admin_org_details/designations_ng.mdx) | Assigns a designation to the user.
 
 Click **Add** then search for and select the applicable designation.
 
 Click the **plus + sign** then search for and select the applicable designation. |
-
 | Profile Picture | Displays a profile picture for the user. Click **Upload**. In the Attach File dialog box, **Browse** to the location of the photo, select the photo, then click **OK**. |
-
 | Landing Page | Specifies the page that displays to the user on first accessing the application. |
-
 | Language | Specifies the users language. |
-
 
 If a VIP user is selected as a Reporter/Requester to raise an ITSM record, by default the priority of an ITSM record will be set to 1-Very High.
 
-
 If unchecked, an Alert message displays when the user tries to log in to the application.
 
-
 For details on using the Google Authenticator app, [click here](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US).
-
 
 Import New Users
 
@@ -153,9 +114,7 @@ In the list, highlight each user for which MFA should be enabled. If not selecti
 
 Click **Enable MFA**.
 
-
 To reset MFA, open the user's profile and click **Reset MFA**.
-
 
 Resource Chart
 

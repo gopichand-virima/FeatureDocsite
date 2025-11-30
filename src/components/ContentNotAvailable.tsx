@@ -38,8 +38,15 @@ export function ContentNotAvailable({ filePath, errorDetails }: ContentNotAvaila
             </p>
             <ol className="list-decimal list-inside space-y-1 text-sm text-slate-600 ml-1">
               <li>Create the MDX file at the path shown above</li>
-              <li>Map the topic in the respective version's <code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">index.mdx</code> file</li>
-              <li>Add the import and path mapping in <code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">contentLoader.ts</code></li>
+              <li>Update the TOC structure in <code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">/utils/indexContentMap.ts</code></li>
+              <li>Register the content in the appropriate registration file:
+                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5">
+                  <li><code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">/content/registerAdminModules.ts</code> for Admin module</li>
+                  <li><code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">/content/registerAllContent.ts</code> for core modules</li>
+                  <li><code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">/content/registerNestedContent.ts</code> for nested sections</li>
+                  <li><code className="px-1.5 py-0.5 bg-slate-100 rounded text-amber-700">/content/registerNextGenContent.ts</code> for NextGen-specific content</li>
+                </ul>
+              </li>
             </ol>
           </div>
         </div>

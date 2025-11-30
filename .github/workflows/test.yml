@@ -53,7 +53,7 @@ jobs:
 
       - name: Verify build artifacts
         run: |
-          echo "Verifying build output..."
+          echo "🔍 Verifying build output..."
           if [ ! -d "build" ]; then
             echo "❌ Error: Build directory not found!"
             exit 1
@@ -71,21 +71,46 @@ jobs:
           # Check for common build artifacts
           if [ -d "build/assets" ]; then
             echo "✅ Assets directory found"
-            echo "Asset files:"
+            ASSET_COUNT=$(find build/assets -type f | wc -l)
+            echo "  📦 Asset files: $ASSET_COUNT"
             find build/assets -type f | head -10
+          fi
+          
+          # Verify content directory exists
+          if [ -d "build/content" ]; then
+            echo "✅ Content directory found"
+            CONTENT_MDX=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
+            echo "  📄 MDX files: $CONTENT_MDX"
+            
+            # Verify key version directories
+            for version in "5_13" "6_1" "6_1_1" "NG"; do
+              if [ -d "build/content/$version" ]; then
+                VERSION_MDX=$(find "build/content/$version" -name "*.mdx" 2>/dev/null | wc -l)
+                echo "  ✅ Version $version: $VERSION_MDX MDX files"
+              fi
+            done
+          else
+            echo "⚠️  Warning: Content directory not found in build"
           fi
 
       - name: Check build size
         run: |
           BUILD_SIZE=$(du -sh build | cut -f1)
           FILE_COUNT=$(find build -type f | wc -l)
+          MDX_COUNT=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
           echo "📦 Build size: $BUILD_SIZE"
           echo "📄 Total files: $FILE_COUNT"
+          echo "📄 MDX content files: $MDX_COUNT"
           
-          # Warn if build is unusually large (> 50MB)
+          # Warn if build is unusually large (> 100MB)
           BUILD_SIZE_BYTES=$(du -sb build | cut -f1)
-          if [ "$BUILD_SIZE_BYTES" -gt 52428800 ]; then
-            echo "⚠️ Warning: Build size exceeds 50MB"
+          if [ "$BUILD_SIZE_BYTES" -gt 104857600 ]; then
+            echo "⚠️  Warning: Build size exceeds 100MB"
+          fi
+          
+          # Warn if too few MDX files (expected thousands)
+          if [ "$MDX_COUNT" -lt 100 ]; then
+            echo "⚠️  Warning: Expected more MDX files (found $MDX_COUNT)"
           fi
 
       - name: Test build output accessibility

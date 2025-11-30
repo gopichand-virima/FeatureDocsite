@@ -1,0 +1,316 @@
+---
+title: "Change Approval Process"
+description: "Understanding the change approval workflow in Virima"
+version: ""
+module: "Itsm"
+section: "Change Management"
+page: "Change Approval Process"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Change Management"
+  - "Change Approval Process"
+---
+
+# Change Approval Process
+
+The change approval process ensures that all changes are properly reviewed, evaluated, and authorized before implementation.
+
+## Approval Workflow Overview
+
+Changes move through different approval stages based on their type, risk, and impact.
+
+### Approval Stages
+
+1. **Initial Review**: Change Manager reviews for completeness
+2. **Technical Approval**: Technical leads assess feasibility
+3. **Business Approval**: Business owners evaluate impact
+4. **CAB Approval**: Change Advisory Board reviews and approves
+5. **Final Authorization**: Final sign-off before implementation
+
+## Approval Roles
+
+### Change Manager
+- Reviews all change requests
+- Ensures completeness of documentation
+- Assigns to appropriate approvers
+- Monitors approval progress
+- Escalates delayed approvals
+
+### Technical Approvers
+- Assess technical feasibility
+- Review implementation plans
+- Validate resource requirements
+- Identify technical risks
+- Approve/reject from technical perspective
+
+### Business Approvers
+- Evaluate business impact
+- Assess timing and scheduling
+- Review communication plans
+- Approve/reject from business perspective
+- Ensure alignment with business objectives
+
+### CAB Members
+- Review complex or high-risk changes
+- Provide multi-disciplinary perspective
+- Assess overall risk vs. benefit
+- Make final approval decisions
+- Set implementation priorities
+
+## Approval Process Steps
+
+### Step 1: Submit for Approval
+
+1. Complete all required change fields
+2. Attach supporting documentation
+3. Click **Submit for Approval**
+4. System sends notifications to approvers
+
+### Step 2: Approver Notification
+
+Approvers receive notifications containing:
+- Change summary
+- Risk assessment
+- Impact analysis
+- Implementation timeline
+- Link to full change details
+
+### Step 3: Review Change
+
+Approvers access the change to:
+- Review all documentation
+- Assess risks and benefits
+- Verify implementation plan
+- Check resource availability
+- Review affected CIs
+
+### Step 4: Approval Decision
+
+Approvers can take the following actions:
+
+#### Approve
+- Indicates agreement with the change
+- May add approval comments
+- Change proceeds to next approval stage
+
+#### Reject
+- Indicates the change should not proceed
+- **Must** provide rejection reason
+- Change returns to requester
+- Can be resubmitted after addressing concerns
+
+#### Request Information
+- Approver needs additional details
+- Change placed on hold
+- Notification sent to change owner
+- Approval resumes after information provided
+
+#### Delegate
+- Transfer approval to another person
+- Used when primary approver unavailable
+- Delegate receives approval request
+- Original approver notified of delegation
+
+### Step 5: Approval Completion
+
+Once all approvals received:
+- Change status updates automatically
+- Notifications sent to relevant parties
+- Change ready for scheduling
+- Implementation can proceed
+
+## Parallel vs Sequential Approvals
+
+### Parallel Approvals
+- Multiple approvers review simultaneously
+- Faster approval process
+- All approvers must approve
+- Single rejection stops the change
+
+**Use When:**
+- Time is critical
+- Approvers review independent aspects
+- No dependencies between approvals
+
+### Sequential Approvals
+- Approvers review in specific order
+- Later approvers see earlier decisions
+- Structured approval hierarchy
+- Each stage builds on previous
+
+**Use When:**
+- Approvals have dependencies
+- Later approvers need context from earlier reviews
+- Hierarchical approval structure required
+
+## Approval Policies
+
+### Automatic Approval Rules
+
+Configure rules for automatic approval:
+
+1. **Standard Changes**: Auto-approved if meet criteria
+2. **Low-Risk Changes**: Approve based on risk score
+3. **Repeat Changes**: Approve similar successful changes
+
+#### Configuration
+1. Navigate to **Admin** > **Change Management** > **Approval Rules**
+2. Define approval criteria
+3. Set conditions for automatic approval
+4. Test rules before activating
+
+### Approval Thresholds
+
+Set thresholds that trigger different approval levels:
+
+- **Financial Impact**: Changes above certain cost require CFO approval
+- **User Impact**: Changes affecting >X users require business approval
+- **System Criticality**: Changes to critical systems require senior management
+- **Risk Level**: High-risk changes require full CAB review
+
+## Approval Delegation
+
+### When to Delegate
+
+- Approver on vacation
+- Approver unavailable
+- Conflicting priorities
+- Out of office
+
+### How to Delegate
+
+1. Open the approval request
+2. Click **Delegate**
+3. Select delegate from user list
+4. Add delegation comment
+5. Click **Confirm Delegation**
+
+### Delegation Rules
+
+- Delegates must have appropriate permissions
+- Original approver notified of delegation
+- Delegation can be temporary or permanent
+- Audit trail maintained for all delegations
+
+## Approval Notifications
+
+### Email Notifications
+
+Automatic emails sent for:
+- New approval requests
+- Approval granted
+- Approval rejected
+- Information requested
+- Approval delegated
+- Overdue approvals
+
+### In-App Notifications
+
+Real-time notifications within Virima for:
+- Pending approvals
+- Approval decisions made
+- Comments added
+- Deadline approaching
+
+## Approval Metrics and Tracking
+
+### Key Metrics
+
+- **Average Approval Time**: Time from submission to final approval
+- **Approval Rate**: Percentage of changes approved vs rejected
+- **Overdue Approvals**: Number and percentage of late approvals
+- **Approver Response Time**: Individual approver performance
+
+### Tracking Dashboard
+
+Monitor approval metrics:
+1. Navigate to **Change Management Dashboard**
+2. Select **Approval Metrics** widget
+3. View real-time approval statistics
+4. Identify bottlenecks
+
+## Escalation Procedures
+
+### Automatic Escalation
+
+If approval not received within timeframe:
+
+1. First reminder: 24 hours before deadline
+2. Second reminder: At deadline
+3. Escalation: 24 hours after deadline to manager
+4. Critical escalation: 48 hours after deadline to senior management
+
+### Manual Escalation
+
+Change managers can manually escalate:
+1. Open the change request
+2. Click **Escalate Approval**
+3. Select escalation level
+4. Add escalation reason
+5. System notifies escalation recipient
+
+## Emergency Approval Process
+
+For emergency changes requiring immediate approval:
+
+### Emergency CAB (ECAB)
+
+1. Contact ECAB members immediately
+2. Present change details
+3. Obtain verbal approval
+4. Document approval in system
+5. ECAB reviews post-implementation
+
+### After-Hours Approval
+
+Process for changes needed outside business hours:
+- Pre-identified on-call approvers
+- Emergency contact procedures
+- Verbal approval with documentation
+- Formal approval within 24 hours
+
+## Approval Audit Trail
+
+All approval activities are logged:
+
+- Who approved/rejected
+- Date and time of decision
+- Comments provided
+- Delegations made
+- Escalations triggered
+- Approval duration
+
+### Viewing Approval History
+
+1. Open change request
+2. Navigate to **Approvals** tab
+3. View complete approval timeline
+4. Export audit trail if needed
+
+## Best Practices
+
+### For Requesters
+- Provide complete information upfront
+- Allow sufficient time for approvals
+- Respond quickly to information requests
+- Keep approvers informed of changes
+
+### For Approvers
+- Review approvals promptly
+- Provide clear, actionable feedback
+- Use rejection only when necessary
+- Delegate when unavailable
+
+### For Change Managers
+- Monitor approval queues
+- Identify and resolve bottlenecks
+- Ensure appropriate approvers assigned
+- Escalate when necessary
+
+## Related Topics
+
+- [CAB Meetings](/content/NG/itsm_ng/change_mngmnt/cab_meetings_ng.mdx)
+- [Change Types](/content/NG/itsm_ng/change_mngmnt/change_types_ng.mdx)
+- [Manage Changes](/content/NG/itsm_ng/change_mngmnt/manage_changes_ng.mdx)

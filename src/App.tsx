@@ -5,7 +5,9 @@ import { HomePage } from './components/HomePage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
+import { MDXRenderingTest } from './components/MDXRenderingTest';
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
+import { setVersion } from './content/contentLoader';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 // Import debug helpers to expose to window
 import './utils/debugHelpers';
@@ -26,8 +28,27 @@ import './content/registerNextGenContent';
 // Import 6.1 Admin Discovery registration
 import './content/register61AdminDiscovery';
 
+// Version mapping: UI version → internal version code
+const versionMap: Record<string, string> = {
+  'NextGen': 'NG',
+  '6.1.1': '6_1_1',
+  '6.1': '6_1',
+  '5.13': '5_13',
+};
+
 export default function App() {
   const [selectedVersion, setSelectedVersion] = useState('NextGen');
+  
+  // Handle version changes - update content loader
+  const handleVersionChange = (newVersion: string) => {
+    setSelectedVersion(newVersion);
+    
+    // Update content loader version
+    const internalVersion = versionMap[newVersion] || newVersion;
+    setVersion(internalVersion);
+    
+    console.log(`🔄 [App] Version changed: ${newVersion} (internal: ${internalVersion})`);
+  };
   const [selectedModule, setSelectedModule] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedPage, setSelectedPage] = useState('');
@@ -37,6 +58,16 @@ export default function App() {
   // Store scroll positions for each page
   const scrollPositions = useRef<Map<string, number>>(new Map());
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Initialize content loader with selected version
+  useEffect(() => {
+    const internalVersion = versionMap[selectedVersion] || selectedVersion;
+    setVersion(internalVersion);
+    console.log(`🚀 [App] Initialized content loader with version: ${internalVersion}`);
+  }, []); // Only run on mount
+
+  // Enable MDX testing mode with URL parameter
+  const showMDXTest = window.location.search.includes('test-mdx');
 
   // Global keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
@@ -148,6 +179,11 @@ export default function App() {
     setSelectedPage('');
   };
 
+  // Show test interface if requested
+  if (showMDXTest) {
+    return <MDXRenderingTest />;
+  }
+
   return (
     <GlobalChatProvider
       currentModule={selectedModule}
@@ -160,7 +196,7 @@ export default function App() {
         <DocumentationLayout
         logo={logo}
         selectedVersion={selectedVersion}
-        onVersionChange={setSelectedVersion}
+        onVersionChange={handleVersionChange}
         selectedModule={selectedModule}
         onModuleChange={handleModuleChange}
         selectedSection={selectedSection}

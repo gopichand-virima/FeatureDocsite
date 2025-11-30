@@ -4,7 +4,8 @@
  * This file provides access to all MDX files as raw text.
  * Since import.meta.glob is not available, we use explicit imports.
  * 
- * To add new files: The system will attempt to dynamically import them.
+ * NOTE: Static MDX imports are now handled in /lib/imports/*.ts files
+ * This manifest is for dynamic loading fallback only.
  */
 
 // Storage for registered MDX content

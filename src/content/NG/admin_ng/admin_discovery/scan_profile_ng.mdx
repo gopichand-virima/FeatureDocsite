@@ -1,3 +1,127 @@
 # Scan Profile
 
-Delete this text and replace it with your own content.
+Use this function to create and manage discovery scan profiles.
+
+A scan profile defines what to discover, how to discover it, and where to discover it. Each profile can include multiple scan types and configurations.
+
+In the main window, click **Admin > Discovery > Scan Profile**. The Scan Profile window displays.
+
+## New Scan Profile
+
+From the *Select Actions* drop-down list, choose **New Scan Profile**. The New Scan Profile window displays.
+
+Enter a *Name* and *Description* for this profile.
+
+### General Settings
+
+Configure the basic profile settings:
+
+- **Client**: Select the discovery client to execute this scan
+- **Scan Type**: Choose the discovery method (Network Scan, Agent-based, Cloud, etc.)
+- **Is Active**: Enable or disable this profile
+
+### Scan Scope
+
+Define what to scan:
+
+**IP Ranges**: Click **Add IP Range** and enter:
+
+- Start IP Address
+- End IP Address
+- Or use CIDR notation
+
+**Exclude IPs**: Specify IPs or ranges to exclude from the scan.
+
+**Ports to Scan**: Enter specific ports or use default port ranges.
+
+### Discovery Methods
+
+Select which discovery protocols to use:
+
+- **ICMP (Ping)**: Basic network reachability
+- **SNMP**: Network device discovery
+- **WMI**: Windows Management Instrumentation
+- **SSH**: Linux/Unix systems
+- **VMware**: Virtual infrastructure
+- **Cloud APIs**: AWS, Azure, GCP
+- **Active Directory**: Domain discovery
+
+For each selected method, click **Configure** to set specific parameters.
+
+### Credentials
+
+Assign credential profiles to use for authenticated scans:
+
+Click **Add Credential Profile**.
+
+Select one or more credential profiles.
+
+Set the priority order for credential attempts.
+
+### Advanced Options
+
+Configure additional discovery settings:
+
+- **Scan Timeout**: Maximum time per device
+- **Concurrent Scans**: Number of simultaneous device scans
+- **Retry Attempts**: Number of retries for failed scans
+- **Performance Impact**: Low, Medium, or High
+- **Discovery Depth**: Quick, Standard, or Deep scan
+
+### Filters and Conditions
+
+Set conditions for discovered data:
+
+- **Include only devices matching**: Define filters
+- **Exclude devices matching**: Define exclusion rules
+- **Tag discovered devices**: Automatically apply tags
+
+When all selections/entries are made, click **Add**.
+
+## Edit Scan Profile
+
+Navigate to the window containing the record to edit.
+
+Click the line containing the record. The applicable window displays.
+
+Make the necessary modifications.
+
+Click **Save**.
+
+## Clone Scan Profile
+
+To create a new profile based on an existing one:
+
+Select a scan profile.
+
+From the *Select Actions* drop-down list, choose **Clone Scan Profile**.
+
+Enter a new name and make any desired modifications.
+
+Click **Add**.
+
+## Run Scan Profile
+
+To execute a scan profile immediately:
+
+Select a scan profile.
+
+From the *Select Actions* drop-down list, choose **Run Now**.
+
+The scan will begin and you can monitor progress in [Manage Discovery Jobs](/admin_discovery/manage_discovery_jobs_ng.mdx).
+
+## Delete Scan Profile
+
+Click the line that contains the item to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Go To Page](/common_functions/go_to_page_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Records per Page](/common_topics/records_per_page_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

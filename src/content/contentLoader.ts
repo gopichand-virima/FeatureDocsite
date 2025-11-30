@@ -1,12 +1,12 @@
 /**
- * Content Loader - Dynamically loads content based on TOC hierarchy
+ * Content Loader - FIXED STRATEGY ORDER
  * 
- * This loader automatically:
- * 1. Reads index.mdx files (TOC hierarchy)
- * 2. Discovers all content files
- * 3. Loads content on-demand
+ * Priority: Actual MDX Files → MDX Bundle → Fetch → Registry (fallback only)
  * 
- * NO MANUAL UPDATES NEEDED - Just edit index.mdx files!
+ * Strategy 1: Static MDX imports (ACTUAL CONTENT - HIGHEST PRIORITY)
+ * Strategy 2: MDX Bundle (compiled content)
+ * Strategy 3: Fetch from server
+ * Strategy 4: Registry (FALLBACK ONLY - placeholder content)
  */
 
 import { 
@@ -16,6 +16,189 @@ import {
 } from '../utils/hierarchicalTocLoader';
 import { getMDXContent } from './mdxContentBundle';
 import { getRegisteredContent, isContentRegistered } from './mdxContentRegistry';
+
+// Import priority file registries
+import { adminMDXFilePaths, getAdminFilePath } from '../lib/imports/adminMDXImports';
+// Add other module imports as needed:
+// import { discoveryMDXFilePaths, getDiscoveryFilePath } from '../lib/imports/discoveryMDXImports';
+
+// Current version (can be changed dynamically)
+let currentVersion = '6_1';
+
+/**
+ * Extracts MDX content from HTML wrapper
+ * Tries multiple extraction methods, with special handling for Figma Make wrappers
+ */
+function extractMDXFromHTML(html: string): string | null {
+  // Method 0: Check if this is actually raw MDX (not HTML at all)
+  // If it starts with # or doesn't contain HTML tags, return as-is
+  if (!html.includes('<') && !html.includes('>')) {
+    // No HTML tags, likely raw MDX
+    if (html.trim().length > 20) {
+      console.log(`  ✅ Method 0 (raw MDX): Content is already raw (${html.length} chars)`);
+      return html.trim();
+    }
+  }
+  
+  // Method 1: Try <pre> tag (most common for code blocks)
+  const preMatch = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
+  if (preMatch && preMatch[1]) {
+    const decoded = decodeHTMLEntities(preMatch[1]);
+    // Check if it looks like MDX (starts with #, contains markdown syntax)
+    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+      console.log(`  ✅ Method 1 (<pre>): Extracted ${decoded.length} chars`);
+      return decoded.trim();
+    }
+  }
+  
+  // Method 2: Try <code> tag
+  const codeMatch = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
+  if (codeMatch && codeMatch[1]) {
+    const decoded = decodeHTMLEntities(codeMatch[1]);
+    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+      console.log(`  ✅ Method 2 (<code>): Extracted ${decoded.length} chars`);
+      return decoded.trim();
+    }
+  }
+  
+  // Method 3: Try nested <pre><code>
+  const nestedMatch = html.match(/<pre[^>]*>\s*<code[^>]*>([\s\S]*?)<\/code>\s*<\/pre>/i);
+  if (nestedMatch && nestedMatch[1]) {
+    const decoded = decodeHTMLEntities(nestedMatch[1]);
+    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+      console.log(`  ✅ Method 3 (nested): Extracted ${decoded.length} chars`);
+      return decoded.trim();
+    }
+  }
+  
+  // Method 4: Try to find content in <body> but exclude scripts
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (bodyMatch && bodyMatch[1]) {
+    // Remove scripts and styles first
+    let content = bodyMatch[1]
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+    
+    // Try to find text content that looks like MDX
+    // Look for patterns like # heading, **bold**, [links]
+    const mdxPattern = /(?:^|\n)(#{1,6}\s+[^\n]+|(?:\*\*[^\*]+\*\*)|(?:\[[^\]]+\]\([^\)]+\)))/m;
+    if (mdxPattern.test(content)) {
+      // Remove all HTML tags
+      content = content.replace(/<[^>]+>/g, '');
+      content = decodeHTMLEntities(content);
+      if (content.trim().length > 50) {
+        console.log(`  ✅ Method 4 (<body> MDX pattern): Extracted ${content.trim().length} chars`);
+        return content.trim();
+      }
+    }
+  }
+  
+  // Method 5: Try to find MDX content by looking for markdown patterns
+  // This handles cases where MDX might be in a script tag or other wrapper
+  const mdxPatterns = [
+    /(#{1,6}\s+[^\n<]+(?:\n|$)[\s\S]{50,})/m,  // Heading followed by content
+    /(\*\*[^\*]+\*\*[\s\S]{50,})/m,  // Bold text with content
+    /(\[[^\]]+\]\([^\)]+\)[\s\S]{50,})/m,  // Links with content
+  ];
+  
+  for (const pattern of mdxPatterns) {
+    const match = html.match(pattern);
+    if (match && match[1]) {
+      let content = match[1]
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+        .replace(/<[^>]+>/g, '');
+      content = decodeHTMLEntities(content);
+      if (content.trim().length > 50) {
+        console.log(`  ✅ Method 5 (MDX pattern match): Extracted ${content.trim().length} chars`);
+        return content.trim();
+      }
+    }
+  }
+  
+  // Method 6: Last resort - strip all HTML and scripts, look for MDX-like content
+  let stripped = html
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')  // Remove all scripts
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')    // Remove all styles
+    .replace(/<[^>]+>/g, '');                          // Remove all HTML tags
+  stripped = decodeHTMLEntities(stripped);
+  
+  // Check if the stripped content looks like MDX (has headings, markdown syntax)
+  if (stripped.trim().length > 50 && (stripped.includes('#') || stripped.includes('**') || stripped.includes('['))) {
+    console.log(`  ✅ Method 6 (strip all - MDX detected): Extracted ${stripped.trim().length} chars`);
+    return stripped.trim();
+  }
+  
+  // If all else fails, log detailed debug info
+  console.error(`  ❌ All extraction methods failed`);
+  console.log(`  📊 HTML structure:`, {
+    length: html.length,
+    hasDoctype: html.includes('<!DOCTYPE'),
+    hasHtml: html.includes('<html'),
+    hasPre: html.includes('<pre'),
+    hasCode: html.includes('<code'),
+    hasBody: html.includes('<body'),
+    hasScript: html.includes('<script'),
+    first500: html.substring(0, 500)
+  });
+  
+  return null;
+}
+
+/**
+ * Decodes HTML entities to plain text
+ */
+function decodeHTMLEntities(text: string): string {
+  // Create a temporary element to decode entities
+  const txt = document.createElement('textarea');
+  txt.innerHTML = text;
+  let decoded = txt.value;
+  
+  // Additional manual decoding for common entities
+  decoded = decoded
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2F;/g, '/')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–')
+    .replace(/&hellip;/g, '…');
+  
+  return decoded;
+}
+
+/**
+ * Sets the current version for content loading
+ * @param version - Version identifier ('6_1', '6_1_1', '5_13', 'NG')
+ */
+export function setVersion(version: string): void {
+  const validVersions = ['6_1', '6_1_1', '5_13', 'NG'];
+  
+  if (!validVersions.includes(version)) {
+    console.error(`❌ Invalid version: ${version}. Valid versions: ${validVersions.join(', ')}`);
+    return;
+  }
+  
+  const oldVersion = currentVersion;
+  currentVersion = version;
+  console.log(`🔄 [Content Loader] Version switched: ${oldVersion} → ${currentVersion}`);
+  
+  // Clear cache when version changes
+  clearContentCache();
+}
+
+/**
+ * Gets the current version
+ */
+export function getCurrentVersion(): string {
+  return currentVersion;
+}
+
+console.log(`📦 [Content Loader] Initialized with version: ${currentVersion}`);
 
 // Cache for loaded content
 const contentCache = new Map<string, string>();
@@ -69,8 +252,42 @@ async function discoverContentFiles(version: string): Promise<string[]> {
 }
 
 /**
+ * Gets the file path for a priority file from version-aware registry
+ * @param pathOrSlug - File path or URL slug
+ * @returns File path or null if not found
+ */
+function getPriorityFilePath(pathOrSlug: string): string | null {
+  // Clean the input (remove leading/trailing slashes)
+  const cleanInput = pathOrSlug.replace(/^\/+|\/+$/g, '');
+  
+  console.log(`🔍 [getPriorityFilePath] Input: "${cleanInput}"`);
+  console.log(`🔍 [getPriorityFilePath] Current version: ${currentVersion}`);
+  
+  // Try admin module
+  const adminPath = getAdminFilePath(cleanInput, currentVersion);
+  if (adminPath) {
+    console.log(`✅ [getPriorityFilePath] Found in admin registry: ${adminPath}`);
+    return adminPath;
+  }
+  
+  // Add other modules here:
+  // const discoveryPath = getDiscoveryFilePath(cleanInput, currentVersion);
+  // if (discoveryPath) return discoveryPath;
+  
+  console.log(`❌ [getPriorityFilePath] Not found in any registry`);
+  return null;
+}
+
+/**
+ * Checks if a path/slug is in the priority list for current version
+ */
+function isPriorityFile(pathOrSlug: string): boolean {
+  return getPriorityFilePath(pathOrSlug) !== null;
+}
+
+/**
  * Fetches content from a file path
- * Tries multiple strategies to load MDX content
+ * Tries multiple strategies to load MDX content (CORRECT ORDER)
  */
 async function fetchContent(filePath: string): Promise<string> {
   // Safety: Remove backticks if somehow they still exist
@@ -80,49 +297,180 @@ async function fetchContent(filePath: string): Promise<string> {
     cleanPath = cleanPath.slice(1, -1);
   }
   
-  console.log(`📥 Fetching content from: ${cleanPath}`);
-  console.log(`📥 File path length: ${cleanPath.length}, has backticks: ${cleanPath.includes('`')}`);
+  console.log(`📥 [fetchContent] Input: ${cleanPath}`);
+  const isFullPath = cleanPath.startsWith('/content/') || cleanPath.startsWith('content/');
+  console.log(`📥 [fetchContent] Is full path: ${isFullPath}`);
+  console.log(`📥 [fetchContent] Current version: ${currentVersion}`);
   
-  // Strategy 1: Check the manual content registry first
-  if (isContentRegistered(cleanPath)) {
-    const content = getRegisteredContent(cleanPath);
-    if (content) {
-      console.log(`✅ Strategy 1: Loaded from registry (${content.length} chars)`);
-      return content;
+  // Strategy 0: Direct Fetch with ?raw (if already a full file path) ⭐⭐⭐
+  if (isFullPath) {
+    console.log(`🎯 [Strategy 0] Already a full path, attempting direct import...`);
+    
+    // Try Method A: Dynamic import with ?raw suffix (gets actual file content)
+    try {
+      const rawPath = `${cleanPath}?raw`;
+      const module = await import(/* @vite-ignore */ rawPath);
+      
+      if (module && module.default) {
+        const content = module.default;
+        console.log(`✅ Strategy 0A (RAW IMPORT): SUCCESS! (${content.length} chars)`);
+        console.log(`📄 [Preview] First 200 chars:`, content.substring(0, Math.min(200, content.length)));
+        return content;
+      }
+    } catch (rawError) {
+      // Raw imports often fail in dev mode - this is expected, fall through to Method B
+      // Suppressing detailed error to reduce console noise
+    }
+    
+    // Try Method B: Regular fetch with HTML extraction
+    try {
+      const response = await fetch(cleanPath);
+      if (response.ok) {
+        const text = await response.text();
+        
+        // Check if we got HTML wrapper
+        if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+          const extracted = extractMDXFromHTML(text);
+          if (extracted) {
+            console.log(`✅✅ Strategy 0B (HTML EXTRACTION): SUCCESS! (${extracted.length} chars)`);
+            console.log(`📄 [Preview]:`, extracted.substring(0, Math.min(150, extracted.length)) + '...');
+            return extracted;
+          } else {
+            console.error(`❌ Strategy 0B: Could not extract MDX from HTML wrapper`);
+            console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
+          }
+        } else {
+          // Check if this looks like MDX (not JavaScript or other code)
+          const isMDX = text.includes('#') || text.includes('**') || text.includes('[') || text.includes('```');
+          const isJavaScript = text.includes('window.') || text.includes('const ') || text.includes('function ') || text.includes('allowedOrigins');
+          
+          if (isJavaScript && !isMDX) {
+            console.error(`❌ Strategy 0B: Got JavaScript code instead of MDX!`);
+            console.log(`📄 [Debug] First 200 chars:`, text.substring(0, 200));
+            // Try HTML extraction anyway - might be wrapped
+            const extracted = extractMDXFromHTML(text);
+            if (extracted && !extracted.includes('window.') && !extracted.includes('allowedOrigins')) {
+              console.log(`✅ Strategy 0B (EXTRACTED FROM JS WRAPPER): SUCCESS! (${extracted.length} chars)`);
+              return extracted;
+            }
+            throw new Error('Received JavaScript code instead of MDX content');
+          }
+          
+          // Got raw MDX!
+          console.log(`✅ Strategy 0B (FETCH RAW): SUCCESS! (${text.length} chars)`);
+          console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
+          return text;
+        }
+      } else {
+        console.warn(`⚠️ [Strategy 0B] Fetch failed with status ${response.status}`);
+      }
+    } catch (fetchError) {
+      console.warn(`⚠️ [Strategy 0B] Fetch error:`, fetchError);
     }
   }
   
-  // Strategy 2: Try the MDX content bundle
+  // Strategy 1: Priority Fetch (ACTUAL CONTENT - HIGHEST PRIORITY) ⭐
+  console.log(`🔍 [Strategy 1] Checking version-aware priority registry...`);
+  console.log(`📊 [Strategy 1] Current version: ${currentVersion}`);
+  console.log(`🎯 [Strategy 1] Looking for: "${cleanPath}"`);
+  
+  const priorityFilePath = getPriorityFilePath(cleanPath);
+  if (priorityFilePath) {
+    console.log(`✅ [Strategy 1] Found in priority registry! Path: ${priorityFilePath}`);
+    
+    // Try Method A: Dynamic import with ?raw suffix
+    try {
+      const rawPath = `${priorityFilePath}?raw`;
+      const module = await import(/* @vite-ignore */ rawPath);
+      
+      if (module && module.default) {
+        const content = module.default;
+        console.log(`✅ Strategy 1A (PRIORITY RAW IMPORT): SUCCESS! (${content.length} chars)`);
+        console.log(`📄 [Preview]:`, content.substring(0, Math.min(150, content.length)) + '...');
+        return content;
+      }
+    } catch (rawError) {
+      // Raw imports often fail in dev mode - fall through to Method B
+    }
+    
+    // Try Method B: Regular fetch with HTML extraction
+    try {
+      const response = await fetch(priorityFilePath);
+      if (response.ok) {
+        const text = await response.text();
+        
+        // Check if we got HTML wrapper instead of raw MDX
+        if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+          const extracted = extractMDXFromHTML(text);
+          if (extracted) {
+            console.log(`✅✅ Strategy 1B (PRIORITY HTML EXTRACTION): SUCCESS! (${extracted.length} chars)`);
+            console.log(`📄 [Preview]:`, extracted.substring(0, Math.min(150, extracted.length)) + '...');
+            return extracted;
+          } else {
+            console.error(`❌ Strategy 1B: Could not extract MDX from HTML wrapper`);
+            console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
+          }
+        } else {
+          // Check if this looks like MDX (not JavaScript or other code)
+          const isMDX = text.includes('#') || text.includes('**') || text.includes('[') || text.includes('```');
+          const isJavaScript = text.includes('window.') || text.includes('const ') || text.includes('function ') || text.includes('allowedOrigins');
+          
+          if (isJavaScript && !isMDX) {
+            console.error(`❌ Strategy 1B: Got JavaScript code instead of MDX!`);
+            console.log(`📄 [Debug] First 200 chars:`, text.substring(0, 200));
+            // Try HTML extraction anyway - might be wrapped
+            const extracted = extractMDXFromHTML(text);
+            if (extracted && !extracted.includes('window.') && !extracted.includes('allowedOrigins')) {
+              console.log(`✅ Strategy 1B (EXTRACTED FROM JS WRAPPER): SUCCESS! (${extracted.length} chars)`);
+              return extracted;
+            }
+            throw new Error('Received JavaScript code instead of MDX content');
+          }
+          
+          // Got raw MDX - perfect!
+          console.log(`✅ Strategy 1B (PRIORITY FETCH RAW): SUCCESS! (${text.length} chars)`);
+          console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
+          return text;
+        }
+      } else {
+        console.error(`❌ Strategy 1B: Fetch failed with status ${response.status}`);
+      }
+    } catch (fetchError) {
+      console.error(`❌ Strategy 1B: Fetch error:`, fetchError);
+    }
+  } else {
+    console.log(`ℹ️ [Strategy 1] Not in priority registry for version ${currentVersion}`);
+  }
+  
+  // Strategy 2: Try the MDX content bundle (compiled content)
   try {
     const content = await getMDXContent(cleanPath);
     
     if (content) {
-      console.log(`✅ Strategy 2: Loaded from MDX bundle (${content.length} chars)`);
+      console.log(`✅ Strategy 2 (MDX Bundle): Loaded from bundle (${content.length} chars)`);
       return content;
     }
   } catch (error) {
     console.warn(`⚠️ Strategy 2 (MDX bundle) failed:`, error);
   }
   
-  // Strategy 3: Try direct dynamic import with ?raw
+  // Strategy 3: Try reading the file content directly  
+  // Method A: Try dynamic import with ?raw
   try {
-    console.log(`🔄 Strategy 3: Attempting direct import with ?raw`);
-    const module = await import(/* @vite-ignore */ `${cleanPath}?raw`);
+    const rawPath = `${cleanPath}?raw`;
+    const module = await import(/* @vite-ignore */ rawPath);
     
-    if (module.default && typeof module.default === 'string') {
-      console.log(`✅ Strategy 3: Loaded via ?raw import (${module.default.length} chars)`);
-      return module.default;
+    if (module && module.default) {
+      const content = module.default;
+      console.log(`✅ Strategy 3A (RAW IMPORT): SUCCESS! (${content.length} chars)`);
+      return content;
     }
-  } catch (error) {
-    console.warn(`⚠️ Strategy 3 (?raw import) failed:`, error);
+  } catch (rawError) {
+    // Raw imports often fail in dev mode - fall through to Method B
   }
   
-  // Strategy 4: Try reading the file content directly from the module
+  // Method B: Try regular fetch with HTML extraction
   try {
-    console.log(`🔄 Strategy 4: Attempting to read MDX file directly`);
-    
-    // For MDX files in Figma Make, we need to handle them specially
-    // Let's try to import and extract the raw content
     const response = await fetch(cleanPath);
     
     if (response.ok) {
@@ -130,26 +478,33 @@ async function fetchContent(filePath: string): Promise<string> {
       
       // Check if we got HTML instead of MDX (Figma Make wraps files)
       if (text.includes('<!DOCTYPE') || text.includes('<html')) {
-        console.error(`❌ Strategy 4: Got HTML wrapper instead of raw MDX`);
-        
-        // Try to extract content from HTML if possible
-        const match = text.match(/<pre[^>]*>([\s\S]*?)<\/pre>/);
-        if (match) {
-          const extracted = match[1]
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&')
-            .replace(/&quot;/g, '"');
-          console.log(`✅ Strategy 4: Extracted from HTML wrapper (${extracted.length} chars)`);
+        const extracted = extractMDXFromHTML(text);
+        if (extracted) {
+          console.log(`✅✅ Strategy 3B (HTML EXTRACTION): SUCCESS! (${extracted.length} chars)`);
+          console.log(`📄 [Preview]:`, extracted.substring(0, Math.min(150, extracted.length)) + '...');
           return extracted;
+        } else {
+          console.error(`❌ Strategy 3B: Could not extract MDX from HTML wrapper`);
+          console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
         }
       } else {
-        console.log(`✅ Strategy 4: Loaded via fetch (${text.length} chars)`);
+        console.log(`✅ Strategy 3B (FETCH RAW): SUCCESS! (${text.length} chars)`);
+        console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
         return text;
       }
     }
-  } catch (error) {
-    console.warn(`⚠️ Strategy 4 (fetch) failed:`, error);
+  } catch (fetchError) {
+    console.warn(`⚠️ Strategy 3B (Fetch) failed:`, fetchError);
+  }
+  
+  // Strategy 4: Registry (FALLBACK ONLY - placeholder content) ⚠️
+  if (isContentRegistered(cleanPath)) {
+    const content = getRegisteredContent(cleanPath);
+    if (content) {
+      console.warn(`⚠️ Strategy 4 (REGISTRY PLACEHOLDER): Using placeholder for ${cleanPath} (${content.length} chars)`);
+      console.warn(`💡 Consider adding this file to static imports for actual content`);
+      return content;
+    }
   }
   
   // All strategies failed

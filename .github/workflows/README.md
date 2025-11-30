@@ -18,7 +18,9 @@ This repository includes GitHub Actions workflows for automated testing and depl
 **Features:**
 - ✅ TypeScript type checking
 - ✅ Build verification
-- ✅ Build size monitoring
+- ✅ MDX content file verification (all versions: 5_13, 6_1, 6_1_1, NG)
+- ✅ Content directory structure validation
+- ✅ Build size monitoring (warns if > 100MB)
 - ✅ Automatic deployment to GitHub Pages
 
 ### 2. `test.yml` - Test and Lint
@@ -32,11 +34,13 @@ This repository includes GitHub Actions workflows for automated testing and depl
 - **Test**: Comprehensive testing across multiple Node.js versions (18, 20)
 
 **Features:**
-- ✅ Multi-version Node.js testing
+- ✅ Multi-version Node.js testing (18, 20)
 - ✅ TypeScript type checking
 - ✅ Build artifact verification
+- ✅ MDX content file verification
 - ✅ HTML validation
-- ✅ Build size checks
+- ✅ Build size checks (warns if > 100MB)
+- ✅ MDX file count validation
 - ✅ Artifact upload on failure
 
 ## Setup Instructions
@@ -86,12 +90,19 @@ The workflows:
 The build process creates a `build` directory containing:
 - `index.html` - Main HTML file
 - `assets/` - JavaScript, CSS, and other assets
+- `content/` - All MDX documentation files organized by version:
+  - `content/5_13/` - Version 5.13 documentation
+  - `content/6_1/` - Version 6.1 documentation (main version)
+  - `content/6_1_1/` - Version 6.1.1 documentation
+  - `content/NG/` - NextGen documentation
 - Other static files
 
 ### Monitoring
 
-- **Build Size**: The workflow reports build size and warns if it exceeds 50MB
+- **Build Size**: The workflow reports build size and warns if it exceeds 100MB
 - **File Count**: Total number of files in the build output
+- **MDX Files**: Counts and verifies MDX content files for each version
+- **Content Verification**: Ensures critical content files are present before deployment
 - **Artifacts**: Build artifacts are uploaded on test failures for debugging
 
 ## Troubleshooting
@@ -123,6 +134,14 @@ If build size is too large:
 - Optimize images and assets
 - Consider code splitting
 - Review bundle size with `npm run build -- --analyze` (if configured)
+
+### MDX Content Issues
+
+If MDX content verification fails:
+- Verify `vite-plugin-static-copy` is installed and configured in `vite.config.ts`
+- Check that `src/content/` directory contains all expected MDX files
+- Ensure content files are properly organized by version
+- Verify build output includes `build/content/` directory with all versions
 
 ## Manual Testing
 

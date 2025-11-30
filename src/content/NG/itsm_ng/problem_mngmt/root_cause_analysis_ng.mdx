@@ -1,0 +1,451 @@
+---
+title: "Root Cause Analysis"
+description: "Techniques and methods for conducting root cause analysis"
+version: ""
+module: "Itsm"
+section: "Problem Management"
+page: "Root Cause Analysis"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Problem Management"
+  - "Root Cause Analysis"
+---
+
+# Root Cause Analysis
+
+Root Cause Analysis (RCA) is a systematic process for identifying the underlying causes of problems to prevent recurrence.
+
+## What is Root Cause Analysis?
+
+RCA goes beyond addressing symptoms to find and fix the fundamental cause of problems. It answers the question: "Why did this problem occur?"
+
+### Goals of RCA
+
+- Identify true root cause, not just symptoms
+- Prevent problem recurrence
+- Improve system reliability
+- Build organizational knowledge
+- Reduce future incidents
+
+## RCA Process
+
+### Step 1: Define the Problem
+
+Clearly describe what happened:
+
+**Problem Statement Should Include:**
+- What is the problem?
+- Where did it occur?
+- When did it happen?
+- Who/what is affected?
+- How was it discovered?
+- What is the business impact?
+
+**Example:**
+"The customer portal became unavailable on Nov 25, 2024, from 2:00 PM to 4:30 PM, preventing 1,500 customers from placing orders, resulting in estimated $50,000 revenue loss."
+
+### Step 2: Collect Data
+
+Gather comprehensive information:
+
+**Data Sources:**
+- Incident reports
+- System logs
+- Error messages
+- Monitoring data
+- User reports
+- Configuration changes
+- Performance metrics
+- Timeline of events
+
+**Documentation:**
+- Collect all available evidence
+- Preserve logs and screenshots
+- Interview witnesses
+- Record environmental conditions
+- Note any recent changes
+
+### Step 3: Identify Possible Causes
+
+Brainstorm potential causes:
+
+**Categories to Consider:**
+- **People**: Human error, training gaps, communication failures
+- **Process**: Inadequate procedures, missing steps, workflow issues
+- **Technology**: Hardware failure, software bugs, configuration errors
+- **Environment**: Power, cooling, network, facilities
+
+**Techniques:**
+- Brainstorming sessions
+- Review similar past incidents
+- Consult experts
+- Use cause-and-effect diagrams
+
+### Step 4: Identify Root Cause
+
+Determine the fundamental cause:
+
+**Verification Criteria:**
+- If this cause is eliminated, will the problem recur?
+- Is this truly a cause or just a symptom?
+- Is there a deeper underlying cause?
+- Can this be proven with evidence?
+
+### Step 5: Recommend Solutions
+
+Develop corrective actions:
+
+**Solution Types:**
+- **Immediate**: Stop recurrence now
+- **Short-term**: Temporary fixes
+- **Long-term**: Permanent solutions
+- **Preventive**: Avoid similar problems
+
+### Step 6: Implement Solutions
+
+Execute the fix:
+
+- Create change requests
+- Test proposed solutions
+- Implement changes
+- Monitor effectiveness
+- Document results
+
+## RCA Techniques
+
+### 5 Whys
+
+Ask "Why?" five times to dig deeper:
+
+**Example:**
+1. **Why** did the portal fail? → Database connection timeout
+2. **Why** did connections timeout? → Connection pool exhausted
+3. **Why** was the pool exhausted? → Too many concurrent users
+4. **Why** were there too many users? → Marketing campaign launched
+5. **Why** wasn't system scaled? → Change not communicated to IT
+
+**Root Cause**: Lack of communication between marketing and IT
+
+### Fishbone (Ishikawa) Diagram
+
+Visual cause-and-effect analysis:
+
+```
+Categories:
+├── People
+│   ├── Training
+│   ├── Experience
+│   └── Communication
+├── Process
+│   ├── Procedures
+│   ├── Documentation
+│   └── Workflow
+├── Technology
+│   ├── Hardware
+│   ├── Software
+│   └── Configuration
+└── Environment
+    ├── Network
+    ├── Power
+    └── Facilities
+```
+
+### Timeline Analysis
+
+Create chronological event sequence:
+
+**Timeline Format:**
+| Time | Event | System | Notes |
+|------|-------|--------|-------|
+| 1:55 PM | Marketing email sent | Email System | 50,000 recipients |
+| 2:00 PM | Traffic spike begins | Portal | 10x normal traffic |
+| 2:05 PM | Response time degrades | Portal | From 200ms to 5s |
+| 2:10 PM | First user complaints | Help Desk | Portal slow |
+| 2:15 PM | Database connections maxed | Database | 100/100 connections |
+| 2:17 PM | Portal becomes unavailable | Portal | Connection timeouts |
+
+**Analysis:**
+- Identify trigger event
+- Track cascading effects
+- Note when problem manifested
+- Determine detection lag
+
+### Comparative Analysis
+
+Compare working vs. non-working:
+
+**What's Different?**
+| Factor | Working State | Problem State |
+|--------|---------------|---------------|
+| Load | 100 concurrent users | 1,000 concurrent users |
+| Configuration | Connection pool: 100 | Connection pool: 100 |
+| Traffic | Normal pattern | Spike from marketing |
+| Resources | CPU 40%, Memory 60% | CPU 95%, Memory 90% |
+
+**Conclusion:**
+Configuration adequate for normal load but not for marketing-driven spikes
+
+### Fault Tree Analysis
+
+Work backwards from failure:
+
+```
+Portal Unavailable
+├── AND: Multiple failures required
+│   ├── Database unavailable
+│   │   ├── OR: Any of these
+│   │   │   ├── Connection pool exhausted
+│   │   │   ├── Database crashed
+│   │   │   └── Network failure
+│   └── No failover occurred
+│       ├── Failover not configured
+│       └── Failover failed
+```
+
+## Common Root Causes
+
+### Technical Causes
+
+**Capacity Issues:**
+- Insufficient resources
+- Poor scaling
+- Resource leaks
+- Growth not accommodated
+
+**Configuration Errors:**
+- Incorrect settings
+- Missing configurations
+- Incompatible parameters
+- Default values retained
+
+**Software Defects:**
+- Bugs in code
+- Logic errors
+- Race conditions
+- Memory leaks
+
+**Hardware Failures:**
+- Component failures
+- Wear and tear
+- Environmental damage
+- End of life
+
+### Process Causes
+
+**Inadequate Change Management:**
+- Changes not tested
+- Insufficient review
+- Poor rollback plans
+- Lack of approval
+
+**Missing Procedures:**
+- Undocumented processes
+- Incomplete procedures
+- Outdated documentation
+- Process gaps
+
+**Poor Communication:**
+- Information not shared
+- Lack of coordination
+- Assumptions made
+- Stakeholders not informed
+
+### Human Causes
+
+**Knowledge Gaps:**
+- Insufficient training
+- Lack of experience
+- New technology
+- Complexity
+
+**Human Error:**
+- Mistakes
+- Oversight
+- Fatigue
+- Distraction
+
+**Process Non-Compliance:**
+- Shortcuts taken
+- Steps skipped
+- Procedures not followed
+- Discipline issues
+
+## Documenting RCA
+
+### RCA Report Structure
+
+**Executive Summary:**
+- Problem overview
+- Business impact
+- Root cause (one sentence)
+- Recommended actions
+
+**Problem Description:**
+- Detailed problem statement
+- Scope and impact
+- Timeline
+- Detection method
+
+**Investigation:**
+- Data collected
+- Analysis performed
+- Techniques used
+- Findings
+
+**Root Cause:**
+- Identified root cause
+- Evidence supporting conclusion
+- Contributing factors
+- Why this is the root cause
+
+**Recommendations:**
+- Immediate actions
+- Short-term fixes
+- Long-term solutions
+- Preventive measures
+
+**Implementation Plan:**
+- Proposed changes
+- Resource requirements
+- Timeline
+- Success criteria
+
+**Lessons Learned:**
+- What went well
+- What could improve
+- Process improvements
+- Training needs
+
+### RCA in Virima
+
+Document RCA in problem record:
+
+1. Open problem record
+2. Navigate to **RCA** tab
+3. Select RCA technique used
+4. Document analysis
+5. Record findings
+6. Attach supporting documents
+7. Identify root cause
+8. Propose solutions
+
+## RCA Best Practices
+
+### Be Thorough
+
+- Collect all available data
+- Interview all relevant parties
+- Review complete timeline
+- Consider all possibilities
+- Don't stop at first explanation
+
+### Stay Objective
+
+- Follow the evidence
+- Avoid blame
+- Focus on process, not people
+- Test hypotheses
+- Validate conclusions
+
+### Involve the Right People
+
+- Technical experts
+- Process owners
+- Affected users
+- Management (as appropriate)
+- Cross-functional team
+
+### Use Multiple Techniques
+
+- Don't rely on single method
+- Combine techniques
+- Verify conclusions multiple ways
+- Cross-check findings
+
+### Document Everything
+
+- Record all steps
+- Preserve evidence
+- Note assumptions
+- Track decisions
+- Capture lessons learned
+
+## RCA Validation
+
+### Verify Root Cause
+
+**Tests:**
+1. **Recurrence Test**: If we eliminate this cause, will the problem recur?
+   - Answer should be: NO
+
+2. **Causation Test**: Does this cause directly lead to the problem?
+   - Answer should be: YES
+
+3. **Sufficiency Test**: Is this cause alone sufficient to create the problem?
+   - May be YES or NO (multiple contributing factors)
+
+4. **Evidence Test**: Do we have evidence proving this is the cause?
+   - Answer should be: YES
+
+### Peer Review
+
+Have RCA reviewed by:
+- Other problem analysts
+- Subject matter experts
+- Management
+- Change advisory board
+
+### Test Solutions
+
+Before full implementation:
+- Test in non-production
+- Pilot in limited scope
+- Monitor closely
+- Validate effectiveness
+
+## RCA Metrics
+
+### Effectiveness Metrics
+
+**Problem Recurrence:**
+- Percentage of problems that recur
+- Time to recurrence
+- Severity of recurrence
+
+**RCA Quality:**
+- Thoroughness of analysis
+- Accuracy of root cause identification
+- Solution effectiveness
+
+**Time Metrics:**
+- Time to complete RCA
+- Time from RCA to solution
+- Total problem resolution time
+
+## Continuous Improvement
+
+### Learn from Each RCA
+
+- Update knowledge base
+- Improve monitoring
+- Enhance procedures
+- Train staff
+- Share learnings
+
+### RCA Review Process
+
+Regular review of completed RCAs:
+
+1. **Monthly**: Review all completed RCAs
+2. **Identify Patterns**: Common root causes
+3. **Systemic Issues**: Organization-wide problems
+4. **Action Items**: Strategic improvements
+5. **Metrics**: Track RCA effectiveness
+
+## Related Topics
+
+- [Manage Problems](/content/NG/itsm_ng/problem_mngmt/manage_problems_ng.mdx)
+- [Known Errors](/content/NG/itsm_ng/problem_mngmt/known_errors_ng.mdx)
+- [Problem Reports](/content/NG/itsm_ng/problem_mngmt/problem_reports_ng.mdx)

@@ -6,7 +6,6 @@ import { DocumentationHeader } from "./DocumentationHeader";
 import { NavigationMenu } from "./NavigationMenu";
 import { versions, modules as hardcodedModules, getSectionsForModule } from "../data/navigationData";
 import { useToc } from "../utils/useToc";
-import { clearTocCache } from "../utils/tocLoader";
 
 interface DocumentationLayoutProps {
   logo: string;
@@ -56,18 +55,7 @@ export function DocumentationLayout({
   const [leftSidebarWidth, setLeftSidebarWidth] = useState(288); // 72 * 4 = 288px (w-72)
 
   // Load TOC structure for selected version
-  const { structure, modules: tocModules, loading: tocLoading, reload: reloadToc } = useToc(selectedVersion);
-
-  // Handle TOC refresh
-  const handleRefreshTOC = () => {
-    console.log('🔄 Refreshing TOC cache and reloading navigation...');
-    clearTocCache();
-    if (reloadToc) {
-      reloadToc();
-    }
-    // Force component re-render by clearing and re-expanding sections
-    setExpandedSections(new Set([selectedSection]));
-  };
+  const { structure, modules: tocModules, loading: tocLoading } = useToc(selectedVersion);
 
   // Use hardcoded modules as fallback if TOC modules are empty or still loading
   const modules = tocModules && tocModules.length > 0 ? tocModules : hardcodedModules;
@@ -179,7 +167,6 @@ export function DocumentationLayout({
           }
         }}
         onLoginDialogOpen={() => setLoginDialogOpen(true)}
-        onRefreshTOC={handleRefreshTOC}
       />
 
       <div className="flex flex-1 overflow-hidden">

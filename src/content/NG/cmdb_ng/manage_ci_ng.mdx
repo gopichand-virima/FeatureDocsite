@@ -1,15 +1,15 @@
 ---
 title: "Manage CI (Select Action inside CI)"
-description: "Within the CI record, the Select Actions menu provides several advanced tools and functions:"
+description: "Within the CI record, the Select Actions menu provides several advanced tools and functions"
 version: ""
-module: "Cmdb Left Nav"
-section: "Manage Ci"
+module: "CMDB"
+section: "Manage CI"
 page: "Manage CI (Select Action inside CI)"
 breadcrumbs:
   - "Home"
   - ""
-  - "Cmdb Left Nav"
-  - "Manage Ci"
+  - "CMDB"
+  - "Manage CI"
   - "Manage CI (Select Action inside CI)"
 ---
 
@@ -77,14 +77,14 @@ Use this to add additional fields to a Configuration Item.
 # Copy to Ivanti
 
 Copy a CMDB record from Virima to **Ivanti Service Manager** as an Asset/CI.  
-If the CI already exists in Ivanti (based on your mapping key), it’s **updated**; otherwise, a **new** record is created.
+If the CI already exists in Ivanti (based on your mapping key), it's **updated**; otherwise, a **new** record is created.
 
 1. Click **Select Actions, **and then select **Copy to Ivanti**.
 
 2. In the confirmation dialog, click **Yes** to proceed.
 
 
-1. The system displays the **Success** message: “**Records will be moved in the background**.”
+1. The system displays the **Success** message: "**Records will be moved in the background**."
 
 
 1. Open Ivanti Service Manager and confirm the Asset/CI was **created/updated** with mapped fields.
@@ -92,7 +92,7 @@ If the CI already exists in Ivanti (based on your mapping key), it’s **updated
 # Copy to Jira
 
 Copy a CMDB record from Virima to **Jira** as a tracked asset/CI.  
-If the CI already exists in Jira (based on your mapping key), it’s **updated**; otherwise, a **new** record is created.
+If the CI already exists in Jira (based on your mapping key), it's **updated**; otherwise, a **new** record is created.
 
 1. Click **Select Actions, **and then select **Copy to Jira**.
 
@@ -132,7 +132,7 @@ Permanently remove a Configuration Item (CI) from the **CMDB**
 
 # Disable Editing
 
-Lock a CI so its fields can’t be modified (read-only). Use this to preserve a validated record or prevent unauthorized changes.
+Lock a CI so its fields can't be modified (read-only). Use this to preserve a validated record or prevent unauthorized changes.
 
 1. Click ****Select Actions**, **and then select** Disable Editing**.
 
@@ -157,7 +157,7 @@ Publish the current CI as a knowledge entry so it can be referenced in Knowledge
 
 # Merge CI
 
-Combine duplicate CIs into a single “master” record so relationships, history, and other references are consolidated, and you don’t manage the same asset twice.
+Combine duplicate CIs into a single "master" record so relationships, history, and other references are consolidated, and you don't manage the same asset twice.
 
 1. Open the CI you want to keep (the master) in CMDB.
 
@@ -217,14 +217,14 @@ To manage releases and track their impact on specific assets within Virima, foll
 5. **View Release Hierarchy from the CI Record**  
   After association, navigate to the CI record for **AST0004** in the CMDB.
 
-  - In the CI’s **Related Records** or **ITSM** tab, you will see the linked release(s).
-  - Use the **Release Hierarchy** view (accessible via the “**Select Actions**” menu inside the CI) to visualize the full structure:  
+  - In the CI's **Related Records** or **ITSM** tab, you will see the linked release(s).
+  - Use the **Release Hierarchy** view (accessible via the "**Select Actions**" menu inside the CI) to visualize the full structure:  
   **CI → Release → Phase → Activity → Task**  
   This read-only diagram provides a clear, end-to-end view of how the CI is involved in the release process, including all related phases, activities, and tasks.
 
 # Rescan Now
 
-Run an on-demand discovery against the currently open CI to refresh its attributes and components (useful after a config change or when the last scan is stale). The action triggers a single scan; it doesn’t edit data directly—updates are applied when the scan completes.
+Run an on-demand discovery against the currently open CI to refresh its attributes and components (useful after a config change or when the last scan is stale). The action triggers a single scan; it doesn't edit data directly—updates are applied when the scan completes.
 
 1. Open the CI in CMDB.
 

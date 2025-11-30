@@ -53,6 +53,8 @@
           "react-resizable-panels": "^2.1.7",
           "react-syntax-highlighter": "*",
           "recharts": "^2.15.2",
+          "rehype-raw": "*",
+          "remark-gfm": "*",
           "sonner": "^2.0.3",
           "tailwind-merge": "*",
           "vaul": "^1.1.2"
@@ -60,7 +62,8 @@
       "devDependencies": {
           "@types/node": "^20.10.0",
           "@vitejs/plugin-react-swc": "^3.10.2",
-          "vite": "6.3.5"
+          "vite": "6.3.5",
+          "vite-plugin-static-copy": "^3.1.4"
       },
       "scripts": {
           "dev": "vite",

@@ -1,41 +1,41 @@
 ---
-title: "Create Scheduled Scan"
-description: "From the Select Actions drop-down, choose New Scheduled Scan."
+title: "Creating a Scheduled Scan"
+description: "From the Select Actions dropdown, choose New Scan Schedule."
 version: ""
 module: "Discovery"
 section: "Scheduled Scans Imports"
-page: "Create Scheduled Scan"
+page: "Creating a Scheduled Scan"
 breadcrumbs:
   - "Home"
   - ""
   - "Discovery"
   - "Scheduled Scans Imports"
   - "Create Scheduled Scan"
-  - "Create Scheduled Scan"
+  - "Creating a Scheduled Scan"
 ---
 
-# Create Scheduled Scan
+# Creating a Scheduled Scan
 
-From the **Select Actions** drop-down, choose **New Scheduled Scan**.
+1. From the **Select Actions** dropdown, choose **New Scan Schedule**.
 
-1. Complete the required fields:
-   - **Name**: Identify the scheduled scan
-   - **Probe**: Select the scan type
-   - **Client**: Choose the discovery client
-   - **IP Range**: Specify targets to scan
-   - **Exclude IP Range**: (Optional) IPs to skip
+2. A configuration dialog opens.
 
-2. Configure schedule settings:
-   - **Scan Frequency**: How often to run
-   - **Is Active**: Enable/disable the schedule
-   - **Is Recurring**: Whether to repeat automatically
-   - **Timezone**: Select appropriate timezone
-   - **Schedule Parameters**: Set exact timing
+**Name:** Enter a name for the scheduled scan.
 
-3. Optional settings:
-   - **Location**: Add location tags
-   - **Send Scan Report To**: Select recipients
+**IP Range:** Specify the target IPs or IP range (single IP, multiple IPs, CIDR, or range).
 
-4. Click **Add** to save the scheduled scan.
+**Choose a Client:** Select the discovery client (server) that will run the scan.
 
-The scheduled scan will execute automatically according to the configured frequency and will appear in Recent Scans after each execution.
+**Type of Scan:** Choose a scan type (e.g., Deep Host Scan, Basic Host Scan, Port Scan).
+
+**Scan Frequency:** Select how often the scan should run (e.g., Every Day, Every Week, Monthly).
+
+**Active:** Check this box to activate the schedule.
+
+**Timezone:** Select the timezone for scheduling.
+
+**Schedule Timing:** Configure the exact time (hour, minute, second) when the scan should execute.
+
+1. Click **Run** or **Add** to save the schedule.
+
+The scheduled scan will now execute automatically according to the defined frequency and timing.

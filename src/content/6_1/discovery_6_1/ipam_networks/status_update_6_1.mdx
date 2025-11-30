@@ -1,6 +1,6 @@
 ---
 title: "Status Update"
-description: "The Status Update section checks the status of devices, typically triggered during a scan."
+description: "Use this function to select one or more networks (subnet) from the IPAM Networks page, one or more IP Addresses from the IPAM Network's IP list tab, then perform a status update scan."
 version: ""
 module: "Discovery"
 section: "Ipam Networks"
@@ -16,13 +16,18 @@ breadcrumbs:
 
 # Status Update
 
-The **Status Update** section checks the status of devices, typically triggered during a scan.
+Use this function to select one or more networks (subnet) from the IPAM Networks page, one or more IP Addresses from the IPAM Network's IP list tab, then perform a status update scan. This pings every IP Address in the network's IP List, and updates its status to *Used* or *Unused*. All pingable IPs are set to *Used* and non-pingable to *Unused*.
 
-The available settings are:
+1. Select a line item.
 
-- **Probe:** Choose the type of scan, such as **Ping Scan**.
-- **Client:** Select the client from the list (ensure the client is operational).
-- **IP Address:** Specify the IP address or range to scan (e.g., **192.168.34.0/24**).
-- **Update Type:** Choose between **Immediate** or **Scheduled** update.
-  - **Immediate:** The scan starts right away.
-  - **Scheduled:** The scan runs at a specified time.
+2. Click **Status Update**.
+
+3. Enter the *Probe* to scan.
+
+4. In the *Client* field, click the drop-down list and select the applicable client.
+
+5. Enter an *IP Range*.
+
+6. Select if the update should be *Immediate* or *Scheduled*. If *Scheduled* is selected, configure the *Scan Frequency*.
+
+7. When all selections/entries are made, click **Status Update**.

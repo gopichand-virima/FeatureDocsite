@@ -643,11 +643,43 @@ function registerAdminOtherSubsectionsContent() {
 }
 
 /**
+ * Register Admin Overview content
+ */
+function registerAdminOverviewContent() {
+  registerContent('/content/6_1/admin_6_1/overview_6_1.mdx', createDocContent(
+    'Admin Module Overview',
+    'Admin',
+    'Admin functions are only available to System Administrators. The Admin module provides administrative capabilities for managing and configuring various aspects of the Virima application.'
+  ));
+
+  registerContent('/content/NG/admin_ng/overview_ng.mdx', createDocContent(
+    'Admin Module Overview',
+    'Admin',
+    'Admin functions are only available to System Administrators. The Admin Module includes various administrative functions for system configuration.'
+  ));
+
+  registerContent('/content/5_13/overview_5_13.mdx', createDocContent(
+    'Admin Module Overview',
+    'Admin',
+    'Admin functions are only available to System Administrators. The Admin module provides administrative capabilities for managing and configuring various aspects of the Virima application.'
+  ));
+
+  registerContent('/content/6_1_1/overview_6_1_1.mdx', createDocContent(
+    'Admin Module Overview',
+    'Admin',
+    'Admin functions are only available to System Administrators. The Admin module provides administrative capabilities for managing and configuring various aspects of the Virima application.'
+  ));
+
+  console.log('✅ [Admin Overview] Registered 4 overview files');
+}
+
+/**
  * Main registration function
  */
 export function registerAdminModulesContent() {
   console.log('🚀 [Admin Modules] Starting registration of Admin module files...');
   
+  registerAdminOverviewContent();
   registerAdminChangeManagementContent();
   registerAdminIncidentManagementContent();
   registerAdminProblemManagementContent();
@@ -664,8 +696,8 @@ export function registerAdminModulesContent() {
   registerAdminSACMContent();
   registerAdminOtherSubsectionsContent();
   
-  console.log('✅ [Admin Modules] Successfully registered 80 admin module files');
-  console.log('📊 [Admin Modules] Running total: 356 files (2 sample + 188 main + 86 nested + 80 admin)');
+  console.log('✅ [Admin Modules] Successfully registered 84 admin module files');
+  console.log('📊 [Admin Modules] Running total: 360 files (2 sample + 188 main + 86 nested + 4 overview + 80 admin)');
 }
 
 // Auto-execute registration on import

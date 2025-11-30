@@ -1,0 +1,399 @@
+# Workflow Templates
+
+Use this function to manage pre-built workflow templates that provide starting points for common automation scenarios.
+
+Workflow templates accelerate workflow development by providing tested, best-practice workflows that can be customized for your organization's needs.
+
+In the main window, click **Admin > Workflow Management > Workflow Templates**. The Workflow Templates window displays.
+
+## Browse Templates
+
+The template library includes workflows for common scenarios.
+
+**Template Categories**:
+
+- Assignment and Routing
+- Escalation and SLA
+- Approval Processes
+- Notification and Alerts
+- Integration and Automation
+- Maintenance and Cleanup
+- Reporting and Analytics
+
+Click a category to view available templates.
+
+## Template Details
+
+Click a template to view details:
+
+**Template Information**:
+
+- Template name and description
+- Category and subcategory
+- Complexity level (Basic, Intermediate, Advanced)
+- Estimated setup time
+- Prerequisites
+- Configuration requirements
+
+**Template Preview**:
+
+- Workflow diagram
+- Trigger description
+- Actions overview
+- Required fields
+
+**Use Cases**:
+
+- When to use this template
+- Example scenarios
+- Benefits and outcomes
+
+## Use Template
+
+To create a workflow from a template:
+
+Select a template.
+
+Click **Use This Template**.
+
+Enter a *Workflow Name* for your new workflow.
+
+Click **Create from Template**.
+
+The Workflow Designer opens with the template loaded.
+
+Customize the workflow:
+
+1. Review and adjust triggers
+2. Modify conditions for your environment
+3. Configure action parameters
+4. Update notifications and recipients
+5. Test the workflow
+6. Activate when ready
+
+## Built-In Templates
+
+### Assignment and Routing Templates
+
+**Auto-Assignment by Skill**:
+
+- Trigger: New ticket created
+- Condition: Category and priority rules
+- Action: Assign to technician with matching skills
+- Use Case: Intelligent ticket routing
+
+**Round-Robin Assignment**:
+
+- Trigger: Ticket enters queue
+- Condition: Assignment group specified
+- Action: Distribute evenly among team members
+- Use Case: Workload balancing
+
+**Follow-the-Sun Routing**:
+
+- Trigger: New ticket created
+- Condition: Time zone and business hours
+- Action: Route to appropriate regional team
+- Use Case: Global support operations
+
+**VIP Fast-Track**:
+
+- Trigger: Ticket from VIP user
+- Condition: User has VIP flag
+- Action: Set high priority, assign to senior team, notify manager
+- Use Case: Premium user support
+
+### Escalation Templates
+
+**SLA Breach Prevention**:
+
+- Trigger: SLA at 75% consumed
+- Condition: Priority and category checks
+- Action: Notify manager, increase priority, escalate
+- Use Case: Prevent SLA violations
+
+**Multi-Tier Escalation**:
+
+- Trigger: Time-based intervals
+- Condition: Ticket still open and unresolved
+- Action: Escalate through management chain
+- Use Case: Progressive escalation
+
+**After-Hours Escalation**:
+
+- Trigger: Critical ticket outside business hours
+- Condition: Priority P1 or P2, time check
+- Action: Page on-call team, notify manager
+- Use Case: 24/7 critical support
+
+### Approval Templates
+
+**Change Approval Workflow**:
+
+- Trigger: Change request submitted
+- Condition: Risk and impact assessment
+- Action: Route through CAB approval chain
+- Use Case: Change management process
+
+**Manager Approval Required**:
+
+- Trigger: Request submitted
+- Condition: Cost exceeds threshold
+- Action: Request manager approval
+- Use Case: Budget control
+
+**Multi-Level Approval**:
+
+- Trigger: High-value request
+- Condition: Request type and value
+- Action: Sequential approvals (manager, director, VP)
+- Use Case: Major purchase or project approvals
+
+### Notification Templates
+
+**Requester Updates**:
+
+- Trigger: Ticket status changes
+- Condition: Significant state changes
+- Action: Email requester with update
+- Use Case: Keep users informed
+
+**Team Notifications**:
+
+- Trigger: New ticket in queue
+- Condition: Assignment group matches
+- Action: Notify team via email/Slack
+- Use Case: Team awareness
+
+**Executive Alerts**:
+
+- Trigger: Major incident created
+- Condition: Priority P1 or major incident flag
+- Action: Notify executive team with details
+- Use Case: Leadership visibility
+
+**Customer Satisfaction Survey**:
+
+- Trigger: Ticket closed
+- Condition: Wait 24 hours post-closure
+- Action: Send satisfaction survey
+- Use Case: Feedback collection
+
+### Integration Templates
+
+**ServiceNow Integration**:
+
+- Trigger: New incident
+- Condition: Meets sync criteria
+- Action: Create corresponding ticket in ServiceNow
+- Use Case: Multi-platform ticket sync
+
+**Jira Ticket Creation**:
+
+- Trigger: Bug-related ticket
+- Condition: Category is "Software Bug"
+- Action: Create Jira issue, link to ticket
+- Use Case: Development workflow integration
+
+**Slack Notifications**:
+
+- Trigger: High priority ticket
+- Condition: Priority P1 or P2
+- Action: Post to Slack channel
+- Use Case: Team collaboration
+
+**Email-to-Ticket**:
+
+- Trigger: Email received
+- Condition: Parse email content
+- Action: Create ticket, extract details
+- Use Case: Email integration
+
+### Maintenance Templates
+
+**Stale Ticket Cleanup**:
+
+- Trigger: Daily at 2 AM
+- Condition: Ticket pending > 30 days
+- Action: Send reminder or auto-close
+- Use Case: Queue hygiene
+
+**Duplicate Detection**:
+
+- Trigger: New ticket created
+- Condition: Similar tickets exist
+- Action: Flag as potential duplicate
+- Use Case: Reduce duplicate work
+
+**Auto-Resolution**:
+
+- Trigger: Ticket resolved > 7 days
+- Condition: No response from requester
+- Action: Auto-close with confirmation
+- Use Case: Cleanup pending closure
+
+**SLA Reset for Reopened Tickets**:
+
+- Trigger: Ticket reopened
+- Condition: Previously closed
+- Action: Reset SLA timers
+- Use Case: Fair SLA tracking
+
+## Create Custom Template
+
+To save your workflow as a template:
+
+Open an existing workflow.
+
+Click **Save as Template**.
+
+Enter template information:
+
+**Template Details**:
+
+- **Template Name**: Descriptive name
+- **Category**: Select category
+- **Description**: What this template does
+- **Use Cases**: When to use it
+- **Prerequisites**: Requirements
+- **Complexity Level**: Basic/Intermediate/Advanced
+
+**Documentation**:
+
+- **Setup Instructions**: Step-by-step guide
+- **Configuration Notes**: Important settings
+- **Customization Tips**: Common modifications
+- **Troubleshooting**: Common issues
+
+**Visibility**:
+
+- Private: Only you can see
+- Organization: All users in organization
+- Public: Share with community
+
+Click **Save Template**.
+
+## Edit Template
+
+Navigate to **My Templates**.
+
+Select a template you created.
+
+Click **Edit Template**.
+
+Make modifications:
+
+- Update workflow logic
+- Refine documentation
+- Add examples
+- Improve instructions
+
+Click **Save**.
+
+## Share Template
+
+To share a template with others:
+
+Select a template.
+
+Click **Share Template**.
+
+Choose sharing options:
+
+- **Share with Users**: Select specific users
+- **Share with Organization**: Make available to all
+- **Export**: Download as file to share externally
+
+Generate sharing link if applicable.
+
+Click **Share**.
+
+## Import Template
+
+To import a template from another source:
+
+Click **Import Template**.
+
+**Import Methods**:
+
+- Upload template file (JSON/XML)
+- Import from URL
+- Clone from marketplace
+- Import from another Virima instance
+
+Select the template file.
+
+Click **Import**.
+
+Review and configure the template.
+
+Click **Add to Library**.
+
+## Template Marketplace
+
+Access community-shared templates:
+
+Click **Browse Marketplace**.
+
+**Available Templates**:
+
+- Community templates
+- Virima official templates
+- Partner templates
+- Industry-specific templates
+
+**Filter By**:
+
+- Category
+- Rating
+- Popularity
+- Recent additions
+
+**Template Details**:
+
+- User ratings and reviews
+- Download count
+- Last updated
+- Version compatibility
+
+Click **Install** to add to your library.
+
+## Template Versioning
+
+Manage template versions:
+
+**Version History**:
+
+- View all versions
+- Compare versions
+- Restore previous version
+- Document changes
+
+**Version Control**:
+
+- Major version (breaking changes)
+- Minor version (improvements)
+- Patch version (bug fixes)
+
+**Upgrade Path**:
+
+- Update workflows using old template versions
+- Migration guide
+- Backward compatibility notes
+
+## Delete Template
+
+Click the line that contains the template to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+Note: Workflows created from this template will not be affected.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Import](/common_topics/import_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

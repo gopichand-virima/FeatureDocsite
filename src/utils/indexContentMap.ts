@@ -579,161 +579,124 @@ function generateTOC(versionCode: string, versionName: string): string {
 
 ## Admin
 
-### Overview
+- Overview → /content/${versionCode}/admin_${versionCode}/overview_${versionCode}.mdx
 
-- About Admin → /content/${versionCode}/admin_${versionCode}/about_admin_${versionCode}.mdx
+### Organizational Details
 
-### Flush Credential
+- About Organizational Details → /content/${versionCode}/admin_${versionCode}/admin_org_details/about_org_details_${versionCode}.mdx
+- Cost Center → /content/${versionCode}/admin_${versionCode}/admin_org_details/cost_center_${versionCode}.mdx
+- Departments → /content/${versionCode}/admin_${versionCode}/admin_org_details/departments_${versionCode}.mdx
+  - Members → /content/${versionCode}/admin_${versionCode}/admin_org_details/departments_members_${versionCode}.mdx
+- Designations → /content/${versionCode}/admin_${versionCode}/admin_org_details/designations_${versionCode}.mdx
+- Holidays → /content/${versionCode}/admin_${versionCode}/admin_org_details/holidays_${versionCode}.mdx
+- Locations → /content/${versionCode}/admin_${versionCode}/admin_org_details/locations_${versionCode}.mdx
+- Operational Hours → /content/${versionCode}/admin_${versionCode}/admin_org_details/operational_hours_${versionCode}.mdx
+- Organizational Details → /content/${versionCode}/admin_${versionCode}/admin_org_details/organizational_details_${versionCode}.mdx
 
-- Flush Credential → /content/${versionCode}/admin_${versionCode}/flush_credential_${versionCode}.mdx
+### Discovery
 
-### Custom Patterns
-
-- Custom Patterns → /content/${versionCode}/admin_${versionCode}/custom_patterns_${versionCode}.mdx
-
-### Download Application
-
-- Download Application → /content/${versionCode}/admin_${versionCode}/download_application_${versionCode}.mdx
-
-### Import Templates
-
-- Import Templates → /content/${versionCode}/admin_${versionCode}/import_templates_${versionCode}.mdx
-
-### Ignore ADM Process
-
+- Application Map → /content/${versionCode}/admin_${versionCode}/admin_discovery/application_map_${versionCode}.mdx
+- Client → /content/${versionCode}/admin_${versionCode}/admin_discovery/client_${versionCode}.mdx
+  - Discovery Agents → /content/${versionCode}/admin_${versionCode}/admin_discovery/client_discovery_agents_${versionCode}.mdx
+  - Remote Install → /content/${versionCode}/admin_${versionCode}/admin_discovery/client_remote_install_${versionCode}.mdx
+  - Restart Client → /content/${versionCode}/admin_${versionCode}/admin_discovery/client_restart_${versionCode}.mdx
+  - Scan → /content/${versionCode}/admin_${versionCode}/admin_discovery/client_scan_${versionCode}.mdx
+- Cloud Profile → /content/${versionCode}/admin_${versionCode}/admin_discovery/cloud_profile_${versionCode}.mdx
+- Correlation → /content/${versionCode}/admin_${versionCode}/admin_discovery/correlation_${versionCode}.mdx
+- Credentials → /content/${versionCode}/admin_${versionCode}/admin_discovery/credentials_${versionCode}.mdx
+  - Details → /content/${versionCode}/admin_${versionCode}/admin_discovery/credentials_details_${versionCode}.mdx
+  - Backup File → /content/${versionCode}/admin_${versionCode}/admin_discovery/credentials_backup_file_${versionCode}.mdx
+  - Flush Credential → /content/${versionCode}/admin_${versionCode}/admin_discovery/credentials_flush_${versionCode}.mdx
+- Custom Patterns → /content/${versionCode}/admin_${versionCode}/admin_discovery/custom_patterns_${versionCode}.mdx
+- Download Application → /content/${versionCode}/admin_${versionCode}/admin_discovery/downloading_discovery_${versionCode}.mdx
+- Import Templates → /content/${versionCode}/admin_${versionCode}/admin_discovery/import_templates_${versionCode}.mdx
 - Ignore ADM Process → /content/${versionCode}/admin_${versionCode}/admin_discovery/ignore_adm_process_${versionCode}.mdx
-
-### Ignore Process
-
 - Ignore Process → /content/${versionCode}/admin_${versionCode}/admin_discovery/ignore_process_${versionCode}.mdx
-
-### Major Software
-
-- Major Software → /content/${versionCode}/admin_${versionCode}/major_software_${versionCode}.mdx
-
-### Monitoring Profile
-
-- Monitoring Profile → /content/${versionCode}/admin_${versionCode}/monitoring_profile_${versionCode}.mdx
-- Details → /content/${versionCode}/admin_${versionCode}/monitoring_profile/details_${versionCode}.mdx
-- Frequency → /content/${versionCode}/admin_${versionCode}/monitoring_profile/frequency_${versionCode}.mdx
-- Trigger Conditions → /content/${versionCode}/admin_${versionCode}/monitoring_profile/trigger_conditions_${versionCode}.mdx
-- Action Details → /content/${versionCode}/admin_${versionCode}/monitoring_profile/action_details_${versionCode}.mdx
-- Notifications → /content/${versionCode}/admin_${versionCode}/monitoring_profile/notifications_${versionCode}.mdx
-
-### Port Configuration
-
-- Port Configuration → /content/${versionCode}/admin_${versionCode}/port_configuration_${versionCode}.mdx
-
-### Probe Workflow
-
-- Probe Workflow → /content/${versionCode}/admin_${versionCode}/probe_workflow_${versionCode}.mdx
-
-### Probes
-
-- Probes → /content/${versionCode}/admin_${versionCode}/probes_${versionCode}.mdx
-
-### Scan Configuration
-
-- Scan Configuration → /content/${versionCode}/admin_${versionCode}/scan_configuration_${versionCode}.mdx
-
-### Sensors
-
-- Sensors → /content/${versionCode}/admin_${versionCode}/sensors_${versionCode}.mdx
-
-### Graphical Workflows
-
-- Graphical Workflows → /content/${versionCode}/admin_${versionCode}/graphical_workflows_${versionCode}.mdx
+- Major Software → /content/${versionCode}/admin_${versionCode}/admin_discovery/major_software_${versionCode}.mdx
+- Monitoring Profile → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_${versionCode}.mdx
+  - Details → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_details_${versionCode}.mdx
+  - Frequency → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_frequency_${versionCode}.mdx
+  - Trigger Conditions → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_trigger_conditions_${versionCode}.mdx
+  - Action Details → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_action_details_${versionCode}.mdx
+  - Notifications → /content/${versionCode}/admin_${versionCode}/admin_discovery/mon_prof_notifications_${versionCode}.mdx
+- Port Configuration → /content/${versionCode}/admin_${versionCode}/admin_discovery/port_config_process_${versionCode}.mdx
+- Probe Workflow → /content/${versionCode}/admin_${versionCode}/admin_discovery/probe_workflow_${versionCode}.mdx
+- Probes → /content/${versionCode}/admin_${versionCode}/admin_discovery/probes_${versionCode}.mdx
+- Scan Configuration → /content/${versionCode}/admin_${versionCode}/admin_discovery/scan_configuration_${versionCode}.mdx
+- Sensors → /content/${versionCode}/admin_${versionCode}/admin_discovery/sensors_${versionCode}.mdx
+- Graphical Workflows → /content/${versionCode}/admin_${versionCode}/admin_discovery/graphical_workflows_${versionCode}.mdx
 
 ### SACM
 
-- SACM → /content/${versionCode}/admin_${versionCode}/sacm/sacm_${versionCode}.mdx
-- Blueprints → /content/${versionCode}/admin_${versionCode}/sacm/blueprints_${versionCode}.mdx
-- Custom BSM Views → /content/${versionCode}/admin_${versionCode}/sacm/custom_bsm_views_${versionCode}.mdx
-- Critical BSM Workflow → /content/${versionCode}/admin_${versionCode}/sacm/critical_bsm_workflow_${versionCode}.mdx
-- CMDB Properties → /content/${versionCode}/admin_${versionCode}/sacm/cmdb_properties_${versionCode}.mdx
-- Confidence Configuration → /content/${versionCode}/admin_${versionCode}/sacm/confidence_configuration_${versionCode}.mdx
-- Duplicates Remediation → /content/${versionCode}/admin_${versionCode}/sacm/duplicates_remediation_${versionCode}.mdx
-- Export CI Template → /content/${versionCode}/admin_${versionCode}/sacm/export_ci_template_${versionCode}.mdx
-- IP Connection Score Threshold → /content/${versionCode}/admin_${versionCode}/sacm/ip_connection_score_threshold_${versionCode}.mdx
-- Process Tags → /content/${versionCode}/admin_${versionCode}/sacm/process_tags_${versionCode}.mdx
-- Property Group → /content/${versionCode}/admin_${versionCode}/sacm/property_group_${versionCode}.mdx
-- Relationship Types → /content/${versionCode}/admin_${versionCode}/sacm/relationship_types_${versionCode}.mdx
-- Software License Validity Check → /content/${versionCode}/admin_${versionCode}/sacm/software_license_validity_check_${versionCode}.mdx
-- Software Usage Report → /content/${versionCode}/admin_${versionCode}/sacm/software_usage_report_${versionCode}.mdx
+- Blueprints → /content/${versionCode}/admin_${versionCode}/admin_sacm/blueprints_${versionCode}.mdx
+- Custom BSM Views → /content/${versionCode}/admin_${versionCode}/admin_sacm/custom_bsm_views_${versionCode}.mdx
+- CMDB Graphical Workflow → /content/${versionCode}/admin_${versionCode}/admin_discovery/graphical_workflows_${versionCode}.mdx
+- CMDB Properties → /content/${versionCode}/admin_${versionCode}/admin_sacm/cmdb_properties_${versionCode}.mdx
+- Confidence Configuration → /content/${versionCode}/admin_${versionCode}/admin_sacm/confidence_config_${versionCode}.mdx
+- Duplicates Remediation → /content/${versionCode}/admin_${versionCode}/admin_sacm/dups_remediation_${versionCode}.mdx
+- Export CI Template → /content/${versionCode}/admin_${versionCode}/admin_sacm/export_ci_template_${versionCode}.mdx
+- IP Connection Score Threshold → /content/${versionCode}/admin_${versionCode}/admin_sacm/ip_conn_score_threshold_${versionCode}.mdx
+- Process Tags → /content/${versionCode}/admin_${versionCode}/admin_sacm/process_tags_${versionCode}.mdx
+- Property Group → /content/${versionCode}/admin_${versionCode}/admin_sacm/property_group_${versionCode}.mdx
+- Relationship Types → /content/${versionCode}/admin_${versionCode}/admin_sacm/relationship_types_${versionCode}.mdx
+- Software License Validity Check → /content/${versionCode}/admin_${versionCode}/admin_sacm/sw_lic_validity_check_${versionCode}.mdx
+- Software Usage Report → /content/${versionCode}/admin_${versionCode}/admin_sacm/software_usage_report_${versionCode}.mdx
 
 ### Users
 
-- Users → /content/${versionCode}/admin_${versionCode}/users/users_${versionCode}.mdx
-- AD Configuration → /content/${versionCode}/admin_${versionCode}/users/ad_configuration_${versionCode}.mdx
-- Azure AD Configuration → /content/${versionCode}/admin_${versionCode}/users/azure_ad_configuration_${versionCode}.mdx
-- SAML Configuration → /content/${versionCode}/admin_${versionCode}/users/saml_configuration_${versionCode}.mdx
-- Time Track Reports → /content/${versionCode}/admin_${versionCode}/users/time_track_reports_${versionCode}.mdx
-- User Groups → /content/${versionCode}/admin_${versionCode}/users/user_groups_${versionCode}.mdx
-- User Roles → /content/${versionCode}/admin_${versionCode}/users/user_roles_${versionCode}.mdx
-- Users → /content/${versionCode}/admin_${versionCode}/users/users_list_${versionCode}.mdx
+- AD Configuration → /content/${versionCode}/admin_${versionCode}/admin_users/ad_imp_auth_${versionCode}.mdx
+- Azure AD Configuration → /content/${versionCode}/admin_${versionCode}/admin_users/azure_ad_config_${versionCode}.mdx
+- SAML Configuration → /content/${versionCode}/admin_${versionCode}/admin_users/saml_config_${versionCode}.mdx
+- Time Track Reports → /content/${versionCode}/admin_${versionCode}/admin_users/time_track_reports_${versionCode}.mdx
+- User Groups → /content/${versionCode}/admin_${versionCode}/admin_users/user_groups_${versionCode}.mdx
+- User Roles → /content/${versionCode}/admin_${versionCode}/admin_users/user_roles_${versionCode}.mdx
+- Users → /content/${versionCode}/admin_${versionCode}/admin_users/users_${versionCode}.mdx
 
 ### Management Functions
 
-- Management Functions → /content/${versionCode}/admin_${versionCode}/management_functions/management_functions_${versionCode}.mdx
-- Change Management → /content/${versionCode}/admin_${versionCode}/management_functions/change_management_${versionCode}.mdx
-- Contract Management → /content/${versionCode}/admin_${versionCode}/management_functions/contract_management_${versionCode}.mdx
-- Event Management → /content/${versionCode}/admin_${versionCode}/management_functions/event_management_${versionCode}.mdx
-- Hardware Asset Management → /content/${versionCode}/admin_${versionCode}/management_functions/hardware_asset_management_${versionCode}.mdx
-- Incident Management → /content/${versionCode}/admin_${versionCode}/management_functions/incident_management_${versionCode}.mdx
-- Knowledge Management → /content/${versionCode}/admin_${versionCode}/management_functions/knowledge_management_${versionCode}.mdx
-- Problem Management → /content/${versionCode}/admin_${versionCode}/management_functions/problem_management_${versionCode}.mdx
-
-### Procurement
-
-- Procurement → /content/${versionCode}/admin_${versionCode}/procurement/procurement_${versionCode}.mdx
-- About-Procurement → /content/${versionCode}/admin_${versionCode}/procurement/about_procurement_${versionCode}.mdx
-- Procurement Properties → /content/${versionCode}/admin_${versionCode}/procurement/procurement_properties_${versionCode}.mdx
-- Procurement Property Group → /content/${versionCode}/admin_${versionCode}/procurement/procurement_property_group_${versionCode}.mdx
-
-### Project Management
-
-- Project Management → /content/${versionCode}/admin_${versionCode}/project_management/project_management_${versionCode}.mdx
-
-### Release Management
-
-- Release Management → /content/${versionCode}/admin_${versionCode}/release_management/release_management_${versionCode}.mdx
-
-### Request Management
-
-- Request Management → /content/${versionCode}/admin_${versionCode}/request_management/request_management_${versionCode}.mdx
-
-### Vendor Management
-
-- Vendor Management → /content/${versionCode}/admin_${versionCode}/vendor_management/vendor_management_${versionCode}.mdx
+- Change Management → /content/${versionCode}/admin_${versionCode}/admin_change_mngmnt/about_change_mngmnt_${versionCode}.mdx
+- Contract Management → /content/${versionCode}/admin_${versionCode}/admin_contract_mngmt/about_contract_mngmnt_${versionCode}.mdx
+- Event Management → /content/${versionCode}/admin_${versionCode}/admin_event_mngmnt/about_event_mngmnt_${versionCode}.mdx
+- Hardware Asset Management → /content/${versionCode}/admin_${versionCode}/admin_hardware_asset_mngmnt/about_hw_asset_mngmnt_${versionCode}.mdx
+- Incident Management → /content/${versionCode}/admin_${versionCode}/admin_incident_mngmnt/about_incident_mngmnt_${versionCode}.mdx
+- Knowledge Management → /content/${versionCode}/admin_${versionCode}/admin_knowledge_mngmnt/about_knowledge_mngmnt_${versionCode}.mdx
+- Problem Management → /content/${versionCode}/admin_${versionCode}/admin_problem_mngmnt/about_problem_mngmnt_${versionCode}.mdx
+- Procurement → /content/${versionCode}/admin_${versionCode}/admin_procurement/about_procurement_${versionCode}.mdx
+  - Procurement Properties → /content/${versionCode}/admin_${versionCode}/admin/admin_functions_new_${versionCode}.mdx
+  - Procurement Property Group → /content/${versionCode}/admin_${versionCode}/admin_procurement/procurement_property_group_${versionCode}.mdx
+- Project Management → /content/${versionCode}/admin_${versionCode}/admin_project_mngmnt/about_project_mngmnt_${versionCode}.mdx
+- Release Management → /content/${versionCode}/admin_${versionCode}/admin_release_mngmnt/about_release_mngmnt_${versionCode}.mdx
+- Request Management → /content/${versionCode}/admin_${versionCode}/admin_request_mngmnt/about_request_mngmnt_${versionCode}.mdx
+- Vendor Management → /content/${versionCode}/admin_${versionCode}/admin_vendor_mngmnt/about_vendor_mngmnt_${versionCode}.mdx
 
 ### Integrations
 
-- Integrations → /content/${versionCode}/admin_${versionCode}/integrations/integrations_${versionCode}.mdx
-- Cherwell Credential → /content/${versionCode}/admin_${versionCode}/integrations/cherwell_credential_${versionCode}.mdx
-  - Cherwell Mappings → /content/${versionCode}/admin_${versionCode}/integrations/cherwell_mappings_${versionCode}.mdx
-- Infoblox Configuration → /content/${versionCode}/admin_${versionCode}/integrations/infoblox_configuration_${versionCode}.mdx
-- Ivanti Credentials → /content/${versionCode}/admin_${versionCode}/integrations/ivanti_credentials_${versionCode}.mdx
-  - Ivanti Mappings → /content/${versionCode}/admin_${versionCode}/integrations/ivanti_mappings_${versionCode}.mdx
-- Jira Credentials → /content/${versionCode}/admin_${versionCode}/integrations/jira_credentials_${versionCode}.mdx
-  - Jira Asset Mappings → /content/${versionCode}/admin_${versionCode}/integrations/jira_asset_mappings_${versionCode}.mdx
-- ServiceNow Credentials → /content/${versionCode}/admin_${versionCode}/integrations/servicenow_credentials_${versionCode}.mdx
-  - ServiceNow Mappings → /content/${versionCode}/admin_${versionCode}/integrations/servicenow_mappings_${versionCode}.mdx
+- Cherwell Credential → /content/${versionCode}/admin_${versionCode}/admin_integrations/cherwell_credential_${versionCode}.mdx
+  - Cherwell Mappings → /content/${versionCode}/admin_${versionCode}/admin_integrations/cherwell_mappings_${versionCode}.mdx
+- Infoblox Configuration → /content/${versionCode}/admin_${versionCode}/admin_integrations/infoblox_configuration_${versionCode}.mdx
+- Ivanti Credentials → /content/${versionCode}/admin_${versionCode}/admin_integrations/ivanti_credentials_${versionCode}.mdx
+  - Ivanti Mappings → /content/${versionCode}/admin_${versionCode}/admin_integrations/ivanti_mappings_${versionCode}.mdx
+- Jira Credentials → /content/${versionCode}/admin_${versionCode}/admin_integrations/jira_credentials_${versionCode}.mdx
+  - Jira Asset Mappings → /content/${versionCode}/admin_${versionCode}/admin_integrations/jira_asset_mappings_${versionCode}.mdx
+- ServiceNow Credentials → /content/${versionCode}/admin_${versionCode}/admin_integrations/servicenow_credentials_${versionCode}.mdx
+  - ServiceNow Mappings → /content/${versionCode}/admin_${versionCode}/admin_integrations/servicenow_mappings_${versionCode}.mdx
 
 ### Others
 
-- Others → /content/${versionCode}/admin_${versionCode}/others/others_${versionCode}.mdx
-- Announcements → /content/${versionCode}/admin_${versionCode}/others/announcements_${versionCode}.mdx
-- Business Rules → /content/${versionCode}/admin_${versionCode}/others/business_rules_${versionCode}.mdx
-- Custom Reports → /content/${versionCode}/admin_${versionCode}/others/custom_reports_${versionCode}.mdx
-- Documentation and Tester → /content/${versionCode}/admin_${versionCode}/others/documentation_and_tester_${versionCode}.mdx
-- Inbox Configuration for ITSM Ticket Management → /content/${versionCode}/admin_${versionCode}/others/inbox_configuration_for_itsm_ticket_management_${versionCode}.mdx
-- KPIs → /content/${versionCode}/admin_${versionCode}/others/kpis_${versionCode}.mdx
-- Reports → /content/${versionCode}/admin_${versionCode}/others/reports_${versionCode}.mdx
-- Role Access → /content/${versionCode}/admin_${versionCode}/others/role_access_${versionCode}.mdx
-- Service Level Agreements → /content/${versionCode}/admin_${versionCode}/others/service_level_agreements_${versionCode}.mdx
-- SMTP Configuration → /content/${versionCode}/admin_${versionCode}/others/smtp_configuration_${versionCode}.mdx
-- Risk Score Calculator → /content/${versionCode}/admin_${versionCode}/others/risk_score_calculator_${versionCode}.mdx
-- Graphical Workflows → /content/${versionCode}/admin_${versionCode}/others/graphical_workflows_${versionCode}.mdx
+- Announcements → /content/${versionCode}/admin_${versionCode}/admin_other/announcements_${versionCode}.mdx
+- Business Rules → /content/${versionCode}/admin_${versionCode}/admin_other/business_rules_${versionCode}.mdx
+- Custom Reports → /content/${versionCode}/admin_${versionCode}/admin_settings/custom_reports_${versionCode}.mdx
+- Documentation and Tester → /content/${versionCode}/admin_${versionCode}/admin_other/documentation_and_tester_${versionCode}.mdx
+- Email Templates → /content/${versionCode}/admin_${versionCode}/admin/email_templates_${versionCode}.mdx
+- Inbox Configuration → /content/${versionCode}/admin_${versionCode}/admin_other/inbox_configuration_${versionCode}.mdx
+- KPIs → /content/${versionCode}/admin_${versionCode}/admin_other/kpis_${versionCode}.mdx
+- Model Sections → /content/${versionCode}/admin_${versionCode}/admin/model_sections_fields_${versionCode}.mdx
+- Modules → /content/${versionCode}/admin_${versionCode}/admin/modules_${versionCode}.mdx
+- Navigation Pane Config → /content/${versionCode}/admin_${versionCode}/admin/navigation_pane_config_${versionCode}.mdx
+- Property Types → /content/${versionCode}/admin_${versionCode}/admin/property_types_${versionCode}.mdx
+- Role Access → /content/${versionCode}/admin_${versionCode}/admin_security/role_access_${versionCode}.mdx
+- Service Level Agreements → /content/${versionCode}/admin_${versionCode}/admin_other/sla_${versionCode}.mdx
+- SMTP Configuration → /content/${versionCode}/admin_${versionCode}/admin_settings/smtp_configuration_${versionCode}.mdx
 `;
   
   const moduleCount = tocContent.split('##').length - 1;
@@ -850,9 +813,7 @@ function generateNGTOC(): string {
 
 ## Admin
 
-### Overview
-
-- About Admin → /content/NG/admin_ng/admin/about_admin_ng.mdx
+- Overview → /content/NG/admin_ng/overview_ng.mdx
 
 ### Organizational Details
 

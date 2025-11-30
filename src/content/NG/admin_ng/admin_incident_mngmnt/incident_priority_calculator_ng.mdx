@@ -1,24 +1,88 @@
----
-title: "Priority Calculator"
-description: "Use this function to set values for Urgency and Impact."
-version: ""
-module: "Admin Incident Mngmnt"
-section: "Incident Priority Calculator"
-page: "Priority Calculator"
-breadcrumbs:
-  - "Home"
-  - ""
-  - "Admin Incident Mngmnt"
-  - "Incident Priority Calculator"
-  - "Priority Calculator"
----
+# Incident Priority Calculator
 
-# Priority Calculator
+Use this function to configure how incident priority is automatically calculated based on urgency and impact values.
 
-Use this function to set values for Urgency and Impact.
+The Priority Calculator uses a matrix approach where the combination of Impact and Urgency determines the resulting Priority level.
 
+In the main window, click **Admin > Incident Management > Incident Priority Calculator**. The Priority Calculator window displays.
 
-Role access must be given to perform these functions.
+## Priority Calculation Matrix
 
+The matrix shows how priorities are calculated:
 
-In the main window, click **Admin > Incident Management > Incident Priority Calculator**. The Priority Calculation window displays.
+| Impact / Urgency | Critical | High | Medium | Low |
+| Critical | P1 | P1 | P2 | P3 |
+| High | P1 | P2 | P3 | P4 |
+| Medium | P2 | P3 | P4 | P5 |
+| Low | P3 | P4 | P5 | P5 |
+
+## Configure Priority Calculation
+
+To modify the priority calculation matrix:
+
+Click on a cell in the matrix to edit.
+
+Select the desired priority level for that combination of Impact and Urgency.
+
+The changes are saved automatically.
+
+## Define Priority Levels
+
+Configure the priority levels used in your organization:
+
+Click **Manage Priority Levels**.
+
+For each priority level, define:
+
+- **Priority Name**: (e.g., P1, Critical, High)
+- **Priority Level**: Numeric value (1-5)
+- **Color Code**: Visual indicator
+- **SLA Target**: Associated response/resolution time
+- **Description**: What this priority means
+
+Click **Save**.
+
+## Define Impact Levels
+
+Configure impact levels:
+
+Click **Manage Impact Levels**.
+
+For each impact level, define:
+
+- **Impact Name**: (e.g., Critical, High, Medium, Low)
+- **Impact Value**: Numeric value
+- **Description**: Scope of impact
+- **Examples**: Common scenarios
+
+Click **Save**.
+
+## Define Urgency Levels
+
+Configure urgency levels:
+
+Click **Manage Urgency Levels**.
+
+For each urgency level, define:
+
+- **Urgency Name**: (e.g., Critical, High, Medium, Low)
+- **Urgency Value**: Numeric value
+- **Description**: Time sensitivity
+- **Examples**: Common scenarios
+
+Click **Save**.
+
+## Auto-Calculate Priority
+
+To enable automatic priority calculation:
+
+Check **Enable Auto-Calculate Priority**.
+
+When enabled, the priority will be automatically set based on the selected Impact and Urgency values.
+
+Users can still manually override the calculated priority if needed.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

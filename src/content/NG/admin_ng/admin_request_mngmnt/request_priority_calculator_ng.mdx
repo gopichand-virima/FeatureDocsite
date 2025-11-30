@@ -1,59 +1,58 @@
----
-title: "Request Priority Calculator"
-description: "Use this function to set the value for Urgency and Impact for a request."
-version: ""
-module: "Admin Request Mngmnt"
-section: "Request Priority Calculator"
-page: "Request Priority Calculator"
-breadcrumbs:
-  - "Home"
-  - ""
-  - "Admin Request Mngmnt"
-  - "Request Priority Calculator"
-  - "Request Priority Calculator"
----
-
 # Request Priority Calculator
 
-Use this function to set the value for Urgency and Impact for a request.
+Use this function to configure how request priority is automatically calculated based on urgency and impact values.
 
+The Priority Calculator uses a matrix approach where the combination of Impact and Urgency determines the resulting Priority level.
 
-Role access must be given to perform these functions.
+In the main window, click **Admin > Request Management > Request Priority Calculator**. The Priority Calculator window displays.
 
+## Priority Calculation Matrix
 
-In the main window, click **Admin > Request Management > Request Priority Calculator**. The Request Priority Calculator window displays.
+The matrix shows how priorities are calculated:
 
-New Request Priority Calculator
+| Impact / Urgency | Critical | High | Medium | Low |
+| Critical | P1 | P1 | P2 | P3 |
+| High | P1 | P2 | P3 | P4 |
+| Medium | P2 | P3 | P4 | P5 |
+| Low | P3 | P4 | P5 | P5 |
 
-Set the values according to the table below. Once the **Impact** and **Urgency** are defined as shown in the figure above, the **Priority** is set automatically when creating a request.
+## Configure Priority Calculation
 
+To modify the priority calculation matrix:
 
-Priority is always set to 1-Very High if the Reporter is VIP.
+Click on a cell in the matrix to edit.
 
+Select the desired priority level for that combination of Impact and Urgency.
 
-When all selections are made, click **Save**.
+The changes are saved automatically.
 
-### Priority Calculator Values
+## Define Priority Levels
 
-| Impact | Urgency | Priority |
+Configure the priority levels used in your organization:
 
-| High | High | 1-Very High |
+Click **Manage Priority Levels**.
 
-| High | Medium | 2- High |
+For each priority level, define:
 
-| High | Low | 3- Medium |
+- **Priority Name**: (e.g., P1, Critical, High)
+- **Priority Level**: Numeric value (1-5)
+- **Color Code**: Visual indicator
+- **Target Fulfillment Time**: Associated completion timeframe
+- **Description**: What this priority means
 
-| Medium | High | 2- High |
+Click **Save**.
 
-| Medium | Medium | 3- Medium |
+## Auto-Calculate Priority
 
-| Medium | Low | 4-Low |
+To enable automatic priority calculation:
 
-| Low | High | 3- Medium |
+Check **Enable Auto-Calculate Priority**.
 
-| Low | Medium | 4-Low |
+When enabled, the priority will be automatically set based on the selected Impact and Urgency values.
 
-| Low | Low | 5-Very Low |
+Users can still manually override the calculated priority if needed.
 
+## Other Functions and Page Elements
 
-Edit Request Priority Calculator Delete Request Priority Calculator
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)

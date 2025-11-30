@@ -16,4 +16,13 @@ breadcrumbs:
 
 # Overview
 
-The **Run a Scan** feature in Virima allows IT administrators to initiate and configure scans to discover assets, audit systems, and gather critical IT data. Users can define scan parameters such as IP ranges, probe types, scheduling, and report recipients. Multiple scan types are supported (e.g., host, certificate, port, AD, SQL, Kubernetes, website), each tailored for specific discovery or audit needs. Scans can be run immediately or scheduled, and results are sent to selected users or groups. The process requires proper prerequisites (credentials, client setup) and supports flexible configuration for targeted, efficient IT discovery and monitoring.
+The **Run a Scan** feature in Virima allows IT teams to initiate **on-demand network discovery scans** to identify and catalog devices, servers, and infrastructure components within a specified IP range or network segment. This function is the primary mechanism for discovering new assets, updating existing Configuration Items (CIs), and maintaining an accurate inventory in the CMDB.
+
+By configuring scan parameters such as target IP addresses, scan type, and discovery client, administrators can proactively capture detailed hardware, software, and network information without manual data entry. The scan results are processed and made available in the **Discovered Items** section, where assets can be reviewed, validated, and promoted to the CMDB. This streamlines IT asset management, enhances security compliance, and enables continuous infrastructure visibility.
+
+The **Run a Scan** page is the starting point for initiating discovery. It allows administrators to:
+
+- Define **target IP ranges** (single, multiple, CIDR, or range-based)
+- Select a **discovery client** (the server performing the scan)
+- Choose a **scan type** (e.g., Deep Host Scan, Basic Host Scan, Port Scan, etc.)
+- Run the scan immediately (on-demand) or schedule it for later execution

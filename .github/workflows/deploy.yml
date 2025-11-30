@@ -56,21 +56,66 @@ jobs:
       - name: Verify build output
         run: |
           if [ ! -d "build" ]; then
-            echo "Error: Build directory not found!"
+            echo "❌ Error: Build directory not found!"
             exit 1
           fi
           if [ ! -f "build/index.html" ]; then
-            echo "Error: index.html not found in build directory!"
+            echo "❌ Error: index.html not found in build directory!"
             exit 1
           fi
-          echo "Build verification successful!"
+          echo "✅ Build verification successful!"
+          echo "Build structure:"
           ls -la build/ | head -20
+
+      - name: Verify MDX content files
+        run: |
+          echo "📄 Verifying MDX content files..."
+          
+          # Check if content directory exists
+          if [ ! -d "build/content" ]; then
+            echo "❌ Error: Content directory not found in build output!"
+            exit 1
+          fi
+          
+          # Verify key version directories exist
+          for version in "5_13" "6_1" "6_1_1" "NG"; do
+            if [ -d "build/content/$version" ]; then
+              MDX_COUNT=$(find "build/content/$version" -name "*.mdx" | wc -l)
+              echo "✅ Version $version: $MDX_COUNT MDX files found"
+              
+              # Verify index.mdx exists for each version
+              if [ -f "build/content/$version/index.mdx" ]; then
+                echo "  ✅ index.mdx found for $version"
+              else
+                echo "  ⚠️  Warning: index.mdx not found for $version"
+              fi
+            else
+              echo "  ⚠️  Warning: Version $version directory not found"
+            fi
+          done
+          
+          # Count total MDX files
+          TOTAL_MDX=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
+          echo "📊 Total MDX files in build: $TOTAL_MDX"
+          
+          if [ "$TOTAL_MDX" -lt 100 ]; then
+            echo "⚠️  Warning: Expected more MDX files (found $TOTAL_MDX)"
+          else
+            echo "✅ MDX content verification passed"
 
       - name: Check build size
         run: |
           BUILD_SIZE=$(du -sh build | cut -f1)
-          echo "Build size: $BUILD_SIZE"
+          BUILD_SIZE_BYTES=$(du -sb build | cut -f1)
+          FILE_COUNT=$(find build -type f | wc -l)
+          echo "📦 Build size: $BUILD_SIZE"
+          echo "📄 Total files: $FILE_COUNT"
           echo "BUILD_SIZE=$BUILD_SIZE" >> $GITHUB_ENV
+          
+          # Warn if build is unusually large (> 100MB)
+          if [ "$BUILD_SIZE_BYTES" -gt 104857600 ]; then
+            echo "⚠️  Warning: Build size exceeds 100MB"
+          fi
 
   # Deploy job - only runs on main/master branch pushes
   deploy:
@@ -98,12 +143,36 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Verify content files in build
+        run: |
+          echo "🔍 Verifying content files are included in build..."
+          if [ ! -d "build/content" ]; then
+            echo "❌ Error: Content directory missing from build!"
+            exit 1
+          fi
+          
+          # Verify critical content files exist
+          CRITICAL_FILES=(
+            "build/content/6_1/index.mdx"
+            "build/content/6_1/my-dashboard/my-dashboard-overview-6_1.mdx"
+            "build/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx"
+          )
+          
+          for file in "${CRITICAL_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ Found: $file"
+            else
+              echo "⚠️  Warning: $file not found"
+            fi
+          done
+
       - name: Copy 404.html for client-side routing
         run: |
           if [ -f "public/404.html" ]; then
             cp public/404.html build/404.html
           elif [ -f "build/index.html" ]; then
             cp build/index.html build/404.html
+            echo "✅ Created 404.html from index.html"
           fi
 
       - name: Setup Pages

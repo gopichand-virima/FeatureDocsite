@@ -1,14 +1,106 @@
 import { motion } from "motion/react";
-import { ArrowRight, Command } from "lucide-react";
+import { ArrowRight, Command, PieChart, Database, FileText, AlertTriangle, Monitor, User, Network, ClipboardList, TrendingUp, BookOpen, Zap, Workflow, Layers, Shield, Settings } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
+import { Footer } from "./Footer";
 import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
 import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
 
 interface CoverPageProps {
   onModuleSelect: (module: string) => void;
 }
+
+const modules = [
+  {
+    id: "admin",
+    name: "Admin",
+    icon: Settings,
+    description: "Administrative functions for organizational setup, user management, discovery configuration, and system integrations.",
+    iconBg: "bg-blue-600",
+    iconColor: "text-white",
+  },
+  {
+    id: "my-dashboard",
+    name: "My Dashboard",
+    icon: PieChart,
+    description: "Centralized view of your IT environment with customizable widgets and real-time monitoring.",
+    iconBg: "bg-orange-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "cmdb",
+    name: "CMDB",
+    icon: Database,
+    description: "Configuration Management Database for tracking and managing all IT assets and their relationships.",
+    iconBg: "bg-green-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "discovery-scan",
+    name: "Discovery Scan",
+    icon: TrendingUp,
+    description: "Automated discovery and scanning of IT infrastructure, applications, and cloud resources.",
+    iconBg: "bg-blue-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "itsm",
+    name: "ITSM",
+    icon: FileText,
+    description: "IT Service Management for incident, problem, change, and service request management.",
+    iconBg: "bg-purple-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "vulnerability-management",
+    name: "Vulnerability Management",
+    icon: AlertTriangle,
+    description: "Identify, assess, and remediate security vulnerabilities across your IT infrastructure.",
+    iconBg: "bg-indigo-600",
+    iconColor: "text-white",
+  },
+  {
+    id: "itam",
+    name: "ITAM",
+    icon: Monitor,
+    description: "IT Asset Management for complete lifecycle management of hardware and software assets.",
+    iconBg: "bg-cyan-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "self-service",
+    name: "Self Service",
+    icon: User,
+    description: "Empower users with self-service portal for requests, catalog items, and knowledge base.",
+    iconBg: "bg-pink-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "program-project-management",
+    name: "Program and Project Management",
+    icon: Network,
+    description: "Manage IT programs and projects with planning, tracking, and resource allocation.",
+    iconBg: "bg-amber-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "risk-register",
+    name: "Risk Register",
+    icon: ClipboardList,
+    description: "Track and manage IT risks with assessment, mitigation planning, and compliance monitoring.",
+    iconBg: "bg-rose-500",
+    iconColor: "text-white",
+  },
+  {
+    id: "reports",
+    name: "Reports",
+    icon: TrendingUp,
+    description: "Comprehensive reporting and analytics with customizable dashboards and scheduled reports.",
+    iconBg: "bg-violet-500",
+    iconColor: "text-white",
+  },
+];
 
 export function CoverPage({ onModuleSelect }: CoverPageProps) {
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
@@ -20,52 +112,54 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-white flex items-center justify-center">
-      {/* Animated Hexagon Background Image - Slides in from right with pixel-perfect coverage */}
-      <motion.div
-        key={`background-${animationKey}`}
-        className="absolute inset-0 w-full h-full"
-        initial={{ x: "100%", opacity: 0 }}
-        animate={{ 
-          x: 0, 
-          opacity: 1,
-        }}
-        transition={{
-          duration: 1.2,
-          ease: [0.43, 0.13, 0.23, 0.96],
-        }}
-      >
+    <div className="w-full bg-white">
+      {/* Hero Section with Cover Page */}
+      <div className="relative w-full min-h-screen bg-white flex items-center justify-center">
+        {/* Animated Hexagon Background Image - Slides in from right with pixel-perfect coverage */}
         <motion.div
-          key={`shake-${animationKey}`}
-          className="w-full h-full"
-          initial={{ scale: 1.05 }}
+          key={`background-${animationKey}`}
+          className="absolute inset-0 w-full h-full"
+          initial={{ x: "100%", opacity: 0 }}
           animate={{ 
-            scale: [1.05, 1.07, 1.03, 1.06, 1.04, 1.05],
+            x: 0, 
+            opacity: 1,
           }}
           transition={{
-            delay: 1.2,
-            duration: 0.6,
-            times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-            ease: "easeInOut"
+            duration: 1.2,
+            ease: [0.43, 0.13, 0.23, 0.96],
           }}
         >
-          <img
-            src={coverImage}
-            alt="Virima Hexagon Pattern"
-            className="w-full h-full object-cover"
-            style={{
-              minWidth: '100%',
-              minHeight: '100%',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+          <motion.div
+            key={`shake-${animationKey}`}
+            className="w-full h-full"
+            initial={{ scale: 1.05 }}
+            animate={{ 
+              scale: [1.05, 1.07, 1.03, 1.06, 1.04, 1.05],
             }}
-          />
+            transition={{
+              delay: 1.2,
+              duration: 0.6,
+              times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+              ease: "easeInOut"
+            }}
+          >
+            <img
+              src={coverImage}
+              alt="Virima Hexagon Pattern"
+              className="w-full h-full object-cover"
+              style={{
+                minWidth: '100%',
+                minHeight: '100%',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </motion.div>
         </motion.div>
-      </motion.div>
 
-      {/* Content Overlay - Centered and Responsive */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        {/* Content Overlay - Centered and Responsive */}
+        <div className="relative z-10 w-full min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
           {/* Virima Brand - Perfectly Centered with Fade In */}
           <motion.div
@@ -180,14 +274,111 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
         </div>
       </div>
 
-      {/* Bottom gradient fade - responsive */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
+        {/* Bottom gradient fade - responsive */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
+      </div>
 
-      {/* AI Search Dialog */}
-      <AISearchDialogSimplified
-        isOpen={searchDialogOpen}
-        onClose={() => setSearchDialogOpen(false)}
-      />
+      {/* Value Proposition Section */}
+    <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-8 pb-0 lg:pt-12 lg:pb-0">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl lg:text-6xl text-slate-900 mb-8 tracking-tight">
+            Enterprise IT Operations, Simplified
+          </h2>
+          <p className="text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Virima delivers a comprehensive suite of IT management solutions designed for enterprise-scale operations with the agility modern businesses demand.
+          </p>
+          <div className="bg-white pt-16 pb-8 lg:pt-20 lg:pb-12">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {modules.map((module) => {
+                  const Icon = module.icon;
+                  return (
+                    <div
+                      key={module.id}
+                      className="group relative bg-white border border-slate-100 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] hover:border-slate-200 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
+                      onClick={() => onModuleSelect(module.id)}
+                    >
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-slate-50 via-white to-transparent rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      <div className="relative flex flex-col flex-grow">
+                        <div className="mb-8">
+                          <div className={`inline-flex p-5 rounded-2xl ${module.iconBg} shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
+                            <Icon className={`h-7 w-7 ${module.iconColor}`} />
+                          </div>
+                        </div>
+
+                        <h3 className="text-2xl text-slate-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+                          {module.name}
+                        </h3>
+
+                        <p className="text-base text-slate-600 leading-relaxed mb-8 flex-grow">
+                          {module.description}
+                        </p>
+
+                        <div className="flex items-center gap-2 text-emerald-600 group-hover:gap-4 transition-all duration-300">
+                          <span>Explore</span>
+                          <ArrowRight className="h-5 w-5" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    {/* Documentation Resources */}
+    <div className="bg-gradient-to-b from-white via-slate-50/20 to-white py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-5xl lg:text-6xl text-slate-900 mb-8 tracking-tight">
+            Quick Links
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            { icon: BookOpen, title: "Getting Started", description: "Detailed guides, tutorials, and step-by-step instructions for daily operations and workflows.", gradient: "from-blue-500 to-blue-600", shadow: "shadow-blue-500/20" },
+            { icon: Zap, title: "Release Notes", description: "Latest updates, new features, improvements, and bug fixes for each version release.", gradient: "from-green-500 to-green-600", shadow: "shadow-green-500/20" },
+            { icon: Layers, title: "Online Help", description: "Quick start guides and tutorials to get up and running with each module in minutes.", gradient: "from-blue-500 to-green-500", shadow: "shadow-blue-500/20" },
+            { icon: Database, title: "Knowledge base (KB) Articles", description: "Complete reference documentation covering all features, capabilities, and configurations.", gradient: "from-green-500 to-blue-500", shadow: "shadow-green-500/20" },
+            { icon: Workflow, title: "API Integration", description: "Developer guides, API references, and code examples for seamless integrations.", gradient: "from-blue-500 to-blue-600", shadow: "shadow-blue-500/20" },
+            { icon: Shield, title: "Compatibility Matrix", description: "System requirements, browser support, database compatibility, and integrations.", gradient: "from-green-500 to-green-600", shadow: "shadow-green-500/20" },
+          ].map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={index}
+                className="group bg-white border border-slate-100 hover:border-slate-200 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] transition-all duration-500"
+              >
+                <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mb-8 shadow-lg ${item.shadow} group-hover:shadow-xl transition-shadow duration-500`}>
+                  <Icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="text-2xl text-slate-900 mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-lg">
+                  {item.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    {/* Footer */}
+    <Footer />
+
+    {/* AI Search Dialog */}
+    <AISearchDialogSimplified
+      isOpen={searchDialogOpen}
+      onClose={() => setSearchDialogOpen(false)}
+    />
+  </div>
   );
 }

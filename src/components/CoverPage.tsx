@@ -3,7 +3,9 @@ import { ArrowRight, Command, PieChart, Database, FileText, AlertTriangle, Monit
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Footer } from "./Footer";
+import { Binoculars } from "./icons/Binoculars";
 import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
 import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
 
@@ -39,7 +41,7 @@ const modules = [
   {
     id: "discovery-scan",
     name: "Discovery Scan",
-    icon: TrendingUp,
+    icon: Binoculars,
     description: "Automated discovery and scanning of IT infrastructure, applications, and cloud resources.",
     iconBg: "bg-blue-500",
     iconColor: "text-white",
@@ -143,7 +145,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
               ease: "easeInOut"
             }}
           >
-            <img
+            <ImageWithFallback
               src={coverImage}
               alt="Virima Hexagon Pattern"
               className="w-full h-full object-cover"
@@ -282,7 +284,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
     <div className="bg-gradient-to-b from-white via-slate-50/30 to-white pt-8 pb-0 lg:pt-12 lg:pb-0">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-5xl lg:text-6xl text-slate-900 mb-8 tracking-tight">
+          <h2 className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
             Enterprise IT Operations, Simplified
           </h2>
           <p className="text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -308,7 +310,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
                           </div>
                         </div>
 
-                        <h3 className="text-2xl text-slate-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+                        <h3 className="text-2xl text-black-premium mb-4 group-hover:text-green-600 transition-colors duration-300">
                           {module.name}
                         </h3>
 
@@ -316,7 +318,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
                           {module.description}
                         </p>
 
-                        <div className="flex items-center gap-2 text-emerald-600 group-hover:gap-4 transition-all duration-300">
+                        <div className="flex items-center gap-2 text-green-600 group-hover:gap-4 transition-all duration-300">
                           <span>Explore</span>
                           <ArrowRight className="h-5 w-5" />
                         </div>
@@ -335,7 +337,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
     <div className="bg-gradient-to-b from-white via-slate-50/20 to-white py-12 lg:py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-5xl lg:text-6xl text-slate-900 mb-8 tracking-tight">
+          <p className="text-5xl lg:text-6xl text-black-premium mb-8 tracking-tight">
             Quick Links
           </p>
         </div>
@@ -358,7 +360,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
                 <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mb-8 shadow-lg ${item.shadow} group-hover:shadow-xl transition-shadow duration-500`}>
                   <Icon className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-2xl text-slate-900 mb-4">
+                <h3 className="text-2xl text-black-premium mb-4">
                   {item.title}
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-lg">

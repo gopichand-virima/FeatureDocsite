@@ -102,6 +102,7 @@ jobs:
             echo "⚠️  Warning: Expected more MDX files (found $TOTAL_MDX)"
           else
             echo "✅ MDX content verification passed"
+          fi
 
       - name: Check build size
         run: |

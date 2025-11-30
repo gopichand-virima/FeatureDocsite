@@ -1,20 +1,57 @@
 
-  import { defineConfig } from 'vite';
+  import { defineConfig, Plugin } from 'vite';
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
-  import { viteStaticCopy } from 'vite-plugin-static-copy';
+  import { copyFileSync, mkdirSync, readdirSync, statSync, existsSync } from 'fs';
+
+  // Custom plugin to copy content files
+  function copyContentPlugin(): Plugin {
+    return {
+      name: 'copy-content',
+      writeBundle() {
+        const srcDir = path.resolve(process.cwd(), 'src/content');
+        const destDir = path.resolve(process.cwd(), 'build/content');
+        
+        if (!existsSync(srcDir)) {
+          console.warn('⚠️  src/content directory not found');
+          return;
+        }
+
+        function copyRecursive(src: string, dest: string) {
+          if (!existsSync(src)) return;
+          
+          const stats = statSync(src);
+          if (stats.isDirectory()) {
+            if (!existsSync(dest)) {
+              mkdirSync(dest, { recursive: true });
+            }
+            const files = readdirSync(src);
+            for (const file of files) {
+              copyRecursive(path.join(src, file), path.join(dest, file));
+            }
+          } else {
+            const destDir = path.dirname(dest);
+            if (!existsSync(destDir)) {
+              mkdirSync(destDir, { recursive: true });
+            }
+            copyFileSync(src, dest);
+          }
+        }
+
+        try {
+          copyRecursive(srcDir, destDir);
+          console.log('✅ Content files copied to build/content');
+        } catch (error) {
+          console.error('❌ Error copying content files:', error);
+        }
+      },
+    };
+  }
 
   export default defineConfig({
     plugins: [
       react(),
-      viteStaticCopy({
-        targets: [
-          {
-            src: 'src/content/**/*',
-            dest: 'content',
-          },
-        ],
-      }),
+      copyContentPlugin(),
     ],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.mdx'],
@@ -28,9 +65,9 @@
         'next-themes@0.4.6': 'next-themes',
         'lucide-react@0.487.0': 'lucide-react',
         'input-otp@1.4.2': 'input-otp',
-        'figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png': path.resolve(__dirname, './src/assets/dfabb390914b79df631271c3335e876d8bc63966.png'),
-        'figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png': path.resolve(__dirname, './src/assets/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png'),
-        'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png': path.resolve(__dirname, './src/assets/20803a9cc590c8a78bca4489c80f3bfca906561c.png'),
+        'figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png': path.resolve(process.cwd(), './src/assets/dfabb390914b79df631271c3335e876d8bc63966.png'),
+        'figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png': path.resolve(process.cwd(), './src/assets/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png'),
+        'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png': path.resolve(process.cwd(), './src/assets/20803a9cc590c8a78bca4489c80f3bfca906561c.png'),
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
         'emailjs-com@3.2.0': 'emailjs-com',
         'cmdk@1.1.1': 'cmdk',
@@ -61,7 +98,7 @@
         '@radix-ui/react-aspect-ratio@1.1.2': '@radix-ui/react-aspect-ratio',
         '@radix-ui/react-alert-dialog@1.1.6': '@radix-ui/react-alert-dialog',
         '@radix-ui/react-accordion@1.2.3': '@radix-ui/react-accordion',
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(process.cwd(), './src'),
       },
     },
     build: {

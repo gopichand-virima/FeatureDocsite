@@ -1,0 +1,52 @@
+---
+title: "Discovery Monitoring Profile"
+description: ""
+version: ""
+module: "Admin Discovery"
+section: "Mon Prof"
+page: "Discovery Monitoring Profile"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Admin Discovery"
+  - "Mon Prof"
+  - "Discovery Monitoring Profile"
+---
+
+# Discovery Monitoring Profile
+
+Use this function to monitor machines based on certain defined properties, which are set as Trigger Conditions at a given frequency. If a condition matches, it creates an ITSM record with pre-defined values based on Action Details.
+
+## Workflow Example
+
+- IF the [Trigger Condition](/admin_discovery/mon_prof_trigger_conditions_ng.mdx) *Property* is **RAM(MB)** and *Operator* **Is Empty**...
+- AND the [Action Details](/admin_discovery/mon_prof_action_details_ng.mdx) *Target Module* is **Incident**, then an incident will be created in the application...
+- THEN **[Notifications](/admin_discovery/mon_prof_notifications_ng.mdx)** will be sent to the configured users, roles, groups, or departments.
+
+New Monitoring Profile
+
+To add a monitoring profile, do the following:
+
+In the main window, clickAdmin>Discovery** > Discovery Monitoring Profile**. The Discovery Monitoring Profile window displays.
+
+From the *Select Actions* drop-down list, choose an action: **New**, [Delete](/common_topics/delete_remove_ng.mdx) or [Export](/discovery/import_data_files/export_ng.mdx).
+
+Refer to the following:
+
+- [Details](/admin_discovery/mon_prof_details_ng.mdx)
+- [Action Details](/admin_discovery/mon_prof_action_details_ng.mdx)
+- [Frequency](/admin_discovery/mon_prof_frequency_ng.mdx)
+- [Notifications](/admin_discovery/mon_prof_notifications_ng.mdx)
+- [Trigger Conditions](/admin_discovery/mon_prof_trigger_conditions_ng.mdx)
+
+When all selections/entries are made, click **Add**.
+
+Edit Monitoring Profile Delete Monitoring Profile
+
+- [Records per Page](/common_topics/records_per_page_ng.mdx)
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Items per Page](/common_topics/items_per_page_ng.mdx)

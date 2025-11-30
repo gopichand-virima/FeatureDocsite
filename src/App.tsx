@@ -145,26 +145,31 @@ export default function App() {
     // Load hierarchical TOC to get the first section and page
     try {
       const toc = await loadHierarchicalToc(selectedVersion);
-      const selectedModuleData = toc.modules.find(m => m.id === module);
       
-      if (selectedModuleData && selectedModuleData.sections.length > 0) {
-        const firstSection = selectedModuleData.sections[0];
+      // Check if TOC has modules (hierarchical system active)
+      if (toc.modules && toc.modules.length > 0) {
+        const selectedModuleData = toc.modules.find(m => m.id === module);
         
-        if (firstSection && firstSection.pages.length > 0) {
-          const firstPage = firstSection.pages[0];
-          setSelectedSection(firstSection.id);
-          setSelectedPage(firstPage.id);
-          console.log('✅ Set section and page from hierarchical TOC:', {
-            section: firstSection.id,
-            page: firstPage.id
-          });
-          return; // Successfully set from TOC
+        if (selectedModuleData && selectedModuleData.sections.length > 0) {
+          const firstSection = selectedModuleData.sections[0];
+          
+          if (firstSection && firstSection.pages.length > 0) {
+            const firstPage = firstSection.pages[0];
+            setSelectedSection(firstSection.id);
+            setSelectedPage(firstPage.id);
+            console.log('✅ Set section and page from hierarchical TOC:', {
+              section: firstSection.id,
+              page: firstPage.id
+            });
+            return; // Successfully set from TOC
+          }
         }
       }
       
-      console.warn('⚠️ Module has no sections or pages:', module);
+      // No hierarchical TOC or module not found - use legacy navigation (no warning needed)
     } catch (error) {
-      console.error('❌ Failed to load hierarchical TOC for module selection:', error);
+      // Silently fall back to legacy navigation
+      console.log('ℹ️ Using legacy navigation for module:', module);
     }
     
     // If we get here, couldn't load from TOC - set empty to trigger module landing page

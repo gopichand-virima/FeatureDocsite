@@ -82,15 +82,18 @@ jobs:
             CONTENT_MDX=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
             echo "  📄 MDX files: $CONTENT_MDX"
             
-            # Verify key version directories
+            # Verify key version directories (non-blocking)
             for version in "5_13" "6_1" "6_1_1" "NG"; do
               if [ -d "build/content/$version" ]; then
                 VERSION_MDX=$(find "build/content/$version" -name "*.mdx" 2>/dev/null | wc -l)
                 echo "  ✅ Version $version: $VERSION_MDX MDX files"
+              else
+                echo "  ⚠️  Version $version directory not found (may not exist for all versions)"
               fi
             done
           else
             echo "⚠️  Warning: Content directory not found in build"
+            echo "⚠️  This may indicate a build configuration issue"
           fi
 
       - name: Check build size
@@ -111,6 +114,9 @@ jobs:
           # Warn if too few MDX files (expected thousands)
           if [ "$MDX_COUNT" -lt 100 ]; then
             echo "⚠️  Warning: Expected more MDX files (found $MDX_COUNT)"
+            echo "⚠️  This is a warning, not an error. Build will continue."
+          else
+            echo "✅ MDX file count verification passed"
           fi
 
       - name: Test build output accessibility

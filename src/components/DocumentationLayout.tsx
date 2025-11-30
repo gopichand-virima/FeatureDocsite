@@ -110,6 +110,147 @@ export function DocumentationLayout({
     }
   }
 
+  // ============================================================
+  // TOC EXPAND/COLLAPSE HELPER FUNCTIONS
+  // ============================================================
+  // These functions power the comprehensive expand/collapse system
+  // that provides global, branch, and node-level controls for the TOC.
+  // See NavigationMenu.tsx for full architecture documentation.
+  // ============================================================
+
+  // Helper function: Get all expandable section IDs
+  const getAllExpandableSectionIds = (): string[] => {
+    return sections.map(section => section.id);
+  };
+
+  // Helper function: Get all expandable page IDs from all sections
+  const getAllExpandablePageIds = (): string[] => {
+    const pageIds: string[] = [];
+    sections.forEach(section => {
+      if (section.pages && Array.isArray(section.pages)) {
+        section.pages.forEach((page: any) => {
+          if (page.subPages && page.subPages.length > 0) {
+            pageIds.push(page.id);
+          }
+        });
+      }
+    });
+    return pageIds;
+  };
+
+  // Helper function: Get all expandable subPage IDs from all sections
+  const getAllExpandableSubPageIds = (): string[] => {
+    const subPageIds: string[] = [];
+    sections.forEach(section => {
+      if (section.pages && Array.isArray(section.pages)) {
+        section.pages.forEach((page: any) => {
+          if (page.subPages && Array.isArray(page.subPages)) {
+            page.subPages.forEach((subPage: any) => {
+              if (subPage.subPages && subPage.subPages.length > 0) {
+                subPageIds.push(subPage.id);
+              }
+            });
+          }
+        });
+      }
+    });
+    return subPageIds;
+  };
+
+  // Helper function: Get descendant page IDs for a given section
+  const getDescendantPageIds = (sectionId: string): string[] => {
+    const section = sections.find(s => s.id === sectionId);
+    if (!section || !section.pages) return [];
+    
+    const pageIds: string[] = [];
+    section.pages.forEach((page: any) => {
+      if (page.subPages && page.subPages.length > 0) {
+        pageIds.push(page.id);
+      }
+    });
+    return pageIds;
+  };
+
+  // Helper function: Get descendant subPage IDs for a given page
+  const getDescendantSubPageIds = (pageId: string): string[] => {
+    const subPageIds: string[] = [];
+    sections.forEach(section => {
+      if (section.pages && Array.isArray(section.pages)) {
+        const page = section.pages.find((p: any) => p.id === pageId);
+        if (page && page.subPages && Array.isArray(page.subPages)) {
+          page.subPages.forEach((subPage: any) => {
+            if (subPage.subPages && subPage.subPages.length > 0) {
+              subPageIds.push(subPage.id);
+            }
+          });
+        }
+      }
+    });
+    return subPageIds;
+  };
+
+  // Expand All: Opens all expandable nodes at all levels
+  const expandAll = () => {
+    const allSectionIds = getAllExpandableSectionIds();
+    const allPageIds = getAllExpandablePageIds();
+    const allSubPageIds = getAllExpandableSubPageIds();
+    
+    setExpandedSections(new Set(allSectionIds));
+    setExpandedPages(new Set(allPageIds));
+    setExpandedSubPages(new Set(allSubPageIds));
+  };
+
+  // Collapse All: Closes all expandable nodes at all levels
+  const collapseAll = () => {
+    setExpandedSections(new Set());
+    setExpandedPages(new Set());
+    setExpandedSubPages(new Set());
+  };
+
+  // Expand Branch: Opens a section and all its descendants
+  const expandBranch = (sectionId: string) => {
+    setExpandedSections(prev => new Set([...prev, sectionId]));
+    
+    const descendantPageIds = getDescendantPageIds(sectionId);
+    setExpandedPages(prev => new Set([...prev, ...descendantPageIds]));
+    
+    // Also expand all subPages within those pages
+    const allSubPageIds: string[] = [];
+    descendantPageIds.forEach(pageId => {
+      const subPageIds = getDescendantSubPageIds(pageId);
+      allSubPageIds.push(...subPageIds);
+    });
+    setExpandedSubPages(prev => new Set([...prev, ...allSubPageIds]));
+  };
+
+  // Collapse Branch: Closes a section and all its descendants
+  const collapseBranch = (sectionId: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(sectionId);
+      return newSet;
+    });
+    
+    const descendantPageIds = getDescendantPageIds(sectionId);
+    setExpandedPages(prev => {
+      const newSet = new Set(prev);
+      descendantPageIds.forEach(id => newSet.delete(id));
+      return newSet;
+    });
+    
+    // Also collapse all subPages within those pages
+    const allSubPageIds: string[] = [];
+    descendantPageIds.forEach(pageId => {
+      const subPageIds = getDescendantSubPageIds(pageId);
+      allSubPageIds.push(...subPageIds);
+    });
+    setExpandedSubPages(prev => {
+      const newSet = new Set(prev);
+      allSubPageIds.forEach(id => newSet.delete(id));
+      return newSet;
+    });
+  };
+
   const toggleSection = (sectionId: string) => {
     setExpandedSections((prev) => {
       const newSet = new Set(prev);
@@ -145,6 +286,25 @@ export function DocumentationLayout({
       return newSet;
     });
   };
+
+  // Keyboard shortcuts for TOC expand/collapse
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+Shift+E or Cmd+Shift+E to expand all
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'E') {
+        e.preventDefault();
+        expandAll();
+      }
+      // Ctrl+Shift+C or Cmd+Shift+C to collapse all
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        collapseAll();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sections]); // Re-attach when sections change
 
   return (
     <div className="flex flex-col h-screen bg-slate-50/30">
@@ -198,6 +358,10 @@ export function DocumentationLayout({
                     togglePage={togglePage}
                     expandedSubPages={expandedSubPages}
                     toggleSubPage={toggleSubPage}
+                    onExpandAll={expandAll}
+                    onCollapseAll={collapseAll}
+                    onExpandBranch={expandBranch}
+                    onCollapseBranch={collapseBranch}
                     onClose={() => setSidebarOpen(false)}
                   />
                 </ScrollArea>
@@ -226,6 +390,10 @@ export function DocumentationLayout({
                   togglePage={togglePage}
                   expandedSubPages={expandedSubPages}
                   toggleSubPage={toggleSubPage}
+                  onExpandAll={expandAll}
+                  onCollapseAll={collapseAll}
+                  onExpandBranch={expandBranch}
+                  onCollapseBranch={collapseBranch}
                   onClose={() => setSidebarOpen(false)}
                 />
               </ScrollArea>

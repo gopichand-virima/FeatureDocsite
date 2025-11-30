@@ -1,582 +1,403 @@
-import { getIndexContent } from './indexContentMap';
+import { mdxFileRegistry } from './mdxFileRegistry';
 
-// Type definitions
+// Types for hierarchical TOC structure
 export interface HierarchicalPage {
   id: string;
   label: string;
-  filePath?: string; // If it's a page
-  indexPath?: string; // If it contains subsections
+  filePath: string;
+  order: number;
   subPages?: HierarchicalPage[];
 }
 
 export interface HierarchicalSection {
   id: string;
-  title: string;
   label: string;
-  indexPath?: string; // Path to this section's index.mdx
+  order: number;
   pages: HierarchicalPage[];
+  indexPath?: string;
 }
 
 export interface HierarchicalModule {
   id: string;
   label: string;
-  indexPath?: string; // Path to this module's index.mdx
   sections: HierarchicalSection[];
 }
 
-export interface HierarchicalTocStructure {
-  version: string;
-  modules: HierarchicalModule[];
-  loadedPaths: Set<string>; // Track what's been loaded
+export interface VersionTOC {
+  [moduleId: string]: HierarchicalModule;
 }
 
-// Cache for loaded structures
-const hierarchicalCache = new Map<string, HierarchicalTocStructure>();
-const sectionCache = new Map<string, HierarchicalSection>();
+// Cache for TOC data to avoid reloading
+const tocCache: Map<string, VersionTOC> = new Map();
 
-/**
- * Fetches and parses an index.mdx file from any path
- */
-async function fetchIndexFile(path: string): Promise<string> {
-  console.log(`📥 Fetching index file from: ${path}`);
-  
-  try {
-    // Check if this is a main version index file that we have statically
-    const versionMatch = path.match(/\/content\/([^\/]+)\/index\.mdx$/);
-    if (versionMatch) {
-      const versionId = versionMatch[1];
-      const staticContent = getIndexContent(versionId);
-      if (staticContent && staticContent.includes('##')) {
-        console.log(`✅ Using static content for ${path}, length: ${staticContent.length}`);
-        return staticContent;
-      } else {
-        console.log(`⚠️ Static content for ${versionId} is empty or invalid, falling back to fetch`);
-      }
-    }
-    
-    const response = await fetch(path);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    
-    const content = await response.text();
-    console.log(`✅ Successfully fetched ${path}, length: ${content.length}`);
-    return content;
-  } catch (error) {
-    console.error(`❌ Failed to fetch ${path}:`, error);
-    throw error;
-  }
-}
-
-/**
- * Parses a main index.mdx that lists modules and top-level sections
- */
-function parseMainIndex(content: string, version: string): HierarchicalTocStructure {
-  console.log(`🔧 Parsing main index for version: ${version}`);
-  
-  const lines = content.split('\n');
-  const modules: HierarchicalModule[] = [];
-  let currentModule: HierarchicalModule | null = null;
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    // Skip empty lines, blockquotes, and horizontal rules
-    if (!trimmed || trimmed.startsWith('>') || trimmed === '---') {
-      continue;
-    }
-
-    // Module detection (## Module Name)
-    if (trimmed.startsWith('## ') && !trimmed.includes('---')) {
-      const moduleName = trimmed.substring(3).trim();
-      const moduleId = convertToId(moduleName);
-      
-      console.log(`  📁 Module: "${moduleName}" -> ID: "${moduleId}"`);
-      
-      currentModule = {
-        id: moduleId,
-        label: moduleName,
-        sections: [],
-      };
-      modules.push(currentModule);
-      continue;
-    }
-
-    // Section detection (### Section Name)
-    if (trimmed.startsWith('###') && currentModule) {
-      const sectionName = trimmed.replace(/^#+\s+/, '').trim();
-      const sectionId = convertToId(sectionName);
-      
-      console.log(`    📂 Section: "${sectionName}" -> ID: "${sectionId}"`);
-      
-      const section: HierarchicalSection = {
-        id: sectionId,
-        title: sectionName,
-        label: sectionName,
-        pages: [],
-      };
-      currentModule.sections.push(section);
-      continue;
-    }
-
-    // Page with path detection (- Page Name → /path/to/file.mdx or path)
-    if (trimmed.startsWith('- ') && trimmed.includes('→')) {
-      const match = trimmed.match(/^-\s+(.+?)\s+→\s+(.+)$/);
-      if (match && currentModule && currentModule.sections.length > 0) {
-        const pageName = match[1].trim();
-        const path = match[2].trim().replace(/`/g, ''); // Remove backticks
-        const pageId = convertToId(pageName);
-
-        const page: HierarchicalPage = {
-          id: pageId,
-          label: pageName,
-        };
-
-        // Determine if it's a file path or a folder with index
-        if (path.endsWith('.mdx')) {
-          page.filePath = path;
-        } else {
-          // It's a folder path - should have an index.mdx
-          page.indexPath = path.endsWith('/') ? `${path}index.mdx` : `${path}/index.mdx`;
-        }
-
-        const currentSection = currentModule.sections[currentModule.sections.length - 1];
-        currentSection.pages.push(page);
-      }
-    }
-  }
-
-  if (modules.length === 0) {
-    console.error(`❌ ERROR: No modules were parsed for version ${version}!`);
-    console.error(`Content length: ${content.length}`);
-    console.error(`First 500 chars: ${content.substring(0, 500)}`);
-  } else {
-    console.log(`✅ Parsed main index: ${modules.length} modules`);
-    modules.forEach(m => console.log(`  - ${m.label} (${m.id}): ${m.sections.length} sections`));
-  }
-  
-  return {
-    version,
-    modules,
-    loadedPaths: new Set([`/content/${versionToPath(version)}/index.mdx`]),
+// Version path mapping
+export function versionToPath(version: string): string {
+  const versionMap: Record<string, string> = {
+    '5.13': '5_13',
+    '6.1': '6_1',
+    '6.1.1': '6_1_1',
+    'NextGen': 'NG',
   };
+  return versionMap[version] || version;
 }
 
 /**
- * Parses a section's index.mdx to get its pages
+ * Load TOC for a specific version
  */
-function parseSectionIndex(content: string, sectionPath: string): HierarchicalPage[] {
-  console.log(`🔧 Parsing section index from: ${sectionPath}`);
+export async function loadVersionTOC(version: string): Promise<VersionTOC> {
+  const cacheKey = `toc_${version}`;
   
-  const lines = content.split('\n');
-  const pages: HierarchicalPage[] = [];
-  let indentStack: { level: number; pages: HierarchicalPage[] }[] = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    // Skip empty lines, blockquotes, and horizontal rules
-    if (!trimmed || trimmed.startsWith('>') || trimmed === '---' || trimmed.startsWith('#')) {
-      continue;
-    }
-
-    // Page detection (- Page Name → /path or /path/to/file.mdx)
-    if (trimmed.startsWith('- ') && trimmed.includes('→')) {
-      const match = trimmed.match(/^-\s+(.+?)\s+→\s+(.+)$/);
-      if (match) {
-        const pageName = match[1].trim();
-        const path = match[2].trim().replace(/`/g, '');
-        const pageId = convertToId(pageName);
-
-        const page: HierarchicalPage = {
-          id: pageId,
-          label: pageName,
-        };
-
-        // Determine if it's a file or folder
-        if (path.endsWith('.mdx')) {
-          page.filePath = path;
-        } else {
-          page.indexPath = path.endsWith('/') ? `${path}index.mdx` : `${path}/index.mdx`;
-        }
-
-        // Handle indentation for nested pages
-        const indent = line.search(/\S/);
-        const currentLevel = Math.floor(indent / 2);
-
-        if (currentLevel > 0 && indentStack.length > 0) {
-          // Find parent at correct level
-          while (indentStack.length > 0 && indentStack[indentStack.length - 1].level >= currentLevel) {
-            indentStack.pop();
-          }
-
-          if (indentStack.length > 0) {
-            const parent = indentStack[indentStack.length - 1];
-            const lastPage = parent.pages[parent.pages.length - 1];
-            if (lastPage) {
-              if (!lastPage.subPages) {
-                lastPage.subPages = [];
-              }
-              lastPage.subPages.push(page);
-              indentStack.push({ level: currentLevel, pages: lastPage.subPages });
-            }
-          }
-        } else {
-          // Top-level page
-          pages.push(page);
-          indentStack = [{ level: currentLevel, pages }];
-        }
-      }
-    }
+  // Check cache first
+  if (tocCache.has(cacheKey)) {
+    console.log(`📦 Using cached TOC for version: ${version}`);
+    return tocCache.get(cacheKey)!;
   }
-
-  console.log(`✅ Parsed section index: ${pages.length} pages`);
-  return pages;
-}
-
-/**
- * Loads the main TOC for a version
- */
-export async function loadHierarchicalToc(version: string): Promise<HierarchicalTocStructure> {
-  const cacheKey = version;
   
-  if (hierarchicalCache.has(cacheKey)) {
-    console.log(`📦 Cache hit for version: ${version}`);
-    return hierarchicalCache.get(cacheKey)!;
-  }
-
-  console.log(`🚀 Loading hierarchical TOC for version: ${version}`);
-
+  console.log(`🔄 Loading TOC for version: ${version}`);
+  
+  const versionPath = versionToPath(version);
+  const tocPath = `/content/versions/${versionPath}/toc.json`;
+  
   try {
-    const versionPath = versionToPath(version);
-    const indexPath = `/content/${versionPath}/index.mdx`;
+    const response = await fetch(tocPath);
+    if (!response.ok) {
+      // TOC files don't exist yet - return empty TOC silently
+      console.log(`⚠️ TOC file not found for version ${version} (this is expected - using legacy navigation)`);
+      return {};
+    }
     
-    const content = await fetchIndexFile(indexPath);
-    const structure = parseMainIndex(content, version);
+    const tocData: VersionTOC = await response.json();
     
-    hierarchicalCache.set(cacheKey, structure);
-    return structure;
+    // Cache the loaded TOC
+    tocCache.set(cacheKey, tocData);
+    
+    console.log(`✅ Loaded TOC for version ${version}:`, Object.keys(tocData));
+    return tocData;
   } catch (error) {
-    console.error(`❌ Failed to load hierarchical TOC for ${version}:`, error);
-    throw error;
+    // Silently return empty TOC - the system will fall back to legacy navigation
+    console.log(`⚠️ TOC not available for version ${version} - using legacy navigation`);
+    return {};
   }
 }
 
 /**
- * Loads a specific section's pages (lazy loading)
+ * Get all modules for a version
+ */
+export async function loadModules(version: string): Promise<HierarchicalModule[]> {
+  const toc = await loadVersionTOC(version);
+  return Object.values(toc);
+}
+
+/**
+ * Get a specific module's data
+ */
+export async function loadModule(version: string, moduleId: string): Promise<HierarchicalModule | null> {
+  const toc = await loadVersionTOC(version);
+  if (!toc || Object.keys(toc).length === 0) {
+    // No TOC available - return null to trigger fallback
+    return null;
+  }
+  return toc[moduleId] || null;
+}
+
+/**
+ * Get all sections for a module
+ */
+export async function loadModuleSections(version: string, moduleId: string): Promise<HierarchicalSection[]> {
+  const module = await loadModule(version, moduleId);
+  return module?.sections || [];
+}
+
+/**
+ * Get a specific section's data
+ */
+export async function loadSection(
+  version: string,
+  moduleId: string,
+  sectionId: string
+): Promise<HierarchicalSection | null> {
+  const sections = await loadModuleSections(version, moduleId);
+  return sections.find(s => s.id === sectionId) || null;
+}
+
+/**
+ * Get all pages for a section
  */
 export async function loadSectionPages(
   version: string,
   moduleId: string,
   sectionId: string
 ): Promise<HierarchicalPage[]> {
-  const cacheKey = `${version}-${moduleId}-${sectionId}`;
-  
-  if (sectionCache.has(cacheKey)) {
-    console.log(`📦 Cache hit for section: ${cacheKey}`);
-    return sectionCache.get(cacheKey)!.pages;
-  }
-
-  console.log(`🚀 Loading section pages for: ${cacheKey}`);
-
-  try {
-    const structure = await loadHierarchicalToc(version);
-    const module = structure.modules.find(m => m.id === moduleId);
-    
-    if (!module) {
-      throw new Error(`Module not found: ${moduleId}`);
-    }
-
-    const section = module.sections.find(s => s.id === sectionId);
-    
-    if (!section) {
-      throw new Error(`Section not found: ${sectionId}`);
-    }
-
-    // If section has an indexPath, load it
-    if (section.indexPath) {
-      const content = await fetchIndexFile(section.indexPath);
-      const pages = parseSectionIndex(content, section.indexPath);
-      
-      const loadedSection: HierarchicalSection = {
-        ...section,
-        pages,
-      };
-      
-      sectionCache.set(cacheKey, loadedSection);
-      return pages;
-    }
-
-    // Return existing pages if no indexPath
-    return section.pages;
-  } catch (error) {
-    console.error(`❌ Failed to load section pages for ${cacheKey}:`, error);
-    throw error;
-  }
+  const section = await loadSection(version, moduleId, sectionId);
+  return section?.pages || [];
 }
 
 /**
- * Loads a specific page's subpages (lazy loading for nested navigation)
+ * Get a specific page's data (including nested pages)
  */
-export async function loadPageSubpages(
-  page: HierarchicalPage
-): Promise<HierarchicalPage[]> {
-  if (!page.indexPath) {
-    return page.subPages || [];
-  }
-
-  console.log(`🚀 Loading subpages for: ${page.label}`);
-
-  try {
-    const content = await fetchIndexFile(page.indexPath);
-    const subpages = parseSectionIndex(content, page.indexPath);
-    
-    // Update the page object
-    page.subPages = subpages;
-    
-    return subpages;
-  } catch (error) {
-    console.error(`❌ Failed to load subpages for ${page.label}:`, error);
-    return page.subPages || [];
-  }
-}
-
-/**
- * Helper function to convert display name to URL-safe ID
- */
-function convertToId(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[&/]/g, '-')
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-/**
- * Helper function to convert version to file path
- */
-function versionToPath(version: string): string {
-  const mapping: Record<string, string> = {
-    '5.13': '5_13',
-    '6.1': '6_1',
-    '6.1.1': '6_1_1',
-    'NextGen': 'NG',
-  };
-  return mapping[version] || version;
-}
-
-/**
- * Clears all caches
- */
-export function clearHierarchicalCache(): void {
-  hierarchicalCache.clear();
-  sectionCache.clear();
-  console.log('🧹 Hierarchical cache cleared');
-}
-
-/**
- * Gets all modules for a version
- */
-export async function getHierarchicalModules(version: string): Promise<HierarchicalModule[]> {
-  const toc = await loadHierarchicalToc(version);
-  console.log(`📋 Available modules for ${version}:`, toc.modules.map(m => m.id));
-  return toc.modules;
-}
-
-/**
- * Gets all sections for a module
- */
-export async function getHierarchicalSections(
-  version: string,
-  moduleId: string
-): Promise<HierarchicalSection[]> {
-  const toc = await loadHierarchicalToc(version);
-  const module = toc.modules.find(m => m.id === moduleId);
-  
-  if (!module) {
-    console.error(`❌ Module not found in TOC: ${moduleId}`);
-    console.log(`Available modules:`, toc.modules.map(m => m.id));
-  }
-  
-  return module ? module.sections : [];
-}
-
-/**
- * Breadcrumb item for navigation
- */
-export interface BreadcrumbItem {
-  label: string;
-  type: 'home' | 'version' | 'module' | 'section' | 'page' | 'nested';
-  path?: string; // Optional path for navigation
-}
-
-/**
- * Builds a complete breadcrumb path for a given page
- * Returns array: [Home, Version, Module, Section, Parent1, Parent2, ..., CurrentPage]
- */
-export async function buildBreadcrumbPath(
+export async function loadPage(
   version: string,
   moduleId: string,
   sectionId: string,
   pageId: string
-): Promise<BreadcrumbItem[]> {
-  console.log(`🍞 Building breadcrumb path for:`, { version, moduleId, sectionId, pageId });
+): Promise<HierarchicalPage | null> {
+  const pages = await loadSectionPages(version, moduleId, sectionId);
   
-  const breadcrumbs: BreadcrumbItem[] = [];
-  
-  try {
-    // 1. Home
-    breadcrumbs.push({ 
-      label: 'Home', 
-      type: 'home',
-      path: '/'
-    });
-    
-    // 2. Version
-    breadcrumbs.push({ 
-      label: version, 
-      type: 'version',
-      path: `/${version}`
-    });
-    
-    // 3. Load TOC to get module and section
-    const toc = await loadHierarchicalToc(version);
-    const module = toc.modules.find(m => m.id === moduleId);
-    
-    if (!module) {
-      console.error(`❌ Module not found: ${moduleId}`);
-      return breadcrumbs;
-    }
-    
-    // 3. Module
-    breadcrumbs.push({ 
-      label: module.label, 
-      type: 'module',
-      path: `/${version}/${moduleId}`
-    });
-    
-    // Check if we have section and page
-    const hasSection = sectionId && sectionId.trim().length > 0;
-    const hasPage = pageId && pageId.trim().length > 0;
-    
-    if (!hasSection || !hasPage) {
-      // Just return module-level breadcrumb
-      console.log(`✅ Built breadcrumb path (module-level): ${breadcrumbs.length} items`);
-      return breadcrumbs;
-    }
-    
-    const section = module.sections.find(s => s.id === sectionId);
-    
-    if (!section) {
-      console.error(`❌ Section not found: ${sectionId}`);
-      return breadcrumbs;
-    }
-    
-    // 4. Section
-    breadcrumbs.push({ 
-      label: section.label, 
-      type: 'section',
-      path: `/${version}/${moduleId}/${sectionId}`
-    });
-    
-    // 5. Load section pages to find the full path to the page
-    const pages = await loadSectionPages(version, moduleId, sectionId);
-    
-    // 6. Find the page and build the nested path
-    const findPagePath = (
-      pages: HierarchicalPage[], 
-      targetId: string,
-      parentPath: BreadcrumbItem[] = []
-    ): BreadcrumbItem[] | null => {
-      for (const page of pages) {
-        if (page.id === targetId) {
-          // Found the target page!
-          return [
-            ...parentPath,
-            { 
-              label: page.label, 
-              type: 'page',
-              path: page.filePath 
-            }
-          ];
-        }
-        
-        // Search in subpages
-        if (page.subPages && page.subPages.length > 0) {
-          const result = findPagePath(
-            page.subPages, 
-            targetId,
-            [
-              ...parentPath,
-              { 
-                label: page.label, 
-                type: 'nested',
-                path: page.filePath || page.indexPath
-              }
-            ]
-          );
-          
-          if (result) {
-            return result;
-          }
-        }
+  // Recursively search for the page
+  const findPage = (pages: HierarchicalPage[]): HierarchicalPage | null => {
+    for (const page of pages) {
+      if (page.id === pageId) {
+        return page;
       }
-      
-      return null;
-    };
-    
-    const pagePath = findPagePath(pages, pageId);
-    
-    if (pagePath) {
-      breadcrumbs.push(...pagePath);
-      console.log(`✅ Built breadcrumb path with ${breadcrumbs.length} items`);
-    } else {
-      console.warn(`⚠️ Page not found in TOC: ${pageId}. Adding basic breadcrumb.`);
-      // Fallback: just add the page ID as label
-      breadcrumbs.push({ 
-        label: pageId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '), 
-        type: 'page'
-      });
+      if (page.subPages) {
+        const found = findPage(page.subPages);
+        if (found) return found;
+      }
     }
-    
-    return breadcrumbs;
-  } catch (error) {
-    console.error(`❌ Failed to build breadcrumb path:`, error);
-    return breadcrumbs;
-  }
+    return null;
+  };
+  
+  return findPage(pages);
 }
 
 /**
- * Resolves the file path for a page
+ * Get the file path for a specific page
+ * This is the primary way to get the MDX file path
  */
-export async function resolveHierarchicalFilePath(
+export async function getPageFilePath(
   version: string,
   moduleId: string,
   sectionId: string,
   pageId: string
 ): Promise<string | null> {
-  console.log(`🔍 Resolving file path for:`, { version, moduleId, sectionId, pageId });
+  const page = await loadPage(version, moduleId, sectionId, pageId);
+  return page?.filePath || null;
+}
+
+/**
+ * Get the index path for a section (if it exists)
+ */
+export async function getSectionIndexPath(
+  version: string,
+  moduleId: string,
+  sectionId: string
+): Promise<string | null> {
+  const section = await loadSection(version, moduleId, sectionId);
+  return section?.indexPath || null;
+}
+
+/**
+ * Check if a module exists in a version
+ */
+export async function moduleExists(version: string, moduleId: string): Promise<boolean> {
+  const module = await loadModule(version, moduleId);
+  return module !== null;
+}
+
+/**
+ * Check if a section exists in a module
+ */
+export async function sectionExists(
+  version: string,
+  moduleId: string,
+  sectionId: string
+): Promise<boolean> {
+  const section = await loadSection(version, moduleId, sectionId);
+  return section !== null;
+}
+
+/**
+ * Check if a page exists in a section
+ */
+export async function pageExists(
+  version: string,
+  moduleId: string,
+  sectionId: string,
+  pageId: string
+): Promise<boolean> {
+  const page = await loadPage(version, moduleId, sectionId, pageId);
+  return page !== null;
+}
+
+/**
+ * Get breadcrumb data for a page
+ */
+export async function getBreadcrumbs(
+  version: string,
+  moduleId: string,
+  sectionId: string,
+  pageId: string
+): Promise<Array<BreadcrumbItem>> {
+  const breadcrumbs: Array<BreadcrumbItem> = [];
   
   try {
-    // First, check if the module exists
-    const toc = await loadHierarchicalToc(version);
-    const module = toc.modules.find(m => m.id === moduleId);
+    // Always add Home first
+    breadcrumbs.push({ id: 'home', label: 'Home', type: 'home' });
+    
+    // Always add Version
+    breadcrumbs.push({ id: 'version', label: version, type: 'version' });
+    
+    // Add module
+    const module = await loadModule(version, moduleId);
+    if (module) {
+      breadcrumbs.push({ id: moduleId, label: module.label, type: 'module' });
+    } else {
+      // Fallback: use moduleId as label
+      breadcrumbs.push({ id: moduleId, label: moduleId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'module' });
+    }
+    
+    // Add section
+    const section = await loadSection(version, moduleId, sectionId);
+    
+    if (!section) {
+      console.log(`⚠️ Section "${sectionId}" not found - using basic breadcrumb`);
+      // Add section with fallback label
+      breadcrumbs.push({ id: sectionId, label: sectionId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'section' });
+      // Add page with fallback label
+      breadcrumbs.push({ id: pageId, label: pageId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'page' });
+      return breadcrumbs;
+    }
+    
+    breadcrumbs.push({ id: sectionId, label: section.label, type: 'section' });
+    
+    // Add page (and its parent pages if nested)
+    const page = await loadPage(version, moduleId, sectionId, pageId);
+    if (page) {
+      // For nested pages, we need to build the path
+      const findPagePath = (
+        pages: HierarchicalPage[],
+        targetId: string,
+        path: HierarchicalPage[] = []
+      ): HierarchicalPage[] | null => {
+        for (const p of pages) {
+          if (p.id === targetId) {
+            return [...path, p];
+          }
+          if (p.subPages) {
+            const found = findPagePath(p.subPages, targetId, [...path, p]);
+            if (found) return found;
+          }
+        }
+        return null;
+      };
+      
+      const pagePath = findPagePath(section.pages, pageId);
+      if (pagePath) {
+        pagePath.forEach((p, index) => {
+          const isLast = index === pagePath.length - 1;
+          breadcrumbs.push({ 
+            id: p.id, 
+            label: p.label, 
+            type: isLast ? 'page' : 'nested' 
+          });
+        });
+      } else {
+        // Page found but path couldn't be built - add it directly
+        breadcrumbs.push({ id: page.id, label: page.label, type: 'page' });
+      }
+    } else {
+      console.log(`⚠️ Page not found in TOC: ${pageId}. Adding basic breadcrumb.`);
+      // Add a basic breadcrumb even if page not found in TOC
+      const pageLabel = pageId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      breadcrumbs.push({ id: pageId, label: pageLabel, type: 'page' });
+    }
+  } catch (error) {
+    console.error('Error building breadcrumbs:', error);
+    // Return basic breadcrumbs even on error
+    if (breadcrumbs.length === 0) {
+      breadcrumbs.push({ id: 'home', label: 'Home', type: 'home' });
+      breadcrumbs.push({ id: 'version', label: version, type: 'version' });
+      if (moduleId) {
+        breadcrumbs.push({ id: moduleId, label: moduleId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'module' });
+      }
+      if (sectionId) {
+        breadcrumbs.push({ id: sectionId, label: sectionId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'section' });
+      }
+      if (pageId) {
+        breadcrumbs.push({ id: pageId, label: pageId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), type: 'page' });
+      }
+    }
+  }
+  
+  return breadcrumbs;
+}
+
+/**
+ * Get all pages in a module (flattened)
+ */
+export async function getAllModulePages(
+  version: string,
+  moduleId: string
+): Promise<HierarchicalPage[]> {
+  const sections = await loadModuleSections(version, moduleId);
+  
+  const flattenPages = (pages: HierarchicalPage[]): HierarchicalPage[] => {
+    const result: HierarchicalPage[] = [];
+    for (const page of pages) {
+      result.push(page);
+      if (page.subPages) {
+        result.push(...flattenPages(page.subPages));
+      }
+    }
+    return result;
+  };
+  
+  const allPages: HierarchicalPage[] = [];
+  for (const section of sections) {
+    allPages.push(...flattenPages(section.pages));
+  }
+  
+  return allPages;
+}
+
+/**
+ * Search for pages across all sections in a module
+ */
+export async function searchModulePages(
+  version: string,
+  moduleId: string,
+  query: string
+): Promise<HierarchicalPage[]> {
+  const allPages = await getAllModulePages(version, moduleId);
+  const lowerQuery = query.toLowerCase();
+  
+  return allPages.filter(page => 
+    page.label.toLowerCase().includes(lowerQuery) ||
+    page.id.toLowerCase().includes(lowerQuery)
+  );
+}
+
+/**
+ * Clear the TOC cache (useful for development/testing)
+ */
+export function clearTOCCache(): void {
+  tocCache.clear();
+  console.log('🗑️ TOC cache cleared');
+}
+
+/**
+ * Resolve file path from module/section/page identifiers
+ * This is a key function used throughout the app
+ */
+export async function resolveFilePath(
+  version: string,
+  moduleId: string,
+  sectionId: string,
+  pageId: string
+): Promise<string | null> {
+  console.log(`🔍 Resolving file path: ${version}/${moduleId}/${sectionId}/${pageId}`);
+  
+  try {
+    const module = await loadModule(version, moduleId);
     
     if (!module) {
-      console.error(`❌ Module "${moduleId}" not found`);
-      console.log(`Available modules:`, toc.modules.map(m => `${m.label} (${m.id})`));
-      
-      // Try fallback: attempt direct file path construction
-      console.log(`⚠️ Attempting fallback file resolution...`);
+      console.log(`⚠️ Module "${moduleId}" not found - trying fallback`);
       return await fallbackFilePathResolution(version, moduleId, sectionId, pageId);
     }
     
-    // Check if we're looking for a module's main page (no section/page or empty strings)
-    const hasSection = sectionId && sectionId.trim().length > 0;
-    const hasPage = pageId && pageId.trim().length > 0;
+    // Check if we're looking for just the module (no section or page)
+    const hasSection = sectionId && sectionId !== '';
+    const hasPage = pageId && pageId !== '';
     
     if (!hasSection && !hasPage) {
       console.log(`📄 Looking for module main page (no section/page specified)`);
@@ -586,14 +407,21 @@ export async function resolveHierarchicalFilePath(
       console.log(`✅ Returning module index path: ${moduleIndexPath}`);
       return moduleIndexPath;
 
-      console.error(`❌ Module "${moduleId}" has no sections or pages`);
+      console.log(`⚠️ Module "${moduleId}" has no sections or pages`);
       return null;
     }
     
     // Make sure we have a section
     if (!hasSection) {
-      console.error(`❌ Section is required but not provided`);
+      console.log(`⚠️ Section is required but not provided`);
       return null;
+    }
+    
+    const section = module.sections.find(s => s.id === sectionId);
+    
+    if (!section) {
+      // Section not found - trigger fallback
+      throw new Error(`Section not found: ${sectionId}`);
     }
     
     const pages = await loadSectionPages(version, moduleId, sectionId);
@@ -615,15 +443,19 @@ export async function resolveHierarchicalFilePath(
     const page = findPage(pages);
     
     if (!page) {
-      console.error(`❌ Page "${pageId}" not found in section "${sectionId}"`);
+      console.log(`⚠️ Page "${pageId}" not found in section "${sectionId}" - trying fallback`);
       return await fallbackFilePathResolution(version, moduleId, sectionId, pageId);
     }
     
     console.log(`✅ Resolved to: ${page.filePath}`);
     return page.filePath || null;
   } catch (error) {
-    console.error(`❌ Failed to resolve file path:`, error);
-    console.log(`⚠️ Attempting fallback resolution...`);
+    // Only log if it's not a "Section not found" error (which is expected during navigation)
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    if (!errorMessage.includes('Section not found')) {
+      console.error(`❌ Failed to resolve file path:`, error);
+    }
+    console.log(`⚠️ Primary resolution failed. Attempting fallback resolution...`);
     return await fallbackFilePathResolution(version, moduleId, sectionId, pageId);
   }
 }
@@ -675,6 +507,44 @@ async function fallbackFilePathResolution(
     }
   }
   
-  console.error(`❌ No file path found in TOC for:`, { module: moduleId, section: sectionId, page: pageId });
+  console.log(`⚠️ No file path found in TOC for: ${moduleId}/${sectionId}/${pageId} (version: ${version})`);
   return null;
+}
+
+/**
+ * Load hierarchical TOC (legacy function for backwards compatibility)
+ * Returns the TOC with version metadata
+ */
+export async function loadHierarchicalToc(version: string): Promise<{
+  version: string;
+  modules: HierarchicalModule[];
+}> {
+  const modules = await loadModules(version);
+  return {
+    version,
+    modules
+  };
+}
+
+/**
+ * Breadcrumb item type for external use
+ */
+export interface BreadcrumbItem {
+  id: string;
+  label: string;
+  type?: 'home' | 'version' | 'module' | 'section' | 'page' | 'nested';
+  path?: string;
+}
+
+/**
+ * Build breadcrumb path (legacy function for backwards compatibility)
+ * Returns array of breadcrumb items
+ */
+export async function buildBreadcrumbPath(
+  version: string,
+  moduleId: string,
+  sectionId: string,
+  pageId: string
+): Promise<BreadcrumbItem[]> {
+  return await getBreadcrumbs(version, moduleId, sectionId, pageId);
 }

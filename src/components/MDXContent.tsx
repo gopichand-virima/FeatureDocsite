@@ -94,15 +94,34 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
     );
   }
 
+  // Build fallback breadcrumbs if hierarchical breadcrumbs failed
+  const fallbackBreadcrumbs: HierarchicalBreadcrumbItem[] = [];
+  if (version) {
+    fallbackBreadcrumbs.push({ id: 'home', label: 'Home', type: 'home' });
+    fallbackBreadcrumbs.push({ id: 'version', label: version, type: 'version' });
+    if (moduleName) {
+      fallbackBreadcrumbs.push({ id: 'module', label: moduleName, type: 'module' });
+    }
+    if (sectionName) {
+      fallbackBreadcrumbs.push({ id: 'section', label: sectionName, type: 'section' });
+    }
+    if (pageName) {
+      fallbackBreadcrumbs.push({ id: 'page', label: pageName, type: 'page' });
+    }
+  }
+
+  // Use hierarchical breadcrumbs if available, otherwise use fallback
+  const displayBreadcrumbs = breadcrumbs.length > 0 ? breadcrumbs : fallbackBreadcrumbs;
+
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      {breadcrumbs.length > 0 && (
+      {/* Breadcrumb Navigation - Always show if we have any breadcrumb data */}
+      {displayBreadcrumbs.length > 0 && (
         <div className="flex flex-col gap-3 mb-8">
           <Breadcrumb>
             <BreadcrumbList>
-              {breadcrumbs.map((crumb, index) => {
-                const isLast = index === breadcrumbs.length - 1;
+              {displayBreadcrumbs.map((crumb, index) => {
+                const isLast = index === displayBreadcrumbs.length - 1;
                 const isHome = crumb.type === 'home';
                 
                 return (

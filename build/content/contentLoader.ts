@@ -22,30 +22,41 @@ import { adminMDXFilePaths, getAdminFilePath } from '../lib/imports/adminMDXImpo
 // Add other module imports as needed:
 // import { discoveryMDXFilePaths, getDiscoveryFilePath } from '../lib/imports/discoveryMDXImports';
 
+/**
+ * Detects the base path for content files
+ * Supports GitHub Pages deployment at /FeatureDocsite/
+ */
+function getBasePath(): string {
+  // Check if we're running in browser
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  
+  const pathname = window.location.pathname;
+  
+  // Check for GitHub Pages base path
+  if (pathname.startsWith('/FeatureDocsite/')) {
+    return '/FeatureDocsite';
+  }
+  
+  // Local development or other deployment
+  return '';
+}
+
 // Current version (can be changed dynamically)
 let currentVersion = '6_1';
 
 /**
  * Extracts MDX content from HTML wrapper
- * Tries multiple extraction methods, with special handling for Figma Make wrappers
+ * Tries multiple extraction methods
  */
 function extractMDXFromHTML(html: string): string | null {
-  // Method 0: Check if this is actually raw MDX (not HTML at all)
-  // If it starts with # or doesn't contain HTML tags, return as-is
-  if (!html.includes('<') && !html.includes('>')) {
-    // No HTML tags, likely raw MDX
-    if (html.trim().length > 20) {
-      console.log(`  ✅ Method 0 (raw MDX): Content is already raw (${html.length} chars)`);
-      return html.trim();
-    }
-  }
-  
-  // Method 1: Try <pre> tag (most common for code blocks)
+  // Method 1: Try <pre> tag
   const preMatch = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
   if (preMatch && preMatch[1]) {
     const decoded = decodeHTMLEntities(preMatch[1]);
-    // Check if it looks like MDX (starts with #, contains markdown syntax)
-    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+    // Less strict validation - just check if it has reasonable content
+    if (decoded.trim().length > 20) {
       console.log(`  ✅ Method 1 (<pre>): Extracted ${decoded.length} chars`);
       return decoded.trim();
     }
@@ -55,7 +66,7 @@ function extractMDXFromHTML(html: string): string | null {
   const codeMatch = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
   if (codeMatch && codeMatch[1]) {
     const decoded = decodeHTMLEntities(codeMatch[1]);
-    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+    if (decoded.trim().length > 20) {
       console.log(`  ✅ Method 2 (<code>): Extracted ${decoded.length} chars`);
       return decoded.trim();
     }
@@ -65,67 +76,33 @@ function extractMDXFromHTML(html: string): string | null {
   const nestedMatch = html.match(/<pre[^>]*>\s*<code[^>]*>([\s\S]*?)<\/code>\s*<\/pre>/i);
   if (nestedMatch && nestedMatch[1]) {
     const decoded = decodeHTMLEntities(nestedMatch[1]);
-    if (decoded.trim().length > 20 && (decoded.includes('#') || decoded.includes('**') || decoded.includes('['))) {
+    if (decoded.trim().length > 20) {
       console.log(`  ✅ Method 3 (nested): Extracted ${decoded.length} chars`);
       return decoded.trim();
     }
   }
   
-  // Method 4: Try to find content in <body> but exclude scripts
+  // Method 4: Try to find text between <body> tags
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (bodyMatch && bodyMatch[1]) {
-    // Remove scripts and styles first
-    let content = bodyMatch[1]
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
-    
-    // Try to find text content that looks like MDX
-    // Look for patterns like # heading, **bold**, [links]
-    const mdxPattern = /(?:^|\n)(#{1,6}\s+[^\n]+|(?:\*\*[^\*]+\*\*)|(?:\[[^\]]+\]\([^\)]+\)))/m;
-    if (mdxPattern.test(content)) {
-      // Remove all HTML tags
-      content = content.replace(/<[^>]+>/g, '');
-      content = decodeHTMLEntities(content);
-      if (content.trim().length > 50) {
-        console.log(`  ✅ Method 4 (<body> MDX pattern): Extracted ${content.trim().length} chars`);
-        return content.trim();
-      }
+    // Remove all HTML tags
+    let content = bodyMatch[1].replace(/<[^>]+>/g, '');
+    content = decodeHTMLEntities(content);
+    if (content.trim().length > 50) {
+      console.log(`  ✅ Method 4 (<body> strip): Extracted ${content.trim().length} chars`);
+      return content.trim();
     }
   }
   
-  // Method 5: Try to find MDX content by looking for markdown patterns
-  // This handles cases where MDX might be in a script tag or other wrapper
-  const mdxPatterns = [
-    /(#{1,6}\s+[^\n<]+(?:\n|$)[\s\S]{50,})/m,  // Heading followed by content
-    /(\*\*[^\*]+\*\*[\s\S]{50,})/m,  // Bold text with content
-    /(\[[^\]]+\]\([^\)]+\)[\s\S]{50,})/m,  // Links with content
-  ];
-  
-  for (const pattern of mdxPatterns) {
-    const match = html.match(pattern);
-    if (match && match[1]) {
-      let content = match[1]
-        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-        .replace(/<[^>]+>/g, '');
-      content = decodeHTMLEntities(content);
-      if (content.trim().length > 50) {
-        console.log(`  ✅ Method 5 (MDX pattern match): Extracted ${content.trim().length} chars`);
-        return content.trim();
-      }
-    }
-  }
-  
-  // Method 6: Last resort - strip all HTML and scripts, look for MDX-like content
-  let stripped = html
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')  // Remove all scripts
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')    // Remove all styles
-    .replace(/<[^>]+>/g, '');                          // Remove all HTML tags
+  // Method 5: Try to strip all HTML tags and decode
+  let stripped = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+  stripped = stripped.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+  stripped = stripped.replace(/<[^>]+>/g, '');
   stripped = decodeHTMLEntities(stripped);
   
-  // Check if the stripped content looks like MDX (has headings, markdown syntax)
-  if (stripped.trim().length > 50 && (stripped.includes('#') || stripped.includes('**') || stripped.includes('['))) {
-    console.log(`  ✅ Method 6 (strip all - MDX detected): Extracted ${stripped.trim().length} chars`);
+  // Less strict - just needs some content
+  if (stripped.trim().length > 50) {
+    console.log(`  ✅ Method 5 (strip all): Extracted ${stripped.trim().length} chars`);
     return stripped.trim();
   }
   
@@ -138,8 +115,7 @@ function extractMDXFromHTML(html: string): string | null {
     hasPre: html.includes('<pre'),
     hasCode: html.includes('<code'),
     hasBody: html.includes('<body'),
-    hasScript: html.includes('<script'),
-    first500: html.substring(0, 500)
+    first200: html.substring(0, 200)
   });
   
   return null;
@@ -289,16 +265,6 @@ function isPriorityFile(pathOrSlug: string): boolean {
  * Fetches content from a file path
  * Tries multiple strategies to load MDX content (CORRECT ORDER)
  */
-// Get base path from Vite config or default to /FeatureDocsite/
-function getBasePath(): string {
-  // Check if we're in a GitHub Pages environment
-  const pathname = window.location.pathname;
-  if (pathname.startsWith('/FeatureDocsite/')) {
-    return '/FeatureDocsite';
-  }
-  return '';
-}
-
 async function fetchContent(filePath: string): Promise<string> {
   // Safety: Remove backticks if somehow they still exist
   let cleanPath = filePath;
@@ -307,16 +273,8 @@ async function fetchContent(filePath: string): Promise<string> {
     cleanPath = cleanPath.slice(1, -1);
   }
   
-  // Add base path for absolute paths
-  const basePath = getBasePath();
-  if (cleanPath.startsWith('/content/')) {
-    cleanPath = `${basePath}${cleanPath}`;
-  } else if (cleanPath.startsWith('content/')) {
-    cleanPath = `${basePath}/${cleanPath}`;
-  }
-  
-  console.log(`📥 [fetchContent] Input: ${filePath} -> ${cleanPath}`);
-  const isFullPath = cleanPath.includes('/content/') || cleanPath.includes('content/');
+  console.log(`📥 [fetchContent] Input: ${cleanPath}`);
+  const isFullPath = cleanPath.startsWith('/content/') || cleanPath.startsWith('content/');
   console.log(`📥 [fetchContent] Is full path: ${isFullPath}`);
   console.log(`📥 [fetchContent] Current version: ${currentVersion}`);
   
@@ -324,9 +282,13 @@ async function fetchContent(filePath: string): Promise<string> {
   if (isFullPath) {
     console.log(`🎯 [Strategy 0] Already a full path, attempting direct import...`);
     
+    const basePath = getBasePath();
+    const fullPath = basePath ? `${basePath}${cleanPath}` : cleanPath;
+    console.log(`📍 [Strategy 0] Base path: "${basePath}", Full path: "${fullPath}"`);
+    
     // Try Method A: Dynamic import with ?raw suffix (gets actual file content)
     try {
-      const rawPath = `${cleanPath}?raw`;
+      const rawPath = `${fullPath}?raw`;
       const module = await import(/* @vite-ignore */ rawPath);
       
       if (module && module.default) {
@@ -342,7 +304,7 @@ async function fetchContent(filePath: string): Promise<string> {
     
     // Try Method B: Regular fetch with HTML extraction
     try {
-      const response = await fetch(cleanPath);
+      const response = await fetch(fullPath);
       if (response.ok) {
         const text = await response.text();
         
@@ -358,22 +320,6 @@ async function fetchContent(filePath: string): Promise<string> {
             console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
           }
         } else {
-          // Check if this looks like MDX (not JavaScript or other code)
-          const isMDX = text.includes('#') || text.includes('**') || text.includes('[') || text.includes('```');
-          const isJavaScript = text.includes('window.') || text.includes('const ') || text.includes('function ') || text.includes('allowedOrigins');
-          
-          if (isJavaScript && !isMDX) {
-            console.error(`❌ Strategy 0B: Got JavaScript code instead of MDX!`);
-            console.log(`📄 [Debug] First 200 chars:`, text.substring(0, 200));
-            // Try HTML extraction anyway - might be wrapped
-            const extracted = extractMDXFromHTML(text);
-            if (extracted && !extracted.includes('window.') && !extracted.includes('allowedOrigins')) {
-              console.log(`✅ Strategy 0B (EXTRACTED FROM JS WRAPPER): SUCCESS! (${extracted.length} chars)`);
-              return extracted;
-            }
-            throw new Error('Received JavaScript code instead of MDX content');
-          }
-          
           // Got raw MDX!
           console.log(`✅ Strategy 0B (FETCH RAW): SUCCESS! (${text.length} chars)`);
           console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
@@ -394,17 +340,15 @@ async function fetchContent(filePath: string): Promise<string> {
   
   const priorityFilePath = getPriorityFilePath(cleanPath);
   if (priorityFilePath) {
-    // Add base path to priority file path
-    const basePath = getBasePath();
-    const fullPriorityPath = priorityFilePath.startsWith('/') 
-      ? `${basePath}${priorityFilePath}` 
-      : `${basePath}/${priorityFilePath}`;
+    console.log(`✅ [Strategy 1] Found in priority registry! Path: ${priorityFilePath}`);
     
-    console.log(`✅ [Strategy 1] Found in priority registry! Path: ${fullPriorityPath}`);
+    const basePath = getBasePath();
+    const fullPath = basePath ? `${basePath}${priorityFilePath}` : priorityFilePath;
+    console.log(`📍 [Strategy 1] Full path with base: "${fullPath}"`);
     
     // Try Method A: Dynamic import with ?raw suffix
     try {
-      const rawPath = `${fullPriorityPath}?raw`;
+      const rawPath = `${fullPath}?raw`;
       const module = await import(/* @vite-ignore */ rawPath);
       
       if (module && module.default) {
@@ -419,7 +363,7 @@ async function fetchContent(filePath: string): Promise<string> {
     
     // Try Method B: Regular fetch with HTML extraction
     try {
-      const response = await fetch(fullPriorityPath);
+      const response = await fetch(fullPath);
       if (response.ok) {
         const text = await response.text();
         
@@ -435,22 +379,6 @@ async function fetchContent(filePath: string): Promise<string> {
             console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
           }
         } else {
-          // Check if this looks like MDX (not JavaScript or other code)
-          const isMDX = text.includes('#') || text.includes('**') || text.includes('[') || text.includes('```');
-          const isJavaScript = text.includes('window.') || text.includes('const ') || text.includes('function ') || text.includes('allowedOrigins');
-          
-          if (isJavaScript && !isMDX) {
-            console.error(`❌ Strategy 1B: Got JavaScript code instead of MDX!`);
-            console.log(`📄 [Debug] First 200 chars:`, text.substring(0, 200));
-            // Try HTML extraction anyway - might be wrapped
-            const extracted = extractMDXFromHTML(text);
-            if (extracted && !extracted.includes('window.') && !extracted.includes('allowedOrigins')) {
-              console.log(`✅ Strategy 1B (EXTRACTED FROM JS WRAPPER): SUCCESS! (${extracted.length} chars)`);
-              return extracted;
-            }
-            throw new Error('Received JavaScript code instead of MDX content');
-          }
-          
           // Got raw MDX - perfect!
           console.log(`✅ Strategy 1B (PRIORITY FETCH RAW): SUCCESS! (${text.length} chars)`);
           console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
@@ -478,10 +406,14 @@ async function fetchContent(filePath: string): Promise<string> {
     console.warn(`⚠️ Strategy 2 (MDX bundle) failed:`, error);
   }
   
-  // Strategy 3: Try reading the file content directly  
+  // Strategy 3: Try reading the file content directly
+  const basePath = getBasePath();
+  const fullPath = basePath ? `${basePath}${cleanPath}` : cleanPath;
+  console.log(`📍 [Strategy 3] Full path with base: "${fullPath}"`);
+  
   // Method A: Try dynamic import with ?raw
   try {
-    const rawPath = `${cleanPath}?raw`;
+    const rawPath = `${fullPath}?raw`;
     const module = await import(/* @vite-ignore */ rawPath);
     
     if (module && module.default) {
@@ -495,7 +427,7 @@ async function fetchContent(filePath: string): Promise<string> {
   
   // Method B: Try regular fetch with HTML extraction
   try {
-    const response = await fetch(cleanPath);
+    const response = await fetch(fullPath);
     
     if (response.ok) {
       const text = await response.text();
@@ -581,14 +513,11 @@ export async function hasContent(filePath: string): Promise<boolean> {
     return true;
   }
   
-  // Try to fetch it
+  // Try to fetch it with base path
   try {
-    // Add base path for file existence check
     const basePath = getBasePath();
-    const fullFilePath = filePath.startsWith('/') 
-      ? `${basePath}${filePath}` 
-      : `${basePath}/${filePath}`;
-    const response = await fetch(fullFilePath, { method: 'HEAD' });
+    const fullPath = basePath ? `${basePath}${filePath}` : filePath;
+    const response = await fetch(fullPath, { method: 'HEAD' });
     return response.ok;
   } catch {
     return false;

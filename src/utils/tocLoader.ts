@@ -10,7 +10,7 @@ import { getIndexContent, indexContentMap } from './indexContentMap';
 
 // Cache for loaded TOC structures
 // Cache version - increment this when parser logic changes to invalidate old cache
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 3; // Incremented to force refresh after switching to fetch actual index.mdx files
 const tocCache: Map<string, TocStructure> = new Map();
 
 /**
@@ -30,26 +30,65 @@ const VERSION_PATH_MAP: Record<string, string> = {
 };
 
 /**
+ * Gets the base path for content requests (handles GitHub Pages deployment)
+ */
+function getBasePath(): string {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  const pathname = window.location.pathname;
+  if (pathname.startsWith('/FeatureDocsite/')) {
+    return '/FeatureDocsite';
+  }
+  return '';
+}
+
+/**
  * Loads raw content from index.mdx files
- * Uses the index content map which contains all TOC structures
+ * Fetches the actual index.mdx file from the content directory
  */
 async function loadIndexContent(versionPath: string): Promise<string> {
   console.log(`🔍 [TOC Loader] Loading TOC content for version path: ${versionPath}`);
   
-  // Get content from the index content map
-  const content = getIndexContent(versionPath);
-  
-  if (content && content.length > 0) {
-    console.log(`✅ [TOC Loader] Loaded TOC content for ${versionPath}, length: ${content.length}`);
-    console.log(`📄 [TOC Loader] First 200 chars:`, content.substring(0, 200));
-    console.log(`📄 [TOC Loader] Has "## Admin"?:`, content.includes('## Admin'));
-    console.log(`📄 [TOC Loader] Has "## Application Overview"?:`, content.includes('## Application Overview'));
-    return content;
+  try {
+    // Fetch the actual index.mdx file
+    const basePath = getBasePath();
+    const indexPath = `${basePath}/content/${versionPath}/index.mdx`;
+    console.log(`📥 [TOC Loader] Fetching index file from: ${indexPath}`);
+    
+    const response = await fetch(indexPath);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const content = await response.text();
+    
+    if (content && content.length > 0) {
+      console.log(`✅ [TOC Loader] Loaded TOC content for ${versionPath}, length: ${content.length}`);
+      console.log(`📄 [TOC Loader] First 200 chars:`, content.substring(0, 200));
+      console.log(`📄 [TOC Loader] Has "## Admin"?:`, content.includes('## Admin'));
+      console.log(`📄 [TOC Loader] Has "## Application Overview"?:`, content.includes('## Application Overview'));
+      return content;
+    }
+    
+    throw new Error(`Empty content loaded from ${indexPath}`);
+  } catch (error) {
+    console.error(`❌ [TOC Loader] Failed to fetch index.mdx for ${versionPath}:`, error);
+    
+    // Fallback to hardcoded content map if fetch fails
+    console.warn(`⚠️ [TOC Loader] Falling back to content map for ${versionPath}`);
+    const fallbackContent = getIndexContent(versionPath);
+    
+    if (fallbackContent && fallbackContent.length > 0) {
+      console.log(`✅ [TOC Loader] Using fallback content, length: ${fallbackContent.length}`);
+      return fallbackContent;
+    }
+    
+    // Last resort: generate minimal fallback
+    console.warn(`⚠️ [TOC Loader] No content found in map for ${versionPath}, using minimal fallback`);
+    return generateFallbackToc(versionPath);
   }
-  
-  // Fallback
-  console.warn(`⚠️ [TOC Loader] No content found in map for ${versionPath}, using minimal fallback`);
-  return generateFallbackToc(versionPath);
 }
 
 /**

@@ -310,7 +310,7 @@ export function ChatPanel({
       className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out flex flex-col ${
         isMinimized
           ? "bottom-0 right-6 w-80 h-14"
-          : "bottom-4 right-4 w-[380px] sm:w-[400px] md:w-[420px] lg:w-[450px]"
+          : "bottom-4 right-4 w-[320px] sm:w-[340px] md:w-[360px] lg:w-[380px]"
       }`}
       style={{
         boxShadow:

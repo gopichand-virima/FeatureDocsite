@@ -1,0 +1,13 @@
+# GitHub Actions Linter Ignore File
+# This file tells the VS Code GitHub Actions extension to ignore context access warnings
+# These warnings are false positives - the ${{ secrets.* }} syntax is valid
+
+# Ignore all context access warnings for optional secrets
+VITE_ANTHROPIC_API_KEY
+VITE_ALGOLIA_APP_ID
+VITE_ALGOLIA_API_KEY
+VITE_PINECONE_API_KEY
+VITE_SERPER_API_KEY
+VITE_BRAVE_API_KEY
+VITE_BING_API_KEY
+

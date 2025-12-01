@@ -1,8 +1,0 @@
-# ESLint configuration for GitHub Actions workflows
-# Suppresses false positive warnings for GitHub Actions context access
-
-rules:
-  # Disable warnings for GitHub Actions secrets context
-  # The ${{ secrets.* }} syntax is valid GitHub Actions syntax
-  "@github/context-access": "off"
-

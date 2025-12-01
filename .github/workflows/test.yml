@@ -1,8 +1,4 @@
-# yamllint disable-line rule:context-access
-# GitHub Actions secrets context (${{ secrets.* }}) is valid syntax
-# Linter warnings are false positives - workflows execute correctly
 name: Test and Lint
-
 on:
   pull_request:
     branches:
@@ -18,6 +14,15 @@ jobs:
   test:
     name: Test Build
     runs-on: ubuntu-latest
+    env:
+      VITE_OPENAI_API_KEY: ${{ secrets.DOCSITE_CHATPANEL }}
+      VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY || '' }}
+      VITE_ALGOLIA_APP_ID: ${{ secrets.VITE_ALGOLIA_APP_ID || '' }}
+      VITE_ALGOLIA_API_KEY: ${{ secrets.VITE_ALGOLIA_API_KEY || '' }}
+      VITE_PINECONE_API_KEY: ${{ secrets.VITE_PINECONE_API_KEY || '' }}
+      VITE_SERPER_API_KEY: ${{ secrets.VITE_SERPER_API_KEY || '' }}
+      VITE_BRAVE_API_KEY: ${{ secrets.VITE_BRAVE_API_KEY || '' }}
+      VITE_BING_API_KEY: ${{ secrets.VITE_BING_API_KEY || '' }}
     
     strategy:
       matrix:
@@ -53,16 +58,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-        env:
-          VITE_OPENAI_API_KEY: ${{ secrets.DOCSITE_CHATPANEL }}
-          # GitHub Actions secrets - valid syntax (linter false positive)
-          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
-          VITE_ALGOLIA_APP_ID: ${{ secrets.VITE_ALGOLIA_APP_ID }}
-          VITE_ALGOLIA_API_KEY: ${{ secrets.VITE_ALGOLIA_API_KEY }}
-          VITE_PINECONE_API_KEY: ${{ secrets.VITE_PINECONE_API_KEY }}
-          VITE_SERPER_API_KEY: ${{ secrets.VITE_SERPER_API_KEY }}
-          VITE_BRAVE_API_KEY: ${{ secrets.VITE_BRAVE_API_KEY }}
-          VITE_BING_API_KEY: ${{ secrets.VITE_BING_API_KEY }}
 
       - name: Verify build artifacts
         run: |

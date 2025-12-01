@@ -1,4 +1,4 @@
----
+﻿---
 title: "Import CIs"
 description: "Use this function to upload Excel files containing CI details."
 version: ""
@@ -32,7 +32,20 @@ In the *Upload CI Data* field, click **Browse** and select an allowed file type 
 
 Click **Upload**. The *Preview data to be imported and map columns* dialog box displays.
 
-[!](../Resources/Images/Common%20Topics/Personalize-Columns.png)
+[!](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 ## Preview data to be imported and map columns
 
@@ -56,7 +69,20 @@ If a property is not mapped, an Alert message displays. Map the remainder of the
 
 While viewing the *Preview data to be imported and map columns dialog box*, click **Add New Property**. The *Add New Field dialog box* displays.
 
-[!](../Resources/Images/Discovery/add-new-field-dialog-box-new.PNG)
+[!](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 In the *Property Name* field, enter a name for this property.
 

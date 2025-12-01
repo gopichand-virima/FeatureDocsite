@@ -1,4 +1,4 @@
----
+﻿---
 title: "Scan Frequency"
 description: "Use this function to set the details for a scan, such as frequency, status, and occurrence."
 version: ""
@@ -43,9 +43,35 @@ When all selections/entries are made, click **Update**.
 
 | Scan Frequency | The time interval at which the scan runs. When a predefined time is selected from the drop-down list, the timetable columns update accordingly. For example, if the **Scan Frequency** is every **3 days**, the selections and shading in the table automatically adjust.
 
-![scan frequency example](../Resources/Images/Discovery/scan-frequency-example.PNG)
+![scan frequency example](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
-![scan frequency new](../Resources/Images/Discovery/scan-frequency-new.PNG) |
+![scan frequency new](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) |
 
 | Is Active | Indicates if the scan is active. When unchecked, the scan does not run. |
 

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Blueprints: SLA"
 description: ""
 version: ""
@@ -20,7 +20,20 @@ Every Blueprint has its own SLA-defined based on its business factors. When a Ro
 Use this function to configure response and resolution times for a CI marked as **Incident**, **Requests**, **Changes** or **Problems** that require resolution.
 
 
-For System Administrators, SLA's are created through **[Admin > Others > Service Level Agreements](../Resources/Images/Admin%20-%20Other/add-sla.PNG)**.
+For System Administrators, SLA's are created through **[Admin > Others > Service Level Agreements](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )**.
 
 
 Use this function to manage the actions that occur for an SLA.

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Imported Assets"
 description: "Use this function to view the results of data imported during the data files import operation and move them (if applicable) to CMDB. An asset can also be rescanned through this function."
 version: ""
@@ -20,7 +20,20 @@ Use this function to view the results of data imported during the data files imp
 
 In the navigation pane, select **Discovery Scan > Imported Assets**. The Imported Assets window displays.
 
-![A screenshot of a computer Description automatically generated](../../Resources/Images/Discovery/imported-assets.png) !
+![A screenshot of a computer Description automatically generated](../
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) !
 
 Select at least one or more records. (When rescanning, the asset must have an IP address.)
 

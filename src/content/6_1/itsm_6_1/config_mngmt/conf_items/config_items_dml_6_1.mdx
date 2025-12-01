@@ -1,4 +1,4 @@
----
+﻿---
 title: "CI: Details - DML (Digital Media Library)"
 description: "Use this function to upload an executable (.exe) file for a software or add a link to the location where the software can be downloaded."
 version: ""
@@ -39,7 +39,20 @@ Perform any of the following actions.
 
 Click **Add Software**. The Attach Software File dialog box displays.
 
-[!](../../../Resources/Images/ITSM/attach-software-file-new.png)
+[!](../../
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 In the *Upload Document* field, click the **Browse** button and select the applicable file.
 

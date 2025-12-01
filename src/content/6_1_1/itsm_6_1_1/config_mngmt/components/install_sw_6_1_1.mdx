@@ -1,4 +1,4 @@
----
+﻿---
 title: "Installed Software"
 description: "Use this function to add and manage the software installed on a host."
 version: ""
@@ -27,7 +27,20 @@ In the selected record configuration window, click **Components**.
 
 In the secondary group of tabs, click **Installed Software**.
 
-[!](../../../Resources/Images/ITSM/installed-software-new.png)
+[!](../../
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 Click **Add**. The Installed Software dialog box displays.
 

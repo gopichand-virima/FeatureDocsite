@@ -1,4 +1,4 @@
----
+﻿---
 title: "New Ad Hoc Reports"
 description: "Use this function to create view and modify Ad Hoc reports and save Canned Reports."
 version: ""
@@ -54,7 +54,20 @@ Click the **Add** button. Click **+**icon.The Send Report To dialog box displays
 
 Select the applicable recipients (users, roles, etc.).
 
-![send report to dialog box](../Resources/Images/Reports/send-report-to-dialog-box.PNG)
+![send report to dialog box](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 When all selections/entries are made, click **Save**. |
 
@@ -72,7 +85,20 @@ Click the drop-down list and select **Current Time Settings**.
 
 In the displayed columns (Second, Minute and so forth), select the applicable times. In the example below, the report will generate **every hour** on **Tue** and **Thu** only.
 
-![schedule report frequency](../Resources/Images/Reports/schedule-report-frequency.PNG) |
+![schedule report frequency](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) |
 
 
 To remove the data currently entered, move to the *Select Actions* drop-down list and choose **Clear Query**.

@@ -1,4 +1,4 @@
-# Client: Details
+﻿# Client: Details
 
 Use this function to edit details for an existing client.
 
@@ -46,7 +46,20 @@ Click **Save**. The Location is added to the **Details** tab.
 
 If you need to update the Location, click the **Update** button at the end of the field, and repeat the steps above.
 
-![update location](../Resources/Images/Admin%20-%20Discovery/update-location.PNG)
+![update location](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 - [About Clients](/admin_discovery/client_6_1.mdx)
 - [Edit Clients](/admin_discovery/client_edit_6_1.mdx)

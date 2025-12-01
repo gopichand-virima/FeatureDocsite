@@ -1,4 +1,4 @@
----
+﻿---
 title: "New Configuration Item (CI)"
 description: "Use this function to configure a new CI by entering values for the parameters present."
 version: ""
@@ -51,11 +51,37 @@ In the resulting window, from the *Select Actions* drop-down list, do one of the
 
 To allow editing, select **Enable Editing**.
 
-![enable editing](../../../Resources/Images/Discovery/enable-editing.PNG)
+![enable editing](../../
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 To disallow editing, select **Disable Editing**.
 
-![disable editing ci](../../../Resources/Images/Discovery/disable-editing-ci.PNG)
+![disable editing ci](../../
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path (hyphens to underscores, lowercase)
+        $newPath = $path -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 
 When all selections/entries are made, click **Add**. A notification email is sent to the configured user regarding CI creation.

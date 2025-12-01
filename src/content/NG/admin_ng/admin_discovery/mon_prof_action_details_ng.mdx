@@ -1,4 +1,4 @@
----
+﻿---
 title: "Monitoring Profile: Action Details"
 description: ""
 version: ""
@@ -32,7 +32,20 @@ In the *Property* fields, click the drop-down list, select the applicable proper
 
 Depending on the type of property, an additional step may be required. For example, if the Property **Assigned User from Group** is selected, a user must be selected in the *User* dialog box.
 
-![user dialog box old](../Resources/Images/Admin%20-%20Discovery/user-dialog-box-old.PNG)
+![user dialog box old](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 
 To add a new property field row, click the **plus + sign**.

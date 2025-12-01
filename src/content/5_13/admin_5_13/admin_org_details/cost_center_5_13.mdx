@@ -1,4 +1,4 @@
-# Cost Center
+﻿# Cost Center
 
 Use this function to define the cost centers.
 
@@ -40,7 +40,20 @@ Exports data for the selected record as an Excel spreadsheet and sends an email 
 - Click the line that contains the item to Export.
 - From the _Select Actions_ drop-down list, choose **Export**. If a confirmation message is displayed, take the appropriate action (for example, click **OK** or **Continue**).
 
-| ![icon export new](../Resources/Images/Common%20Topics/icon-export-new.png) | Exports data for the selected record as an Excel spreadsheet and sends an email notification when the spreadsheet is ready for download. |
+| ![icon export new](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) | Exports data for the selected record as an Excel spreadsheet and sends an email notification when the spreadsheet is ready for download. |
 
 ### Import Cost Center
 

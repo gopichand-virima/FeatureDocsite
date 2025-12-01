@@ -1,4 +1,4 @@
-# Client
+﻿# Client
 
 The Discovery Application is installed in data centers to discover the host's communication in the Enterprise network. In the case of multiple data centers in different locations, the Discovery Application must be installed on one machine at every data center.
 
@@ -46,7 +46,20 @@ Click **Save**. The Location is added to the **Details** tab.
 
 If you need to update the Location, click the **Update** button at the end of the field, and repeat the steps above.
 
-![update location](../Resources/Images/Admin%20-%20Discovery/update-location.PNG)
+![update location](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 Send Status Notification To
 

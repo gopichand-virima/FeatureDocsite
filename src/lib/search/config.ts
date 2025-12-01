@@ -15,10 +15,15 @@
 // Vite exposes env variables via import.meta.env with VITE_ prefix
 const getEnv = (key: string): string | undefined => {
   // Try Vite environment variable first (import.meta.env.VITE_*)
-  if (typeof import !== 'undefined' && import.meta && import.meta.env) {
-    const viteKey = key.replace('NEXT_PUBLIC_', 'VITE_');
-    const value = (import.meta.env as any)[viteKey];
-    if (value) return value;
+  // Check if import.meta is available (Vite/ES modules environment)
+  try {
+    if (typeof import.meta !== 'undefined' && import.meta.env) {
+      const viteKey = key.replace('NEXT_PUBLIC_', 'VITE_');
+      const value = (import.meta.env as any)[viteKey];
+      if (value) return value;
+    }
+  } catch (e) {
+    // import.meta not available (e.g., in Node.js without ES modules)
   }
   
   // Fallback to window (for runtime injection, if needed)

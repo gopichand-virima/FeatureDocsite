@@ -20,14 +20,12 @@ export function ContentNotAvailable({ filePath, errorDetails, version }: Content
           <h3 className="text-amber-800 font-semibold text-lg">Content Not Available</h3>
           <p className="text-slate-700">
             The documentation for this page is currently being prepared.
-            {version && (
-              <span className="text-amber-700 font-medium"> (Version {version} only)</span>
-            )}
           </p>
           {filePath && (
             <div className="space-y-2">
               <p className="text-amber-700 text-sm">
                 <span className="font-semibold">File path:</span> {filePath}
+                {version && ` (Version ${version})`}
               </p>
               {errorDetails && (
                 <p className="text-amber-700 text-sm">

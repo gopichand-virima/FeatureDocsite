@@ -3,6 +3,7 @@ import { ChatPanel } from "./ChatPanel";
 import { ConversationHistory } from "./ConversationHistory";
 import { FloatingChatButton } from "./FloatingChatButton";
 import { ChatOnboarding } from "./ChatOnboarding";
+import { Message } from "../lib/chat/conversation-service";
 
 interface GlobalChatProviderProps {
   currentModule?: string;
@@ -22,6 +23,7 @@ export function GlobalChatProvider({
   const [selectedConversationId, setSelectedConversationId] = useState<
     string | undefined
   >();
+  const [initialMessages, setInitialMessages] = useState<Message[] | undefined>();
 
   // Keyboard shortcut for chat (Ctrl+Shift+C)
   useEffect(() => {
@@ -36,8 +38,9 @@ export function GlobalChatProvider({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleOpenChat = () => {
+  const handleOpenChat = (messages?: Message[]) => {
     setSelectedConversationId(undefined); // Start new conversation
+    setInitialMessages(messages);
     setIsChatPanelOpen(true);
   };
 
@@ -55,8 +58,17 @@ export function GlobalChatProvider({
     // Reset conversation selection after a delay to allow smooth closing animation
     setTimeout(() => {
       setSelectedConversationId(undefined);
+      setInitialMessages(undefined);
     }, 300);
   };
+
+  // Make handleOpenChat available globally
+  useEffect(() => {
+    (window as any).openGlobalChat = handleOpenChat;
+    return () => {
+      delete (window as any).openGlobalChat;
+    };
+  }, []);
 
   return (
     <>
@@ -67,7 +79,7 @@ export function GlobalChatProvider({
 
       {/* Floating Chat Button */}
       <FloatingChatButton
-        onClick={handleOpenChat}
+        onClick={() => handleOpenChat()}
         onHistoryClick={handleOpenHistory}
       />
 
@@ -80,6 +92,7 @@ export function GlobalChatProvider({
         currentModule={currentModule}
         currentPage={currentPage}
         mdxContent={mdxContent}
+        initialMessages={initialMessages}
       />
 
       {/* Conversation History */}

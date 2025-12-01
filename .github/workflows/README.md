@@ -138,7 +138,7 @@ If build size is too large:
 ### MDX Content Issues
 
 If MDX content verification fails:
-- Verify `vite-plugin-static-copy` is installed and configured in `vite.config.ts`
+- Verify `copyContentPlugin` is configured in `vite.config.ts` (custom plugin, not external dependency)
 - Check that `src/content/` directory contains all expected MDX files
 - Ensure content files are properly organized by version
 - Verify build output includes `build/content/` directory with all versions

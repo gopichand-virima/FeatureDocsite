@@ -17,6 +17,9 @@ import {
   FileText,
   ExternalLink,
   X,
+  MessageSquare,
+  Sparkles,
+  AlertCircle,
 } from "lucide-react";
 import {
   Dialog,
@@ -35,6 +38,9 @@ import {
 } from "./ui/tabs";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Label } from "./ui/label";
+import { webSearchService } from "../lib/search/services/web-search-service";
+import { voiceInputService } from "../lib/search/services/voice-input-service";
+import { searchHistoryService } from "../lib/search/services/search-history-service";
 
 interface AISearchDialogSimplifiedProps {
   isOpen?: boolean;
@@ -92,16 +98,72 @@ const documentationDatabase = [
     title: "SNMP Configuration Guide",
     module: "Discovery Scan",
     section: "Configuration",
-    content: "Configure SNMP discovery to identify network devices. Set up community strings, configure SNMPv2c and SNMPv3, and troubleshoot common SNMP issues.",
+    content: "Configure SNMP discovery to identify network devices. Set up community strings for SNMPv2c, configure SNMPv3 with authentication and privacy protocols, and troubleshoot common SNMP connectivity issues. Ensure UDP ports 161-162 are accessible.",
     path: "/discovery-scan/snmp-configuration",
+  },
+  {
+    id: "ds-4",
+    title: "Cloud Discovery Setup",
+    module: "Discovery Scan",
+    section: "Cloud Integration",
+    content: "Configure cloud discovery for AWS, Azure, and Google Cloud platforms. Use API-based authentication to discover virtual machines, containers, storage, and cloud services. Automatically sync cloud assets to CMDB.",
+    path: "/discovery-scan/cloud-discovery",
   },
   {
     id: "cmdb-1",
     title: "CMDB Overview",
     module: "CMDB",
     section: "Getting Started",
-    content: "Understand the Configuration Management Database (CMDB) and how it stores and manages configuration items (CIs) and their relationships.",
+    content: "Understand the Configuration Management Database (CMDB) and how it stores and manages configuration items (CIs) and their relationships. The CMDB automatically populates from discovery scans and supports relationship mapping and impact analysis.",
     path: "/cmdb/overview",
+  },
+  {
+    id: "cmdb-2",
+    title: "CI Relationship Mapping",
+    module: "CMDB",
+    section: "Configuration",
+    content: "Map relationships between Configuration Items including dependencies, connections, and hierarchies. Use visualization tools to understand infrastructure dependencies and perform impact analysis for change management.",
+    path: "/cmdb/relationship-mapping",
+  },
+  {
+    id: "itsm-1",
+    title: "Incident Management Workflows",
+    module: "ITSM",
+    section: "Incident Management",
+    content: "Set up incident management workflows following ITIL best practices. Configure incident classification, prioritization based on impact and urgency, assignment rules, escalation procedures, and SLA timers. Incidents integrate with CMDB for impact analysis.",
+    path: "/itsm/incident-management",
+  },
+  {
+    id: "itsm-2",
+    title: "Service Desk Portal",
+    module: "ITSM",
+    section: "Self-Service",
+    content: "Configure the self-service portal for end users to submit incidents, requests, and view knowledge base articles. Customize portal branding, categories, and approval workflows.",
+    path: "/itsm/service-desk",
+  },
+  {
+    id: "itam-1",
+    title: "Asset Management Overview",
+    module: "ITAM",
+    section: "Getting Started",
+    content: "Manage hardware and software assets throughout their lifecycle. Track procurement, deployment, utilization, and disposal. Monitor software licenses and ensure compliance.",
+    path: "/itam/overview",
+  },
+  {
+    id: "api-1",
+    title: "REST API Documentation",
+    module: "API Integration",
+    section: "API Reference",
+    content: "Use Virima's REST API for integration with third-party tools. Supports authentication via API keys or OAuth tokens. Available endpoints include discovery management, CMDB queries, ITSM operations, and reporting. Rate limiting applies to ensure system stability.",
+    path: "/api/rest-api",
+  },
+  {
+    id: "api-2",
+    title: "Integration Examples",
+    module: "API Integration",
+    section: "Examples",
+    content: "Common integration scenarios include ServiceNow CMDB synchronization, Slack notifications for incidents, custom dashboards using CMDB data, and automated workflow triggers for change management.",
+    path: "/api/integration-examples",
   },
 ];
 
@@ -137,38 +199,96 @@ function performSemanticSearch(query: string, scope: string, currentModule?: str
   return results;
 }
 
-function performWebSearch(query: string): WebResult[] {
+// Real-time web search using actual search APIs
+async function performWebSearch(query: string): Promise<WebResult[]> {
   if (!query.trim()) return [];
 
-  const webResults: WebResult[] = [
-    {
-      id: "web-1",
-      title: "Virima Discovery - Network Scanning Best Practices",
-      url: "https://virima.com/blog/discovery-best-practices",
-      description: "Learn the industry best practices for network discovery scanning, including optimal scheduling, credential management, and scan optimization techniques.",
-      domain: "virima.com",
-    },
-    {
-      id: "web-2",
-      title: "ITIL Framework - Incident Management Guide",
-      url: "https://itil.com/incident-management",
-      description: "Comprehensive guide to ITIL incident management processes, including classification, prioritization, escalation, and resolution procedures.",
-      domain: "itil.com",
-    },
-    {
-      id: "web-3",
-      title: "CMDB Implementation Strategy",
-      url: "https://community.virima.com/cmdb-implementation",
-      description: "Community-driven discussion on CMDB implementation strategies, data population techniques, and maintaining data accuracy.",
-      domain: "community.virima.com",
-    },
-  ];
+  try {
+    // Check if web search is configured
+    if (!webSearchService.isConfigured()) {
+      console.warn('Web search APIs not configured - returning empty results');
+      return [];
+    }
 
+    // Perform real web search
+    const searchResponse = await webSearchService.search(query, 6);
+    
+    // Transform results to match our WebResult interface
+    return searchResponse.results.map((result, index) => ({
+      id: `web-${index}`,
+      title: result.title,
+      url: result.url,
+      description: result.description,
+      domain: result.domain,
+    }));
+  } catch (error) {
+    console.error('Web search failed:', error);
+    return [];
+  }
+}
+
+function generateNLPResponse(query: string, webResults: WebResult[]): string {
   const lowerQuery = query.toLowerCase();
-  return webResults.filter(result => 
-    result.title.toLowerCase().includes(lowerQuery) ||
-    result.description.toLowerCase().includes(lowerQuery)
-  );
+  
+  // Search documentation database for relevant content
+  const relevantDocs = documentationDatabase.filter(doc => {
+    const searchText = `${doc.title} ${doc.content} ${doc.module} ${doc.section}`.toLowerCase();
+    return lowerQuery.split(/\s+/).some(keyword => searchText.includes(keyword));
+  });
+  
+  // Build context from actual documentation
+  let response = "";
+  
+  if (relevantDocs.length > 0) {
+    // Use actual documentation content to ground the response
+    const primaryDoc = relevantDocs[0];
+    const additionalDocs = relevantDocs.slice(1, 3);
+    
+    response = `Based on the Virima documentation, ${primaryDoc.content}`;
+    
+    if (additionalDocs.length > 0) {
+      response += `\n\nAdditionally, `;
+      const additionalInfo = additionalDocs.map(doc => doc.content).join(" ");
+      response += additionalInfo;
+    }
+    
+    // Add specific guidance based on found documentation
+    const modules = [...new Set(relevantDocs.map(doc => doc.module))];
+    if (modules.length > 0) {
+      response += `\n\nRelevant modules: ${modules.join(", ")}. `;
+    }
+    
+    // Add web results if available
+    if (webResults.length > 0) {
+      response += `\n\nI also found ${webResults.length} external resources that may help, including content from ${webResults.map(r => r.domain).join(", ")}.`;
+    }
+    
+  } else {
+    // Fallback when no documentation matches
+    if (webResults.length > 0) {
+      // We have real web results
+      response = `I searched for "${query}" and found the following external resources:\n\n`;
+      const topResult = webResults[0];
+      response += `${topResult.description}\n\n`;
+      
+      if (webResults.length > 1) {
+        response += `Additional resources:\n`;
+        webResults.slice(1, 3).forEach((result) => {
+          response += `• ${result.title} (${result.domain})\n`;
+        });
+      }
+    } else {
+      // No results at all - be honest about it
+      response = `I searched for "${query}" but couldn't find specific matches in the available documentation or web resources.\n\n`;
+      response += `Virima's documentation covers modules including Discovery, CMDB, ITAM, ITSM, and Admin. Try:\n`;
+      response += `• Using different search terms\n`;
+      response += `• Checking the Getting Started guides\n`;
+      response += `• Browsing by module in the documentation\n\n`;
+      response += `Note: Web search results require API configuration to return real, verified URLs from live search engines.`;
+    }
+  }
+  
+  return response;
 }
 
 export function AISearchDialogSimplified({
@@ -192,15 +312,29 @@ export function AISearchDialogSimplified({
   const [searchScope, setSearchScope] = useState<"this-page" | "all-docs" | "all-versions">("all-docs");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [webResults, setWebResults] = useState<WebResult[]>([]);
+  const [nlpResponse, setNlpResponse] = useState<string>("");
+  const [displayedResponse, setDisplayedResponse] = useState<string>("");
+  const [isTyping, setIsTyping] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [hasResults, setHasResults] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<string[]>([
-    "Configure SNMP discovery",
-    "CMDB best practices",
-  ]);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [isListening, setIsListening] = useState(false);
+  const [voiceStatus, setVoiceStatus] = useState<string>("");
+  const [recordingDuration, setRecordingDuration] = useState<number>(0);
+  const [voiceError, setVoiceError] = useState<string>("");
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const durationIntervalRef = useRef<number | null>(null);
+
+  // Load search history on mount
+  useEffect(() => {
+    const loadHistory = () => {
+      const history = searchHistoryService.getHistoryQueries();
+      setRecentSearches(history);
+    };
+    
+    loadHistory();
+  }, []);
 
   // Focus input on open
   useEffect(() => {
@@ -211,33 +345,80 @@ export function AISearchDialogSimplified({
 
   // Perform search
   useEffect(() => {
+    let cancelled = false;
+    
     if (searchQuery.trim()) {
       setIsSearching(true);
       setHasResults(true);
 
-      const timer = setTimeout(() => {
+      const timer = setTimeout(async () => {
         if (activeTab === "docs") {
           const results = performSemanticSearch(searchQuery, searchScope, currentModule);
-          setSearchResults(results);
+          if (!cancelled) {
+            setSearchResults(results);
+            setIsSearching(false);
+          }
         } else if (activeTab === "web") {
-          const results = performWebSearch(searchQuery);
-          setWebResults(results);
+          // Real-time web search with actual APIs
+          const results = await performWebSearch(searchQuery);
+          if (!cancelled) {
+            setWebResults(results);
+            // Generate NLP response for web search using actual content
+            const response = generateNLPResponse(searchQuery, results);
+            setNlpResponse(response);
+            setDisplayedResponse(""); // Reset for typing effect
+            setIsSearching(false);
+          }
         }
-        setIsSearching(false);
       }, 300);
 
-      return () => clearTimeout(timer);
+      return () => {
+        cancelled = true;
+        clearTimeout(timer);
+      };
     } else {
       setHasResults(false);
       setSearchResults([]);
       setWebResults([]);
+      setNlpResponse("");
+      setDisplayedResponse("");
     }
   }, [searchQuery, activeTab, searchScope, currentModule]);
 
+  // Typing effect for NLP response
+  useEffect(() => {
+    if (nlpResponse && activeTab === "web") {
+      setIsTyping(true);
+      setDisplayedResponse("");
+      
+      let currentIndex = 0;
+      const typingSpeed = 15; // milliseconds per character
+      
+      const typingInterval = setInterval(() => {
+        if (currentIndex < nlpResponse.length) {
+          setDisplayedResponse(nlpResponse.slice(0, currentIndex + 1));
+          currentIndex++;
+        } else {
+          setIsTyping(false);
+          clearInterval(typingInterval);
+        }
+      }, typingSpeed);
+
+      return () => clearInterval(typingInterval);
+    }
+  }, [nlpResponse, activeTab]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim() && !recentSearches.includes(searchQuery)) {
-      setRecentSearches([searchQuery, ...recentSearches.slice(0, 4)]);
+    const query = searchQuery.trim();
+    
+    if (query) {
+      // Add to search history (automatically deduplicates and manages max entries)
+      searchHistoryService.addSearch(query, activeTab === 'web' ? 'web' : 'docs');
+      
+      // Update local state to reflect new history
+      const updatedHistory = searchHistoryService.getHistoryQueries();
+      setRecentSearches(updatedHistory);
     }
   };
 
@@ -258,15 +439,153 @@ export function AISearchDialogSimplified({
     setSearchQuery(suggestion);
   };
 
-  const toggleVoiceInput = () => {
+  const handleClearHistory = () => {
+    searchHistoryService.clearHistory();
+    setRecentSearches([]);
+  };
+
+  const handleRemoveSearchItem = (searchToRemove: string) => {
+    searchHistoryService.removeSearch(searchToRemove);
+    const updatedHistory = searchHistoryService.getHistoryQueries();
+    setRecentSearches(updatedHistory);
+  };
+
+  const toggleVoiceInput = async () => {
     if (!isListening) {
-      setIsListening(true);
-      setTimeout(() => {
-        setSearchQuery("How do I configure network discovery?");
-        setIsListening(false);
-      }, 2000);
+      // Start recording
+      try {
+        // Synchronous pre-flight checks (don't break user gesture)
+        if (!voiceInputService.isSupported()) {
+          setVoiceError("Voice input is not supported in this browser");
+          return;
+        }
+
+        if (!voiceInputService.isSecureContext()) {
+          setVoiceError("Voice input requires HTTPS or localhost");
+          return;
+        }
+
+        if (!voiceInputService.isConfigured()) {
+          setVoiceError("OpenAI Whisper API is not configured");
+          return;
+        }
+
+        // DO NOT check permission state here - it prevents the native dialog!
+        // Let getUserMedia() handle permission requests naturally
+        
+        // Clear previous errors
+        setVoiceError("");
+        setRecordingDuration(0);
+        setVoiceStatus("");
+        
+        // CRITICAL: Start recording immediately - this calls getUserMedia()
+        // which triggers the browser's permission dialog if needed
+        await voiceInputService.startRecording(
+          // On transcription complete
+          (text: string) => {
+            setSearchQuery(text);
+            
+            // Add voice search to history
+            if (text.trim()) {
+              searchHistoryService.addSearch(text.trim(), activeTab === 'web' ? 'web' : 'docs');
+              const updatedHistory = searchHistoryService.getHistoryQueries();
+              setRecentSearches(updatedHistory);
+            }
+            
+            setIsListening(false);
+            setVoiceStatus("Transcription complete");
+            if (durationIntervalRef.current) {
+              clearInterval(durationIntervalRef.current);
+              durationIntervalRef.current = null;
+            }
+            // Auto-clear success status after 2 seconds
+            setTimeout(() => setVoiceStatus(""), 2000);
+          },
+          // On error
+          (error: Error) => {
+            setVoiceError(error.message);
+            setIsListening(false);
+            setVoiceStatus("");
+            if (durationIntervalRef.current) {
+              clearInterval(durationIntervalRef.current);
+              durationIntervalRef.current = null;
+            }
+          },
+          // On status change
+          (status: string) => {
+            setVoiceStatus(status);
+          }
+        );
+
+        // If we get here, recording started successfully
+        setIsListening(true);
+
+        // Start duration counter in UI
+        durationIntervalRef.current = window.setInterval(() => {
+          setRecordingDuration(prev => prev + 1);
+        }, 1000);
+
+      } catch (error) {
+        // Error already handled by voiceInputService callbacks
+        console.error("Failed to start voice input:", error);
+        // Don't set error here - it's already set by the onError callback
+      }
     } else {
-      setIsListening(false);
+      // Stop recording
+      try {
+        await voiceInputService.stopRecording();
+        setVoiceStatus("Processing...");
+        if (durationIntervalRef.current) {
+          clearInterval(durationIntervalRef.current);
+          durationIntervalRef.current = null;
+        }
+      } catch (error) {
+        console.error("Failed to stop voice input:", error);
+        setVoiceError((error as Error).message);
+        setIsListening(false);
+      }
+    }
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (isListening) {
+        voiceInputService.stopRecording();
+      }
+      if (durationIntervalRef.current) {
+        clearInterval(durationIntervalRef.current);
+      }
+    };
+  }, [isListening]);
+
+  const handleContinueInChat = () => {
+    // Create message objects for full context preservation
+    const messages = [
+      {
+        id: `msg_${Date.now()}_user`,
+        role: "user" as const,
+        content: searchQuery,
+        timestamp: new Date(),
+      },
+      {
+        id: `msg_${Date.now()}_assistant`,
+        role: "assistant" as const,
+        content: nlpResponse,
+        timestamp: new Date(),
+        sources: webResults.map(result => ({
+          title: result.title,
+          url: result.url,
+          snippet: result.description,
+          type: "web" as const,
+        })),
+      },
+    ];
+    
+    // Open global chat with full conversation context
+    if (typeof window !== 'undefined' && (window as any).openGlobalChat) {
+      (window as any).openGlobalChat(messages);
+      setOpen(false);
     }
   };
 
@@ -282,15 +601,7 @@ export function AISearchDialogSimplified({
         <div className="px-6 pt-6 pb-4 bg-gradient-to-br from-slate-50 to-white">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl text-black-premium">Search</h2>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setOpen(false)}
-              className="h-8 w-8 p-0 hover:bg-slate-100 rounded-lg"
-            >
-              <X className="h-4 w-4 text-slate-500" />
-              <span className="sr-only">Close</span>
-            </Button>
+
           </div>
 
           {/* Search Input */}
@@ -323,6 +634,184 @@ export function AISearchDialogSimplified({
               <span className="sr-only">{isListening ? "Stop" : "Start"} voice input</span>
             </Button>
           </form>
+
+          {/* Voice Recording Indicator */}
+          {isListening && (
+            <div className="mb-4 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-xl shadow-lg animate-in slide-in-from-top-2 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="h-10 w-10 rounded-full bg-red-500 flex items-center justify-center animate-pulse">
+                      <Mic className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-30"></div>
+                  </div>
+                  <div>
+                    <p className="text-sm text-red-900">Recording in progress</p>
+                    <p className="text-xs text-red-700">
+                      {voiceInputService.formatDuration(recordingDuration)}
+                      {voiceStatus && ` • ${voiceStatus}`}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={toggleVoiceInput}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white hover:bg-red-50 text-red-600 border-red-300 hover:border-red-400"
+                >
+                  <MicOff className="h-4 w-4 mr-2" />
+                  Stop Recording
+                </Button>
+              </div>
+              <div className="mt-3 bg-white/60 rounded-lg p-2 text-xs text-red-800 border border-red-200">
+                💡 <strong>Tip:</strong> Speak naturally and take your time. The system supports unlimited recording duration with automatic transcription via OpenAI Whisper.
+              </div>
+            </div>
+          )}
+
+          {/* Voice Status Messages */}
+          {!isListening && voiceStatus && (
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg animate-in fade-in duration-300">
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />
+                <p className="text-sm text-blue-900">{voiceStatus}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Voice Error Messages */}
+          {voiceError && (
+            <div className="mb-4 p-4 bg-red-50 border-2 border-red-300 rounded-xl shadow-lg animate-in fade-in duration-300">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-red-100 rounded-lg">
+                  <AlertCircle className="h-5 w-5 text-red-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm text-red-900 mb-3">{voiceError}</p>
+                  
+                  {(voiceError.toLowerCase().includes("permission") || voiceError.toLowerCase().includes("blocked")) && (
+                    <div className="bg-white rounded-lg p-3 border border-red-200">
+                      <p className="text-xs text-red-900 mb-2">
+                        <strong>🔧 How to fix this:</strong>
+                      </p>
+                      
+                      {/* Chrome/Edge Instructions */}
+                      <details className="mb-2">
+                        <summary className="text-xs text-red-800 cursor-pointer hover:text-red-900 font-medium">
+                          📱 Chrome / Edge Users (Click to expand)
+                        </summary>
+                        <ol className="text-xs text-red-700 ml-4 mt-2 space-y-1 list-decimal">
+                          <li>Look at the left side of the address bar</li>
+                          <li>Click the <strong>lock icon 🔒</strong> (or camera icon with X)</li>
+                          <li>Find <strong>"Microphone"</strong></li>
+                          <li>Change from "Block" to <strong>"Allow"</strong></li>
+                          <li>Close this message and click the mic icon again</li>
+                        </ol>
+                      </details>
+
+                      {/* Firefox Instructions */}
+                      <details className="mb-2">
+                        <summary className="text-xs text-red-800 cursor-pointer hover:text-red-900 font-medium">
+                          🦊 Firefox Users (Click to expand)
+                        </summary>
+                        <ol className="text-xs text-red-700 ml-4 mt-2 space-y-1 list-decimal">
+                          <li>Click the <strong>lock icon 🔒</strong> in the address bar</li>
+                          <li>Click the arrow next to "Microphone Blocked"</li>
+                          <li>Click <strong>"Clear This Permission"</strong></li>
+                          <li>Refresh this page (F5)</li>
+                          <li>Click the mic icon again - dialog will appear</li>
+                        </ol>
+                      </details>
+
+                      {/* Safari Instructions */}
+                      <details className="mb-2">
+                        <summary className="text-xs text-red-800 cursor-pointer hover:text-red-900 font-medium">
+                          🧭 Safari Users (Click to expand)
+                        </summary>
+                        <ol className="text-xs text-red-700 ml-4 mt-2 space-y-1 list-decimal">
+                          <li>Click <strong>Safari</strong> menu → Settings for This Website</li>
+                          <li>Find <strong>Microphone</strong></li>
+                          <li>Change from "Deny" to <strong>"Allow"</strong></li>
+                          <li>Refresh the page</li>
+                          <li>Click the mic icon again</li>
+                        </ol>
+                      </details>
+
+                      {/* Alternative method */}
+                      <div className="mt-3 pt-3 border-t border-red-200">
+                        <p className="text-xs text-red-800 mb-1">
+                          <strong>Alternative: Reset All Permissions</strong>
+                        </p>
+                        <p className="text-xs text-red-700">
+                          Right-click the address bar → <strong>Site Settings</strong> → Find Microphone → Reset
+                        </p>
+                      </div>
+
+                      {/* Video tutorial link */}
+                      <div className="mt-3 pt-3 border-t border-red-200 bg-blue-50 rounded p-2">
+                        <p className="text-xs text-blue-900">
+                          💡 <strong>Still stuck?</strong> Check our{" "}
+                          <a 
+                            href="/docs/MICROPHONE-PERMISSIONS.md" 
+                            target="_blank" 
+                            className="underline hover:text-blue-700 font-medium"
+                          >
+                            complete troubleshooting guide
+                          </a>
+                          {" "}with screenshots
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {voiceError.toLowerCase().includes("not configured") && (
+                    <div className="bg-white rounded-lg p-3 border border-red-200">
+                      <p className="text-xs text-red-700">
+                        Configure OpenAI Whisper API in{" "}
+                        <code className="px-1.5 py-0.5 bg-red-100 rounded font-mono">/lib/search/config.ts</code>
+                      </p>
+                    </div>
+                  )}
+                  
+                  {voiceError.toLowerCase().includes("https") && (
+                    <div className="bg-white rounded-lg p-3 border border-red-200">
+                      <p className="text-xs text-red-700">
+                        💡 Microphone access requires HTTPS. Use{" "}
+                        <code className="px-1.5 py-0.5 bg-red-100 rounded font-mono">https://</code> or{" "}
+                        <code className="px-1.5 py-0.5 bg-red-100 rounded font-mono">localhost</code>
+                      </p>
+                    </div>
+                  )}
+                  
+                  {voiceError.toLowerCase().includes("no microphone") && (
+                    <div className="bg-white rounded-lg p-3 border border-red-200">
+                      <p className="text-xs text-red-700">
+                        🎤 Please connect a microphone or check your device settings
+                      </p>
+                    </div>
+                  )}
+                  
+                  {voiceError.toLowerCase().includes("in use") && (
+                    <div className="bg-white rounded-lg p-3 border border-red-200">
+                      <p className="text-xs text-red-700">
+                        💡 Close other applications that might be using your microphone (Zoom, Teams, Skype, etc.)
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setVoiceError("")}
+                  className="h-8 w-8 p-0 hover:bg-red-100 shrink-0"
+                  title="Dismiss"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Clean Tabs */}
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "docs" | "web")} className="w-full">
@@ -358,34 +847,26 @@ export function AISearchDialogSimplified({
               <TabsContent value="docs" className="m-0">
                 <div className="px-1 space-y-6">
                   {/* Search Scope */}
-                  {hasResults && (
-                    <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                      <RadioGroup
-                        value={searchScope}
-                        onValueChange={(value) => setSearchScope(value as typeof searchScope)}
-                        className="flex gap-4"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="this-page" id="this-page" className="border-slate-400 text-emerald-600" />
-                          <Label htmlFor="this-page" className="text-sm text-slate-700 cursor-pointer">
-                            This page
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="all-docs" id="all-docs" className="border-slate-400 text-emerald-600" />
-                          <Label htmlFor="all-docs" className="text-sm text-slate-700 cursor-pointer">
-                            All docs
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="all-versions" id="all-versions" className="border-slate-400 text-emerald-600" />
-                          <Label htmlFor="all-versions" className="text-sm text-slate-700 cursor-pointer">
-                            All versions
-                          </Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  )}
+                  <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+                    <RadioGroup
+                      value={searchScope}
+                      onValueChange={(value) => setSearchScope(value as typeof searchScope)}
+                      className="grid grid-cols-2 gap-4"
+                    >
+                      <div className="flex items-center space-x-2 ml-4">
+                        <RadioGroupItem value="this-page" id="this-page" className="border-slate-400 text-emerald-600" />
+                        <Label htmlFor="this-page" className="text-sm text-slate-700 cursor-pointer">
+                          This page
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="all-docs" id="all-docs" className="border-slate-400 text-emerald-600" />
+                        <Label htmlFor="all-docs" className="text-sm text-slate-700 cursor-pointer">
+                          All docs
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
 
                   {/* Search Results */}
                   {hasResults && searchResults.length > 0 && (
@@ -463,20 +944,43 @@ export function AISearchDialogSimplified({
                       {/* Recent Searches */}
                       {recentSearches.length > 0 && (
                         <div>
-                          <div className="flex items-center gap-2 mb-3">
-                            <Clock className="h-4 w-4 text-slate-400" />
-                            <span className="text-sm text-slate-600">Recent Searches</span>
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-4 w-4 text-slate-400" />
+                              <span className="text-sm text-slate-600">Recent Searches</span>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={handleClearHistory}
+                              className="h-7 text-xs text-slate-500 hover:text-red-600 hover:bg-red-50"
+                            >
+                              Clear All
+                            </Button>
                           </div>
                           <div className="space-y-1.5">
                             {recentSearches.map((search, index) => (
-                              <button
+                              <div
                                 key={index}
-                                onClick={() => handleRecentSearchClick(search)}
-                                className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 rounded-lg transition-colors text-left"
+                                className="group w-full flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 rounded-lg transition-colors"
                               >
-                                <Clock className="h-4 w-4 text-slate-300" />
-                                <span className="text-sm text-slate-600">{search}</span>
-                              </button>
+                                <Clock className="h-4 w-4 text-slate-300 shrink-0" />
+                                <button
+                                  onClick={() => handleRecentSearchClick(search)}
+                                  className="flex-1 text-left text-sm text-slate-600 hover:text-emerald-700 transition-colors"
+                                >
+                                  {search}
+                                </button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleRemoveSearchItem(search)}
+                                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 hover:bg-red-100 hover:text-red-600 transition-opacity"
+                                  title="Remove from history"
+                                >
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </div>
                             ))}
                           </div>
                         </div>
@@ -489,8 +993,57 @@ export function AISearchDialogSimplified({
               {/* Web Tab */}
               <TabsContent value="web" className="m-0">
                 <div className="px-1 space-y-6">
+                  {/* Loading State */}
+                  {isSearching && (
+                    <div className="flex flex-col items-center justify-center py-12">
+                      <Loader2 className="h-8 w-8 text-blue-600 animate-spin mb-3" />
+                      <p className="text-sm text-slate-600">Searching the web...</p>
+                    </div>
+                  )}
+
+                  {/* NLP Response */}
+                  {hasResults && nlpResponse && !isSearching && (
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 shadow-md">
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="p-2.5 bg-white rounded-xl shadow-sm">
+                          <Sparkles className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-sm font-medium text-blue-900 mb-2 flex items-center gap-2">
+                            AI Response
+                            {isTyping && (
+                              <span className="flex gap-1">
+                                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                              </span>
+                            )}
+                          </h3>
+                          <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                            {displayedResponse}
+                            {isTyping && <span className="inline-block w-0.5 h-4 bg-blue-600 ml-0.5 animate-pulse"></span>}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Continue in Chat - Below Content */}
+                      {!isTyping && displayedResponse && (
+                        <div className="flex justify-end pt-4 mt-2 border-t border-blue-200 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                          <Button
+                            onClick={handleContinueInChat}
+                            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                            size="sm"
+                          >
+                            <MessageSquare className="h-4 w-4" />
+                            Continue in Chat
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Web Results */}
-                  {hasResults && webResults.length > 0 && (
+                  {hasResults && webResults.length > 0 && !isSearching && (
                     <div>
                       <div className="flex items-center gap-2 mb-3">
                         <Globe className="h-4 w-4 text-blue-600" />
@@ -529,14 +1082,24 @@ export function AISearchDialogSimplified({
                   {/* No Web Results */}
                   {hasResults && webResults.length === 0 && !isSearching && (
                     <div className="text-center py-12">
-                      <Globe className="h-12 w-12 text-slate-300 mx-auto mb-3" />
-                      <p className="text-slate-600">No web results found for "{searchQuery}"</p>
-                      <p className="text-sm text-slate-500 mt-1">Try the docs search tab</p>
+                      <div className="max-w-md mx-auto">
+                        <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+                        <p className="text-slate-900 mb-2">No web results available</p>
+                        <p className="text-sm text-slate-600 mb-4">
+                          Web search requires API configuration. Real-time web search APIs (Serper, Brave, or Bing) are not currently configured.
+                        </p>
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
+                          <p className="text-xs text-blue-900">
+                            <strong>Note:</strong> The system only returns real, verifiable URLs from actual search results. Placeholder or fabricated links are never displayed.
+                          </p>
+                        </div>
+                        <p className="text-sm text-slate-500 mt-4">Try searching the documentation instead</p>
+                      </div>
                     </div>
                   )}
 
                   {/* Default State */}
-                  {!hasResults && (
+                  {!hasResults && !isSearching && (
                     <div className="text-center py-12">
                       <Globe className="h-12 w-12 text-slate-300 mx-auto mb-3" />
                       <p className="text-slate-600">Search the web for Virima resources</p>

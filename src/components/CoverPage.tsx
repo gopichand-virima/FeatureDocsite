@@ -114,7 +114,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
   }, []);
 
   return (
-    <div className="w-full bg-white">
+    <div className="relative w-full bg-white">
       {/* Hero Section with Cover Page */}
       <div className="relative w-full min-h-screen bg-white flex items-center justify-center">
         {/* Animated Hexagon Background Image - Slides in from right with pixel-perfect coverage */}

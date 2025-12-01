@@ -103,12 +103,12 @@ class ConversationService {
   /**
    * Create a new conversation
    */
-  createConversation(firstMessage?: string): Conversation {
+  createConversation(firstMessage?: string, initialMessages?: Message[]): Conversation {
     const now = new Date();
     const conversation: Conversation = {
       id: `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      title: firstMessage ? this.generateTitle(firstMessage) : "New Conversation",
-      messages: [],
+      title: firstMessage ? this.generateTitle(firstMessage) : (initialMessages && initialMessages.length > 0 ? this.generateTitle(initialMessages[0].content) : "New Conversation"),
+      messages: initialMessages || [],
       createdAt: now,
       updatedAt: now,
     };

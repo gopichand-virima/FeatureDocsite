@@ -14,6 +14,7 @@ import {
   Check,
   History,
   Trash2,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
@@ -25,6 +26,7 @@ import {
 } from "../lib/chat/conversation-service";
 import { searchOrchestrator } from "../lib/search/search-orchestrator";
 import { webSearchService } from "../lib/search/services/web-search-service";
+import { openAIService, ChatMessage } from "../lib/search/services/openai-service";
 
 interface ChatPanelProps {
   isOpen: boolean;
@@ -34,6 +36,7 @@ interface ChatPanelProps {
   currentModule?: string;
   currentPage?: string;
   mdxContent?: string;
+  initialMessages?: Message[];
 }
 
 export function ChatPanel({
@@ -44,6 +47,7 @@ export function ChatPanel({
   currentModule,
   currentPage,
   mdxContent,
+  initialMessages,
 }: ChatPanelProps) {
   const [conversationId, setConversationId] = useState<string | null>(
     initialConversationId || null
@@ -53,6 +57,7 @@ export function ChatPanel({
   const [isLoading, setIsLoading] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
+  const [showContextBanner, setShowContextBanner] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -82,10 +87,15 @@ export function ChatPanel({
         "[data-radix-scroll-area-viewport]"
       );
       if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        // Smooth scroll for initial messages, instant for new messages
+        const behavior = showContextBanner ? "smooth" : "auto";
+        scrollContainer.scrollTo({
+          top: scrollContainer.scrollHeight,
+          behavior,
+        });
       }
     }
-  }, [messages]);
+  }, [messages, showContextBanner]);
 
   // Focus textarea when panel opens
   useEffect(() => {
@@ -93,6 +103,27 @@ export function ChatPanel({
       textareaRef.current.focus();
     }
   }, [isOpen, isMinimized]);
+
+  // Handle initial messages - create conversation with context
+  useEffect(() => {
+    if (isOpen && initialMessages && initialMessages.length > 0 && !conversationId) {
+      // Create a new conversation with the initial messages
+      const newConversation = conversationService.createConversation(
+        initialMessages[0].content,
+        initialMessages
+      );
+      setConversationId(newConversation.id);
+      setMessages(initialMessages);
+      setShowContextBanner(true);
+    }
+  }, [isOpen, initialMessages, conversationId]);
+
+  // Hide context banner after user sends first follow-up
+  useEffect(() => {
+    if (initialMessages && messages.length > initialMessages.length) {
+      setShowContextBanner(false);
+    }
+  }, [messages.length, initialMessages]);
 
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -137,57 +168,71 @@ export function ChatPanel({
           mdxContent,
           scope: "all-docs",
         }),
-        webSearchService.search(userMessage),
+        webSearchService.search(userMessage).catch(() => ({ results: [], totalResults: 0, searchTime: 0 })),
       ]);
 
-      // Generate response based on results
-      let response = "";
+      // Prepare sources
       const sources: Message["sources"] = [];
-
+      
+      // Build documentation context for AI
+      const documentationContext: string[] = [];
+      
       if (docsResults.length > 0) {
-        response += "Based on the Virima documentation:\n\n";
-        const topResult = docsResults[0];
-        response += topResult.snippet + "\n\n";
-        
-        sources.push({
-          title: topResult.title,
-          url: topResult.url,
-          snippet: topResult.snippet,
-          type: "doc",
-        });
-
-        if (docsResults.length > 1) {
-          response += "Related documentation:\n";
-          docsResults.slice(1, 3).forEach((result) => {
-            response += `• ${result.title}\n`;
-            sources.push({
-              title: result.title,
-              url: result.url,
-              snippet: result.snippet,
-              type: "doc",
-            });
-          });
-        }
-      }
-
-      if (webResults.length > 0) {
-        if (response) response += "\n\n";
-        response += "Additional resources from the web:\n\n";
-        
-        webResults.slice(0, 2).forEach((result) => {
-          response += `• ${result.title}\n  ${result.snippet}\n\n`;
+        docsResults.slice(0, 5).forEach((result) => {
+          documentationContext.push(`${result.title}\n${result.snippet}`);
           sources.push({
             title: result.title,
             url: result.url,
             snippet: result.snippet,
+            type: "doc",
+          });
+        });
+      }
+
+      if (webResults.results && webResults.results.length > 0) {
+        webResults.results.slice(0, 3).forEach((result) => {
+          documentationContext.push(`Web: ${result.title}\n${result.description}`);
+          sources.push({
+            title: result.title,
+            url: result.url,
+            snippet: result.description,
             type: "web",
           });
         });
       }
 
-      if (!response) {
-        response =
-          "I couldn't find specific information about that in the documentation or on the web. Could you please rephrase your question or provide more context?";
+      // Generate AI response using OpenAI GPT-4
+      let response = "";
+      
+      if (openAIService.isConfigured()) {
+        // Get conversation history for context
+        const conversationHistory: ChatMessage[] = messages
+          .slice(-6) // Last 3 exchanges (6 messages)
+          .map((msg) => ({
+            role: msg.role === "user" ? "user" : "assistant",
+            content: msg.content,
+          }));
+
+        try {
+          response = await openAIService.generateAnswer(
+            userMessage,
+            documentationContext,
+            conversationHistory
+          );
+        } catch (error) {
+          console.error("OpenAI generation error:", error);
+          // Fallback to simple response
+          response = documentationContext.length > 0
+            ? `Based on the documentation:\n\n${documentationContext[0]}`
+            : "I couldn't generate a response. Please try again.";
+        }
+      } else {
+        // Fallback if OpenAI is not configured
+        if (documentationContext.length > 0) {
+          response = "Based on the Virima documentation:\n\n" + documentationContext[0];
+        } else {
+          response = "I couldn't find specific information about that in the documentation or on the web. Could you please rephrase your question or provide more context?";
+        }
       }
 
       // Add assistant message
@@ -282,7 +327,14 @@ export function ChatPanel({
             <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full border border-white"></div>
           </div>
           <div>
-            <h3 className="text-slate-900">Virima Assistant</h3>
+            <div className="flex items-center gap-2">
+              <h3 className="text-slate-900">Virima Assistant</h3>
+              {openAIService.isConfigured() && (
+                <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full border border-green-200">
+                  GPT-4
+                </span>
+              )}
+            </div>
             {messages.length > 0 && (
               <p className="text-xs text-slate-500">
                 {messages.length} message{messages.length !== 1 ? "s" : ""}
@@ -351,6 +403,27 @@ export function ChatPanel({
               </div>
             ) : (
               <div className="space-y-4">
+                {/* Context continuation indicator */}
+                {showContextBanner && (
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg px-4 py-3 mb-4 animate-in fade-in slide-in-from-top-2 duration-500">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-blue-900">
+                        <MessageSquare className="h-4 w-4" />
+                        <span className="font-medium">Continuing from your search</span>
+                      </div>
+                      <button
+                        onClick={() => setShowContextBanner(false)}
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                    <p className="text-xs text-blue-700 mt-1">
+                      Your previous Q&A has been preserved — ask follow-up questions below
+                    </p>
+                  </div>
+                )}
+                
                 {messages.map((message) => (
                   <div
                     key={message.id}

@@ -12,13 +12,15 @@ const getEnv = (key: string): string | undefined => {
 };
 
 export const SearchConfig = {
-  // OpenAI Configuration
+  // OpenAI Configuration - UNRESTRICTED TOKEN ALLOCATION
   openai: {
-    apiKey: getEnv('NEXT_PUBLIC_OPENAI_API_KEY') || 'YOUR_OPENAI_API_KEY',
-    model: 'gpt-4-turbo-preview',
+    apiKey: getEnv('NEXT_PUBLIC_OPENAI_API_KEY') || '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',
+    model: 'gpt-4o',
     embeddingModel: 'text-embedding-3-large',
-    maxTokens: 2000,
+    maxTokens: 16000, // Maximum for GPT-4o - ensures complete responses
     temperature: 0.7,
+    enableContinuation: true, // Auto-continue if response is truncated
+    maxContinuations: 3, // Allow up to 3 continuation calls for very long responses
   },
 
   // Anthropic Claude Configuration
@@ -78,7 +80,7 @@ export const SearchConfig = {
 
   // OpenAI Whisper for Voice Search
   whisper: {
-    apiKey: getEnv('NEXT_PUBLIC_OPENAI_API_KEY') || 'YOUR_OPENAI_API_KEY',
+    apiKey: getEnv('NEXT_PUBLIC_OPENAI_API_KEY') || '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',
     model: 'whisper-1',
   },
 

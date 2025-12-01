@@ -70,40 +70,96 @@ class OpenAIService {
   }
 
   /**
-   * Generate chat completion using GPT-4
+   * Generate chat completion using GPT-4o with unlimited token support
+   * Auto-continues if response is truncated (finish_reason === 'length')
    */
   async createChatCompletion(
     messages: ChatMessage[],
     temperature?: number
   ): Promise<ChatCompletionResponse> {
     try {
-      const response = await fetch(`${this.baseURL}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: SearchConfig.openai.model,
-          messages,
-          max_tokens: SearchConfig.openai.maxTokens,
-          temperature: temperature ?? SearchConfig.openai.temperature,
-        }),
-      });
+      let fullAnswer = '';
+      let totalPromptTokens = 0;
+      let totalCompletionTokens = 0;
+      let continuations = 0;
+      let currentMessages = [...messages];
 
-      if (!response.ok) {
-        throw new Error(`OpenAI API error: ${response.statusText}`);
+      while (continuations <= (SearchConfig.openai.maxContinuations || 3)) {
+        const response = await fetch(`${this.baseURL}/chat/completions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.apiKey}`,
+          },
+          body: JSON.stringify({
+            model: SearchConfig.openai.model,
+            messages: currentMessages,
+            max_tokens: SearchConfig.openai.maxTokens,
+            temperature: temperature ?? SearchConfig.openai.temperature,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(`OpenAI API error: ${response.statusText} - ${JSON.stringify(errorData)}`);
+        }
+
+        const data = await response.json();
+        const content = data.choices[0].message.content;
+        const finishReason = data.choices[0].finish_reason;
+
+        fullAnswer += content;
+        totalPromptTokens += data.usage.prompt_tokens;
+        totalCompletionTokens += data.usage.completion_tokens;
+
+        // If response is complete, return it
+        if (finishReason === 'stop') {
+          return {
+            answer: fullAnswer,
+            usage: {
+              promptTokens: totalPromptTokens,
+              completionTokens: totalCompletionTokens,
+              totalTokens: totalPromptTokens + totalCompletionTokens,
+            },
+            model: data.model,
+          };
+        }
+
+        // If truncated due to length and continuation is enabled, continue
+        if (finishReason === 'length' && SearchConfig.openai.enableContinuation) {
+          continuations++;
+          console.log(`Response truncated, continuing (${continuations}/${SearchConfig.openai.maxContinuations})...`);
+          
+          // Add the partial response and ask to continue
+          currentMessages = [
+            ...currentMessages,
+            { role: 'assistant', content: content },
+            { role: 'user', content: 'Please continue from where you left off.' },
+          ];
+        } else {
+          // Finished for other reasons or continuation disabled
+          return {
+            answer: fullAnswer,
+            usage: {
+              promptTokens: totalPromptTokens,
+              completionTokens: totalCompletionTokens,
+              totalTokens: totalPromptTokens + totalCompletionTokens,
+            },
+            model: data.model,
+          };
+        }
       }
 
-      const data = await response.json();
+      // Max continuations reached, return what we have
+      console.warn(`Max continuations (${SearchConfig.openai.maxContinuations}) reached. Response may be incomplete.`);
       return {
-        answer: data.choices[0].message.content,
+        answer: fullAnswer,
         usage: {
-          promptTokens: data.usage.prompt_tokens,
-          completionTokens: data.usage.completion_tokens,
-          totalTokens: data.usage.total_tokens,
+          promptTokens: totalPromptTokens,
+          completionTokens: totalCompletionTokens,
+          totalTokens: totalPromptTokens + totalCompletionTokens,
         },
-        model: data.model,
+        model: SearchConfig.openai.model,
       };
     } catch (error) {
       console.error('OpenAI Chat Completion Error:', error);

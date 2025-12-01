@@ -1,4 +1,4 @@
----
+﻿---
 title: "New Users"
 description: "ADD INFO FOR V5."
 version: ""
@@ -48,17 +48,69 @@ When all selections/entries are made, click **Add**.
 
 | Enable MFA | When enabled, upon trying to log in, the user receives an email verification screen and can select to use either **Email** or **Two-Factor Authentication**.
 
-![mfa verification](../Resources/Images/Admin%20-%20Users/mfa-verification.PNG)
+![mfa verification](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 **Email**
 If **Email** is selected, an MFA code is sent and that code must be entered. If the code is not received, click **Resend Code**.
 
-![email verification](../Resources/Images/Admin%20-%20Users/email-verification.PNG)
+![email verification](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 **Two-Factor Authentication**
 If **Two-Factor Authentication** is selected, follow the instructions in this dialog box and do one of the following:
 
 If the QR code is scanned, click **Continue**, check the Google Authenticator app, enter the token, and click **Verify Token**.
 
-![enable 2 factor auth](../Resources/Images/Admin%20-%20Users/enable-2-factor-auth.PNG) ![enter token](../Resources/Images/Admin%20-%20Users/enter-token.PNG)
+![enable 2 factor auth](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) ![enter token](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 Enter the code shown into the Google Authenticator app.
 

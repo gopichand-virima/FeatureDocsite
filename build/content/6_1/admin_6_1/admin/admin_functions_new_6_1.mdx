@@ -1,4 +1,4 @@
----
+﻿---
 title: "Admin Functions"
 description: "Admin functions are only available to System Administrators. If you do not have system administrative persons, the gear icon to access the admin functions will not be displayed in the application window."
 version: ""
@@ -19,11 +19,37 @@ Admin functions are only available to System Administrators. If you do not have 
 
 With admin permissions:
 
-![with admin icon](../Resources/Images/Other%20Topics/with-admin-icon.PNG)
+![with admin icon](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 Without admin permissions:
 
-![no admin icon](../Resources/Images/Other%20Topics/no-admin-icon.PNG)
+![no admin icon](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
 
 
 This module includes the following functions.

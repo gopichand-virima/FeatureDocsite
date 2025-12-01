@@ -8,7 +8,7 @@ import { GlobalChatProvider } from './components/GlobalChatProvider';
 // MDXRenderingTest imported conditionally for debugging (URL param: ?test-mdx)
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import { setVersion } from './content/contentLoader';
-import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
+import logo from './assets/virima_logo.png';
 // Import debug helpers to expose to window
 import './utils/debugHelpers';
 // Import sample content registration

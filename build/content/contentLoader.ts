@@ -122,6 +122,65 @@ function extractMDXFromHTML(html: string): string | null {
 }
 
 /**
+ * Strips frontmatter (YAML metadata) from MDX content
+ * Frontmatter is between --- markers at the start of the file
+ * Handles various edge cases:
+ * - Optional whitespace before first ---
+ * - Missing newline after closing ---
+ * - Malformed frontmatter (only opening ---)
+ * - Inline frontmatter (without --- markers) - strips if at start
+ */
+function stripFrontmatter(content: string): string {
+  if (!content || content.trim().length === 0) {
+    return content;
+  }
+  
+  // Remove leading whitespace/newlines to check for frontmatter
+  const trimmed = content.trimStart();
+  
+  // Pattern 1: Standard frontmatter with --- markers at the start
+  // Matches: ---\n...content...\n--- (with optional whitespace/newlines)
+  const standardPattern = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*(\r?\n|$)/;
+  const standardMatch = trimmed.match(standardPattern);
+  
+  if (standardMatch) {
+    // Remove the frontmatter block (including the --- markers)
+    const contentWithoutFrontmatter = trimmed.replace(standardPattern, '').trim();
+    console.log(`  🧹 Stripped standard frontmatter (${standardMatch[0].length} chars), remaining: ${contentWithoutFrontmatter.length} chars`);
+    return contentWithoutFrontmatter;
+  }
+  
+  // Pattern 2: Malformed frontmatter (only opening ---, no closing)
+  // Remove it if it's at the start and followed by YAML-like content
+  const malformedPattern = /^---\s*\r?\n([\s\S]{0,500}?)(?=\r?\n\r?\n|$)/;
+  const malformedMatch = trimmed.match(malformedPattern);
+  if (malformedMatch && malformedMatch[1] && (malformedMatch[1].includes('title:') || malformedMatch[1].includes('description:'))) {
+    // This looks like frontmatter without closing ---, remove it
+    const contentWithoutFrontmatter = trimmed.replace(malformedPattern, '').trim();
+    console.log(`  🧹 Stripped malformed frontmatter (opening --- only), remaining: ${contentWithoutFrontmatter.length} chars`);
+    return contentWithoutFrontmatter;
+  }
+  
+  // Pattern 3: Inline frontmatter at the start (without --- markers)
+  // Only strip if it's at the very beginning and looks like YAML frontmatter
+  const inlinePattern = /^(title:\s*["'][^"']*["']|description:\s*["'][^"']*["']|version:\s*["'][^"']*["']|module:\s*["'][^"']*["'])[\s\S]{0,500}?(?=\r?\n\r?\n|$)/;
+  const inlineMatch = trimmed.match(inlinePattern);
+  if (inlineMatch && trimmed.indexOf('\n\n') > 0 && trimmed.indexOf('\n\n') < 200) {
+    // Looks like inline frontmatter followed by blank line, remove it
+    const firstDoubleNewline = trimmed.indexOf('\n\n');
+    const potentialFrontmatter = trimmed.substring(0, firstDoubleNewline);
+    if (potentialFrontmatter.match(/^(title|description|version|module|section|page|breadcrumbs):/m)) {
+      const contentWithoutFrontmatter = trimmed.substring(firstDoubleNewline + 2).trim();
+      console.log(`  🧹 Stripped inline frontmatter (no --- markers), remaining: ${contentWithoutFrontmatter.length} chars`);
+      return contentWithoutFrontmatter;
+    }
+  }
+  
+  // No frontmatter found, return content as-is
+  return content;
+}
+
+/**
  * Decodes HTML entities to plain text
  */
 function decodeHTMLEntities(text: string): string {
@@ -471,9 +530,10 @@ async function fetchContent(filePath: string): Promise<string> {
 /**
  * Gets content for a given file path
  * Automatically loads from disk on-demand
+ * Strips frontmatter before returning content
  * 
  * @param filePath - The path to the content file
- * @returns The content string or null if not found
+ * @returns The content string or null if not found (frontmatter already stripped)
  */
 export async function getContent(filePath: string): Promise<string | null> {
   console.log(`🔍 getContent called with: ${filePath}`);
@@ -481,17 +541,22 @@ export async function getContent(filePath: string): Promise<string | null> {
   // Check cache first
   if (contentCache.has(filePath)) {
     console.log(`📦 Cache hit for ${filePath}`);
-    return contentCache.get(filePath)!;
+    const cached = contentCache.get(filePath)!;
+    // Strip frontmatter from cached content too (in case cache was set before fix)
+    return stripFrontmatter(cached);
   }
   
   try {
     // Fetch content
     const content = await fetchContent(filePath);
     
-    // Cache it
-    contentCache.set(filePath, content);
+    // Strip frontmatter before caching and returning
+    const contentWithoutFrontmatter = stripFrontmatter(content);
     
-    return content;
+    // Cache the result (without frontmatter)
+    contentCache.set(filePath, contentWithoutFrontmatter);
+    
+    return contentWithoutFrontmatter;
   } catch (error) {
     console.error(`Failed to get content for ${filePath}:`, error);
     return null;

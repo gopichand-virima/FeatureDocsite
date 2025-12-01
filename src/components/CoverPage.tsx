@@ -6,8 +6,8 @@ import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Footer } from "./Footer";
 import { Binoculars } from "./icons/Binoculars";
-import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
-import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
+import coverImage from "../assets/home_cover_page.png";
+import aiIcon from "../assets/ai_chat.png";
 
 interface CoverPageProps {
   onModuleSelect: (module: string) => void;

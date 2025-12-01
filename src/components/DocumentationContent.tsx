@@ -538,7 +538,7 @@ function OnlineHelpOverview({
           
           <div className="my-8 not-prose">
             <img 
-              src="figma:asset/f9381b35c98ccaabf8b82fb583cf3f28e2b6db92.png" 
+              src="/images/NG/home_page/home_page_favs_dashboards.png" 
               alt="Virima Application Overview"
               className="w-full border border-slate-200 rounded-lg shadow-md"
             />

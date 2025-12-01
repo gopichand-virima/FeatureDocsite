@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense, lazy } from 'react';
 import { DocumentationLayout } from './components/DocumentationLayout';
 import { DocumentationContent } from './components/DocumentationContent';
 import { CoverPage } from './components/CoverPage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
-import { MDXRenderingTest } from './components/MDXRenderingTest';
+// MDXRenderingTest imported conditionally for debugging (URL param: ?test-mdx)
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import { setVersion } from './content/contentLoader';
 import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
@@ -179,9 +179,15 @@ export default function App() {
     setSelectedPage('');
   };
 
-  // Show test interface if requested
+  // Show test interface if requested (debug mode: ?test-mdx)
   if (showMDXTest) {
-    return <MDXRenderingTest />;
+    // Dynamic import for test component
+    const MDXRenderingTest = lazy(() => import('./components/MDXRenderingTest').then(m => ({ default: m.MDXRenderingTest })));
+    return (
+      <Suspense fallback={<div>Loading test...</div>}>
+        <MDXRenderingTest />
+      </Suspense>
+    );
   }
 
   return (

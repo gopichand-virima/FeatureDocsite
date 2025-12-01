@@ -231,7 +231,7 @@ Instructions:
    * Check if OpenAI is configured and available
    */
   isConfigured(): boolean {
-    return this.apiKey !== 'YOUR_OPENAI_API_KEY' && this.apiKey.length > 0;
+    return this.apiKey && this.apiKey.length > 0 && !this.apiKey.startsWith('sk-proj-') && this.apiKey !== 'YOUR_OPENAI_API_KEY';
   }
 }
 

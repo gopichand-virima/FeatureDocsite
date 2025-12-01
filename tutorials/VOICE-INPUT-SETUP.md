@@ -90,8 +90,8 @@ The system uses the same OpenAI API key as the chat functionality:
 ```typescript
 whisper: {
   apiKey: getEnv('NEXT_PUBLIC_OPENAI_API_KEY') || 
-          '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',
-  model: 'whisper-1',
+          <ignoreinput>'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',
+  model: 'whisper-1',<ignoreinput>
 }
 ```
 

@@ -10,7 +10,7 @@ import { getIndexContent, indexContentMap } from './indexContentMap';
 
 // Cache for loaded TOC structures
 // Cache version - increment this when parser logic changes to invalidate old cache
-const CACHE_VERSION = 3; // Incremented to force refresh after switching to fetch actual index.mdx files
+const CACHE_VERSION = 4; // Incremented to force refresh and ensure TOC alignment with NG index.mdx
 const tocCache: Map<string, TocStructure> = new Map();
 
 /**

@@ -83,9 +83,10 @@ export function DocumentationLayout({
     .find(m => m.id === selectedModule)
     ?.sections || [];
   
-  // Use hardcoded sections as fallback if TOC sections are empty
+  // Use hardcoded sections as fallback ONLY if TOC is still loading or has errors
+  // Once TOC is loaded, always use TOC sections (index.mdx is single source of truth)
   const hardcodedSections = selectedModule ? getSectionsForModule(selectedModule) : [];
-  const sections = tocSections.length > 0 ? tocSections : hardcodedSections;
+  const sections = (!tocLoading && tocSections.length > 0) ? tocSections : (tocLoading ? [] : hardcodedSections);
   
   // Only log when a module is actually selected (not empty string)
   if (selectedModule && selectedModule.trim() !== '') {

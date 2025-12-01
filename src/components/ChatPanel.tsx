@@ -21,7 +21,6 @@ import { Textarea } from "./ui/textarea";
 import { ScrollArea } from "./ui/scroll-area";
 import {
   conversationService,
-  Conversation,
   Message,
 } from "../lib/chat/conversation-service";
 import { searchOrchestrator } from "../lib/search/search-orchestrator";
@@ -163,9 +162,7 @@ export function ChatPanel({
       // Search both docs and web
       const [docsResults, webResults] = await Promise.all([
         searchOrchestrator.search(userMessage, {
-          module: currentModule,
-          page: currentPage,
-          mdxContent,
+          currentModule: currentModule,
           scope: "all-docs",
         }),
         webSearchService.search(userMessage).catch(() => ({ results: [], totalResults: 0, searchTime: 0 })),
@@ -179,11 +176,12 @@ export function ChatPanel({
       
       if (docsResults.length > 0) {
         docsResults.slice(0, 5).forEach((result) => {
-          documentationContext.push(`${result.title}\n${result.snippet}`);
+          const snippet = result.content?.substring(0, 200) || '';
+          documentationContext.push(`${result.title}\n${snippet}`);
           sources.push({
             title: result.title,
-            url: result.url,
-            snippet: result.snippet,
+            url: result.path || '',
+            snippet: snippet,
             type: "doc",
           });
         });
@@ -312,13 +310,14 @@ export function ChatPanel({
       className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out flex flex-col ${
         isMinimized
           ? "bottom-0 right-6 w-80 h-14"
-          : "bottom-4 right-4 md:right-6 w-full max-w-[480px] mx-4 md:mx-0"
+          : "bottom-4 right-4 w-[380px] sm:w-[400px] md:w-[420px] lg:w-[450px]"
       }`}
       style={{
         boxShadow:
           "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)",
         height: isMinimized ? "3.5rem" : "min(600px, calc(100vh - 2rem))",
         maxHeight: isMinimized ? "3.5rem" : "calc(100vh - 2rem)",
+        maxWidth: isMinimized ? "20rem" : "calc(100vw - 2rem)",
       }}
     >
       {/* Header */}

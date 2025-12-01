@@ -1,0 +1,11 @@
+# YAML Lint Configuration for GitHub Actions Workflows
+# Suppresses false positive warnings for GitHub Actions secrets context
+
+extends: default
+
+rules:
+  # Disable context access warnings - these are false positives
+  # GitHub Actions ${{ secrets.* }} syntax is valid
+  context-access:
+    disable: true
+

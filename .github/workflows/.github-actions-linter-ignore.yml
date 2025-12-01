@@ -1,0 +1,8 @@
+# GitHub Actions Linter Ignore Configuration
+# These warnings are false positives - the ${{ secrets.* }} syntax is valid
+
+# Suppress context access warnings for secrets
+# The linter doesn't recognize dynamic secret names, but they are valid
+ignore:
+  - "context-access"
+

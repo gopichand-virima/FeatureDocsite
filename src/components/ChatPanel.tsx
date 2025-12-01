@@ -309,18 +309,20 @@ export function ChatPanel({
 
   return (
     <div
-      className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out ${
+      className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out flex flex-col ${
         isMinimized
           ? "bottom-0 right-6 w-80 h-14"
-          : "bottom-0 right-6 w-[480px] h-[600px]"
+          : "bottom-4 right-4 md:right-6 w-full max-w-[480px] mx-4 md:mx-0"
       }`}
       style={{
         boxShadow:
           "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)",
+        height: isMinimized ? "3.5rem" : "min(600px, calc(100vh - 2rem))",
+        maxHeight: isMinimized ? "3.5rem" : "calc(100vh - 2rem)",
       }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-t-xl">
+      <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-t-xl">
         <div className="flex items-center gap-3">
           <div className="relative">
             <Bot className="h-5 w-5 text-emerald-600" />
@@ -389,7 +391,8 @@ export function ChatPanel({
       {!isMinimized && (
         <>
           {/* Messages */}
-          <ScrollArea ref={scrollAreaRef} className="h-[calc(100%-120px)] p-4">
+          <div ref={scrollAreaRef} className="flex-1 overflow-hidden">
+            <ScrollArea className="h-full p-4">
             {messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center px-6">
                 <Bot className="h-12 w-12 text-slate-300 mb-4" />
@@ -537,10 +540,11 @@ export function ChatPanel({
                 )}
               </div>
             )}
-          </ScrollArea>
+            </ScrollArea>
+          </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-slate-200 bg-slate-50">
+          <div className="flex-shrink-0 p-4 border-t border-slate-200 bg-slate-50">
             <div className="flex gap-2">
               <Textarea
                 ref={textareaRef}

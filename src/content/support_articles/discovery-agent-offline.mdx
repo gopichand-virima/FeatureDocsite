@@ -1,0 +1,316 @@
+---
+articleId: K000245891
+title: Discovery Agent Shows Offline Status in Virima Dashboard
+published: November 15, 2024
+modified: December 02, 2025
+category: Discovery
+severity: High
+type: Problem
+tags: [discovery, agent, connectivity, troubleshooting]
+excerpt: Discovery agent appears offline in Virima dashboard despite being installed and running on the target system.
+---
+
+# Discovery Agent Shows Offline Status in Virima Dashboard
+
+**Article ID:** K000245891  
+**Last Modified:** December 02, 2025  
+**Category:** Discovery  
+**Severity:** High
+
+---
+
+## Issue
+
+Discovery agent appears offline in Virima dashboard despite being installed and running on the target system. The agent status shows "Disconnected" or "Offline" and no discovery data is being collected.
+
+## Environment
+
+- **Product:** Virima Discovery Agent
+- **Versions:** 6.1, 6.1.1, NextGen
+- **Operating Systems:** Windows Server 2016/2019/2022, RHEL 7/8/9, Ubuntu 20.04/22.04
+- **Components Affected:** Discovery Engine, Agent Communication, Data Collection
+
+## Symptoms
+
+- Agent status shows "Offline" or "Disconnected" in Virima dashboard
+- No discovery data received from the agent for extended period
+- Agent service appears running in local services console
+- Discovery schedules fail to execute
+- Asset inventory not updating for agent-managed systems
+
+## Cause
+
+This issue can be caused by multiple factors:
+
+1. **Network Connectivity Issues**
+   - Firewall blocking outbound connections on port 443 or custom port
+   - Proxy server requiring authentication not configured in agent
+   - Network route unavailable to Virima SaaS platform
+
+2. **Agent Configuration Issues**
+   - Incorrect Virima platform URL configured
+   - Invalid or expired authentication token
+   - Agent ID mismatch after reinstallation
+
+3. **Certificate Issues**
+   - SSL/TLS certificate validation failure
+   - Expired or self-signed certificates not trusted
+   - Certificate chain incomplete
+
+4. **Service Account Permissions**
+   - Agent service account lacks necessary permissions
+   - Credential rotation without updating agent configuration
+   - Account locked or disabled
+
+5. **Resource Constraints**
+   - Insufficient disk space for agent logs or cache
+   - Memory exhaustion preventing agent operations
+   - CPU throttling affecting agent performance
+
+## Resolution
+
+### Step 1: Verify Network Connectivity
+
+```bash
+# Test connectivity to Virima platform
+curl -v https://your-instance.virima.com/api/v3/health
+
+# Check if port 443 is accessible
+telnet your-instance.virima.com 443
+
+# Verify DNS resolution
+nslookup your-instance.virima.com
+```
+
+**Windows PowerShell:**
+```powershell
+Test-NetConnection -ComputerName your-instance.virima.com -Port 443
+```
+
+### Step 2: Check Agent Configuration
+
+**Linux:**
+```bash
+# View agent configuration
+cat /opt/virima/agent/config/agent.conf
+
+# Check agent logs
+tail -f /var/log/virima/agent/agent.log
+
+# Verify agent status
+systemctl status virima-agent
+```
+
+**Windows:**
+```powershell
+# View configuration
+Get-Content "C:\Program Files\Virima\Agent\config\agent.conf"
+
+# Check logs
+Get-Content "C:\Program Files\Virima\Agent\logs\agent.log" -Tail 50
+
+# Verify service status
+Get-Service VirimaAgent
+```
+
+### Step 3: Validate Authentication Token
+
+1. Log in to Virima dashboard
+2. Navigate to **Settings → Discovery → Agents**
+3. Locate the offline agent
+4. Click **Regenerate Token**
+5. Copy the new token
+6. Update agent configuration:
+
+**Linux:**
+```bash
+sudo /opt/virima/agent/bin/configure-auth --token "NEW_TOKEN_HERE"
+sudo systemctl restart virima-agent
+```
+
+**Windows (Run as Administrator):**
+```powershell
+& "C:\Program Files\Virima\Agent\bin\configure-auth.exe" --token "NEW_TOKEN_HERE"
+Restart-Service VirimaAgent
+```
+
+### Step 4: Configure Proxy Settings (If Applicable)
+
+**Linux:**
+```bash
+sudo /opt/virima/agent/bin/configure-proxy \
+  --proxy-url "http://proxy.company.com:8080" \
+  --proxy-user "username" \
+  --proxy-pass "password"
+
+sudo systemctl restart virima-agent
+```
+
+**Windows:**
+```powershell
+& "C:\Program Files\Virima\Agent\bin\configure-proxy.exe" `
+  -ProxyUrl "http://proxy.company.com:8080" `
+  -ProxyUser "username" `
+  -ProxyPass "password"
+
+Restart-Service VirimaAgent
+```
+
+### Step 5: Verify Firewall Rules
+
+Ensure the following outbound connections are allowed:
+
+| Protocol | Port | Destination | Purpose |
+|----------|------|-------------|---------|
+| HTTPS | 443 | *.virima.com | API Communication |
+| HTTPS | 443 | *.virima.io | Agent Updates |
+| DNS | 53 | DNS Server | Name Resolution |
+
+**Windows Firewall:**
+```powershell
+New-NetFirewallRule -DisplayName "Virima Agent Outbound" `
+  -Direction Outbound -Protocol TCP -LocalPort 443 -Action Allow
+```
+
+**Linux (iptables):**
+```bash
+sudo iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+```
+
+### Step 6: Check Service Account Permissions
+
+The agent service account requires:
+
+- **Windows:** Local Administrator or Power Users group membership
+- **Linux:** Root or sudo privileges for discovery operations
+- **Network:** Access to target systems for credential-based discovery
+
+**Verify Windows Service Account:**
+```powershell
+(Get-WmiObject win32_service | Where-Object {$_.Name -eq "VirimaAgent"}).StartName
+```
+
+### Step 7: Verify Disk Space and Resources
+
+**Linux:**
+```bash
+# Check disk space
+df -h /opt/virima
+df -h /var/log/virima
+
+# Check memory usage
+free -m
+
+# Monitor agent resource usage
+top -p $(pgrep -f virima-agent)
+```
+
+**Windows:**
+```powershell
+# Check disk space
+Get-PSDrive C
+
+# Check memory
+Get-Process VirimaAgent | Select-Object WorkingSet, CPU
+```
+
+### Step 8: Review Agent Logs for Errors
+
+**Common log patterns to search for:**
+
+- `Connection refused` - Network connectivity issue
+- `Authentication failed` - Invalid or expired token
+- `Certificate verify failed` - SSL/TLS certificate issue
+- `Permission denied` - Service account permissions issue
+- `Out of memory` - Resource constraint issue
+
+**Linux log analysis:**
+```bash
+grep -i "error\|failed\|exception" /var/log/virima/agent/agent.log | tail -20
+```
+
+**Windows log analysis:**
+```powershell
+Select-String -Path "C:\Program Files\Virima\Agent\logs\agent.log" `
+  -Pattern "error|failed|exception" | Select-Object -Last 20
+```
+
+### Step 9: Restart Agent Service
+
+**Linux:**
+```bash
+sudo systemctl restart virima-agent
+sudo systemctl status virima-agent
+```
+
+**Windows:**
+```powershell
+Restart-Service VirimaAgent
+Get-Service VirimaAgent
+```
+
+### Step 10: Force Agent Check-In
+
+From Virima dashboard:
+1. Navigate to **Settings → Discovery → Agents**
+2. Select the offline agent
+3. Click **Force Check-In**
+4. Wait 2-3 minutes for agent to respond
+
+## Verification
+
+After applying the resolution steps:
+
+1. Agent status should change to "Online" in Virima dashboard within 5 minutes
+2. Last check-in timestamp should update
+3. Discovery schedules should execute successfully
+4. Asset data should begin flowing to Virima platform
+
+**Monitor agent status:**
+```bash
+# Linux
+sudo journalctl -u virima-agent -f
+
+# Windows
+Get-EventLog -LogName Application -Source VirimaAgent -Newest 10
+```
+
+## Additional Information
+
+### Agent System Requirements
+
+| Resource | Minimum | Recommended |
+|----------|---------|-------------|
+| CPU | 2 cores | 4 cores |
+| RAM | 2 GB | 4 GB |
+| Disk Space | 10 GB | 20 GB |
+| Network | 1 Mbps | 10 Mbps |
+
+### Related Articles
+
+- [K000245892: How to Install Virima Discovery Agent](/kb/install-discovery-agent)
+- [K000245893: Discovery Agent Network Requirements](/kb/agent-network-requirements)
+- [K000245894: Troubleshooting Agent Authentication Issues](/kb/agent-authentication)
+- [K000245895: Discovery Agent Performance Tuning](/kb/agent-performance-tuning)
+
+### Support Contact
+
+If the issue persists after following these steps, contact Virima Support:
+
+- **Support Portal:** support.virima.com
+- **Email:** support@virima.com
+- **Phone:** +1-800-XXX-XXXX
+
+**Include the following information:**
+- Agent ID and hostname
+- Agent version and operating system
+- Recent agent logs (last 500 lines)
+- Network diagram showing agent to Virima connectivity
+- Screenshot of agent status in dashboard
+
+---
+
+**Was this article helpful?**  
+[Yes] [No]
+
+*Last updated: December 02, 2025*

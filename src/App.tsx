@@ -6,10 +6,13 @@ import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
 import { MDXRenderingTest } from './components/MDXRenderingTest';
+import { VirumaTechCentral } from './components/VirumaTechCentral';
+import { VirimaKnowledgeBase } from './components/VirimaKnowledgeBase';
+import { ProductSupportPolicies } from './components/ProductSupportPolicies';
 import { ThemeProvider } from './lib/theme/theme-provider';
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import { setVersion } from './content/contentLoader';
-import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
+import logo from './assets/virima_logo.png';
 // Import debug helpers to expose to window
 import './utils/debugHelpers';
 // Import sample content registration
@@ -54,6 +57,9 @@ export default function App() {
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedPage, setSelectedPage] = useState('');
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
+  const [showCommunityForum, setShowCommunityForum] = useState(false);
+  const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
+  const [showSupportPolicies, setShowSupportPolicies] = useState(false);
   const versionDropdownTriggerRef = useRef<(() => void) | null>(null);
   
   // Store scroll positions for each page
@@ -137,9 +143,27 @@ export default function App() {
     restoreScrollPosition();
   }, [selectedVersion, selectedModule, selectedSection, selectedPage]);
 
-  const showHomePage = !selectedModule;
+  const showHomePage = !selectedModule && !showCommunityForum && !showKnowledgeBase && !showSupportPolicies;
 
   const handleModuleChange = async (module: string) => {
+    // Check if it's the community forum special case
+    if (module === 'virima-tech-central') {
+      setShowCommunityForum(true);
+      return;
+    }
+    
+    // Check if it's the knowledge base special case
+    if (module === 'knowledge-base') {
+      setShowKnowledgeBase(true);
+      return;
+    }
+    
+    // Check if it's the product support policies special case
+    if (module === 'product-support-policies') {
+      setShowSupportPolicies(true);
+      return;
+    }
+    
     saveScrollPosition(); // Save before changing
     setSelectedModule(module);
     
@@ -178,6 +202,9 @@ export default function App() {
     setSelectedModule('');
     setSelectedSection('');
     setSelectedPage('');
+    setShowCommunityForum(false);
+    setShowKnowledgeBase(false);
+    setShowSupportPolicies(false);
   };
 
   // Show test interface if requested
@@ -195,67 +222,75 @@ export default function App() {
           {/* AI Discovery Monitoring Dashboard (dev mode only) */}
           <AIMonitoringDashboard />
           
-          <DocumentationLayout
-          logo={logo}
-          selectedVersion={selectedVersion}
-          onVersionChange={handleVersionChange}
-          selectedModule={selectedModule}
-          onModuleChange={handleModuleChange}
-          selectedSection={selectedSection}
-          onSectionChange={(section) => {
-            saveScrollPosition();
-            setSelectedSection(section);
-          }}
-          selectedPage={selectedPage}
-          onPageChange={(page) => {
-            saveScrollPosition();
-            setSelectedPage(page);
-          }}
-          onHomeClick={handleHomeClick}
-          isHomePage={showHomePage}
-          versionDropdownTriggerRef={versionDropdownTriggerRef}
-          contentContainerRef={contentContainerRef}
-          onSearchDialogOpen={() => setSearchDialogOpen(true)}
-        >
-          {showHomePage ? (
-            <HomePage onModuleSelect={handleModuleChange} />
+          {showCommunityForum ? (
+            <VirumaTechCentral onBack={handleHomeClick} />
+          ) : showKnowledgeBase ? (
+            <VirimaKnowledgeBase onBack={handleHomeClick} />
+          ) : showSupportPolicies ? (
+            <ProductSupportPolicies onBack={handleHomeClick} />
           ) : (
-            <DocumentationContent
-              version={selectedVersion}
-              module={selectedModule}
-              section={selectedSection}
-              page={selectedPage}
-              onHomeClick={handleHomeClick}
-              onModuleClick={async () => {
-                saveScrollPosition();
-                // Load TOC and navigate to first page of module
-                try {
-                  const toc = await loadHierarchicalToc(selectedVersion);
-                  const module = toc.modules.find(m => m.id === selectedModule);
-                  
-                  if (module && module.sections.length > 0) {
-                    const firstSection = module.sections[0];
-                    if (firstSection && firstSection.pages.length > 0) {
-                      const firstPage = firstSection.pages[0];
-                      setSelectedSection(firstSection.id);
-                      setSelectedPage(firstPage.id);
-                      return;
+            <DocumentationLayout
+            logo={logo}
+            selectedVersion={selectedVersion}
+            onVersionChange={handleVersionChange}
+            selectedModule={selectedModule}
+            onModuleChange={handleModuleChange}
+            selectedSection={selectedSection}
+            onSectionChange={(section) => {
+              saveScrollPosition();
+              setSelectedSection(section);
+            }}
+            selectedPage={selectedPage}
+            onPageChange={(page) => {
+              saveScrollPosition();
+              setSelectedPage(page);
+            }}
+            onHomeClick={handleHomeClick}
+            isHomePage={showHomePage}
+            versionDropdownTriggerRef={versionDropdownTriggerRef}
+            contentContainerRef={contentContainerRef}
+            onSearchDialogOpen={() => setSearchDialogOpen(true)}
+          >
+            {showHomePage ? (
+              <HomePage onModuleSelect={handleModuleChange} />
+            ) : (
+              <DocumentationContent
+                version={selectedVersion}
+                module={selectedModule}
+                section={selectedSection}
+                page={selectedPage}
+                onHomeClick={handleHomeClick}
+                onModuleClick={async () => {
+                  saveScrollPosition();
+                  // Load TOC and navigate to first page of module
+                  try {
+                    const toc = await loadHierarchicalToc(selectedVersion);
+                    const module = toc.modules.find(m => m.id === selectedModule);
+                    
+                    if (module && module.sections.length > 0) {
+                      const firstSection = module.sections[0];
+                      if (firstSection && firstSection.pages.length > 0) {
+                        const firstPage = firstSection.pages[0];
+                        setSelectedSection(firstSection.id);
+                        setSelectedPage(firstPage.id);
+                        return;
+                      }
                     }
+                  } catch (error) {
+                    console.error('Failed to load module:', error);
                   }
-                } catch (error) {
-                  console.error('Failed to load module:', error);
-                }
-                
-                // Fallback: set empty
-                setSelectedSection('');
-                setSelectedPage('');
-              }}
-              onVersionClick={() => {
-                versionDropdownTriggerRef.current?.();
-              }}
-            />
+                  
+                  // Fallback: set empty
+                  setSelectedSection('');
+                  setSelectedPage('');
+                }}
+                onVersionClick={() => {
+                  versionDropdownTriggerRef.current?.();
+                }}
+              />
+            )}
+          </DocumentationLayout>
           )}
-        </DocumentationLayout>
 
         {/* AI Search Dialog */}
         <AISearchDialogSimplified

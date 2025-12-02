@@ -62,7 +62,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h1 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mb-6 pb-3 border-b border-slate-200" 
+                className="scroll-mt-24 text-slate-900 font-bold text-3xl mb-6" 
                 {...props}
               >
                 {children}
@@ -75,7 +75,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h2 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mt-12 mb-6" 
+                className="scroll-mt-24 text-slate-900 font-bold text-2xl mt-12 mb-6" 
                 {...props}
               >
                 {children}
@@ -88,7 +88,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h3 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mt-8 mb-4" 
+                className="scroll-mt-24 text-slate-900 font-bold text-xl mt-8 mb-4" 
                 {...props}
               >
                 {children}
@@ -101,7 +101,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h4 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mt-6 mb-3" 
+                className="scroll-mt-24 text-slate-900 font-bold text-lg mt-6 mb-3" 
                 {...props}
               >
                 {children}
@@ -114,7 +114,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h5 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mt-4 mb-2" 
+                className="scroll-mt-24 text-slate-900 font-bold text-base mt-4 mb-2" 
                 {...props}
               >
                 {children}
@@ -127,7 +127,7 @@ export function MDXRenderer({ content, className = '' }: MDXRendererProps) {
             return (
               <h6 
                 id={id} 
-                className="scroll-mt-24 text-slate-900 mt-4 mb-2" 
+                className="scroll-mt-24 text-slate-900 font-bold text-sm mt-4 mb-2" 
                 {...props}
               >
                 {children}

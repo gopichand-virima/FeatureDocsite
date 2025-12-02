@@ -3,8 +3,9 @@ import { ArrowRight, Command } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
-import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
-import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
+import { homePageAssets, animationConfig, homePageText } from "./homePageConfig";
+import coverImage from "../assets/home_cover_page.png";
+import aiIcon from "../assets/ai_chat.png";
 
 interface CoverPageProps {
   onModuleSelect: (module: string) => void;
@@ -26,13 +27,13 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
         key={`background-${animationKey}`}
         className="absolute inset-0 w-full h-full"
         initial={{ x: "100%", opacity: 0 }}
-        animate={{ 
-          x: 0, 
-          opacity: 0.09,
-        }}
+          animate={{ 
+            x: 0, 
+            opacity: animationConfig.background.opacity,
+          }}
         transition={{
-          duration: 1.2,
-          ease: [0.43, 0.13, 0.23, 0.96],
+          duration: animationConfig.background.duration,
+          ease: animationConfig.background.ease,
         }}
       >
         <motion.div
@@ -74,13 +75,13 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 1.4,
-              duration: 0.8,
-              ease: "easeOut"
+              delay: animationConfig.title.delay,
+              duration: animationConfig.title.duration,
+              ease: animationConfig.title.ease
             }}
           >
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-slate-900 dark:text-white tracking-tight">
-              Virima
+              {homePageText.brand}
             </h1>
           </motion.div>
 
@@ -91,13 +92,13 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 1.6,
-              duration: 0.8,
-              ease: "easeOut"
+              delay: animationConfig.tagline.delay,
+              duration: animationConfig.tagline.duration,
+              ease: animationConfig.tagline.ease
             }}
           >
             <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl text-slate-900 dark:text-slate-100 leading-relaxed px-2">
-              Welcome to the Documentation Platform
+              {homePageText.tagline}
             </p>
           </motion.div>
 
@@ -108,14 +109,12 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 1.8,
-              duration: 0.8,
-              ease: "easeOut"
+              delay: animationConfig.description.delay,
+              duration: animationConfig.description.duration,
+              ease: animationConfig.description.ease
             }}
           >
-            Explore comprehensive feature documentation,
-            release notes, and more across all Virima modules
-            and versions.
+            {homePageText.description}
           </motion.p>
 
           {/* Search CTA - Fade In with Scale */}
@@ -125,9 +124,9 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              delay: 2.0,
-              duration: 0.6,
-              ease: "easeOut"
+              delay: animationConfig.search.delay,
+              duration: animationConfig.search.duration,
+              ease: animationConfig.search.ease
             }}
           >
             <Button
@@ -143,10 +142,10 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
                 style={{ imageRendering: "crisp-edges" }}
               />
               <span className="text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors duration-300 hidden sm:inline">
-                Ask AI anything about Virima
+                {homePageText.searchPlaceholder}
               </span>
               <span className="text-slate-400 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors duration-300 sm:hidden">
-                Ask AI about Virima
+                {homePageText.searchPlaceholderMobile}
               </span>
               <div className="ml-auto flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
                 <Command className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
@@ -162,9 +161,9 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              delay: 2.2,
-              duration: 0.6,
-              ease: "easeOut"
+              delay: animationConfig.button.delay,
+              duration: animationConfig.button.duration,
+              ease: animationConfig.button.ease
             }}
           >
             <Button
@@ -173,7 +172,7 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
               className="relative bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base shadow-2xl shadow-green-500/40 hover:shadow-green-500/50 transition-all duration-300 hover:scale-105 group overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <span className="relative">Get Started</span>
+              <span className="relative">{homePageText.getStartedButton}</span>
               <ArrowRight className="relative ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
           </motion.div>

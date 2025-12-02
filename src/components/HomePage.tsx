@@ -20,6 +20,7 @@ import {
   Layers,
   Shield,
   Settings,
+  Users,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -28,8 +29,9 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Footer } from "./Footer";
 import { Binoculars } from "./icons/Binoculars";
 import { CoverPage } from "./CoverPage";
-import aiIcon from "figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png";
-import coverImage from "figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png";
+import { homePageText } from "./homePageConfig";
+import aiIcon from "../assets/ai_chat.png";
+import coverImage from "../assets/home_cover_page.png";
 
 interface HomePageProps {
   onModuleSelect: (module: string) => void;
@@ -148,13 +150,10 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-black-premium dark:text-white mb-8 tracking-tight">
-              Enterprise IT Operations, Simplified
+              {homePageText.valueProposition.title}
             </h2>
             <p className="text-xl lg:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Virima delivers a comprehensive suite of IT
-              management solutions designed for enterprise-scale
-              operations with the agility modern businesses
-              demand.
+              {homePageText.valueProposition.description}
             </p>
             <div className="bg-white dark:bg-slate-900 pt-16 pb-8 lg:pt-20 lg:pb-12">
               <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -212,27 +211,34 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-5xl lg:text-6xl text-black-premium dark:text-white mb-8 tracking-tight">
-              Quick Links
+              {homePageText.quickLinks.title}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.2)] transition-all duration-500">
+            <div 
+              onClick={() => onModuleSelect('product-support-policies')}
+              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.2)] transition-all duration-500 cursor-pointer">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
-                <BookOpen className="h-7 w-7 text-white" />
+                <Shield className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
-                Getting Started
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                Product Support Policies
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
-                Detailed guides, tutorials, and step-by-step
-                instructions for daily operations and workflows.
+                Comprehensive support policies, maintenance schedules,
+                and lifecycle information for all Virima products.
               </p>
             </div>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500">
+            <a
+              href="https://virima.com/release-notes/release-notes-6-1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
-                <Zap className="h-7 w-7 text-white" />
+                <FileText className="h-7 w-7 text-white" />
               </div>
               <h3 className="text-2xl text-black-premium dark:text-white mb-4">
                 Release Notes
@@ -241,26 +247,28 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 Latest updates, new features, improvements, and
                 bug fixes for each version release.
               </p>
-            </div>
+            </a>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.2)] transition-all duration-500">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
+            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(168,85,247,0.08)] dark:hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-500">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-purple-500/20 group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>
               <h3 className="text-2xl text-black-premium dark:text-white mb-4">
-                Online Help
+                Compatibility Matrix
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
-                Quick start guides and tutorials to get up and
-                running with each module in minutes.
+                System requirements, browser support, database
+                compatibility, and integrations.
               </p>
             </div>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500">
+            <div 
+              onClick={() => onModuleSelect('knowledge-base')}
+              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500 cursor-pointer">
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
-                <Database className="h-7 w-7 text-white" />
+                <BookOpen className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                 Knowledge base (KB) Articles
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
@@ -282,16 +290,18 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
-                <Shield className="h-7 w-7 text-white" />
+            <div 
+              onClick={() => onModuleSelect('virima-tech-central')}
+              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(34,197,94,0.08)] dark:hover:shadow-[0_8px_40px_rgba(34,197,94,0.2)] transition-all duration-500 cursor-pointer">
+              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
+                <Users className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
-                Compatibility Matrix
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                Virima Tech Central
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
-                System requirements, browser support, database
-                compatibility, and integrations.
+                Join our product community forum for discussions,
+                best practices, and expert support.
               </p>
             </div>
           </div>

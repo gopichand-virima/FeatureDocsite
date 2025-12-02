@@ -133,7 +133,7 @@ export function FeedbackSection() {
 
       // Send via EmailJS
       // Note: You need to set up EmailJS account and replace these IDs
-      const emailjs = (await import('emailjs-com@3.2.0')).default;
+      const emailjs = (await import('emailjs-com')).default;
       
       await emailjs.send(
         'YOUR_SERVICE_ID',  // Replace with your EmailJS service ID

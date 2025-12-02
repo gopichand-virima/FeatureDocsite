@@ -1,0 +1,729 @@
+---
+articleId: K000246345
+title: Virima Database Performance Degradation and Slow Query Response
+published: July 18, 2024
+modified: December 02, 2025
+category: Performance
+severity: High
+type: Problem
+tags: [database, performance, optimization, query, slow]
+excerpt: Virima platform experiencing slow performance due to database query delays and resource constraints.
+---
+
+# Virima Database Performance Degradation and Slow Query Response
+
+**Article ID:** K000246345  
+**Last Modified:** December 02, 2025  
+**Category:** Performance  
+**Severity:** High
+
+---
+
+## Issue
+
+Virima platform experiencing significant performance degradation with symptoms including slow page loads, delayed search results, timeouts during discovery operations, and unresponsive dashboard widgets. Database queries taking significantly longer than expected.
+
+## Environment
+
+- **Product:** Virima Platform
+- **Versions:** 6.1, 6.1.1, NextGen
+- **Database:** PostgreSQL 12/13/14/15, MySQL 8.0+
+- **Deployment:** On-Premises, Private Cloud
+- **Asset Count:** 10,000+ CIs
+
+## Symptoms
+
+- Dashboard takes 30+ seconds to load
+- Search operations timeout after 60 seconds
+- Report generation fails or takes extremely long
+- Discovery jobs complete slowly or timeout
+- API requests return 504 Gateway Timeout errors
+- Database CPU usage consistently above 80%
+- Disk I/O wait times elevated
+- Query execution times exceed 10 seconds
+- Connection pool exhaustion
+
+**Example slow query log entry:**
+```
+[2025-12-02 10:30:15] Query took 45.23 seconds
+SELECT * FROM assets WHERE status='active' ORDER BY updated_at DESC;
+```
+
+## Cause
+
+Database performance issues typically stem from:
+
+1. **Missing or Outdated Indexes**
+   - Indexes not created during large data imports
+   - Index fragmentation after millions of DML operations
+   - Inefficient composite indexes
+   - Unused indexes wasting resources
+
+2. **Database Growth and Bloat**
+   - Audit tables growing unbounded
+   - Log tables not purged regularly
+   - Deleted records not vacuumed (PostgreSQL)
+   - Large transaction logs (MySQL)
+
+3. **Inefficient Queries**
+   - Full table scans on large tables
+   - Complex joins without proper indexes
+   - Subqueries instead of joins
+   - SELECT * instead of specific columns
+
+4. **Resource Constraints**
+   - Insufficient RAM for database cache
+   - Slow disk subsystem (HDD instead of SSD)
+   - CPU throttling or resource limits
+   - Network latency between app and database servers
+
+5. **Connection Pool Issues**
+   - Connection pool too small for load
+   - Connection leaks not returning to pool
+   - Long-running connections blocking others
+
+6. **Lock Contention**
+   - Deadlocks during concurrent operations
+   - Table-level locks during updates
+   - Index locks during maintenance
+
+7. **Statistics Out of Date**
+   - Query optimizer making poor decisions
+   - Statistics not updated after bulk loads
+   - Auto-vacuum not running (PostgreSQL)
+
+## Resolution
+
+### Step 1: Identify Slow Queries
+
+**PostgreSQL - Enable slow query logging:**
+
+Edit `/var/lib/postgresql/data/postgresql.conf`:
+```ini
+# Log queries taking longer than 1 second
+log_min_duration_statement = 1000
+
+# Log query details
+log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '
+log_statement = 'all'
+log_duration = on
+
+# Log locks and deadlocks
+log_lock_waits = on
+deadlock_timeout = 1s
+```
+
+Restart PostgreSQL:
+```bash
+sudo systemctl restart postgresql
+```
+
+**MySQL - Enable slow query log:**
+
+Edit `/etc/mysql/my.cnf`:
+```ini
+[mysqld]
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow-query.log
+long_query_time = 1
+log_queries_not_using_indexes = 1
+```
+
+Restart MySQL:
+```bash
+sudo systemctl restart mysql
+```
+
+**Analyze slow queries:**
+
+```bash
+# PostgreSQL - View slow queries
+sudo tail -f /var/log/postgresql/postgresql.log | grep "duration:"
+
+# MySQL - Analyze slow query log
+sudo mysqldumpslow -s t -t 10 /var/log/mysql/slow-query.log
+
+# Expected output shows slowest queries:
+# Count: 150  Time=45.23s (6784s)  Lock=0.00s (0s)  Rows=50000.0 (7500000)
+#   SELECT * FROM assets WHERE status='S' ORDER BY updated_at DESC
+```
+
+### Step 2: Create Missing Indexes
+
+**Identify missing indexes:**
+
+**PostgreSQL:**
+```sql
+-- Find tables with sequential scans
+SELECT 
+    schemaname,
+    tablename,
+    seq_scan,
+    seq_tup_read,
+    idx_scan,
+    seq_tup_read / seq_scan as avg_seq_read
+FROM pg_stat_user_tables
+WHERE seq_scan > 0
+ORDER BY seq_tup_read DESC
+LIMIT 20;
+
+-- Find missing indexes on foreign keys
+SELECT 
+    c.conrelid::regclass AS table_name,
+    a.attname AS column_name,
+    c.conname AS constraint_name
+FROM pg_constraint c
+JOIN pg_attribute a ON a.attnum = ANY(c.conkey) AND a.attrelid = c.conrelid
+WHERE c.contype = 'f'
+AND NOT EXISTS (
+    SELECT 1 FROM pg_index i
+    WHERE i.indrelid = c.conrelid
+    AND a.attnum = ANY(i.indkey)
+)
+ORDER BY table_name, column_name;
+```
+
+**MySQL:**
+```sql
+-- Identify unused indexes and missing indexes
+SELECT 
+    OBJECT_SCHEMA,
+    OBJECT_NAME,
+    INDEX_NAME,
+    ROUND(STAT_VALUE * @@innodb_page_size / 1024 / 1024, 2) AS size_mb
+FROM mysql.innodb_index_stats
+WHERE STAT_NAME = 'size'
+AND INDEX_NAME != 'PRIMARY'
+ORDER BY size_mb DESC
+LIMIT 20;
+
+-- Check table statistics
+SELECT 
+    table_schema,
+    table_name,
+    table_rows,
+    ROUND(((data_length + index_length) / 1024 / 1024), 2) AS size_mb,
+    ROUND((index_length / 1024 / 1024), 2) AS index_size_mb
+FROM information_schema.TABLES
+WHERE table_schema = 'virima'
+ORDER BY size_mb DESC;
+```
+
+**Create recommended indexes:**
+
+```sql
+-- Most common Virima performance indexes
+
+-- Assets table
+CREATE INDEX idx_assets_status_updated ON assets(status, updated_at);
+CREATE INDEX idx_assets_asset_type ON assets(asset_type);
+CREATE INDEX idx_assets_discovery_source ON assets(discovery_source_id);
+CREATE INDEX idx_assets_hostname ON assets(hostname);
+
+-- Relationships table
+CREATE INDEX idx_relationships_parent ON relationships(parent_id);
+CREATE INDEX idx_relationships_child ON relationships(child_id);
+CREATE INDEX idx_relationships_type ON relationships(relationship_type);
+
+-- Discovery jobs
+CREATE INDEX idx_discovery_jobs_status_created ON discovery_jobs(status, created_at);
+CREATE INDEX idx_discovery_jobs_agent_id ON discovery_jobs(agent_id);
+
+-- Audit log
+CREATE INDEX idx_audit_log_timestamp ON audit_log(timestamp);
+CREATE INDEX idx_audit_log_user_action ON audit_log(user_id, action_type);
+
+-- CMDB changes
+CREATE INDEX idx_cmdb_changes_ci_id ON cmdb_changes(ci_id);
+CREATE INDEX idx_cmdb_changes_timestamp ON cmdb_changes(change_timestamp);
+```
+
+**Monitor index creation progress:**
+
+```sql
+-- PostgreSQL
+SELECT 
+    now()::time,
+    query,
+    state,
+    wait_event_type,
+    wait_event
+FROM pg_stat_activity
+WHERE query LIKE 'CREATE INDEX%';
+
+-- MySQL
+SHOW PROCESSLIST;
+```
+
+### Step 3: Update Database Statistics
+
+**PostgreSQL:**
+```sql
+-- Analyze all tables to update statistics
+ANALYZE;
+
+-- Or analyze specific tables
+ANALYZE assets;
+ANALYZE relationships;
+ANALYZE discovery_jobs;
+
+-- Vacuum to reclaim space and update stats
+VACUUM ANALYZE;
+
+-- Check last analyze time
+SELECT 
+    schemaname,
+    tablename,
+    last_analyze,
+    last_autoanalyze,
+    n_live_tup,
+    n_dead_tup
+FROM pg_stat_user_tables
+ORDER BY last_analyze NULLS FIRST;
+```
+
+**MySQL:**
+```sql
+-- Analyze tables
+ANALYZE TABLE assets;
+ANALYZE TABLE relationships;
+ANALYZE TABLE discovery_jobs;
+
+-- Optimize tables (rebuilds indexes)
+OPTIMIZE TABLE assets;
+OPTIMIZE TABLE relationships;
+
+-- Update statistics
+ANALYZE TABLE assets UPDATE HISTOGRAM ON asset_type, status, updated_at;
+```
+
+### Step 4: Optimize Database Configuration
+
+**PostgreSQL - Edit `/var/lib/postgresql/data/postgresql.conf`:**
+
+```ini
+# Memory Settings (adjust for your RAM)
+shared_buffers = 4GB              # 25% of total RAM
+effective_cache_size = 12GB       # 75% of total RAM
+work_mem = 64MB                   # Per operation memory
+maintenance_work_mem = 1GB        # For VACUUM, CREATE INDEX
+
+# Query Planning
+random_page_cost = 1.1            # For SSD (4.0 for HDD)
+effective_io_concurrency = 200    # For SSD (2 for HDD)
+default_statistics_target = 100   # Accuracy of statistics
+
+# Checkpoints and WAL
+checkpoint_completion_target = 0.9
+wal_buffers = 16MB
+min_wal_size = 1GB
+max_wal_size = 4GB
+
+# Connections
+max_connections = 200
+```
+
+**MySQL - Edit `/etc/mysql/my.cnf`:**
+
+```ini
+[mysqld]
+# InnoDB Settings
+innodb_buffer_pool_size = 4G      # 70-80% of total RAM
+innodb_log_file_size = 512M
+innodb_log_buffer_size = 16M
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method = O_DIRECT
+
+# Query Cache (MySQL 5.7 only, removed in 8.0)
+# query_cache_type = 1
+# query_cache_size = 256M
+
+# Connections
+max_connections = 200
+max_allowed_packet = 64M
+
+# Performance Schema
+performance_schema = ON
+```
+
+**Apply configuration:**
+
+```bash
+# PostgreSQL
+sudo systemctl restart postgresql
+
+# MySQL
+sudo systemctl restart mysql
+
+# Verify new settings
+# PostgreSQL:
+psql -U virima -d virima_db -c "SHOW shared_buffers;"
+
+# MySQL:
+mysql -u virima -p -e "SHOW VARIABLES LIKE 'innodb_buffer_pool_size';"
+```
+
+### Step 5: Purge Old Data
+
+**Archive or delete old audit logs:**
+
+```sql
+-- Check audit log size
+SELECT 
+    COUNT(*) as total_records,
+    MIN(timestamp) as oldest_record,
+    MAX(timestamp) as newest_record,
+    pg_size_pretty(pg_total_relation_size('audit_log')) as table_size
+FROM audit_log;
+
+-- Archive logs older than 90 days
+CREATE TABLE audit_log_archive AS
+SELECT * FROM audit_log
+WHERE timestamp < NOW() - INTERVAL '90 days';
+
+-- Delete archived records
+DELETE FROM audit_log
+WHERE timestamp < NOW() - INTERVAL '90 days';
+
+-- Vacuum to reclaim space
+VACUUM FULL audit_log;
+```
+
+**Clean up discovery job history:**
+
+```sql
+-- Keep only last 30 days of discovery job logs
+DELETE FROM discovery_job_logs
+WHERE job_id IN (
+    SELECT id FROM discovery_jobs
+    WHERE completed_at < NOW() - INTERVAL '30 days'
+    AND status IN ('completed', 'failed')
+);
+
+-- Delete old completed jobs
+DELETE FROM discovery_jobs
+WHERE completed_at < NOW() - INTERVAL '30 days'
+AND status = 'completed';
+```
+
+**Implement automated data retention policy:**
+
+1. Go to **Settings → System → Data Retention**
+2. Configure retention policies:
+   - **Audit Logs:** 90 days
+   - **Discovery Job Logs:** 30 days
+   - **Change History:** 365 days
+   - **API Request Logs:** 7 days
+3. Enable **Automatic Purge**
+4. Set **Purge Schedule:** Daily at 2:00 AM
+5. Save configuration
+
+### Step 6: Optimize Connection Pool
+
+**Virima application configuration - `/opt/virima/config/database.conf`:**
+
+```ini
+[database]
+# Connection pool settings
+pool_size = 20                    # Base pool size
+max_overflow = 10                 # Additional connections under load
+pool_timeout = 30                 # Seconds to wait for connection
+pool_recycle = 3600              # Recycle connections after 1 hour
+
+# Query timeouts
+query_timeout = 30                # Seconds before query timeout
+connection_timeout = 10           # Seconds to establish connection
+
+# Connection health
+pool_pre_ping = true              # Test connection before use
+```
+
+**Monitor connection pool:**
+
+```sql
+-- PostgreSQL - Check active connections
+SELECT 
+    datname,
+    usename,
+    application_name,
+    client_addr,
+    state,
+    COUNT(*) as connection_count
+FROM pg_stat_activity
+GROUP BY datname, usename, application_name, client_addr, state
+ORDER BY connection_count DESC;
+
+-- Check for idle connections
+SELECT COUNT(*) FROM pg_stat_activity
+WHERE state = 'idle'
+AND state_change < NOW() - INTERVAL '5 minutes';
+
+-- Kill idle connections older than 1 hour
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE state = 'idle'
+AND state_change < NOW() - INTERVAL '1 hour'
+AND datname = 'virima_db';
+```
+
+### Step 7: Move Database to Faster Storage
+
+**Check current disk performance:**
+
+```bash
+# Test disk read/write speed
+sudo hdparm -tT /dev/sda
+
+# Expected results:
+# HDD: ~100-150 MB/sec
+# SATA SSD: ~500 MB/sec
+# NVMe SSD: ~2000+ MB/sec
+
+# Test IOPS
+sudo fio --name=random-write --ioengine=posixaio --rw=randwrite \
+  --bs=4k --size=4g --numjobs=1 --iodepth=1 --runtime=60 \
+  --time_based --end_fsync=1
+```
+
+**If disk performance is inadequate (<500 MB/sec):**
+
+**Option A: Migrate to SSD storage**
+
+1. Provision new SSD volume
+2. Stop Virima services:
+   ```bash
+   sudo systemctl stop virima
+   ```
+
+3. Backup current database:
+   ```bash
+   # PostgreSQL
+   sudo -u postgres pg_dump virima_db > /backup/virima_db.sql
+   
+   # MySQL
+   mysqldump -u root -p virima_db > /backup/virima_db.sql
+   ```
+
+4. Copy data to new volume:
+   ```bash
+   sudo rsync -avz /var/lib/postgresql/ /mnt/new-ssd/postgresql/
+   ```
+
+5. Update mount points and restart
+
+**Option B: Use database on separate server**
+
+Offload database to dedicated server with:
+- SSD/NVMe storage
+- More RAM for caching
+- Faster CPU
+- 10 Gbps network connection to app server
+
+### Step 8: Rewrite Inefficient Queries
+
+**Example optimization:**
+
+**Before (slow - full table scan):**
+```sql
+SELECT * FROM assets
+WHERE status = 'active'
+ORDER BY updated_at DESC
+LIMIT 100;
+
+-- Execution time: 45 seconds
+```
+
+**After (fast - uses indexes):**
+```sql
+SELECT id, hostname, ip_address, asset_type, status, updated_at
+FROM assets
+WHERE status = 'active'
+AND updated_at > NOW() - INTERVAL '30 days'
+ORDER BY updated_at DESC
+LIMIT 100;
+
+-- Add index:
+CREATE INDEX idx_assets_active_updated ON assets(status, updated_at) 
+WHERE status = 'active';
+
+-- Execution time: 0.05 seconds
+```
+
+**Convert subqueries to joins:**
+
+**Before (slow):**
+```sql
+SELECT a.* FROM assets a
+WHERE a.id IN (
+    SELECT asset_id FROM relationships
+    WHERE relationship_type = 'depends_on'
+);
+```
+
+**After (fast):**
+```sql
+SELECT DISTINCT a.*
+FROM assets a
+INNER JOIN relationships r ON r.asset_id = a.id
+WHERE r.relationship_type = 'depends_on';
+```
+
+### Step 9: Enable Query Caching
+
+**Application-level caching - `/opt/virima/config/cache.conf`:**
+
+```ini
+[cache]
+enabled = true
+backend = redis
+redis_host = localhost
+redis_port = 6379
+redis_db = 0
+
+# Cache TTLs
+dashboard_ttl = 300               # 5 minutes
+search_results_ttl = 60           # 1 minute
+asset_details_ttl = 300           # 5 minutes
+report_data_ttl = 1800            # 30 minutes
+```
+
+**Install and configure Redis:**
+
+```bash
+# Install Redis
+sudo apt-get install redis-server  # Ubuntu/Debian
+sudo yum install redis             # RHEL/CentOS
+
+# Configure Redis
+sudo nano /etc/redis/redis.conf
+
+# Set max memory
+maxmemory 2gb
+maxmemory-policy allkeys-lru
+
+# Start Redis
+sudo systemctl start redis
+sudo systemctl enable redis
+```
+
+### Step 10: Schedule Regular Maintenance
+
+**Create maintenance cron job - `/etc/cron.d/virima-db-maintenance`:**
+
+```bash
+# Daily vacuum analyze (PostgreSQL) at 2 AM
+0 2 * * * postgres /usr/bin/vacuumdb --all --analyze --quiet
+
+# Weekly full vacuum (PostgreSQL) on Sunday at 3 AM
+0 3 * * 0 postgres /usr/bin/vacuumdb --all --full --quiet
+
+# Daily optimize tables (MySQL) at 2 AM
+0 2 * * * root mysqlcheck -u root -p[password] --optimize --all-databases
+
+# Daily index rebuilds for fragmented indexes
+0 4 * * * root /opt/virima/scripts/rebuild-fragmented-indexes.sh
+```
+
+**Monitor maintenance job execution:**
+
+```bash
+# Check cron logs
+sudo tail -f /var/log/cron
+
+# PostgreSQL - Check last vacuum
+SELECT 
+    schemaname,
+    tablename,
+    last_vacuum,
+    last_autovacuum,
+    n_dead_tup
+FROM pg_stat_user_tables
+WHERE n_dead_tup > 1000
+ORDER BY n_dead_tup DESC;
+```
+
+## Verification
+
+After optimization, verify performance improvements:
+
+**1. Query execution times:**
+```sql
+-- PostgreSQL
+EXPLAIN ANALYZE
+SELECT * FROM assets WHERE status = 'active'
+ORDER BY updated_at DESC LIMIT 100;
+
+-- Should show "Execution Time: <100ms"
+```
+
+**2. Dashboard load time:**
+- Dashboard should load in <5 seconds
+- Widgets render in <2 seconds each
+
+**3. Database metrics:**
+```bash
+# CPU usage should be <50% average
+top
+
+# Disk I/O wait should be <10%
+iostat -x 5
+
+# Connection pool usage <80%
+# Check in Virima UI: Settings → System → Database Stats
+```
+
+**4. No timeout errors in logs:**
+```bash
+grep -i "timeout\|slow query" /var/log/virima/application.log
+# Should return minimal results
+```
+
+## Best Practices
+
+1. **Monitor database performance continuously** using tools like pgBadger, MySQL Workbench
+2. **Run ANALYZE/VACUUM weekly** on high-traffic tables
+3. **Archive old data quarterly** to keep tables lean
+4. **Review slow query logs weekly** to identify optimization opportunities
+5. **Test database changes in staging** before applying to production
+6. **Keep database software updated** with latest patches
+7. **Plan for growth** - monitor disk space and plan upgrades proactively
+8. **Use read replicas** for reporting workloads (Enterprise tier)
+
+## Additional Information
+
+### Recommended Hardware Specifications
+
+| Asset Count | CPU | RAM | Storage | IOPS |
+|-------------|-----|-----|---------|------|
+| <10,000 | 4 cores | 16 GB | 500 GB SSD | 3,000 |
+| 10,000-50,000 | 8 cores | 32 GB | 1 TB NVMe | 10,000 |
+| 50,000-100,000 | 16 cores | 64 GB | 2 TB NVMe | 20,000 |
+| >100,000 | 32+ cores | 128+ GB | 4+ TB NVMe | 50,000+ |
+
+### Related Articles
+
+- [K000246346: Database Backup and Restore Procedures](/kb/database-backup-restore)
+- [K000246347: Monitoring Virima Database Health](/kb/database-monitoring)
+- [K000246348: Database Maintenance Best Practices](/kb/database-maintenance)
+- [K000246349: Scaling Virima for Large Deployments](/kb/scaling-large-deployments)
+
+### Support Contact
+
+For database performance assistance:
+
+- **Support Portal:** support.virima.com
+- **Email:** support@virima.com
+- **Phone:** +1-800-XXX-XXXX
+
+**Professional Services available for:**
+- Database health assessments
+- Performance tuning engagements
+- Architecture review and optimization
+- Migration to optimized infrastructure
+
+---
+
+**Was this article helpful?**  
+[Yes] [No]
+
+*Last updated: December 02, 2025*

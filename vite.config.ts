@@ -1,100 +1,86 @@
 
-  import { defineConfig, type Plugin } from 'vite';
+  import { defineConfig, Plugin } from 'vite';
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
   import fs from 'fs';
 
-  // Custom plugin to copy content files to build output
+  /**
+   * Custom plugin to copy content files to build directory
+   * Replaces vite-plugin-static-copy to avoid ES module issues
+   */
   function copyContentPlugin(): Plugin {
     return {
       name: 'copy-content',
       writeBundle() {
-        const srcDir = path.resolve(process.cwd(), 'src/content');
-        const destDir = path.resolve(process.cwd(), 'build/content');
-        
+        const srcDir = path.join(process.cwd(), 'src', 'content');
+        const destDir = path.join(process.cwd(), 'build', 'content');
+
+        console.log('📦 Copying content files...');
+        console.log(`   Source: ${srcDir}`);
+        console.log(`   Destination: ${destDir}`);
+
+        if (!fs.existsSync(srcDir)) {
+          console.warn('⚠️ Content source directory not found:', srcDir);
+          return;
+        }
+
         // Recursive copy function
         function copyRecursive(src: string, dest: string) {
-          if (!fs.existsSync(src)) {
-            console.warn(`⚠️ Source directory does not exist: ${src}`);
-            return;
-          }
-          
-          // Create destination directory if it doesn't exist
           if (!fs.existsSync(dest)) {
             fs.mkdirSync(dest, { recursive: true });
           }
-          
+
           const entries = fs.readdirSync(src, { withFileTypes: true });
-          
+
           for (const entry of entries) {
             const srcPath = path.join(src, entry.name);
             const destPath = path.join(dest, entry.name);
-            
+
             if (entry.isDirectory()) {
               copyRecursive(srcPath, destPath);
             } else {
-              // Copy file
               fs.copyFileSync(srcPath, destPath);
             }
           }
         }
-        
-        console.log('📦 Copying content files to build output...');
-        copyRecursive(srcDir, destDir);
-        console.log('✅ Content files copied successfully');
+
+        try {
+          copyRecursive(srcDir, destDir);
+          
+          // Count files
+          let fileCount = 0;
+          function countFiles(dir: string): void {
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+            for (const entry of entries) {
+              if (entry.isDirectory()) {
+                countFiles(path.join(dir, entry.name));
+              } else if (entry.name.endsWith('.mdx')) {
+                fileCount++;
+              }
+            }
+          }
+          countFiles(destDir);
+          
+          console.log(`✅ Copied ${fileCount} MDX files to build/content/`);
+        } catch (error) {
+          console.error('❌ Error copying content files:', error);
+        }
       },
     };
   }
 
   export default defineConfig({
+    // Base path for GitHub Pages deployment
     base: '/FeatureDocsite/',
-    plugins: [react(), copyContentPlugin()],
+    
+    plugins: [
+      react(),
+      copyContentPlugin(),
+    ],
+    
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.mdx'],
       alias: {
-        'vaul@1.1.2': 'vaul',
-        'sonner@2.0.3': 'sonner',
-        'recharts@2.15.2': 'recharts',
-        'react-resizable-panels@2.1.7': 'react-resizable-panels',
-        'react-hook-form@7.55.0': 'react-hook-form',
-        'react-day-picker@8.10.1': 'react-day-picker',
-        'next-themes@0.4.6': 'next-themes',
-        'lucide-react@0.487.0': 'lucide-react',
-        'input-otp@1.4.2': 'input-otp',
-        'figma:asset/f359839a2a609fc7bc91ff03f391b5bb94419be8.png': path.resolve(__dirname, './src/assets/f359839a2a609fc7bc91ff03f391b5bb94419be8.png'),
-        'figma:asset/dfabb390914b79df631271c3335e876d8bc63966.png': path.resolve(__dirname, './src/assets/dfabb390914b79df631271c3335e876d8bc63966.png'),
-        'figma:asset/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png': path.resolve(__dirname, './src/assets/d98ba8c1a392c8e922d637a419de7c9d29bf791a.png'),
-        'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png': path.resolve(__dirname, './src/assets/20803a9cc590c8a78bca4489c80f3bfca906561c.png'),
-        'embla-carousel-react@8.6.0': 'embla-carousel-react',
-        'emailjs-com@3.2.0': 'emailjs-com',
-        'cmdk@1.1.1': 'cmdk',
-        'class-variance-authority@0.7.1': 'class-variance-authority',
-        '@radix-ui/react-tooltip@1.1.8': '@radix-ui/react-tooltip',
-        '@radix-ui/react-toggle@1.1.2': '@radix-ui/react-toggle',
-        '@radix-ui/react-toggle-group@1.1.2': '@radix-ui/react-toggle-group',
-        '@radix-ui/react-tabs@1.1.3': '@radix-ui/react-tabs',
-        '@radix-ui/react-switch@1.1.3': '@radix-ui/react-switch',
-        '@radix-ui/react-slot@1.1.2': '@radix-ui/react-slot',
-        '@radix-ui/react-slider@1.2.3': '@radix-ui/react-slider',
-        '@radix-ui/react-separator@1.1.2': '@radix-ui/react-separator',
-        '@radix-ui/react-select@2.1.6': '@radix-ui/react-select',
-        '@radix-ui/react-scroll-area@1.2.3': '@radix-ui/react-scroll-area',
-        '@radix-ui/react-radio-group@1.2.3': '@radix-ui/react-radio-group',
-        '@radix-ui/react-progress@1.1.2': '@radix-ui/react-progress',
-        '@radix-ui/react-popover@1.1.6': '@radix-ui/react-popover',
-        '@radix-ui/react-navigation-menu@1.2.5': '@radix-ui/react-navigation-menu',
-        '@radix-ui/react-menubar@1.1.6': '@radix-ui/react-menubar',
-        '@radix-ui/react-label@2.1.2': '@radix-ui/react-label',
-        '@radix-ui/react-hover-card@1.1.6': '@radix-ui/react-hover-card',
-        '@radix-ui/react-dropdown-menu@2.1.6': '@radix-ui/react-dropdown-menu',
-        '@radix-ui/react-dialog@1.1.6': '@radix-ui/react-dialog',
-        '@radix-ui/react-context-menu@2.2.6': '@radix-ui/react-context-menu',
-        '@radix-ui/react-collapsible@1.1.3': '@radix-ui/react-collapsible',
-        '@radix-ui/react-checkbox@1.1.4': '@radix-ui/react-checkbox',
-        '@radix-ui/react-avatar@1.1.3': '@radix-ui/react-avatar',
-        '@radix-ui/react-aspect-ratio@1.1.2': '@radix-ui/react-aspect-ratio',
-        '@radix-ui/react-alert-dialog@1.1.6': '@radix-ui/react-alert-dialog',
-        '@radix-ui/react-accordion@1.2.3': '@radix-ui/react-accordion',
         '@': path.resolve(__dirname, './src'),
       },
     },

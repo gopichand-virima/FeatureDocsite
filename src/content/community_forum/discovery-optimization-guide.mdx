@@ -1,0 +1,146 @@
+---
+id: discovery-optimization-guide
+title: How to optimize Discovery Scan performance in large environments
+author: Maria Rodriguez
+authorRole: Senior Solutions Architect
+avatar: MR
+category: best-practices
+timestamp: 1 day ago
+views: 892
+replies: 28
+likes: 67
+status: solved
+tags:
+  - discovery
+  - performance
+  - best-practices
+---
+
+# How to optimize Discovery Scan performance in large environments
+
+After working with Virima in multiple enterprise environments (50K+ devices), I've compiled proven strategies to optimize discovery scan performance.
+
+## 🎯 Key Optimization Strategies
+
+### 1. Network Segmentation
+**Divide your discovery into logical network segments:**
+- Create separate discovery jobs for each subnet/VLAN
+- Schedule scans during off-peak hours per region
+- Use multiple discovery appliances for distributed scanning
+
+**Impact:** 40-50% reduction in total scan time
+
+### 2. Credential Management
+**Optimize authentication:**
+- Use domain service accounts with minimal required privileges
+- Cache credentials at the discovery appliance level
+- Implement credential rotation schedules
+- Use SSH keys for Linux/Unix systems instead of passwords
+
+**Impact:** 20-30% faster authentication
+
+### 3. Discovery Scope Optimization
+**Fine-tune what you discover:**
+```
+✅ DO:
+- Use IP range exclusions for known non-responsive devices
+- Set appropriate timeout values (30s for internal, 60s for remote)
+- Enable parallel scanning (recommend 50-100 threads)
+- Use incremental discovery for daily scans
+
+❌ DON'T:
+- Scan entire Class A/B networks without filtering
+- Use overly aggressive timeout settings
+- Discover unnecessary attributes
+- Run full discovery daily
+```
+
+### 4. Performance Tuning Parameters
+
+**Recommended settings for large environments:**
+
+| Parameter | Small (<5K) | Medium (5-20K) | Large (20K+) |
+|-----------|-------------|----------------|--------------|
+| Thread Count | 25-50 | 50-100 | 100-200 |
+| Timeout (sec) | 30 | 45 | 60 |
+| Batch Size | 100 | 500 | 1000 |
+| Retry Attempts | 3 | 2 | 1 |
+
+### 5. Hardware Specifications
+
+**Discovery Appliance Recommendations:**
+
+For 50K+ environment:
+- **CPU:** 16 cores minimum
+- **RAM:** 32GB minimum (64GB recommended)
+- **Network:** 10Gbps NIC
+- **Storage:** SSD for better I/O performance
+
+## 📊 Real-World Results
+
+**Before optimization:**
+- Full discovery: 6 hours
+- Daily incremental: 2 hours
+- CPU usage: 85% peak
+
+**After optimization:**
+- Full discovery: 2.5 hours (58% improvement)
+- Daily incremental: 35 minutes (71% improvement)
+- CPU usage: 45% peak
+
+## 🔧 Implementation Steps
+
+1. **Baseline current performance**
+   - Document current scan times
+   - Monitor resource utilization
+   - Identify bottlenecks
+
+2. **Implement segmentation**
+   - Map your network topology
+   - Create discovery zones
+   - Configure separate schedules
+
+3. **Tune parameters incrementally**
+   - Start with conservative settings
+   - Monitor impact
+   - Adjust based on results
+
+4. **Monitor and refine**
+   - Use Virima's discovery analytics
+   - Track success rates
+   - Continuously optimize
+
+## 💡 Pro Tips
+
+- **Schedule full discovery weekly**, incremental daily
+- **Monitor discovery logs** for failures and retries
+- **Keep credentials updated** to avoid lockouts
+- **Use discovery templates** for consistency
+- **Document exclusions** and reasons
+
+## 🆘 Troubleshooting Common Issues
+
+**Slow SNMP discovery:**
+- Verify SNMP community strings
+- Check for SNMP v3 authentication issues
+- Reduce SNMP timeout values
+
+**High CPU usage:**
+- Reduce thread count
+- Implement discovery throttling
+- Check for credential issues causing retries
+
+**Incomplete discovery:**
+- Verify firewall rules
+- Check credential permissions
+- Review timeout settings
+
+## 📚 Additional Resources
+
+- [Discovery Best Practices Guide](/kb/discovery-best-practices)
+- [Network Segmentation Whitepaper](/resources/network-segmentation)
+- [Performance Tuning Guide](/kb/performance-tuning)
+
+---
+
+Hope this helps! Feel free to ask questions if you need clarification on any of these strategies.

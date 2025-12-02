@@ -148,61 +148,6 @@ function decodeHTMLEntities(text: string): string {
 }
 
 /**
- * Strips YAML frontmatter from MDX content
- * Handles standard, malformed, and inline frontmatter
- * Only strips at the beginning of the file
- */
-function stripFrontmatter(content: string): string {
-  if (!content || content.trim().length === 0) {
-    return content;
-  }
-  
-  // Remove leading whitespace/newlines to check for frontmatter
-  const trimmed = content.trimStart();
-  
-  // Pattern 1: Standard frontmatter with --- markers at the start
-  // Matches: ---\n...content...\n--- (with optional whitespace/newlines)
-  const standardPattern = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*(\r?\n|$)/;
-  const standardMatch = trimmed.match(standardPattern);
-  
-  if (standardMatch) {
-    // Remove the frontmatter block (including the --- markers)
-    const contentWithoutFrontmatter = trimmed.replace(standardPattern, '').trim();
-    console.log(`  🧹 Stripped standard frontmatter (${standardMatch[0].length} chars), remaining: ${contentWithoutFrontmatter.length} chars`);
-    return contentWithoutFrontmatter;
-  }
-  
-  // Pattern 2: Malformed frontmatter (only opening ---, no closing)
-  // Remove it if it's at the start and followed by YAML-like content
-  const malformedPattern = /^---\s*\r?\n([\s\S]{0,500}?)(?=\r?\n\r?\n|$)/;
-  const malformedMatch = trimmed.match(malformedPattern);
-  if (malformedMatch && malformedMatch[1] && (malformedMatch[1].includes('title:') || malformedMatch[1].includes('description:'))) {
-    // This looks like frontmatter without closing ---, remove it
-    const contentWithoutFrontmatter = trimmed.replace(malformedPattern, '').trim();
-    console.log(`  🧹 Stripped malformed frontmatter (opening --- only), remaining: ${contentWithoutFrontmatter.length} chars`);
-    return contentWithoutFrontmatter;
-  }
-  
-  // Pattern 3: Inline frontmatter at the start (without --- markers)
-  // Only strip if it's at the very beginning and looks like YAML frontmatter
-  const inlinePattern = /^(title:\s*["'][^"']*["']|description:\s*["'][^"']*["']|version:\s*["'][^"']*["']|module:\s*["'][^"']*["'])[\s\S]{0,500}?(?=\r?\n\r?\n|$)/;
-  const inlineMatch = trimmed.match(inlinePattern);
-  if (inlineMatch && trimmed.indexOf('\n\n') > 0 && trimmed.indexOf('\n\n') < 200) {
-    // Looks like inline frontmatter followed by blank line, remove it
-    const firstDoubleNewline = trimmed.indexOf('\n\n');
-    const potentialFrontmatter = trimmed.substring(0, firstDoubleNewline);
-    if (potentialFrontmatter.match(/^(title|description|version|module|section|page|breadcrumbs):/m)) {
-      const contentWithoutFrontmatter = trimmed.substring(firstDoubleNewline + 2).trim();
-      console.log(`  🧹 Stripped inline frontmatter (no --- markers), remaining: ${contentWithoutFrontmatter.length} chars`);
-      return contentWithoutFrontmatter;
-    }
-  }
-  
-  // No frontmatter found, return content as-is
-  return content;
-}
-
-/**
  * Sets the current version for content loading
  * @param version - Version identifier ('6_1', '6_1_1', '5_13', 'NG')
  */
@@ -524,8 +469,50 @@ async function fetchContent(filePath: string): Promise<string> {
 }
 
 /**
+ * Strips YAML frontmatter from MDX content
+ * Handles standard, malformed, and inline frontmatter
+ */
+function stripFrontmatter(content: string): string {
+  if (!content || content.trim().length === 0) {
+    return content;
+  }
+  
+  const trimmed = content.trimStart();
+  
+  // Pattern 1: Standard frontmatter with --- markers
+  const standardPattern = /^---\s*\r?\n([\s\S]*?)\r?\n---\s*(\r?\n|$)/;
+  const standardMatch = trimmed.match(standardPattern);
+  
+  if (standardMatch) {
+    const contentWithoutFrontmatter = trimmed.replace(standardPattern, '').trim();
+    return contentWithoutFrontmatter;
+  }
+  
+  // Pattern 2: Malformed frontmatter (only opening ---)
+  const malformedPattern = /^---\s*\r?\n([\s\S]{0,500}?)(?=\r?\n\r?\n|$)/;
+  const malformedMatch = trimmed.match(malformedPattern);
+  if (malformedMatch && malformedMatch[1] && 
+      (malformedMatch[1].includes('title:') || malformedMatch[1].includes('description:'))) {
+    const contentWithoutFrontmatter = trimmed.replace(malformedPattern, '').trim();
+    return contentWithoutFrontmatter;
+  }
+  
+  // Pattern 3: Inline frontmatter at the start (without --- markers)
+  const inlinePattern = /^(title:\s*["'][^"']*["']|description:\s*["'][^"']*["']|version:\s*["'][^"']*["']|module:\s*["'][^"']*["'])[\s\S]{0,500}?(?=\r?\n\r?\n|$)/;
+  const inlineMatch = trimmed.match(inlinePattern);
+  if (inlineMatch && trimmed.indexOf('\n\n') > 0 && trimmed.indexOf('\n\n') < 200) {
+    const contentWithoutFrontmatter = trimmed.substring(trimmed.indexOf('\n\n') + 2).trim();
+    return contentWithoutFrontmatter;
+  }
+  
+  // No frontmatter detected, return as-is
+  return content;
+}
+
+/**
  * Gets content for a given file path
  * Automatically loads from disk on-demand
+ * Strips frontmatter before returning
  * 
  * @param filePath - The path to the content file
  * @returns The content string or null if not found
@@ -537,7 +524,7 @@ export async function getContent(filePath: string): Promise<string | null> {
   if (contentCache.has(filePath)) {
     console.log(`📦 Cache hit for ${filePath}`);
     const cached = contentCache.get(filePath)!;
-    // Strip frontmatter from cached content before returning
+    // Strip frontmatter from cached content too
     return stripFrontmatter(cached);
   }
   
@@ -545,13 +532,13 @@ export async function getContent(filePath: string): Promise<string | null> {
     // Fetch content
     const content = await fetchContent(filePath);
     
-    // Strip frontmatter before caching
-    const contentWithoutFrontmatter = stripFrontmatter(content);
+    // Strip frontmatter before caching and returning
+    const cleanedContent = stripFrontmatter(content);
     
     // Cache the cleaned content
-    contentCache.set(filePath, contentWithoutFrontmatter);
+    contentCache.set(filePath, cleanedContent);
     
-    return contentWithoutFrontmatter;
+    return cleanedContent;
   } catch (error) {
     console.error(`Failed to get content for ${filePath}:`, error);
     return null;

@@ -99,7 +99,7 @@ export function ChatSettings({ isOpen, onClose }: ChatSettingsProps) {
         <div className="space-y-6 py-4">
           {/* General Settings */}
           <div>
-            <h3 className="text-sm text-slate-900 dark:text-white mb-3">General</h3>
+            <h3 className="text-sm text-slate-900 mb-3">General</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
@@ -161,7 +161,7 @@ export function ChatSettings({ isOpen, onClose }: ChatSettingsProps) {
 
           {/* Search Settings */}
           <div>
-            <h3 className="text-sm text-slate-900 dark:text-white mb-3">Search</h3>
+            <h3 className="text-sm text-slate-900 mb-3">Search</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
@@ -187,7 +187,7 @@ export function ChatSettings({ isOpen, onClose }: ChatSettingsProps) {
 
           {/* Notifications */}
           <div>
-            <h3 className="text-sm text-slate-900 dark:text-white mb-3">Notifications</h3>
+            <h3 className="text-sm text-slate-900 mb-3">Notifications</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
@@ -213,7 +213,7 @@ export function ChatSettings({ isOpen, onClose }: ChatSettingsProps) {
 
           {/* History Settings */}
           <div>
-            <h3 className="text-sm text-slate-900 dark:text-white mb-3">History</h3>
+            <h3 className="text-sm text-slate-900 mb-3">History</h3>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="max-items" className="text-sm mb-2 block">

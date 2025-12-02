@@ -466,7 +466,7 @@ export function AISearchDialogSimplified({
         }
 
         if (!voiceInputService.isConfigured()) {
-          setVoiceError("OpenAI Whisper API is not configured");
+          setVoiceError("OpenAI Whisper API is not configured. Please set VITE_OPENAI_API_KEY in GitHub Secrets (Settings → Secrets and variables → Actions) to enable voice input.");
           return;
         }
 
@@ -1092,7 +1092,7 @@ export function AISearchDialogSimplified({
                     <div className="text-center py-12">
                       <div className="max-w-md mx-auto">
                         <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
-                        <p className="text-slate-900 dark:text-white mb-2">No web results available</p>
+                        <p className="text-slate-900 mb-2">No web results available</p>
                         <p className="text-sm text-slate-600 mb-4">
                           Web search requires API configuration. Real-time web search APIs (Serper, Brave, or Bing) are not currently configured.
                         </p>

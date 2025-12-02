@@ -1,0 +1,140 @@
+---
+articleId: K000246678
+title: Report Generation Hangs or Never Completes
+published: April 15, 2024
+modified: December 02, 2025
+category: Reporting
+severity: Medium
+type: Problem
+tags: [reports, performance, timeout, dashboard]
+excerpt: Custom reports and scheduled reports hang during generation and never complete, showing perpetual "Generating..." status.
+---
+
+# Report Generation Hangs or Never Completes
+
+**Article ID:** K000246678  
+**Last Modified:** December 02, 2025  
+**Category:** Reporting  
+**Severity:** Medium
+
+---
+
+## Issue
+
+Custom reports or scheduled reports hang during generation process, displaying "Generating report..." status indefinitely without completing or timing out.
+
+## Environment
+
+- **Product:** Virima Reporting Module
+- **Versions:** 6.1+
+- **Report Types:** Custom reports, Executive dashboards, Compliance reports
+- **Data Volume:** Reports with 10,000+ records
+
+## Symptoms
+
+- Report status stuck at "Generating..." for hours
+- No error message displayed
+- Report never appears in completed reports list
+- Scheduled reports not delivered via email
+- Browser tab becomes unresponsive when generating report
+
+## Cause
+
+1. **Large Dataset** - Report queries returning millions of records
+2. **Complex Joins** - Multiple table joins causing slow query execution
+3. **Missing Filters** - No date range or status filters limiting results
+4. **Inefficient Report Design** - Using calculated fields on large datasets
+5. **Resource Limits** - Application timeout or memory limits exceeded
+
+## Resolution
+
+### Step 1: Add Date Range Filter
+
+1. Edit report in **Reports → Custom Reports**
+2. Add **Date Range** filter:
+   - Filter: `created_date >= last_30_days`
+   - Or: `updated_date >= last_quarter`
+3. Save and re-run report
+
+### Step 2: Limit Result Set
+
+Add row limit to report query:
+
+1. Go to **Report Settings → Advanced**
+2. Set **Maximum Rows:** 10,000
+3. Enable **Pagination:** Yes
+4. Save changes
+
+### Step 3: Schedule Report for Off-Peak Hours
+
+Instead of generating on-demand:
+
+1. Go to **Reports → Scheduled Reports**
+2. Click **Create Schedule**
+3. Set time: **2:00 AM daily** (off-peak)
+4. Set **Delivery Method:** Email
+5. Report generates with more resources available
+
+### Step 4: Optimize Report Query
+
+Replace complex calculated fields with indexed database fields:
+
+**Before (slow):**
+```
+SELECT 
+  assets.*,
+  (SELECT COUNT(*) FROM relationships WHERE asset_id = assets.id) as rel_count,
+  (SELECT SUM(cost) FROM licenses WHERE asset_id = assets.id) as total_cost
+FROM assets
+```
+
+**After (fast):**
+```
+SELECT 
+  assets.*,
+  assets.relationship_count,
+  assets.total_license_cost
+FROM assets
+WHERE status = 'active'
+AND updated_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+LIMIT 10000
+```
+
+### Step 5: Use Report Templates
+
+Virima provides pre-optimized report templates:
+
+1. Go to **Reports → Template Library**
+2. Select template matching your needs:
+   - Asset Inventory Summary
+   - Software License Compliance
+   - Discovery Results Summary
+3. Clone and customize template
+4. Pre-optimized templates run faster than custom reports
+
+## Verification
+
+- Report completes within 2 minutes
+- Results display correctly
+- Scheduled reports delivered on time
+- No browser hanging or timeout errors
+
+## Best Practices
+
+- Always include date range filters
+- Limit reports to 10,000 rows maximum
+- Use pagination for large datasets
+- Schedule heavy reports for off-peak hours
+- Test reports with filters before scheduling
+
+## Related Articles
+
+- [K000246679: Report Performance Optimization Guide](/kb/report-performance)
+- [K000246680: Creating Efficient Custom Reports](/kb/custom-report-creation)
+
+---
+
+**Was this article helpful?**  
+[Yes] [No]
+
+*Last updated: December 02, 2025*

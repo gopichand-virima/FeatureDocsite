@@ -103,10 +103,10 @@ export function ChatOnboarding() {
 
         {/* Content */}
         <div className="p-6">
-          <h2 className="text-xl text-slate-900 dark:text-white mb-2">
+          <h2 className="text-xl text-slate-900 mb-2">
             {currentStepData.title}
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          <p className="text-sm text-slate-600 leading-relaxed mb-6">
             {currentStepData.description}
           </p>
 

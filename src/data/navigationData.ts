@@ -1,7 +1,7 @@
 // Module definitions
 export const modules = [
-  { id: "admin", label: "Admin" },
   { id: "my-dashboard", label: "My Dashboard" },
+  { id: "admin", label: "Admin" },
   { id: "cmdb", label: "CMDB" },
   { id: "discovery-scan", label: "Discovery Scan" },
   { id: "itsm", label: "ITSM" },

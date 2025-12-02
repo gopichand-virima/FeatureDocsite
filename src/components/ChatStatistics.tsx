@@ -78,60 +78,60 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
               <div className="flex items-center justify-between mb-2">
                 <MessageSquare className="h-4 w-4 text-emerald-600" />
               </div>
-              <div className="text-2xl text-slate-900 mb-1">
+              <div className="text-2xl text-slate-900 dark:text-white mb-1">
                 {analytics.totalConversations}
               </div>
-              <div className="text-xs text-slate-500">Total Conversations</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Total Conversations</div>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <Activity className="h-4 w-4 text-blue-600" />
               </div>
-              <div className="text-2xl text-slate-900 mb-1">
+              <div className="text-2xl text-slate-900 dark:text-white mb-1">
                 {analytics.totalMessages}
               </div>
-              <div className="text-xs text-slate-500">Total Messages</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Total Messages</div>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <TrendingUp className="h-4 w-4 text-purple-600" />
               </div>
-              <div className="text-2xl text-slate-900 mb-1">
+              <div className="text-2xl text-slate-900 dark:text-white mb-1">
                 {analytics.averageMessagesPerConversation}
               </div>
-              <div className="text-xs text-slate-500">Avg Messages/Chat</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Avg Messages/Chat</div>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <FileText className="h-4 w-4 text-orange-600" />
               </div>
-              <div className="text-2xl text-slate-900 mb-1">
+              <div className="text-2xl text-slate-900 dark:text-white mb-1">
                 {analytics.averageConversationLength}
               </div>
-              <div className="text-xs text-slate-500">Avg Words/Chat</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Avg Words/Chat</div>
             </Card>
           </div>
 
           {/* Activity Patterns */}
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="p-5">
-              <h3 className="text-sm text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-emerald-600" />
                 Activity Patterns
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-600">Most Active Day</span>
-                  <span className="text-sm text-slate-900">
+                  <span className="text-sm text-slate-600 dark:text-slate-300">Most Active Day</span>
+                  <span className="text-sm text-slate-900 dark:text-white">
                     {analytics.mostActiveDay}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-600">Peak Hour</span>
-                  <span className="text-sm text-slate-900">
+                  <span className="text-sm text-slate-600 dark:text-slate-300">Peak Hour</span>
+                  <span className="text-sm text-slate-900 dark:text-white">
                     {formatHour(analytics.mostActiveHour)}
                   </span>
                 </div>
@@ -139,7 +139,7 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
             </Card>
 
             <Card className="p-5">
-              <h3 className="text-sm text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Clock className="h-4 w-4 text-blue-600" />
                 Conversation Duration
               </h3>
@@ -207,7 +207,7 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
 
           {/* Sources Breakdown */}
           <Card className="p-5">
-            <h3 className="text-sm text-slate-900 mb-4 flex items-center gap-2">
+            <h3 className="text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Globe className="h-4 w-4 text-purple-600" />
               Information Sources
             </h3>
@@ -217,10 +217,10 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
                   <FileText className="h-6 w-6 text-emerald-600" />
                 </div>
                 <div>
-                  <div className="text-2xl text-slate-900">
+                  <div className="text-2xl text-slate-900 dark:text-white">
                     {analytics.sourcesBreakdown.doc}
                   </div>
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
                     Documentation Sources
                   </div>
                 </div>
@@ -230,10 +230,10 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
                   <Globe className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
-                  <div className="text-2xl text-slate-900">
+                  <div className="text-2xl text-slate-900 dark:text-white">
                     {analytics.sourcesBreakdown.web}
                   </div>
-                  <div className="text-xs text-slate-500">Web Sources</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">Web Sources</div>
                 </div>
               </div>
             </div>
@@ -242,7 +242,7 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
           {/* Top Topics */}
           {analytics.topTopics.length > 0 && (
             <Card className="p-5">
-              <h3 className="text-sm text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-orange-600" />
                 Popular Topics
               </h3>
@@ -265,7 +265,7 @@ export function ChatStatistics({ isOpen, onClose }: ChatStatisticsProps) {
           {/* Conversation Trends */}
           {analytics.conversationTrends.length > 0 && (
             <Card className="p-5">
-              <h3 className="text-sm text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Activity className="h-4 w-4 text-blue-600" />
                 Activity Trend (Last 30 Days)
               </h3>

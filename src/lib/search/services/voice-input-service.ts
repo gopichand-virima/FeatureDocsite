@@ -70,12 +70,7 @@ export class VoiceInputService {
    */
   isConfigured(): boolean {
     const apiKey = SearchConfig.whisper.apiKey;
-    // Check if API key is valid (not empty, not placeholder, and starts with 'sk-')
-    if (!apiKey || apiKey.length === 0 || apiKey === 'YOUR_OPENAI_API_KEY') {
-      return false;
-    }
-    // Validate API key format (should start with 'sk-' or 'sk-proj-')
-    return apiKey.startsWith('sk-') || apiKey.startsWith('sk-proj-');
+    return !!(apiKey && apiKey.trim().length > 0 && !apiKey.includes('YOUR_OPENAI_API_KEY'));
   }
 
   /**

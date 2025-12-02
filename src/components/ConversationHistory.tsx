@@ -274,10 +274,10 @@ export function ConversationHistory({
                 <MessageSquare className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
-                <h2 className="text-slate-900">
+                <h2 className="text-slate-900 dark:text-white">
                   Conversation History
                 </h2>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   Resume or review your past conversations
                 </p>
               </div>
@@ -316,25 +316,25 @@ export function ConversationHistory({
                     <MessageSquare className="h-3 w-3" />
                     <span className="text-xs">Conversations</span>
                   </div>
-                  <div className="text-slate-900">
+                  <div className="text-slate-900 dark:text-white">
                     {stats.totalConversations}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-slate-200">
-                  <div className="flex items-center gap-2 text-slate-500 mb-1">
+                  <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                     <BarChart3 className="h-3 w-3" />
                     <span className="text-xs">Messages</span>
                   </div>
-                  <div className="text-slate-900">
+                  <div className="text-slate-900 dark:text-white">
                     {stats.totalMessages}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-slate-200">
-                  <div className="flex items-center gap-2 text-slate-500 mb-1">
+                  <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                     <Calendar className="h-3 w-3" />
                     <span className="text-xs">Since</span>
                   </div>
-                  <div className="text-slate-900 text-sm">
+                  <div className="text-slate-900 dark:text-white text-sm">
                     {stats.oldestConversation
                       ? stats.oldestConversation.toLocaleDateString(
                           [],
@@ -369,12 +369,12 @@ export function ConversationHistory({
             ) : conversations.length === 0 ? (
               <div className="text-center py-12">
                 <MessageSquare className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <h3 className="text-slate-900 mb-2">
+                <h3 className="text-slate-900 dark:text-white mb-2">
                   {searchQuery
                     ? "No conversations found"
                     : "No conversations yet"}
                 </h3>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {searchQuery
                     ? "Try a different search term"
                     : "Start chatting with the Virima Assistant to see your conversation history here"}
@@ -384,7 +384,7 @@ export function ConversationHistory({
               <div className="space-y-6">
                 {groupedConversations.map(([group, convs]) => (
                   <div key={group}>
-                    <h3 className="text-xs text-slate-500 uppercase tracking-wider mb-3">
+                    <h3 className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
                       {group}
                     </h3>
                     <div className="space-y-2">
@@ -396,12 +396,12 @@ export function ConversationHistory({
                               conversation.id,
                             )
                           }
-                          className="group bg-white border border-slate-200 rounded-lg p-4 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all cursor-pointer"
+                          className="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-all cursor-pointer"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-2">
-                                <h4 className="text-slate-900 truncate">
+                                <h4 className="text-slate-900 dark:text-white truncate">
                                   {conversation.title}
                                 </h4>
                                 {conversation.isPinned && (

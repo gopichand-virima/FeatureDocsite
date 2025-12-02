@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface DocumentationHeaderProps {
   logo: string;
@@ -41,7 +42,7 @@ export function DocumentationHeader({
   onLoginDialogOpen,
 }: DocumentationHeaderProps) {
   return (
-    <header className="border-b border-slate-200/60 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+    <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/95 dark:bg-slate-950/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm dark:shadow-slate-900/20">
       <div className="max-w-[1920px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-14 sm:h-16">
         <div className="flex items-center gap-3 sm:gap-8 min-w-0 flex-1">
           {showSidebar && (
@@ -62,7 +63,12 @@ export function DocumentationHeader({
             onClick={onHomeClick}
             className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity min-w-0"
           >
-            <img src={logo} alt="Virima" className="h-6 sm:h-7 flex-shrink-0" />
+            <img
+              src={logo}
+              alt="Virima"
+              className="h-6 sm:h-7 flex-shrink-0 mix-blend-normal dark:mix-blend-screen"
+              style={{ background: 'transparent' }}
+            />
             <Separator
               orientation="vertical"
               className="h-4 sm:h-5 hidden sm:block bg-slate-200 flex-shrink-0"
@@ -102,6 +108,9 @@ export function DocumentationHeader({
             </a>
           </Button>
 
+          {/* Theme Toggle - Dark/Light Mode */}
+          <ThemeToggle />
+
           <Button
             size="sm"
             onClick={onLoginDialogOpen}
@@ -129,7 +138,7 @@ export function DocumentationHeader({
               open={versionDropdownOpen}
               onOpenChange={onVersionDropdownOpenChange}
             >
-              <SelectTrigger className="w-20 sm:w-28 h-8 sm:h-9 bg-white border-2 border-black-premium text-black-premium font-semibold [&>svg]:stroke-[3] [&>svg]:opacity-100 gap-0 pr-1 sm:pr-2 text-xs sm:text-sm">
+              <SelectTrigger className="w-20 sm:w-28 h-8 sm:h-9 bg-white dark:bg-slate-800 border-2 border-black-premium dark:border-white text-black-premium dark:text-white font-semibold [&>svg]:stroke-[3] [&>svg]:opacity-100 gap-0 pr-1 sm:pr-2 text-xs sm:text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -137,7 +146,7 @@ export function DocumentationHeader({
                   <SelectItem
                     key={version}
                     value={version}
-                    className="text-black-premium"
+                    className="text-black-premium dark:text-white"
                   >
                     {version}
                   </SelectItem>

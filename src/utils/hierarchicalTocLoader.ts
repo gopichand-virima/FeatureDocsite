@@ -408,9 +408,8 @@ export async function getHierarchicalSections(
  * Breadcrumb item for navigation
  */
 export interface BreadcrumbItem {
-  id: string;
   label: string;
-  type?: 'home' | 'version' | 'module' | 'section' | 'page' | 'nested';
+  type: 'home' | 'version' | 'module' | 'section' | 'page' | 'nested';
   path?: string; // Optional path for navigation
 }
 
@@ -429,17 +428,15 @@ export async function buildBreadcrumbPath(
   const breadcrumbs: BreadcrumbItem[] = [];
   
   try {
-    // 1. Home (always included)
+    // 1. Home
     breadcrumbs.push({ 
-      id: 'home',
       label: 'Home', 
       type: 'home',
       path: '/'
     });
     
-    // 2. Version (always included)
+    // 2. Version
     breadcrumbs.push({ 
-      id: version,
       label: version, 
       type: 'version',
       path: `/${version}`
@@ -456,7 +453,6 @@ export async function buildBreadcrumbPath(
     
     // 3. Module
     breadcrumbs.push({ 
-      id: moduleId,
       label: module.label, 
       type: 'module',
       path: `/${version}/${moduleId}`
@@ -481,7 +477,6 @@ export async function buildBreadcrumbPath(
     
     // 4. Section
     breadcrumbs.push({ 
-      id: sectionId,
       label: section.label, 
       type: 'section',
       path: `/${version}/${moduleId}/${sectionId}`
@@ -502,7 +497,6 @@ export async function buildBreadcrumbPath(
           return [
             ...parentPath,
             { 
-              id: page.id,
               label: page.label, 
               type: 'page',
               path: page.filePath 
@@ -518,7 +512,6 @@ export async function buildBreadcrumbPath(
             [
               ...parentPath,
               { 
-                id: page.id,
                 label: page.label, 
                 type: 'nested',
                 path: page.filePath || page.indexPath
@@ -544,7 +537,6 @@ export async function buildBreadcrumbPath(
       console.warn(`⚠️ Page not found in TOC: ${pageId}. Adding basic breadcrumb.`);
       // Fallback: just add the page ID as label
       breadcrumbs.push({ 
-        id: pageId,
         label: pageId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '), 
         type: 'page'
       });

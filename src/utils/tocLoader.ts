@@ -81,11 +81,11 @@ async function loadIndexContent(versionPath: string): Promise<string> {
     const fallbackContent = getIndexContent(versionPath);
     
     if (fallbackContent && fallbackContent.length > 0) {
-      console.log(`✅ [TOC Loader] Using fallback content, length: ${fallbackContent.length}`);
+      console.log(`✅ [TOC Loader] Using fallback content from map, length: ${fallbackContent.length}`);
       return fallbackContent;
     }
     
-    // Last resort: generate minimal fallback
+    // Final fallback to generated TOC
     console.warn(`⚠️ [TOC Loader] No content found in map for ${versionPath}, using minimal fallback`);
     return generateFallbackToc(versionPath);
   }

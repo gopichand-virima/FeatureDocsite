@@ -54,7 +54,7 @@
   },
   "structure": {
     "components": [
-      "/components/CoverPage.tsx",
+      "/components/HomePage.tsx",
       "/components/DocumentationLayout.tsx",
       "/components/DocumentationContent.tsx",
       "/components/MDXContent.tsx",

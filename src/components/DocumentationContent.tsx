@@ -434,7 +434,7 @@ function OnlineHelpOverview({
                 <div key={`${crumb.type}-${index}`} className="contents">
                   <BreadcrumbItem>
                     {isLast ? (
-                      <BreadcrumbPage className="text-slate-900">
+                      <BreadcrumbPage className="text-slate-900 dark:text-white">
                         {crumb.label}
                       </BreadcrumbPage>
                     ) : (
@@ -485,26 +485,26 @@ function OnlineHelpOverview({
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose mb-12">
-        <div className="border border-slate-200 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
-          <h3 className="mb-3 text-slate-900">
+        <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
+          <h3 className="mb-3 text-slate-900 dark:text-white">
             Comprehensive Management
           </h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Complete management capabilities with intuitive
             interfaces and powerful automation features.
           </p>
         </div>
-        <div className="border border-slate-200 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
-          <h3 className="mb-3 text-slate-900">
+        <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
+          <h3 className="mb-3 text-slate-900 dark:text-white">
             Real-time Monitoring
           </h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Monitor activities and changes in real-time with
             instant notifications and alerts.
           </p>
         </div>
         <div className="border border-slate-200 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
-          <h3 className="mb-3 text-slate-900">
+          <h3 className="mb-3 text-slate-900 dark:text-white">
             Advanced Reporting
           </h3>
           <p className="text-sm text-slate-600 leading-relaxed">
@@ -513,7 +513,7 @@ function OnlineHelpOverview({
           </p>
         </div>
         <div className="border border-slate-200 rounded-lg p-6 hover:border-green-300 hover:shadow-md transition-all">
-          <h3 className="mb-3 text-slate-900">
+          <h3 className="mb-3 text-slate-900 dark:text-white">
             Integration Ready
           </h3>
           <p className="text-sm text-slate-600 leading-relaxed">
@@ -538,7 +538,7 @@ function OnlineHelpOverview({
           
           <div className="my-8 not-prose">
             <img 
-              src="/images/NG/home_page/home_page_favs_dashboards.png" 
+              src="/assets/home_cover_page.png" 
               alt="Virima Application Overview"
               className="w-full border border-slate-200 rounded-lg shadow-md"
             />
@@ -599,7 +599,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>Online Help</strong> — Detailed guides and
               how-to articles
             </p>
@@ -608,7 +608,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>Release Notes</strong> — Latest updates
               and improvements
             </p>
@@ -617,7 +617,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>Getting Started</strong> — Quick start
               guides for new users
             </p>
@@ -626,7 +626,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>Manuals</strong> — Complete reference
               documentation
             </p>
@@ -635,7 +635,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>API Integration</strong> — Developer
               guides and API references
             </p>
@@ -644,7 +644,7 @@ function OnlineHelpOverview({
         <div className="flex items-start gap-3">
           <div className="w-1 h-6 bg-emerald-500 rounded-full mt-0.5"></div>
           <div>
-            <p className="text-slate-900">
+            <p className="text-slate-900 dark:text-white">
               <strong>Compatibility Matrix</strong> — System
               requirements and compatibility
             </p>
@@ -717,7 +717,7 @@ function LatestRelease({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbPage className="text-slate-900 dark:text-white">
                 {section
                   .split("-")
                   .map(
@@ -917,7 +917,7 @@ function QuickStart({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbPage className="text-slate-900 dark:text-white">
                 Quick Start
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -953,7 +953,7 @@ function QuickStart({
             1
           </div>
           <div className="flex-1">
-            <h3 className="mb-3 text-slate-900">
+            <h3 className="mb-3 text-slate-900 dark:text-white">
               Access {moduleName}
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed mb-4">
@@ -971,7 +971,7 @@ function QuickStart({
             2
           </div>
           <div className="flex-1">
-            <h3 className="mb-3 text-slate-900">
+            <h3 className="mb-3 text-slate-900 dark:text-white">
               Initial Configuration
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed mb-4">
@@ -989,7 +989,7 @@ function QuickStart({
             3
           </div>
           <div className="flex-1">
-            <h3 className="mb-3 text-slate-900">
+            <h3 className="mb-3 text-slate-900 dark:text-white">
               Explore Dashboard
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed">
@@ -1007,7 +1007,7 @@ function QuickStart({
             4
           </div>
           <div className="flex-1">
-            <h3 className="mb-3 text-slate-900">
+            <h3 className="mb-3 text-slate-900 dark:text-white">
               Start Using Features
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed">
@@ -1109,7 +1109,7 @@ function APIOverview({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbPage className="text-slate-900 dark:text-white">
                 API Overview
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -1337,7 +1337,7 @@ function SystemRequirements({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbPage className="text-slate-900 dark:text-white">
                 System Requirements
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -2010,7 +2010,7 @@ function DefaultContent({
               </>
             )}
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900">
+              <BreadcrumbPage className="text-slate-900 dark:text-white">
                 {page
                   .split("-")
                   .map(

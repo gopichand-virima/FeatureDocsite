@@ -83,10 +83,9 @@ export function DocumentationLayout({
     .find(m => m.id === selectedModule)
     ?.sections || [];
   
-  // Use hardcoded sections as fallback ONLY if TOC is still loading or has errors
-  // Once TOC is loaded, always use TOC sections (index.mdx is single source of truth)
+  // Use hardcoded sections as fallback if TOC sections are empty
   const hardcodedSections = selectedModule ? getSectionsForModule(selectedModule) : [];
-  const sections = (!tocLoading && tocSections.length > 0) ? tocSections : (tocLoading ? [] : hardcodedSections);
+  const sections = tocSections.length > 0 ? tocSections : hardcodedSections;
   
   // Only log when a module is actually selected (not empty string)
   if (selectedModule && selectedModule.trim() !== '') {
@@ -308,7 +307,7 @@ export function DocumentationLayout({
   }, [sections]); // Re-attach when sections change
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50/30">
+    <div className="flex flex-col h-screen bg-slate-50/30 dark:bg-slate-950">
       {/* Header */}
       <DocumentationHeader
         logo={logo}
@@ -342,7 +341,7 @@ export function DocumentationLayout({
               maxWidth={500}
               side="left"
             >
-              <aside className="h-full border-r border-slate-200/60 bg-white">
+              <aside className="h-full border-r border-slate-200/60 dark:border-slate-700/60 bg-white dark:bg-slate-900">
                 <ScrollArea className="h-full">
                   <NavigationMenu
                     modules={modules}
@@ -373,7 +372,7 @@ export function DocumentationLayout({
             <aside
               className={`${
                 sidebarOpen ? "translate-x-0" : "-translate-x-full"
-              } lg:hidden fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-200/60 bg-white shadow-xl transition-transform duration-300`}
+              } lg:hidden fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-200/60 dark:border-slate-700/60 bg-white dark:bg-slate-900 shadow-xl transition-transform duration-300`}
             >
               <ScrollArea className="h-full">
                 <NavigationMenu
@@ -413,7 +412,7 @@ export function DocumentationLayout({
         {/* Main content area */}
         <div className="flex-1 flex overflow-hidden">
           <main
-            className="flex-1 overflow-auto bg-white"
+            className="flex-1 overflow-auto bg-white dark:bg-slate-900"
             ref={contentContainerRef}
           >
             {children}

@@ -591,16 +591,16 @@ export function AISearchDialogSimplified({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-3xl max-h-[85vh] p-0 gap-0 bg-white overflow-hidden border-0 shadow-2xl">
+      <DialogContent className="max-w-3xl max-h-[85vh] p-0 gap-0 bg-white overflow-auto border-0 shadow-2xl">
         <DialogTitle className="sr-only">Documentation Search</DialogTitle>
         <DialogDescription className="sr-only">
           Search Virima documentation and web resources
         </DialogDescription>
 
         {/* Clean Header with Search Bar */}
-        <div className="px-6 pt-6 pb-4 bg-gradient-to-br from-slate-50 to-white">
+        <div className="px-6 pt-6 pb-4 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl text-black-premium">Search</h2>
+            <h2 className="text-xl text-black-premium dark:text-white">Search</h2>
 
           </div>
 
@@ -885,7 +885,7 @@ export function AISearchDialogSimplified({
                             className="w-full flex items-start gap-3 px-4 py-3 bg-white hover:bg-emerald-50 rounded-lg transition-colors group text-left border border-slate-200 hover:border-emerald-300 shadow-sm"
                           >
                             <div className="flex-1 min-w-0">
-                              <h4 className="text-sm text-black-premium mb-1 group-hover:text-emerald-700 transition-colors">
+                              <h4 className="text-sm text-black-premium dark:text-white mb-1 group-hover:text-emerald-700 transition-colors">
                                 {result.title}
                               </h4>
                               <div className="flex items-center gap-2 text-xs text-emerald-600 mb-2">
@@ -1004,13 +1004,13 @@ export function AISearchDialogSimplified({
                   {/* NLP Response */}
                   {hasResults && nlpResponse && !isSearching && (
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 shadow-md">
-                      <div className="flex items-start gap-3 mb-4">
+                      <div className="flex items-start gap-3 mb-3">
                         <div className="p-2.5 bg-white rounded-xl shadow-sm">
                           <Sparkles className="h-5 w-5 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-sm font-medium text-blue-900 mb-2 flex items-center gap-2">
-                            AI Response
+                          <h3 className="text-sm font-medium text-blue-900 mb-1 flex items-center gap-2">
+                            Context-Aware Answer from Real Web Sources
                             {isTyping && (
                               <span className="flex gap-1">
                                 <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
@@ -1019,6 +1019,10 @@ export function AISearchDialogSimplified({
                               </span>
                             )}
                           </h3>
+                          <p className="text-xs text-blue-700 mb-3 flex items-center gap-1.5">
+                            <Globe className="h-3 w-3" />
+                            Synthesized from live internet search results
+                          </p>
                           <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
                             {displayedResponse}
                             {isTyping && <span className="inline-block w-0.5 h-4 bg-blue-600 ml-0.5 animate-pulse"></span>}
@@ -1048,8 +1052,11 @@ export function AISearchDialogSimplified({
                       <div className="flex items-center gap-2 mb-3">
                         <Globe className="h-4 w-4 text-blue-600" />
                         <span className="text-sm text-blue-600">
-                          Found {webResults.length} web results
+                          {webResults.length} Verified Internet Sources
                         </span>
+                      </div>
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mb-4 text-xs text-emerald-900">
+                        ✅ <strong>Authentic URLs Only:</strong> All links below are real, clickable sources from live web search APIs
                       </div>
                       <div className="space-y-3">
                         {webResults.map((result) => (
@@ -1063,12 +1070,13 @@ export function AISearchDialogSimplified({
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2 mb-1">
-                                <h4 className="text-sm text-black-premium group-hover:text-blue-700 transition-colors">
+                                <h4 className="text-sm text-black-premium dark:text-white group-hover:text-blue-700 transition-colors">
                                   {result.title}
                                 </h4>
                                 <ExternalLink className="h-4 w-4 text-slate-400 group-hover:text-blue-600 transition-all shrink-0" />
                               </div>
-                              <p className="text-xs text-blue-600 mb-1">{result.domain}</p>
+                              <p className="text-xs text-blue-600 mb-1 font-mono truncate">{result.url}</p>
+                              <p className="text-xs text-slate-500 mb-1">{result.domain}</p>
                               <p className="text-xs text-slate-600 line-clamp-2">
                                 {result.description}
                               </p>
@@ -1084,7 +1092,7 @@ export function AISearchDialogSimplified({
                     <div className="text-center py-12">
                       <div className="max-w-md mx-auto">
                         <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
-                        <p className="text-slate-900 mb-2">No web results available</p>
+                        <p className="text-slate-900 dark:text-white mb-2">No web results available</p>
                         <p className="text-sm text-slate-600 mb-4">
                           Web search requires API configuration. Real-time web search APIs (Serper, Brave, or Bing) are not currently configured.
                         </p>

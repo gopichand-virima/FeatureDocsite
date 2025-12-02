@@ -122,13 +122,35 @@ function extractMDXFromHTML(html: string): string | null {
 }
 
 /**
- * Strips frontmatter (YAML metadata) from MDX content
- * Frontmatter is between --- markers at the start of the file
- * Handles various edge cases:
- * - Optional whitespace before first ---
- * - Missing newline after closing ---
- * - Malformed frontmatter (only opening ---)
- * - Inline frontmatter (without --- markers) - strips if at start
+ * Decodes HTML entities to plain text
+ */
+function decodeHTMLEntities(text: string): string {
+  // Create a temporary element to decode entities
+  const txt = document.createElement('textarea');
+  txt.innerHTML = text;
+  let decoded = txt.value;
+  
+  // Additional manual decoding for common entities
+  decoded = decoded
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2F;/g, '/')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–')
+    .replace(/&hellip;/g, '…');
+  
+  return decoded;
+}
+
+/**
+ * Strips YAML frontmatter from MDX content
+ * Handles standard, malformed, and inline frontmatter
+ * Only strips at the beginning of the file
  */
 function stripFrontmatter(content: string): string {
   if (!content || content.trim().length === 0) {
@@ -178,32 +200,6 @@ function stripFrontmatter(content: string): string {
   
   // No frontmatter found, return content as-is
   return content;
-}
-
-/**
- * Decodes HTML entities to plain text
- */
-function decodeHTMLEntities(text: string): string {
-  // Create a temporary element to decode entities
-  const txt = document.createElement('textarea');
-  txt.innerHTML = text;
-  let decoded = txt.value;
-  
-  // Additional manual decoding for common entities
-  decoded = decoded
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'")
-    .replace(/&#x2F;/g, '/')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&mdash;/g, '—')
-    .replace(/&ndash;/g, '–')
-    .replace(/&hellip;/g, '…');
-  
-  return decoded;
 }
 
 /**
@@ -530,10 +526,9 @@ async function fetchContent(filePath: string): Promise<string> {
 /**
  * Gets content for a given file path
  * Automatically loads from disk on-demand
- * Strips frontmatter before returning content
  * 
  * @param filePath - The path to the content file
- * @returns The content string or null if not found (frontmatter already stripped)
+ * @returns The content string or null if not found
  */
 export async function getContent(filePath: string): Promise<string | null> {
   console.log(`🔍 getContent called with: ${filePath}`);
@@ -542,7 +537,7 @@ export async function getContent(filePath: string): Promise<string | null> {
   if (contentCache.has(filePath)) {
     console.log(`📦 Cache hit for ${filePath}`);
     const cached = contentCache.get(filePath)!;
-    // Strip frontmatter from cached content too (in case cache was set before fix)
+    // Strip frontmatter from cached content before returning
     return stripFrontmatter(cached);
   }
   
@@ -550,10 +545,10 @@ export async function getContent(filePath: string): Promise<string | null> {
     // Fetch content
     const content = await fetchContent(filePath);
     
-    // Strip frontmatter before caching and returning
+    // Strip frontmatter before caching
     const contentWithoutFrontmatter = stripFrontmatter(content);
     
-    // Cache the result (without frontmatter)
+    // Cache the cleaned content
     contentCache.set(filePath, contentWithoutFrontmatter);
     
     return contentWithoutFrontmatter;

@@ -38,10 +38,10 @@ export function ChatWelcome({
 
         {/* Welcome Message */}
         <div className="text-center space-y-2">
-          <h3 className="text-lg text-slate-900">
+          <h3 className="text-lg text-slate-900 dark:text-white">
             Virima AI Assistant
           </h3>
-          <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
             {welcomeMessage}
           </p>
         </div>

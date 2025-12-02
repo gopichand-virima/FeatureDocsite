@@ -96,16 +96,6 @@ export function ChatOnboarding() {
         <div
           className={`relative h-32 bg-gradient-to-br ${currentStepData.color} flex items-center justify-center`}
         >
-          <div className="absolute top-4 right-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClose}
-              className="h-8 w-8 p-0 text-white hover:bg-white/20"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
           <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
             <currentStepData.icon className="h-8 w-8 text-white" />
           </div>
@@ -113,10 +103,10 @@ export function ChatOnboarding() {
 
         {/* Content */}
         <div className="p-6">
-          <h2 className="text-xl text-slate-900 mb-2">
+          <h2 className="text-xl text-slate-900 dark:text-white mb-2">
             {currentStepData.title}
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-6">
+          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
             {currentStepData.description}
           </p>
 

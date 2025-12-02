@@ -92,7 +92,7 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
     return (
       <ContentNotAvailable 
         filePath={filePath} 
-        errorDetails={error} 
+        errorDetails={error}
         version={version}
         module={module}
         section={section}

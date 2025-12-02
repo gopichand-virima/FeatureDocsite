@@ -47,8 +47,8 @@ export function AIMonitoringDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-slate-200 bg-gradient-to-r from-emerald-50 to-blue-50">
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">AI Discovery Monitor</h2>
-                <p className="text-sm text-slate-600 mt-1">Track LLM indexing and citation status</p>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">AI Discovery Monitor</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">Track LLM indexing and citation status</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -93,19 +93,19 @@ export function AIMonitoringDashboard() {
                 <table className="w-full">
                   <thead className="bg-slate-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         LLM
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Discovered
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Accuracy
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Citations
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Last Checked
                       </th>
                     </tr>
@@ -120,7 +120,7 @@ export function AIMonitoringDashboard() {
                               llm.status === 'pending' ? 'bg-yellow-500' :
                               'bg-red-500'
                             }`} />
-                            <span className="text-sm font-medium text-slate-900">{llm.name}</span>
+                            <span className="text-sm font-medium text-slate-900 dark:text-white">{llm.name}</span>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -132,7 +132,7 @@ export function AIMonitoringDashboard() {
                             {llm.discovered ? 'Yes' : 'Pending'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
                           {llm.accuracy}%
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -156,7 +156,7 @@ export function AIMonitoringDashboard() {
               {/* SEO Metrics */}
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                  <h3 className="text-sm font-medium text-slate-700 mb-3">Indexing Status</h3>
+                  <h3 className="text-sm font-medium text-slate-700 dark:text-white mb-3">Indexing Status</h3>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-slate-600">Sitemap Submitted</span>
@@ -178,7 +178,7 @@ export function AIMonitoringDashboard() {
                 </div>
 
                 <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                  <h3 className="text-sm font-medium text-slate-700 mb-3">Content Optimization</h3>
+                  <h3 className="text-sm font-medium text-slate-700 dark:text-white mb-3">Content Optimization</h3>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-slate-600">Structured Data</span>

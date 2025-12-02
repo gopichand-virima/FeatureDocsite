@@ -1,14 +1,15 @@
-import { useState, useRef, useEffect, Suspense, lazy } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { DocumentationLayout } from './components/DocumentationLayout';
 import { DocumentationContent } from './components/DocumentationContent';
-import { CoverPage } from './components/CoverPage';
+import { HomePage } from './components/HomePage';
 import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
-// MDXRenderingTest imported conditionally for debugging (URL param: ?test-mdx)
+import { MDXRenderingTest } from './components/MDXRenderingTest';
+import { ThemeProvider } from './lib/theme/theme-provider';
 import { loadHierarchicalToc } from './utils/hierarchicalTocLoader';
 import { setVersion } from './content/contentLoader';
-import logo from './assets/virima_logo.png';
+import logo from 'figma:asset/20803a9cc590c8a78bca4489c80f3bfca906561c.png';
 // Import debug helpers to expose to window
 import './utils/debugHelpers';
 // Import sample content registration
@@ -179,87 +180,82 @@ export default function App() {
     setSelectedPage('');
   };
 
-  // Show test interface if requested (debug mode: ?test-mdx)
+  // Show test interface if requested
   if (showMDXTest) {
-    // Dynamic import for test component
-    const MDXRenderingTest = lazy(() => import('./components/MDXRenderingTest').then(m => ({ default: m.MDXRenderingTest })));
-    return (
-      <Suspense fallback={<div>Loading test...</div>}>
-        <MDXRenderingTest />
-      </Suspense>
-    );
+    return <MDXRenderingTest />;
   }
 
   return (
-    <GlobalChatProvider
-      currentModule={selectedModule}
-      currentPage={selectedPage}
-    >
-      <div className="min-h-screen bg-white">
-        {/* AI Discovery Monitoring Dashboard (dev mode only) */}
-        <AIMonitoringDashboard />
-        
-        <DocumentationLayout
-        logo={logo}
-        selectedVersion={selectedVersion}
-        onVersionChange={handleVersionChange}
-        selectedModule={selectedModule}
-        onModuleChange={handleModuleChange}
-        selectedSection={selectedSection}
-        onSectionChange={(section) => {
-          saveScrollPosition();
-          setSelectedSection(section);
-        }}
-        selectedPage={selectedPage}
-        onPageChange={(page) => {
-          saveScrollPosition();
-          setSelectedPage(page);
-        }}
-        onHomeClick={handleHomeClick}
-        isHomePage={showHomePage}
-        versionDropdownTriggerRef={versionDropdownTriggerRef}
-        contentContainerRef={contentContainerRef}
-        onSearchDialogOpen={() => setSearchDialogOpen(true)}
+    <ThemeProvider>
+      <GlobalChatProvider
+        currentModule={selectedModule}
+        currentPage={selectedPage}
       >
-        {showHomePage ? (
-          <CoverPage onModuleSelect={handleModuleChange} />
-        ) : (
-          <DocumentationContent
-            version={selectedVersion}
-            module={selectedModule}
-            section={selectedSection}
-            page={selectedPage}
-            onHomeClick={handleHomeClick}
-            onModuleClick={async () => {
-              saveScrollPosition();
-              // Load TOC and navigate to first page of module
-              try {
-                const toc = await loadHierarchicalToc(selectedVersion);
-                const module = toc.modules.find(m => m.id === selectedModule);
-                
-                if (module && module.sections.length > 0) {
-                  const firstSection = module.sections[0];
-                  if (firstSection && firstSection.pages.length > 0) {
-                    const firstPage = firstSection.pages[0];
-                    setSelectedSection(firstSection.id);
-                    setSelectedPage(firstPage.id);
-                    return;
+        <div className="min-h-screen bg-white dark:bg-slate-900">
+          {/* AI Discovery Monitoring Dashboard (dev mode only) */}
+          <AIMonitoringDashboard />
+          
+          <DocumentationLayout
+          logo={logo}
+          selectedVersion={selectedVersion}
+          onVersionChange={handleVersionChange}
+          selectedModule={selectedModule}
+          onModuleChange={handleModuleChange}
+          selectedSection={selectedSection}
+          onSectionChange={(section) => {
+            saveScrollPosition();
+            setSelectedSection(section);
+          }}
+          selectedPage={selectedPage}
+          onPageChange={(page) => {
+            saveScrollPosition();
+            setSelectedPage(page);
+          }}
+          onHomeClick={handleHomeClick}
+          isHomePage={showHomePage}
+          versionDropdownTriggerRef={versionDropdownTriggerRef}
+          contentContainerRef={contentContainerRef}
+          onSearchDialogOpen={() => setSearchDialogOpen(true)}
+        >
+          {showHomePage ? (
+            <HomePage onModuleSelect={handleModuleChange} />
+          ) : (
+            <DocumentationContent
+              version={selectedVersion}
+              module={selectedModule}
+              section={selectedSection}
+              page={selectedPage}
+              onHomeClick={handleHomeClick}
+              onModuleClick={async () => {
+                saveScrollPosition();
+                // Load TOC and navigate to first page of module
+                try {
+                  const toc = await loadHierarchicalToc(selectedVersion);
+                  const module = toc.modules.find(m => m.id === selectedModule);
+                  
+                  if (module && module.sections.length > 0) {
+                    const firstSection = module.sections[0];
+                    if (firstSection && firstSection.pages.length > 0) {
+                      const firstPage = firstSection.pages[0];
+                      setSelectedSection(firstSection.id);
+                      setSelectedPage(firstPage.id);
+                      return;
+                    }
                   }
+                } catch (error) {
+                  console.error('Failed to load module:', error);
                 }
-              } catch (error) {
-                console.error('Failed to load module:', error);
-              }
-              
-              // Fallback: set empty
-              setSelectedSection('');
-              setSelectedPage('');
-            }}
-            onVersionClick={() => {
-              versionDropdownTriggerRef.current?.();
-            }}
-          />
-        )}
-      </DocumentationLayout>
+                
+                // Fallback: set empty
+                setSelectedSection('');
+                setSelectedPage('');
+              }}
+              onVersionClick={() => {
+                versionDropdownTriggerRef.current?.();
+              }}
+            />
+          )}
+        </DocumentationLayout>
 
         {/* AI Search Dialog */}
         <AISearchDialogSimplified
@@ -270,5 +266,6 @@ export default function App() {
         />
       </div>
     </GlobalChatProvider>
+    </ThemeProvider>
   );
 }

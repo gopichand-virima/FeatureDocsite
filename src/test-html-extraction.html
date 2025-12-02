@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Extraction Test</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #00ff00;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #2a2a2a;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+    }
+    h2 {
+      color: #00ff00;
+      margin-top: 0;
+    }
+    pre {
+      background: #000;
+      padding: 10px;
+      overflow-x: auto;
+      border: 1px solid #333;
+    }
+    button {
+      background: #00ff00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: monospace;
+      font-weight: bold;
+      margin: 5px;
+    }
+    button:hover {
+      background: #00cc00;
+    }
+    .success {
+      color: #00ff00;
+    }
+    .error {
+      color: #ff0000;
+    }
+    .warning {
+      color: #ffaa00;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 HTML Extraction Debugger</h1>
+  
+  <div class="section">
+    <h2>Test File Fetch</h2>
+    <p>This will fetch an MDX file and show you the exact HTML structure returned by Figma Make.</p>
+    <button onclick="testFetch()">Fetch & Analyze</button>
+    <div id="fetch-results"></div>
+  </div>
+  
+  <div class="section">
+    <h2>HTML Structure</h2>
+    <div id="html-structure"></div>
+  </div>
+  
+  <div class="section">
+    <h2>Extraction Results</h2>
+    <div id="extraction-results"></div>
+  </div>
+
+  <script>
+    async function testFetch() {
+      const testPath = '/content/NG/admin_ng/admin_org_details/about_org_details_ng.mdx';
+      const resultsDiv = document.getElementById('fetch-results');
+      const structureDiv = document.getElementById('html-structure');
+      const extractionDiv = document.getElementById('extraction-results');
+      
+      resultsDiv.innerHTML = '<p class="warning">⏳ Fetching...</p>';
+      
+      try {
+        const response = await fetch(testPath);
+        const text = await response.text();
+        
+        resultsDiv.innerHTML = `
+          <p class="success">✅ Fetch successful!</p>
+          <p>Status: ${response.status}</p>
+          <p>Content-Type: ${response.headers.get('content-type')}</p>
+          <p>Length: ${text.length} bytes</p>
+        `;
+        
+        // Analyze structure
+        structureDiv.innerHTML = `
+          <p><strong>HTML Analysis:</strong></p>
+          <ul>
+            <li>Has <!DOCTYPE>: ${text.includes('<!DOCTYPE')}</li>
+            <li>Has <html>: ${text.includes('<html')}</li>
+            <li>Has <head>: ${text.includes('<head')}</li>
+            <li>Has <body>: ${text.includes('<body')}</li>
+            <li>Has <pre>: ${text.includes('<pre')}</li>
+            <li>Has <code>: ${text.includes('<code')}</li>
+            <li>Has <script>: ${text.includes('<script')}</li>
+          </ul>
+          <p><strong>First 1000 characters:</strong></p>
+          <pre>${escapeHtml(text.substring(0, 1000))}</pre>
+        `;
+        
+        // Try extraction
+        const extracted = extractMDXFromHTML(text);
+        
+        if (extracted) {
+          extractionDiv.innerHTML = `
+            <p class="success">✅ Extraction successful!</p>
+            <p>Extracted length: ${extracted.length} bytes</p>
+            <p><strong>First 500 characters:</strong></p>
+            <pre>${escapeHtml(extracted.substring(0, 500))}</pre>
+          `;
+        } else {
+          extractionDiv.innerHTML = '<p class="error">❌ Extraction failed - see console for details</p>';
+        }
+        
+      } catch (error) {
+        resultsDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+      }
+    }
+    
+    function extractMDXFromHTML(html) {
+      console.log('🔧 [extractMDXFromHTML] Starting extraction...');
+      
+      // Method 1: Try <pre> tag
+      const preMatch = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
+      if (preMatch && preMatch[1]) {
+        console.log(`✓ Found <pre> tag (${preMatch[1].length} chars)`);
+        const decoded = decodeHTMLEntities(preMatch[1]);
+        if (decoded.includes('#') || decoded.includes('import')) {
+          console.log(`✅ Method 1 (<pre>): Success!`);
+          return decoded;
+        }
+      }
+      
+      // Method 2: Try <code> tag
+      const codeMatch = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
+      if (codeMatch && codeMatch[1]) {
+        console.log(`✓ Found <code> tag (${codeMatch[1].length} chars)`);
+        const decoded = decodeHTMLEntities(codeMatch[1]);
+        if (decoded.includes('#') || decoded.includes('import')) {
+          console.log(`✅ Method 2 (<code>): Success!`);
+          return decoded;
+        }
+      }
+      
+      // Method 3: Try nested <pre><code>
+      const nestedMatch = html.match(/<pre[^>]*>\s*<code[^>]*>([\s\S]*?)<\/code>\s*<\/pre>/i);
+      if (nestedMatch && nestedMatch[1]) {
+        console.log(`✓ Found nested <pre><code> (${nestedMatch[1].length} chars)`);
+        const decoded = decodeHTMLEntities(nestedMatch[1]);
+        if (decoded.includes('#') || decoded.includes('import')) {
+          console.log(`✅ Method 3 (nested): Success!`);
+          return decoded;
+        }
+      }
+      
+      // Method 4: Try to find text between <body> tags
+      const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      if (bodyMatch && bodyMatch[1]) {
+        console.log(`✓ Found <body> content (${bodyMatch[1].length} chars)`);
+        let content = bodyMatch[1].replace(/<[^>]+>/g, '');
+        content = decodeHTMLEntities(content);
+        if (content.trim().length > 100 && (content.includes('#') || content.includes('import'))) {
+          console.log(`✅ Method 4 (<body>): Success!`);
+          return content;
+        }
+      }
+      
+      // Method 5: Try to strip all HTML tags and decode
+      console.log(`⚠️ Trying last resort: strip all HTML...`);
+      let stripped = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+      stripped = stripped.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+      stripped = stripped.replace(/<[^>]+>/g, '');
+      stripped = decodeHTMLEntities(stripped);
+      
+      if (stripped.trim().length > 50 && (stripped.includes('#') || stripped.includes('import') || stripped.includes('export'))) {
+        console.log(`✅ Method 5 (strip all): Success! (${stripped.length} chars)`);
+        return stripped.trim();
+      }
+      
+      console.error(`❌ All extraction methods failed`);
+      return null;
+    }
+    
+    function decodeHTMLEntities(text) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = text;
+      let decoded = txt.value;
+      
+      decoded = decoded
+        .replace(/</g, '<')
+        .replace(/>/g, '>')
+        .replace(/&/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&#x27;/g, "'")
+        .replace(/&#x2F;/g, '/')
+        .replace(/&nbsp;/g, ' ');
+      
+      return decoded;
+    }
+    
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&')
+        .replace(/</g, '<')
+        .replace(/>/g, '>')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

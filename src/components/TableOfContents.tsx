@@ -70,8 +70,8 @@ export function TableOfContents({ items, autoExtract = true }: TableOfContentsPr
 
   return (
     <div className="sticky top-20">
-      <div className="pb-4 mb-4 border-b border-slate-200">
-        <h4 className="text-sm text-black-premium">On this page</h4>
+      <div className="pb-4 mb-4 border-b border-slate-200 dark:border-slate-700">
+        <h4 className="text-sm text-black-premium dark:text-white">On this page</h4>
       </div>
       {tocItems.length === 0 ? (
         <p className="text-xs text-slate-500 italic">

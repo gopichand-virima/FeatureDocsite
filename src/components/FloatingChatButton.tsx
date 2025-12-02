@@ -119,7 +119,7 @@ export function FloatingChatButton({
           )}
 
           {/* Pulse effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-600 to-blue-600 opacity-0 group-hover:opacity-20 animate-ping"></div>
+          <div className="absolute inset-[12.5%] rounded-full bg-gradient-to-br from-emerald-400 via-green-400 to-green-500 dark:from-emerald-600 dark:via-green-600 dark:to-green-700 opacity-25 group-hover:opacity-40 transition-opacity duration-700 animate-[ping_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite]"></div>
         </Button>
       </div>
 

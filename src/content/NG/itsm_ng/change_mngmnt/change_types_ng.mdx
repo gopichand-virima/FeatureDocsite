@@ -1,0 +1,205 @@
+---
+title: "Change Types"
+description: "Understanding different types of changes in Virima Change Management"
+version: ""
+module: "Itsm"
+section: "Change Management"
+page: "Change Types"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Change Management"
+  - "Change Types"
+---
+
+# Change Types
+
+Virima Change Management supports three primary types of changes, each with different processes and approval requirements.
+
+## Standard Changes
+
+Standard changes are pre-authorized, low-risk changes that follow a documented procedure.
+
+### Characteristics
+- Pre-approved by Change Advisory Board (CAB)
+- Low risk and well understood
+- Documented procedure exists
+- Minimal business impact
+- Can be implemented without CAB approval
+
+### Examples
+- Password resets
+- Standard software installations
+- Routine hardware replacements
+- Regular system maintenance
+- Adding new user accounts
+
+### Process Flow
+1. Submit standard change request
+2. Automatic approval (pre-authorized)
+3. Schedule implementation
+4. Execute change
+5. Close change record
+
+### Benefits
+- Faster implementation
+- Reduced administrative overhead
+- Consistent execution
+- Lower risk of errors
+
+## Normal Changes
+
+Normal changes require evaluation, approval, and scheduling through the standard change management process.
+
+### Characteristics
+- Requires CAB review and approval
+- Moderate to high risk
+- Potential business impact
+- May affect multiple systems or users
+- Needs detailed planning
+
+### Examples
+- Server upgrades
+- Application deployments
+- Network infrastructure changes
+- System migrations
+- Major configuration changes
+
+### Process Flow
+1. Submit change request
+2. Initial review
+3. Impact assessment
+4. CAB review and approval
+5. Schedule implementation
+6. Implement change
+7. Post-implementation review
+8. Close change record
+
+### Required Documentation
+- Detailed implementation plan
+- Backout plan
+- Risk assessment
+- Impact analysis
+- Resource requirements
+- Testing plan
+
+## Emergency Changes
+
+Emergency changes address critical issues that require immediate resolution to prevent or resolve major incidents.
+
+### Characteristics
+- Urgent and time-sensitive
+- Addresses critical business impact
+- Expedited approval process
+- May be implemented before full approval
+- Requires emergency CAB (ECAB) review
+
+### Examples
+- Security vulnerability patches
+- System outage resolution
+- Critical bug fixes
+- Recovery from major incidents
+- Urgent compliance requirements
+
+### Process Flow
+1. Identify emergency situation
+2. Expedited approval from ECAB
+3. Immediate implementation
+4. Document changes made
+5. Post-implementation CAB review
+6. Update procedures if needed
+7. Close change record
+
+### Emergency CAB (ECAB)
+- Smaller group than regular CAB
+- Available for rapid response
+- Authority to approve emergency changes
+- Reviews all emergency changes after implementation
+
+## Change Type Selection Guidelines
+
+### When to Use Standard Change
+- Change is routine and repeatable
+- Procedure is well documented
+- Risk is low and understood
+- Pre-authorization exists
+
+### When to Use Normal Change
+- Change affects critical systems
+- Multiple stakeholders involved
+- Significant business impact possible
+- No standard procedure exists
+
+### When to Use Emergency Change
+- Critical business function impaired
+- Security vulnerability discovered
+- Major incident in progress
+- Regulatory compliance at risk
+
+## Change Type Configuration
+
+Administrators can configure change types:
+
+### Define Standard Changes
+1. Navigate to **Admin** > **Change Management**
+2. Select **Standard Changes**
+3. Click **New Standard Change**
+4. Define:
+   - Name and description
+   - Procedure documentation
+   - Authorized implementers
+   - Required approvals
+   - Implementation schedule
+
+### Set Approval Workflows
+Configure different approval paths for each change type:
+
+1. Go to **Admin** > **Workflows**
+2. Select **Change Management Workflows**
+3. Configure approval stages for each type
+4. Define escalation rules
+5. Set time limits for approvals
+
+## Change Type Metrics
+
+Track performance by change type:
+
+### Key Metrics
+- **Success Rate**: Percentage of successful changes by type
+- **Average Duration**: Time from submission to closure
+- **Rollback Rate**: Percentage requiring backout
+- **Approval Time**: Average time in approval stage
+
+### Reporting
+Generate reports to analyze change type effectiveness:
+1. Navigate to **Reports** > **Change Management**
+2. Select **Change Type Analysis**
+3. Choose date range
+4. Review metrics by type
+
+## Best Practices
+
+### Standard Changes
+- Keep procedures up to date
+- Regular review of standard change catalog
+- Audit standard change implementations
+- Retire unused standard changes
+
+### Normal Changes
+- Ensure thorough impact assessment
+- Involve all stakeholders early
+- Schedule during maintenance windows
+- Conduct post-implementation reviews
+
+### Emergency Changes
+- Minimize use of emergency classification
+- Document all actions taken
+- Review to prevent recurrence
+- Update standard procedures based on learnings
+
+## Related Topics
+
+- [New Change Request](/content/NG/itsm_ng/change_mngmnt/change_request_ng.mdx)
+- [Changes](/content/NG/itsm_ng/change_mngmnt/changes_ng.mdx)
+- [CAB Meetings](/content/NG/itsm_ng/change_mngmnt/cab_meetings_ng.mdx)

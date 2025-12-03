@@ -1,0 +1,161 @@
+---
+articleId: K000246567
+title: SSO Login Fails with "Redirect URI Mismatch" Error
+published: May 08, 2024
+modified: December 02, 2025
+category: Authentication
+severity: High
+type: Problem
+tags: [sso, saml, authentication, login, azure-ad, okta]
+excerpt: Single Sign-On authentication fails with redirect URI mismatch error when using Azure AD, Okta, or other SAML 2.0 identity providers.
+---
+
+# SSO Login Fails with "Redirect URI Mismatch" Error
+
+**Article ID:** K000246567  
+**Last Modified:** December 02, 2025  
+**Category:** Authentication  
+**Severity:** High
+
+---
+
+## Issue
+
+When attempting to log in to Virima using Single Sign-On (SSO), authentication fails with error "Redirect URI mismatch" or "Invalid redirect_uri parameter."
+
+## Environment
+
+- **Product:** Virima Platform
+- **Versions:** All versions with SSO enabled
+- **Identity Providers:** Azure AD, Okta, OneLogin, Auth0, PingFederate
+- **Protocol:** SAML 2.0, OAuth 2.0, OpenID Connect
+
+## Symptoms
+
+- Users redirected back to login page after IdP authentication
+- Error message: "The redirect URI included is not valid"
+- Browser console shows 400 Bad Request error
+- IdP logs show successful authentication but failed redirect
+
+**Common Error Messages:**
+```
+Error: redirect_uri_mismatch
+The redirect URI (https://virima.company.com/auth/callback) 
+does not match the redirect URIs configured in your IdP.
+```
+
+## Cause
+
+1. **Misconfigured Redirect URI** - Callback URL in IdP doesn't match Virima configuration
+2. **HTTP vs HTTPS Mismatch** - Protocol mismatch (http:// vs https://)
+3. **Trailing Slash Difference** - `/auth/callback` vs `/auth/callback/`
+4. **Custom Domain Issues** - Using custom domain not registered in IdP
+5. **Port Number Mismatch** - URL includes port (`:443`) not in IdP config
+
+## Resolution
+
+### Step 1: Verify Virima Redirect URI
+
+1. Log in to Virima as Admin (using local account)
+2. Go to **Settings → Authentication → SSO Configuration**
+3. Note the **Redirect URI / Callback URL:**
+
+```
+https://your-instance.virima.com/auth/saml/callback
+```
+
+### Step 2: Update Identity Provider Configuration
+
+**Azure AD:**
+1. Go to Azure Portal → Enterprise Applications
+2. Select Virima application
+3. Navigate to **Single sign-on → Basic SAML Configuration**
+4. Set **Reply URL (Assertion Consumer Service URL):**
+   ```
+   https://your-instance.virima.com/auth/saml/callback
+   ```
+5. Set **Sign on URL:**
+   ```
+   https://your-instance.virima.com
+   ```
+6. Save changes
+
+**Okta:**
+1. Go to Okta Admin Console → Applications
+2. Select Virima application
+3. Edit **General Settings**
+4. Set **Single sign on URL:**
+   ```
+   https://your-instance.virima.com/auth/saml/callback
+   ```
+5. Set **Audience URI (SP Entity ID):**
+   ```
+   https://your-instance.virima.com
+   ```
+6. Save
+
+**OneLogin:**
+1. Go to OneLogin Admin Portal → Applications
+2. Select Virima application
+3. Navigate to **Configuration** tab
+4. Set **ACS (Consumer) URL:**
+   ```
+   https://your-instance.virima.com/auth/saml/callback
+   ```
+5. Save
+
+### Step 3: Ensure Protocol Consistency
+
+Make sure both Virima and IdP use HTTPS:
+
+```
+✓ Correct: https://your-instance.virima.com/auth/saml/callback
+✗ Wrong:   http://your-instance.virima.com/auth/saml/callback
+```
+
+### Step 4: Remove Trailing Slashes
+
+Ensure redirect URI format matches exactly:
+
+```
+✓ Correct: https://virima.company.com/auth/saml/callback
+✗ Wrong:   https://virima.company.com/auth/saml/callback/
+```
+
+### Step 5: Test SSO Connection
+
+1. In Virima, go to **Settings → Authentication → SSO**
+2. Click **Test SSO Configuration**
+3. Should redirect to IdP login
+4. After authentication, should redirect back to Virima dashboard
+5. Verify no redirect errors
+
+## Verification
+
+- Users can successfully log in via SSO
+- No redirect errors in browser console
+- IdP logs show successful authentication and redirect
+- Users land on Virima dashboard after SSO login
+
+## Additional Information
+
+### Common Redirect URIs by Protocol
+
+| Protocol | Redirect URI Format |
+|----------|-------------------|
+| SAML 2.0 | `https://instance.virima.com/auth/saml/callback` |
+| OAuth 2.0 | `https://instance.virima.com/auth/oauth/callback` |
+| OpenID Connect | `https://instance.virima.com/auth/oidc/callback` |
+
+### Related Articles
+
+- [K000246568: Configuring Azure AD SSO for Virima](/kb/azure-ad-sso-configuration)
+- [K000246569: Okta SAML Integration Guide](/kb/okta-saml-integration)
+- [K000246570: Troubleshooting SSO Authentication Issues](/kb/sso-troubleshooting)
+
+---
+
+**Was this article helpful?**  
+[Yes] [No]
+
+*Last updated: December 02, 2025*

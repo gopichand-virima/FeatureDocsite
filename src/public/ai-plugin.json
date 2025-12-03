@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Virima Documentation",
+  "name_for_model": "virima_docs",
+  "description_for_human": "Official documentation for Virima IT management platform including CMDB, ITSM, Discovery, ITAM, and more.",
+  "description_for_model": "Access comprehensive Virima documentation including configuration guides, API references, user manuals, and technical specifications for all Virima modules.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://docs.virima.com/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://docs.virima.com/logo.png",
+  "contact_email": "support@virima.com",
+  "legal_info_url": "https://virima.com/legal"
+}

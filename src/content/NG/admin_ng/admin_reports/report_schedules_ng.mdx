@@ -1,0 +1,531 @@
+# Report Schedules
+
+Use this function to automate report generation and distribution on recurring schedules.
+
+Report Schedules enable automated delivery of reports to stakeholders without manual intervention, ensuring timely access to critical information.
+
+In the main window, click **Admin > Reports > Report Schedules**. The Report Schedules window displays.
+
+## Scheduled Reports List
+
+View all scheduled reports:
+
+**Schedule Columns**:
+
+- **Schedule Name**: Descriptive name
+- **Report**: Associated report
+- **Frequency**: How often it runs
+- **Next Run**: Next execution time
+- **Recipients**: Number of recipients
+- **Status**: Active, Paused, Completed
+- **Last Run**: Last execution date
+- **Success Rate**: Delivery success percentage
+
+## Create New Schedule
+
+From the *Select Actions* drop-down list, choose **New Schedule**. The New Schedule window displays.
+
+### Step 1: Basic Information
+
+**Schedule Details**:
+
+- **Schedule Name**: Monthly Incident Report - Management
+- **Description**: Monthly incident summary for management team
+- **Status**: ☑ Active
+
+### Step 2: Select Report
+
+**Choose Report**:
+
+- **Report**: Monthly Incident Summary
+- **Output Format**: PDF
+- **Include Attachments**: ☐ No
+
+**Report Parameters**:
+
+If report has parameters, configure default values:
+
+- **Date Range**: Previous month (auto-calculated)
+- **Priority Filter**: All priorities
+- **Include Closed**: ☑ Yes
+
+### Step 3: Schedule Frequency
+
+**Recurrence Pattern**:
+
+**Daily**:
+
+- Every X days
+- Every weekday (Monday-Friday)
+
+**Weekly**:
+
+- Every X weeks on: ☑ Monday ☐ Tuesday ☐ Wednesday
+
+**Monthly**:
+
+- Day X of every Y month(s)
+- First/Last [Day of Week] of every month
+- Example: First Monday of every month
+
+**Quarterly**:
+
+- Every 3 months on specific date
+
+**Yearly**:
+
+- Specific date each year
+
+**Custom**:
+
+- Advanced cron expression
+
+**Example: Monthly Schedule**:
+
+- **Frequency**: Monthly
+- **Day**: 1st day of the month
+- **Time**: 8:00 AM
+- **Timezone**: America/New_York
+
+**Schedule Window**:
+
+- **Start Date**: 2024-02-01
+- **End Date**: Never (ongoing)
+- **Skip Holidays**: ☑ Yes
+- **If Holiday, Run**: Previous business day
+
+### Step 4: Recipients
+
+**Add Recipients**:
+
+**Individual Users**:
+
+- john.doe@company.com
+- jane.smith@company.com
+- ceo@company.com
+
+**Distribution Lists**:
+
+- Management Team
+- IT Leadership
+- Board of Directors
+
+**Dynamic Recipients**:
+
+- Report to: User's manager
+- Copy: Department heads
+- Based on: Assignment group membership
+
+**Recipient Format**:
+
+- To: Primary recipients
+- CC: Carbon copy
+- BCC: Blind carbon copy
+
+### Step 5: Delivery Options
+
+**Email Configuration**:
+
+**Subject Line**:
+
+```
+Monthly Incident Report - {month} {year}
+```
+
+**Email Body**:
+
+```
+Dear Team,
+
+Please find attached the Monthly Incident Summary report for {month} {year}.
+
+Key Highlights:
+- Total Incidents: {total_count}
+- Critical Incidents: {critical_count}
+- Average Resolution Time: {avg_resolution_time} hours
+
+Best regards,
+Virima Automated Reports
+```
+
+**Attachment Options**:
+
+- **Attach Report**: ☑ Yes
+- **Inline Embed**: ☐ No (use for HTML)
+- **Compress Attachments**: ☐ No (for large files)
+- **Password Protect**: ☐ Optional
+
+**Alternative Delivery**:
+
+- ☐ Upload to SharePoint
+- ☐ Save to network drive
+- ☐ Send to Slack channel
+- ☐ Post to Teams channel
+
+### Step 6: Execution Options
+
+**Run Conditions**:
+
+- **Run Even If No Data**: ☐ No
+- **Skip If Previous Failed**: ☐ No
+- **Max Execution Time**: 300 seconds
+
+**Failure Handling**:
+
+- **Retry on Failure**: 2 attempts
+- **Retry Interval**: 30 minutes
+- **Notify on Failure**: ☑ Admin
+- **Continue Schedule**: ☑ Yes
+
+**Priority**:
+
+- High: Runs first
+- Normal: Standard priority
+- Low: Runs when system idle
+
+Click **Save Schedule**.
+
+## Common Schedule Examples
+
+### Daily Reports
+
+**Daily Incident Queue Report**:
+
+- **Frequency**: Every weekday
+- **Time**: 8:00 AM
+- **Recipients**: Service desk team
+- **Parameters**: Open incidents from yesterday
+
+**Daily SLA Status**:
+
+- **Frequency**: Every day
+- **Time**: 7:00 AM
+- **Recipients**: Management
+- **Parameters**: SLA at-risk tickets
+
+### Weekly Reports
+
+**Weekly Performance Summary**:
+
+- **Frequency**: Every Monday
+- **Time**: 9:00 AM
+- **Recipients**: Team leads
+- **Parameters**: Previous week data
+
+**Weekly Asset Changes**:
+
+- **Frequency**: Every Friday
+- **Time**: 5:00 PM
+- **Recipients**: Asset managers
+- **Parameters**: Week's asset modifications
+
+### Monthly Reports
+
+**Monthly Executive Dashboard**:
+
+- **Frequency**: 1st of each month
+- **Time**: 8:00 AM
+- **Recipients**: C-level executives
+- **Parameters**: Previous month metrics
+
+**Monthly Compliance Report**:
+
+- **Frequency**: Last day of month
+- **Time**: 6:00 PM
+- **Recipients**: Compliance team
+- **Parameters**: Month's compliance status
+
+### Quarterly Reports
+
+**Quarterly Business Review**:
+
+- **Frequency**: Every 3 months (Jan 1, Apr 1, Jul 1, Oct 1)
+- **Time**: 9:00 AM
+- **Recipients**: Board of directors
+- **Parameters**: Quarter's performance data
+
+## Manage Schedules
+
+### Edit Schedule
+
+Navigate to the schedule list.
+
+Click the schedule to edit.
+
+Modify any settings:
+
+- Frequency
+- Recipients
+- Parameters
+- Delivery options
+
+Click **Save**.
+
+### Pause Schedule
+
+Temporarily stop a schedule without deleting:
+
+Select schedule.
+
+Click **Pause**.
+
+**Pause Options**:
+
+- Pause until date
+- Pause indefinitely
+- Resume manually
+
+**Resume Schedule**:
+
+Click **Resume** when ready to reactivate.
+
+### Run Schedule Now
+
+Execute schedule immediately (outside regular timing):
+
+Select schedule.
+
+Click **Run Now**.
+
+**Run Options**:
+
+- Use current date/time for parameters
+- Override parameters
+- Send to different recipients (one-time)
+
+### View Execution History
+
+Track schedule performance:
+
+Select schedule.
+
+Click **Execution History**.
+
+**History Details**:
+
+| Run Date | Status | Duration | Recipients | File Size | Actions |
+|----------|--------|----------|------------|-----------|---------|
+| 2024-01-27 08:00 | Success | 23s | 15 | 234 KB | View/Download |
+| 2024-01-26 08:00 | Success | 19s | 15 | 245 KB | View/Download |
+| 2024-01-25 08:00 | Failed | 45s | - | - | View Error |
+
+**Execution Details**:
+
+- Start time
+- End time
+- Report generated
+- Email sent
+- Recipients list
+- Delivery confirmations
+- Error messages (if failed)
+
+### Download Previous Reports
+
+Access previously generated reports:
+
+**Report Archive**:
+
+- Last 30 days: Immediate access
+- 30-90 days: Retrieved from archive
+- 90+ days: Request from backup
+
+Click report to download.
+
+## Schedule Notifications
+
+Configure alerts for schedule events:
+
+### Success Notifications
+
+**Send On Successful Delivery**:
+
+- ☐ Notify scheduler creator
+- ☐ Notify administrator
+- ☑ Include in daily summary
+
+### Failure Notifications
+
+**Send On Failed Execution**:
+
+- ☑ Notify scheduler creator
+- ☑ Notify administrator
+- ☑ Immediate notification
+
+**Failure Details**:
+
+- Error message
+- Execution log
+- Troubleshooting steps
+
+### Summary Notifications
+
+**Daily Schedule Summary**:
+
+- Total schedules run: 45
+- Successful: 43
+- Failed: 2
+- Skipped: 0
+
+Sent to administrators daily at 9:00 AM.
+
+## Conditional Schedules
+
+Run schedules based on conditions:
+
+### Data-Driven Scheduling
+
+**Run Only If**:
+
+```
+Incident count > 100 for the period
+OR
+Critical incidents > 5
+```
+
+**Skip If**:
+
+```
+No data for period
+AND
+No changes from last run
+```
+
+### Event-Driven Scheduling
+
+**Trigger On Event**:
+
+- SLA breach occurs
+- Major incident created
+- System threshold exceeded
+- Compliance violation detected
+
+**Example**:
+
+```
+Send SLA Breach Report immediately when:
+- Any SLA breach occurs
+- Priority = Critical or High
+```
+
+## Schedule Templates
+
+Create reusable schedule templates:
+
+**Template: Monthly Executive Report**:
+
+- Frequency: Monthly, 1st at 8 AM
+- Format: PDF
+- Recipients: Executive team
+- Parameters: Previous month
+
+**Template: Weekly Team Report**:
+
+- Frequency: Weekly, Monday at 9 AM
+- Format: Excel
+- Recipients: Team leads
+- Parameters: Previous week
+
+**Apply Template**:
+
+Select template, choose report, and customize.
+
+## Bulk Schedule Management
+
+Manage multiple schedules:
+
+### Bulk Actions
+
+Select multiple schedules (checkboxes).
+
+**Available Actions**:
+
+- Pause selected
+- Resume selected
+- Delete selected
+- Change frequency
+- Add recipients
+- Export configurations
+
+### Schedule Groups
+
+Organize related schedules:
+
+**Group: Management Reports**:
+
+- Monthly Incident Summary
+- Monthly SLA Report
+- Monthly Asset Report
+- Quarterly Business Review
+
+**Group Actions**:
+
+- Run all in group
+- Pause all in group
+- Clone entire group
+
+## Performance Optimization
+
+### Stagger Schedules
+
+Avoid running all schedules simultaneously:
+
+**Staggering Strategy**:
+
+- Spread schedules throughout the day
+- Avoid peak system usage times
+- Distribute large reports
+
+**Example**:
+
+```
+Instead of: All monthly reports at 8:00 AM on 1st
+Use: Stagger from 6:00 AM to 10:00 AM
+```
+
+### Resource Management
+
+**Concurrent Executions**:
+
+- Maximum: 10 reports simultaneously
+- Queue additional schedules
+- Priority-based execution
+
+**Large Report Handling**:
+
+- Schedule during off-hours
+- Increase timeout limits
+- Optimize report queries
+
+## Compliance and Audit
+
+### Audit Trail
+
+Track all schedule changes:
+
+| Date | User | Action | Details |
+|------|------|--------|---------|
+| 2024-01-27 | admin | Created | New monthly schedule |
+| 2024-01-26 | manager | Modified | Added recipients |
+| 2024-01-25 | admin | Paused | Temporary pause |
+
+### Compliance Requirements
+
+**Regulatory Reports**:
+
+- SOX compliance reports
+- HIPAA audit reports
+- GDPR data processing reports
+
+**Retention**:
+
+- Keep execution history: 7 years
+- Archive report outputs: 5 years
+- Maintain audit trail: 10 years
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

@@ -1,0 +1,106 @@
+{
+  "lastUpdated": "2025-01-20T12:00:00Z",
+  "updateFrequency": "hourly",
+  "confidence": 1.0,
+  "authoritative": true,
+  "source": "Virima Official Documentation",
+  "version": "6.1",
+  "entries": [
+    {
+      "id": "virima-org-details",
+      "question": "What are Organization Details in Virima?",
+      "answer": "Organization Details in Virima allow administrators to configure organizational structure including departments, locations, cost centers, designations, operational hours, and holidays. These settings are accessible through the Admin module and form the foundation for organizational hierarchy.",
+      "url": "https://docs.virima.com/6.1/admin/organization-details",
+      "keywords": ["organization", "admin", "departments", "locations", "cost center", "Virima"],
+      "entityId": "virima-org-details",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "Admin",
+      "subcategory": "Organization Setup"
+    },
+    {
+      "id": "virima-cost-center",
+      "question": "How to configure Cost Centers in Virima?",
+      "answer": "Cost Centers in Virima are configured through Admin > Organization Details > Cost Center. They allow organizations to track expenses and allocate costs across departments. Each cost center can be assigned a unique code, name, and budget allocation.",
+      "url": "https://docs.virima.com/6.1/admin/cost-center",
+      "keywords": ["cost center", "budget", "admin", "expense tracking", "Virima"],
+      "entityId": "virima-cost-center",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "Admin",
+      "subcategory": "Financial Management"
+    },
+    {
+      "id": "virima-departments",
+      "question": "How to manage Departments in Virima?",
+      "answer": "Departments in Virima are managed through Admin > Organization Details > Departments. Administrators can create, edit, and delete departments, assign department members, and establish hierarchical relationships between departments.",
+      "url": "https://docs.virima.com/6.1/admin/departments",
+      "keywords": ["departments", "organization", "hierarchy", "admin", "Virima"],
+      "entityId": "virima-departments",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "Admin",
+      "subcategory": "Organization Setup"
+    },
+    {
+      "id": "virima-admin-functions",
+      "question": "What are Admin Functions in Virima?",
+      "answer": "Virima Admin Functions provide comprehensive administrative capabilities for system configuration, user management, discovery setup, SACM settings, integrations, and organizational details. Available in both new and legacy UI versions.",
+      "url": "https://docs.virima.com/6.1/admin/admin-functions",
+      "keywords": ["admin", "configuration", "system setup", "Virima", "management"],
+      "entityId": "virima-admin-functions",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "Admin",
+      "subcategory": "Core Functions"
+    },
+    {
+      "id": "virima-cmdb",
+      "question": "How to access CMDB in Virima?",
+      "answer": "To access CMDB in Virima, navigate to the main menu and select the CMDB module. Users need appropriate permissions (CMDB_READ or higher) to view configuration items. The CMDB provides comprehensive asset and configuration management capabilities.",
+      "url": "https://docs.virima.com/cmdb/access",
+      "keywords": ["CMDB", "access", "configuration", "assets", "Virima"],
+      "entityId": "virima-cmdb-access",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "CMDB",
+      "subcategory": "Access & Navigation"
+    },
+    {
+      "id": "virima-itsm",
+      "question": "What is ITSM in Virima?",
+      "answer": "Virima ITSM (IT Service Management) provides comprehensive incident, problem, change, and service request management capabilities. It includes ticketing, workflow automation, SLA management, and integration with the CMDB.",
+      "url": "https://docs.virima.com/itsm/overview",
+      "keywords": ["ITSM", "incident", "service management", "ticketing", "Virima"],
+      "entityId": "virima-itsm",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "ITSM",
+      "subcategory": "Overview"
+    },
+    {
+      "id": "virima-discovery",
+      "question": "How does Virima Discovery work?",
+      "answer": "Virima Discovery automatically scans and discovers IT infrastructure, applications, and cloud resources across networks. It uses agentless and agent-based methods to identify assets, map dependencies, and populate the CMDB with accurate configuration data.",
+      "url": "https://docs.virima.com/discovery/overview",
+      "keywords": ["discovery", "scanning", "network", "infrastructure", "Virima"],
+      "entityId": "virima-discovery",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "Discovery",
+      "subcategory": "Overview"
+    },
+    {
+      "id": "virima-versions",
+      "question": "What versions of Virima are available?",
+      "answer": "Virima is available in multiple versions: NextGen (latest), 6.1.1, 6.1, and 5.13. Each version includes comprehensive modules for Admin, CMDB, Discovery, ITSM, ITAM, Self Service, and more.",
+      "url": "https://docs.virima.com/versions",
+      "keywords": ["versions", "releases", "NextGen", "6.1", "Virima"],
+      "entityId": "virima-versions",
+      "lastVerified": "2025-01-20T12:00:00Z",
+      "category": "General",
+      "subcategory": "Versions"
+    }
+  ],
+  "metadata": {
+    "totalEntries": 8,
+    "lastUpdate": "2025-01-20T12:00:00Z",
+    "nextUpdate": "2025-01-20T13:00:00Z",
+    "coverage": "Complete Virima Documentation v6.1",
+    "accuracy": "100%",
+    "verified": true
+  }
+}

@@ -1,0 +1,138 @@
+---
+title: "User Management"
+description: ""
+version: ""
+module: "Getting Started"
+section: "User Management"
+page: "User Management"
+breadcrumbs:
+  - "Home"
+  - "My Dashboard"
+  - "Getting Started"
+  - "User Management"
+  - "User Management"
+---
+
+# User Management
+
+The **User Management** module in Virima provides administrators with centralized control over user accounts and access. From this page, admins can invite new users, assign or change roles, monitor account status, and enforce authentication policies such as Single Sign-On (SSO) and Multi-Factor Authentication (MFA). This ensures secure access to the platform while allowing flexibility in managing individual users or entire teams.
+
+Use this procedure to view, manage, and update user accounts in the Virima Platform.
+
+## Prerequisites
+
+*   Administrator access to the Virima Platform.
+    
+*   Valid email addresses for new users (must match the organization’s registered domain).
+    
+
+## View and Manage Users
+
+1.  In the left navigation pane, under **Setup**, select **User Management**.
+    
+
+![User Management.png](blob:https://virima.atlassian.net/640c2170-4de7-4645-8912-5f8dca1bb8d9#media-blob-url=true&id=5171e55c-d237-42a5-9987-9700b0f64553&collection=contentId-204570635&contextId=204570635&width=1150&height=611&alt=User%20Management.png)
+
+2.  On the **User Management** page, review the **Active Users** and **Invited Users** tabs.
+    
+3.  Use the search bar to locate a user by email.
+    
+4.  Review details in the table:
+    
+    *   **Email** – User’s registered email address.
+        
+    *   **Role** – User’s role (_Admin_ or _User_).
+        
+    *   **Status** – Account status (_Active_, _Deactivated_, _Inactive_).
+        
+    *   **Name** – Full name of the user.
+        
+    *   **SSO Login** – Toggle SSO access on or off.
+        
+    *   **MFA** – Toggle Multi-Factor Authentication on or off.
+        
+
+## Enable MFA Globally
+
+1.  At the top of the page, under **Authentication Mode**, select the **MFA** checkbox.
+    
+
+![MFA enable.png](blob:https://virima.atlassian.net/da5dbc5e-4bbd-41b2-8604-f4afec78754e#media-blob-url=true&id=765247aa-3a3f-4b04-a820-520e34139906&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=MFA%20enable.png&size=159435&width=1147&height=547&alt=MFA%20enable.png)
+
+2.  MFA is now enforced for all users in the tenant.
+    
+3.  The system displays a notification: **“MFA updated successfully.”**
+    
+
+![MFA updated Successfully.png](blob:https://virima.atlassian.net/8204720e-bf7c-4bd1-9468-1aaed7cbd4a2#media-blob-url=true&id=65930bf9-301f-4a8b-aa3a-ec1728f15dc5&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=MFA%20updated%20Successfully.png&size=164455&width=1150&height=611&alt=MFA%20updated%20Successfully.png)
+
+## Invite New Users
+
+1.  On the **User Management** page, select **Invite Users**.
+    
+
+![Invite users.png](blob:https://virima.atlassian.net/5422a30c-b039-434b-9da8-da46c0be607e#media-blob-url=true&id=2eaa050f-b8ff-4626-9138-37a38677fc18&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=Invite%20users.png&size=159479&width=1147&height=547&alt=Invite%20users.png)
+
+### Invite Users by Bulk Import (CSV)
+
+1.  On the **User Management** page, select **Invite Users**.
+    
+2.  From the drop-down, select **Bulk import using CSV**.
+    
+
+![Invite user_ Bulk Import.png](blob:https://virima.atlassian.net/782a7b2c-b0eb-40c7-ae89-aaab1e856fc8#media-blob-url=true&id=5d762f03-b276-400f-ac85-ebb32c191b0d&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=Invite%20user_%20Bulk%20Import.png&size=168729&width=1148&height=562&alt=Invite%20user_%20Bulk%20Import.png)
+
+3.  In the **Import Users** dialog:
+    
+    *   Select **Download Template** to get the correct CSV format.
+        
+    *   Enter user details (Email ID, Role, etc.) in the CSV file.
+        
+    *   Drag and drop the completed CSV file into the upload area or click to browse files.
+        
+4.  Select **Send Invite(s)**.
+    
+
+![Import Users_Bulk Import.png](blob:https://virima.atlassian.net/560a79c2-f1ff-49a2-9032-472e33b5b3c9#media-blob-url=true&id=86246b8d-1e03-4a7f-9832-c0e3c7d564f9&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=Import%20Users_Bulk%20Import.png&size=218811&width=1150&height=609&alt=Import%20Users_Bulk%20Import.png)
+
+5.  All listed users receive invitation emails automatically.
+    
+
+### Invite a User by Email
+
+1.  On the **User Management** page, select **Invite Users**.
+    
+2.  From the drop-down, select **Invite using Email**.
+    
+
+![Invite user_ Invite using Email.png](blob:https://virima.atlassian.net/b00134f6-fffc-4d94-98ab-9a3e829b4932#media-blob-url=true&id=82e1752b-2799-4e12-890c-80fae1111a9d&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=Invite%20user_%20Invite%20using%20Email.png&size=168479&width=1146&height=551&alt=Invite%20user_%20Invite%20using%20Email.png)
+
+3.  In the **Invite Users** dialog, enter the following:
+    
+    *   **Email ID** – Enter the user’s organizational email address.
+        
+    *   **Role** – Select the role (_Admin_ or _User_).
+        
+4.  Select **Add User** to include multiple entries if needed.
+    
+5.  When finished, select **Send Invite(s)**.
+    
+
+![Invite users email.png](blob:https://virima.atlassian.net/4d9303b9-7e26-4c4c-8e0c-5d735f0fc750#media-blob-url=true&id=145a39de-32af-4d5a-9662-7080803226c1&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=Invite%20users%20email.png&size=203294&width=1150&height=549&alt=Invite%20users%20email.png)
+
+6.  The user appears under the **Invited Users** tab until registration is complete.
+    
+
+![invited users list.png](blob:https://virima.atlassian.net/8bef646b-96f3-48ec-8a78-b92c9ec6ab98#media-blob-url=true&id=ef779966-4fcb-4315-8e4c-d74cc5ac525e&collection=contentId-204570635&contextId=204570635&mimeType=image%2Fpng&name=invited%20users%20list.png&size=110072&width=1148&height=613&alt=invited%20users%20list.png)
+
+### Deactivate or Reactivate Users
+
+1.  Locate the user in the list.
+    
+2.  In the **Status** column, check the current status.
+    
+3.  Use the options menu (**…**) to deactivate or reactivate the account.
+    
+4.  Select **Enable** to activate or **Disable** to deactivate.
+    
+5.  Confirm the action when prompted.

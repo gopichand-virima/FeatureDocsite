@@ -1,0 +1,428 @@
+---
+title: "Change Implementation"
+description: "Best practices and procedures for implementing changes"
+version: ""
+module: "Itsm"
+section: "Change Management"
+page: "Change Implementation"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Change Management"
+  - "Change Implementation"
+---
+
+# Change Implementation
+
+Successful change implementation requires careful planning, execution, and monitoring. This guide covers the complete implementation process.
+
+## Pre-Implementation Checklist
+
+Before beginning implementation, verify:
+
+### Documentation Review
+- [ ] Implementation plan reviewed and understood
+- [ ] Backout plan documented and tested
+- [ ] All approvals obtained
+- [ ] Resources confirmed available
+- [ ] Dependencies satisfied
+
+### Technical Preparation
+- [ ] Test environment validated
+- [ ] Required tools and software available
+- [ ] Access permissions verified
+- [ ] Backup completed
+- [ ] Monitoring tools configured
+
+### Communication
+- [ ] Stakeholders notified
+- [ ] Users informed of potential impact
+- [ ] Support team briefed
+- [ ] Escalation contacts identified
+- [ ] Communication channels established
+
+## Implementation Phases
+
+### Phase 1: Preparation
+
+**Actions:**
+1. Assemble implementation team
+2. Review implementation plan
+3. Verify all prerequisites
+4. Confirm backup completion
+5. Establish communication channels
+
+**Duration:** 15-30 minutes before start time
+
+**Status Updates:**
+- Update change status to "Preparing"
+- Send notification to stakeholders
+- Document preparation activities
+
+### Phase 2: Pre-Implementation Verification
+
+**Actions:**
+1. Verify system state
+2. Document baseline metrics
+3. Capture current configuration
+4. Test monitoring tools
+5. Confirm team readiness
+
+**Go/No-Go Decision Points:**
+- All team members present
+- Systems in expected state
+- No unexpected issues
+- Backout plan ready
+
+### Phase 3: Implementation
+
+**Actions:**
+1. Update change status to "Implementing"
+2. Follow implementation plan step-by-step
+3. Document each action taken
+4. Monitor system behavior
+5. Record any deviations
+6. Maintain communication log
+
+**Best Practices:**
+- Execute one step at a time
+- Verify each step before proceeding
+- Document everything
+- Maintain continuous communication
+- Monitor key metrics throughout
+
+### Phase 4: Verification
+
+**Actions:**
+1. Execute verification tests
+2. Compare against success criteria
+3. Validate functionality
+4. Check dependent systems
+5. Review error logs
+6. Confirm expected behavior
+
+**Success Criteria:**
+- All tests pass successfully
+- No critical errors detected
+- Performance within acceptable range
+- Dependent systems functioning
+- Users can access resources
+
+### Phase 5: Post-Implementation
+
+**Actions:**
+1. Update change status to "Review"
+2. Document final state
+3. Capture metrics
+4. Brief support team
+5. Monitor for issues
+6. Gather feedback
+
+**Monitoring Period:**
+- Critical changes: 24-48 hours
+- Major changes: 12-24 hours
+- Minor changes: 4-8 hours
+
+## Implementation Status Tracking
+
+### Status Updates
+
+Update change status regularly:
+
+**Before Implementation**
+- **Scheduled**: Change is scheduled
+- **Preparing**: Pre-implementation activities underway
+
+**During Implementation**
+- **Implementing**: Change in progress
+- **On Hold**: Temporary pause
+- **Backing Out**: Rolling back change
+
+**After Implementation**
+- **Review**: Verification in progress
+- **Completed**: Successfully implemented
+- **Failed**: Implementation unsuccessful
+- **Rolled Back**: Change reversed
+
+### Progress Updates
+
+Provide regular progress updates:
+
+1. Open the change request
+2. Navigate to **Comments** tab
+3. Add progress update:
+   - Current status
+   - Activities completed
+   - Next steps
+   - Any issues encountered
+4. Update estimated completion time if needed
+
+## Managing Implementation Issues
+
+### Issue Identification
+
+Monitor for:
+- Error messages
+- Performance degradation
+- Functionality failures
+- Unexpected behavior
+- User complaints
+
+### Issue Response
+
+When issues detected:
+
+**Severity Assessment**
+1. Determine issue severity
+2. Assess business impact
+3. Evaluate options:
+   - Continue with fix
+   - Pause for troubleshooting
+   - Execute backout plan
+
+**Decision Criteria**
+
+**Continue if:**
+- Issue is minor and known
+- Fix is available and quick
+- Business impact minimal
+- Within risk tolerance
+
+**Pause if:**
+- Issue is unexpected
+- Root cause unclear
+- Fix time uncertain
+- Need to reassess approach
+
+**Backout if:**
+- Critical functionality impaired
+- Business impact severe
+- Cannot resolve quickly
+- Risk exceeds benefit
+
+## Backout Procedures
+
+### When to Execute Backout
+
+Trigger backout plan if:
+- Implementation fails
+- Critical issues arise
+- Success criteria not met
+- Business requests rollback
+- Time window expiring
+
+### Backout Process
+
+1. **Decision**: Determine backout necessary
+2. **Notification**: Alert all stakeholders
+3. **Execution**: Follow documented backout plan
+4. **Verification**: Confirm system restored
+5. **Documentation**: Record all actions
+6. **Review**: Analyze what went wrong
+
+### Post-Backout Actions
+
+After successful backout:
+- Update change status to "Rolled Back"
+- Document lessons learned
+- Revise implementation plan
+- Schedule new implementation
+- Conduct post-mortem review
+
+## Communication During Implementation
+
+### Status Updates
+
+**Frequency:**
+- Every 30 minutes for critical changes
+- Hourly for major changes
+- At key milestones for minor changes
+
+**Communication Channels:**
+- Change record comments
+- Email to stakeholders
+- Instant messaging for team
+- Dashboard status updates
+
+### Stakeholder Communication
+
+**Implementation Start:**
+```
+Subject: Change [CHG-XXXX] Implementation Started
+Change [CHG-XXXX] implementation has begun.
+Expected duration: [X] hours
+Expected completion: [Time]
+Contact: [Name] at [Phone/Email]
+```
+
+**Progress Updates:**
+```
+Subject: Change [CHG-XXXX] Progress Update
+Current Status: [Status]
+Activities Completed: [List]
+Next Steps: [List]
+On Schedule: [Yes/No]
+Issues: [None/List]
+```
+
+**Implementation Complete:**
+```
+Subject: Change [CHG-XXXX] Successfully Completed
+Change [CHG-XXXX] has been successfully implemented.
+Completion Time: [Time]
+Verification Status: [Status]
+Known Issues: [None/List]
+Monitoring Period: [Duration]
+```
+
+## Implementation Team Roles
+
+### Change Manager
+- Overall coordination
+- Stakeholder communication
+- Decision authority
+- Issue escalation
+
+### Implementation Lead
+- Execute implementation plan
+- Direct technical team
+- Make technical decisions
+- Document actions
+
+### Technical Implementers
+- Perform implementation tasks
+- Monitor system behavior
+- Report issues
+- Execute tests
+
+### Verification Team
+- Run verification tests
+- Validate success criteria
+- Check dependent systems
+- Report results
+
+### Communication Lead
+- Maintain status updates
+- Notify stakeholders
+- Coordinate with support
+- Handle inquiries
+
+## Tools and Resources
+
+### Implementation Tools
+
+**Required Tools:**
+- Administrative access credentials
+- Installation media/packages
+- Configuration scripts
+- Testing tools
+- Monitoring dashboards
+
+**Documentation:**
+- Implementation runbook
+- Backout procedures
+- Configuration guides
+- Troubleshooting guides
+- Contact lists
+
+### Access Requirements
+
+Verify access to:
+- Target systems
+- Administrative interfaces
+- Backup systems
+- Monitoring tools
+- Documentation repositories
+
+## Post-Implementation Review
+
+### Immediate Review
+
+Within 24 hours of completion:
+
+1. **Gather Feedback**
+   - Implementation team debrief
+   - User feedback
+   - Support team input
+   - Stakeholder comments
+
+2. **Review Metrics**
+   - Implementation duration
+   - Issues encountered
+   - Backout invocations
+   - Success rate
+
+3. **Document Lessons**
+   - What went well
+   - What could improve
+   - Unexpected issues
+   - Best practices identified
+
+### Formal PIR (Post-Implementation Review)
+
+Within 1 week for major changes:
+
+**Review Topics:**
+- Plan accuracy
+- Resource allocation
+- Time estimates
+- Risk assessment
+- Communication effectiveness
+- Documentation quality
+
+**Outputs:**
+- Updated procedures
+- Lessons learned database
+- Process improvements
+- Training needs identified
+
+## Metrics and Reporting
+
+### Key Metrics
+
+- **Implementation Success Rate**: % completed successfully
+- **On-Time Completion**: % within scheduled window
+- **Backout Rate**: % requiring rollback
+- **Average Duration**: Actual vs. planned time
+- **Issue Rate**: Problems per implementation
+
+### Reporting
+
+Generate implementation reports:
+1. Navigate to **Reports** > **Change Management**
+2. Select **Implementation Analysis**
+3. Choose date range
+4. Review performance trends
+
+## Best Practices
+
+### Planning
+- Allow adequate time for implementation
+- Include buffer time
+- Plan during low-usage periods
+- Coordinate with related changes
+
+### Execution
+- Follow the plan systematically
+- Document everything
+- Communicate frequently
+- Monitor continuously
+
+### Verification
+- Test thoroughly
+- Verify success criteria
+- Check dependent systems
+- Obtain user confirmation
+
+### Documentation
+- Record all actions
+- Document deviations
+- Capture lessons learned
+- Update procedures
+
+## Related Topics
+
+- [Changes](/content/NG/itsm_ng/change_mngmnt/changes_ng.mdx)
+- [Change Scheduling](/content/NG/itsm_ng/change_mngmnt/change_scheduling_ng.mdx)
+- [Manage Changes](/content/NG/itsm_ng/change_mngmnt/manage_changes_ng.mdx)

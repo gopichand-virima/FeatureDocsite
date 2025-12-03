@@ -1,0 +1,456 @@
+# Notification Rules
+
+Use this function to configure rules that determine when notifications are sent and to whom.
+
+Notification rules automate communication by triggering notifications based on events, conditions, and recipient criteria.
+
+In the main window, click **Admin > Notification Management > Notification Rules**. The Notification Rules window displays.
+
+## Overview
+
+Notification rules define:
+
+- When notifications are sent (triggers)
+- Who receives notifications (recipients)
+- What template is used (content)
+- How notifications are delivered (channels)
+- Conditions that must be met (filters)
+
+## New Notification Rule
+
+From the *Select Actions* drop-down list, choose **New Notification Rule**. The New Notification Rule window displays.
+
+Enter a *Rule Name* and *Description*.
+
+Configure the **Rule Settings**:
+
+### Basic Settings
+
+**Is Active**: Check to enable this rule.
+
+**Priority**: Execution order if multiple rules apply.
+
+**Applies To**: Select record types
+
+- Incidents
+- Requests
+- Problems
+- Changes
+- Assets
+- All types
+
+### Trigger Configuration
+
+Define what triggers the notification.
+
+Click **Add Trigger**.
+
+**Event Triggers**:
+
+- **Record Created**: When new ticket created
+- **Record Updated**: When ticket modified
+- **Field Changed**: Specific field updates
+- **State Changed**: Status/state transitions
+- **Assignment Changed**: Reassignment occurs
+- **Priority Changed**: Priority escalated/de-escalated
+- **Comment Added**: New comment posted
+- **Attachment Added**: File uploaded
+- **Approval Requested**: Approval workflow initiated
+- **Approval Decision**: Approved or rejected
+- **SLA Milestone**: SLA warning or breach
+- **Escalation**: Ticket escalated
+
+**Time-Based Triggers**:
+
+- **Scheduled**: Daily/weekly/monthly
+- **Relative Time**: X hours after creation
+- **Due Date Approaching**: Before due date
+- **Overdue**: After due date passed
+- **No Activity**: No updates in X time
+
+**Threshold Triggers**:
+
+- **Count Threshold**: X tickets meet criteria
+- **Value Threshold**: Field value exceeds limit
+- **Percentage Threshold**: X% of SLA consumed
+
+Select trigger type and configure parameters.
+
+### Condition Configuration
+
+Add conditions to filter when notifications send.
+
+Click **Add Condition**.
+
+**Field Conditions**:
+
+```
+Priority = Critical OR Priority = High
+```
+
+```
+Category = "Hardware" AND Location = "Building A"
+```
+
+```
+Assigned Group = "Network Team"
+```
+
+**User Conditions**:
+
+```
+Requester is VIP = Yes
+```
+
+```
+Requester Department = "Sales"
+```
+
+**Time Conditions**:
+
+```
+Created during business hours
+```
+
+```
+Updated outside business hours
+```
+
+**SLA Conditions**:
+
+```
+SLA percentage > 75%
+```
+
+```
+Response SLA breached = Yes
+```
+
+**Custom Conditions**:
+
+- Use formula builder
+- JavaScript expressions
+- Complex logic
+
+Click **Save Condition**.
+
+### Recipient Configuration
+
+Define who receives notifications.
+
+Click **Add Recipients**.
+
+**Recipient Types**:
+
+**Specific Users**:
+
+- Select individual users
+- Static recipient list
+
+**Dynamic Recipients**:
+
+- Requester
+- Assigned technician
+- Assignee's manager
+- Assignment group members
+- CI owner
+- Department head
+- Custom field value
+
+**Role-Based**:
+
+- All users with specific role
+- Service desk managers
+- Administrators
+- VIP support team
+
+**Group-Based**:
+
+- Distribution groups
+- Team groups
+- Department groups
+
+**Email Addresses**:
+
+- External email addresses
+- Distribution lists
+- External stakeholders
+
+**Conditional Recipients**:
+
+```
+IF Priority = Critical
+  THEN notify executives
+  ELSE notify normal support
+```
+
+Configure recipient list and click **Save**.
+
+### Template Selection
+
+Select notification template to use:
+
+**Template**: Choose from available templates
+
+- Pre-built templates
+- Custom templates
+
+**Override Subject**: Optionally customize subject line
+
+**Override Body**: Optionally customize message
+
+**Attachments**: Include ticket details, reports, etc.
+
+### Channel Selection
+
+Choose delivery method(s):
+
+**Email**: ☑ Send email notification
+
+**SMS**: ☐ Send text message
+
+**In-App**: ☑ In-app notification
+
+**Push**: ☐ Mobile push notification
+
+**Slack**: ☐ Post to Slack channel
+
+**Teams**: ☐ Post to Microsoft Teams
+
+**Webhook**: ☐ Call external webhook
+
+Multiple channels can be selected.
+
+### Notification Timing
+
+Configure when notification is sent:
+
+**Send Immediately**: Send as soon as triggered
+
+**Delay Sending**: Wait X minutes before sending
+
+**Batch Notifications**: Collect and send together
+
+**Digest Mode**: Combine into daily/weekly digest
+
+**Business Hours Only**: Don't send outside hours
+
+**Retry Failed**: Retry if delivery fails
+
+### Throttling and Frequency
+
+Prevent notification overload:
+
+**Maximum Frequency**:
+
+- No more than X notifications per hour
+- No more than X notifications per day
+- Minimum interval between notifications
+
+**Deduplication**:
+
+- Don't send duplicate notifications
+- Combine similar notifications
+- Suppress repeated alerts
+
+**User Preferences**:
+
+- Respect user notification preferences
+- Honor do-not-disturb settings
+- Check opt-out status
+
+Click **Save** to create the rule.
+
+## Common Notification Rules
+
+### New Ticket Assignment
+
+**Trigger**: Ticket assigned
+**Condition**: Assignment changed
+**Recipients**: Assigned technician
+**Template**: Ticket Assignment
+**Channels**: Email, In-App
+
+### High Priority Alert
+
+**Trigger**: Ticket created OR Priority changed
+**Condition**: Priority = Critical or High
+**Recipients**: Assignment group + Manager
+**Template**: High Priority Alert
+**Channels**: Email, SMS, In-App
+
+### SLA Warning
+
+**Trigger**: SLA milestone reached
+**Condition**: SLA 75% consumed
+**Recipients**: Assigned technician + Manager
+**Template**: SLA Warning
+**Channels**: Email, In-App
+
+### Approval Request
+
+**Trigger**: Approval requested
+**Condition**: Always
+**Recipients**: Approver(s)
+**Template**: Approval Required
+**Channels**: Email, In-App, SMS
+
+### Ticket Update for Requester
+
+**Trigger**: Status changed OR Comment added
+**Condition**: Public comment only
+**Recipients**: Requester
+**Template**: Ticket Updated
+**Channels**: Email
+
+### Daily Ticket Digest
+
+**Trigger**: Scheduled daily at 8 AM
+**Condition**: Assigned to user, status = Open
+**Recipients**: All technicians
+**Template**: Daily Digest
+**Channels**: Email
+
+## Edit Notification Rule
+
+Navigate to the window containing the rule.
+
+Click the line containing the rule.
+
+Make modifications to:
+
+- Triggers
+- Conditions
+- Recipients
+- Template
+- Channels
+- Timing
+
+Click **Save**.
+
+## Test Notification Rule
+
+Test the rule before activation:
+
+Select a notification rule.
+
+Click **Test Rule**.
+
+**Test Options**:
+
+**Simulate Trigger**:
+
+- Select or create test ticket
+- Trigger the event
+- Verify conditions match
+- Check recipients identified
+
+**Send Test Notification**:
+
+- Send to test recipients only
+- Verify template renders correctly
+- Check all channels work
+- Confirm delivery
+
+Review test results and refine.
+
+## Clone Notification Rule
+
+To create a similar rule:
+
+Select a notification rule.
+
+From the *Select Actions* drop-down list, choose **Clone Rule**.
+
+Enter a new name.
+
+Modify as needed.
+
+Click **Save**.
+
+## Activate/Deactivate Rule
+
+To activate a rule:
+
+Select the rule.
+
+From the *Select Actions* drop-down list, choose **Activate**.
+
+To deactivate:
+
+Select an active rule.
+
+From the *Select Actions* drop-down list, choose **Deactivate**.
+
+## Rule Priority and Order
+
+When multiple rules could apply:
+
+Click **Manage Rule Priority**.
+
+Drag and drop rules to set order.
+
+Higher priority rules execute first.
+
+**Execution Options**:
+
+- Stop after first match
+- Execute all matching rules
+- Execute until condition met
+
+Click **Save Order**.
+
+## Notification Analytics
+
+View notification rule performance:
+
+Select a notification rule.
+
+Click **View Analytics**.
+
+**Metrics**:
+
+- Total notifications sent
+- Delivery success rate
+- Average delivery time
+- Open/click rates (email)
+- Opt-out rate
+- Failed deliveries
+
+**Trends**:
+
+- Notifications over time
+- Peak notification times
+- Most active rules
+
+## Bulk Operations
+
+Manage multiple rules:
+
+Select multiple rules (checkboxes).
+
+**Bulk Actions**:
+
+- Activate selected
+- Deactivate selected
+- Delete selected
+- Export selected
+- Change priority
+
+Click action button.
+
+## Delete Notification Rule
+
+Click the line that contains the rule to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Import](/common_topics/import_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Records per Page](/common_topics/records_per_page_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

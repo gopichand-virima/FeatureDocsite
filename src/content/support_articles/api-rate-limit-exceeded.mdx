@@ -1,0 +1,444 @@
+---
+articleId: K000246012
+title: API Rate Limit Exceeded Error (429) in Virima Platform
+published: October 22, 2024
+modified: December 02, 2025
+category: API
+severity: Medium
+type: Problem
+tags: [api, rate-limit, integration, throttling]
+excerpt: REST API requests returning HTTP 429 error indicating rate limit exceeded for your subscription tier.
+---
+
+# API Rate Limit Exceeded Error (429) in Virima Platform
+
+**Article ID:** K000246012  
+**Last Modified:** December 02, 2025  
+**Category:** API  
+**Severity:** Medium
+
+---
+
+## Issue
+
+When making API requests to Virima platform, the API returns HTTP 429 (Too Many Requests) error with message "Rate limit exceeded" or "API quota exceeded for your subscription tier."
+
+## Environment
+
+- **Product:** Virima REST API v3
+- **Versions:** All versions
+- **Subscription Tiers:** Standard, Professional, Enterprise
+- **Integration Types:** Custom integrations, ITSM connectors, Third-party applications
+
+## Symptoms
+
+- API requests fail with HTTP 429 status code
+- Response header includes `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset`
+- Integration workflows fail or timeout
+- Scheduled data synchronization jobs incomplete
+- Application logs show repeated rate limit errors
+
+**Example Error Response:**
+```json
+{
+  "error": "rate_limit_exceeded",
+  "message": "API rate limit exceeded. Current limit: 1000 requests/minute",
+  "retry_after": 45,
+  "limit": 1000,
+  "remaining": 0,
+  "reset": 1701532800
+}
+```
+
+## Cause
+
+Virima enforces API rate limits based on subscription tier to ensure platform stability and fair resource allocation:
+
+| Subscription Tier | Requests per Minute | Burst Limit |
+|-------------------|---------------------|-------------|
+| **Enterprise** | 10,000 | 15,000 |
+| **Professional** | 5,000 | 7,500 |
+| **Standard** | 1,000 | 1,500 |
+
+**Common causes of rate limit exceeded:**
+
+1. **High-Frequency Polling**
+   - Integration polling Virima API too frequently (e.g., every second)
+   - Multiple integrations polling simultaneously
+   - Inefficient data retrieval patterns
+
+2. **Batch Operations Without Throttling**
+   - Bulk data imports without rate limiting
+   - Large-scale asset updates in tight loops
+   - Mass discovery operations
+
+3. **Multiple Concurrent Connections**
+   - Parallel API requests exceeding limit
+   - Multiple application instances using same API key
+   - Development and production using same credentials
+
+4. **Inefficient API Usage**
+   - Fetching all records instead of using pagination
+   - Not utilizing bulk endpoints
+   - Excessive individual GET requests instead of batch queries
+
+5. **Subscription Tier Limitations**
+   - Standard tier insufficient for integration volume
+   - Growth in API usage without tier upgrade
+
+## Resolution
+
+### Step 1: Check Current Rate Limit Status
+
+Every API response includes rate limit headers:
+
+```bash
+curl -I -H "Authorization: Bearer YOUR_API_KEY" \
+  https://your-instance.virima.com/api/v3/assets
+
+# Response Headers:
+# X-RateLimit-Limit: 1000
+# X-RateLimit-Remaining: 247
+# X-RateLimit-Reset: 1701532800
+# Retry-After: 45
+```
+
+**Interpret headers:**
+- `X-RateLimit-Limit`: Total requests allowed per minute
+- `X-RateLimit-Remaining`: Requests remaining in current window
+- `X-RateLimit-Reset`: Unix timestamp when limit resets
+- `Retry-After`: Seconds to wait before retrying
+
+### Step 2: Implement Exponential Backoff
+
+Add retry logic with exponential backoff to handle 429 errors:
+
+**Python Example:**
+```python
+import requests
+import time
+
+def make_api_request_with_retry(url, headers, max_retries=5):
+    for attempt in range(max_retries):
+        response = requests.get(url, headers=headers)
+        
+        if response.status_code == 429:
+            retry_after = int(response.headers.get('Retry-After', 60))
+            wait_time = min(retry_after * (2 ** attempt), 300)  # Max 5 min
+            
+            print(f"Rate limit exceeded. Waiting {wait_time} seconds...")
+            time.sleep(wait_time)
+            continue
+            
+        return response
+    
+    raise Exception("Max retries exceeded")
+
+# Usage
+headers = {"Authorization": "Bearer YOUR_API_KEY"}
+response = make_api_request_with_retry(
+    "https://your-instance.virima.com/api/v3/assets",
+    headers
+)
+```
+
+**JavaScript/Node.js Example:**
+```javascript
+async function makeApiRequestWithRetry(url, options, maxRetries = 5) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(url, options);
+    
+    if (response.status === 429) {
+      const retryAfter = parseInt(response.headers.get('Retry-After') || '60');
+      const waitTime = Math.min(retryAfter * Math.pow(2, attempt), 300000);
+      
+      console.log(`Rate limit exceeded. Waiting ${waitTime/1000} seconds...`);
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+      continue;
+    }
+    
+    return response;
+  }
+  
+  throw new Error('Max retries exceeded');
+}
+
+// Usage
+const response = await makeApiRequestWithRetry(
+  'https://your-instance.virima.com/api/v3/assets',
+  {
+    headers: { 'Authorization': 'Bearer YOUR_API_KEY' }
+  }
+);
+```
+
+### Step 3: Implement Request Throttling
+
+Control request rate to stay within limits:
+
+**Python Token Bucket Implementation:**
+```python
+import time
+import threading
+
+class RateLimiter:
+    def __init__(self, requests_per_minute):
+        self.requests_per_minute = requests_per_minute
+        self.tokens = requests_per_minute
+        self.last_update = time.time()
+        self.lock = threading.Lock()
+    
+    def acquire(self):
+        with self.lock:
+            now = time.time()
+            elapsed = now - self.last_update
+            
+            # Refill tokens based on elapsed time
+            self.tokens = min(
+                self.requests_per_minute,
+                self.tokens + (elapsed * self.requests_per_minute / 60)
+            )
+            self.last_update = now
+            
+            if self.tokens >= 1:
+                self.tokens -= 1
+                return True
+            else:
+                wait_time = (1 - self.tokens) * 60 / self.requests_per_minute
+                time.sleep(wait_time)
+                self.tokens = 0
+                return True
+
+# Usage for Standard tier (1000 req/min)
+limiter = RateLimiter(1000)
+
+for asset in assets_to_update:
+    limiter.acquire()
+    update_asset_via_api(asset)
+```
+
+### Step 4: Use Bulk API Endpoints
+
+Replace individual requests with bulk operations:
+
+**Instead of this (inefficient):**
+```python
+# Making 1000 individual requests
+for asset_id in asset_ids:
+    response = requests.get(
+        f"https://your-instance.virima.com/api/v3/assets/{asset_id}",
+        headers=headers
+    )
+    process_asset(response.json())
+```
+
+**Do this (efficient):**
+```python
+# Single bulk request
+response = requests.post(
+    "https://your-instance.virima.com/api/v3/assets/bulk/get",
+    headers=headers,
+    json={"asset_ids": asset_ids}
+)
+assets = response.json()
+for asset in assets:
+    process_asset(asset)
+```
+
+### Step 5: Implement Pagination Correctly
+
+Use pagination to retrieve large datasets efficiently:
+
+```python
+def fetch_all_assets_paginated():
+    assets = []
+    page = 1
+    page_size = 100  # Optimal page size
+    
+    while True:
+        response = requests.get(
+            f"https://your-instance.virima.com/api/v3/assets",
+            headers=headers,
+            params={"page": page, "page_size": page_size}
+        )
+        
+        data = response.json()
+        assets.extend(data['results'])
+        
+        if not data.get('next'):
+            break
+            
+        page += 1
+        time.sleep(0.1)  # Small delay between pages
+    
+    return assets
+```
+
+### Step 6: Reduce Polling Frequency
+
+Optimize polling intervals based on data freshness requirements:
+
+| Data Type | Recommended Polling Interval |
+|-----------|------------------------------|
+| Real-time alerts | 30 seconds - 1 minute |
+| Asset inventory | 15 minutes - 1 hour |
+| Discovery results | 1 hour - 4 hours |
+| Reports | 4 hours - 24 hours |
+| Configuration changes | 5 minutes - 15 minutes |
+
+**Use webhooks instead of polling when possible:**
+```python
+# Register webhook for asset updates
+requests.post(
+    "https://your-instance.virima.com/api/v3/webhooks",
+    headers=headers,
+    json={
+        "url": "https://your-app.com/webhook/asset-updates",
+        "events": ["asset.created", "asset.updated", "asset.deleted"]
+    }
+)
+```
+
+### Step 7: Use Separate API Keys
+
+Create separate API keys for different integrations to isolate rate limits:
+
+1. Log in to Virima dashboard
+2. Navigate to **Settings → API → API Keys**
+3. Click **Create New API Key**
+4. Assign descriptive name (e.g., "ServiceNow Integration")
+5. Set permissions and rate limit allocation
+6. Use dedicated key for each integration
+
+### Step 8: Monitor API Usage
+
+Track API usage to identify high-volume consumers:
+
+**Query usage metrics via API:**
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  "https://your-instance.virima.com/api/v3/usage/metrics?period=24h"
+```
+
+**Response:**
+```json
+{
+  "period": "24h",
+  "total_requests": 45678,
+  "rate_limit_hits": 23,
+  "by_endpoint": {
+    "/api/v3/assets": 30000,
+    "/api/v3/discovery": 10000,
+    "/api/v3/cmdb": 5678
+  },
+  "by_api_key": {
+    "key_abc123": 30000,
+    "key_def456": 15678
+  }
+}
+```
+
+### Step 9: Optimize Query Filters
+
+Use API filters to reduce response size and request count:
+
+**Instead of:**
+```bash
+# Fetching all assets then filtering client-side
+curl "https://your-instance.virima.com/api/v3/assets"
+```
+
+**Do this:**
+```bash
+# Filter server-side
+curl "https://your-instance.virima.com/api/v3/assets?\
+filter=status:active&\
+category:server&\
+created_after:2024-01-01"
+```
+
+### Step 10: Upgrade Subscription Tier
+
+If legitimate usage exceeds limits, upgrade to higher tier:
+
+| Current Tier | Usage Pattern | Recommended Action |
+|--------------|---------------|-------------------|
+| Standard | > 800 req/min sustained | Upgrade to Professional |
+| Professional | > 4,500 req/min sustained | Upgrade to Enterprise |
+| Enterprise | > 9,000 req/min sustained | Contact sales for custom limit |
+
+**Request tier upgrade:**
+1. Navigate to **Settings → Subscription**
+2. Click **Upgrade Plan**
+3. Select appropriate tier
+4. Complete upgrade process
+
+**Or contact sales for custom rate limits:**
+- Email: sales@virima.com
+- Phone: +1-800-XXX-XXXX
+
+## Verification
+
+After implementing rate limiting improvements:
+
+1. Monitor rate limit headers in API responses
+2. Verify `X-RateLimit-Remaining` stays above 10% of limit
+3. Confirm no 429 errors in application logs for 24-hour period
+4. Check integration workflows complete successfully
+5. Review API usage metrics show reduced request count
+
+**Log monitoring command:**
+```bash
+# Search for rate limit errors
+grep "429\|rate.*limit.*exceeded" /var/log/application.log | wc -l
+# Should return 0
+```
+
+## Best Practices
+
+1. **Always implement retry logic** with exponential backoff
+2. **Use bulk endpoints** when operating on multiple resources
+3. **Cache responses** when data doesn't change frequently
+4. **Use webhooks** instead of polling when possible
+5. **Monitor rate limit headers** proactively
+6. **Set request timeouts** to prevent hanging connections
+7. **Use compression** (Accept-Encoding: gzip) to reduce transfer time
+8. **Implement circuit breakers** to prevent cascading failures
+
+## Additional Information
+
+### API Rate Limit Add-Ons
+
+Professional and Standard tier customers can purchase rate limit increases:
+
+| Add-On | Additional Requests/Min | Monthly Cost |
+|--------|------------------------|--------------|
+| Rate Limit +1K | 1,000 | $99 |
+| Rate Limit +5K | 5,000 | $399 |
+| Rate Limit +10K | 10,000 | $699 |
+
+### Related Articles
+
+- [K000246013: Virima API v3 Best Practices Guide](/kb/api-best-practices)
+- [K000246014: Setting Up Webhooks in Virima](/kb/webhook-setup)
+- [K000246015: API Authentication and Security](/kb/api-authentication)
+- [K000246016: Bulk Operations API Reference](/kb/bulk-api-operations)
+
+### API Documentation
+
+Complete API documentation: [https://docs.virima.com/api/v3](https://docs.virima.com/api/v3)
+
+### Support Contact
+
+For rate limit increase requests or technical assistance:
+
+- **Support Portal:** support.virima.com
+- **Email:** support@virima.com  
+**Phone:** +1-800-XXX-XXXX
+
+---
+
+**Was this article helpful?**  
+[Yes] [No]
+
+*Last updated: December 02, 2025*

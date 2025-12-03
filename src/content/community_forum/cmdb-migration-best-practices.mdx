@@ -1,0 +1,50 @@
+---
+id: cmdb-migration-best-practices
+title: Best approach for migrating CMDB data from legacy system?
+author: David Chen
+authorRole: IT Manager
+avatar: DC
+category: technical
+timestamp: 5 hours ago
+views: 456
+replies: 12
+likes: 23
+status: open
+tags:
+  - migration
+  - cmdb
+  - data
+---
+
+# Best approach for migrating CMDB data from legacy system?
+
+Hi everyone,
+
+We're planning to migrate our CMDB from a legacy system (ServiceDesk Plus) to Virima. Our environment includes:
+
+- **~15,000 CIs** across multiple categories
+- **Complex relationship mappings** between applications and infrastructure
+- **Historical data** going back 5 years
+- **Custom attributes** that may not have direct equivalents in Virima
+
+## Questions
+
+1. **What's the recommended migration strategy?** Should we do a full cutover or phased migration?
+
+2. **Data cleanup** - Should we clean up the data before migration or use Virima's data quality features?
+
+3. **Relationship preservation** - How do we ensure all CI relationships are maintained during migration?
+
+4. **Testing approach** - What's the best way to validate the migrated data?
+
+## Our Current Plan
+
+We're thinking of:
+- Exporting data to CSV
+- Using Virima's bulk import API
+- Running discovery to validate and enrich data
+- Parallel running both systems for 2 weeks
+
+Has anyone done a similar migration? Any lessons learned or recommendations?
+
+Thanks in advance!

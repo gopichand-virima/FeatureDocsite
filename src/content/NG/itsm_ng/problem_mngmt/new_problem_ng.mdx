@@ -1,0 +1,280 @@
+---
+title: "Create New Problem"
+description: "Step-by-step guide to creating a new problem record"
+version: ""
+module: "Itsm"
+section: "Problem Management"
+page: "Create New Problem"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Itsm"
+  - "Problem Management"
+  - "Create New Problem"
+---
+
+# Create New Problem
+
+Problem records track the root causes of incidents and help prevent future occurrences.
+
+## When to Create a Problem
+
+Create a problem when:
+- Multiple similar incidents occur
+- Root cause is unknown
+- Major incident requires investigation
+- Pattern of failures identified
+- Workaround exists but no permanent fix
+
+## Creating a Problem
+
+### Method 1: From Incident
+
+Create problem from recurring incidents:
+
+1. Open the incident
+2. Navigate to **Related Records** tab
+3. Click **Create Problem**
+4. System pre-fills from incident data
+5. Complete additional fields
+6. Click **Submit**
+
+### Method 2: From Problem List
+
+1. Navigate to **ITSM** > **Problem Management**
+2. Click **New Problem**
+3. Fill in problem details
+4. Link related incidents
+5. Click **Submit**
+
+### Method 3: Proactive Problem
+
+For proactive problem identification:
+
+1. Identify potential issue before incidents occur
+2. Create new problem record
+3. Document the risk or vulnerability
+4. Plan preventive actions
+
+## Problem Form Fields
+
+### Required Fields
+
+#### Short Description *
+Concise summary of the problem:
+- Focus on root cause
+- Example: "Database connection pool exhaustion"
+
+#### Description *
+Detailed problem information:
+- Symptoms observed
+- Frequency of occurrence
+- Impact on services
+- Known triggers
+- Initial findings
+
+#### Category *
+Type of problem:
+- Hardware
+- Software
+- Network
+- Process
+- Documentation
+
+#### Priority *
+Business impact:
+- **Critical**: Severe business impact
+- **High**: Significant impact
+- **Medium**: Moderate impact
+- **Low**: Minor impact
+
+### Optional Fields
+
+#### Root Cause
+If known:
+- Technical explanation
+- Why the problem occurs
+- Contributing factors
+
+#### Workaround
+Temporary solution:
+- Steps to avoid the issue
+- How to minimize impact
+- Limitations of workaround
+
+#### Related Incidents
+Link incidents affected by this problem:
+1. Click **Add Related Incident**
+2. Search for incident numbers
+3. Select incidents to link
+
+#### Affected CIs
+Configuration Items impacted:
+1. Click **Add CI**
+2. Search CMDB
+3. Select affected CIs
+
+## Problem Priority
+
+Priority determines investigation urgency:
+
+### Critical
+- Production system affected
+- No workaround available
+- High incident volume
+- Business critical services
+
+### High
+- Important systems affected
+- Workaround available but difficult
+- Moderate incident volume
+- Requires timely resolution
+
+### Medium
+- Standard priority
+- Workaround available
+- Low incident volume
+- Normal investigation pace
+
+### Low
+- Minor systems affected
+- Good workaround available
+- Minimal impact
+- Investigate when resources available
+
+## Linking Related Records
+
+### Link Incidents
+
+Connect incidents caused by this problem:
+
+1. In **Related Incidents** section
+2. Click **Add Incident**
+3. Search by incident number or description
+4. Select incidents
+5. Save relationships
+
+### Link Configuration Items
+
+Associate affected CIs:
+
+1. In **Affected CIs** section
+2. Click **Add CI**
+3. Search CMDB
+4. Select relevant CIs
+5. CI details automatically attached
+
+### Link Changes
+
+If problem requires change:
+
+1. Navigate to **Related Changes**
+2. Create new change
+3. Or link existing change
+4. Track fix implementation
+
+## Problem Investigation Plan
+
+Document investigation approach:
+
+### Investigation Steps
+1. Data collection required
+2. Analysis methods
+3. Testing plans
+4. Resource needs
+5. Timeline
+
+### Success Criteria
+Define how you'll know when root cause found:
+- Specific evidence needed
+- Testing requirements
+- Validation steps
+
+## Assignment
+
+### Assign to Individual
+1. Select **Assigned To** field
+2. Search for problem analyst
+3. Choose from results
+4. User receives notification
+
+### Assign to Group
+1. Check **Assign to Group** option
+2. Select problem team
+3. Team can assign among members
+
+## Problem Submission
+
+### Review Checklist
+Before submitting:
+- [ ] Description is complete
+- [ ] Category is accurate
+- [ ] Priority is appropriate
+- [ ] Related incidents linked
+- [ ] Affected CIs identified
+- [ ] Investigation plan outlined
+
+### Submit Problem
+1. Review all information
+2. Click **Submit**
+3. Problem number generated (e.g., PRB-00001234)
+4. Notifications sent
+5. Investigation can begin
+
+## After Creation
+
+What happens next:
+
+1. **Automatic Actions:**
+   - Problem number assigned
+   - Status set to "New"
+   - Workflow initiated
+   - Notifications sent
+
+2. **Investigation Phase:**
+   - Root cause analysis begins
+   - Data gathered
+   - Testing performed
+   - Findings documented
+
+3. **Resolution Phase:**
+   - Permanent fix identified
+   - Change created if needed
+   - Known error documented
+   - Incidents updated
+
+## Converting to Known Error
+
+When workaround documented:
+
+1. Open the problem
+2. Click **Convert to Known Error**
+3. Document the workaround
+4. Publish to knowledge base
+5. Support staff can reference
+
+## Best Practices
+
+### Provide Complete Information
+- Describe symptoms clearly
+- Include error messages
+- Document frequency
+- Note environmental factors
+
+### Link All Related Incidents
+- Connect all affected incidents
+- Shows true business impact
+- Helps identify patterns
+- Justifies investigation effort
+
+### Set Realistic Priority
+- Consider actual business impact
+- Account for workaround availability
+- Think about incident frequency
+- Balance against other problems
+
+## Related Topics
+
+- [Manage Problems](/content/NG/itsm_ng/problem_mngmt/manage_problems_ng.mdx)
+- [Root Cause Analysis](/content/NG/itsm_ng/problem_mngmt/root_cause_analysis_ng.mdx)
+- [Known Errors](/content/NG/itsm_ng/problem_mngmt/known_errors_ng.mdx)

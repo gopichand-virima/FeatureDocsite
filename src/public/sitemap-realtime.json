@@ -1,0 +1,44 @@
+{
+  "realtime": true,
+  "lastUpdate": "2025-01-20T12:00:00Z",
+  "updateFrequency": "hourly",
+  "priority": "high",
+  "entries": [
+    {
+      "url": "https://docs.virima.com/6.1/admin/organization-details",
+      "lastmod": "2025-01-20T12:00:00Z",
+      "changefreq": "hourly",
+      "priority": 0.95,
+      "title": "Organization Details - Virima Admin",
+      "status": "updated",
+      "aiOptimized": true
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/cost-center",
+      "lastmod": "2025-01-20T12:00:00Z",
+      "changefreq": "hourly",
+      "priority": 0.95,
+      "title": "Cost Center Configuration - Virima",
+      "status": "updated",
+      "aiOptimized": true
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/departments",
+      "lastmod": "2025-01-20T12:00:00Z",
+      "changefreq": "hourly",
+      "priority": 0.95,
+      "title": "Departments Management - Virima",
+      "status": "updated",
+      "aiOptimized": true
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/admin-functions",
+      "lastmod": "2025-01-20T12:00:00Z",
+      "changefreq": "hourly",
+      "priority": 0.95,
+      "title": "Admin Functions - Virima",
+      "status": "updated",
+      "aiOptimized": true
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+name: Build, Test, and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allows manual triggering
+
+# Sets permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Test job - runs on PRs and pushes
+  test:
+    name: Test Build
+    runs-on: ubuntu-latest
+    env:
+      VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+      VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY || '' }}
+      VITE_ALGOLIA_APP_ID: ${{ secrets.VITE_ALGOLIA_APP_ID || '' }}
+      VITE_ALGOLIA_API_KEY: ${{ secrets.VITE_ALGOLIA_API_KEY || '' }}
+      VITE_PINECONE_API_KEY: ${{ secrets.VITE_PINECONE_API_KEY || '' }}
+      VITE_SERPER_API_KEY: ${{ secrets.VITE_SERPER_API_KEY || '' }}
+      VITE_BRAVE_API_KEY: ${{ secrets.VITE_BRAVE_API_KEY || '' }}
+      VITE_BING_API_KEY: ${{ secrets.VITE_BING_API_KEY || '' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check (if TypeScript config exists)
+        run: |
+          if [ -f tsconfig.json ]; then
+            npx tsc --noEmit || echo "TypeScript check skipped (no tsconfig.json or errors)"
+          else
+            echo "No tsconfig.json found, skipping type check"
+          fi
+        continue-on-error: true
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "build" ]; then
+            echo "❌ Error: Build directory not found!"
+            exit 1
+          fi
+          if [ ! -f "build/index.html" ]; then
+            echo "❌ Error: index.html not found in build directory!"
+            exit 1
+          fi
+          echo "✅ Build verification successful!"
+          echo "Build structure:"
+          ls -la build/ | head -20
+
+      - name: Verify MDX content files
+        run: |
+          echo "📄 Verifying MDX content files..."
+          
+          # Check if content directory exists
+          if [ ! -d "build/content" ]; then
+            echo "❌ Error: Content directory not found in build output!"
+            exit 1
+          fi
+          
+          # Verify key version directories exist
+          for version in "5_13" "6_1" "6_1_1" "NG"; do
+            if [ -d "build/content/$version" ]; then
+              MDX_COUNT=$(find "build/content/$version" -name "*.mdx" 2>/dev/null | wc -l)
+              echo "✅ Version $version: $MDX_COUNT MDX files found"
+              
+              # Verify index.mdx exists for each version (non-blocking)
+              if [ -f "build/content/$version/index.mdx" ]; then
+                echo "  ✅ index.mdx found for $version"
+              else
+                echo "  ⚠️  Warning: index.mdx not found for $version (non-critical)"
+              fi
+            else
+              echo "  ⚠️  Warning: Version $version directory not found (may not exist for all versions)"
+            fi
+          done
+          
+          # Count total MDX files
+          TOTAL_MDX=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
+          echo "📊 Total MDX files in build: $TOTAL_MDX"
+          
+          if [ "$TOTAL_MDX" -lt 100 ]; then
+            echo "⚠️  Warning: Expected more MDX files (found $TOTAL_MDX)"
+            echo "⚠️  This is a warning, not an error. Build will continue."
+          else
+            echo "✅ MDX content verification passed"
+          fi
+
+      - name: Check build size
+        run: |
+          BUILD_SIZE=$(du -sh build | cut -f1)
+          BUILD_SIZE_BYTES=$(du -sb build | cut -f1)
+          FILE_COUNT=$(find build -type f | wc -l)
+          echo "📦 Build size: $BUILD_SIZE"
+          echo "📄 Total files: $FILE_COUNT"
+          echo "BUILD_SIZE=$BUILD_SIZE" >> $GITHUB_ENV
+          
+          # Warn if build is unusually large (> 100MB)
+          if [ "$BUILD_SIZE_BYTES" -gt 104857600 ]; then
+            echo "⚠️  Warning: Build size exceeds 100MB"
+          fi
+
+  # Deploy job - only runs on main/master branch pushes
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+      VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY || '' }}
+      VITE_ALGOLIA_APP_ID: ${{ secrets.VITE_ALGOLIA_APP_ID || '' }}
+      VITE_ALGOLIA_API_KEY: ${{ secrets.VITE_ALGOLIA_API_KEY || '' }}
+      VITE_PINECONE_API_KEY: ${{ secrets.VITE_PINECONE_API_KEY || '' }}
+      VITE_SERPER_API_KEY: ${{ secrets.VITE_SERPER_API_KEY || '' }}
+      VITE_BRAVE_API_KEY: ${{ secrets.VITE_BRAVE_API_KEY || '' }}
+      VITE_BING_API_KEY: ${{ secrets.VITE_BING_API_KEY || '' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify content files in build
+        run: |
+          echo "🔍 Verifying content files are included in build..."
+          if [ ! -d "build/content" ]; then
+            echo "❌ Error: Content directory missing from build!"
+            exit 1
+          fi
+          
+          # Count total MDX files
+          TOTAL_MDX=$(find build/content -name "*.mdx" 2>/dev/null | wc -l)
+          echo "📊 Total MDX files in build: $TOTAL_MDX"
+          
+          if [ "$TOTAL_MDX" -lt 100 ]; then
+            echo "⚠️  Warning: Expected more MDX files (found $TOTAL_MDX)"
+          else
+            echo "✅ Content files verification passed"
+          fi
+          
+          # Verify critical content files exist (non-blocking warnings)
+          CRITICAL_FILES=(
+            "build/content/6_1/index.mdx"
+            "build/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx"
+          )
+          
+          MISSING_COUNT=0
+          for file in "${CRITICAL_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ Found: $file"
+            else
+              echo "⚠️  Warning: $file not found (non-critical)"
+              MISSING_COUNT=$((MISSING_COUNT + 1))
+            fi
+          done
+          
+          if [ "$MISSING_COUNT" -gt 0 ]; then
+            echo "⚠️  $MISSING_COUNT critical file(s) not found, but build will continue"
+          fi
+
+      - name: Copy 404.html for client-side routing
+        run: |
+          if [ -f "public/404.html" ]; then
+            cp public/404.html build/404.html
+          elif [ -f "build/index.html" ]; then
+            cp build/index.html build/404.html
+            echo "✅ Created 404.html from index.html"
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+

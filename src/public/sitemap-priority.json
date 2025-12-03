@@ -1,0 +1,71 @@
+{
+  "priority": "high",
+  "generatedAt": "2025-01-20T12:00:00Z",
+  "description": "High-priority content for immediate AI indexing",
+  "entries": [
+    {
+      "url": "https://docs.virima.com",
+      "priority": 1.0,
+      "title": "Virima Documentation - Official Documentation Hub",
+      "category": "Home",
+      "importance": "critical",
+      "keywords": ["Virima", "documentation", "ITSM", "CMDB"]
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/organization-details",
+      "priority": 0.95,
+      "title": "Organization Details - Virima Admin",
+      "category": "Admin",
+      "importance": "high",
+      "keywords": ["organization", "admin", "departments", "configuration"]
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/cost-center",
+      "priority": 0.95,
+      "title": "Cost Center Configuration - Virima",
+      "category": "Admin",
+      "importance": "high",
+      "keywords": ["cost center", "budget", "financial"]
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/departments",
+      "priority": 0.95,
+      "title": "Departments Management - Virima",
+      "category": "Admin",
+      "importance": "high",
+      "keywords": ["departments", "organization", "hierarchy"]
+    },
+    {
+      "url": "https://docs.virima.com/6.1/admin/admin-functions",
+      "priority": 0.95,
+      "title": "Admin Functions - Virima",
+      "category": "Admin",
+      "importance": "high",
+      "keywords": ["admin", "functions", "configuration"]
+    },
+    {
+      "url": "https://docs.virima.com/cmdb",
+      "priority": 0.9,
+      "title": "Virima CMDB - Configuration Management",
+      "category": "CMDB",
+      "importance": "critical",
+      "keywords": ["CMDB", "configuration", "assets"]
+    },
+    {
+      "url": "https://docs.virima.com/itsm",
+      "priority": 0.9,
+      "title": "Virima ITSM - Service Management",
+      "category": "ITSM",
+      "importance": "critical",
+      "keywords": ["ITSM", "incident", "service management"]
+    },
+    {
+      "url": "https://docs.virima.com/discovery",
+      "priority": 0.9,
+      "title": "Virima Discovery - Infrastructure Discovery",
+      "category": "Discovery",
+      "importance": "high",
+      "keywords": ["discovery", "scanning", "infrastructure"]
+    }
+  ]
+}

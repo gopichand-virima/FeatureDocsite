@@ -1,0 +1,152 @@
+﻿---
+title: "New Users"
+description: "ADD INFO FOR V5."
+version: ""
+module: "Admin Users"
+section: "Users New New Ui"
+page: "New Users"
+breadcrumbs:
+  - "Home"
+  - ""
+  - "Admin Users"
+  - "Users New New Ui"
+  - "New Users"
+---
+
+# New Users
+
+ADD INFO FOR V5.
+
+Use this function to add new users to the application.
+
+
+Through this function Multi-factor Authentication (MFA) can be enabled/disabled.
+
+
+In the main window, click the **gear** icon and select **Users > Users**.
+
+The Access Management window displays.
+
+Click **New User**.
+
+
+To complete the fields, refer to the information shown in the table below.
+
+When all selections/entries are made, click **Add**.
+
+## New User Details Fields
+
+| Field | Description |
+
+| Email | User's email address. |
+
+| Username | Username for logging into the system. |
+
+| Is VIP | Identifies a user for whom their tickets are given a 1-Priority, by default. |
+
+| Is Active | When selected, the user is active in the application and can perform the assigned activities. |
+
+| Enable MFA | When enabled, upon trying to log in, the user receives an email verification screen and can select to use either **Email** or **Two-Factor Authentication**.
+
+![mfa verification](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
+**Email**
+If **Email** is selected, an MFA code is sent and that code must be entered. If the code is not received, click **Resend Code**.
+
+![email verification](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
+**Two-Factor Authentication**
+If **Two-Factor Authentication** is selected, follow the instructions in this dialog box and do one of the following:
+
+If the QR code is scanned, click **Continue**, check the Google Authenticator app, enter the token, and click **Verify Token**.
+
+![enable 2 factor auth](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    ) ![enter token](
+        param($match)
+        $prefix = $match.Groups[1].Value
+        $path = $match.Groups[2].Value
+        $ext = $match.Groups[3].Value
+        
+        # Convert path
+        $newPath = $path -replace '%20', '_' -replace '-', '_'
+        $newPath = $newPath.ToLower()
+        $newExt = $ext.ToLower()
+        
+        $fileReplacements++
+        return "$prefix$newPath$newExt"
+    )
+
+Enter the code shown into the Google Authenticator app.
+
+To disable the verification process, click **Reset MFA**. |
+
+| Authentications | Check based on your organization mode of authentication process. Choices are LDAP, AD, SAML, and Normal. |
+
+| Password | The password associated with the username. The password must be validated by entering it a second time in the **Re-Enter Password** field. To display the password, click **Show Password** checkbox or click the **Show** icon. |
+
+| User Information Fields | Specifies the information to display within the application. |
+
+| [Location](/admin_org_details/locations_ng.mdx) | Specifies the location of the user. Click **Add** and, in the Location dialog box, search for and select the applicable location. If a location is not shown, it has not been set up in the application. *See also* [Advanced Search](/common_topics/advanced_search_ng.mdx). |
+
+| [Roles](/admin_users/user_roles_ng.mdx) | Assigns a role(s) to the user that allows the user to perform assigned responsibilities. Click **Add** and in the Roles dialog box, search for and select the applicable role(s). Click the **plus + sign** then search for and select the applicable role(s). |
+
+| [Departments](/admin_org_details/departments_ng.mdx) | Associates the user with a department. Click **Add** then search for and select the applicable role(s). Click the **plus + sign** then search for and select the applicable role(s). |
+
+| [Groups](/admin_users/user_groups_ng.mdx) | Associates the user with a group. Click **Add** then search for and select the applicable role(s). Click the **plus + sign** then search for and select the applicable role(s). |
+
+| Report To | Specifies to home the user reports. Click **Add** then search for and select the applicable role(s). Click the **plus + sign** then search for and select the applicable role(s). |
+
+| [Designation](/admin_org_details/designations_ng.mdx) | Assigns a designation to the user. Click **Add** then search for and select the applicable role(s). Click the **plus + sign** then search for and select the applicable role(s). |
+
+| Profile Picture | Displays a profile picture for the user. Click **Upload**. In the Attach File dialog box, **Browse** to the location of the photo, select the photo, then click **OK**. |
+
+| Landing Page | Specifies the page that displays to the user on first accessing the application. |
+
+| Language | Specifies the users language. |
+
+
+If a VIP user is selected as a Reporter/Requester to raise an ITSM record, by default the priority of an ITSM record will be set to 1-Very High.
+
+
+If unchecked, an Alert message displays when the user tries to log in to the application.
+
+
+For details on using the Google Authenticator app, [click here](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US&gl=US).
+
+

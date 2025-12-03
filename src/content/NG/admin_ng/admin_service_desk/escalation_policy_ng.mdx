@@ -1,0 +1,212 @@
+# Escalation Policy
+
+Use this function to configure automatic escalation policies that ensure tickets receive appropriate attention when SLA targets are at risk or when tickets remain unaddressed.
+
+Escalation policies automatically escalate tickets to higher-level support or management when specific conditions are met, ensuring timely resolution and preventing SLA breaches.
+
+In the main window, click **Admin > Service Desk > Escalation Policy**. The Escalation Policy window displays.
+
+## New Escalation Policy
+
+From the *Select Actions* drop-down list, choose **New Escalation Policy**. The New Escalation Policy window displays.
+
+Enter a *Name* and *Description* for this policy.
+
+Configure the **Policy Settings**:
+
+**Is Active**: Check to enable this policy.
+
+**Applies To**:
+
+- Select ticket types (Incident, Request, Problem, Change)
+- Optionally filter by category, priority, or assignment group
+
+### Define Escalation Levels
+
+Click **Add Escalation Level** to create each escalation tier.
+
+For each escalation level, configure:
+
+**Level Order**: Sequence of this escalation (Level 1, Level 2, etc.).
+
+**Trigger Conditions**:
+
+Choose what triggers this escalation level:
+
+- **Time-Based**: Escalate after X hours/days
+  - Since ticket creation
+  - Since last update
+  - Before SLA breach (e.g., when 80% of SLA time has elapsed)
+  
+- **State-Based**: Escalate when ticket is in specific state for X time
+  
+- **Priority-Based**: Different timings based on priority
+  
+- **No Response**: Escalate if no response from assignee
+
+**Escalation Time**: Enter the time threshold.
+
+**Escalation Actions**:
+
+Select actions to perform when escalated:
+
+**Notify**:
+
+- Click **Add** to select users, roles, or groups to notify
+- Options: Assignee's manager, VP of IT, Escalation team
+- Notification method: Email, SMS, In-app
+
+**Reassign**:
+
+- Auto-reassign to senior technician
+- Reassign to escalation group
+- Reassign to specific user
+
+**Increase Priority**:
+
+- Automatically increase priority by one level
+- Set to specific priority
+
+**Update Fields**:
+
+- Add escalation flag
+- Update custom fields
+- Add escalation comments
+
+**Create Task**:
+
+- Generate escalation review task
+- Assign to management
+
+**Trigger Workflow**:
+
+- Execute specific workflow
+- Send to executive review
+
+Click **Save** to add this escalation level.
+
+### Add Multiple Escalation Levels
+
+Continue adding escalation levels to create a multi-tier escalation chain.
+
+Example escalation chain:
+
+**Level 1** (After 2 hours with no response):
+- Notify assignee's manager
+- Add comment to ticket
+
+**Level 2** (After 4 hours or at 80% of SLA):
+- Reassign to senior support team
+- Notify service desk manager
+- Increase priority
+
+**Level 3** (At 95% of SLA or after 6 hours):
+- Notify VP of IT
+- Escalate to executive team
+- Set priority to Critical
+
+When all escalation levels are configured, click **Save**.
+
+## Common Escalation Scenarios
+
+### SLA-Based Escalation
+
+- **Trigger**: When 75% of SLA time has elapsed
+- **Action**: Notify assignment group manager
+
+### Unassigned Ticket Escalation
+
+- **Trigger**: Ticket unassigned for more than 30 minutes
+- **Action**: Notify service desk supervisor
+
+### High Priority Escalation
+
+- **Trigger**: P1 ticket open for more than 1 hour
+- **Action**: Notify executive team
+
+### Stale Ticket Escalation
+
+- **Trigger**: No updates in 48 hours
+- **Action**: Reassign to different technician
+
+## Edit Escalation Policy
+
+Navigate to the window containing the policy to edit.
+
+Click the line containing the policy. The policy details window displays.
+
+Make modifications to:
+
+- Policy settings
+- Escalation levels
+- Trigger conditions
+- Actions
+
+Click **Save**.
+
+## Activate/Deactivate Policy
+
+To activate a policy:
+
+Select the policy.
+
+From the *Select Actions* drop-down list, choose **Activate**.
+
+To deactivate:
+
+Select an active policy.
+
+From the *Select Actions* drop-down list, choose **Deactivate**.
+
+## Clone Escalation Policy
+
+To create a new policy based on an existing one:
+
+Select a policy.
+
+From the *Select Actions* drop-down list, choose **Clone Policy**.
+
+Enter a new name and make modifications as needed.
+
+Click **Add**.
+
+## Delete Escalation Policy
+
+Click the line that contains the policy to delete.
+
+From the *Select Actions* drop-down list, choose **Delete**.
+
+## View Escalated Tickets
+
+To view all currently escalated tickets:
+
+Click **View Escalated Tickets**.
+
+The window displays all tickets that have been escalated, along with:
+
+- Escalation level
+- Time escalated
+- Reason for escalation
+- Actions taken
+
+## Escalation Reports
+
+To view escalation metrics:
+
+Click **Escalation Reports**.
+
+Available reports:
+
+- Escalation frequency by category
+- Escalation trends over time
+- Average escalation level
+- Tickets escalated to management
+- Escalation resolution times
+
+## Other Functions and Page Elements
+
+- [Auto Refresh](/common_topics/auto_refresh_ng.mdx)
+- [Delete](/common_topics/delete_remove_ng.mdx)
+- [Export](/discovery/import_data_files/export_ng.mdx)
+- [Personalize Columns](/common_topics/personalize_columns_ng.mdx)
+- [Saved Filters](/common_topics/saved_filters_ng.mdx)

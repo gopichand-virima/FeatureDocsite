@@ -38,7 +38,7 @@ export function ContentNotAvailable({
     : null;
 
   return (
-    <div className="border-l-4 border-l-amber-500 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-600 rounded-r-md p-6">
+    <div className="border-l-4 border-l-amber-500 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-600 rounded-r-md p-6 mb-8">
       <div className="flex items-start gap-3">
         <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-500 flex-shrink-0" />
         <div className="flex-1 space-y-3">

@@ -4,6 +4,7 @@ import { LoginDialog } from "./LoginDialog";
 import { ResizableSidebar } from "./ResizableSidebar";
 import { DocumentationHeader } from "./DocumentationHeader";
 import { NavigationMenu } from "./NavigationMenu";
+import { Footer } from "./Footer";
 import { versions, modules as hardcodedModules, getSectionsForModule } from "../data/navigationData";
 import { useToc } from "../utils/useToc";
 
@@ -176,7 +177,7 @@ export function DocumentationLayout({
     const subPageIds: string[] = [];
     sections.forEach(section => {
       if (section.pages && Array.isArray(section.pages)) {
-        const page = section.pages.find((p: any) => p.id === pageId);
+        const page = section.pages.find((p: any) => p.id === pageId) as any;
         if (page && page.subPages && Array.isArray(page.subPages)) {
           page.subPages.forEach((subPage: any) => {
             if (subPage.subPages && subPage.subPages.length > 0) {
@@ -307,7 +308,7 @@ export function DocumentationLayout({
   }, [sections]); // Re-attach when sections change
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50/30 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-slate-50/30 dark:bg-slate-950">
       {/* Header */}
       <DocumentationHeader
         logo={logo}
@@ -329,6 +330,7 @@ export function DocumentationLayout({
         onLoginDialogOpen={() => setLoginDialogOpen(true)}
       />
 
+      {/* Sidebar and Main Content Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         {showSidebar && (
@@ -409,16 +411,17 @@ export function DocumentationLayout({
           </>
         )}
 
-        {/* Main content area */}
-        <div className="flex-1 flex overflow-hidden">
-          <main
-            className="flex-1 overflow-auto bg-white dark:bg-slate-900"
-            ref={contentContainerRef}
-          >
-            {children}
-          </main>
-        </div>
+        {/* Main content area - scrollable */}
+        <main
+          className="flex-1 overflow-auto bg-white dark:bg-slate-900"
+          ref={contentContainerRef}
+        >
+          {children}
+        </main>
       </div>
+
+      {/* Footer - outside sidebar/main container, spans full width below both */}
+      <Footer />
 
       {/* Login Dialog */}
       <LoginDialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen} />

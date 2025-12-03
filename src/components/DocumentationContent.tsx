@@ -21,6 +21,7 @@ import {
   BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { MDXContent } from "./MDXContent";
+import { ContentNotAvailable } from "./ContentNotAvailable";
 import { resolveMDXPathFromTOC } from "../utils/tocPathResolver";
 import { FeedbackSection } from "./FeedbackSection";
 import { ResizableSidebar } from "./ResizableSidebar";
@@ -28,6 +29,7 @@ import {
   buildBreadcrumbPath, 
   type BreadcrumbItem as HierarchicalBreadcrumbItem 
 } from "../utils/hierarchicalTocLoader";
+import { getRegisteredContent, isContentRegistered } from "../content/mdxContentRegistry";
 
 interface DocumentationContentProps {
   version: string;
@@ -166,10 +168,54 @@ export function DocumentationContent({
       setLoadingPath(true);
       try {
         // Load both the MDX path and breadcrumbs
-        const [path, breadcrumbPath] = await Promise.all([
-          resolveMDXPathFromTOC({ version, module, section, page }),
-          buildBreadcrumbPath(version, module, section, page)
-        ]);
+        let path = await resolveMDXPathFromTOC({ version, module, section, page });
+        
+        // REGISTRY FALLBACK: If TOC resolution fails, try registry
+        if (!path && module && section && page) {
+          console.log('🔄 TOC resolution failed, trying registry fallback...');
+          
+          // Map version display name to internal version code
+          const versionMap: Record<string, string> = {
+            'NextGen': 'NG',
+            '6.1.1': '6_1_1',
+            '6.1': '6_1',
+            '5.13': '5_13',
+          };
+          const versionCode = versionMap[version] || version.toLowerCase().replace('.', '_');
+          
+          // Try common path patterns
+          const possiblePaths = [
+            `/content/${versionCode}/${module}_${versionCode}/${section}_${versionCode}/${page}_${versionCode}.mdx`,
+            `/content/${versionCode}/${module}/${section}/${page}.mdx`,
+            `/content/${versionCode}/${module}_${versionCode}/${section}/${page}_${versionCode}.mdx`,
+            `/content/${versionCode}/${module}/${section}_${versionCode}/${page}_${versionCode}.mdx`,
+          ];
+          
+          // Check registry for any of these paths
+          for (const possiblePath of possiblePaths) {
+            if (isContentRegistered(possiblePath)) {
+              console.log(`✅ Found in registry: ${possiblePath}`);
+              path = possiblePath;
+              break;
+            }
+          }
+          
+          // If still not found, try without version suffix
+          if (!path) {
+            const simplePaths = [
+              `/content/${versionCode}/${module}/${section}/${page}.mdx`,
+            ];
+            for (const simplePath of simplePaths) {
+              if (isContentRegistered(simplePath)) {
+                console.log(`✅ Found in registry (simple path): ${simplePath}`);
+                path = simplePath;
+                break;
+              }
+            }
+          }
+        }
+        
+        const breadcrumbPath = await buildBreadcrumbPath(version, module, section, page);
         
         if (mounted) {
           setMdxPath(path);
@@ -177,7 +223,8 @@ export function DocumentationContent({
           setLoadingPath(false);
         }
       } catch (error) {
-        console.error('Error loading MDX path from TOC:', error);
+        console.error('❌ Error loading MDX path from TOC:', error);
+        console.error('❌ Context:', { version, module, section, page });
         if (mounted) {
           setMdxPath(null);
           setBreadcrumbs([]);
@@ -305,8 +352,14 @@ export function DocumentationContent({
       );
     }
     
-    // If we have a valid MDX path from TOC, load it
+    // If we have a valid MDX path (from TOC or registry), load it
     if (mdxPath) {
+      // Check if path is registered (registry fallback)
+      const registeredContent = getRegisteredContent(mdxPath);
+      if (registeredContent) {
+        console.log(`📦 Using registered content for: ${mdxPath}`);
+      }
+      
       return (
         <MDXContent
           filePath={mdxPath}
@@ -324,20 +377,24 @@ export function DocumentationContent({
       );
     }
 
-    // No MDX file found - show error
+    // No MDX file found - show error with detailed diagnostics
     return (
-      <div className="flex flex-col items-center justify-center h-full p-8">
-        <div className="text-slate-700 mb-4">Content not available</div>
-        <div className="text-sm text-slate-500">
-          MDX file not found for this page. Please check the TOC configuration.
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+        <ContentNotAvailable 
+          filePath={mdxPath || `Version: ${version}, Module: ${module}, Section: ${section}, Page: ${page}`}
+          errorDetails={`MDX path resolution returned null. Tried TOC resolution and registry fallback. Check browser console for detailed logs.`}
+          version={version}
+          module={module}
+          section={section}
+          page={page}
+        />
       </div>
     );
   };
 
   return (
     <div className="flex w-full overflow-x-hidden">
-      <div className="flex-1 min-w-0 px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-16 max-w-[1200px] mx-auto">
+      <div className="flex-1 min-w-0 px-4 sm:px-6 lg:px-12 pt-8 sm:pt-12 lg:pt-16 pb-24 max-w-[1200px] mx-auto">
         {renderContent()}
       </div>
       <ResizableSidebar

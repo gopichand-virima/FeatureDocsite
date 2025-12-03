@@ -26,7 +26,6 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Footer } from "./Footer";
 import { Binoculars } from "./icons/Binoculars";
 import { CoverPage } from "./CoverPage";
 import { homePageText } from "./homePageConfig";
@@ -141,7 +140,7 @@ const modules = [
 
 export function HomePage({ onModuleSelect }: HomePageProps) {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="bg-white dark:bg-slate-950 pb-24">
       {/* 3D Animated Cover Page */}
       <CoverPage onModuleSelect={onModuleSelect} />
 
@@ -307,9 +306,6 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

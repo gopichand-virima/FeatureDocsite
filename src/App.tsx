@@ -6,7 +6,7 @@ import { AIMonitoringDashboard } from './components/AIMonitoringDashboard';
 import { AISearchDialogSimplified } from './components/AISearchDialogSimplified';
 import { GlobalChatProvider } from './components/GlobalChatProvider';
 import { MDXRenderingTest } from './components/MDXRenderingTest';
-import { VirumaTechCentral } from './components/VirumaTechCentral';
+import { VirumaTechCentral } from './components/VirimaTechCentral';
 import { VirimaKnowledgeBase } from './components/VirimaKnowledgeBase';
 import { ProductSupportPolicies } from './components/ProductSupportPolicies';
 import { ThemeProvider } from './lib/theme/theme-provider';

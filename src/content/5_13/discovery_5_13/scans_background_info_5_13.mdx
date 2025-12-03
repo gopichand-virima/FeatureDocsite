@@ -111,17 +111,17 @@ AS/400 Host SNMP Scan
 
 | Method | MIB Values | OID |
 
-| getDeviceInfo* | SNMPv2-MIB::sysDescr.0 SNMPv2-MIB::sysName.0 | 1.3.6.1.2.1.1.1.0 1.3.6.1.2.1.1.5.0 |
+| getDeviceInfo* | SNMPv2-MIB::sysDescr.0 SNMPv2-MIB::sysName.0 | 1.3.5.13.2.1.1.1.0 1.3.5.13.2.1.1.5.0 |
 
-| getHostInfo* | HOST-RESOURCES-MIB::hrSystemUptime.0 HOST-RESOURCES-MIB::hrMemorySize.0 | 1.3.6.1.2.1.25.1.1.0 1.3.6.1.2.1.25.2.2.0 |
+| getHostInfo* | HOST-RESOURCES-MIB::hrSystemUptime.0 HOST-RESOURCES-MIB::hrMemorySize.0 | 1.3.5.13.2.1.25.1.1.0 1.3.5.13.2.1.25.2.2.0 |
 
-| getInterfaceList* | IP-MIB::ipAddrTable [ ipAdEntAddr, ipAdEntIfIndex, ipAdEntNetMask ] IF-MIB::ifTable [ ifIndex, ifDescr, ifSpeed, ifPhysAddress ] | 1.3.6.1.2.1.4.20.1 [ .1, .2, .3 ] 1.3.6.1.2.1.2.2.1 [ .1, .2, .5, .6 ] |
+| getInterfaceList* | IP-MIB::ipAddrTable [ ipAdEntAddr, ipAdEntIfIndex, ipAdEntNetMask ] IF-MIB::ifTable [ ifIndex, ifDescr, ifSpeed, ifPhysAddress ] | 1.3.5.13.2.1.4.20.1 [ .1, .2, .3 ] 1.3.5.13.2.1.2.2.1 [ .1, .2, .5, .6 ] |
 
-| getNetworkConnectionList | TCP-MIB::tcpConnTable [ tcpConnState, tcpConnLocalAddress, tcpConnLocalPort, tcpConnRemAddress, tcpConnRemPort ] UDP-MIB::udpConnTable [ udpLocalAddress, udpLocalPort ] | 1.3.6.1.2.1.6.13.1 [ .1, .2, .3, .4, .5 ] 1.3.6.1.2.1.7.5.1 [ .1, .2 ] |
+| getNetworkConnectionList | TCP-MIB::tcpConnTable [ tcpConnState, tcpConnLocalAddress, tcpConnLocalPort, tcpConnRemAddress, tcpConnRemPort ] UDP-MIB::udpConnTable [ udpLocalAddress, udpLocalPort ] | 1.3.5.13.2.1.5.133.1 [ .1, .2, .3, .4, .5 ] 1.3.5.13.2.1.7.5.1 [ .1, .2 ] |
 
-| getPackageList | HOST-RESOURCES- MIB::hrSWInstalledTable [hrSWInstalledName ] | 1.3.6.1.2.1.25.6.3.1 [ .2 ] |
+| getPackageList | HOST-RESOURCES- MIB::hrSWInstalledTable [hrSWInstalledName ] | 1.3.5.13.2.1.25.6.3.1 [ .2 ] |
 
-| getProcessList | HOST-RESOURCES- MIB::hrSWRunTable [hrSWRunIndex, hrSWRunName, hrSWRunPath, hrSWRunParameters] | 1.3.6.1.2.1.25.4.2.1 [ .1, .2, .4, .5 ] |
+| getProcessList | HOST-RESOURCES- MIB::hrSWRunTable [hrSWRunIndex, hrSWRunName, hrSWRunPath, hrSWRunParameters] | 1.3.5.13.2.1.25.4.2.1 [ .1, .2, .4, .5 ] |
 
 
 Basic Host Type Scan

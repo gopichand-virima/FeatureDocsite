@@ -7,6 +7,138 @@
  * Structure: adminMDXFilePaths[version][slug] = filePath
  */
 
+// Static imports for actual MDX content (Strategy 1 - Highest Priority)
+// Overview
+import overview61 from '../../content/6_1/admin_6_1/overview_6_1.mdx?raw';
+
+// Organizational Details
+import aboutOrgDetails61 from '../../content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx?raw';
+import costCenter61 from '../../content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx?raw';
+import departments61 from '../../content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx?raw';
+import departmentsMembers61 from '../../content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx?raw';
+import designations61 from '../../content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx?raw';
+import holidays61 from '../../content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx?raw';
+import locations61 from '../../content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx?raw';
+import operationalHours61 from '../../content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx?raw';
+import organizationalDetails61 from '../../content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx?raw';
+
+// Discovery
+import adminDiscovery61 from '../../content/6_1/admin_6_1/admin_discovery/admin_discovery_6_1.mdx?raw';
+import applicationMap61 from '../../content/6_1/admin_6_1/admin_discovery/application_map_6_1.mdx?raw';
+import credentials61 from '../../content/6_1/admin_6_1/admin_discovery/credentials_6_1.mdx?raw';
+import credentialsFlush61 from '../../content/6_1/admin_6_1/admin_discovery/credentials_flush_6_1.mdx?raw';
+import customPatterns61 from '../../content/6_1/admin_6_1/admin_discovery/custom_patterns_6_1.mdx?raw';
+import downloadingDiscovery61 from '../../content/6_1/admin_6_1/admin_discovery/downloading_discovery_6_1.mdx?raw';
+import importTemplates61 from '../../content/6_1/admin_6_1/admin_discovery/import_templates_6_1.mdx?raw';
+import ignoreAdmProcess61 from '../../content/6_1/admin_6_1/admin_discovery/ignore_adm_process_6_1.mdx?raw';
+import ignoreProcess61 from '../../content/6_1/admin_6_1/admin_discovery/ignore_process_6_1.mdx?raw';
+import majorSoftware61 from '../../content/6_1/admin_6_1/admin_discovery/major_software_6_1.mdx?raw';
+import portConfigProcess61 from '../../content/6_1/admin_6_1/admin_discovery/port_config_process_6_1.mdx?raw';
+import probeWorkflow61 from '../../content/6_1/admin_6_1/admin_discovery/probe_workflow_6_1.mdx?raw';
+import probes61 from '../../content/6_1/admin_6_1/admin_discovery/probes_6_1.mdx?raw';
+import scanConfiguration61 from '../../content/6_1/admin_6_1/admin_discovery/scan_configuration_6_1.mdx?raw';
+import sensors61 from '../../content/6_1/admin_6_1/admin_discovery/sensors_6_1.mdx?raw';
+import graphicalWorkflows61 from '../../content/6_1/admin_6_1/admin_discovery/graphical_workflows_6_1.mdx?raw';
+import correlation61 from '../../content/6_1/admin_6_1/admin_discovery/correlation_6_1.mdx?raw';
+import monProf61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_6_1.mdx?raw';
+import monProfDetails61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_details_6_1.mdx?raw';
+import monProfFrequency61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_frequency_6_1.mdx?raw';
+import monProfTriggerConditions61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_trigger_conditions_6_1.mdx?raw';
+import monProfActionDetails61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_action_details_6_1.mdx?raw';
+import monProfNotifications61 from '../../content/6_1/admin_6_1/admin_discovery/mon_prof_notifications_6_1.mdx?raw';
+
+// SACM
+import adminSacm61 from '../../content/6_1/admin_6_1/admin_sacm/admin_sacm_6_1.mdx?raw';
+import blueprints61 from '../../content/6_1/admin_6_1/admin_sacm/blueprints_6_1.mdx?raw';
+import customBsmViews61 from '../../content/6_1/admin_6_1/admin_sacm/custom_bsm_views_6_1.mdx?raw';
+import cmdbGraphicalWorkflow61 from '../../content/6_1/admin_6_1/admin_sacm/cmdb_graphical_workflow_6_1.mdx?raw';
+import cmdbProperties61 from '../../content/6_1/admin_6_1/admin_sacm/cmdb_properties_6_1.mdx?raw';
+
+// Users
+import adminUsers61 from '../../content/6_1/admin_6_1/admin_users/admin_users_6_1.mdx?raw';
+import adImpAuth61 from '../../content/6_1/admin_6_1/admin_users/ad_imp_auth_6_1.mdx?raw';
+import azureAdConfig61 from '../../content/6_1/admin_6_1/admin_users/azure_ad_config_6_1.mdx?raw';
+import samlConfig61 from '../../content/6_1/admin_6_1/admin_users/saml_config_6_1.mdx?raw';
+import userGroups61 from '../../content/6_1/admin_6_1/admin_users/user_groups_6_1.mdx?raw';
+import userRoles61 from '../../content/6_1/admin_6_1/admin_users/user_roles_6_1.mdx?raw';
+import users61 from '../../content/6_1/admin_6_1/admin_users/users_6_1.mdx?raw';
+
+// Others
+import adminOther61 from '../../content/6_1/admin_6_1/admin_other/admin_other_6_1.mdx?raw';
+import announcements61 from '../../content/6_1/admin_6_1/admin_other/announcements_6_1.mdx?raw';
+import businessRules61 from '../../content/6_1/admin_6_1/admin_other/business_rules_6_1.mdx?raw';
+import smtpConfig61 from '../../content/6_1/admin_6_1/admin_other/smtp_config_6_1.mdx?raw';
+
+/**
+ * Admin MDX Content Map
+ * Maps file paths to actual MDX content (static imports)
+ * This is used by contentLoader Strategy 1 for instant loading
+ */
+export const adminMDXContent: Record<string, string> = {
+  // Overview
+  '/content/6_1/admin_6_1/overview_6_1.mdx': overview61,
+  
+  // Organizational Details
+  '/content/6_1/admin_6_1/admin_org_details/about_org_details_6_1.mdx': aboutOrgDetails61,
+  '/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx': costCenter61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx': departments61,
+  '/content/6_1/admin_6_1/admin_org_details/departments_members_6_1.mdx': departmentsMembers61,
+  '/content/6_1/admin_6_1/admin_org_details/designations_6_1.mdx': designations61,
+  '/content/6_1/admin_6_1/admin_org_details/holidays_6_1.mdx': holidays61,
+  '/content/6_1/admin_6_1/admin_org_details/locations_6_1.mdx': locations61,
+  '/content/6_1/admin_6_1/admin_org_details/operational_hours_6_1.mdx': operationalHours61,
+  '/content/6_1/admin_6_1/admin_org_details/organizational_details_6_1.mdx': organizationalDetails61,
+  
+  // Discovery
+  '/content/6_1/admin_6_1/admin_discovery/admin_discovery_6_1.mdx': adminDiscovery61,
+  '/content/6_1/admin_6_1/admin_discovery/application_map_6_1.mdx': applicationMap61,
+  '/content/6_1/admin_6_1/admin_discovery/credentials_6_1.mdx': credentials61,
+  '/content/6_1/admin_6_1/admin_discovery/credentials_flush_6_1.mdx': credentialsFlush61,
+  '/content/6_1/admin_6_1/admin_discovery/custom_patterns_6_1.mdx': customPatterns61,
+  '/content/6_1/admin_6_1/admin_discovery/downloading_discovery_6_1.mdx': downloadingDiscovery61,
+  '/content/6_1/admin_6_1/admin_discovery/import_templates_6_1.mdx': importTemplates61,
+  '/content/6_1/admin_6_1/admin_discovery/ignore_adm_process_6_1.mdx': ignoreAdmProcess61,
+  '/content/6_1/admin_6_1/admin_discovery/ignore_process_6_1.mdx': ignoreProcess61,
+  '/content/6_1/admin_6_1/admin_discovery/major_software_6_1.mdx': majorSoftware61,
+  '/content/6_1/admin_6_1/admin_discovery/port_config_process_6_1.mdx': portConfigProcess61,
+  '/content/6_1/admin_6_1/admin_discovery/probe_workflow_6_1.mdx': probeWorkflow61,
+  '/content/6_1/admin_6_1/admin_discovery/probes_6_1.mdx': probes61,
+  '/content/6_1/admin_6_1/admin_discovery/scan_configuration_6_1.mdx': scanConfiguration61,
+  '/content/6_1/admin_6_1/admin_discovery/sensors_6_1.mdx': sensors61,
+  '/content/6_1/admin_6_1/admin_discovery/graphical_workflows_6_1.mdx': graphicalWorkflows61,
+  '/content/6_1/admin_6_1/admin_discovery/correlation_6_1.mdx': correlation61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_6_1.mdx': monProf61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_details_6_1.mdx': monProfDetails61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_frequency_6_1.mdx': monProfFrequency61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_trigger_conditions_6_1.mdx': monProfTriggerConditions61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_action_details_6_1.mdx': monProfActionDetails61,
+  '/content/6_1/admin_6_1/admin_discovery/mon_prof_notifications_6_1.mdx': monProfNotifications61,
+  
+  // SACM
+  '/content/6_1/admin_6_1/admin_sacm/admin_sacm_6_1.mdx': adminSacm61,
+  '/content/6_1/admin_6_1/admin_sacm/blueprints_6_1.mdx': blueprints61,
+  '/content/6_1/admin_6_1/admin_sacm/custom_bsm_views_6_1.mdx': customBsmViews61,
+  '/content/6_1/admin_6_1/admin_sacm/cmdb_graphical_workflow_6_1.mdx': cmdbGraphicalWorkflow61,
+  '/content/6_1/admin_6_1/admin_sacm/cmdb_properties_6_1.mdx': cmdbProperties61,
+  
+  // Users
+  '/content/6_1/admin_6_1/admin_users/admin_users_6_1.mdx': adminUsers61,
+  '/content/6_1/admin_6_1/admin_users/ad_imp_auth_6_1.mdx': adImpAuth61,
+  '/content/6_1/admin_6_1/admin_users/azure_ad_config_6_1.mdx': azureAdConfig61,
+  '/content/6_1/admin_6_1/admin_users/saml_config_6_1.mdx': samlConfig61,
+  '/content/6_1/admin_6_1/admin_users/user_groups_6_1.mdx': userGroups61,
+  '/content/6_1/admin_6_1/admin_users/user_roles_6_1.mdx': userRoles61,
+  '/content/6_1/admin_6_1/admin_users/users_6_1.mdx': users61,
+  
+  // Others
+  '/content/6_1/admin_6_1/admin_other/admin_other_6_1.mdx': adminOther61,
+  '/content/6_1/admin_6_1/admin_other/announcements_6_1.mdx': announcements61,
+  '/content/6_1/admin_6_1/admin_other/business_rules_6_1.mdx': businessRules61,
+  '/content/6_1/admin_6_1/admin_other/smtp_config_6_1.mdx': smtpConfig61,
+};
+
+console.log(`✅ [Admin MDX Content] Loaded ${Object.keys(adminMDXContent).length} static MDX files`);
+
 /**
  * Admin MDX File Paths - Version-Keyed Registry
  * Maps URL slugs to actual MDX file paths (relative to project root)
@@ -146,7 +278,7 @@ export function getAdminFilePath(slugOrPath: string, version: string): string | 
   }
   
   // Try as file path - check if the input matches any registered file path
-  for (const [slug, filePath] of Object.entries(versionPaths)) {
+  for (const [_slug, filePath] of Object.entries(versionPaths)) {
     const normalizedFilePath = filePath.replace(/^\/+|\/+$/g, '');
     if (normalizedFilePath === normalized || filePath === slugOrPath) {
       console.log(`✅ [getAdminFilePath] Found by path match: ${filePath}`);

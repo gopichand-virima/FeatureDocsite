@@ -209,7 +209,7 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
             return (
               <div className="virima-table-container my-8">
                 <div 
-                  className={`overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm ${
+                  className={`overflow-x-auto rounded-lg border border-slate-900 dark:border-slate-700 shadow-sm ${
                     isLargeTable ? 'max-h-[600px] overflow-y-auto' : ''
                   }`}
                   style={{
@@ -218,10 +218,11 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
                   }}
                 >
                   <table 
-                    className="virima-table w-full" 
+                    className="virima-table w-full [border-collapse:collapse]" 
                     {...props}
                     style={{
                       willChange: isLargeTable ? 'transform' : 'auto',
+                      borderCollapse: 'collapse',
                     }}
                   >
                     {children}
@@ -250,13 +251,13 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
           ),
           th: ({ node, ...props }) => (
             <th 
-              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap" 
+              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap border border-slate-900 dark:border-slate-700" 
               {...props} 
             />
           ),
           td: ({ node, ...props }) => (
             <td 
-              className="px-4 sm:px-6 py-4 text-sm text-slate-700 dark:text-slate-300" 
+              className="px-4 sm:px-6 py-4 text-sm text-slate-700 dark:text-slate-300 border border-slate-900 dark:border-slate-700" 
               {...props} 
             />
           ),
@@ -280,7 +281,7 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
                 alt={alt || ''}
                 priority={isPriority}
                 placeholder="blur"
-                className="rounded-lg shadow-md my-6 max-w-full h-auto border border-slate-200 dark:border-slate-700"
+                className="rounded-lg shadow-md my-6 max-w-full h-auto border-[0.5px] border-slate-400 dark:border-slate-600"
                 {...props}
               />
             );

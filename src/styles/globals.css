@@ -446,7 +446,7 @@ html {
 .branded-table,
 .virima-table {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0;
   background-color: #FFFFFF;
 }
@@ -470,7 +470,7 @@ html {
   font-size: 0.875rem;
   text-align: left;
   padding: 0.875rem 1rem;
-  border-bottom: 2px solid #1B5E20;
+  border: 1px solid #1a1a1a;
   white-space: nowrap;
 }
 
@@ -492,7 +492,6 @@ html {
 .branded-table tbody tr,
 .virima-table tbody tr,
 .virima-table-row {
-  border-bottom: 1px solid #E0E0E0;
   transition: background-color 0.15s ease;
 }
 
@@ -504,7 +503,7 @@ html {
 
 .branded-table tbody tr:last-child,
 .virima-table tbody tr:last-child {
-  border-bottom: none;
+  /* Border removed from tr, applied to td instead */
 }
 
 /* Table cells */
@@ -515,6 +514,7 @@ html {
   font-size: 0.875rem;
   color: #1F2937;
   vertical-align: top;
+  border: 1px solid #1a1a1a;
 }
 
 /* Sticky first column for wide tables */
@@ -550,12 +550,12 @@ html {
 .dark .virima-table thead th,
 .dark .virima-table-th {
   background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
-  border-bottom-color: #0D3D14;
+  border: 1px solid #374151;
 }
 
 .dark .branded-table tbody tr,
 .dark .virima-table tbody tr {
-  border-bottom-color: #374151;
+  /* Border removed from tr, applied to td instead */
 }
 
 .dark .branded-table tbody tr:hover,
@@ -567,6 +567,7 @@ html {
 .dark .virima-table tbody td,
 .dark .virima-table-td {
   color: #F3F4F6;
+  border: 1px solid #374151;
 }
 
 /* ============================================

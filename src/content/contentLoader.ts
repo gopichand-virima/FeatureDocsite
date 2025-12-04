@@ -18,9 +18,35 @@ import { getMDXContent } from './mdxContentBundle';
 import { getRegisteredContent, isContentRegistered } from './mdxContentRegistry';
 
 // Import priority file registries
-import { adminMDXFilePaths, getAdminFilePath } from '../lib/imports/adminMDXImports';
-// Add other module imports as needed:
-// import { discoveryMDXFilePaths, getDiscoveryFilePath } from '../lib/imports/discoveryMDXImports';
+import { adminMDXFilePaths, getAdminFilePath, adminMDXContent } from '../lib/imports/adminMDXImports';
+import { cmdbMDXContent } from '../lib/imports/cmdbMDXImports';
+import { itsmMDXContent } from '../lib/imports/itsmMDXImports';
+import { discoveryMDXContent } from '../lib/imports/discoveryMDXImports';
+import { itamMDXContent } from '../lib/imports/itamMDXImports';
+import { dashboardMDXContent } from '../lib/imports/dashboardMDXImports';
+import { applicationoverviewMDXContent } from '../lib/imports/applicationoverviewMDXImports';
+import { gettingstartedMDXContent } from '../lib/imports/gettingstartedMDXImports';
+import { programprojectmanagementMDXContent } from '../lib/imports/programprojectmanagementMDXImports';
+import { reportsMDXContent } from '../lib/imports/reportsMDXImports';
+import { riskregisterMDXContent } from '../lib/imports/riskregisterMDXImports';
+import { vulnerabilitymanagementMDXContent } from '../lib/imports/vulnerabilitymanagementMDXImports';
+
+// Combine all static MDX content maps (Strategy 1 - Highest Priority)
+// This ensures all version 6.1 module content loads instantly from bundled assets
+const allStaticMDXContent: Record<string, string> = {
+  ...adminMDXContent,
+  ...cmdbMDXContent,
+  ...itsmMDXContent,
+  ...discoveryMDXContent,
+  ...itamMDXContent,
+  ...dashboardMDXContent,
+  ...applicationoverviewMDXContent,
+  ...gettingstartedMDXContent,
+  ...programprojectmanagementMDXContent,
+  ...reportsMDXContent,
+  ...riskregisterMDXContent,
+  ...vulnerabilitymanagementMDXContent,
+};
 
 /**
  * Detects the base path for content files
@@ -278,7 +304,25 @@ async function fetchContent(filePath: string): Promise<string> {
   console.log(`📥 [fetchContent] Is full path: ${isFullPath}`);
   console.log(`📥 [fetchContent] Current version: ${currentVersion}`);
   
-  // Strategy 0: Direct Fetch with ?raw (if already a full file path) ⭐⭐⭐
+  // Strategy 1: Static MDX Imports (ACTUAL CONTENT - HIGHEST PRIORITY) ⭐⭐⭐
+  // Try multiple path variations to match static content
+  const pathVariations = [
+    cleanPath,
+    cleanPath.startsWith('/') ? cleanPath.slice(1) : `/${cleanPath}`,
+    cleanPath.replace(/^\/content\/versions\//, '/content/'),
+    cleanPath.replace(/^\/content\//, ''),
+  ];
+  
+  for (const pathVar of pathVariations) {
+    if (allStaticMDXContent[pathVar]) {
+      const content = allStaticMDXContent[pathVar];
+      console.log(`✅✅ Strategy 1 (STATIC MDX IMPORT): SUCCESS! (${content.length} chars) - Matched path: ${pathVar}`);
+      console.log(`📄 [Preview]:`, content.substring(0, Math.min(150, content.length)) + '...');
+      return content;
+    }
+  }
+  
+  // Strategy 0: Direct Fetch with ?raw (if already a full file path) ⭐⭐
   if (isFullPath) {
     console.log(`🎯 [Strategy 0] Already a full path, attempting direct import...`);
     
@@ -454,7 +498,12 @@ async function fetchContent(filePath: string): Promise<string> {
   }
   
   // Strategy 4: Registry (FALLBACK ONLY - placeholder content) ⚠️
-  if (isContentRegistered(cleanPath)) {
+  // Skip registry for priority files - they should always have actual content
+  const isPriority = isPriorityFile(cleanPath);
+  if (isPriority) {
+    console.warn(`⚠️ [Strategy 4] Skipping registry for priority file: ${cleanPath}`);
+    console.warn(`💡 Priority files should have actual MDX content. Check file path and fetch strategies.`);
+  } else if (isContentRegistered(cleanPath)) {
     const content = getRegisteredContent(cleanPath);
     if (content) {
       console.warn(`⚠️ Strategy 4 (REGISTRY PLACEHOLDER): Using placeholder for ${cleanPath} (${content.length} chars)`);

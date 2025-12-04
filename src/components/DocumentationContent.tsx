@@ -29,7 +29,6 @@ import {
   buildBreadcrumbPath, 
   type BreadcrumbItem as HierarchicalBreadcrumbItem 
 } from "../utils/hierarchicalTocLoader";
-import { getRegisteredContent, isContentRegistered } from "../content/mdxContentRegistry";
 
 interface DocumentationContentProps {
   version: string;
@@ -168,54 +167,11 @@ export function DocumentationContent({
       setLoadingPath(true);
       try {
         // Load both the MDX path and breadcrumbs
-        let path = await resolveMDXPathFromTOC({ version, module, section, page });
-        
-        // REGISTRY FALLBACK: If TOC resolution fails, try registry
-        if (!path && module && section && page) {
-          console.log('🔄 TOC resolution failed, trying registry fallback...');
-          
-          // Map version display name to internal version code
-          const versionMap: Record<string, string> = {
-            'NextGen': 'NG',
-            '6.1.1': '6_1_1',
-            '6.1': '6_1',
-            '5.13': '5_13',
-          };
-          const versionCode = versionMap[version] || version.toLowerCase().replace('.', '_');
-          
-          // Try common path patterns
-          const possiblePaths = [
-            `/content/${versionCode}/${module}_${versionCode}/${section}_${versionCode}/${page}_${versionCode}.mdx`,
-            `/content/${versionCode}/${module}/${section}/${page}.mdx`,
-            `/content/${versionCode}/${module}_${versionCode}/${section}/${page}_${versionCode}.mdx`,
-            `/content/${versionCode}/${module}/${section}_${versionCode}/${page}_${versionCode}.mdx`,
-          ];
-          
-          // Check registry for any of these paths
-          for (const possiblePath of possiblePaths) {
-            if (isContentRegistered(possiblePath)) {
-              console.log(`✅ Found in registry: ${possiblePath}`);
-              path = possiblePath;
-              break;
-            }
-          }
-          
-          // If still not found, try without version suffix
-          if (!path) {
-            const simplePaths = [
-              `/content/${versionCode}/${module}/${section}/${page}.mdx`,
-            ];
-            for (const simplePath of simplePaths) {
-              if (isContentRegistered(simplePath)) {
-                console.log(`✅ Found in registry (simple path): ${simplePath}`);
-                path = simplePath;
-                break;
-              }
-            }
-          }
-        }
-        
-        const breadcrumbPath = await buildBreadcrumbPath(version, module, section, page);
+        // Match working implementation: use TOC resolution directly
+        const [path, breadcrumbPath] = await Promise.all([
+          resolveMDXPathFromTOC({ version, module, section, page }),
+          buildBreadcrumbPath(version, module, section, page)
+        ]);
         
         if (mounted) {
           setMdxPath(path);
@@ -352,14 +308,8 @@ export function DocumentationContent({
       );
     }
     
-    // If we have a valid MDX path (from TOC or registry), load it
+    // If we have a valid MDX path from TOC, load it
     if (mdxPath) {
-      // Check if path is registered (registry fallback)
-      const registeredContent = getRegisteredContent(mdxPath);
-      if (registeredContent) {
-        console.log(`📦 Using registered content for: ${mdxPath}`);
-      }
-      
       return (
         <MDXContent
           filePath={mdxPath}

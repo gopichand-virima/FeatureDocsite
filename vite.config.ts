@@ -5,6 +5,28 @@
   import fs from 'fs';
 
   /**
+   * Recursive copy function
+   */
+  function copyRecursive(src: string, dest: string): void {
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
+    }
+
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+
+      if (entry.isDirectory()) {
+        copyRecursive(srcPath, destPath);
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  }
+
+  /**
    * Custom plugin to copy content files to build directory
    * Replaces vite-plugin-static-copy to avoid ES module issues
    */
@@ -22,26 +44,6 @@
         if (!fs.existsSync(srcDir)) {
           console.warn('⚠️ Content source directory not found:', srcDir);
           return;
-        }
-
-        // Recursive copy function
-        function copyRecursive(src: string, dest: string) {
-          if (!fs.existsSync(dest)) {
-            fs.mkdirSync(dest, { recursive: true });
-          }
-
-          const entries = fs.readdirSync(src, { withFileTypes: true });
-
-          for (const entry of entries) {
-            const srcPath = path.join(src, entry.name);
-            const destPath = path.join(dest, entry.name);
-
-            if (entry.isDirectory()) {
-              copyRecursive(srcPath, destPath);
-            } else {
-              fs.copyFileSync(srcPath, destPath);
-            }
-          }
         }
 
         try {
@@ -69,6 +71,35 @@
     };
   }
 
+  /**
+   * Custom plugin to copy assets/images to build directory
+   */
+  function copyAssetsPlugin(): Plugin {
+    return {
+      name: 'copy-assets',
+      writeBundle() {
+        const srcDir = path.join(process.cwd(), 'src', 'assets', 'images');
+        const destDir = path.join(process.cwd(), 'build', 'assets', 'images');
+
+        console.log('📦 Copying image assets...');
+        console.log(`   Source: ${srcDir}`);
+        console.log(`   Destination: ${destDir}`);
+
+        if (!fs.existsSync(srcDir)) {
+          console.warn('⚠️ Assets source directory not found:', srcDir);
+          return;
+        }
+
+        try {
+          copyRecursive(srcDir, destDir);
+          console.log('✅ Copied image assets to build/assets/images/');
+        } catch (error) {
+          console.error('❌ Error copying assets:', error);
+        }
+      },
+    };
+  }
+
   export default defineConfig({
     // Base path for GitHub Pages deployment
     base: '/FeatureDocsite/',
@@ -76,6 +107,7 @@
     plugins: [
       react(),
       copyContentPlugin(),
+      copyAssetsPlugin(),
     ],
     
     resolve: {

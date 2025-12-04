@@ -31,21 +31,28 @@ export function resolveImagePath(src: string, contentPath?: string): string {
     
     // If image path is relative, resolve it relative to the content file's directory
     if (src.startsWith('./') || src.startsWith('../')) {
-      // Remove ./ or ../ prefix
-      const cleanSrc = src.replace(/^\.\//, '').replace(/^\.\.\//, '');
+      // Handle paths that go up to assets directory (e.g., ../../../../assets/images/...)
+      if (src.includes('/assets/')) {
+        // Extract the path after /assets/
+        const assetsIndex = src.indexOf('/assets/');
+        const pathAfterAssets = src.substring(assetsIndex + '/assets/'.length);
+        // Return as absolute path starting with /assets/
+        return `/assets/${pathAfterAssets}`;
+      }
+      
+      // Count how many ../ are in the path
+      const upLevels = (src.match(/\.\.\//g) || []).length;
+      const cleanSrc = src.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '');
       
       // Get the directory of the content file
-      const contentDir = contentPath.substring(0, contentPath.lastIndexOf('/'));
+      let targetDir = contentPath.substring(0, contentPath.lastIndexOf('/'));
       
-      // Resolve relative path
-      if (src.startsWith('../')) {
-        // Go up one directory
-        const parentDir = contentDir.substring(0, contentDir.lastIndexOf('/'));
-        return `${parentDir}/${cleanSrc}`;
-      } else {
-        // Same directory
-        return `${contentDir}/${cleanSrc}`;
+      // Go up the specified number of levels
+      for (let i = 0; i < upLevels; i++) {
+        targetDir = targetDir.substring(0, targetDir.lastIndexOf('/'));
       }
+      
+      return `${targetDir}/${cleanSrc}`;
     }
     
     // Default: assume image is in the same directory as the content file

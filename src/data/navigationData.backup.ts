@@ -7,7 +7,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx files
  * 
- * Generated: 2025-12-03T22:48:18.517Z
+ * Generated: 2025-12-04T11:03:56.708Z
  * Source: /content/6_1/index.mdx
  */
 
@@ -1444,6 +1444,41 @@ export const itamSections = [
   }
 ];
 
+// Program/Project Management sections
+export const programProjectManagementSections = [
+  {
+    id: "programproject-management",
+    title: "Program/Project Management",
+    label: "Program/Project Management",
+    pages: [
+      {
+        id: "programs",
+        label: "Programs",
+        path: "`/content/6_1/prog_proj_mngmnt_6_1/programs_6_1.mdx`",
+        subPages: [
+          {
+            id: "program-dashboard",
+            label: "Program Dashboard",
+            path: "`/content/6_1/prog_proj_mngmnt_6_1/program_dashboard_6_1.mdx`"
+          }
+        ]
+      },
+      {
+        id: "projects",
+        label: "Projects",
+        path: "`/content/6_1/prog_proj_mngmnt_6_1/projects_6_1.mdx`",
+        subPages: [
+          {
+            id: "project-dashboard",
+            label: "Project Dashboard",
+            path: "`/content/6_1/prog_proj_mngmnt_6_1/project_dashboard_6_1.mdx`"
+          }
+        ]
+      }
+    ]
+  }
+];
+
 // Self-Service sections
 export const selfServiceSections = [
   {
@@ -1990,6 +2025,8 @@ export function getSectionsForModule(moduleId: string) {
       return vulnerabilityManagementSections;
     case "itam":
       return itamSections;
+    case "programproject-management":
+      return programProjectManagementSections;
     case "self-service":
       return selfServiceSections;
     case "risk-register":

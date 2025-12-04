@@ -1,4 +1,4 @@
-import { getIndexContent } from './indexContentMap';
+import { getTOCContent } from './indexContentMap';
 
 // Type definitions
 export interface HierarchicalPage {
@@ -91,7 +91,7 @@ async function fetchIndexFile(path: string): Promise<string> {
     const versionMatch = path.match(/\/content\/([^\/]+)\/index\.mdx$/);
     if (versionMatch) {
       const versionId = versionMatch[1];
-      const staticContent = getIndexContent(versionId);
+      const staticContent = getTOCContent(versionId);
       if (staticContent && staticContent.includes('##')) {
         console.log(`✅ Using static content for ${path}, length: ${staticContent.length}`);
         return staticContent;

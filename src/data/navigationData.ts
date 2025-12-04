@@ -7,7 +7,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx files
  * 
- * Generated: 2025-12-03T22:49:08.608Z
+ * Generated: 2025-12-04T11:26:06.166Z
  * Source: /content/6_1/index.mdx
  */
 

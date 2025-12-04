@@ -8,7 +8,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx
  * 
- * Generated: 2025-12-03T22:48:18.524Z
+ * Generated: 2025-12-04T11:03:56.715Z
  * 
  * To update: Edit index.mdx files and run: npm run sync-toc
  */

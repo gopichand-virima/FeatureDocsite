@@ -1,6 +1,9 @@
 /**
  * TOC Expand/Collapse Architecture
  * 
+ * UNIVERSAL COMPONENT: This component is used for ALL versions (5.13, 6.1, 6.1.1, NextGen)
+ * and ALL modules (Admin, CMDB, ITSM, ITAM, etc.). The active state logic applies universally.
+ * 
  * This component implements a comprehensive expand/collapse system for the Table of Contents
  * with three levels of control:
  * 
@@ -80,7 +83,7 @@ export function NavigationMenu({
   selectedModule,
   onModuleChange,
   sections,
-  selectedSection,
+  selectedSection: _selectedSection, // Intentionally unused - active state determined by selectedPage
   onSectionChange,
   selectedPage,
   onPageChange,
@@ -170,7 +173,6 @@ export function NavigationMenu({
 
       <nav className="space-y-2">
         {sections.map((section) => {
-          const isActive = selectedSection === section.id;
           const isExpanded = expandedSections.has(section.id);
           
           // Safety check: ensure section has pages array
@@ -179,26 +181,68 @@ export function NavigationMenu({
             return null;
           }
 
-          // Check if any child page is selected within this section
-          const hasChildPageSelected = section.pages.some((page: any) => {
-            // Check if the page itself is selected
-            if (selectedPage === page.id) return true;
-            // Check if any subpage is selected
-            if (page.subPages && page.subPages.length > 0) {
-              if (page.subPages.some((subPage: any) => {
-                if (selectedPage === subPage.id) return true;
-                // Check nested subpages
-                if (subPage.subPages && subPage.subPages.length > 0) {
-                  return subPage.subPages.some((nested: any) => selectedPage === nested.id);
-                }
-                return false;
-              })) return true;
-            }
-            return false;
-          });
+          // UNIVERSAL ACTIVE STATE LOGIC (applies to all versions and modules):
+          // Only the section containing the selected page should have bold/dark styling
+          // All other sections should remain muted/gray
+          // Expansion state is completely independent from active styling
+          
+          // CRITICAL: Default to false - only set to true if this section is confirmed to contain selectedPage
+          // This prevents all sections from appearing active when selectedPage is empty/undefined/invalid
+          // This logic applies universally to ALL modules and ALL versions
+          let shouldShowActiveStyle = false;
+          
+          // Strict validation: selectedPage must be a non-empty string
+          // Additional check: ensure selectedPage is not just whitespace
+          const isValidSelectedPage = selectedPage && 
+                                      typeof selectedPage === 'string' && 
+                                      selectedPage.trim() !== '' &&
+                                      selectedPage.trim().length > 0;
+          
+          if (isValidSelectedPage) {
+            // Normalize selectedPage for comparison (trim whitespace)
+            const normalizedSelectedPage = selectedPage.trim();
+            
+            // Recursive helper to check if a page or any of its descendants matches selectedPage
+            // Uses strict equality (===) to ensure exact matches only - no partial or fuzzy matching
+            const checkPageMatch = (page: any): boolean => {
+              // Safety check: page must have an id
+              if (!page || !page.id) return false;
+              
+              // Exact match: page itself is selected (strict equality)
+              if (normalizedSelectedPage === page.id) return true;
+              
+              // Check subpages recursively (only if they exist and are valid)
+              if (page.subPages && Array.isArray(page.subPages) && page.subPages.length > 0) {
+                return page.subPages.some((subPage: any) => {
+                  // Recursive check for nested structure
+                  return checkPageMatch(subPage);
+                });
+              }
+              
+              return false;
+            };
+            
+            // Check if ANY page in this section (or its descendants) matches selectedPage
+            // Use strict equality (===) to ensure exact matches only
+            // This ensures only ONE section can match at a time
+            const hasChildPageSelected = section.pages.some((page: any) => {
+              return checkPageMatch(page);
+            });
 
-          // Parent section should NEVER be green if any child is selected
-          const isSectionDirectlySelected = false; // Parents should never be green when children exist
+            // CRITICAL: Only show active style if this section actually contains the selected page
+            // This ensures ONLY the active parent chain is bold, all others are muted
+            // Double-check: hasChildPageSelected must be explicitly true (strict boolean check)
+            shouldShowActiveStyle = hasChildPageSelected === true;
+          } else {
+            // Explicitly set to false when selectedPage is invalid/empty
+            // This prevents any section from appearing active when there's no valid selection
+            // This is critical to prevent all sections from appearing bold when selectedPage is undefined/null/empty
+            shouldShowActiveStyle = false;
+          }
+          
+          // Final safety check: ensure shouldShowActiveStyle is a boolean
+          // This prevents any edge cases where it might be undefined or truthy in unexpected ways
+          shouldShowActiveStyle = Boolean(shouldShowActiveStyle);
 
           return (
             <div key={section.id} className="space-y-1">
@@ -228,9 +272,7 @@ export function NavigationMenu({
                     }
                   }}
                   className={`flex-1 text-left px-2 py-1.5 rounded transition-colors ${
-                    isSectionDirectlySelected
-                      ? "text-green-600 bg-green-50 font-medium"
-                      : hasChildPageSelected
+                    shouldShowActiveStyle
                       ? "text-slate-900 hover:text-slate-900 hover:bg-slate-50 font-medium"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                   }`}
@@ -280,7 +322,7 @@ export function NavigationMenu({
                     
                     // Page should only be green if directly selected AND no subpage is selected
                     // If a subpage is selected, the page parent should be slate/black
-                    const isPageDirectlySelected = selectedPage === page.id && isActive && !isSubPageSelected;
+                    const isPageDirectlySelected = selectedPage === page.id && !isSubPageSelected;
                     
                     return (
                       <div key={page.id}>
@@ -335,7 +377,7 @@ export function NavigationMenu({
                               const isNestedSubPageSelected = hasNestedSubPages && subPage.subPages.some((nested: any) => selectedPage === nested.id);
                               
                               // Only show green if this exact subpage is selected, not a nested subpage
-                              const isSubPageDirectlySelected = selectedPage === subPage.id && isActive && !isNestedSubPageSelected;
+                              const isSubPageDirectlySelected = selectedPage === subPage.id && !isNestedSubPageSelected;
                               
                               return (
                                 <div key={subPage.id}>
@@ -391,7 +433,7 @@ export function NavigationMenu({
                                             onClose();
                                           }}
                                           className={`w-full text-left text-sm py-1.5 px-2 rounded transition-colors pl-8 ${
-                                            selectedPage === nestedSubPage.id && isActive
+                                            selectedPage === nestedSubPage.id
                                               ? "text-green-600 bg-green-50"
                                               : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                                           }`}

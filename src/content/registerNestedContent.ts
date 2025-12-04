@@ -4,7 +4,7 @@
  * This file registers nested MDX content from subdirectories within modules
  */
 
-import { registerContent } from './mdxContentRegistry';
+import { registerContent, unregisterContent } from './mdxContentRegistry';
 
 function createDocContent(title: string, module: string, description: string): string {
   return `# ${title}
@@ -65,11 +65,9 @@ function registerAdminOrgDetailsContent() {
     'Overview of organizational structure and details management.'
   ));
 
-  registerContent('/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx', createDocContent(
-    'Cost Centers',
-    'Admin - Organizational Details',
-    'Manage organizational cost centers for budget tracking and allocation.'
-  ));
+  // cost_center_6_1.mdx - Using actual MDX file content, not generic placeholder
+  // Unregister any previously registered placeholder content to ensure actual file is loaded
+  unregisterContent('/content/6_1/admin_6_1/admin_org_details/cost_center_6_1.mdx');
 
   // departments_6_1.mdx already registered in registerSampleContent.ts
 

@@ -6,7 +6,7 @@
  */
 
 import { parseTocFile, TocStructure } from './tocParser';
-import { getIndexContent, indexContentMap } from './indexContentMap';
+import { getTOCContent } from './indexContentMap';
 
 // Cache for loaded TOC structures
 // Cache version - increment this when parser logic changes to invalidate old cache
@@ -133,7 +133,7 @@ async function loadIndexContent(versionPath: string): Promise<string> {
   }
   
   // Fallback to index content map
-  const content = getIndexContent(versionPath);
+  const content = getTOCContent(versionPath);
   
   if (content && content.length > 0) {
     console.log(`✅ [TOC Loader] Loaded TOC content from map for ${versionPath}, length: ${content.length}`);

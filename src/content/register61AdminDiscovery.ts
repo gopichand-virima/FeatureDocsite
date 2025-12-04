@@ -4,7 +4,7 @@
  * Registers admin discovery files for version 6.1 including path aliases
  */
 
-import { registerContent } from './mdxContentRegistry';
+import { registerContent, unregisterContent } from './mdxContentRegistry';
 
 function createDocContent(title: string, module: string, description: string): string {
   return `# ${title}
@@ -61,6 +61,9 @@ If you encounter any issues or have questions:
  * Register 6.1 Admin Discovery Files
  */
 function register61AdminDiscovery() {
+  // Unregister correlation_6_1.mdx to ensure actual MDX file content is used
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/correlation_6_1.mdx');
+  
   // Main admin discovery file
   registerContent('/content/6_1/admin_6_1/admin_discovery/admin_discovery_6_1.mdx', createDocContent(
     'Admin Discovery',
@@ -113,12 +116,8 @@ function register61AdminDiscovery() {
     'Configure cloud service provider connection profiles.'
   ));
 
-  // Correlation
-  registerContent('/content/6_1/admin_6_1/admin_discovery/correlation_6_1.mdx', createDocContent(
-    'Correlation',
-    'Admin Discovery - v6.1',
-    'Configure correlation rules for discovered data.'
-  ));
+  // Correlation - REMOVED: Using actual MDX file content via static import
+  // The actual content is loaded from correlation_6_1.mdx via adminMDXImports.ts
 
   // Credentials
   registerContent('/content/6_1/admin_6_1/admin_discovery/credentials_6_1.mdx', createDocContent(
@@ -190,42 +189,14 @@ function register61AdminDiscovery() {
     'Define and manage major software applications for tracking.'
   ));
 
-  // Monitoring Profile files
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_6_1.mdx', createDocContent(
-    'Monitoring Profile',
-    'Admin Discovery - v6.1',
-    'Configure monitoring profiles for continuous discovery.'
-  ));
-
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_details_6_1.mdx', createDocContent(
-    'Monitoring Profile Details',
-    'Admin Discovery - v6.1',
-    'View and edit monitoring profile details.'
-  ));
-
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_frequency_6_1.mdx', createDocContent(
-    'Monitoring Frequency',
-    'Admin Discovery - v6.1',
-    'Set monitoring frequency and schedules.'
-  ));
-
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_trigger_conditions_6_1.mdx', createDocContent(
-    'Monitoring Trigger Conditions',
-    'Admin Discovery - v6.1',
-    'Define trigger conditions for monitoring events.'
-  ));
-
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_action_details_6_1.mdx', createDocContent(
-    'Monitoring Action Details',
-    'Admin Discovery - v6.1',
-    'Configure actions to execute on monitoring events.'
-  ));
-
-  registerContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_notifications_6_1.mdx', createDocContent(
-    'Monitoring Notifications',
-    'Admin Discovery - v6.1',
-    'Set up notifications for monitoring events.'
-  ));
+  // Monitoring Profile files - REMOVED: Using actual MDX file content via static import
+  // The actual content is loaded from mon_prof_*.mdx files via adminMDXImports.ts
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_6_1.mdx');
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_details_6_1.mdx');
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_frequency_6_1.mdx');
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_trigger_conditions_6_1.mdx');
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_action_details_6_1.mdx');
+  unregisterContent('/content/6_1/admin_6_1/admin_discovery/mon_prof_notifications_6_1.mdx');
 
   // Port Configuration
   registerContent('/content/6_1/admin_6_1/admin_discovery/port_config_process_6_1.mdx', createDocContent(

@@ -50,6 +50,18 @@ export function getRegistrySize(): number {
   return Object.keys(contentRegistry).length;
 }
 
+/**
+ * Unregister MDX content (remove from registry)
+ * Useful when switching from placeholder to actual file content
+ */
+export function unregisterContent(filePath: string): void {
+  const normalizedPath = filePath.startsWith('/') ? filePath : `/${filePath}`;
+  if (normalizedPath in contentRegistry) {
+    delete contentRegistry[normalizedPath];
+    console.log(`🗑️ [Registry] Unregistered: ${normalizedPath}`);
+  }
+}
+
 // Example of how to register content:
 // registerContent('/content/6_1/admin_6_1/admin_org_details/departments_6_1.mdx', `
 // # Departments

@@ -4,7 +4,24 @@
 
 This documentation describes the automatic synchronization system that keeps all navigation and content files in sync with the `index.mdx` files.
 
-**SINGLE SOURCE OF TRUTH**: `/content/<version>/index.mdx`
+**🎯 SINGLE SOURCE OF TRUTH**: The `index.mdx` files for each version are the **only** files you need to edit. All other navigation and TOC files are automatically generated from these source files.
+
+### Example Source Files
+
+Each version has its own `index.mdx` file that serves as the master Table of Contents:
+
+- **Version 6.1**: `src/content/6_1/index.mdx`
+- **Version 6.1.1**: `src/content/6_1_1/index.mdx`
+- **Version 5.13**: `src/content/5_13/index.mdx`
+- **Version NextGen**: `src/content/NG/index.mdx`
+
+**Example**: `C:\Users\GopichandY\github\FeatureDocsite\src\content\6_1\index.mdx`
+
+When you edit any `index.mdx` file, the sync script automatically:
+1. Parses the TOC structure from the markdown
+2. Updates `src/data/navigationData.ts` with the navigation structure
+3. Updates `src/utils/indexContentMap.ts` with the static TOC content
+4. Ensures all dependent files stay in sync
 
 ## Quick Start
 
@@ -32,21 +49,74 @@ This will:
 - Watch all `index.mdx` files for changes
 - Automatically run sync when you save changes
 - Debounce changes (waits 1 second after last change)
+- **No manual sync needed** - just edit and save!
 
-## What Gets Updated
+## How It Works - Single Source of Truth
 
-When you edit an `index.mdx` file and run sync, the following files are automatically updated:
+The system is designed so that **`index.mdx` files are the ONLY files you edit**. Here's how the auto-update flow works:
 
-### 1. `src/data/navigationData.ts`
+```
+┌─────────────────────────────────────────────────────────────┐
+│  YOU EDIT: src/content/6_1/index.mdx                      │
+│  (Add/remove/modify modules, sections, or pages)            │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│  RUN: npm run sync-toc (or auto-sync with watch-toc)       │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│  SCRIPT AUTOMATICALLY:                                      │
+│  1. Reads index.mdx file                                     │
+│  2. Parses markdown structure                                │
+│  3. Generates navigationData.ts                              │
+│  4. Generates indexContentMap.ts                            │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│  RESULT: Navigation updates throughout the app!            │
+│  - New pages appear in sidebar                              │
+│  - Links work correctly                                     │
+│  - TOC structure is synchronized                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key Benefits:**
+- ✅ **One file to edit** - Just modify `index.mdx`
+- ✅ **Automatic updates** - All dependent files regenerate
+- ✅ **No manual TypeScript editing** - Everything is generated
+- ✅ **Consistent structure** - Single source prevents sync issues
+
+## What Gets Auto-Updated
+
+When you edit an `index.mdx` file (e.g., `src/content/6_1/index.mdx`) and run sync, the following files are **automatically generated and updated**:
+
+### 1. `src/data/navigationData.ts` (AUTO-GENERATED)
 - Navigation structure for the application
 - Module definitions
 - Section definitions
 - Page hierarchies
+- **⚠️ DO NOT EDIT MANUALLY** - This file is completely generated from `index.mdx`
 
-### 2. `src/utils/indexContentMap.ts`
+### 2. `src/utils/indexContentMap.ts` (AUTO-GENERATED)
 - Static TOC content for all versions
 - Used as fallback when dynamic loading fails
 - Browser-compatible content map
+- Contains the raw markdown content from each `index.mdx` file
+- **⚠️ DO NOT EDIT MANUALLY** - This file is completely generated from `index.mdx`
+
+### How Auto-Update Works
+
+1. **You edit** `src/content/6_1/index.mdx` (or any version's index.mdx)
+2. **You run** `npm run sync-toc` (or use watch mode)
+3. **Script reads** the `index.mdx` file and parses its structure
+4. **Script generates** all dependent files automatically
+5. **Navigation updates** throughout the application
+
+**Key Point**: Any changes to modules, sections, or pages in `index.mdx` are automatically reflected in the generated files. You never need to manually edit the generated TypeScript files.
 
 ## File Structure
 
@@ -118,29 +188,32 @@ The `index.mdx` file uses a simple markdown structure:
    - Use 2-space indentation for nested pages
    - Arrow (`→`) separates title from path
 
-## Workflow
+## Workflow - Edit Only index.mdx Files
 
 ### Adding a New Page
 
-1. Edit the appropriate `index.mdx` file
-2. Add the page entry: `- Page Name → /content/version/path/to/file.mdx`
-3. Run `npm run sync-toc` (or it will auto-sync if watching)
-4. The navigation will automatically update!
+1. **Edit** the appropriate `index.mdx` file (e.g., `src/content/6_1/index.mdx`)
+2. **Add** the page entry: `- Page Name → /content/6_1/path/to/file.mdx`
+3. **Run** `npm run sync-toc` (or it will auto-sync if watching)
+4. **Result**: The navigation automatically updates! No need to touch any TypeScript files.
 
 ### Adding a New Section
 
-1. Edit the appropriate `index.mdx` file
-2. Add a new `### Section Name` header
-3. Add pages under it
-4. Run `npm run sync-toc`
+1. **Edit** the appropriate `index.mdx` file
+2. **Add** a new `### Section Name` header under the module
+3. **Add** pages under it using the `- Page Name → /path` format
+4. **Run** `npm run sync-toc`
+5. **Result**: The section appears in navigation automatically
 
 ### Adding a New Module
 
-1. Edit the appropriate `index.mdx` file
-2. Add a new `## Module Name` header
-3. Add sections and pages under it
-4. Update `MODULE_VAR_MAP` in `scripts/sync-toc-from-index.mjs` if needed
-5. Run `npm run sync-toc`
+1. **Edit** the appropriate `index.mdx` file
+2. **Add** a new `## Module Name` header
+3. **Add** sections and pages under it
+4. **Run** `npm run sync-toc`
+5. **Result**: The module appears in navigation automatically
+
+**Note**: If you add a new module, you may need to update `MODULE_VAR_MAP` in `scripts/sync-toc-from-index.mjs` to map the module ID to a variable name. However, the script will still generate the navigation structure correctly.
 
 ## Integration with Build Process
 
@@ -178,11 +251,32 @@ This ensures that navigation data is always up-to-date in production builds.
 
 ## Best Practices
 
-1. **Always edit index.mdx, never the generated files**
-2. **Run sync after making changes** (or use watch mode)
-3. **Test navigation after syncing** to ensure everything works
-4. **Commit both index.mdx and generated files** to version control
-5. **Use consistent naming** for modules, sections, and pages
+1. **✅ ALWAYS edit `index.mdx` files only** - These are the single source of truth
+   - Example: `src/content/6_1/index.mdx`
+   - Never edit `navigationData.ts` or `indexContentMap.ts` directly
+   
+2. **✅ Run sync after making changes** (or use watch mode for auto-sync)
+   - Manual: `npm run sync-toc`
+   - Auto: `npm run watch-toc` (watches for changes and syncs automatically)
+   
+3. **✅ Test navigation after syncing** to ensure everything works
+   - Check that new pages appear in the navigation
+   - Verify links work correctly
+   
+4. **✅ Commit both `index.mdx` and generated files** to version control
+   - Source files: `src/content/*/index.mdx`
+   - Generated files: `src/data/navigationData.ts`, `src/utils/indexContentMap.ts`
+   
+5. **✅ Use consistent naming** for modules, sections, and pages
+   - Module names become IDs automatically (converted to kebab-case)
+   - Section names should be descriptive and unique within a module
+   - Page names should clearly indicate their content
+
+6. **✅ Follow the markdown format exactly** as shown in the examples
+   - Use `##` for modules
+   - Use `###` for sections
+   - Use `- Name → /path` for pages
+   - Use 2-space indentation for nested pages
 
 ## Version Control
 

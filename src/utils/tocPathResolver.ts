@@ -16,8 +16,9 @@ interface PathResolverParams {
 }
 
 /**
- * Maps navigation module IDs to TOC module IDs
+ * Maps navigation module IDs to TOC module IDs (fallback only)
  * Handles cases where navigation uses different IDs than TOC
+ * This is used as a fallback when direct module ID lookup fails
  */
 function mapModuleIdToTOC(navModuleId: string, sectionId?: string): string {
   // Special handling for My Dashboard module
@@ -56,6 +57,7 @@ function mapModuleIdToTOC(navModuleId: string, sectionId?: string): string {
 /**
  * Resolve the path to the MDX file using TOC structure
  * This is the new TOC-driven approach
+ * Matches the working implementation from alternate-feature-docsite
  */
 export async function resolveMDXPathFromTOC({
   version,
@@ -77,33 +79,49 @@ export async function resolveMDXPathFromTOC({
     // Load the TOC structure for this version
     const structure = await loadTocForVersion(version);
     
-    // Map navigation module ID to TOC module ID
-    const tocModuleId = mapModuleIdToTOC(module);
-    
     console.log('TOC structure loaded:', {
       version: structure.version,
       modulesCount: structure.modules.length,
       moduleIds: structure.modules.map(m => m.id),
       navModuleId: module,
       navSectionId: section,
-      mappedTocModuleId: tocModuleId,
     });
     
-    // Use the TOC parser to resolve the file path
-    const filePath = resolveFilePath(structure, tocModuleId, section, page);
+    // FIRST: Try direct module ID (matching working implementation)
+    // The working version uses module ID directly without mapping
+    let filePath = resolveFilePath(structure, module, section, page);
     
     if (filePath) {
-      console.log('✅ TOC resolved path:', filePath);
+      console.log('✅ TOC resolved path (direct):', filePath);
       return filePath;
+    }
+    
+    console.warn('⚠️ Direct resolution failed. Attempting mapped module ID...');
+    
+    // FALLBACK: Try mapped module ID if direct lookup failed
+    const tocModuleId = mapModuleIdToTOC(module, section);
+    if (tocModuleId !== module) {
+      filePath = resolveFilePath(structure, tocModuleId, section, page);
+      if (filePath) {
+        console.log('✅ TOC resolved path (mapped):', filePath);
+        return filePath;
+      }
     }
     
     console.warn('⚠️ Primary resolution failed. Attempting fallback resolution...');
     
     // FALLBACK: Try to find the page in ANY section of the module
     // This handles cases where navigation uses wrong section IDs
-    const targetModule = structure.modules.find(m => m.id === tocModuleId);
+    // First try with direct module ID
+    let targetModule = structure.modules.find(m => m.id === module);
+    
+    // If not found, try with mapped module ID
+    if (!targetModule && tocModuleId !== module) {
+      targetModule = structure.modules.find(m => m.id === tocModuleId);
+    }
+    
     if (targetModule) {
-      console.log('Found module:', module, 'with', targetModule.sections.length, 'sections');
+      console.log('Found module:', targetModule.id, 'with', targetModule.sections.length, 'sections');
       
       for (const sec of targetModule.sections) {
         console.log('Checking section:', sec.id, 'for page:', page);
@@ -129,7 +147,7 @@ export async function resolveMDXPathFromTOC({
         }
       }
     } else {
-      console.error('❌ Module not found in TOC:', module);
+      console.error('❌ Module not found in TOC:', module, '(tried mapped:', tocModuleId, ')');
       console.log('Available modules:', structure.modules.map(m => m.id));
     }
     
@@ -145,12 +163,7 @@ export async function resolveMDXPathFromTOC({
  * Synchronous version that attempts to use cached TOC data
  * Falls back to null if TOC is not loaded
  */
-export function resolveMDXPathFromTOCSync({
-  version,
-  module,
-  section,
-  page,
-}: PathResolverParams): string | null {
+export function resolveMDXPathFromTOCSync(_params: PathResolverParams): string | null {
   // This will be implemented if we need synchronous resolution
   // For now, components should use the async version
   console.warn('Synchronous TOC path resolution not yet implemented');

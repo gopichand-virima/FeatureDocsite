@@ -45,6 +45,12 @@ export default function App() {
   
   // Handle version changes - update content loader
   const handleVersionChange = (newVersion: string) => {
+    // Scroll to top immediately on version change
+    if (contentContainerRef.current) {
+      contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    
     setSelectedVersion(newVersion);
     
     // Update content loader version
@@ -62,8 +68,6 @@ export default function App() {
   const [showSupportPolicies, setShowSupportPolicies] = useState(false);
   const versionDropdownTriggerRef = useRef<(() => void) | null>(null);
   
-  // Store scroll positions for each page
-  const scrollPositions = useRef<Map<string, number>>(new Map());
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Initialize content loader with selected version
@@ -94,53 +98,32 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Generate unique key for current page
-  const getPageKey = (version: string, module: string, section: string, page: string) => {
-    return `${version}-${module}-${section}-${page}`;
-  };
-
-  // Save current scroll position before navigation
-  const saveScrollPosition = () => {
-    if (contentContainerRef.current && selectedModule) {
-      const pageKey = getPageKey(selectedVersion, selectedModule, selectedSection, selectedPage);
-      const scrollTop = contentContainerRef.current.scrollTop;
-      scrollPositions.current.set(pageKey, scrollTop);
-    }
-  };
-
-  // Restore scroll position after navigation
-  const restoreScrollPosition = () => {
-    if (contentContainerRef.current && selectedModule) {
-      const pageKey = getPageKey(selectedVersion, selectedModule, selectedSection, selectedPage);
-      const savedPosition = scrollPositions.current.get(pageKey);
-      
-      if (savedPosition !== undefined) {
-        // Use requestAnimationFrame to ensure DOM is ready
-        requestAnimationFrame(() => {
-          if (contentContainerRef.current) {
-            contentContainerRef.current.scrollTo({
-              top: savedPosition,
-              behavior: 'instant'
-            });
-          }
-        });
-      } else {
-        // New page - scroll to top
-        requestAnimationFrame(() => {
-          if (contentContainerRef.current) {
-            contentContainerRef.current.scrollTo({
-              top: 0,
-              behavior: 'instant'
-            });
-          }
+  // Universal scroll-to-top on navigation
+  // This ensures every navigation action starts at the top of the page
+  useEffect(() => {
+    // Use multiple requestAnimationFrame calls to ensure DOM is fully ready
+    const scrollToTop = () => {
+      // Scroll content container if it exists
+      if (contentContainerRef.current) {
+        contentContainerRef.current.scrollTo({
+          top: 0,
+          behavior: 'instant'
         });
       }
-    }
-  };
+      
+      // Also scroll window to top (for any window-level scrolling)
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+    };
 
-  // Restore scroll position when page changes
-  useEffect(() => {
-    restoreScrollPosition();
+    // Use double RAF to ensure content is rendered
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToTop();
+      });
+    });
   }, [selectedVersion, selectedModule, selectedSection, selectedPage]);
 
   const showHomePage = !selectedModule && !showCommunityForum && !showKnowledgeBase && !showSupportPolicies;
@@ -164,7 +147,12 @@ export default function App() {
       return;
     }
     
-    saveScrollPosition(); // Save before changing
+    // Scroll to top immediately on module change
+    if (contentContainerRef.current) {
+      contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    
     setSelectedModule(module);
     
     // Load hierarchical TOC to get the first section and page
@@ -198,7 +186,12 @@ export default function App() {
   };
 
   const handleHomeClick = () => {
-    saveScrollPosition(); // Save before going home
+    // Scroll to top when going home
+    if (contentContainerRef.current) {
+      contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    
     setSelectedModule('');
     setSelectedSection('');
     setSelectedPage('');
@@ -237,12 +230,20 @@ export default function App() {
             onModuleChange={handleModuleChange}
             selectedSection={selectedSection}
             onSectionChange={(section) => {
-              saveScrollPosition();
+              // Scroll to top on section change
+              if (contentContainerRef.current) {
+                contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+              }
+              window.scrollTo({ top: 0, behavior: 'instant' });
               setSelectedSection(section);
             }}
             selectedPage={selectedPage}
             onPageChange={(page) => {
-              saveScrollPosition();
+              // Scroll to top on page change
+              if (contentContainerRef.current) {
+                contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+              }
+              window.scrollTo({ top: 0, behavior: 'instant' });
               setSelectedPage(page);
             }}
             onHomeClick={handleHomeClick}
@@ -261,7 +262,12 @@ export default function App() {
                 page={selectedPage}
                 onHomeClick={handleHomeClick}
                 onModuleClick={async () => {
-                  saveScrollPosition();
+                  // Scroll to top on module click
+                  if (contentContainerRef.current) {
+                    contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+                  }
+                  window.scrollTo({ top: 0, behavior: 'instant' });
+                  
                   // Load TOC and navigate to first page of module
                   try {
                     const toc = await loadHierarchicalToc(selectedVersion);

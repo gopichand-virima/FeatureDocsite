@@ -90,6 +90,24 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
 
     loadContent();
   }, [filePath, version, module, section, page]);
+  
+  // Scroll to top when filePath changes (new page loaded)
+  useEffect(() => {
+    if (!loading && content) {
+      // Use double RAF to ensure DOM is ready after content renders
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Find the scrollable container (content area)
+          const scrollContainer = document.querySelector('[data-slot="scroll-area-viewport"]') as HTMLElement;
+          if (scrollContainer) {
+            scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
+          }
+          // Also scroll window to top
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        });
+      });
+    }
+  }, [filePath]); // Only when filePath changes (new page)
 
   if (loading) {
     return (

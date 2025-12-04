@@ -23,8 +23,7 @@ import {
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { loadAllKBArticles, loadKBArticle, type KBArticle } from "../utils/mdxContentLoader";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MDXRenderer } from "./MDXRenderer";
 
 interface VirimaKnowledgeBaseProps {
   onBack: () => void;
@@ -305,7 +304,7 @@ export function VirimaKnowledgeBase({ onBack }: VirimaKnowledgeBaseProps) {
 
                             {/* Metadata row */}
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-                              {article.category && (
+                              {article.category && article.category !== 'General' && (
                                 <span className="inline-flex items-center gap-1">
                                   <Tag className="h-3 w-3" />
                                   {article.category}
@@ -429,12 +428,26 @@ export function VirimaKnowledgeBase({ onBack }: VirimaKnowledgeBaseProps) {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg text-sm">
-                          {selectedArticle.category}
-                        </span>
-                        <span className={`px-3 py-1.5 rounded-lg text-sm ${difficultyColors[selectedArticle.difficulty]}`}>
-                          {selectedArticle.difficulty}
-                        </span>
+                        {selectedArticle.category && selectedArticle.category !== 'General' && (
+                          <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg text-sm">
+                            {selectedArticle.category}
+                          </span>
+                        )}
+                        {selectedArticle.severity && (
+                          <span className={`px-3 py-1.5 rounded-lg text-sm ${
+                            selectedArticle.severity === 'Critical' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' :
+                            selectedArticle.severity === 'High' ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' :
+                            selectedArticle.severity === 'Medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
+                            'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                          }`}>
+                            {selectedArticle.severity}
+                          </span>
+                        )}
+                        {!selectedArticle.severity && selectedArticle.difficulty && (
+                          <span className={`px-3 py-1.5 rounded-lg text-sm ${difficultyColors[selectedArticle.difficulty]}`}>
+                            {selectedArticle.difficulty}
+                          </span>
+                        )}
                       </div>
                       <h1 className="text-4xl text-black-premium dark:text-white mb-4">
                         {selectedArticle.title}
@@ -494,9 +507,10 @@ export function VirimaKnowledgeBase({ onBack }: VirimaKnowledgeBaseProps) {
                 {/* Article Content */}
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 mb-6">
                   <div className="prose prose-slate dark:prose-invert max-w-none">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {selectedArticle.content}
-                    </ReactMarkdown>
+                    <MDXRenderer 
+                      content={selectedArticle.content} 
+                      filePath={`/content/support_articles/${selectedArticle.id}.mdx`}
+                    />
                   </div>
                 </div>
 

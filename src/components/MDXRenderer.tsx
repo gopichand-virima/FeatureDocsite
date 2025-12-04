@@ -209,7 +209,7 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
             return (
               <div className="virima-table-container my-8">
                 <div 
-                  className={`overflow-x-auto rounded-lg border border-slate-900 dark:border-slate-700 shadow-sm ${
+                  className={`overflow-x-auto border border-slate-900 dark:border-slate-700 shadow-sm ${
                     isLargeTable ? 'max-h-[600px] overflow-y-auto' : ''
                   }`}
                   style={{
@@ -251,7 +251,11 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
           ),
           th: ({ node, ...props }) => (
             <th 
-              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap border border-slate-900 dark:border-slate-700" 
+              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap border border-slate-900 dark:border-slate-700 bg-[#2E7D32] dark:bg-[#1B5E20]" 
+              style={{
+                backgroundColor: '#2E7D32',
+                color: '#FFFFFF',
+              }}
               {...props} 
             />
           ),

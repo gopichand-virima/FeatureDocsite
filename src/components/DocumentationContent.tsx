@@ -166,6 +166,19 @@ export function DocumentationContent({
     async function loadPathAndBreadcrumbs() {
       setLoadingPath(true);
       try {
+        // Set version in contentLoader to ensure correct version context
+        // Map display version to internal version code
+        const versionMap: Record<string, string> = {
+          'NextGen': 'NG',
+          '6.1.1': '6_1_1',
+          '6.1': '6_1',
+          '5.13': '5_13',
+        };
+        const internalVersion = versionMap[version] || version.replace(/\./g, '_').toUpperCase();
+        const { setVersion } = await import('../content/contentLoader');
+        setVersion(internalVersion);
+        console.log(`🔄 [DocumentationContent] Set contentLoader version to: ${internalVersion} (from route version: ${version})`);
+        
         // Load both the MDX path and breadcrumbs
         // Match working implementation: use TOC resolution directly
         const [path, breadcrumbPath] = await Promise.all([

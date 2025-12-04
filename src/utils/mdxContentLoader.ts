@@ -158,14 +158,25 @@ export async function loadAllCommunityPosts(): Promise<CommunityPost[]> {
 // KB Article Loader
 export async function loadKBArticle(articleId: string): Promise<KBArticle | null> {
   try {
-    // Try support articles registry first
-    let rawContent = getRegisteredContent(`/content/support_articles/${articleId}.mdx`);
+    // Try loading actual MDX content first using contentLoader
+    const { getContent } = await import('../content/contentLoader');
+    
+    // Try support articles first
+    let rawContent = await getContent(`/content/support_articles/${articleId}.mdx`);
     let isSupportArticle = true;
     
-    // If not found, try KB articles registry
+    // If not found, try KB articles
     if (!rawContent) {
-      rawContent = getRegisteredContent(`/content/kb_articles/${articleId}.mdx`);
+      rawContent = await getContent(`/content/kb_articles/${articleId}.mdx`);
       isSupportArticle = false;
+    }
+    
+    // Fallback to registry if contentLoader doesn't have the file
+    if (!rawContent) {
+      rawContent = getRegisteredContent(`/content/support_articles/${articleId}.mdx`);
+      if (!rawContent) {
+        rawContent = getRegisteredContent(`/content/kb_articles/${articleId}.mdx`);
+      }
     }
     
     if (!rawContent) {
@@ -177,8 +188,8 @@ export async function loadKBArticle(articleId: string): Promise<KBArticle | null
 
     return {
       id: frontmatter.id || articleId,
-      title: frontmatter.title || '',
-      category: frontmatter.category || 'General',
+      title: frontmatter.title || articleId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+      category: frontmatter.category || '',
       module: frontmatter.module || '',
       difficulty: frontmatter.difficulty || 'Intermediate',
       readTime: frontmatter.readTime || '10 min',

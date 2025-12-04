@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getContent } from '../content/contentLoader';
+import { getContent, setVersion as setContentLoaderVersion } from '../content/contentLoader';
 import { FeedbackSection } from './FeedbackSection';
 import { ContentNotAvailable } from './ContentNotAvailable';
 import { MDXRenderer } from './MDXRenderer';
@@ -43,6 +43,20 @@ export function MDXContent({ filePath, version, module, moduleName, section, sec
       setError(null);
       
       try {
+        // Set version in contentLoader if provided (ensures correct version context)
+        if (version) {
+          // Map display version to internal version code
+          const versionMap: Record<string, string> = {
+            'NextGen': 'NG',
+            '6.1.1': '6_1_1',
+            '6.1': '6_1',
+            '5.13': '5_13',
+          };
+          const internalVersion = versionMap[version] || version.replace(/\./g, '_').toUpperCase();
+          setContentLoaderVersion(internalVersion);
+          console.log(`🔄 [MDXContent] Set contentLoader version to: ${internalVersion} (from route version: ${version})`);
+        }
+        
         // Load content dynamically from contentLoader (async)
         const mdxContent = await getContent(filePath);
         

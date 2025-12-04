@@ -100,6 +100,49 @@
     };
   }
 
+  /**
+   * Custom plugin to serve assets/images in development mode
+   */
+  function serveAssetsPlugin(): Plugin {
+    return {
+      name: 'serve-assets',
+      configureServer(server) {
+        // Handle /assets/images/* paths
+        server.middlewares.use((req, res, next) => {
+          const url = req.url || '';
+          
+          // Handle /assets/images/* or /FeatureDocsite/assets/images/*
+          if (url.startsWith('/assets/images/') || url.startsWith('/FeatureDocsite/assets/images/')) {
+            // Remove /FeatureDocsite prefix if present
+            const cleanUrl = url.startsWith('/FeatureDocsite') 
+              ? url.substring('/FeatureDocsite'.length)
+              : url;
+            
+            // Map /assets/images/* to src/assets/images/*
+            const imagePath = path.join(process.cwd(), 'src', cleanUrl.substring(1)); // Remove leading /
+            
+            if (fs.existsSync(imagePath) && fs.statSync(imagePath).isFile()) {
+              const ext = path.extname(imagePath).toLowerCase();
+              const contentType = 
+                ext === '.png' ? 'image/png' :
+                ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
+                ext === '.gif' ? 'image/gif' :
+                ext === '.svg' ? 'image/svg+xml' :
+                'application/octet-stream';
+              
+              res.setHeader('Content-Type', contentType);
+              res.setHeader('Cache-Control', 'public, max-age=31536000');
+              const fileStream = fs.createReadStream(imagePath);
+              fileStream.pipe(res);
+              return;
+            }
+          }
+          next();
+        });
+      },
+    };
+  }
+
   export default defineConfig({
     // Base path for GitHub Pages deployment
     base: '/FeatureDocsite/',
@@ -108,6 +151,7 @@
       react(),
       copyContentPlugin(),
       copyAssetsPlugin(),
+      serveAssetsPlugin(),
     ],
     
     resolve: {

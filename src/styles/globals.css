@@ -455,37 +455,40 @@ html {
 .branded-table thead,
 .virima-table thead,
 .virima-table-header {
-  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  background: #2E7D32 !important;
+  background-color: #2E7D32 !important;
   position: sticky;
   top: 0;
   z-index: 10;
+  border-radius: 0;
 }
 
 .branded-table thead th,
 .virima-table thead th,
 .virima-table-th {
-  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
-  color: #FFFFFF;
+  background: #2E7D32 !important;
+  background-color: #2E7D32 !important;
+  color: #FFFFFF !important;
   font-weight: 600;
   font-size: 0.875rem;
   text-align: left;
   padding: 0.875rem 1rem;
   border: 1px solid #1a1a1a;
   white-space: nowrap;
+  border-radius: 0;
 }
 
-/* First header cell with rounded corner */
+/* No rounded corners on table cells - straight edges only */
 .branded-table thead th:first-child,
 .virima-table thead th:first-child,
 .virima-table-th:first-child {
-  border-top-left-radius: 0.5rem;
+  border-top-left-radius: 0;
 }
 
-/* Last header cell with rounded corner */
 .branded-table thead th:last-child,
 .virima-table thead th:last-child,
 .virima-table-th:last-child {
-  border-top-right-radius: 0.5rem;
+  border-top-right-radius: 0;
 }
 
 /* Table body rows */
@@ -543,14 +546,19 @@ html {
 .dark .branded-table thead,
 .dark .virima-table thead,
 .dark .virima-table-header {
-  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+  background: #1B5E20 !important;
+  background-color: #1B5E20 !important;
+  border-radius: 0;
 }
 
 .dark .branded-table thead th,
 .dark .virima-table thead th,
 .dark .virima-table-th {
-  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+  background: #1B5E20 !important;
+  background-color: #1B5E20 !important;
+  color: #FFFFFF !important;
   border: 1px solid #374151;
+  border-radius: 0;
 }
 
 .dark .branded-table tbody tr,
@@ -624,12 +632,17 @@ article img {
   animation: imageFadeIn 0.3s ease-in;
 }
 
-/* Responsive table container */
+/* Responsive table container - no rounded corners */
 .virima-table-container {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  border-radius: 0;
+}
+
+.virima-table-container > div {
+  border-radius: 0 !important;
 }
 
 /* Custom scrollbar for table containers */

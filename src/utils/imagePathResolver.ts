@@ -6,15 +6,41 @@
  */
 
 /**
+ * Gets the base path for assets (supports GitHub Pages deployment)
+ */
+function getBasePath(): string {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  const pathname = window.location.pathname;
+  if (pathname.startsWith('/FeatureDocsite/')) {
+    return '/FeatureDocsite';
+  }
+  return '';
+}
+
+/**
  * Resolves an image source path relative to the content file
  * @param src - The image source path from MDX
  * @param contentPath - The path of the MDX file containing the image
  * @returns Resolved absolute path
  */
 export function resolveImagePath(src: string, contentPath?: string): string {
-  // If src is already absolute (starts with / or http), return as is
-  if (src.startsWith('/') || src.startsWith('http://') || src.startsWith('https://')) {
+  // Handle external URLs
+  if (src.startsWith('http://') || src.startsWith('https://')) {
     return src;
+  }
+  
+  // Handle absolute paths starting with /
+  if (src.startsWith('/')) {
+    // For paths starting with /assets/, ensure they work with base path
+    if (src.startsWith('/assets/')) {
+      const basePath = getBasePath();
+      return `${basePath}${src}`;
+    }
+    // For other absolute paths, add base path if needed
+    const basePath = getBasePath();
+    return basePath ? `${basePath}${src}` : src;
   }
 
   // If no content path provided, assume image is in public/assets

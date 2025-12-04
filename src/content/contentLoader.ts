@@ -323,36 +323,41 @@ async function fetchContent(filePath: string): Promise<string> {
   }
   
   // Strategy 0: Direct Fetch with ?raw (if already a full file path) ⭐⭐
+  // This is the PRIMARY strategy for versions without static imports (6_1_1, 5_13, NG)
   if (isFullPath) {
-    console.log(`🎯 [Strategy 0] Already a full path, attempting direct import...`);
+    console.log(`🎯 [Strategy 0] Already a full path, attempting direct fetch...`);
     
     const basePath = getBasePath();
     const fullPath = basePath ? `${basePath}${cleanPath}` : cleanPath;
     console.log(`📍 [Strategy 0] Base path: "${basePath}", Full path: "${fullPath}"`);
+    console.log(`📍 [Strategy 0] Current version: ${currentVersion}`);
     
     // Try Method A: Dynamic import with ?raw suffix (gets actual file content)
+    // This works in Vite build but may fail in dev mode
     try {
       const rawPath = `${fullPath}?raw`;
       const module = await import(/* @vite-ignore */ rawPath);
       
       if (module && module.default) {
         const content = module.default;
-        console.log(`✅ Strategy 0A (RAW IMPORT): SUCCESS! (${content.length} chars)`);
-        console.log(`📄 [Preview] First 200 chars:`, content.substring(0, Math.min(200, content.length)));
-        return content;
+        if (typeof content === 'string' && content.length > 0) {
+          console.log(`✅ Strategy 0A (RAW IMPORT): SUCCESS! (${content.length} chars)`);
+          console.log(`📄 [Preview] First 200 chars:`, content.substring(0, Math.min(200, content.length)));
+          return content;
+        }
       }
     } catch (rawError) {
       // Raw imports often fail in dev mode - this is expected, fall through to Method B
-      // Suppressing detailed error to reduce console noise
+      console.log(`ℹ️ [Strategy 0A] Raw import not available (dev mode), trying fetch...`);
     }
     
-    // Try Method B: Regular fetch with HTML extraction
+    // Try Method B: Regular fetch (works in both dev and production)
     try {
       const response = await fetch(fullPath);
       if (response.ok) {
         const text = await response.text();
         
-        // Check if we got HTML wrapper
+        // Check if we got HTML wrapper (common in some hosting environments)
         if (text.includes('<!DOCTYPE') || text.includes('<html')) {
           const extracted = extractMDXFromHTML(text);
           if (extracted) {
@@ -364,13 +369,37 @@ async function fetchContent(filePath: string): Promise<string> {
             console.log(`📄 [HTML Debug] First 500 chars:`, text.substring(0, 500));
           }
         } else {
-          // Got raw MDX!
-          console.log(`✅ Strategy 0B (FETCH RAW): SUCCESS! (${text.length} chars)`);
-          console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
-          return text;
+          // Got raw MDX! This is the ideal case
+          // Validate it looks like MDX (has some markdown syntax)
+          if (text.trim().length > 0 && (text.includes('#') || text.includes('```') || text.includes('---'))) {
+            console.log(`✅✅ Strategy 0B (FETCH RAW): SUCCESS! (${text.length} chars)`);
+            console.log(`📄 [Preview]:`, text.substring(0, Math.min(150, text.length)) + '...');
+            return text;
+          } else {
+            console.warn(`⚠️ [Strategy 0B] Got response but doesn't look like MDX content`);
+          }
         }
       } else {
-        console.warn(`⚠️ [Strategy 0B] Fetch failed with status ${response.status}`);
+        console.warn(`⚠️ [Strategy 0B] Fetch failed with status ${response.status} for: ${fullPath}`);
+        // Try alternative path variations
+        const altPaths = [
+          cleanPath.replace(/^\/content\//, '/src/content/'),
+          cleanPath.replace(/^\/content\//, '/public/content/'),
+        ];
+        for (const altPath of altPaths) {
+          try {
+            const altResponse = await fetch(altPath);
+            if (altResponse.ok) {
+              const altText = await altResponse.text();
+              if (!altText.includes('<!DOCTYPE') && !altText.includes('<html')) {
+                console.log(`✅ Strategy 0B (ALT PATH): SUCCESS! (${altText.length} chars) - Used: ${altPath}`);
+                return altText;
+              }
+            }
+          } catch {
+            // Continue to next alternative
+          }
+        }
       }
     } catch (fetchError) {
       console.warn(`⚠️ [Strategy 0B] Fetch error:`, fetchError);

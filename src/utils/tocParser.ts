@@ -121,30 +121,41 @@ export function parseTocFile(content: string, version: string): TocStructure {
       continue;
     }
 
-    // Page detection (- Page Name → /path/to/file.mdx)
-    if (trimmed.startsWith('- ') && trimmed.includes('→')) {
-      const match = trimmed.match(/^-\s+(.+?)\s+→\s+(.+)$/);
-      if (match && currentSection) {
-        const pageName = match[1].trim();
-        // Clean the file path - remove backticks if present
-        let filePath = match[2].trim();
-        // Remove leading and trailing backticks
-        if (filePath.startsWith('`') && filePath.endsWith('`')) {
-          filePath = filePath.slice(1, -1);
-        }
+    // Page detection (- Page Name → /path/to/file.mdx OR - Page Name without path)
+    if (trimmed.startsWith('- ')) {
+      // Check if it has a file path (→) or is a parent container
+      const matchWithPath = trimmed.match(/^-\s+(.+?)\s+→\s+(.+)$/);
+      const matchWithoutPath = trimmed.match(/^-\s+(.+)$/);
+      
+      if ((matchWithPath || matchWithoutPath) && currentSection) {
+        const pageName = matchWithPath ? matchWithPath[1].trim() : (matchWithoutPath ? matchWithoutPath[1].trim() : '');
+        if (!pageName) continue;
         const pageId = convertToId(pageName);
-
-        pageCount++;
-
-        const page: TocPage = {
-          id: pageId,
-          label: pageName,
-          filePath: filePath,
-        };
 
         // Determine indentation level
         const indent = line.search(/\S/);
         const currentLevel = Math.floor(indent / 2);
+
+        // Create page object (with or without file path)
+        const page: TocPage = {
+          id: pageId,
+          label: pageName,
+        };
+
+        // If it has a file path, add it
+        if (matchWithPath) {
+          let filePath = matchWithPath[2].trim();
+          // Remove leading and trailing backticks
+          if (filePath.startsWith('`') && filePath.endsWith('`')) {
+            filePath = filePath.slice(1, -1);
+          }
+          page.filePath = filePath;
+          pageCount++;
+        }
+        // If no file path, it's a parent container (still count it for structure)
+        else {
+          pageCount++;
+        }
 
         // Handle nested pages
         if (currentLevel > 0 && indentStack.length > 0) {
@@ -385,7 +396,7 @@ export function resolveFilePath(
   };
 
   const page = findPage(section.pages, pageId);
-  return page ? page.filePath : null;
+  return page?.filePath ?? null;
 }
 
 // Type definitions

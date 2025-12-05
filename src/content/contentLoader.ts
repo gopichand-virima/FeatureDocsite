@@ -31,6 +31,7 @@ import { reportsMDXContent } from '../lib/imports/reportsMDXImports';
 import { riskregisterMDXContent } from '../lib/imports/riskregisterMDXImports';
 import { vulnerabilitymanagementMDXContent } from '../lib/imports/vulnerabilitymanagementMDXImports';
 import { supportPolicyMDXContent } from '../lib/imports/supportPolicyMDXImports';
+import { selfserviceMDXContent } from '../lib/imports/selfserviceMDXImports';
 
 // Combine all static MDX content maps (Strategy 1 - Highest Priority)
 // This ensures all version 6.1 module content loads instantly from bundled assets
@@ -48,6 +49,7 @@ const allStaticMDXContent: Record<string, string> = {
   ...riskregisterMDXContent,
   ...vulnerabilitymanagementMDXContent,
   ...supportPolicyMDXContent,
+  ...selfserviceMDXContent,
 };
 
 /**

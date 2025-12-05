@@ -248,7 +248,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
 
             <div 
               onClick={() => onModuleSelect('compatibility-matrix')}
-              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(168,85,247,0.08)] dark:hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-500 cursor-pointer">
+              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-purple-400 dark:hover:border-purple-500 hover:bg-purple-50/30 dark:hover:bg-purple-900/20 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(168,85,247,0.08)] dark:hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-500 cursor-pointer">
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-purple-500/20 group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>

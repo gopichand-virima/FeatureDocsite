@@ -200,11 +200,19 @@ class WebSearchService {
    * Check if any web search API is configured
    */
   isConfigured(): boolean {
-    return (
-      SearchConfig.webSearch.serper.apiKey !== 'YOUR_SERPER_API_KEY' ||
-      SearchConfig.webSearch.brave.apiKey !== 'YOUR_BRAVE_API_KEY' ||
-      SearchConfig.webSearch.bing.apiKey !== 'YOUR_BING_API_KEY'
-    );
+    const serperConfigured = SearchConfig.webSearch.serper.apiKey && 
+      SearchConfig.webSearch.serper.apiKey !== 'YOUR_SERPER_API_KEY' &&
+      SearchConfig.webSearch.serper.apiKey.length > 0;
+    
+    const braveConfigured = SearchConfig.webSearch.brave.apiKey && 
+      SearchConfig.webSearch.brave.apiKey !== 'YOUR_BRAVE_API_KEY' &&
+      SearchConfig.webSearch.brave.apiKey.length > 0;
+    
+    const bingConfigured = SearchConfig.webSearch.bing.apiKey && 
+      SearchConfig.webSearch.bing.apiKey !== 'YOUR_BING_API_KEY' &&
+      SearchConfig.webSearch.bing.apiKey.length > 0;
+    
+    return serperConfigured || braveConfigured || bingConfigured;
   }
 }
 

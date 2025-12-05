@@ -152,6 +152,15 @@
     color: #FFFFFF;
   }
 
+  /* Ensure group-hover purple colors override text-black-premium for Compatibility Matrix */
+  .group:hover h3[class*="group-hover:text-purple"] {
+    color: #9333ea !important;
+  }
+
+  .dark .group:hover h3[class*="group-hover:text-purple"] {
+    color: #c084fc !important;
+  }
+
   .border-black-premium {
     border-color: #000000;
   }

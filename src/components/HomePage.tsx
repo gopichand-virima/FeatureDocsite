@@ -252,7 +252,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-purple-500/20 group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:!text-purple-600 dark:group-hover:!text-purple-400 transition-colors">
                 Compatibility Matrix
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">

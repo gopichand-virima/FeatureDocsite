@@ -1,164 +1,111 @@
 /**
- * ITAM Module - Version 6.1 Static MDX Imports
+ * Itam Module - Multi-Version Static MDX Imports
  * 
  * Static imports for actual MDX content (Strategy 1 - Highest Priority)
- * This ensures ITAM content loads instantly from bundled assets
+ * This ensures Itam content loads instantly from bundled assets
  * 
- * Auto-generated: 2025-12-04T11:24:42.043Z
- * Total files: 72
+ * Auto-synchronized from TOC files
+ * Versions: NG, 6_1, 6_1_1, 5_13
  */
 
-import aboutItam6161 from '../../content/6_1/itam_6_1/about_itam_6_1.mdx?raw';
-import aboutItamNewui6161 from '../../content/6_1/itam_6_1/about_itam_newui_6_1.mdx?raw';
-import aboutItamOldui6161 from '../../content/6_1/itam_6_1/about_itam_oldui_6_1.mdx?raw';
-import assetLicEntitlement6161 from '../../content/6_1/itam_6_1/asset_lic_entitlement_6_1.mdx?raw';
-import assetLicEntitlementEdit6161 from '../../content/6_1/itam_6_1/asset_lic_entitlement_edit_6_1.mdx?raw';
-import assetLicEntitlementNew6161 from '../../content/6_1/itam_6_1/asset_lic_entitlement_new_6_1.mdx?raw';
-import auditsItam6161 from '../../content/6_1/itam_6_1/audits_itam_6_1.mdx?raw';
-import contractMngmnt6161 from '../../content/6_1/itam_6_1/contract_management/contract_mngmnt_6_1.mdx?raw';
-import contractMngmntEdit6161 from '../../content/6_1/itam_6_1/contract_management/contract_mngmnt_edit_6_1.mdx?raw';
-import contractMngmntNew6161 from '../../content/6_1/itam_6_1/contract_management/contract_mngmnt_new_6_1.mdx?raw';
-import contractMngmntRoot6161 from '../../content/6_1/itam_6_1/contract_mngmnt_6_1.mdx?raw';
-import contractMngmntEditRoot6161 from '../../content/6_1/itam_6_1/contract_mngmnt_edit_6_1.mdx?raw';
-import contractMngmntNewRoot6161 from '../../content/6_1/itam_6_1/contract_mngmnt_new_6_1.mdx?raw';
-import aboutFinancialManagement6161 from '../../content/6_1/itam_6_1/financial_management/about_financial_management_6_1.mdx?raw';
-import ciFinancialPlan6161 from '../../content/6_1/itam_6_1/financial_management/ci_financial_plan_6_1.mdx?raw';
-import serviceFinancialPlan6161 from '../../content/6_1/itam_6_1/financial_management/service_financial_plan_6_1.mdx?raw';
-import financialMngmntContentHold6161 from '../../content/6_1/itam_6_1/financial_mngmnt_content_hold_6_1.mdx?raw';
-import hwAsset6161 from '../../content/6_1/itam_6_1/hw_asset_6_1.mdx?raw';
-import hwAssetEdit6161 from '../../content/6_1/itam_6_1/hw_asset_edit_6_1.mdx?raw';
-import hwAssetNew6161 from '../../content/6_1/itam_6_1/hw_asset_new_6_1.mdx?raw';
-import hwAssets6161 from '../../content/6_1/itam_6_1/hw_assets/hw_assets_6_1.mdx?raw';
-import accessCmdbItam6161 from '../../content/6_1/itam_6_1/itam_cmdb/access_cmdb_itam_6_1.mdx?raw';
-import aboutProcurement6161 from '../../content/6_1/itam_6_1/procurement/about_procurement_6_1.mdx?raw';
-import po6161 from '../../content/6_1/itam_6_1/procurement/po_6_1.mdx?raw';
-import poEdit6161 from '../../content/6_1/itam_6_1/procurement/po_edit_6_1.mdx?raw';
-import poLineItems6161 from '../../content/6_1/itam_6_1/procurement/po_line_items_6_1.mdx?raw';
-import poLineItemsEdit6161 from '../../content/6_1/itam_6_1/procurement/po_line_items_edit_6_1.mdx?raw';
-import poLineItemsNew6161 from '../../content/6_1/itam_6_1/procurement/po_line_items_new_6_1.mdx?raw';
-import poNew6161 from '../../content/6_1/itam_6_1/procurement/po_new_6_1.mdx?raw';
-import recvSlip6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_6_1.mdx?raw';
-import recvSlipEdit6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_edit_6_1.mdx?raw';
-import recvSlipLine6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_line_6_1.mdx?raw';
-import recvSlipLineEdit6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_line_edit_6_1.mdx?raw';
-import recvSlipLineNew6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_line_new_6_1.mdx?raw';
-import recvSlipLines6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_lines_6_1.mdx?raw';
-import recvSlipNew6161 from '../../content/6_1/itam_6_1/procurement/recv_slip_new_6_1.mdx?raw';
-import reqItems6161 from '../../content/6_1/itam_6_1/procurement/req_items_6_1.mdx?raw';
-import reqItemsEdit6161 from '../../content/6_1/itam_6_1/procurement/req_items_edit_6_1.mdx?raw';
-import reqItemsNew6161 from '../../content/6_1/itam_6_1/procurement/req_items_new_6_1.mdx?raw';
-import transferOrder6161 from '../../content/6_1/itam_6_1/procurement/transfer_order_6_1.mdx?raw';
-import transferOrderEdit6161 from '../../content/6_1/itam_6_1/procurement/transfer_order_edit_6_1.mdx?raw';
-import transferOrderNew6161 from '../../content/6_1/itam_6_1/procurement/transfer_order_new_6_1.mdx?raw';
-import serviceDesignPackage6161 from '../../content/6_1/itam_6_1/service_design_package_6_1.mdx?raw';
-import serviceFinancialPlanRoot6161 from '../../content/6_1/itam_6_1/service_financial_plan_6_1.mdx?raw';
-import stockroom6161 from '../../content/6_1/itam_6_1/stockroom_6_1.mdx?raw';
-import stockroomEdit6161 from '../../content/6_1/itam_6_1/stockroom_edit_6_1.mdx?raw';
-import stockroomNew6161 from '../../content/6_1/itam_6_1/stockroom_new_6_1.mdx?raw';
-import stockroomType6161 from '../../content/6_1/itam_6_1/stockroom_type_6_1.mdx?raw';
-import stockroomTypeEdit6161 from '../../content/6_1/itam_6_1/stockroom_type_edit_6_1.mdx?raw';
-import stockroomTypeNew6161 from '../../content/6_1/itam_6_1/stockroom_type_new_6_1.mdx?raw';
-import aboutSwAssetMngmnt6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1.mdx?raw';
-import certificateMngmntEdit6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmnt_edit_6_1.mdx?raw';
-import certificateMngmntNew6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmnt_new_6_1.mdx?raw';
-import certificateMngmt6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmt_6_1.mdx?raw';
-import swAssets6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_6_1.mdx?raw';
-import swAssetsEdit6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_edit_6_1.mdx?raw';
-import swGroupNew6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/sw_group_new_6_1.mdx?raw';
-import swLicenseKey6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/sw_license_key_6_1.mdx?raw';
-import swlk6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/swlk_6_1.mdx?raw';
-import swlkDetails6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/swlk_details_6_1.mdx?raw';
-import swlkEdit6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/swlk_edit_6_1.mdx?raw';
-import swlkNew6161 from '../../content/6_1/itam_6_1/sw_asset_mngmt/swlk_new_6_1.mdx?raw';
-import userEntitle6161 from '../../content/6_1/itam_6_1/user_entitle_6_1.mdx?raw';
-import userEntitleEdit6161 from '../../content/6_1/itam_6_1/user_entitle_edit_6_1.mdx?raw';
-import userEntitleNew6161 from '../../content/6_1/itam_6_1/user_entitle_new_6_1.mdx?raw';
-import userLicenseEntitle6161 from '../../content/6_1/itam_6_1/user_license_entitle_6_1.mdx?raw';
-import vendorMngmnt6161 from '../../content/6_1/itam_6_1/vendor_management/vendor_mngmnt_6_1.mdx?raw';
-import vendorMngmntEdit6161 from '../../content/6_1/itam_6_1/vendor_management/vendor_mngmnt_edit_6_1.mdx?raw';
-import vendorMngmntNew6161 from '../../content/6_1/itam_6_1/vendor_management/vendor_mngmnt_new_6_1.mdx?raw';
-import vendorMngmntRoot6161 from '../../content/6_1/itam_6_1/vendor_mngmnt_6_1.mdx?raw';
-import vendorMngmntEditRoot6161 from '../../content/6_1/itam_6_1/vendor_mngmnt_edit_6_1.mdx?raw';
-import vendorMngmntNewRoot6161 from '../../content/6_1/itam_6_1/vendor_mngmnt_new_6_1.mdx?raw';
+// ========================================
+// Version 5_13
+// ========================================
+
+import itamAboutItam513 from '../../content/5_13/itam_5_13/about_itam_5_13.mdx?raw';
+import itamContractManagementContractMngmnt513 from '../../content/5_13/itam_5_13/contract_management/contract_mngmnt_5_13.mdx?raw';
+import itamHwAssetsHwAssets513 from '../../content/5_13/itam_5_13/hw_assets/hw_assets_5_13.mdx?raw';
+import itamItamCmdbAccessCmdbItam513 from '../../content/5_13/itam_5_13/itam_cmdb/access_cmdb_itam_5_13.mdx?raw';
+import itamSwAssetMngmtAboutSwAssetMngmnt513 from '../../content/5_13/itam_5_13/sw_asset_mngmt/about_sw_asset_mngmnt_5_13.mdx?raw';
+import itamSwAssetMngmtCertificateMngmt513 from '../../content/5_13/itam_5_13/sw_asset_mngmt/certificate_mngmt_5_13.mdx?raw';
+import itamSwAssetMngmtSwAssets513 from '../../content/5_13/itam_5_13/sw_asset_mngmt/sw_assets_5_13.mdx?raw';
+import itamSwAssetMngmtSwlk513 from '../../content/5_13/itam_5_13/sw_asset_mngmt/swlk_5_13.mdx?raw';
+import itamVendorManagementVendorMngmnt513 from '../../content/5_13/itam_5_13/vendor_management/vendor_mngmnt_5_13.mdx?raw';
+
+// ========================================
+// Version 6_1
+// ========================================
+
+import itamAboutItam61 from '../../content/6_1/itam_6_1/about_itam_6_1.mdx?raw';
+import itamContractManagementContractMngmnt61 from '../../content/6_1/itam_6_1/contract_management/contract_mngmnt_6_1.mdx?raw';
+import itamHwAssetsHwAssets61 from '../../content/6_1/itam_6_1/hw_assets/hw_assets_6_1.mdx?raw';
+import itamItamCmdbAccessCmdbItam61 from '../../content/6_1/itam_6_1/itam_cmdb/access_cmdb_itam_6_1.mdx?raw';
+import itamSwAssetMngmtAboutSwAssetMngmnt61 from '../../content/6_1/itam_6_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1.mdx?raw';
+import itamSwAssetMngmtCertificateMngmt61 from '../../content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmt_6_1.mdx?raw';
+import itamSwAssetMngmtSwAssets61 from '../../content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_6_1.mdx?raw';
+import itamSwAssetMngmtSwlk61 from '../../content/6_1/itam_6_1/sw_asset_mngmt/swlk_6_1.mdx?raw';
+import itamVendorManagementVendorMngmnt61 from '../../content/6_1/itam_6_1/vendor_management/vendor_mngmnt_6_1.mdx?raw';
+
+// ========================================
+// Version 6_1_1
+// ========================================
+
+import itamAboutItam611 from '../../content/6_1_1/itam_6_1_1/about_itam_6_1_1.mdx?raw';
+import itamContractManagementContractMngmnt611 from '../../content/6_1_1/itam_6_1_1/contract_management/contract_mngmnt_6_1_1.mdx?raw';
+import itamHwAssetsHwAssets611 from '../../content/6_1_1/itam_6_1_1/hw_assets/hw_assets_6_1_1.mdx?raw';
+import itamItamCmdbAccessCmdbItam611 from '../../content/6_1_1/itam_6_1_1/itam_cmdb/access_cmdb_itam_6_1_1.mdx?raw';
+import itamSwAssetMngmtAboutSwAssetMngmnt611 from '../../content/6_1_1/itam_6_1_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1_1.mdx?raw';
+import itamSwAssetMngmtCertificateMngmt611 from '../../content/6_1_1/itam_6_1_1/sw_asset_mngmt/certificate_mngmt_6_1_1.mdx?raw';
+import itamSwAssetMngmtSwAssets611 from '../../content/6_1_1/itam_6_1_1/sw_asset_mngmt/sw_assets_6_1_1.mdx?raw';
+import itamSwAssetMngmtSwlk611 from '../../content/6_1_1/itam_6_1_1/sw_asset_mngmt/swlk_6_1_1.mdx?raw';
+import itamVendorManagementVendorMngmnt611 from '../../content/6_1_1/itam_6_1_1/vendor_management/vendor_mngmnt_6_1_1.mdx?raw';
+
+// ========================================
+// Version NG
+// ========================================
+
+import itamAboutItamNG from '../../content/NG/itam_ng/about_itam_ng.mdx?raw';
+import itamContractManagementContractMngmntNG from '../../content/NG/itam_ng/contract_management/contract_mngmnt_ng.mdx?raw';
+import itamHwAssetsHwAssetsNG from '../../content/NG/itam_ng/hw_assets/hw_assets_ng.mdx?raw';
+import itamItamCmdbAccessCmdbItamNG from '../../content/NG/itam_ng/itam_cmdb/access_cmdb_itam_ng.mdx?raw';
+import itamSwAssetMngmtAboutSwAssetMngmntNG from '../../content/NG/itam_ng/sw_asset_mngmt/about_sw_asset_mngmnt_ng.mdx?raw';
+import itamSwAssetMngmtCertificateMngmtNG from '../../content/NG/itam_ng/sw_asset_mngmt/certificate_mngmt_ng.mdx?raw';
+import itamSwAssetMngmtSwAssetsNG from '../../content/NG/itam_ng/sw_asset_mngmt/sw_assets_ng.mdx?raw';
+import itamSwAssetMngmtSwlkNG from '../../content/NG/itam_ng/sw_asset_mngmt/swlk_ng.mdx?raw';
+import itamVendorManagementVendorMngmntNG from '../../content/NG/itam_ng/vendor_management/vendor_mngmnt_ng.mdx?raw';
 
 /**
- * ITAM MDX Content Map
+ * Itam MDX Content Map
  * Maps file paths to actual MDX content (static imports)
  * This is used by contentLoader Strategy 1 for instant loading
  */
 export const itamMDXContent: Record<string, string> = {
-  '/content/6_1/itam_6_1/about_itam_6_1.mdx': aboutItam6161,
-  '/content/6_1/itam_6_1/about_itam_newui_6_1.mdx': aboutItamNewui6161,
-  '/content/6_1/itam_6_1/about_itam_oldui_6_1.mdx': aboutItamOldui6161,
-  '/content/6_1/itam_6_1/asset_lic_entitlement_6_1.mdx': assetLicEntitlement6161,
-  '/content/6_1/itam_6_1/asset_lic_entitlement_edit_6_1.mdx': assetLicEntitlementEdit6161,
-  '/content/6_1/itam_6_1/asset_lic_entitlement_new_6_1.mdx': assetLicEntitlementNew6161,
-  '/content/6_1/itam_6_1/audits_itam_6_1.mdx': auditsItam6161,
-  '/content/6_1/itam_6_1/contract_management/contract_mngmnt_6_1.mdx': contractMngmnt6161,
-  '/content/6_1/itam_6_1/contract_management/contract_mngmnt_edit_6_1.mdx': contractMngmntEdit6161,
-  '/content/6_1/itam_6_1/contract_management/contract_mngmnt_new_6_1.mdx': contractMngmntNew6161,
-  '/content/6_1/itam_6_1/contract_mngmnt_6_1.mdx': contractMngmntRoot6161,
-  '/content/6_1/itam_6_1/contract_mngmnt_edit_6_1.mdx': contractMngmntEditRoot6161,
-  '/content/6_1/itam_6_1/contract_mngmnt_new_6_1.mdx': contractMngmntNewRoot6161,
-  '/content/6_1/itam_6_1/financial_management/about_financial_management_6_1.mdx': aboutFinancialManagement6161,
-  '/content/6_1/itam_6_1/financial_management/ci_financial_plan_6_1.mdx': ciFinancialPlan6161,
-  '/content/6_1/itam_6_1/financial_management/service_financial_plan_6_1.mdx': serviceFinancialPlan6161,
-  '/content/6_1/itam_6_1/financial_mngmnt_content_hold_6_1.mdx': financialMngmntContentHold6161,
-  '/content/6_1/itam_6_1/hw_asset_6_1.mdx': hwAsset6161,
-  '/content/6_1/itam_6_1/hw_asset_edit_6_1.mdx': hwAssetEdit6161,
-  '/content/6_1/itam_6_1/hw_asset_new_6_1.mdx': hwAssetNew6161,
-  '/content/6_1/itam_6_1/hw_assets/hw_assets_6_1.mdx': hwAssets6161,
-  '/content/6_1/itam_6_1/itam_cmdb/access_cmdb_itam_6_1.mdx': accessCmdbItam6161,
-  '/content/6_1/itam_6_1/procurement/about_procurement_6_1.mdx': aboutProcurement6161,
-  '/content/6_1/itam_6_1/procurement/po_6_1.mdx': po6161,
-  '/content/6_1/itam_6_1/procurement/po_edit_6_1.mdx': poEdit6161,
-  '/content/6_1/itam_6_1/procurement/po_line_items_6_1.mdx': poLineItems6161,
-  '/content/6_1/itam_6_1/procurement/po_line_items_edit_6_1.mdx': poLineItemsEdit6161,
-  '/content/6_1/itam_6_1/procurement/po_line_items_new_6_1.mdx': poLineItemsNew6161,
-  '/content/6_1/itam_6_1/procurement/po_new_6_1.mdx': poNew6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_6_1.mdx': recvSlip6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_edit_6_1.mdx': recvSlipEdit6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_line_6_1.mdx': recvSlipLine6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_line_edit_6_1.mdx': recvSlipLineEdit6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_line_new_6_1.mdx': recvSlipLineNew6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_lines_6_1.mdx': recvSlipLines6161,
-  '/content/6_1/itam_6_1/procurement/recv_slip_new_6_1.mdx': recvSlipNew6161,
-  '/content/6_1/itam_6_1/procurement/req_items_6_1.mdx': reqItems6161,
-  '/content/6_1/itam_6_1/procurement/req_items_edit_6_1.mdx': reqItemsEdit6161,
-  '/content/6_1/itam_6_1/procurement/req_items_new_6_1.mdx': reqItemsNew6161,
-  '/content/6_1/itam_6_1/procurement/transfer_order_6_1.mdx': transferOrder6161,
-  '/content/6_1/itam_6_1/procurement/transfer_order_edit_6_1.mdx': transferOrderEdit6161,
-  '/content/6_1/itam_6_1/procurement/transfer_order_new_6_1.mdx': transferOrderNew6161,
-  '/content/6_1/itam_6_1/service_design_package_6_1.mdx': serviceDesignPackage6161,
-  '/content/6_1/itam_6_1/service_financial_plan_6_1.mdx': serviceFinancialPlanRoot6161,
-  '/content/6_1/itam_6_1/stockroom_6_1.mdx': stockroom6161,
-  '/content/6_1/itam_6_1/stockroom_edit_6_1.mdx': stockroomEdit6161,
-  '/content/6_1/itam_6_1/stockroom_new_6_1.mdx': stockroomNew6161,
-  '/content/6_1/itam_6_1/stockroom_type_6_1.mdx': stockroomType6161,
-  '/content/6_1/itam_6_1/stockroom_type_edit_6_1.mdx': stockroomTypeEdit6161,
-  '/content/6_1/itam_6_1/stockroom_type_new_6_1.mdx': stockroomTypeNew6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1.mdx': aboutSwAssetMngmnt6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmnt_edit_6_1.mdx': certificateMngmntEdit6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmnt_new_6_1.mdx': certificateMngmntNew6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmt_6_1.mdx': certificateMngmt6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_6_1.mdx': swAssets6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_edit_6_1.mdx': swAssetsEdit6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/sw_group_new_6_1.mdx': swGroupNew6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/sw_license_key_6_1.mdx': swLicenseKey6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/swlk_6_1.mdx': swlk6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/swlk_details_6_1.mdx': swlkDetails6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/swlk_edit_6_1.mdx': swlkEdit6161,
-  '/content/6_1/itam_6_1/sw_asset_mngmt/swlk_new_6_1.mdx': swlkNew6161,
-  '/content/6_1/itam_6_1/user_entitle_6_1.mdx': userEntitle6161,
-  '/content/6_1/itam_6_1/user_entitle_edit_6_1.mdx': userEntitleEdit6161,
-  '/content/6_1/itam_6_1/user_entitle_new_6_1.mdx': userEntitleNew6161,
-  '/content/6_1/itam_6_1/user_license_entitle_6_1.mdx': userLicenseEntitle6161,
-  '/content/6_1/itam_6_1/vendor_management/vendor_mngmnt_6_1.mdx': vendorMngmnt6161,
-  '/content/6_1/itam_6_1/vendor_management/vendor_mngmnt_edit_6_1.mdx': vendorMngmntEdit6161,
-  '/content/6_1/itam_6_1/vendor_management/vendor_mngmnt_new_6_1.mdx': vendorMngmntNew6161,
-  '/content/6_1/itam_6_1/vendor_mngmnt_6_1.mdx': vendorMngmntRoot6161,
-  '/content/6_1/itam_6_1/vendor_mngmnt_edit_6_1.mdx': vendorMngmntEditRoot6161,
-  '/content/6_1/itam_6_1/vendor_mngmnt_new_6_1.mdx': vendorMngmntNewRoot6161,
+  '/content/5_13/itam_5_13/about_itam_5_13.mdx': itamAboutItam513,
+  '/content/5_13/itam_5_13/contract_management/contract_mngmnt_5_13.mdx': itamContractManagementContractMngmnt513,
+  '/content/5_13/itam_5_13/hw_assets/hw_assets_5_13.mdx': itamHwAssetsHwAssets513,
+  '/content/5_13/itam_5_13/itam_cmdb/access_cmdb_itam_5_13.mdx': itamItamCmdbAccessCmdbItam513,
+  '/content/5_13/itam_5_13/sw_asset_mngmt/about_sw_asset_mngmnt_5_13.mdx': itamSwAssetMngmtAboutSwAssetMngmnt513,
+  '/content/5_13/itam_5_13/sw_asset_mngmt/certificate_mngmt_5_13.mdx': itamSwAssetMngmtCertificateMngmt513,
+  '/content/5_13/itam_5_13/sw_asset_mngmt/sw_assets_5_13.mdx': itamSwAssetMngmtSwAssets513,
+  '/content/5_13/itam_5_13/sw_asset_mngmt/swlk_5_13.mdx': itamSwAssetMngmtSwlk513,
+  '/content/5_13/itam_5_13/vendor_management/vendor_mngmnt_5_13.mdx': itamVendorManagementVendorMngmnt513,
+  '/content/6_1/itam_6_1/about_itam_6_1.mdx': itamAboutItam61,
+  '/content/6_1/itam_6_1/contract_management/contract_mngmnt_6_1.mdx': itamContractManagementContractMngmnt61,
+  '/content/6_1/itam_6_1/hw_assets/hw_assets_6_1.mdx': itamHwAssetsHwAssets61,
+  '/content/6_1/itam_6_1/itam_cmdb/access_cmdb_itam_6_1.mdx': itamItamCmdbAccessCmdbItam61,
+  '/content/6_1/itam_6_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1.mdx': itamSwAssetMngmtAboutSwAssetMngmnt61,
+  '/content/6_1/itam_6_1/sw_asset_mngmt/certificate_mngmt_6_1.mdx': itamSwAssetMngmtCertificateMngmt61,
+  '/content/6_1/itam_6_1/sw_asset_mngmt/sw_assets_6_1.mdx': itamSwAssetMngmtSwAssets61,
+  '/content/6_1/itam_6_1/sw_asset_mngmt/swlk_6_1.mdx': itamSwAssetMngmtSwlk61,
+  '/content/6_1/itam_6_1/vendor_management/vendor_mngmnt_6_1.mdx': itamVendorManagementVendorMngmnt61,
+  '/content/6_1_1/itam_6_1_1/about_itam_6_1_1.mdx': itamAboutItam611,
+  '/content/6_1_1/itam_6_1_1/contract_management/contract_mngmnt_6_1_1.mdx': itamContractManagementContractMngmnt611,
+  '/content/6_1_1/itam_6_1_1/hw_assets/hw_assets_6_1_1.mdx': itamHwAssetsHwAssets611,
+  '/content/6_1_1/itam_6_1_1/itam_cmdb/access_cmdb_itam_6_1_1.mdx': itamItamCmdbAccessCmdbItam611,
+  '/content/6_1_1/itam_6_1_1/sw_asset_mngmt/about_sw_asset_mngmnt_6_1_1.mdx': itamSwAssetMngmtAboutSwAssetMngmnt611,
+  '/content/6_1_1/itam_6_1_1/sw_asset_mngmt/certificate_mngmt_6_1_1.mdx': itamSwAssetMngmtCertificateMngmt611,
+  '/content/6_1_1/itam_6_1_1/sw_asset_mngmt/sw_assets_6_1_1.mdx': itamSwAssetMngmtSwAssets611,
+  '/content/6_1_1/itam_6_1_1/sw_asset_mngmt/swlk_6_1_1.mdx': itamSwAssetMngmtSwlk611,
+  '/content/6_1_1/itam_6_1_1/vendor_management/vendor_mngmnt_6_1_1.mdx': itamVendorManagementVendorMngmnt611,
+  '/content/NG/itam_ng/about_itam_ng.mdx': itamAboutItamNG,
+  '/content/NG/itam_ng/contract_management/contract_mngmnt_ng.mdx': itamContractManagementContractMngmntNG,
+  '/content/NG/itam_ng/hw_assets/hw_assets_ng.mdx': itamHwAssetsHwAssetsNG,
+  '/content/NG/itam_ng/itam_cmdb/access_cmdb_itam_ng.mdx': itamItamCmdbAccessCmdbItamNG,
+  '/content/NG/itam_ng/sw_asset_mngmt/about_sw_asset_mngmnt_ng.mdx': itamSwAssetMngmtAboutSwAssetMngmntNG,
+  '/content/NG/itam_ng/sw_asset_mngmt/certificate_mngmt_ng.mdx': itamSwAssetMngmtCertificateMngmtNG,
+  '/content/NG/itam_ng/sw_asset_mngmt/sw_assets_ng.mdx': itamSwAssetMngmtSwAssetsNG,
+  '/content/NG/itam_ng/sw_asset_mngmt/swlk_ng.mdx': itamSwAssetMngmtSwlkNG,
+  '/content/NG/itam_ng/vendor_management/vendor_mngmnt_ng.mdx': itamVendorManagementVendorMngmntNG,
 };
 
-console.log(`✅ [ITAM MDX Content] Loaded ${Object.keys(itamMDXContent).length} static MDX files`);
+console.log(`✅ [Itam MDX Content] Loaded ${Object.keys(itamMDXContent).length} static MDX files`);

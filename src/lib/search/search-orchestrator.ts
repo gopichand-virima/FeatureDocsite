@@ -114,14 +114,26 @@ class SearchOrchestrator {
         .map(result => `${result.title}\n${result.content}\nSource: ${result.path}`);
 
       // Step 4: Generate AI response with GPT-4
+      // Use enhanced web search method when web results are available
       let answer: string;
       
       if (SearchConfig.features.useOpenAI && openAIService.isConfigured()) {
-        answer = await openAIService.generateAnswer(
-          query,
-          documentationContext,
-          options.conversationHistory || []
-        );
+        if (options.useWeb && webResults.length > 0) {
+          // Enhanced web search mode: combine docs + web results
+          answer = await openAIService.generateAnswerWithWebSearch(
+            query,
+            documentationContext,
+            webResults,
+            options.conversationHistory || []
+          );
+        } else {
+          // Standard docs-only mode
+          answer = await openAIService.generateAnswer(
+            query,
+            documentationContext,
+            options.conversationHistory || []
+          );
+        }
       } else {
         // Fallback to synthesized answer without AI
         answer = this.synthesizeAnswerLocal(query, docResults, webResults);

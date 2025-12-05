@@ -2,6 +2,12 @@
  * Enterprise-Grade Voice Input Service
  * Full-length speech recognition with OpenAI Whisper API
  * CRITICAL: Properly handles browser permission dialogs with user gesture context
+ * 
+ * Implementation: OpenAI Whisper API (recommended, aligns with existing integration)
+ * Alternative: Browser Web Speech API (native, no cost) - not currently implemented
+ * 
+ * User Flow:
+ * Click 🎤 → Speak → Transcribe → Populate search box → Submit
  */
 
 import { SearchConfig } from '../config';

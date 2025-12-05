@@ -1,28 +1,63 @@
 /**
- * RiskRegister Module - Version 6.1 Static MDX Imports
+ * Riskregister Module - Multi-Version Static MDX Imports
  * 
  * Static imports for actual MDX content (Strategy 1 - Highest Priority)
- * This ensures RiskRegister content loads instantly from bundled assets
+ * This ensures Riskregister content loads instantly from bundled assets
  * 
- * Auto-generated: 2025-12-04T11:24:42.054Z
- * Total files: 4
+ * Auto-synchronized from TOC files
+ * Versions: NG, 6_1, 6_1_1, 5_13
  */
 
-import aboutRiskRegister6161 from '../../content/6_1/risk_register_6_1/about_risk_register_6_1.mdx?raw';
-import riskDashboard6161 from '../../content/6_1/risk_register_6_1/risk_dashboard_6_1.mdx?raw';
-import risks6161 from '../../content/6_1/risk_register_6_1/risks_6_1.mdx?raw';
-import risksNew6161 from '../../content/6_1/risk_register_6_1/risks_new_6_1.mdx?raw';
+// ========================================
+// Version 5_13
+// ========================================
+
+import riskRegisterAboutRiskRegister513 from '../../content/5_13/risk_register_5_13/about_risk_register_5_13.mdx?raw';
+import riskRegisterRiskDashboard513 from '../../content/5_13/risk_register_5_13/risk_dashboard_5_13.mdx?raw';
+import riskRegisterRisks513 from '../../content/5_13/risk_register_5_13/risks_5_13.mdx?raw';
+
+// ========================================
+// Version 6_1
+// ========================================
+
+import riskRegisterAboutRiskRegister61 from '../../content/6_1/risk_register_6_1/about_risk_register_6_1.mdx?raw';
+import riskRegisterRiskDashboard61 from '../../content/6_1/risk_register_6_1/risk_dashboard_6_1.mdx?raw';
+import riskRegisterRisks61 from '../../content/6_1/risk_register_6_1/risks_6_1.mdx?raw';
+
+// ========================================
+// Version 6_1_1
+// ========================================
+
+import riskRegisterAboutRiskRegister611 from '../../content/6_1_1/risk_register_6_1_1/about_risk_register_6_1_1.mdx?raw';
+import riskRegisterRiskDashboard611 from '../../content/6_1_1/risk_register_6_1_1/risk_dashboard_6_1_1.mdx?raw';
+import riskRegisterRisks611 from '../../content/6_1_1/risk_register_6_1_1/risks_6_1_1.mdx?raw';
+
+// ========================================
+// Version NG
+// ========================================
+
+import riskRegisterAboutRiskRegisterNG from '../../content/NG/risk_register_ng/about_risk_register_ng.mdx?raw';
+import riskRegisterRiskDashboardNG from '../../content/NG/risk_register_ng/risk_dashboard_ng.mdx?raw';
+import riskRegisterRisksNG from '../../content/NG/risk_register_ng/risks_ng.mdx?raw';
 
 /**
- * RiskRegister MDX Content Map
+ * Riskregister MDX Content Map
  * Maps file paths to actual MDX content (static imports)
  * This is used by contentLoader Strategy 1 for instant loading
  */
 export const riskregisterMDXContent: Record<string, string> = {
-  '/content/6_1/risk_register_6_1/about_risk_register_6_1.mdx': aboutRiskRegister6161,
-  '/content/6_1/risk_register_6_1/risk_dashboard_6_1.mdx': riskDashboard6161,
-  '/content/6_1/risk_register_6_1/risks_6_1.mdx': risks6161,
-  '/content/6_1/risk_register_6_1/risks_new_6_1.mdx': risksNew6161,
+  '/content/5_13/risk_register_5_13/about_risk_register_5_13.mdx': riskRegisterAboutRiskRegister513,
+  '/content/5_13/risk_register_5_13/risk_dashboard_5_13.mdx': riskRegisterRiskDashboard513,
+  '/content/5_13/risk_register_5_13/risks_5_13.mdx': riskRegisterRisks513,
+  '/content/6_1/risk_register_6_1/about_risk_register_6_1.mdx': riskRegisterAboutRiskRegister61,
+  '/content/6_1/risk_register_6_1/risk_dashboard_6_1.mdx': riskRegisterRiskDashboard61,
+  '/content/6_1/risk_register_6_1/risks_6_1.mdx': riskRegisterRisks61,
+  '/content/6_1_1/risk_register_6_1_1/about_risk_register_6_1_1.mdx': riskRegisterAboutRiskRegister611,
+  '/content/6_1_1/risk_register_6_1_1/risk_dashboard_6_1_1.mdx': riskRegisterRiskDashboard611,
+  '/content/6_1_1/risk_register_6_1_1/risks_6_1_1.mdx': riskRegisterRisks611,
+  '/content/NG/risk_register_ng/about_risk_register_ng.mdx': riskRegisterAboutRiskRegisterNG,
+  '/content/NG/risk_register_ng/risk_dashboard_ng.mdx': riskRegisterRiskDashboardNG,
+  '/content/NG/risk_register_ng/risks_ng.mdx': riskRegisterRisksNG,
 };
 
-console.log(`✅ [RiskRegister MDX Content] Loaded ${Object.keys(riskregisterMDXContent).length} static MDX files`);
+console.log(`✅ [Riskregister MDX Content] Loaded ${Object.keys(riskregisterMDXContent).length} static MDX files`);

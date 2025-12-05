@@ -18,7 +18,7 @@ import { getMDXContent } from './mdxContentBundle';
 import { getRegisteredContent, isContentRegistered } from './mdxContentRegistry';
 
 // Import priority file registries
-import { adminMDXFilePaths, getAdminFilePath, adminMDXContent } from '../lib/imports/adminMDXImports';
+import { adminMDXContent } from '../lib/imports/adminMDXImports';
 import { cmdbMDXContent } from '../lib/imports/cmdbMDXImports';
 import { itsmMDXContent } from '../lib/imports/itsmMDXImports';
 import { discoveryMDXContent } from '../lib/imports/discoveryMDXImports';
@@ -256,7 +256,7 @@ async function discoverContentFiles(version: string): Promise<string[]> {
 }
 
 /**
- * Gets the file path for a priority file from version-aware registry
+ * Gets the file path for a priority file from static content map
  * @param pathOrSlug - File path or URL slug
  * @returns File path or null if not found
  */
@@ -267,18 +267,22 @@ function getPriorityFilePath(pathOrSlug: string): string | null {
   console.log(`🔍 [getPriorityFilePath] Input: "${cleanInput}"`);
   console.log(`🔍 [getPriorityFilePath] Current version: ${currentVersion}`);
   
-  // Try admin module
-  const adminPath = getAdminFilePath(cleanInput, currentVersion);
-  if (adminPath) {
-    console.log(`✅ [getPriorityFilePath] Found in admin registry: ${adminPath}`);
-    return adminPath;
+  // Check if path exists in static content map (try multiple variations)
+  const pathVariations = [
+    cleanInput,
+    cleanInput.startsWith('/') ? cleanInput.slice(1) : `/${cleanInput}`,
+    cleanInput.startsWith('content/') ? `/${cleanInput}` : cleanInput,
+    cleanInput.startsWith('/content/') ? cleanInput : `/content/${cleanInput}`,
+  ];
+  
+  for (const pathVar of pathVariations) {
+    if (allStaticMDXContent[pathVar]) {
+      console.log(`✅ [getPriorityFilePath] Found in static content map: ${pathVar}`);
+      return pathVar;
+    }
   }
   
-  // Add other modules here:
-  // const discoveryPath = getDiscoveryFilePath(cleanInput, currentVersion);
-  // if (discoveryPath) return discoveryPath;
-  
-  console.log(`❌ [getPriorityFilePath] Not found in any registry`);
+  console.log(`❌ [getPriorityFilePath] Not found in static content map`);
   return null;
 }
 

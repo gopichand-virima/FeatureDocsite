@@ -128,12 +128,12 @@ const modules = [
 
 export function HomePage({ onModuleSelect }: HomePageProps) {
   return (
-    <div className="bg-white dark:bg-slate-950 pb-24">
+    <div className="bg-[conic-gradient(var(--tw-gradient-stops))] from-[#4f46e5] via-[#818cf8] to-[#c7d2fe] pb-24">
       {/* 3D Animated Cover Page */}
       <CoverPage onModuleSelect={onModuleSelect} />
 
       {/* Value Proposition Section */}
-      <div className="bg-gradient-to-b from-white via-slate-50/30 to-white dark:from-slate-950 dark:via-slate-900/30 dark:to-slate-950 pt-8 pb-0 lg:pt-12 lg:pb-0">
+      <div className="pt-8 pb-0 lg:pt-12 lg:pb-0">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl text-black-premium dark:text-white mb-8 tracking-tight">
@@ -142,7 +142,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
             <p className="text-xl lg:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
               {homePageText.valueProposition.description}
             </p>
-            <div className="bg-white dark:bg-slate-900 pt-16 pb-8 lg:pt-20 lg:pb-12">
+            <div className="pt-16 pb-8 lg:pt-20 lg:pb-12">
               <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {modules.map((module) => {
@@ -204,7 +204,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
       {/* Platform Modules */}
 
       {/* Documentation Resources */}
-      <div className="bg-gradient-to-b from-white via-slate-50/20 to-white dark:from-slate-900 dark:via-slate-800/20 dark:to-slate-900 py-12 lg:py-16">
+      <div className="py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-5xl lg:text-6xl text-black-premium dark:text-white mb-8 tracking-tight">

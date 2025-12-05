@@ -1,0 +1,186 @@
+---
+title: Compatibility Matrix
+description: System requirements, browser support, database compatibility, and integrations for Virima SaaS.
+---
+
+# Virima SaaS Compatibility Matrix
+
+This document outlines the system requirements, supported browsers, database compatibility, and integration support for Virima SaaS deployments.
+
+## Overview
+
+Virima is delivered as a cloud-based SaaS solution. The information below details the compatibility requirements for optimal performance and functionality.
+
+---
+
+## Supported Browsers
+
+Virima SaaS supports the following modern web browsers. We recommend using the latest stable versions for the best experience.
+
+| Browser | Minimum Version | Recommended |
+|---------|-----------------|-------------|
+| Google Chrome | 90+ | Latest |
+| Mozilla Firefox | 88+ | Latest |
+| Microsoft Edge | 90+ | Latest |
+| Safari | 14+ | Latest |
+
+> **Note:** Internet Explorer is not supported. For optimal performance, we recommend using Google Chrome.
+
+---
+
+## Operating System Support
+
+### Client Operating Systems
+
+| Operating System | Supported Versions |
+|------------------|-------------------|
+| Windows | Windows 10, Windows 11 |
+| macOS | 11.0 (Big Sur) and later |
+| Linux | Ubuntu 20.04+, RHEL 8+ |
+
+### Server Operating Systems (For Discovery Probes)
+
+| Operating System | Supported Versions |
+|------------------|-------------------|
+| Windows Server | 2016, 2019, 2022 |
+| Linux | RHEL 7/8/9, CentOS 7/8, Ubuntu 18.04/20.04/22.04 |
+
+---
+
+## Discovery Probe Requirements
+
+### Hardware Requirements
+
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| CPU | 2 cores | 4 cores |
+| RAM | 4 GB | 8 GB |
+| Disk Space | 20 GB | 50 GB |
+
+### Network Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| Outbound HTTPS | Port 443 to Virima SaaS endpoints |
+| DNS Resolution | Required for target discovery |
+| Network Access | Access to target subnets for scanning |
+
+---
+
+## Database Compatibility
+
+### Supported Databases for Discovery
+
+Virima can discover and inventory the following database platforms:
+
+| Database | Supported Versions |
+|----------|-------------------|
+| Microsoft SQL Server | 2014, 2016, 2017, 2019, 2022 |
+| Oracle Database | 12c, 18c, 19c, 21c |
+| MySQL | 5.7, 8.0 |
+| PostgreSQL | 11, 12, 13, 14, 15 |
+| MongoDB | 4.4, 5.0, 6.0 |
+| MariaDB | 10.4, 10.5, 10.6, 10.11 |
+
+---
+
+## Virtualization Platform Support
+
+| Platform | Supported Versions |
+|----------|-------------------|
+| VMware vSphere | 6.5, 6.7, 7.0, 8.0 |
+| Microsoft Hyper-V | 2016, 2019, 2022 |
+| Nutanix AHV | 5.x, 6.x |
+| Citrix Hypervisor | 8.x |
+
+---
+
+## Cloud Platform Integrations
+
+Virima SaaS integrates with major cloud providers for comprehensive asset discovery and management.
+
+| Cloud Provider | Integration Type |
+|----------------|------------------|
+| Amazon Web Services (AWS) | API Integration |
+| Microsoft Azure | API Integration |
+| Google Cloud Platform (GCP) | API Integration |
+
+---
+
+## ITSM Integrations
+
+| Platform | Supported Versions | Integration Type |
+|----------|-------------------|------------------|
+| ServiceNow | Paris, Quebec, Rome, San Diego, Tokyo, Utah, Vancouver, Washington | REST API |
+| BMC Remedy | 9.x | REST API |
+| Jira Service Management | Cloud & Data Center | REST API |
+| Freshservice | Cloud | REST API |
+| Zendesk | Cloud | REST API |
+
+---
+
+## Network Device Support
+
+### Supported Protocols
+
+| Protocol | Usage |
+|----------|-------|
+| SNMP | v1, v2c, v3 |
+| SSH | Network device CLI access |
+| WMI | Windows-based device discovery |
+| WinRM | Windows remote management |
+
+### Supported Network Vendors
+
+- Cisco (IOS, IOS-XE, NX-OS, ASA)
+- Juniper (Junos)
+- Palo Alto Networks
+- Fortinet
+- Arista
+- HP/Aruba
+- Dell Networking
+- F5 BIG-IP
+
+---
+
+## Security & Compliance
+
+| Feature | Support |
+|---------|---------|
+| TLS | 1.2, 1.3 |
+| SSO | SAML 2.0, OAuth 2.0, OpenID Connect |
+| MFA | Supported via IdP |
+| Data Encryption | AES-256 at rest, TLS in transit |
+
+---
+
+## API Support
+
+| API Type | Version | Documentation |
+|----------|---------|---------------|
+| REST API | v2.0 | Available in Developer Portal |
+| GraphQL | v1.0 | Available in Developer Portal |
+
+---
+
+## Screen Resolution
+
+For optimal user experience, the following minimum screen resolutions are recommended:
+
+| Device Type | Minimum Resolution |
+|-------------|-------------------|
+| Desktop | 1920 x 1080 |
+| Laptop | 1366 x 768 |
+| Tablet | 1024 x 768 |
+
+> **Warning:** Compatibility specifications are subject to change. Always refer to the latest release notes for the most up-to-date information.
+
+---
+
+## Related Resources
+
+- [Release Notes](/release-notes)
+- [System Architecture](/architecture)
+- [Installation Guide](/installation)
+- [API Documentation](/api-docs)
+

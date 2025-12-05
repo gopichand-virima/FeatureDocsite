@@ -168,6 +168,10 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                                     ? "bounce-in-top-on-hover"
                                     : module.id === "admin"
                                     ? "rotate-2-circles-on-hover"
+                                    : module.id === "cmdb"
+                                    ? "scale-in-ver-bottom-on-hover"
+                                    : module.id === "itam"
+                                    ? "scale-in-hor-center-on-hover"
                                     : ""
                                 }`}
                               />
@@ -233,7 +237,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-500/20 group-hover:shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-500">
                 <FileText className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                 Release Notes
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
@@ -242,11 +246,13 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </a>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(168,85,247,0.08)] dark:hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-500">
+            <div 
+              onClick={() => onModuleSelect('compatibility-matrix')}
+              className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(168,85,247,0.08)] dark:hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-500 cursor-pointer">
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-purple-500/20 group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-shadow duration-500">
                 <Layers className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                 Compatibility Matrix
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
@@ -274,7 +280,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <ApiIntegration className="h-7 w-7 text-white" />
               </div>
-              <h3 className="text-2xl text-black-premium dark:text-white mb-4">
+              <h3 className="text-2xl text-black-premium dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                 API Integration
               </h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">

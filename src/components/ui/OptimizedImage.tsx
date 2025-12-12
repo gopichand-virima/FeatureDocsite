@@ -91,10 +91,10 @@ export function OptimizedImage({
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden inline-block w-full ${className}`}
+      className="relative inline-block"
       style={{ 
         minHeight: props.height ? `${props.height}px` : undefined,
-        aspectRatio: props.width && props.height ? `${props.width}/${props.height}` : undefined,
+        maxWidth: '100%',
       }}
     >
       {/* Placeholder/Blur effect */}
@@ -125,9 +125,15 @@ export function OptimizedImage({
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}
-          className={`transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          } ${className}`}
+          className={`h-auto transition-opacity duration-300 ${className}`}
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'center',
+            display: 'block',
+            width: 'auto',
+            height: 'auto',
+            maxWidth: '100%',
+          }}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           {...props}

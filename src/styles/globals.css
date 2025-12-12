@@ -332,9 +332,9 @@ html {
 
 @keyframes bounce-in-top {
   0% {
-    transform: translateY(-500px);
+    transform: translateY(0);
     animation-timing-function: ease-in;
-    opacity: 0;
+    opacity: 1;
   }
   38% {
     transform: translateY(0);
@@ -342,7 +342,7 @@ html {
     opacity: 1;
   }
   55% {
-    transform: translateY(-65px);
+    transform: translateY(-12px);
     animation-timing-function: ease-in;
   }
   72% {
@@ -350,7 +350,7 @@ html {
     animation-timing-function: ease-out;
   }
   81% {
-    transform: translateY(-28px);
+    transform: translateY(-6px);
     animation-timing-function: ease-in;
   }
   90% {
@@ -358,7 +358,7 @@ html {
     animation-timing-function: ease-out;
   }
   95% {
-    transform: translateY(-8px);
+    transform: translateY(-3px);
     animation-timing-function: ease-in;
   }
   100% {
@@ -421,11 +421,11 @@ html {
 }
 
 .scale-in-hor-center-normal {
-  animation: scale-in-hor-center 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s 1 normal both;
+  animation: scale-in-hor-center 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s 1 normal both;
 }
 
 .group:hover .scale-in-hor-center-on-hover {
-  animation: scale-in-hor-center 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s 1 normal both;
+  animation: scale-in-hor-center 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s 1 normal both;
 }
 
 /* Radial gradient utility */
@@ -636,16 +636,30 @@ html {
 .mdx-content img,
 article img,
 .documentation-content img {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #D0D0D0;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border: 0.5px solid #D0D0D0 !important;
   border-radius: 0.375rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: block;
   margin: 1.5rem 0;
-  object-fit: contain;
+  object-fit: contain !important;
+  object-position: center;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+}
+
+/* Image wrapper containers - minimal styling, no visual frame, fits image shape */
+.prose div.relative.inline-block,
+.mdx-content div.relative.inline-block,
+article div.relative.inline-block,
+.documentation-content div.relative.inline-block {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0;
+  border: none;
+  background: transparent;
 }
 
 /* Dark mode image borders */
@@ -654,6 +668,7 @@ article img,
 .dark article img,
 .dark .documentation-content img {
   border-color: #4B5563;
+  border-width: 0.5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -794,4 +809,12 @@ article img {
   .virima-table tbody tr {
     page-break-inside: avoid;
   }
+}
+
+/* Header logo - transparent background */
+header button img[alt="Virima"],
+header img[alt="Virima"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  mix-blend-mode: normal !important;
 }

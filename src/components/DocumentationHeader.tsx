@@ -66,8 +66,12 @@ export function DocumentationHeader({
             <img
               src={logo}
               alt="Virima"
-              className="h-6 sm:h-7 flex-shrink-0 mix-blend-multiply dark:mix-blend-screen"
-              style={{ background: 'transparent' }}
+              className="h-6 sm:h-7 flex-shrink-0"
+              style={{ 
+                background: 'transparent',
+                backgroundColor: 'transparent',
+                mixBlendMode: 'normal',
+              }}
             />
             <Separator
               orientation="vertical"

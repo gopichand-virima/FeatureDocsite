@@ -153,11 +153,11 @@
   }
 
   /* Ensure group-hover purple colors override text-black-premium for Compatibility Matrix */
-  .group:hover h3[class*="group-hover:text-purple"] {
+  .group:hover h3.text-black-premium[class*="purple-600"] {
     color: #9333ea !important;
   }
 
-  .dark .group:hover h3[class*="group-hover:text-purple"] {
+  .dark .group:hover h3.text-black-premium[class*="purple-400"] {
     color: #c084fc !important;
   }
 

@@ -8,7 +8,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx
  * 
- * Generated: 2025-12-04T11:26:06.176Z
+ * Generated: 2025-12-05T16:21:56.159Z
  * 
  * To update: Edit index.mdx files and run: npm run sync-toc
  */
@@ -40,55 +40,47 @@ export function getTOC61(): string {
 - Application Overview → \`/content/6_1/application_overview_6_1/all_about_virima_6_1.mdx\`
 - System Icons → \`/content/6_1/application_overview_6_1/icons_6_1.mdx\`
 - User Specific Functions → \`/content/6_1/application_overview_6_1/user_specific_functions_6_1.mdx\`
-
-#### Shared Functions
-
-- Advanced Search → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/advanced_search_6_1.mdx\`
-- Attachments → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/attachments_6_1.mdx\`
-- Auto Refresh → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/auto_refresh_6_1.mdx\`
-- Collapse/Maximize → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/collapse_maximize_6_1.mdx\`
-- Comments → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/comments_6_1.mdx\`
-- Delete/Remove → \`/content/6_1/common_topics/delete_remove_6_1.mdx\`
-- Email Preferences → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/email_prefs_6_1.mdx\`
-- Enable/Disable Editing → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/enable_disable_editing_6_1.mdx\`
-- Export → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/export_6_1.mdx\`
-- Filter By → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/filter_by_6_1.mdx\`
-- History → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/history_6_1.mdx\`
-- Import → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/import_6_1.mdx\`
-- Items per Page → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/items_per_page_6_1.mdx\`
-- Mark as Knowledge → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/mark_as_knowledge_6_1.mdx\`
-- Other Asset Info → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/other_asset_info_6_1.mdx\`
-- Outage Calendar → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/outage_calendar_6_1.mdx\`
-- Personalize Columns → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/personalize_columns_6_1.mdx\`
-- Print → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/print_6_1.mdx\`
-- Records per Page → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/records_per_page_6_1.mdx\`
-- Reload Default Mapping → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/reload_default_mapping_6_1.mdx\`
-- Re-scan → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_scan_6_1.mdx\`
-- Re-Sync Data → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_sync_data_6_1.mdx\`
-- Save → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/save_6_1.mdx\`
-- Saved Filters → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/saved_filters_6_1.mdx\`
-- Searching → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/searching_6_1.mdx\`
-- Show Main/All Properties → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/show_main_all_properties_6_1.mdx\`
-- Tasks → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/tasks_6_1.mdx\`
-- Updates → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/updates_6_1.mdx\`
-- Version Control → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/version_control_6_1.mdx\`
-
-#### Online Help
-
+- Shared Functions
+  - Advanced Search → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/advanced_search_6_1.mdx\`
+  - Attachments → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/attachments_6_1.mdx\`
+  - Auto Refresh → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/auto_refresh_6_1.mdx\`
+  - Collapse/Maximize → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/collapse_maximize_6_1.mdx\`
+  - Comments → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/comments_6_1.mdx\`
+  - Delete/Remove → \`/content/6_1/common_topics/delete_remove_6_1.mdx\`
+  - Email Preferences → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/email_prefs_6_1.mdx\`
+  - Enable/Disable Editing → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/enable_disable_editing_6_1.mdx\`
+  - Export → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/export_6_1.mdx\`
+  - Filter By → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/filter_by_6_1.mdx\`
+  - History → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/history_6_1.mdx\`
+  - Import → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/import_6_1.mdx\`
+  - Items per Page → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/items_per_page_6_1.mdx\`
+  - Mark as Knowledge → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/mark_as_knowledge_6_1.mdx\`
+  - Other Asset Info → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/other_asset_info_6_1.mdx\`
+  - Outage Calendar → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/outage_calendar_6_1.mdx\`
+  - Personalize Columns → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/personalize_columns_6_1.mdx\`
+  - Print → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/print_6_1.mdx\`
+  - Records per Page → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/records_per_page_6_1.mdx\`
+  - Reload Default Mapping → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/reload_default_mapping_6_1.mdx\`
+  - Re-scan → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_scan_6_1.mdx\`
+  - Re-Sync Data → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_sync_data_6_1.mdx\`
+  - Save → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/save_6_1.mdx\`
+  - Saved Filters → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/saved_filters_6_1.mdx\`
+  - Searching → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/searching_6_1.mdx\`
+  - Show Main/All Properties → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/show_main_all_properties_6_1.mdx\`
+  - Tasks → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/tasks_6_1.mdx\`
+  - Updates → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/updates_6_1.mdx\`
+  - Version Control → \`/content/6_1/application_overview_6_1/shared_fucntions_6_1/version_control_6_1.mdx\`
 - Online Help → \`/content/6_1/application_overview_6_1/online_help_6_1.mdx\`
 
 ### Dashboards
 
-- Contents → \`/content/6_1/dashboard_6_1/dashboard_add_contents_new_6_1.mdx\`  
-- Customization → \`/content/6_1/dashboard_6_1/dashboard_customization_6_1.mdx\`
-#### My Dashboard
-
-- Overview → \`/content/6_1/dashboard_6_1/my_dashboard_new_6_1.mdx\`
 - Contents → \`/content/6_1/dashboard_6_1/dashboard_add_contents_new_6_1.mdx\`
-
-#### Report Actions
-
-- Report Actions → \`/content/6_1/dashboard_6_1/dashboard_reports_actions_6_1.mdx\`
+- Customization → \`/content/6_1/dashboard_6_1/dashboard_customization_6_1.mdx\`
+- My Dashboard
+  - Overview → \`/content/6_1/dashboard_6_1/my_dashboard_new_6_1.mdx\`
+  - Contents → \`/content/6_1/dashboard_6_1/dashboard_add_contents_new_6_1.mdx\`
+- Report Actions
+  - Report Actions → \`/content/6_1/dashboard_6_1/dashboard_reports_actions_6_1.mdx\`
 
 ---
 
@@ -638,56 +630,47 @@ export function getTOC611(): string {
 - Application Overview → \`/content/6_1_1/application_overview_6_1_1/all_about_virima_6_1_1.mdx\`
 - System Icons → \`/content/6_1_1/application_overview_6_1_1/icons_6_1_1.mdx\`
 - User Specific Functions → \`/content/6_1_1/application_overview_6_1_1/user_specific_functions_6_1_1.mdx\`
-
-#### Shared Functions
-
-- Advanced Search → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/advanced_search_6_1_1.mdx\`
-- Attachments → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/attachments_6_1_1.mdx\`
-- Auto Refresh → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/auto_refresh_6_1_1.mdx\`
-- Collapse/Maximize → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/collapse_maximize_6_1_1.mdx\`
-- Comments → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/comments_6_1_1.mdx\`
-- Delete/Remove → \`/content/6_1_1/common_topics/delete_remove_6_1_1.mdx\`
-- Email Preferences → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/email_prefs_6_1_1.mdx\`
-- Enable/Disable Editing → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/enable_disable_editing_6_1_1.mdx\`
-- Export → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/export_6_1_1.mdx\`
-- Filter By → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/filter_by_6_1_1.mdx\`
-- History → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/history_6_1_1.mdx\`
-- Import → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/import_6_1_1.mdx\`
-- Items per Page → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/items_per_page_6_1_1.mdx\`
-- Mark as Knowledge → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/mark_as_knowledge_6_1_1.mdx\`
-- Other Asset Info → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/other_asset_info_6_1_1.mdx\`
-- Outage Calendar → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/outage_calendar_6_1_1.mdx\`
-- Personalize Columns → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/personalize_columns_6_1_1.mdx\`
-- Print → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/print_6_1_1.mdx\`
-- Records per Page → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/records_per_page_6_1_1.mdx\`
-- Reload Default Mapping → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/reload_default_mapping_6_1_1.mdx\`
-- Re-scan → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/re_scan_6_1_1.mdx\`
-- Re-Sync Data → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/re_sync_data_6_1_1.mdx\`
-- Save → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/save_6_1_1.mdx\`
-- Saved Filters → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/saved_filters_6_1_1.mdx\`
-- Searching → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/searching_6_1_1.mdx\`
-- Show Main/All Properties → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/show_main_all_properties_6_1_1.mdx\`
-- Tasks → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/tasks_6_1_1.mdx\`
-- Updates → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/updates_6_1_1.mdx\`
-- Version Control → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/version_control_6_1_1.mdx\`
-
-#### Online Help
-
+- Shared Functions
+  - Advanced Search → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/advanced_search_6_1_1.mdx\`
+  - Attachments → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/attachments_6_1_1.mdx\`
+  - Auto Refresh → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/auto_refresh_6_1_1.mdx\`
+  - Collapse/Maximize → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/collapse_maximize_6_1_1.mdx\`
+  - Comments → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/comments_6_1_1.mdx\`
+  - Delete/Remove → \`/content/6_1_1/common_topics/delete_remove_6_1_1.mdx\`
+  - Email Preferences → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/email_prefs_6_1_1.mdx\`
+  - Enable/Disable Editing → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/enable_disable_editing_6_1_1.mdx\`
+  - Export → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/export_6_1_1.mdx\`
+  - Filter By → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/filter_by_6_1_1.mdx\`
+  - History → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/history_6_1_1.mdx\`
+  - Import → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/import_6_1_1.mdx\`
+  - Items per Page → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/items_per_page_6_1_1.mdx\`
+  - Mark as Knowledge → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/mark_as_knowledge_6_1_1.mdx\`
+  - Other Asset Info → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/other_asset_info_6_1_1.mdx\`
+  - Outage Calendar → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/outage_calendar_6_1_1.mdx\`
+  - Personalize Columns → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/personalize_columns_6_1_1.mdx\`
+  - Print → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/print_6_1_1.mdx\`
+  - Records per Page → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/records_per_page_6_1_1.mdx\`
+  - Reload Default Mapping → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/reload_default_mapping_6_1_1.mdx\`
+  - Re-scan → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/re_scan_6_1_1.mdx\`
+  - Re-Sync Data → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/re_sync_data_6_1_1.mdx\`
+  - Save → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/save_6_1_1.mdx\`
+  - Saved Filters → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/saved_filters_6_1_1.mdx\`
+  - Searching → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/searching_6_1_1.mdx\`
+  - Show Main/All Properties → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/show_main_all_properties_6_1_1.mdx\`
+  - Tasks → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/tasks_6_1_1.mdx\`
+  - Updates → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/updates_6_1_1.mdx\`
+  - Version Control → \`/content/6_1_1/application_overview_6_1_1/shared_fucntions_6_1_1/version_control_6_1_1.mdx\`
 - Online Help → \`/content/6_1_1/application_overview_6_1_1/online_help_6_1_1.mdx\`
 
 ### Dashboards
 
-- Contents → \`/content/6_1_1/dashboard_6_1_1/dashboard_add_contents_new_6_1_1.mdx\`  
-- Customization → \`/content/6_1_1/dashboard_6_1_1/dashboard_customization_6_1_1.mdx\`
-
-#### My Dashboard
-
-- Overview → \`/content/6_1_1/dashboard_6_1_1/my_dashboard_new_6_1_1.mdx\`
 - Contents → \`/content/6_1_1/dashboard_6_1_1/dashboard_add_contents_new_6_1_1.mdx\`
-
-#### Report Actions
-
-- Report Actions → \`/content/6_1_1/dashboard_6_1_1/dashboard_reports_actions_6_1_1.mdx\`
+- Customization → \`/content/6_1_1/dashboard_6_1_1/dashboard_customization_6_1_1.mdx\`
+- My Dashboard
+  - Overview → \`/content/6_1_1/dashboard_6_1_1/my_dashboard_new_6_1_1.mdx\`
+  - Contents → \`/content/6_1_1/dashboard_6_1_1/dashboard_add_contents_new_6_1_1.mdx\`
+- Report Actions
+  - Report Actions → \`/content/6_1_1/dashboard_6_1_1/dashboard_reports_actions_6_1_1.mdx\`
 
 ---
 
@@ -1237,56 +1220,47 @@ export function getTOC513(): string {
 - Application Overview → \`/content/5_13/application_overview_5_13/all_about_virima_5_13.mdx\`
 - System Icons → \`/content/5_13/application_overview_5_13/icons_5_13.mdx\`
 - User Specific Functions → \`/content/5_13/application_overview_5_13/user_specific_functions_5_13.mdx\`
-
-#### Shared Functions
-
-- Advanced Search → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/advanced_search_5_13.mdx\`
-- Attachments → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/attachments_5_13.mdx\`
-- Auto Refresh → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/auto_refresh_5_13.mdx\`
-- Collapse/Maximize → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/collapse_maximize_5_13.mdx\`
-- Comments → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/comments_5_13.mdx\`
-- Delete/Remove → \`/content/5_13/common_topics/delete_remove_5_13.mdx\`
-- Email Preferences → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/email_prefs_5_13.mdx\`
-- Enable/Disable Editing → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/enable_disable_editing_5_13.mdx\`
-- Export → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/export_5_13.mdx\`
-- Filter By → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/filter_by_5_13.mdx\`
-- History → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/history_5_13.mdx\`
-- Import → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/import_5_13.mdx\`
-- Items per Page → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/items_per_page_5_13.mdx\`
-- Mark as Knowledge → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/mark_as_knowledge_5_13.mdx\`
-- Other Asset Info → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/other_asset_info_5_13.mdx\`
-- Outage Calendar → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/outage_calendar_5_13.mdx\`
-- Personalize Columns → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/personalize_columns_5_13.mdx\`
-- Print → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/print_5_13.mdx\`
-- Records per Page → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/records_per_page_5_13.mdx\`
-- Reload Default Mapping → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/reload_default_mapping_5_13.mdx\`
-- Re-scan → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/re_scan_5_13.mdx\`
-- Re-Sync Data → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/re_sync_data_5_13.mdx\`
-- Save → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/save_5_13.mdx\`
-- Saved Filters → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/saved_filters_5_13.mdx\`
-- Searching → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/searching_5_13.mdx\`
-- Show Main/All Properties → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/show_main_all_properties_5_13.mdx\`
-- Tasks → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/tasks_5_13.mdx\`
-- Updates → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/updates_5_13.mdx\`
-- Version Control → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/version_control_5_13.mdx\`
-
-#### Online Help
-
+- Shared Functions
+  - Advanced Search → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/advanced_search_5_13.mdx\`
+  - Attachments → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/attachments_5_13.mdx\`
+  - Auto Refresh → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/auto_refresh_5_13.mdx\`
+  - Collapse/Maximize → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/collapse_maximize_5_13.mdx\`
+  - Comments → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/comments_5_13.mdx\`
+  - Delete/Remove → \`/content/5_13/common_topics/delete_remove_5_13.mdx\`
+  - Email Preferences → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/email_prefs_5_13.mdx\`
+  - Enable/Disable Editing → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/enable_disable_editing_5_13.mdx\`
+  - Export → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/export_5_13.mdx\`
+  - Filter By → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/filter_by_5_13.mdx\`
+  - History → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/history_5_13.mdx\`
+  - Import → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/import_5_13.mdx\`
+  - Items per Page → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/items_per_page_5_13.mdx\`
+  - Mark as Knowledge → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/mark_as_knowledge_5_13.mdx\`
+  - Other Asset Info → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/other_asset_info_5_13.mdx\`
+  - Outage Calendar → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/outage_calendar_5_13.mdx\`
+  - Personalize Columns → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/personalize_columns_5_13.mdx\`
+  - Print → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/print_5_13.mdx\`
+  - Records per Page → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/records_per_page_5_13.mdx\`
+  - Reload Default Mapping → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/reload_default_mapping_5_13.mdx\`
+  - Re-scan → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/re_scan_5_13.mdx\`
+  - Re-Sync Data → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/re_sync_data_5_13.mdx\`
+  - Save → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/save_5_13.mdx\`
+  - Saved Filters → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/saved_filters_5_13.mdx\`
+  - Searching → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/searching_5_13.mdx\`
+  - Show Main/All Properties → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/show_main_all_properties_5_13.mdx\`
+  - Tasks → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/tasks_5_13.mdx\`
+  - Updates → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/updates_5_13.mdx\`
+  - Version Control → \`/content/5_13/application_overview_5_13/shared_fucntions_5_13/version_control_5_13.mdx\`
 - Online Help → \`/content/5_13/application_overview_5_13/online_help_5_13.mdx\`
 
 ### Dashboards
 
-- Contents → \`/content/5_13/dashboard_5_13/dashboard_add_contents_new_5_13.mdx\`  
-- Customization → \`/content/5_13/dashboard_5_13/dashboard_customization_5_13.mdx\`
-
-#### My Dashboard
-
-- Overview → \`/content/5_13/dashboard_5_13/my_dashboard_new_5_13.mdx\`
 - Contents → \`/content/5_13/dashboard_5_13/dashboard_add_contents_new_5_13.mdx\`
-
-#### Report Actions
-
-- Report Actions → \`/content/5_13/dashboard_5_13/dashboard_reports_actions_5_13.mdx\`
+- Customization → \`/content/5_13/dashboard_5_13/dashboard_customization_5_13.mdx\`
+- My Dashboard
+  - Overview → \`/content/5_13/dashboard_5_13/my_dashboard_new_5_13.mdx\`
+  - Contents → \`/content/5_13/dashboard_5_13/dashboard_add_contents_new_5_13.mdx\`
+- Report Actions
+  - Report Actions → \`/content/5_13/dashboard_5_13/dashboard_reports_actions_5_13.mdx\`
 
 ---
 
@@ -1836,56 +1810,47 @@ export function getTOCNG(): string {
 - Application Overview → \`/content/NG/application_overview_ng/all_about_virima_ng.mdx\`
 - System Icons → \`/content/NG/application_overview_ng/icons_ng.mdx\`
 - User Specific Functions → \`/content/NG/application_overview_ng/user_specific_functions_ng.mdx\`
-
-#### Shared Functions
-
-- Advanced Search → \`/content/NG/application_overview_ng/shared_fucntions_ng/advanced_search_ng.mdx\`
-- Attachments → \`/content/NG/application_overview_ng/shared_fucntions_ng/attachments_ng.mdx\`
-- Auto Refresh → \`/content/NG/application_overview_ng/shared_fucntions_ng/auto_refresh_ng.mdx\`
-- Collapse/Maximize → \`/content/NG/application_overview_ng/shared_fucntions_ng/collapse_maximize_ng.mdx\`
-- Comments → \`/content/NG/application_overview_ng/shared_fucntions_ng/comments_ng.mdx\`
-- Delete/Remove → \`/content/NG/common_topics/delete_remove_ng.mdx\`
-- Email Preferences → \`/content/NG/application_overview_ng/shared_fucntions_ng/email_prefs_ng.mdx\`
-- Enable/Disable Editing → \`/content/NG/application_overview_ng/shared_fucntions_ng/enable_disable_editing_ng.mdx\`
-- Export → \`/content/NG/application_overview_ng/shared_fucntions_ng/export_ng.mdx\`
-- Filter By → \`/content/NG/application_overview_ng/shared_fucntions_ng/filter_by_ng.mdx\`
-- History → \`/content/NG/application_overview_ng/shared_fucntions_ng/history_ng.mdx\`
-- Import → \`/content/NG/application_overview_ng/shared_fucntions_ng/import_ng.mdx\`
-- Items per Page → \`/content/NG/application_overview_ng/shared_fucntions_ng/items_per_page_ng.mdx\`
-- Mark as Knowledge → \`/content/NG/application_overview_ng/shared_fucntions_ng/mark_as_knowledge_ng.mdx\`
-- Other Asset Info → \`/content/NG/application_overview_ng/shared_fucntions_ng/other_asset_info_ng.mdx\`
-- Outage Calendar → \`/content/NG/application_overview_ng/shared_fucntions_ng/outage_calendar_ng.mdx\`
-- Personalize Columns → \`/content/NG/application_overview_ng/shared_fucntions_ng/personalize_columns_ng.mdx\`
-- Print → \`/content/NG/application_overview_ng/shared_fucntions_ng/print_ng.mdx\`
-- Records per Page → \`/content/NG/application_overview_ng/shared_fucntions_ng/records_per_page_ng.mdx\`
-- Reload Default Mapping → \`/content/NG/application_overview_ng/shared_fucntions_ng/reload_default_mapping_ng.mdx\`
-- Re-scan → \`/content/NG/application_overview_ng/shared_fucntions_ng/re_scan_ng.mdx\`
-- Re-Sync Data → \`/content/NG/application_overview_ng/shared_fucntions_ng/re_sync_data_ng.mdx\`
-- Save → \`/content/NG/application_overview_ng/shared_fucntions_ng/save_ng.mdx\`
-- Saved Filters → \`/content/NG/application_overview_ng/shared_fucntions_ng/saved_filters_ng.mdx\`
-- Searching → \`/content/NG/application_overview_ng/shared_fucntions_ng/searching_ng.mdx\`
-- Show Main/All Properties → \`/content/NG/application_overview_ng/shared_fucntions_ng/show_main_all_properties_ng.mdx\`
-- Tasks → \`/content/NG/application_overview_ng/shared_fucntions_ng/tasks_ng.mdx\`
-- Updates → \`/content/NG/application_overview_ng/shared_fucntions_ng/updates_ng.mdx\`
-- Version Control → \`/content/NG/application_overview_ng/shared_fucntions_ng/version_control_ng.mdx\`
-
-#### Online Help
-
+- Shared Functions
+  - Advanced Search → \`/content/NG/application_overview_ng/shared_fucntions_ng/advanced_search_ng.mdx\`
+  - Attachments → \`/content/NG/application_overview_ng/shared_fucntions_ng/attachments_ng.mdx\`
+  - Auto Refresh → \`/content/NG/application_overview_ng/shared_fucntions_ng/auto_refresh_ng.mdx\`
+  - Collapse/Maximize → \`/content/NG/application_overview_ng/shared_fucntions_ng/collapse_maximize_ng.mdx\`
+  - Comments → \`/content/NG/application_overview_ng/shared_fucntions_ng/comments_ng.mdx\`
+  - Delete/Remove → \`/content/NG/common_topics/delete_remove_ng.mdx\`
+  - Email Preferences → \`/content/NG/application_overview_ng/shared_fucntions_ng/email_prefs_ng.mdx\`
+  - Enable/Disable Editing → \`/content/NG/application_overview_ng/shared_fucntions_ng/enable_disable_editing_ng.mdx\`
+  - Export → \`/content/NG/application_overview_ng/shared_fucntions_ng/export_ng.mdx\`
+  - Filter By → \`/content/NG/application_overview_ng/shared_fucntions_ng/filter_by_ng.mdx\`
+  - History → \`/content/NG/application_overview_ng/shared_fucntions_ng/history_ng.mdx\`
+  - Import → \`/content/NG/application_overview_ng/shared_fucntions_ng/import_ng.mdx\`
+  - Items per Page → \`/content/NG/application_overview_ng/shared_fucntions_ng/items_per_page_ng.mdx\`
+  - Mark as Knowledge → \`/content/NG/application_overview_ng/shared_fucntions_ng/mark_as_knowledge_ng.mdx\`
+  - Other Asset Info → \`/content/NG/application_overview_ng/shared_fucntions_ng/other_asset_info_ng.mdx\`
+  - Outage Calendar → \`/content/NG/application_overview_ng/shared_fucntions_ng/outage_calendar_ng.mdx\`
+  - Personalize Columns → \`/content/NG/application_overview_ng/shared_fucntions_ng/personalize_columns_ng.mdx\`
+  - Print → \`/content/NG/application_overview_ng/shared_fucntions_ng/print_ng.mdx\`
+  - Records per Page → \`/content/NG/application_overview_ng/shared_fucntions_ng/records_per_page_ng.mdx\`
+  - Reload Default Mapping → \`/content/NG/application_overview_ng/shared_fucntions_ng/reload_default_mapping_ng.mdx\`
+  - Re-scan → \`/content/NG/application_overview_ng/shared_fucntions_ng/re_scan_ng.mdx\`
+  - Re-Sync Data → \`/content/NG/application_overview_ng/shared_fucntions_ng/re_sync_data_ng.mdx\`
+  - Save → \`/content/NG/application_overview_ng/shared_fucntions_ng/save_ng.mdx\`
+  - Saved Filters → \`/content/NG/application_overview_ng/shared_fucntions_ng/saved_filters_ng.mdx\`
+  - Searching → \`/content/NG/application_overview_ng/shared_fucntions_ng/searching_ng.mdx\`
+  - Show Main/All Properties → \`/content/NG/application_overview_ng/shared_fucntions_ng/show_main_all_properties_ng.mdx\`
+  - Tasks → \`/content/NG/application_overview_ng/shared_fucntions_ng/tasks_ng.mdx\`
+  - Updates → \`/content/NG/application_overview_ng/shared_fucntions_ng/updates_ng.mdx\`
+  - Version Control → \`/content/NG/application_overview_ng/shared_fucntions_ng/version_control_ng.mdx\`
 - Online Help → \`/content/NG/application_overview_ng/online_help_ng.mdx\`
 
 ### Dashboards
 
-- Contents → \`/content/NG/dashboard_ng/dashboard_add_contents_new_ng.mdx\`  
-- Customization → \`/content/NG/dashboard_ng/dashboard_customization_ng.mdx\`
-
-#### My Dashboard
-
-- Overview → \`/content/NG/dashboard_ng/my_dashboard_new_ng.mdx\`
 - Contents → \`/content/NG/dashboard_ng/dashboard_add_contents_new_ng.mdx\`
-
-#### Report Actions
-
-- Report Actions → \`/content/NG/dashboard_ng/dashboard_reports_actions_ng.mdx\`
+- Customization → \`/content/NG/dashboard_ng/dashboard_customization_ng.mdx\`
+- My Dashboard
+  - Overview → \`/content/NG/dashboard_ng/my_dashboard_new_ng.mdx\`
+  - Contents → \`/content/NG/dashboard_ng/dashboard_add_contents_new_ng.mdx\`
+- Report Actions
+  - Report Actions → \`/content/NG/dashboard_ng/dashboard_reports_actions_ng.mdx\`
 
 ---
 
@@ -2262,10 +2227,10 @@ export function getTOCNG(): string {
 
 ## Self-Service
 
-- Overview → \`content\\6_1\\self_service_ng\\about_self_service_ng.mdx\`
-- Service Catalog → \`content\\6_1\\self_service_ng\\service_catalog_ng.mdx\`
-- My Incidents → \`content\\6_1\\self_service_ng\\my_incidents_ng.mdx\`
-- My Requests → \`content\\6_1\\self_service_ng\\my_requests_ng.mdx\`
+- Overview → \`/content/NG/self_service_ng/about_self_service_ng.mdx\`
+- Service Catalog → \`/content/NG/self_service_ng/service_catalog_ng.mdx\`
+- My Incidents → \`/content/NG/self_service_ng/my_incidents_ng.mdx\`
+- My Requests → \`/content/NG/self_service_ng/my_requests_ng.mdx\`
 
 ---
 

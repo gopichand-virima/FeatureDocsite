@@ -7,7 +7,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx files
  * 
- * Generated: 2025-12-04T11:26:06.166Z
+ * Generated: 2025-12-05T16:21:56.150Z
  * Source: /content/6_1/index.mdx
  */
 
@@ -79,152 +79,154 @@ export const myDashboardSections = [
       {
         id: "user-specific-functions",
         label: "User Specific Functions",
-        path: "`/content/6_1/application_overview_6_1/user_specific_functions_6_1.mdx`"
-      },
-      {
-        id: "advanced-search",
-        label: "Advanced Search",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/advanced_search_6_1.mdx`"
-      },
-      {
-        id: "attachments",
-        label: "Attachments",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/attachments_6_1.mdx`"
-      },
-      {
-        id: "auto-refresh",
-        label: "Auto Refresh",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/auto_refresh_6_1.mdx`"
-      },
-      {
-        id: "collapsemaximize",
-        label: "Collapse/Maximize",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/collapse_maximize_6_1.mdx`"
-      },
-      {
-        id: "comments",
-        label: "Comments",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/comments_6_1.mdx`"
-      },
-      {
-        id: "deleteremove",
-        label: "Delete/Remove",
-        path: "`/content/6_1/common_topics/delete_remove_6_1.mdx`"
-      },
-      {
-        id: "email-preferences",
-        label: "Email Preferences",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/email_prefs_6_1.mdx`"
-      },
-      {
-        id: "enabledisable-editing",
-        label: "Enable/Disable Editing",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/enable_disable_editing_6_1.mdx`"
-      },
-      {
-        id: "export",
-        label: "Export",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/export_6_1.mdx`"
-      },
-      {
-        id: "filter-by",
-        label: "Filter By",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/filter_by_6_1.mdx`"
-      },
-      {
-        id: "history",
-        label: "History",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/history_6_1.mdx`"
-      },
-      {
-        id: "import",
-        label: "Import",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/import_6_1.mdx`"
-      },
-      {
-        id: "items-per-page",
-        label: "Items per Page",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/items_per_page_6_1.mdx`"
-      },
-      {
-        id: "mark-as-knowledge",
-        label: "Mark as Knowledge",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/mark_as_knowledge_6_1.mdx`"
-      },
-      {
-        id: "other-asset-info",
-        label: "Other Asset Info",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/other_asset_info_6_1.mdx`"
-      },
-      {
-        id: "outage-calendar",
-        label: "Outage Calendar",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/outage_calendar_6_1.mdx`"
-      },
-      {
-        id: "personalize-columns",
-        label: "Personalize Columns",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/personalize_columns_6_1.mdx`"
-      },
-      {
-        id: "print",
-        label: "Print",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/print_6_1.mdx`"
-      },
-      {
-        id: "records-per-page",
-        label: "Records per Page",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/records_per_page_6_1.mdx`"
-      },
-      {
-        id: "reload-default-mapping",
-        label: "Reload Default Mapping",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/reload_default_mapping_6_1.mdx`"
-      },
-      {
-        id: "re-scan",
-        label: "Re-scan",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_scan_6_1.mdx`"
-      },
-      {
-        id: "re-sync-data",
-        label: "Re-Sync Data",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_sync_data_6_1.mdx`"
-      },
-      {
-        id: "save",
-        label: "Save",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/save_6_1.mdx`"
-      },
-      {
-        id: "saved-filters",
-        label: "Saved Filters",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/saved_filters_6_1.mdx`"
-      },
-      {
-        id: "searching",
-        label: "Searching",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/searching_6_1.mdx`"
-      },
-      {
-        id: "show-mainall-properties",
-        label: "Show Main/All Properties",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/show_main_all_properties_6_1.mdx`"
-      },
-      {
-        id: "tasks",
-        label: "Tasks",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/tasks_6_1.mdx`"
-      },
-      {
-        id: "updates",
-        label: "Updates",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/updates_6_1.mdx`"
-      },
-      {
-        id: "version-control",
-        label: "Version Control",
-        path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/version_control_6_1.mdx`"
+        path: "`/content/6_1/application_overview_6_1/user_specific_functions_6_1.mdx`",
+        subPages: [
+          {
+            id: "advanced-search",
+            label: "Advanced Search",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/advanced_search_6_1.mdx`"
+          },
+          {
+            id: "attachments",
+            label: "Attachments",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/attachments_6_1.mdx`"
+          },
+          {
+            id: "auto-refresh",
+            label: "Auto Refresh",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/auto_refresh_6_1.mdx`"
+          },
+          {
+            id: "collapsemaximize",
+            label: "Collapse/Maximize",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/collapse_maximize_6_1.mdx`"
+          },
+          {
+            id: "comments",
+            label: "Comments",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/comments_6_1.mdx`"
+          },
+          {
+            id: "deleteremove",
+            label: "Delete/Remove",
+            path: "`/content/6_1/common_topics/delete_remove_6_1.mdx`"
+          },
+          {
+            id: "email-preferences",
+            label: "Email Preferences",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/email_prefs_6_1.mdx`"
+          },
+          {
+            id: "enabledisable-editing",
+            label: "Enable/Disable Editing",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/enable_disable_editing_6_1.mdx`"
+          },
+          {
+            id: "export",
+            label: "Export",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/export_6_1.mdx`"
+          },
+          {
+            id: "filter-by",
+            label: "Filter By",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/filter_by_6_1.mdx`"
+          },
+          {
+            id: "history",
+            label: "History",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/history_6_1.mdx`"
+          },
+          {
+            id: "import",
+            label: "Import",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/import_6_1.mdx`"
+          },
+          {
+            id: "items-per-page",
+            label: "Items per Page",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/items_per_page_6_1.mdx`"
+          },
+          {
+            id: "mark-as-knowledge",
+            label: "Mark as Knowledge",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/mark_as_knowledge_6_1.mdx`"
+          },
+          {
+            id: "other-asset-info",
+            label: "Other Asset Info",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/other_asset_info_6_1.mdx`"
+          },
+          {
+            id: "outage-calendar",
+            label: "Outage Calendar",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/outage_calendar_6_1.mdx`"
+          },
+          {
+            id: "personalize-columns",
+            label: "Personalize Columns",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/personalize_columns_6_1.mdx`"
+          },
+          {
+            id: "print",
+            label: "Print",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/print_6_1.mdx`"
+          },
+          {
+            id: "records-per-page",
+            label: "Records per Page",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/records_per_page_6_1.mdx`"
+          },
+          {
+            id: "reload-default-mapping",
+            label: "Reload Default Mapping",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/reload_default_mapping_6_1.mdx`"
+          },
+          {
+            id: "re-scan",
+            label: "Re-scan",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_scan_6_1.mdx`"
+          },
+          {
+            id: "re-sync-data",
+            label: "Re-Sync Data",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/re_sync_data_6_1.mdx`"
+          },
+          {
+            id: "save",
+            label: "Save",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/save_6_1.mdx`"
+          },
+          {
+            id: "saved-filters",
+            label: "Saved Filters",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/saved_filters_6_1.mdx`"
+          },
+          {
+            id: "searching",
+            label: "Searching",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/searching_6_1.mdx`"
+          },
+          {
+            id: "show-mainall-properties",
+            label: "Show Main/All Properties",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/show_main_all_properties_6_1.mdx`"
+          },
+          {
+            id: "tasks",
+            label: "Tasks",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/tasks_6_1.mdx`"
+          },
+          {
+            id: "updates",
+            label: "Updates",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/updates_6_1.mdx`"
+          },
+          {
+            id: "version-control",
+            label: "Version Control",
+            path: "`/content/6_1/application_overview_6_1/shared_fucntions_6_1/version_control_6_1.mdx`"
+          }
+        ]
       },
       {
         id: "online-help",
@@ -239,22 +241,24 @@ export const myDashboardSections = [
       {
         id: "customization",
         label: "Customization",
-        path: "`/content/6_1/dashboard_6_1/dashboard_customization_6_1.mdx`"
-      },
-      {
-        id: "overview",
-        label: "Overview",
-        path: "`/content/6_1/dashboard_6_1/my_dashboard_new_6_1.mdx`"
-      },
-      {
-        id: "contents",
-        label: "Contents",
-        path: "`/content/6_1/dashboard_6_1/dashboard_add_contents_new_6_1.mdx`"
-      },
-      {
-        id: "report-actions",
-        label: "Report Actions",
-        path: "`/content/6_1/dashboard_6_1/dashboard_reports_actions_6_1.mdx`"
+        path: "`/content/6_1/dashboard_6_1/dashboard_customization_6_1.mdx`",
+        subPages: [
+          {
+            id: "overview",
+            label: "Overview",
+            path: "`/content/6_1/dashboard_6_1/my_dashboard_new_6_1.mdx`"
+          },
+          {
+            id: "contents",
+            label: "Contents",
+            path: "`/content/6_1/dashboard_6_1/dashboard_add_contents_new_6_1.mdx`"
+          },
+          {
+            id: "report-actions",
+            label: "Report Actions",
+            path: "`/content/6_1/dashboard_6_1/dashboard_reports_actions_6_1.mdx`"
+          }
+        ]
       }
     ]
   }

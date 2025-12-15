@@ -50,7 +50,8 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
               </SyntaxHighlighter>
             ) : (
               <code 
-                className="bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-[0.875em] font-mono" 
+                className="bg-slate-100 px-1.5 py-0.5 rounded text-[0.875em] font-mono" 
+                style={{ color: 'var(--accent-foreground)' }}
                 {...props}
               >
                 {children}

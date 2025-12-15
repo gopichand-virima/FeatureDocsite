@@ -112,7 +112,7 @@ const modules = [
     icon: ClipboardList,
     description:
       "Track and manage IT risks with assessment, mitigation planning, and compliance monitoring.",
-    iconBg: "bg-rose-500",
+    iconBg: "bg-purple-500",
     iconColor: "text-white",
   },
   {

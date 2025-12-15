@@ -488,19 +488,28 @@ html {
 }
 
 /* ============================================
-   VIRIMA BRANDED TABLE STYLES
+   VIRIMA BRANDED TABLE STYLES - UNIVERSAL
    ============================================ */
 
-/* Base table styling */
+/* Universal table styling - applies to ALL tables in documentation */
+.prose table,
+.mdx-content table,
+article table,
+.documentation-content table,
 .branded-table,
 .virima-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   background-color: #FFFFFF;
+  font-size: 0.875rem;
 }
 
-/* Virima brand header - Green background with white text */
+/* Universal table header - Dark green background with white text */
+.prose table thead,
+.mdx-content table thead,
+article table thead,
+.documentation-content table thead,
 .branded-table thead,
 .virima-table thead,
 .virima-table-header {
@@ -512,6 +521,10 @@ html {
   border-radius: 0;
 }
 
+.prose table thead th,
+.mdx-content table thead th,
+article table thead th,
+.documentation-content table thead th,
 .branded-table thead th,
 .virima-table thead th,
 .virima-table-th {
@@ -522,43 +535,77 @@ html {
   font-size: 0.875rem;
   text-align: left;
   padding: 0.875rem 1rem;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #D0D0D0 !important;
   white-space: nowrap;
   border-radius: 0;
 }
 
 /* No rounded corners on table cells - straight edges only */
+.prose table thead th:first-child,
+.mdx-content table thead th:first-child,
+article table thead th:first-child,
+.documentation-content table thead th:first-child,
 .branded-table thead th:first-child,
 .virima-table thead th:first-child,
 .virima-table-th:first-child {
   border-top-left-radius: 0;
 }
 
+.prose table thead th:last-child,
+.mdx-content table thead th:last-child,
+article table thead th:last-child,
+.documentation-content table thead th:last-child,
 .branded-table thead th:last-child,
 .virima-table thead th:last-child,
 .virima-table-th:last-child {
   border-top-right-radius: 0;
 }
 
-/* Table body rows */
+/* Universal table body rows - White background */
+.prose table tbody,
+.mdx-content table tbody,
+article table tbody,
+.documentation-content table tbody,
+.branded-table tbody,
+.virima-table tbody {
+  background-color: #FFFFFF;
+}
+
+.prose table tbody tr,
+.mdx-content table tbody tr,
+article table tbody tr,
+.documentation-content table tbody tr,
 .branded-table tbody tr,
 .virima-table tbody tr,
 .virima-table-row {
+  background-color: #FFFFFF;
   transition: background-color 0.15s ease;
 }
 
+.prose table tbody tr:hover,
+.mdx-content table tbody tr:hover,
+article table tbody tr:hover,
+.documentation-content table tbody tr:hover,
 .branded-table tbody tr:hover,
 .virima-table tbody tr:hover,
 .virima-table-row:hover {
   background-color: #F1F8E9;
 }
 
+.prose table tbody tr:last-child,
+.mdx-content table tbody tr:last-child,
+article table tbody tr:last-child,
+.documentation-content table tbody tr:last-child,
 .branded-table tbody tr:last-child,
 .virima-table tbody tr:last-child {
   /* Border removed from tr, applied to td instead */
 }
 
-/* Table cells */
+/* Universal table cells - Thin gray borders */
+.prose table tbody td,
+.mdx-content table tbody td,
+article table tbody td,
+.documentation-content table tbody td,
 .branded-table tbody td,
 .virima-table tbody td,
 .virima-table-td {
@@ -566,7 +613,8 @@ html {
   font-size: 0.875rem;
   color: #1F2937;
   vertical-align: top;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #D0D0D0 !important;
+  background-color: #FFFFFF;
 }
 
 /* Sticky first column for wide tables */
@@ -586,12 +634,20 @@ html {
   z-index: 10;
 }
 
-/* Dark mode support */
+/* Dark mode support - Universal */
+.dark .prose table,
+.dark .mdx-content table,
+.dark article table,
+.dark .documentation-content table,
 .dark .branded-table,
 .dark .virima-table {
   background-color: #1F2937;
 }
 
+.dark .prose table thead,
+.dark .mdx-content table thead,
+.dark article table thead,
+.dark .documentation-content table thead,
 .dark .branded-table thead,
 .dark .virima-table thead,
 .dark .virima-table-header {
@@ -600,31 +656,58 @@ html {
   border-radius: 0;
 }
 
+.dark .prose table thead th,
+.dark .mdx-content table thead th,
+.dark article table thead th,
+.dark .documentation-content table thead th,
 .dark .branded-table thead th,
 .dark .virima-table thead th,
 .dark .virima-table-th {
   background: #1B5E20 !important;
   background-color: #1B5E20 !important;
   color: #FFFFFF !important;
-  border: 1px solid #374151;
+  border: 1px solid #4B5563 !important;
   border-radius: 0;
 }
 
+.dark .prose table tbody,
+.dark .mdx-content table tbody,
+.dark article table tbody,
+.dark .documentation-content table tbody,
+.dark .branded-table tbody,
+.dark .virima-table tbody {
+  background-color: #1F2937;
+}
+
+.dark .prose table tbody tr,
+.dark .mdx-content table tbody tr,
+.dark article table tbody tr,
+.dark .documentation-content table tbody tr,
 .dark .branded-table tbody tr,
 .dark .virima-table tbody tr {
+  background-color: #1F2937;
   /* Border removed from tr, applied to td instead */
 }
 
+.dark .prose table tbody tr:hover,
+.dark .mdx-content table tbody tr:hover,
+.dark article table tbody tr:hover,
+.dark .documentation-content table tbody tr:hover,
 .dark .branded-table tbody tr:hover,
 .dark .virima-table tbody tr:hover {
   background-color: #1F3A1C;
 }
 
+.dark .prose table tbody td,
+.dark .mdx-content table tbody td,
+.dark article table tbody td,
+.dark .documentation-content table tbody td,
 .dark .branded-table tbody td,
 .dark .virima-table tbody td,
 .dark .virima-table-td {
   color: #F3F4F6;
-  border: 1px solid #374151;
+  border: 1px solid #4B5563 !important;
+  background-color: #1F2937;
 }
 
 /* ============================================
@@ -817,4 +900,27 @@ header img[alt="Virima"] {
   background: transparent !important;
   background-color: transparent !important;
   mix-blend-mode: normal !important;
+}
+
+/* ============================================
+   INLINE CODE STYLING - NO RED COLOR
+   ============================================ */
+
+/* Universal inline code styling - use accent-foreground (black) instead of red */
+.prose code:not(pre code),
+.mdx-content code:not(pre code),
+article code:not(pre code),
+.documentation-content code:not(pre code),
+code.bg-slate-100 {
+  color: var(--accent-foreground) !important;
+  background-color: rgb(241, 245, 249);
+}
+
+.dark .prose code:not(pre code),
+.dark .mdx-content code:not(pre code),
+.dark article code:not(pre code),
+.dark .documentation-content code:not(pre code),
+.dark code.bg-slate-100 {
+  color: var(--accent-foreground) !important;
+  background-color: rgb(30, 41, 59);
 }

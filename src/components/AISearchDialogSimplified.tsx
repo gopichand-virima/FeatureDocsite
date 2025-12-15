@@ -770,21 +770,6 @@ export function AISearchDialogSimplified({
                           Right-click the address bar → <strong>Site Settings</strong> → Find Microphone → Reset
                         </p>
                       </div>
-
-                      {/* Video tutorial link */}
-                      <div className="mt-3 pt-3 border-t border-red-200 bg-blue-50 rounded p-2">
-                        <p className="text-xs text-blue-900">
-                          💡 <strong>Still stuck?</strong> Check our{" "}
-                          <a 
-                            href="/docs/MICROPHONE-PERMISSIONS.md" 
-                            target="_blank" 
-                            className="underline hover:text-blue-700 font-medium"
-                          >
-                            complete troubleshooting guide
-                          </a>
-                          {" "}with screenshots
-                        </p>
-                      </div>
                     </div>
                   )}
                   

@@ -1225,7 +1225,7 @@ function APIOverview({
         <div className="border border-slate-200 rounded-lg p-4 hover:border-emerald-300 transition-colors">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <code className="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded">
+              <code className="text-xs bg-slate-100 px-2.5 py-1 rounded" style={{ color: 'var(--accent-foreground)' }}>
                 DELETE
               </code>
               <span className="text-sm font-mono text-slate-700">

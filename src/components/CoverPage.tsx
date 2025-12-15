@@ -21,7 +21,12 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-[conic-gradient(var(--tw-gradient-stops))] from-[#4f46e5] via-[#818cf8] to-[#c7d2fe] flex items-center justify-center">
+    <div 
+      className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
+      style={{
+        background: 'conic-gradient(from 0deg, #4f46e5, #818cf8, #c7d2fe, #4f46e5)'
+      }}
+    >
       {/* Animated Hexagon Background Image - Slides in from right with pixel-perfect coverage */}
       <motion.div
         key={`background-${animationKey}`}

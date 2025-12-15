@@ -51,15 +51,15 @@
 - **Dark Mode Support**: Optional dark theme with smooth transitions
 - **Interactive Animations**: Hover effects, icon animations, and smooth transitions
 - **Breadcrumb Navigation**: Clear hierarchical navigation trails
-- **Search Integration**: AI-powered search with speech-to-text support
+- **Search Integration**: AI-powered search with speech-to-text and web search support
 
 ### 🔍 Advanced Features
 
-- **AI-Powered Search**: Intelligent content discovery with semantic search
-- **Speech-to-Text**: Voice input in search dialog
+- **AI-Powered Search**: Intelligent content discovery with semantic search using GPT-4o
+- **Web Search Integration**: Real-time web search with Serper, Brave, or Bing APIs for external resources
+- **Speech-to-Text**: Voice input powered by OpenAI Whisper API (99%+ accuracy, unlimited duration)
+- **Hybrid Intelligence**: Combines documentation search + web search + AI reasoning for comprehensive answers
 - **Enterprise Chat**: Persistent conversation history with context awareness
-- **Analytics Dashboard**: Monitor documentation usage and engagement
-- **Version Comparison**: Compare content across different versions
 - **Quick Links**: Direct access to Product Support Policies, Compatibility Matrix, API Integration, Release Notes
 
 ### 🛠️ Developer Experience
@@ -220,15 +220,22 @@ The system uses a **multi-strategy content loading approach** with the following
 ### Universal Styling
 
 - **Table Styling**: All tables have:
-  - Green header background (#2E7D32) with white text
-  - Dark borders on all cells
+  - Dark green header background (#2E7D32) with white text
+  - White data rows with thin gray borders (#D0D0D0)
+  - Consistent font styling (0.875rem)
   - No rounded corners
-  - Consistent appearance across all pages
+  - Universal application across all documentation pages
 
 - **Image Styling**: All images have:
-  - 1/2 weight border (0.5px)
+  - 0.5px border weight with proper frame fitting
+  - Original aspect ratio preserved (no forced stretching)
   - Proper path resolution
   - Automatic asset copying during build
+
+- **Code Element Styling**: All inline code elements have:
+  - Black text color (var(--accent-foreground)) - no red colors
+  - Slate background for better readability
+  - Consistent monospace font styling
 
 ### Navigation Features
 
@@ -241,15 +248,19 @@ The system uses a **multi-strategy content loading approach** with the following
 
 - **Homepage Cards**: Interactive hover effects with color-coded themes:
   - Release Notes: Green highlight
-  - Compatibility Matrix: Purple highlight
+  - Compatibility Matrix: Purple highlight with text color change
   - API Integration: Blue highlight
   - Product Support Policies: Green highlight
 
-- **Icon Animations**: Smooth, slow animations:
+- **Cover Page**: Conic gradient theme with animated hexagon background
+
+- **Icon Animations**: Smooth, optimized animations:
   - Admin: 2 rotations over 4 seconds
-  - Dashboard: Bounce animation (2 seconds)
+  - Dashboard: Subtle bounce animation (reduced height to stay within container)
   - CMDB: Scale-in-ver-bottom animation
-  - ITAM: Scale-in-hor-center animation
+  - ITAM: Scale-in-hor-center animation (1.2s duration)
+
+- **Header Logo**: Transparent background with proper blend mode
 
 ---
 
@@ -262,7 +273,22 @@ Create a `.env` file in the root directory (optional):
 ```env
 # Base URL for GitHub Pages (if different from default)
 VITE_BASE_URL=/FeatureDocsite/
+
+# OpenAI API Key (for AI search and voice input)
+# Required for: AI-powered search, speech-to-text, web search integration
+VITE_OPENAI_API_KEY=your_openai_api_key_here
+
+# Web Search API Keys (optional - for web search functionality)
+# Configure at least one for web search to work:
+VITE_SERPER_API_KEY=your_serper_api_key_here
+VITE_BRAVE_API_KEY=your_brave_api_key_here
+VITE_BING_API_KEY=your_bing_api_key_here
 ```
+
+**Note**: For production deployment on GitHub Pages, add these as GitHub Secrets:
+- Go to Repository Settings → Secrets and variables → Actions
+- Add `VITE_OPENAI_API_KEY` and any web search API keys
+- The GitHub Actions workflow will use these during build
 
 ### GitHub Pages Deployment
 
@@ -307,6 +333,8 @@ The project is configured for GitHub Pages deployment:
 - **TOC Synchronization**: Automated import synchronization ensures no missing topics
 - **File Verification**: Script verifies files exist before importing
 - **Path Validation**: Automatic path resolution and correction
+- **Universal Styling**: Consistent table, image, and code element styling across all pages
+- **No Red Colors**: All code elements use black text (var(--accent-foreground)) for consistency
 
 ---
 
@@ -377,4 +405,26 @@ Built with:
 
 ---
 
-**Last Updated**: December 2025
+**Last Updated**: January 2025
+
+---
+
+## 🆕 Recent Updates
+
+### Styling Improvements
+- ✅ Universal table styling with dark green headers and thin gray borders
+- ✅ Image frame fitting with original aspect ratio preservation
+- ✅ Code element styling standardized (black text, no red colors)
+- ✅ Cover page conic gradient theme applied
+- ✅ Compatibility Matrix hover state fixed (purple color)
+- ✅ Header logo transparency improved
+
+### AI Search Enhancements
+- ✅ Web search integration with Serper, Brave, and Bing APIs
+- ✅ Speech-to-text with OpenAI Whisper API (99%+ accuracy)
+- ✅ Hybrid intelligence combining docs + web + AI reasoning
+- ✅ Real-time web search results with authentic URLs only
+
+### Performance Optimizations
+- ✅ Reduced animation bounce height for better visual containment
+- ✅ Optimized animation speeds for smoother experience

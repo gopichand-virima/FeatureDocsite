@@ -279,15 +279,17 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
               {...props} 
             />
           ),
-          th: ({ node, ...props }) => (
+          th: ({ node, children, ...props }) => (
             <th 
-              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap border border-slate-900 dark:border-slate-700 bg-[#2E7D32] dark:bg-[#1B5E20]" 
+              className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap bg-[#2E7D32] dark:bg-[#1B5E20] virima-table-th" 
               style={{
                 backgroundColor: '#2E7D32',
                 color: '#FFFFFF',
               }}
               {...props} 
-            />
+            >
+              {children}
+            </th>
           ),
           td: ({ node, ...props }) => (
             <td 

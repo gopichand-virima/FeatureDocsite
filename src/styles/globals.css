@@ -506,6 +506,7 @@ article table,
 }
 
 /* Universal table header - Dark green background with white text */
+/* Remove borders from thead - borders should only be on th cells */
 .prose table thead,
 .mdx-content table thead,
 article table thead,
@@ -515,29 +516,80 @@ article table thead,
 .virima-table-header {
   background: #2E7D32 !important;
   background-color: #2E7D32 !important;
+  color: #FFFFFF !important;
   position: sticky;
   top: 0;
   z-index: 10;
   border-radius: 0;
+  border: none !important;
 }
 
+/* Universal table header cells - Force white text with maximum specificity */
+/* With border-collapse: collapse on table, adjacent cells share borders (no double borders) */
 .prose table thead th,
 .mdx-content table thead th,
 article table thead th,
 .documentation-content table thead th,
 .branded-table thead th,
 .virima-table thead th,
-.virima-table-th {
+.virima-table-th,
+.prose table thead th *,
+.mdx-content table thead th *,
+article table thead th *,
+.documentation-content table thead th *,
+.branded-table thead th *,
+.virima-table thead th *,
+.prose table thead tr th,
+.mdx-content table thead tr th,
+article table thead tr th,
+.documentation-content table thead tr th,
+.branded-table thead tr th,
+.virima-table thead tr th {
   background: #2E7D32 !important;
   background-color: #2E7D32 !important;
   color: #FFFFFF !important;
-  font-weight: 600;
-  font-size: 0.875rem;
-  text-align: left;
-  padding: 0.875rem 1rem;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  text-align: left !important;
+  padding: 0.875rem 1rem !important;
   border: 1px solid #D0D0D0 !important;
-  white-space: nowrap;
-  border-radius: 0;
+  white-space: nowrap !important;
+  border-radius: 0 !important;
+}
+
+/* Override any prose text color inheritance - including strong elements with text-slate-900 */
+/* Use maximum specificity to override Tailwind's text-slate-900 utility */
+.prose table thead th,
+.prose table thead th *,
+.prose table thead th strong,
+.prose table thead th strong.text-slate-900,
+.mdx-content table thead th,
+.mdx-content table thead th *,
+.mdx-content table thead th strong,
+.mdx-content table thead th strong.text-slate-900,
+article table thead th,
+article table thead th *,
+article table thead th strong,
+article table thead th strong.text-slate-900,
+.documentation-content table thead th,
+.documentation-content table thead th *,
+.documentation-content table thead th strong,
+.documentation-content table thead th strong.text-slate-900,
+.branded-table thead th,
+.branded-table thead th *,
+.branded-table thead th strong,
+.branded-table thead th strong.text-slate-900,
+.virima-table thead th,
+.virima-table thead th *,
+.virima-table thead th strong,
+.virima-table thead th strong.text-slate-900,
+.virima-table-th,
+.virima-table-th *,
+.virima-table-th strong,
+.virima-table-th strong.text-slate-900,
+table.virima-table thead th strong.text-slate-900,
+table.virima-table thead th.virima-table-th strong.text-slate-900 {
+  color: #FFFFFF !important;
 }
 
 /* No rounded corners on table cells - straight edges only */
@@ -662,12 +714,30 @@ article table tbody td,
 .dark .documentation-content table thead th,
 .dark .branded-table thead th,
 .dark .virima-table thead th,
-.dark .virima-table-th {
+.dark .virima-table-th,
+.dark .prose table thead th *,
+.dark .mdx-content table thead th *,
+.dark article table thead th *,
+.dark .documentation-content table thead th *,
+.dark .branded-table thead th *,
+.dark .virima-table thead th *,
+.dark .prose table thead tr th,
+.dark .mdx-content table thead tr th,
+.dark article table thead tr th,
+.dark .documentation-content table thead tr th,
+.dark .branded-table thead tr th,
+.dark .virima-table thead tr th {
   background: #1B5E20 !important;
   background-color: #1B5E20 !important;
   color: #FFFFFF !important;
   border: 1px solid #4B5563 !important;
-  border-radius: 0;
+  border-radius: 0 !important;
+}
+
+/* Override any prose text color inheritance in dark mode */
+.dark .prose table thead th,
+.dark .prose table thead th * {
+  color: #FFFFFF !important;
 }
 
 .dark .prose table tbody,

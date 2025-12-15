@@ -10,12 +10,31 @@
  */
 function getBasePath(): string {
   if (typeof window === 'undefined') {
+    // Server-side: check if we're in production build
+    // In production, always use base path for GitHub Pages
+    if (import.meta.env.PROD) {
+      return '/FeatureDocsite';
+    }
     return '';
   }
   const pathname = window.location.pathname;
-  if (pathname.startsWith('/FeatureDocsite/')) {
+  const hostname = window.location.hostname;
+  
+  // Always use base path for GitHub Pages (gopichand-virima.github.io)
+  if (hostname.includes('github.io')) {
     return '/FeatureDocsite';
   }
+  
+  // Check if pathname starts with /FeatureDocsite (for local testing with base path)
+  if (pathname.startsWith('/FeatureDocsite') || pathname === '/FeatureDocsite' || pathname === '/FeatureDocsite/') {
+    return '/FeatureDocsite';
+  }
+  
+  // In production builds, always use base path
+  if (import.meta.env.PROD) {
+    return '/FeatureDocsite';
+  }
+  
   return '';
 }
 
@@ -31,23 +50,25 @@ export function resolveImagePath(src: string, contentPath?: string): string {
     return src;
   }
   
+  // Get base path once at the start
+  const basePath = getBasePath();
+  
   // Handle absolute paths starting with /
   if (src.startsWith('/')) {
     // For paths starting with /assets/, ensure they work with base path
     if (src.startsWith('/assets/')) {
-      const basePath = getBasePath();
       // Return path with base path if needed
       // Example: /assets/images/6_1/... -> /FeatureDocsite/assets/images/6_1/... (if basePath is /FeatureDocsite)
       return basePath ? `${basePath}${src}` : src;
     }
     // For other absolute paths, add base path if needed
-    const basePath = getBasePath();
     return basePath ? `${basePath}${src}` : src;
   }
 
   // If no content path provided, assume image is in public/assets
   if (!contentPath) {
-    return `/assets/${src}`;
+    const assetsPath = `/assets/${src}`;
+    return basePath ? `${basePath}${assetsPath}` : assetsPath;
   }
 
   // Extract version and module from content path
@@ -64,8 +85,9 @@ export function resolveImagePath(src: string, contentPath?: string): string {
         // Extract the path after /assets/
         const assetsIndex = src.indexOf('/assets/');
         const pathAfterAssets = src.substring(assetsIndex + '/assets/'.length);
-        // Return as absolute path starting with /assets/
-        return `/assets/${pathAfterAssets}`;
+        // Return as absolute path starting with /assets/ with base path
+        const assetsPath = `/assets/${pathAfterAssets}`;
+        return basePath ? `${basePath}${assetsPath}` : assetsPath;
       }
       
       // Count how many ../ are in the path
@@ -95,7 +117,8 @@ export function resolveImagePath(src: string, contentPath?: string): string {
   }
 
   // Last resort: assume it's in assets
-  return `/assets/${src}`;
+  const assetsPath = `/assets/${src}`;
+  return basePath ? `${basePath}${assetsPath}` : assetsPath;
 }
 
 /**

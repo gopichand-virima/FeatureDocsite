@@ -16,7 +16,11 @@ function getBasePath(): string {
     return '';
   }
   const pathname = window.location.pathname;
-  if (pathname.startsWith('/FeatureDocsite/')) {
+  const hostname = window.location.hostname;
+  
+  // Check if we're on GitHub Pages (gopichand-virima.github.io)
+  // or if pathname starts with /FeatureDocsite
+  if (hostname.includes('github.io') || pathname.startsWith('/FeatureDocsite') || pathname === '/FeatureDocsite' || pathname === '/FeatureDocsite/') {
     return '/FeatureDocsite';
   }
   return '';

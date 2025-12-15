@@ -5989,7 +5989,7 @@ html {
   text-align: left;
   white-space: nowrap;
   background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
-  border-bottom: 2px solid #1b5e20;
+  /* Remove redundant border-bottom - borders are handled by globals.css */
   padding: .875rem 1rem;
   font-size: .875rem;
   font-weight: 600;

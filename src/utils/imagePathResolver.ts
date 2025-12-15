@@ -36,7 +36,9 @@ export function resolveImagePath(src: string, contentPath?: string): string {
     // For paths starting with /assets/, ensure they work with base path
     if (src.startsWith('/assets/')) {
       const basePath = getBasePath();
-      return `${basePath}${src}`;
+      // Return path with base path if needed
+      // Example: /assets/images/6_1/... -> /FeatureDocsite/assets/images/6_1/... (if basePath is /FeatureDocsite)
+      return basePath ? `${basePath}${src}` : src;
     }
     // For other absolute paths, add base path if needed
     const basePath = getBasePath();

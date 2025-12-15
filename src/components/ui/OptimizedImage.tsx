@@ -121,7 +121,7 @@ export function OptimizedImage({
       {/* Actual image */}
       {isInView && (
         <ImageWithFallback
-          src={src.startsWith('/') || src.startsWith('http') ? src : `${getBasePath()}${src}`}
+          src={src}
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}

@@ -3,8 +3,7 @@ import { ArrowRight, Command } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { AISearchDialogSimplified } from "./AISearchDialogSimplified";
-import { homePageAssets, animationConfig, homePageText } from "./homePageConfig";
-import coverImage from "../assets/home_cover_page.png";
+import { animationConfig, homePageText } from "./homePageConfig";
 import aiIcon from "../assets/ai_chat.png";
 
 interface CoverPageProps {
@@ -23,53 +22,16 @@ export function CoverPage({ onModuleSelect }: CoverPageProps) {
   return (
     <div 
       className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
-      style={{
-        background: 'conic-gradient(from 0deg, #4f46e5, #818cf8, #c7d2fe, #4f46e5)'
-      }}
-    >
-      {/* Animated Hexagon Background Image - Slides in from right with pixel-perfect coverage */}
-      <motion.div
-        key={`background-${animationKey}`}
-        className="absolute inset-0 w-full h-full"
-        initial={{ x: "100%", opacity: 0 }}
-          animate={{ 
-            x: 0, 
-            opacity: animationConfig.background.opacity,
-          }}
-        transition={{
-          duration: animationConfig.background.duration,
-          ease: animationConfig.background.ease,
+        style={{
+          background: `
+            linear-gradient(135deg, #ffffff 0%, #f0fdf4 25%, #dcfce7 50%, #bbf7d0 75%, #86efac 100%),
+            radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(22, 163, 74, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 60%)
+          `,
+          backgroundBlendMode: 'normal, overlay, overlay, overlay'
         }}
-      >
-        <motion.div
-          key={`shake-${animationKey}`}
-          className="w-full h-full dark:opacity-50"
-          initial={{ scale: 1.05 }}
-          animate={{ 
-            scale: [1.05, 1.07, 1.03, 1.06, 1.04, 1.05],
-          }}
-          transition={{
-            delay: 1.2,
-            duration: 0.6,
-            times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-            ease: "easeInOut"
-          }}
-        >
-          <img
-            src={coverImage}
-            alt="Virima Hexagon Pattern"
-            className="w-full h-full object-cover"
-            style={{
-              minWidth: '100%',
-              minHeight: '100%',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
-        </motion.div>
-      </motion.div>
-
+    >
       {/* Content Overlay - Centered and Responsive */}
       <div className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">

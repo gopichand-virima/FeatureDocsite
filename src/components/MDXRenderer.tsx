@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -7,6 +7,46 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { generateSlug } from '../utils/extractHeadings';
 import { OptimizedImage } from './ui/OptimizedImage';
 import { resolveImagePath } from '../utils/imagePathResolver';
+import { convertMDXPathToRoute, isRelativeMDXPath } from '../utils/mdxLinkConverter';
+
+/**
+ * Link component that converts relative MDX paths to navigation routes
+ */
+function MDXLink({ href, children, filePath, ...props }: { href?: string; children: React.ReactNode; filePath?: string; [key: string]: any }) {
+  const isExternal = href?.startsWith('http');
+  const [finalHref, setFinalHref] = useState(href || '');
+  
+  useEffect(() => {
+    if (href && !isExternal && isRelativeMDXPath(href)) {
+      convertMDXPathToRoute(href, filePath).then((convertedRoute) => {
+        if (convertedRoute) {
+          setFinalHref(convertedRoute);
+          console.log(`[MDXRenderer] Converted link: ${href} → ${convertedRoute}`);
+        } else {
+          setFinalHref(href); // Keep original if conversion fails
+          console.warn(`[MDXRenderer] Failed to convert link: ${href}`);
+        }
+      }).catch((error) => {
+        console.error(`[MDXRenderer] Error converting link: ${href}`, error);
+        setFinalHref(href); // Keep original on error
+      });
+    } else {
+      setFinalHref(href || '');
+    }
+  }, [href, filePath, isExternal]);
+  
+  return (
+    <a 
+      href={finalHref}
+      className="text-emerald-600 hover:text-emerald-700 underline decoration-emerald-300 hover:decoration-emerald-500 transition-colors"
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+}
 
 interface MDXRendererProps {
   content: string;
@@ -155,20 +195,9 @@ export function MDXRenderer({ content, className = '', filePath }: MDXRendererPr
             <li className="text-slate-700 leading-relaxed" {...props} />
           ),
           
-          // Links
+          // Links - Convert relative MDX paths to navigation routes
           a: ({ node, href, children, ...props }) => {
-            const isExternal = href?.startsWith('http');
-            return (
-              <a 
-                href={href}
-                className="text-emerald-600 hover:text-emerald-700 underline decoration-emerald-300 hover:decoration-emerald-500 transition-colors"
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noopener noreferrer' : undefined}
-                {...props}
-              >
-                {children}
-              </a>
-            );
+            return <MDXLink href={href} filePath={filePath} {...props}>{children}</MDXLink>;
           },
           
           // Emphasis and strong

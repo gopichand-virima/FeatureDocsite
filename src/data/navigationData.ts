@@ -39,7 +39,7 @@ export const myDashboardSections = [
       {
         id: "authentcation",
         label: "Authentcation",
-        path: "`/content/6_1/getting_started_6_1/authentcation_6_1.mdx`"
+        path: "`/content/6_1/getting_started_6_1/authentication_6_1.mdx`"
       },
       {
         id: "organisation-details",

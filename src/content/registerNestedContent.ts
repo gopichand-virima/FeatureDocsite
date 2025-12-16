@@ -641,7 +641,7 @@ function registerITAMNestedContent() {
  */
 function registerMyDashboardGettingStartedContent() {
   // Version 6.1
-  registerContent('/content/6_1/getting_started_6_1/authentcation_6_1.mdx', createDocContent(
+  registerContent('/content/6_1/getting_started_6_1/authentication_6_1.mdx', createDocContent(
     'Authentication',
     'My Dashboard - Getting Started',
     'Configure authentication settings for your Virima instance.'
@@ -673,7 +673,7 @@ function registerMyDashboardGettingStartedContent() {
   ));
 
   // Version 5.13
-  registerContent('/content/5_13/getting_started_5_13/authentcation_5_13.mdx', createDocContent(
+  registerContent('/content/5_13/getting_started_5_13/authentication_5_13.mdx', createDocContent(
     'Authentication',
     'My Dashboard - Getting Started',
     'Configure authentication settings for your Virima instance.'
@@ -705,7 +705,7 @@ function registerMyDashboardGettingStartedContent() {
   ));
 
   // Version 6.1.1
-  registerContent('/content/6_1_1/getting_started_6_1_1/authentcation_6_1_1.mdx', createDocContent(
+  registerContent('/content/6_1_1/getting_started_6_1_1/authentication_6_1_1.mdx', createDocContent(
     'Authentication',
     'My Dashboard - Getting Started',
     'Configure authentication settings for your Virima instance.'
@@ -737,7 +737,7 @@ function registerMyDashboardGettingStartedContent() {
   ));
 
   // Version NG
-  registerContent('/content/NG/getting_started_ng/authentcation_ng.mdx', createDocContent(
+  registerContent('/content/NG/getting_started_ng/authentication_ng.mdx', createDocContent(
     'Authentication',
     'My Dashboard - Getting Started',
     'Configure authentication settings for your Virima instance.'

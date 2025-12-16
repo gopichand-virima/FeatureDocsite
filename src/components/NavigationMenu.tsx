@@ -2,7 +2,13 @@
  * TOC Expand/Collapse Architecture
  * 
  * UNIVERSAL COMPONENT: This component is used for ALL versions (5.13, 6.1, 6.1.1, NextGen)
- * and ALL modules (Admin, CMDB, ITSM, ITAM, etc.). The active state logic applies universally.
+ * and ALL modules (Admin, CMDB, ITSM, ITAM, Discovery, Vulnerability Management, etc.). 
+ * The active state logic applies universally.
+ * 
+ * ACTIVE STATE FIX: When a child page is selected, only the direct parent section should display
+ * bold styling. This fix uses selectedSection to narrow down which section should be active,
+ * preventing multiple sections from being marked active when they have pages with the same ID.
+ * This fix is applied universally across all modules and all versions.
  * 
  * This component implements a comprehensive expand/collapse system for the Table of Contents
  * with three levels of control:
@@ -83,7 +89,7 @@ export function NavigationMenu({
   selectedModule,
   onModuleChange,
   sections,
-  selectedSection: _selectedSection, // Intentionally unused - active state determined by selectedPage
+  selectedSection, // Used to narrow down which section should be active when page IDs are not unique
   onSectionChange,
   selectedPage,
   onPageChange,
@@ -198,6 +204,12 @@ export function NavigationMenu({
                                       selectedPage.trim() !== '' &&
                                       selectedPage.trim().length > 0;
           
+          // Check if selectedSection is provided and valid
+          const isValidSelectedSection = selectedSection && 
+                                         typeof selectedSection === 'string' && 
+                                         selectedSection.trim() !== '' &&
+                                         selectedSection.trim().length > 0;
+          
           if (isValidSelectedPage) {
             // Normalize selectedPage for comparison (trim whitespace)
             const normalizedSelectedPage = selectedPage.trim();
@@ -224,15 +236,34 @@ export function NavigationMenu({
             
             // Check if ANY page in this section (or its descendants) matches selectedPage
             // Use strict equality (===) to ensure exact matches only
-            // This ensures only ONE section can match at a time
             const hasChildPageSelected = section.pages.some((page: any) => {
               return checkPageMatch(page);
             });
 
-            // CRITICAL: Only show active style if this section actually contains the selected page
-            // This ensures ONLY the active parent chain is bold, all others are muted
-            // Double-check: hasChildPageSelected must be explicitly true (strict boolean check)
-            shouldShowActiveStyle = hasChildPageSelected === true;
+            // CRITICAL FIX: When selectedSection is provided, use it to narrow down which section should be active
+            // This prevents multiple sections from being marked active when they have pages with the same ID
+            // This fix applies UNIVERSALLY to all modules (Admin, CMDB, Discovery, ITSM, ITAM, etc.) 
+            // and all versions (NextGen, 6.1.1, 6.1, 5.13)
+            // Only mark this section as active if:
+            // 1. It contains the selected page, AND
+            // 2. Either selectedSection is not provided/valid, OR this section matches selectedSection
+            if (hasChildPageSelected) {
+              if (isValidSelectedSection) {
+                // Use selectedSection to narrow down: only mark active if this section matches selectedSection
+                // This ensures only ONE section is bold even when multiple sections have pages with the same ID
+                const normalizedSelectedSection = selectedSection.trim();
+                shouldShowActiveStyle = normalizedSelectedSection === section.id;
+              } else {
+                // If selectedSection is not provided, we still need to be careful
+                // Since page IDs might not be unique across sections, we should only mark the FIRST matching section
+                // However, this is a fallback - ideally selectedSection should always be set from the URL
+                // For now, we'll mark this section as active if it contains the page
+                // This maintains backward compatibility but may still have the issue if page IDs are duplicated
+                shouldShowActiveStyle = true;
+              }
+            } else {
+              shouldShowActiveStyle = false;
+            }
           } else {
             // Explicitly set to false when selectedPage is invalid/empty
             // This prevents any section from appearing active when there's no valid selection

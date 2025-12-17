@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -46,6 +47,14 @@ type SelectionContext = {
   page?: string;
 };
 
+type HighlightRect = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  label?: string;
+};
+
 function getDomPath(el: Element): string {
   const parts: string[] = [];
   let current: Element | null = el;
@@ -90,6 +99,32 @@ function getElementPreviewText(el: HTMLElement): string {
   return text;
 }
 
+function unionClientRects(rects: DOMRectList | DOMRect[]): HighlightRect | null {
+  const arr = Array.from(rects || []).filter(
+    (r) => r && r.width > 0 && r.height > 0,
+  );
+  if (arr.length === 0) return null;
+
+  let left = Number.POSITIVE_INFINITY;
+  let top = Number.POSITIVE_INFINITY;
+  let right = Number.NEGATIVE_INFINITY;
+  let bottom = Number.NEGATIVE_INFINITY;
+
+  arr.forEach((r) => {
+    left = Math.min(left, r.left);
+    top = Math.min(top, r.top);
+    right = Math.max(right, r.right);
+    bottom = Math.max(bottom, r.bottom);
+  });
+
+  return {
+    left,
+    top,
+    width: Math.max(0, right - left),
+    height: Math.max(0, bottom - top),
+  };
+}
+
 interface ChatPanelProps {
   isOpen: boolean;
   onClose: () => void;
@@ -121,6 +156,10 @@ export function ChatPanel({
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectionContext, setSelectionContext] =
     useState<SelectionContext | null>(null);
+  const [hoverHighlight, setHoverHighlight] =
+    useState<HighlightRect | null>(null);
+  const [lockedHighlight, setLockedHighlight] =
+    useState<HighlightRect | null>(null);
   const [copiedMessageId, setCopiedMessageId] = useState<
     string | null
   >(null);
@@ -129,6 +168,7 @@ export function ChatPanel({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const panelRootRef = useRef<HTMLDivElement>(null);
+  const selectedElementRef = useRef<HTMLElement | null>(null);
 
   // Load conversation messages
   useEffect(() => {
@@ -181,11 +221,50 @@ export function ChatPanel({
 
     const previousCursor = document.body.style.cursor;
     document.body.style.cursor = "crosshair";
+    setHoverHighlight(null);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsSelectionMode(false);
       }
+    };
+
+    const updateHoverFromTarget = (target: HTMLElement) => {
+      const rect = target.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+      setHoverHighlight({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        label: "Click to select element",
+      });
+    };
+
+    let rafId: number | null = null;
+    const handleMouseMoveCapture = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (panelRootRef.current?.contains(target)) {
+        setHoverHighlight(null);
+        return;
+      }
+
+      // If user is actively selecting text, prefer selection range highlight.
+      const sel = window.getSelection?.();
+      const selectedText = sel?.toString().trim() || "";
+      if (sel && selectedText && sel.rangeCount > 0) {
+        const range = sel.getRangeAt(0);
+        const rect = unionClientRects(range.getClientRects());
+        if (rect) {
+          setHoverHighlight({ ...rect, label: "Release mouse to capture text" });
+        }
+        return;
+      }
+
+      // Throttle hover updates
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => updateHoverFromTarget(target));
     };
 
     const handleMouseUp = (e: MouseEvent) => {
@@ -195,6 +274,16 @@ export function ChatPanel({
       const selected = window.getSelection?.()?.toString().trim() || "";
       if (!selected) return;
 
+      // Capture selection highlight rect
+      const sel = window.getSelection?.();
+      if (sel && sel.rangeCount > 0) {
+        const range = sel.getRangeAt(0);
+        const rect = unionClientRects(range.getClientRects());
+        if (rect) {
+          setLockedHighlight({ ...rect, label: "Selected text" });
+        }
+      }
+      selectedElementRef.current = null;
       setSelectionContext({
         kind: "text",
         text: selected,
@@ -223,6 +312,17 @@ export function ChatPanel({
       const preview = getElementPreviewText(target);
       const text = preview.length > 0 ? preview : `<${target.tagName.toLowerCase()}>`;
 
+      const rect = target.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setLockedHighlight({
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+          label: "Selected element",
+        });
+      }
+      selectedElementRef.current = target;
       setSelectionContext({
         kind: "element",
         text: text.slice(0, 500),
@@ -237,14 +337,64 @@ export function ChatPanel({
     window.addEventListener("keydown", handleKeyDown);
     document.addEventListener("mouseup", handleMouseUp, true);
     document.addEventListener("click", handleClickCapture, true);
+    document.addEventListener("mousemove", handleMouseMoveCapture, true);
 
     return () => {
       document.body.style.cursor = previousCursor;
       window.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("mouseup", handleMouseUp, true);
       document.removeEventListener("click", handleClickCapture, true);
+      document.removeEventListener("mousemove", handleMouseMoveCapture, true);
+      if (rafId) cancelAnimationFrame(rafId);
+      setHoverHighlight(null);
     };
   }, [isSelectionMode, currentModule, currentPage]);
+
+  // Keep locked highlight aligned for element selections on scroll/resize
+  useEffect(() => {
+    if (!selectionContext || selectionContext.kind !== "element") return;
+    if (!selectedElementRef.current) return;
+
+    const update = () => {
+      const el = selectedElementRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+      setLockedHighlight((prev) =>
+        prev
+          ? {
+              ...prev,
+              top: rect.top,
+              left: rect.left,
+              width: rect.width,
+              height: rect.height,
+            }
+          : {
+              top: rect.top,
+              left: rect.left,
+              width: rect.width,
+              height: rect.height,
+              label: "Selected element",
+            },
+      );
+    };
+
+    let raf: number | null = null;
+    const onScrollOrResize = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScrollOrResize, true);
+    window.addEventListener("resize", onScrollOrResize);
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", onScrollOrResize, true);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [selectionContext]);
 
   // Handle initial messages - create conversation with context
   useEffect(() => {
@@ -500,6 +650,43 @@ export function ChatPanel({
     }
   };
 
+  const overlay = (() => {
+    if (typeof document === "undefined") return null;
+    const rect = isSelectionMode ? hoverHighlight : lockedHighlight;
+    if (!rect) return null;
+
+    // Keep overlay below the chat panel (panel is z-50)
+    return createPortal(
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 45 }}
+      >
+        <div
+          className="absolute rounded-md"
+          style={{
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            border: "2px solid rgba(120, 116, 242, 0.95)",
+            background: "rgba(120, 116, 242, 0.12)",
+            boxShadow: "0 0 0 4px rgba(120, 116, 242, 0.12)",
+          }}
+        >
+          {rect.label && (
+            <div
+              className="absolute -top-6 left-0 text-[11px] font-medium px-2 py-1 rounded bg-slate-900 text-white"
+              style={{ boxShadow: "0 8px 20px rgba(0,0,0,0.18)" }}
+            >
+              {rect.label}
+            </div>
+          )}
+        </div>
+      </div>,
+      document.body,
+    );
+  })();
+
   const renderMessageContent = (message: Message) => {
     // Render assistant messages as Markdown for readability (tables, lists, headings, code blocks).
     // Keep user messages as plain text to preserve exactly what was typed.
@@ -601,7 +788,9 @@ export function ChatPanel({
   if (!isOpen) return null;
 
   return (
-    <div
+    <>
+      {overlay}
+      <div
       ref={panelRootRef}
       className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out flex flex-col ${
         isMinimized
@@ -917,7 +1106,11 @@ export function ChatPanel({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setSelectionContext(null)}
+                  onClick={() => {
+                    setSelectionContext(null);
+                    setLockedHighlight(null);
+                    selectedElementRef.current = null;
+                  }}
                   className="h-7 w-7 p-0 text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                   title="Clear selected context"
                 >
@@ -960,6 +1153,7 @@ export function ChatPanel({
           </div>
         </>
       )}
-    </div>
+      </div>
+    </>
   );
 }

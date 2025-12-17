@@ -7,7 +7,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx files
  * 
- * Generated: 2025-12-12T04:03:59.006Z
+ * Generated: 2025-12-17T07:42:15.065Z
  * Source: /content/6_1/index.mdx
  */
 
@@ -37,8 +37,8 @@ export const myDashboardSections = [
     label: "My Dashboard",
     pages: [
       {
-        id: "authentcation",
-        label: "Authentcation",
+        id: "authentication",
+        label: "Authentication",
         path: "`/content/6_1/getting_started_6_1/authentication_6_1.mdx`"
       },
       {

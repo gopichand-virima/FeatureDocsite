@@ -296,10 +296,14 @@ ${caseStatements}
 
   // Write output
   const outputPath = path.join(__dirname, '../src/data/navigationData.ts');
-  const backupPath = path.join(__dirname, '../src/data/navigationData.backup.ts');
+  const backupDir = path.join(__dirname, '../.cache/toc-backups');
+  const backupPath = path.join(backupDir, 'navigationData.backup.ts');
   
   // Create backup
   if (fs.existsSync(outputPath)) {
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
     fs.copyFileSync(outputPath, backupPath);
     console.log(`\n💾 Backup created: ${backupPath}`);
   }
@@ -386,10 +390,14 @@ export function getTOCContent(version: string): string {
 
   // Write output
   const outputPath = path.join(__dirname, '../src/utils/indexContentMap.ts');
-  const backupPath = path.join(__dirname, '../src/utils/indexContentMap.backup.ts');
+  const backupDir = path.join(__dirname, '../.cache/toc-backups');
+  const backupPath = path.join(backupDir, 'indexContentMap.backup.ts');
   
   // Create backup
   if (fs.existsSync(outputPath)) {
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
     fs.copyFileSync(outputPath, backupPath);
     console.log(`💾 Backup created: ${backupPath}`);
   }

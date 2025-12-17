@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   X,
   Send,
@@ -15,6 +17,7 @@ import {
   History,
   Trash2,
   MessageSquare,
+  Crosshair,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
@@ -31,6 +34,61 @@ import {
   ChatMessage,
 } from "../lib/search/services/openai-service";
 import virimaAssistantIcon from "../assets/chat_panel_logo.png";
+
+type SelectionKind = "text" | "element";
+
+type SelectionContext = {
+  kind: SelectionKind;
+  text: string;
+  domPath?: string;
+  url: string;
+  module?: string;
+  page?: string;
+};
+
+function getDomPath(el: Element): string {
+  const parts: string[] = [];
+  let current: Element | null = el;
+
+  while (current && current.nodeType === Node.ELEMENT_NODE) {
+    const tag = current.tagName.toLowerCase();
+    const id = (current as HTMLElement).id ? `#${(current as HTMLElement).id}` : "";
+    const classList = (current as HTMLElement).classList;
+    const classHint =
+      classList && classList.length > 0
+        ? "." + Array.from(classList).slice(0, 3).join(".")
+        : "";
+
+    let nth = "";
+    const parent = current.parentElement;
+    if (parent) {
+      const siblings = Array.from(parent.children).filter(
+        (c) => c.tagName === current!.tagName,
+      );
+      if (siblings.length > 1) {
+        const index = siblings.indexOf(current) + 1;
+        nth = `:nth-of-type(${index})`;
+      }
+    }
+
+    parts.unshift(`${tag}${id}${classHint}${nth}`);
+    current = parent;
+    if (id) break; // stable enough
+  }
+
+  return parts.join(" > ");
+}
+
+function getElementPreviewText(el: HTMLElement): string {
+  const aria = el.getAttribute("aria-label");
+  if (aria && aria.trim()) return aria.trim();
+  const alt = (el as HTMLImageElement).alt;
+  if (alt && alt.trim()) return alt.trim();
+  const title = el.getAttribute("title");
+  if (title && title.trim()) return title.trim();
+  const text = (el.innerText || el.textContent || "").trim();
+  return text;
+}
 
 interface ChatPanelProps {
   isOpen: boolean;
@@ -60,6 +118,9 @@ export function ChatPanel({
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [selectionContext, setSelectionContext] =
+    useState<SelectionContext | null>(null);
   const [copiedMessageId, setCopiedMessageId] = useState<
     string | null
   >(null);
@@ -67,6 +128,7 @@ export function ChatPanel({
     useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const panelRootRef = useRef<HTMLDivElement>(null);
 
   // Load conversation messages
   useEffect(() => {
@@ -112,6 +174,77 @@ export function ChatPanel({
       textareaRef.current.focus();
     }
   }, [isOpen, isMinimized]);
+
+  // Point & Ask selection mode: capture text or element selection outside the panel
+  useEffect(() => {
+    if (!isSelectionMode) return;
+
+    const previousCursor = document.body.style.cursor;
+    document.body.style.cursor = "crosshair";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsSelectionMode(false);
+      }
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && panelRootRef.current?.contains(target)) return;
+
+      const selected = window.getSelection?.()?.toString().trim() || "";
+      if (!selected) return;
+
+      setSelectionContext({
+        kind: "text",
+        text: selected,
+        url: window.location.href,
+        module: currentModule,
+        page: currentPage,
+      });
+      setIsSelectionMode(false);
+    };
+
+    const handleClickCapture = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      // Allow normal interaction inside the chat panel.
+      if (panelRootRef.current?.contains(target)) return;
+
+      // Prevent navigation/side-effects while selecting.
+      e.preventDefault();
+      e.stopPropagation();
+
+      // If user is selecting text, mouseup handler will capture it.
+      const selected = window.getSelection?.()?.toString().trim() || "";
+      if (selected) return;
+
+      const preview = getElementPreviewText(target);
+      const text = preview.length > 0 ? preview : `<${target.tagName.toLowerCase()}>`;
+
+      setSelectionContext({
+        kind: "element",
+        text: text.slice(0, 500),
+        domPath: getDomPath(target),
+        url: window.location.href,
+        module: currentModule,
+        page: currentPage,
+      });
+      setIsSelectionMode(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mouseup", handleMouseUp, true);
+    document.addEventListener("click", handleClickCapture, true);
+
+    return () => {
+      document.body.style.cursor = previousCursor;
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mouseup", handleMouseUp, true);
+      document.removeEventListener("click", handleClickCapture, true);
+    };
+  }, [isSelectionMode, currentModule, currentPage]);
 
   // Handle initial messages - create conversation with context
   useEffect(() => {
@@ -179,6 +312,30 @@ export function ChatPanel({
     setIsLoading(true);
 
     try {
+      const selectionPrefix = selectionContext
+        ? [
+            "User selected context (Point & Ask):",
+            `- Type: ${selectionContext.kind}`,
+            selectionContext.module
+              ? `- Module: ${selectionContext.module}`
+              : null,
+            selectionContext.page ? `- Page: ${selectionContext.page}` : null,
+            selectionContext.domPath
+              ? `- DOM Path: ${selectionContext.domPath}`
+              : null,
+            `- URL: ${selectionContext.url}`,
+            "",
+            `Selected: """\n${selectionContext.text}\n"""`,
+            "",
+          ]
+            .filter(Boolean)
+            .join("\n")
+        : "";
+
+      const aiQuery = selectionPrefix
+        ? `${selectionPrefix}Question: ${userMessage}`
+        : userMessage;
+
       // Search both docs and web
       const [docsResults, webResults] = await Promise.all([
         searchOrchestrator.search(userMessage, {
@@ -244,7 +401,7 @@ export function ChatPanel({
 
         try {
           response = await openAIService.generateAnswer(
-            userMessage,
+            aiQuery,
             documentationContext,
             conversationHistory,
           );
@@ -343,10 +500,109 @@ export function ChatPanel({
     }
   };
 
+  const renderMessageContent = (message: Message) => {
+    // Render assistant messages as Markdown for readability (tables, lists, headings, code blocks).
+    // Keep user messages as plain text to preserve exactly what was typed.
+    if (message.role !== "assistant") {
+      return (
+        <div className="whitespace-pre-wrap break-words text-sm">
+          {message.content}
+        </div>
+      );
+    }
+
+    return (
+      <div className="text-sm break-words">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          // react-markdown is safe by default (HTML is not rendered unless rehypeRaw is used).
+          components={{
+            h1: ({ children }) => (
+              <h1 className="text-base font-semibold mt-2 mb-2">
+                {children}
+              </h1>
+            ),
+            h2: ({ children }) => (
+              <h2 className="text-sm font-semibold mt-3 mb-2">
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="text-sm font-medium mt-3 mb-2">
+                {children}
+              </h3>
+            ),
+            p: ({ children }) => (
+              <p className="mb-2 last:mb-0 leading-relaxed">
+                {children}
+              </p>
+            ),
+            ul: ({ children }) => (
+              <ul className="list-disc pl-5 mb-2 space-y-1">
+                {children}
+              </ul>
+            ),
+            ol: ({ children }) => (
+              <ol className="list-decimal pl-5 mb-2 space-y-1">
+                {children}
+              </ol>
+            ),
+            li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+            a: ({ href, children }) => (
+              <a
+                href={href}
+                target={href?.startsWith("http") ? "_blank" : undefined}
+                rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-emerald-700 underline decoration-emerald-300 hover:decoration-emerald-500"
+              >
+                {children}
+              </a>
+            ),
+            code: ({ children, className }) => {
+              const isBlock = Boolean(className);
+              if (!isBlock) {
+                return (
+                  <code className="px-1 py-0.5 rounded bg-slate-200/70 dark:bg-slate-700/60 font-mono text-[0.85em]">
+                    {children}
+                  </code>
+                );
+              }
+              return (
+                <pre className="bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto text-xs my-2">
+                  <code className="font-mono">{children}</code>
+                </pre>
+              );
+            },
+            table: ({ children }) => (
+              <div className="overflow-x-auto my-2">
+                <table className="w-full border border-slate-200 border-collapse text-xs">
+                  {children}
+                </table>
+              </div>
+            ),
+            th: ({ children }) => (
+              <th className="border border-slate-200 bg-slate-100 px-2 py-1 text-left font-semibold">
+                {children}
+              </th>
+            ),
+            td: ({ children }) => (
+              <td className="border border-slate-200 px-2 py-1 align-top">
+                {children}
+              </td>
+            ),
+          }}
+        >
+          {message.content}
+        </ReactMarkdown>
+      </div>
+    );
+  };
+
   if (!isOpen) return null;
 
   return (
     <div
+      ref={panelRootRef}
       className={`fixed z-50 bg-white rounded-t-xl shadow-2xl border border-slate-200 transition-all duration-300 ease-in-out flex flex-col ${
         isMinimized
           ? "bottom-0 right-6 w-80 h-14"
@@ -399,6 +655,23 @@ export function ChatPanel({
           </div>
         </div>
         <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsSelectionMode((prev) => !prev)}
+            className={`h-8 w-8 p-0 ${
+              isSelectionMode
+                ? "text-emerald-700 bg-emerald-50 hover:bg-emerald-100"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+            title={
+              isSelectionMode
+                ? "Selection mode active (Esc to cancel)"
+                : "Point & Ask: select something on the page"
+            }
+          >
+            <Crosshair className="h-4 w-4" />
+          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -517,9 +790,7 @@ export function ChatPanel({
                               : "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
                           }`}
                         >
-                          <div className="whitespace-pre-wrap break-words text-sm">
-                            {message.content}
-                          </div>
+                          {renderMessageContent(message)}
 
                           {/* Sources */}
                           {message.sources &&
@@ -622,6 +893,38 @@ export function ChatPanel({
 
           {/* Input */}
           <div className="flex-shrink-0 p-4 border-t border-slate-200 bg-slate-50">
+            {isSelectionMode && (
+              <div className="mb-3 text-xs text-slate-700 bg-white border border-slate-200 rounded-lg px-3 py-2">
+                <span className="font-medium">Selection mode:</span>{" "}
+                click an element or highlight text on the page. Press{" "}
+                <span className="font-mono">Esc</span> to cancel.
+              </div>
+            )}
+            {selectionContext && (
+              <div className="mb-3 bg-white border border-slate-200 rounded-lg px-3 py-2 flex items-start gap-2">
+                <Crosshair className="h-4 w-4 text-emerald-700 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs text-slate-600 mb-1">
+                    Using selected {selectionContext.kind} context
+                    {selectionContext.page
+                      ? ` • ${selectionContext.page}`
+                      : ""}
+                  </div>
+                  <div className="text-xs text-slate-800 whitespace-pre-wrap break-words line-clamp-3">
+                    {selectionContext.text}
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectionContext(null)}
+                  className="h-7 w-7 p-0 text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+                  title="Clear selected context"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
             <div className="flex gap-2">
               <Textarea
                 ref={textareaRef}

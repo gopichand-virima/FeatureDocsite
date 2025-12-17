@@ -8,7 +8,7 @@
  * 
  * SINGLE SOURCE OF TRUTH: /content/<version>/index.mdx
  * 
- * Generated: 2025-12-12T04:03:59.011Z
+ * Generated: 2025-12-17T07:42:15.072Z
  * 
  * To update: Edit index.mdx files and run: npm run sync-toc
  */
@@ -28,7 +28,7 @@ export function getTOC61(): string {
 
 ### Getting Started
 
-- Authentcation → \`/content/6_1/getting_started_6_1/authentcation_6_1.mdx\`
+- Authentication → \`/content/6_1/getting_started_6_1/authentication_6_1.mdx\`
 - Organisation Details → \`/content/6_1/getting_started_6_1/organization_details_6_1.mdx\`
 - SSO and Authentication → \`/content/6_1/getting_started_6_1/sso_authentication_6_1.mdx\`
 - User Management → \`/content/6_1/getting_started_6_1/user_management_6_1.mdx\`
@@ -618,7 +618,7 @@ export function getTOC611(): string {
 
 ### Getting Started
 
-- Authentcation → \`/content/6_1_1/getting_started_6_1_1/authentcation_6_1_1.mdx\`
+- Authentication → \`/content/6_1_1/getting_started_6_1_1/authentication_6_1_1.mdx\`
 - Organisation Details → \`/content/6_1_1/getting_started_6_1_1/organization_details_6_1_1.mdx\`
 - SSO and Authentication → \`/content/6_1_1/getting_started_6_1_1/sso_authentication_6_1_1.mdx\`
 - User Management → \`/content/6_1_1/getting_started_6_1_1/user_management_6_1_1.mdx\`
@@ -1208,7 +1208,7 @@ export function getTOC513(): string {
 
 ### Getting Started
 
-- Authentcation → \`/content/5_13/getting_started_5_13/authentcation_5_13.mdx\`
+- Authentication → \`/content/5_13/getting_started_5_13/authentication_5_13.mdx\`
 - Organisation Details → \`/content/5_13/getting_started_5_13/organization_details_5_13.mdx\`
 - SSO and Authentication → \`/content/5_13/getting_started_5_13/sso_authentication_5_13.mdx\`
 - User Management → \`/content/5_13/getting_started_5_13/user_management_5_13.mdx\`
@@ -1798,7 +1798,7 @@ export function getTOCNG(): string {
 
 ### Getting Started
 
-- Authentcation → \`/content/NG/getting_started_ng/authentcation_ng.mdx\`
+- Authentication → \`/content/NG/getting_started_ng/authentication_ng.mdx\`
 - Organisation Details → \`/content/NG/getting_started_ng/organization_details_ng.mdx\`
 - SSO and Authentication → \`/content/NG/getting_started_ng/sso_authentication_ng.mdx\`
 - User Management → \`/content/NG/getting_started_ng/user_management_ng.mdx\`

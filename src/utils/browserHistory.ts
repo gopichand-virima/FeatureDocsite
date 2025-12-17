@@ -5,6 +5,8 @@
  * for the documentation site.
  */
 
+import { getBasePath } from './basePath';
+
 export interface NavigationState {
   version?: string;
   module?: string;
@@ -13,25 +15,7 @@ export interface NavigationState {
   specialPage?: 'compatibility-matrix' | 'product-support-policies' | 'knowledge-base' | 'virima-tech-central';
 }
 
-/**
- * Get the base path for the application
- * Supports GitHub Pages deployment at /FeatureDocsite/
- */
-export function getBasePath(): string {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  
-  const pathname = window.location.pathname;
-  
-  // Check for GitHub Pages base path
-  if (pathname.startsWith('/FeatureDocsite/')) {
-    return '/FeatureDocsite';
-  }
-  
-  // Local development or other deployment
-  return '';
-}
+export { getBasePath };
 
 /**
  * Generate URL path from navigation state

@@ -9,24 +9,6 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
 }
 
 /**
- * Gets the base path for assets (supports GitHub Pages deployment)
- */
-function getBasePath(): string {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  const pathname = window.location.pathname;
-  const hostname = window.location.hostname;
-  
-  // Check if we're on GitHub Pages (gopichand-virima.github.io)
-  // or if pathname starts with /FeatureDocsite
-  if (hostname.includes('github.io') || pathname.startsWith('/FeatureDocsite') || pathname === '/FeatureDocsite' || pathname === '/FeatureDocsite/') {
-    return '/FeatureDocsite';
-  }
-  return '';
-}
-
-/**
  * OptimizedImage - High-performance image component with lazy loading
  * 
  * Features:

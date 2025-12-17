@@ -44,6 +44,11 @@ Thumbs.db
 *.temp
 .cache/
 
+# Auto-generated backups (keep local if desired, but don't commit)
+*.backup.ts
+*.backup.js
+*.backup.mjs
+
 # API Keys and Secrets (DO NOT COMMIT)
 *.key
 *.pem

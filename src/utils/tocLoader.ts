@@ -7,6 +7,7 @@
 
 import { parseTocFile, TocStructure } from './tocParser';
 import { getTOCContent } from './indexContentMap';
+import { getBasePath } from './basePath';
 
 // Cache for loaded TOC structures
 // Cache version - increment this when parser logic changes to invalidate old cache
@@ -33,21 +34,6 @@ const VERSION_PATH_MAP: Record<string, string> = {
  * Loads raw content from index.mdx files
  * Uses the index content map which contains all TOC structures
  */
-/**
- * Detects the base path for content files
- * Supports GitHub Pages deployment at /FeatureDocsite/
- */
-function getBasePath(): string {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  const pathname = window.location.pathname;
-  if (pathname.startsWith('/FeatureDocsite/')) {
-    return '/FeatureDocsite';
-  }
-  return '';
-}
-
 /**
  * Extracts MDX content from HTML wrapper (similar to contentLoader)
  */

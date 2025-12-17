@@ -8,9 +8,9 @@
  * Versions: NG, 6_1, 6_1_1, 5_13
  */
 
-// ========================================
+  // ========================================
 // Version 5_13
-// ========================================
+  // ========================================
 
 import adminAdminAdminFunctionsNew513 from '../../content/5_13/admin_5_13/admin/admin_functions_new_5_13.mdx?raw';
 import adminAdminChangeMngmntAboutChangeMngmnt513 from '../../content/5_13/admin_5_13/admin_change_mngmnt/about_change_mngmnt_5_13.mdx?raw';
@@ -103,10 +103,10 @@ import adminAdminUsersUserGroups513 from '../../content/5_13/admin_5_13/admin_us
 import adminAdminUsersUserRoles513 from '../../content/5_13/admin_5_13/admin_users/user_roles_5_13.mdx?raw';
 import adminAdminUsersUsers513 from '../../content/5_13/admin_5_13/admin_users/users_5_13.mdx?raw';
 import adminAdminVendorMngmntAboutVendorMngmnt513 from '../../content/5_13/admin_5_13/admin_vendor_mngmnt/about_vendor_mngmnt_5_13.mdx?raw';
-
-// ========================================
+  
+  // ========================================
 // Version 6_1
-// ========================================
+  // ========================================
 
 import adminAdminAdminFunctionsNew61 from '../../content/6_1/admin_6_1/admin/admin_functions_new_6_1.mdx?raw';
 import adminAdminChangeMngmntAboutChangeMngmnt61 from '../../content/6_1/admin_6_1/admin_change_mngmnt/about_change_mngmnt_6_1.mdx?raw';
@@ -199,10 +199,10 @@ import adminAdminUsersUserGroups61 from '../../content/6_1/admin_6_1/admin_users
 import adminAdminUsersUserRoles61 from '../../content/6_1/admin_6_1/admin_users/user_roles_6_1.mdx?raw';
 import adminAdminUsersUsers61 from '../../content/6_1/admin_6_1/admin_users/users_6_1.mdx?raw';
 import adminAdminVendorMngmntAboutVendorMngmnt61 from '../../content/6_1/admin_6_1/admin_vendor_mngmnt/about_vendor_mngmnt_6_1.mdx?raw';
-
-// ========================================
+  
+  // ========================================
 // Version 6_1_1
-// ========================================
+  // ========================================
 
 import adminAdminAdminFunctionsNew611 from '../../content/6_1_1/admin_6_1_1/admin/admin_functions_new_6_1_1.mdx?raw';
 import adminAdminChangeMngmntAboutChangeMngmnt611 from '../../content/6_1_1/admin_6_1_1/admin_change_mngmnt/about_change_mngmnt_6_1_1.mdx?raw';
@@ -295,10 +295,10 @@ import adminAdminUsersUserGroups611 from '../../content/6_1_1/admin_6_1_1/admin_
 import adminAdminUsersUserRoles611 from '../../content/6_1_1/admin_6_1_1/admin_users/user_roles_6_1_1.mdx?raw';
 import adminAdminUsersUsers611 from '../../content/6_1_1/admin_6_1_1/admin_users/users_6_1_1.mdx?raw';
 import adminAdminVendorMngmntAboutVendorMngmnt611 from '../../content/6_1_1/admin_6_1_1/admin_vendor_mngmnt/about_vendor_mngmnt_6_1_1.mdx?raw';
-
-// ========================================
+  
+  // ========================================
 // Version NG
-// ========================================
+  // ========================================
 
 import adminAdminAdminFunctionsNewNG from '../../content/NG/admin_ng/admin/admin_functions_new_ng.mdx?raw';
 import adminAdminChangeMngmntAboutChangeMngmntNG from '../../content/NG/admin_ng/admin_change_mngmnt/about_change_mngmnt_ng.mdx?raw';

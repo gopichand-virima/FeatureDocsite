@@ -16,6 +16,7 @@ import {
 } from '../utils/hierarchicalTocLoader';
 import { getMDXContent } from './mdxContentBundle';
 import { getRegisteredContent, isContentRegistered } from './mdxContentRegistry';
+import { getBasePath } from '../utils/basePath';
 
 // Import priority file registries
 import { adminMDXContent } from '../lib/imports/adminMDXImports';
@@ -51,27 +52,6 @@ const allStaticMDXContent: Record<string, string> = {
   ...supportPolicyMDXContent,
   ...selfserviceMDXContent,
 };
-
-/**
- * Detects the base path for content files
- * Supports GitHub Pages deployment at /FeatureDocsite/
- */
-function getBasePath(): string {
-  // Check if we're running in browser
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  
-  const pathname = window.location.pathname;
-  
-  // Check for GitHub Pages base path
-  if (pathname.startsWith('/FeatureDocsite/')) {
-    return '/FeatureDocsite';
-  }
-  
-  // Local development or other deployment
-  return '';
-}
 
 // Current version (can be changed dynamically)
 let currentVersion = '6_1';

@@ -276,7 +276,12 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
               </p>
             </div>
 
-            <div className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.2)] transition-all duration-500">
+            <a
+              href="https://login.virima.com/www_em/api-docs.html#/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 rounded-3xl p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.2)] transition-all duration-500"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20 group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-500">
                 <ApiIntegration className="h-7 w-7 text-white" />
               </div>
@@ -287,7 +292,7 @@ export function HomePage({ onModuleSelect }: HomePageProps) {
                 Developer guides, API references, and code
                 examples for seamless integrations.
               </p>
-            </div>
+            </a>
 
             <div 
               onClick={() => onModuleSelect('virima-tech-central')}

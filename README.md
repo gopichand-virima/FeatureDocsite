@@ -8,6 +8,38 @@
 
 ---
 
+## 🧭 Overview
+
+Virima’s documentation website provides multi-version product guidance for ITSM, ITAM, CMDB, Discovery, Admin, and related modules. It is a React + MDX platform designed for enterprise-scale content with consistent navigation, fast loading, and reliable cross-references.
+
+## ✅ Current Documentation Status
+
+- **Coverage**: 12 modules, 4 versions (NG, 6.1.1, 6.1, 5.13), 1,342+ MDX topics
+- **Maturity**: Production-ready with stable navigation, cross-reference resolution, and asset delivery
+- **Version alignment**: Strict version isolation with URL-based state and no content leakage
+- **Maintenance approach**: TOC as single source of truth with sync scripts and path validation
+
+## ✨ Documentation Specialties
+
+- **Clarity**: Task-first structure with consistent headings and patterns
+- **Structure**: TOC-driven hierarchy, breadcrumbs, and deep links on every page
+- **Accuracy**: Cross-reference conversion to correct in-app routes
+- **Usability**: Responsive layout, dark mode, and consistent table/image/code styling
+- **Audience focus**: Module-based guidance for customers, partners, and internal teams
+
+## 🏅 Why It Stands Out
+
+- **Enterprise versioning**: Four fully isolated versions with predictable, stable URLs
+- **Reliable delivery**: Static MDX imports eliminate runtime fetch delays
+- **Operational discipline**: Automated sync and validation keep content and navigation aligned
+- **Discovery support**: AI-assisted search and voice input accelerate finding answers
+
+## 🤝 How It Helps Users
+
+- **Customers**: Faster onboarding and task completion with structured guidance
+- **Partners**: Reliable references for integrations, compatibility, and releases
+- **Internal teams**: A single source of truth that reduces support load and rework
+
 ## 🌟 Key Capabilities
 
 ### 📖 Multi-Version Documentation System
@@ -36,11 +68,10 @@
 
 ### ⚡ Performance & Reliability
 
-- **Static MDX Imports (Strategy 1)**: All content bundled at build time for instant loading
-- **Zero Runtime Fetch Delays**: Content loads instantly from bundled assets
-- **100% Reliability**: No network dependencies for content loading
+- **Static MDX Imports (Strategy 1)**: Content bundled at build time for immediate loading
+- **Reduced Runtime Fetching**: Core content loads from bundled assets
 - **Optimized Builds**: Vite-powered builds with code splitting and tree shaking
-- **Image Optimization**: Automatic asset copying and path resolution
+- **Image Delivery**: Automatic asset copying with base path resolution
 
 ### 🎨 User Experience Features
 
@@ -51,15 +82,15 @@
 - **Dark Mode Support**: Optional dark theme with smooth transitions
 - **Interactive Animations**: Hover effects, icon animations, and smooth transitions
 - **Breadcrumb Navigation**: Clear hierarchical navigation trails
-- **Search Integration**: AI-powered search with speech-to-text and web search support
+- **Search Integration**: AI-assisted search with optional speech-to-text and web search
 
 ### 🔍 Advanced Features
 
-- **AI-Powered Search**: Intelligent content discovery with semantic search using GPT-4o
-- **Web Search Integration**: Real-time web search with Serper, Brave, or Bing APIs for external resources
-- **Speech-to-Text**: Voice input powered by OpenAI Whisper API (99%+ accuracy, unlimited duration)
-- **Hybrid Intelligence**: Combines documentation search + web search + AI reasoning for comprehensive answers
-- **Enterprise Chat**: Persistent conversation history with context awareness
+- **AI-Powered Search**: Semantic retrieval with LLM-assisted answers
+- **Web Search Integration**: Optional web search via Serper, Brave, or Bing APIs
+- **Speech-to-Text**: Voice input powered by OpenAI Whisper API
+- **Hybrid Intelligence**: Combines documentation search + web search + AI reasoning
+- **Enterprise Chat**: Persistent conversation history with selection context
 - **Quick Links**: Direct access to Product Support Policies, Compatibility Matrix, API Integration, Release Notes
 
 ### 🛠️ Developer Experience
@@ -243,6 +274,7 @@ The system uses a **multi-strategy content loading approach** with the following
 - **Expansion State**: Independent from active styling
 - **Hierarchical Navigation**: Multi-level nested navigation support
 - **Module Switching**: Seamless module navigation without page reload
+- **Cross-Reference Resolution**: Relative MDX links resolve to in-app routes
 
 ### Interactive Elements
 
@@ -259,6 +291,8 @@ The system uses a **multi-strategy content loading approach** with the following
   - Dashboard: Subtle bounce animation (reduced height to stay within container)
   - CMDB: Scale-in-ver-bottom animation
   - ITAM: Scale-in-hor-center animation (1.2s duration)
+
+- **Point & Ask Selection**: Visual highlight overlay for context selection
 
 - **Header Logo**: Transparent background with proper blend mode
 
@@ -325,16 +359,16 @@ The project is configured for GitHub Pages deployment:
 
 - **TypeScript**: Full type safety
 - **ESLint**: Code quality enforcement
-- **No Console Errors**: All duplicate identifier issues resolved
-- **No Linter Warnings**: Clean codebase
+- **Checks**: Lint + type-check scripts available for CI/CD
 
 ### Content Quality
 
 - **TOC Synchronization**: Automated import synchronization ensures no missing topics
 - **File Verification**: Script verifies files exist before importing
 - **Path Validation**: Automatic path resolution and correction
+- **Cross-Reference Conversion**: MDX links resolved to correct in-app routes
 - **Universal Styling**: Consistent table, image, and code element styling across all pages
-- **No Red Colors**: All code elements use black text (var(--accent-foreground)) for consistency
+- **Image Path Resolution**: Base path handling for GitHub Pages assets
 
 ---
 
@@ -405,11 +439,16 @@ Built with:
 
 ---
 
-**Last Updated**: January 2025
+**Last Updated**: February 2026
 
 ---
 
 ## 🆕 Recent Updates
+
+### Documentation Integrity
+- ✅ Cross-reference link conversion for reliable in-app navigation
+- ✅ Base path normalization for GitHub Pages assets and routes
+- ✅ Image naming conventions applied across versions with path fixes
 
 ### Styling Improvements
 - ✅ Universal table styling with dark green headers and thin gray borders

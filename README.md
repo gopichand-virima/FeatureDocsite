@@ -68,6 +68,7 @@ Virima’s documentation website provides multi-version product guidance for ITS
 - **Speech-to-Text**: Voice input powered by OpenAI Whisper API
 - **Hybrid Intelligence**: Combines documentation search + web search + AI reasoning
 - **Enterprise Chat**: Persistent conversation history with selection context
+- **Search History**: Local query history for faster repeat lookups
 - **Quick Links**: Direct access to Product Support Policies, Compatibility Matrix, API Integration, Release Notes
 
 ### 🛠️ Developer Experience
@@ -252,6 +253,7 @@ The system uses a **multi-strategy content loading approach** with the following
 - **Hierarchical Navigation**: Multi-level nested navigation support
 - **Module Switching**: Seamless module navigation without page reload
 - **Cross-Reference Resolution**: Relative MDX links resolve to in-app routes
+- **Graceful Fallbacks**: Content-not-available states for missing or restricted pages
 
 ### Interactive Elements
 
@@ -271,7 +273,37 @@ The system uses a **multi-strategy content loading approach** with the following
 
 - **Point & Ask Selection**: Visual highlight overlay for context selection
 
+- **Chat Panel UX**: Onboarding, settings, statistics, and conversation history views
+
+- **Feedback Collection**: Page-level feedback capture for content quality
+
 - **Header Logo**: Transparent background with proper blend mode
+
+### 📚 Knowledge & Support Hubs
+
+- **Virima Knowledge Base**: Curated knowledge content and how-to guidance
+- **Virima Tech Central**: Centralized technical resources and references
+- **Support Policies**: Product support policies and governance references
+- **Community & Support Articles**: Community forum and support article surfaces
+- **Release Notes & Compatibility**: Dedicated views for releases and compatibility matrix
+
+### 📊 Monitoring & Status
+
+- **AI Monitoring Dashboard**: Usage and health visibility for AI features
+- **API Status Dashboard**: Status surface for API availability and health
+- **Chat Statistics**: Conversation usage and interaction insights
+
+### 🔐 Access & Security
+
+- **Login Dialog**: Optional gated access flow for restricted experiences
+
+### 🔎 SEO & Indexing
+
+- **Sitemaps**: Standard sitemap plus AI-specific and priority feeds
+- **IndexNow**: Fast indexing support for search engines
+- **AI-Ready Metadata**: OpenAPI, AI plugin, and training data exports
+- **Feeds**: RSS/Atom feeds for external discovery
+- **Robots & Discovery**: Robots rules and structured public metadata
 
 ---
 
